@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger;
+package nl.han.ica.yaeger.metrics;
 
 /**
  * A GameDimensions encapsulates the width and height of a Scene.

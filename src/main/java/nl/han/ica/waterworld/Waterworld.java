@@ -1,12 +1,9 @@
 package nl.han.ica.waterworld;
 
-import javafx.scene.Scene;
-import nl.han.ica.yaeger.GameDimensions;
+import javafx.scene.media.AudioClip;
 import nl.han.ica.yaeger.YaegerEngine;
-import nl.han.ica.yaeger.resourceconsumer.audio.AudioFile;
-import nl.han.ica.yaeger.resourceconsumer.audio.AudioPlayer;
-import nl.han.ica.yaeger.resourceconsumer.audio.AudioPlayerMode;
-import nl.han.ica.yaeger.resourceconsumer.audio.exceptions.AudioFileIsNullException;
+import nl.han.ica.yaeger.metrics.GameDimensions;
+import nl.han.ica.yaeger.resourceconsumer.audio.Sound;
 
 public class Waterworld extends YaegerEngine {
 
@@ -18,26 +15,18 @@ public class Waterworld extends YaegerEngine {
         launch(args);
     }
 
-
     @Override
-    public GameDimensions getGameDimensions() {
-        return new GameDimensions(WATERWORLD_WIDTH, WATERWORLD_HEIGHT);
+    protected void beforeStageIsCreated() {
+        setGameDimensions(new GameDimensions(WATERWORLD_WIDTH, WATERWORLD_HEIGHT));
+        setGameTitle(GAME_TITLE);
     }
 
     @Override
-    public String getGameTitle() {
-        return GAME_TITLE;
-    }
+    protected void beforeStageIsShown() {
+        var swordFish = new Swordfish();
+        addGameObject(swordFish);
 
-    @Override
-    protected void beforeStageIsShown(Scene scene) {
-        var audioPlayer = new AudioPlayer(scene);
-        AudioFile file = new AudioFile("Waterworld.mp3", AudioPlayerMode.LOOP);
-
-        try {
-            audioPlayer.playAudio(file);
-        } catch (AudioFileIsNullException e) {
-            e.printStackTrace();
-        }
+        var clip = new Sound("Waterworld.mp3", AudioClip.INDEFINITE);
+        clip.play();
     }
 }
