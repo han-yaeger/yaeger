@@ -23,9 +23,17 @@ public class Waterworld extends YaegerEngine {
 
     @Override
     protected void beforeStageIsShown() {
+        addInitialGameObjects();
+        addBackgroundAudio();
+
+    }
+
+    private void addInitialGameObjects() {
         var swordFish = new Swordfish();
         addGameObject(swordFish);
+    }
 
+    private void addBackgroundAudio() {
         var clip = new Sound("Waterworld.mp3", AudioClip.INDEFINITE);
         clip.play();
     }
