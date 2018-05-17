@@ -18,6 +18,9 @@
         <ow2.asm.version>6.1.1</ow2.asm.version>
         <junit-platform-surefire-provider>1.1.0</junit-platform-surefire-provider>
         <maven-surefire-plugin>2.19.1</maven-surefire-plugin>
+        <jacoco.version>0.8.1</jacoco.version>
+        <coveralls.version>4.3.0</coveralls.version>
+        <javadoc.version>3.0.0</javadoc.version>
     </properties>
 
     <build>
@@ -55,6 +58,37 @@
                         <version>${junit.jupiter.version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>nl/han/ica/waterworld/*;nl.han.ica.testworld/*</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>${coveralls.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${javadoc.version}</version>
+                <configuration>
+                    <excludePackageNames>nl.han.ica.testworld;nl.han.ica.waterworld</excludePackageNames>
+                </configuration>
             </plugin>
         </plugins>
     </build>
