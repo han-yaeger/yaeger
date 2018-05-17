@@ -4,7 +4,7 @@ import javafx.scene.media.AudioClip;
 import nl.han.ica.yaeger.resourceconsumer.ResourceConsumer;
 
 /**
- * An Sound encapsulates an actual mp3 audiofile that is available on the classpath.
+ * An Sound encapsulates an actual mp3 audio file that is available on the classpath.
  */
 public class Sound extends ResourceConsumer {
 

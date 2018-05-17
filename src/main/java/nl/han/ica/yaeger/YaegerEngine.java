@@ -12,9 +12,7 @@ import nl.han.ica.yaeger.gameobjects.GameObject;
 import nl.han.ica.yaeger.gameobjects.KeyListener;
 import nl.han.ica.yaeger.metrics.GameDimensions;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public abstract class YaegerEngine extends Application {
@@ -24,7 +22,8 @@ public abstract class YaegerEngine extends Application {
     private GameDimensions gameDimensions = DEFAULT_GAME_DIMENSIONS;
 
     private Set<String> input = new HashSet<>();
-    private List<GameObject> gameObjects;
+
+    private Set<GameObject> gameObjects;
     private Stage primaryStage;
     private Scene primaryScene;
 
@@ -80,7 +79,22 @@ public abstract class YaegerEngine extends Application {
     private void afterStageIsShown() {
     }
 
+    /**
+     * Return all GameObjects currently registered on this engine.
+     *
+     * @return A Set of GameObjects
+     */
+    public Set<GameObject> getGameObjects() {
+        return gameObjects;
+    }
 
+
+    /**
+     * Set the background image of the Scene.
+     *
+     * @param scene
+     */
+    @Deprecated
     public void setBackgroundImage(Scene scene) {
         var url = getClass().getClassLoader().getResource("background.jpg");
         var stringUrl = url.toString();
@@ -107,12 +121,24 @@ public abstract class YaegerEngine extends Application {
         afterStageIsShown();
     }
 
-    private void createGameLoop(){
-        AnimationTimer animator = new AnimationTimer()
-        {
+    /**
+     * Add a new GameObject to the Scene. GameObjects can only be added once. If a GameObject is
+     * added multiple times, only one instance will be added.
+     *
+     * @param gameObject A GameObject;
+     */
+    protected void addGameObject(GameObject gameObject) {
+        if (gameObjects == null) {
+            gameObjects = new HashSet<>();
+        }
+
+        gameObjects.add(gameObject);
+    }
+
+    private void createGameLoop() {
+        AnimationTimer animator = new AnimationTimer() {
             @Override
-            public void handle(long arg0)
-            {
+            public void handle(long arg0) {
                 updateGameObjects();
             }
         };
@@ -125,19 +151,6 @@ public abstract class YaegerEngine extends Application {
         gameObjects.stream().forEach(gameObject -> gameObject.update());
     }
 
-
-    /**
-     * Add a new GameObject to the Scene.
-     *
-     * @param gameObject A GameObject;
-     */
-    protected void addGameObject(GameObject gameObject) {
-        if (gameObjects == null) {
-            gameObjects = new ArrayList<>();
-        }
-
-        gameObjects.add(gameObject);
-    }
 
     private void addKeyListeners(Scene scene) {
         scene.setOnKeyPressed(

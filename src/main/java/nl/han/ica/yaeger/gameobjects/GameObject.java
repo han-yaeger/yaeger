@@ -1,5 +1,10 @@
 package nl.han.ica.yaeger.gameobjects;
 
+/**
+ * A GameObject is the root object of all objects that should be updated during the gameloop.
+ * By itself it exposes no behaviour besides the update() method, that should be implemented
+ * by all it's children.
+ */
 public abstract class GameObject {
 
     /**
