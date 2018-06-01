@@ -1,6 +1,5 @@
 package nl.han.ica.waterworld;
 
-import javafx.scene.media.AudioClip;
 import nl.han.ica.yaeger.YaegerEngine;
 import nl.han.ica.yaeger.metrics.GameDimensions;
 import nl.han.ica.yaeger.resourceconsumer.audio.Sound;
@@ -34,7 +33,7 @@ public class Waterworld extends YaegerEngine {
     }
 
     private void addBackgroundAudio() {
-        var clip = new Sound("Waterworld.mp3", AudioClip.INDEFINITE);
+        var clip = new Sound("Waterworld.mp3", Sound.INDEFINITE);
         clip.play();
     }
 }

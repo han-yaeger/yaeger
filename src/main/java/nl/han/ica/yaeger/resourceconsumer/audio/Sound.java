@@ -1,6 +1,7 @@
 package nl.han.ica.yaeger.resourceconsumer.audio;
 
 import javafx.scene.media.AudioClip;
+import javafx.scene.media.MediaPlayer;
 import nl.han.ica.yaeger.resourceconsumer.ResourceConsumer;
 
 /**
@@ -10,6 +11,12 @@ public class Sound extends ResourceConsumer {
 
     private final String fileName;
     private final int cycleCount;
+
+    /**
+     * When {@link #cycleCount cycleCount} is set to this value, the
+     * <code>Sound</code> will loop continuously until stopped.
+     */
+    public static final int INDEFINITE = AudioClip.INDEFINITE;
 
     /**
      * Create a new Sound for the given file.
