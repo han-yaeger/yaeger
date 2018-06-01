@@ -21,6 +21,7 @@
         <jacoco.version>0.8.1</jacoco.version>
         <coveralls.version>4.3.0</coveralls.version>
         <javadoc.version>3.0.0</javadoc.version>
+        <test-fx.version>4.0.13-alpha</test-fx.version>
     </properties>
 
     <build>
@@ -108,13 +109,13 @@
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-core</artifactId>
-            <version>4.0.13-alpha</version>
+            <version>${test-fx.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-junit5</artifactId>
-            <version>4.0.13-alpha</version>
+            <version>${test-fx.version}</version>
         </dependency>
     </dependencies>
 </project>
