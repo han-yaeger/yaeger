@@ -4,8 +4,8 @@ import java.net.URL;
 
 /**
  * A ResourceConsumer encapsulate a resource available on the class path. It can be used to load
- * en image file, a sound file, or any other file that should be loaded runtime and used by the
- * engine.
+ * an image file, a sound file, or any other file that should be loaded runtime and used by Yaeger.
+ *
  */
 public abstract class ResourceConsumer {
 

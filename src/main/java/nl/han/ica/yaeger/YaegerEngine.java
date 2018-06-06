@@ -9,7 +9,8 @@ import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 import nl.han.ica.yaeger.exceptions.YaegerLifecycleException;
 import nl.han.ica.yaeger.gameobjects.GameObject;
-import nl.han.ica.yaeger.gameobjects.KeyListener;
+import nl.han.ica.yaeger.gameobjects.GameObjects;
+import nl.han.ica.yaeger.gameobjects.interfaces.KeyListener;
 import nl.han.ica.yaeger.metrics.GameDimensions;
 
 import java.util.HashSet;
@@ -23,11 +24,12 @@ public abstract class YaegerEngine extends Application {
 
     private Set<String> input = new HashSet<>();
 
-    private Set<GameObject> gameObjects;
+    private GameObjects gameObjects;
     private Stage primaryStage;
     private Scene primaryScene;
 
     private boolean sceneIsCreated = false;
+
 
     /**
      * Call this method the set the width and height of the game.
@@ -82,9 +84,9 @@ public abstract class YaegerEngine extends Application {
     /**
      * Return all GameObjects currently registered on this engine.
      *
-     * @return A Set of GameObjects
+     * @return GameObjects
      */
-    public Set<GameObject> getGameObjects() {
+    public GameObjects getGameObjects() {
         return gameObjects;
     }
 
@@ -128,10 +130,6 @@ public abstract class YaegerEngine extends Application {
      * @param gameObject A GameObject;
      */
     protected void addGameObject(GameObject gameObject) {
-        if (gameObjects == null) {
-            gameObjects = new HashSet<>();
-        }
-
         gameObjects.add(gameObject);
     }
 
@@ -139,12 +137,11 @@ public abstract class YaegerEngine extends Application {
         AnimationTimer animator = new AnimationTimer() {
             @Override
             public void handle(long arg0) {
-                updateGameObjects();
+                gameObjects.update();
             }
         };
 
         animator.start();
-
     }
 
     private void updateGameObjects() {
@@ -157,21 +154,22 @@ public abstract class YaegerEngine extends Application {
                 e -> {
                     String code = e.getCode().toString();
                     input.add(code);
-                    notifyGameObjectsOfPressedKeys();
+                    gameObjects.notifyGameObjectsOfPressedKeys(input);
                 });
 
         scene.setOnKeyReleased(
                 e -> {
                     String code = e.getCode().toString();
                     input.remove(code);
-                    notifyGameObjectsOfPressedKeys();
+                    gameObjects.notifyGameObjectsOfPressedKeys(input);
                 });
     }
 
 
     private Scene createPrimaryScene(Stage primaryStage) {
-        Group root = new Group();
-        Scene scene = new Scene(root, gameDimensions.getWidth(), gameDimensions.getHeight());
+        var root = new Group();
+        this.gameObjects = new GameObjects(root);
+        var scene = new Scene(root, gameDimensions.getWidth(), gameDimensions.getHeight());
         primaryStage.setScene(scene);
 
         addKeyListeners(scene);
@@ -183,10 +181,5 @@ public abstract class YaegerEngine extends Application {
 
     private void showStage() {
         primaryStage.show();
-    }
-
-    private void notifyGameObjectsOfPressedKeys() {
-        gameObjects.stream().filter(gameObject -> gameObject instanceof KeyListener)
-                .forEach(gameObject -> ((KeyListener) gameObject).onPressedKeysChange(input));
     }
 }

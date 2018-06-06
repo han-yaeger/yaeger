@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.gameobjects;
+package nl.han.ica.yaeger.gameobjects.interfaces;
 
 import java.util.Set;
 
