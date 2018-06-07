@@ -7,7 +7,7 @@ import nl.han.ica.yaeger.resourceconsumer.ResourceConsumer;
 /**
  * An Sound encapsulates an actual mp3 audio file that is available on the classpath.
  */
-public class Sound extends ResourceConsumer {
+public class Sound implements ResourceConsumer {
 
     private final String fileName;
     private final int cycleCount;

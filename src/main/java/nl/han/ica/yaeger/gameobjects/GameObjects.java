@@ -43,11 +43,11 @@ public class GameObjects extends HashSet<GameObject> {
      */
     public void update() {
         stream().filter(gameObject -> gameObject instanceof Updatable)
-                .forEach(gameObject -> gameObject.update());
+                .forEach(gameObject -> ((Updatable) gameObject).update());
     }
 
     /**
-     * Notify all GameObjects that implement the interface KeyListener that keys a re being pressed.
+     * Notify all GameObjects that implement the interface KeyListener that keys are being pressed.
      *
      * @param input A Set<String> containing als keys currently pressed.
      */

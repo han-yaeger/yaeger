@@ -1,9 +1,8 @@
 package nl.han.ica.waterworld.gameobjects;
 
-import nl.han.ica.yaeger.gameobjects.SpriteObject;
-import nl.han.ica.yaeger.gameobjects.interfaces.Updatable;
+import nl.han.ica.yaeger.gameobjects.Sprites.UpdatableSpriteObject;
 
-public class Bubble extends SpriteObject implements Updatable {
+public class Bubble extends UpdatableSpriteObject {
 
     public Bubble(double x, double y) {
         super("bubble.png", x, y, 0, 2, 0, 1);

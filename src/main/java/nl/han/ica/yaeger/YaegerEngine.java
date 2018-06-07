@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import nl.han.ica.yaeger.exceptions.YaegerLifecycleException;
 import nl.han.ica.yaeger.gameobjects.GameObject;
 import nl.han.ica.yaeger.gameobjects.GameObjects;
-import nl.han.ica.yaeger.gameobjects.interfaces.KeyListener;
 import nl.han.ica.yaeger.metrics.GameDimensions;
 
 import java.util.HashSet;
@@ -145,7 +144,7 @@ public abstract class YaegerEngine extends Application {
     }
 
     private void updateGameObjects() {
-        gameObjects.stream().forEach(gameObject -> gameObject.update());
+        gameObjects.update();
     }
 
 

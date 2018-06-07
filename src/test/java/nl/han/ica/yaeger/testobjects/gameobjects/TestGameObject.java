@@ -6,11 +6,6 @@ import nl.han.ica.yaeger.gameobjects.GameObject;
 public class TestGameObject extends GameObject {
 
     @Override
-    public void update() {
-
-    }
-
-    @Override
     public Node getGameNode() {
         return null;
     }

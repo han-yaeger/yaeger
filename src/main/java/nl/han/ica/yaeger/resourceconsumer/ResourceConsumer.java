@@ -3,11 +3,11 @@ package nl.han.ica.yaeger.resourceconsumer;
 import java.net.URL;
 
 /**
- * A ResourceConsumer encapsulate a resource available on the class path. It can be used to load
- * an image file, a sound file, or any other file that should be loaded runtime and used by Yaeger.
- *
+ * A ResourceConsumer offers a default method, that can be used for acquiring the full path of a resource available
+ * on the class path. All classes that must perform such a task, should implement this interface and us the method is
+ * exposes.
  */
-public abstract class ResourceConsumer {
+public interface ResourceConsumer {
 
     /**
      * Create the full path for the given resource. The resource should be available on the class path.
@@ -15,7 +15,7 @@ public abstract class ResourceConsumer {
      * @param resource The recource on the class-path
      * @return The full URL of the resource
      */
-    protected String createPathForResource(String resource) {
+    default String createPathForResource(String resource) {
         URL url = getClass().getClassLoader().getResource(resource);
         String stringUrl = url.toString();
 

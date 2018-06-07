@@ -3,7 +3,6 @@ package nl.han.ica.waterworld;
 import nl.han.ica.waterworld.gameobjects.Bubble;
 import nl.han.ica.waterworld.gameobjects.Swordfish;
 import nl.han.ica.yaeger.YaegerEngine;
-import nl.han.ica.yaeger.gameobjects.SpriteObject;
 import nl.han.ica.yaeger.metrics.GameDimensions;
 import nl.han.ica.yaeger.resourceconsumer.audio.Sound;
 
