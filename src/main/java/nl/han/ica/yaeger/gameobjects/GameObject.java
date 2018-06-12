@@ -20,23 +20,23 @@ public abstract class GameObject {
     /**
      * Return the width of the Scene that this GameObject is part of.
      *
-     * @return The width of the Scene as a double
+     * @return The width of the Scene as a {@code double}
      */
     public double getSceneWidth() {
         return getGameNode().getScene().getWidth();
     }
 
     /**
-     * Return the height of the Scene that this GameObject is part of.
+     * Return the height of the Scene that this {@code GameObject} is part of.
      *
-     * @return The height of the Scene as a double
+     * @return The height of the Scene as a {@code double}
      */
     public double getSceneHeight() {
         return getGameNode().getScene().getWidth();
     }
 
     /**
-     * Send an event to notify all event listeners that this GameObject should be removed.
+     * Send an event to notify all event listeners that this {@code GameObject} should be removed.
      */
     public void remove() {
         var deleteEvent = new RemoveGameObjectEvent(EventTypes.DELETE, this);

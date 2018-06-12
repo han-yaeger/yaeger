@@ -8,7 +8,7 @@ import nl.han.ica.yaeger.gameobjects.GameObject;
 import nl.han.ica.yaeger.resourceconsumer.ResourceConsumer;
 
 /**
- * A SpriteObject is a GameObject that is represented by an Image.
+ * A {@code SpriteObject} is a {@code GameObject} that is represented by an Image.
  */
 public abstract class SpriteObject extends GameObject implements ResourceConsumer {
 
@@ -18,7 +18,7 @@ public abstract class SpriteObject extends GameObject implements ResourceConsume
 
 
     /**
-     * Create a new SpriteObject for a given Image.
+     * Create a new {@code SpriteObject} for a given Image.
      *
      * @param resource The url of the image file. Relative to the resources folder.
      * @param x        The x-coordinate at which the SpriteObject should be initially positioned.
@@ -29,7 +29,7 @@ public abstract class SpriteObject extends GameObject implements ResourceConsume
     }
 
     /**
-     * Create a new SpriteObject.
+     * Create a new {@code SpriteObject}.
      *
      * @param resource The url of the image file. Relative to the resources folder.
      * @param x        The x-coordinate at which the SpriteObject should be initially positioned.
@@ -50,19 +50,29 @@ public abstract class SpriteObject extends GameObject implements ResourceConsume
     }
 
     /**
-     * Scale this SpriteObject to the given width. The SpriteObject will preserve its aspect ratio.
+     * Scale this {@code SpriteObject} to the given width. The {@code SpriteObject} will preserve its aspect ratio.
      *
-     * @param width The width to which this SpriteObject should be scaled.
+     * @param width The width to which this {@code SpriteObject} should be scaled.
      */
     protected void scaleToWidth(double width) {
         this.imageView.setPreserveRatio(true);
         this.imageView.setFitWidth(width);
     }
 
+    /**
+     * Return the x-coordinate of this {@code SpriteObject}.
+     *
+     * @return the x-coordinate
+     */
     protected double getX() {
         return location.getX();
     }
 
+    /**
+     * Return the y-coordinate of this {@code SpriteObject}.
+     *
+     * @return the y-coordinate
+     */
     protected double getY() {
         return location.getY();
     }
