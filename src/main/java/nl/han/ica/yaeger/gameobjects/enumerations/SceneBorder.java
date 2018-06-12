@@ -1,6 +1,6 @@
 package nl.han.ica.yaeger.gameobjects.enumerations;
 
-public enum LeftScreenLocation {
+public enum SceneBorder {
     TOP,
     BOTTOM,
     LEFT,

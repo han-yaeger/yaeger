@@ -1,6 +1,7 @@
 package nl.han.ica.yaeger.gameobjects;
 
 import javafx.scene.Group;
+import nl.han.ica.yaeger.gameobjects.events.EventTypes;
 import nl.han.ica.yaeger.gameobjects.interfaces.KeyListener;
 import nl.han.ica.yaeger.gameobjects.interfaces.Updatable;
 
@@ -13,6 +14,7 @@ import java.util.Set;
 public class GameObjects extends HashSet<GameObject> {
 
     private Group group;
+    private Set<GameObject> garbage = new HashSet<>();
 
     /**
      * Create a new GameObjects.
@@ -35,14 +37,36 @@ public class GameObjects extends HashSet<GameObject> {
     @Override
     public boolean add(GameObject gameObject) {
         this.group.getChildren().add(gameObject.getGameNode());
+        gameObject.getGameNode().addEventHandler(EventTypes.DELETE, event -> remove(event.getSource()));
         return super.add(gameObject);
+    }
+
+    /**
+     * Remove a GameObject from the view. After this is done, the GameObject is set for Garbage Collection and will
+     * be collected in the next Garbage Collection cycle.
+     *
+     * @param gameObject The GameObject to be removed.
+     */
+    public void remove(GameObject gameObject) {
+        this.group.getChildren().remove(gameObject.getGameNode());
+        this.garbage.add(gameObject);
+    }
+
+    /**
+     * Perform Garbage Collection on all GameObjects.
+     */
+    public void collectGarbage() {
+        if (garbage.size() > 0) {
+            removeAll(garbage);
+            garbage.clear();
+        }
     }
 
     /**
      * Update all gameObjects that implement the interface Updatable.
      */
     public void update() {
-        stream().filter(gameObject -> gameObject instanceof Updatable)
+        parallelStream().filter(gameObject -> gameObject instanceof Updatable)
                 .forEach(gameObject -> ((Updatable) gameObject).update());
     }
 

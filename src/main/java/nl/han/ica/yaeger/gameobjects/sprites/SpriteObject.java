@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.gameobjects.Sprites;
+package nl.han.ica.yaeger.gameobjects.sprites;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -7,10 +7,8 @@ import javafx.scene.image.ImageView;
 import nl.han.ica.yaeger.gameobjects.GameObject;
 import nl.han.ica.yaeger.resourceconsumer.ResourceConsumer;
 
-import java.net.URL;
-
 /**
- * A SpriteObjectt is a GameObject that is represented by an Image.
+ * A SpriteObject is a GameObject that is represented by an Image.
  */
 public abstract class SpriteObject extends GameObject implements ResourceConsumer {
 
@@ -47,7 +45,7 @@ public abstract class SpriteObject extends GameObject implements ResourceConsume
 
         this.imageView = new ImageView(image);
 
-        this.imageView.relocate(x, y);
+        imageView.relocate(x, y);
         this.imageView.setRotate(angle);
     }
 
@@ -56,9 +54,17 @@ public abstract class SpriteObject extends GameObject implements ResourceConsume
      *
      * @param width The width to which this SpriteObject should be scaled.
      */
-    public void scaleToWidth(double width) {
+    protected void scaleToWidth(double width) {
         this.imageView.setPreserveRatio(true);
         this.imageView.setFitWidth(width);
+    }
+
+    protected double getX() {
+        return location.getX();
+    }
+
+    protected double getY() {
+        return location.getY();
     }
 
     @Override

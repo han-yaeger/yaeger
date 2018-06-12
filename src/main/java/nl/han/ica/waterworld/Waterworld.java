@@ -30,7 +30,7 @@ public class Waterworld extends YaegerEngine {
     }
 
     private void addInitialGameObjects() {
-        var swordFish = new Swordfish(600, 400);
+        var swordFish = new Swordfish(200, 200);
         addGameObject(swordFish);
 
         var bubble = new Bubble(600, 403);

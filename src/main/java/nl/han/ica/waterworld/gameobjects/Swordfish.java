@@ -1,17 +1,18 @@
 package nl.han.ica.waterworld.gameobjects;
 
-import nl.han.ica.yaeger.gameobjects.Sprites.UpdatableSpriteObject;
-import nl.han.ica.yaeger.gameobjects.enumerations.LeftScreenLocation;
-import nl.han.ica.yaeger.gameobjects.interfaces.LeftScreenObserver;
+import nl.han.ica.yaeger.gameobjects.enumerations.SceneBorder;
+import nl.han.ica.yaeger.gameobjects.sprites.UpdatableSpriteObject;
 
-public class Swordfish extends UpdatableSpriteObject implements LeftScreenObserver {
+public class Swordfish extends UpdatableSpriteObject {
 
     public Swordfish(double x, double y) {
-        super("swordfish.png", x, y, 270, 1);
+        super("swordfish.png", x, y, 270, 2);
     }
 
     @Override
-    public void hasLeftTheScreen(LeftScreenLocation location) {
-        System.out.println("I have left the screen. alas!");
+    protected void notifyBoundaryCrossing(SceneBorder border) {
+        if (border.equals(SceneBorder.LEFT)) {
+            setLocation(getSceneWidth(), getY());
+        }
     }
 }

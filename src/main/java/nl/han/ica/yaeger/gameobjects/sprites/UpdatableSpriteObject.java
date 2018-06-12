@@ -1,6 +1,7 @@
-package nl.han.ica.yaeger.gameobjects.Sprites;
+package nl.han.ica.yaeger.gameobjects.sprites;
 
 import javafx.geometry.Point2D;
+import nl.han.ica.yaeger.gameobjects.enumerations.SceneBorder;
 import nl.han.ica.yaeger.gameobjects.interfaces.Updatable;
 
 /**
@@ -66,6 +67,38 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
     public void update() {
         updateLocation();
         updateRotation();
+        checkSceneBoundary();
+    }
+
+    private void checkSceneBoundary() {
+        var x = imageView.getLayoutX();
+        var y = imageView.getLayoutY();
+        var width = imageView.getLayoutBounds().getWidth();
+        var height = imageView.getLayoutBounds().getHeight();
+        var rightSideXCoordinate = x + width;
+        var bottomYCoordinate = y + height;
+        var screenBottom = imageView.getScene().getHeight();
+        var screenRight = imageView.getScene().getWidth();
+
+        if (rightSideXCoordinate <= 0) {
+            notifyBoundaryCrossing(SceneBorder.LEFT);
+        } else if (bottomYCoordinate <= 0) {
+            notifyBoundaryCrossing(SceneBorder.TOP);
+        } else if (y >= screenBottom) {
+            notifyBoundaryCrossing(SceneBorder.BOTTOM);
+        } else if (x >= screenRight) {
+            notifyBoundaryCrossing(SceneBorder.RIGHT);
+        }
+    }
+
+    /**
+     * This method is being called when this SpriteObject crosses a boundary of the scene.
+     * Override this method to add behaviour.
+     *
+     * @param border Depending on which of the four sides of the boundary is being crossed.
+     */
+    protected void notifyBoundaryCrossing(SceneBorder border) {
+        System.out.println("I have left the screen at: " + border);
     }
 
     private Point2D calculateMovementVector(double angleRadians, double speed) {
@@ -73,6 +106,10 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
         Point2D movementVector = directionVector.normalize().multiply(speed);
 
         return movementVector;
+    }
+
+    public void setLocation(double x, double y) {
+        location = new Point2D(x, y);
     }
 
     private void updateLocation() {

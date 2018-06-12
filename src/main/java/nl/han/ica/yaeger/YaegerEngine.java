@@ -136,17 +136,14 @@ public abstract class YaegerEngine extends Application {
         AnimationTimer animator = new AnimationTimer() {
             @Override
             public void handle(long arg0) {
+
                 gameObjects.update();
+                gameObjects.collectGarbage();
             }
         };
 
         animator.start();
     }
-
-    private void updateGameObjects() {
-        gameObjects.update();
-    }
-
 
     private void addKeyListeners(Scene scene) {
         scene.setOnKeyPressed(
