@@ -1,10 +1,14 @@
 package nl.han.ica.waterworld;
 
+import javafx.animation.AnimationTimer;
 import nl.han.ica.waterworld.gameobjects.Bubble;
+import nl.han.ica.waterworld.gameobjects.BubbleSpawner;
 import nl.han.ica.waterworld.gameobjects.Swordfish;
 import nl.han.ica.yaeger.YaegerEngine;
 import nl.han.ica.yaeger.metrics.GameDimensions;
 import nl.han.ica.yaeger.resourceconsumer.audio.Sound;
+
+import java.util.Random;
 
 public class Waterworld extends YaegerEngine {
 
@@ -23,18 +27,21 @@ public class Waterworld extends YaegerEngine {
     }
 
     @Override
-    protected void beforeStageIsShown() {
+    protected void beforeGameLoopIsCreated() {
         addInitialGameObjects();
         addBackgroundAudio();
-
     }
+
 
     private void addInitialGameObjects() {
         var swordFish = new Swordfish(200, 200);
         addGameObject(swordFish);
+    }
 
-        var bubble = new Bubble(600, 403);
-        addGameObject(bubble);
+    @Override
+    public void afterStageIsShown() {
+        BubbleSpawner spawner = new BubbleSpawner(WATERWORLD_WIDTH, WATERWORLD_HEIGHT);
+        registerSpawner(spawner);
     }
 
     private void addBackgroundAudio() {

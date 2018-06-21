@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import nl.han.ica.yaeger.exceptions.YaegerLifecycleException;
 import nl.han.ica.yaeger.gameobjects.GameObject;
 import nl.han.ica.yaeger.gameobjects.GameObjects;
+import nl.han.ica.yaeger.gameobjects.spawners.ObjectSpawer;
 import nl.han.ica.yaeger.metrics.GameDimensions;
 
 import java.util.HashSet;
@@ -25,9 +26,9 @@ public abstract class YaegerEngine extends Application {
 
     private GameObjects gameObjects;
     private Stage primaryStage;
-    private Scene primaryScene;
 
     private boolean sceneIsCreated = false;
+    private boolean stageIsShown = false;
 
 
     /**
@@ -68,7 +69,7 @@ public abstract class YaegerEngine extends Application {
     /**
      * Override this method to setup the stage before it is shown.
      */
-    protected void beforeStageIsShown() {
+    protected void beforeGameLoopIsCreated() {
     }
 
     /**
@@ -77,18 +78,8 @@ public abstract class YaegerEngine extends Application {
      * Override this method to add behaviour that should be added after the stage is shown.
      * </p>
      */
-    private void afterStageIsShown() {
+    protected void afterStageIsShown() {
     }
-
-    /**
-     * Return all GameObjects currently registered on this engine.
-     *
-     * @return GameObjects
-     */
-    public GameObjects getGameObjects() {
-        return gameObjects;
-    }
-
 
     /**
      * Set the background image of the Scene.
@@ -108,14 +99,13 @@ public abstract class YaegerEngine extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
         this.primaryStage = primaryStage;
 
         beforeStageIsCreated();
 
-        primaryScene = createPrimaryScene(primaryStage);
+        createStage();
 
-        beforeStageIsShown();
+        beforeGameLoopIsCreated();
         createGameLoop();
 
         showStage();
@@ -129,7 +119,21 @@ public abstract class YaegerEngine extends Application {
      * @param gameObject A GameObject;
      */
     protected void addGameObject(GameObject gameObject) {
+        if (stageIsShown) {
+            throw new YaegerLifecycleException("It is no longer allowed to add more GameObjects. Please use a " +
+                    "GameObjectSpawner to create new GameObjects after the GameLoop has been created.");
+        }
+
         gameObjects.add(gameObject);
+    }
+
+    /**
+     * Register an ObjectSpawner.
+     *
+     * @param spawner The ObjectSpawner to be registered.
+     */
+    public void registerSpawner(ObjectSpawer spawner) {
+        gameObjects.registerSpawner(spawner);
     }
 
     private void createGameLoop() {
@@ -138,7 +142,6 @@ public abstract class YaegerEngine extends Application {
             public void handle(long arg0) {
 
                 gameObjects.update();
-                gameObjects.collectGarbage();
             }
         };
 
@@ -161,15 +164,13 @@ public abstract class YaegerEngine extends Application {
                 });
     }
 
-
-    private Scene createPrimaryScene(Stage primaryStage) {
+    private Scene createStage() {
         var root = new Group();
         this.gameObjects = new GameObjects(root);
         var scene = new Scene(root, gameDimensions.getWidth(), gameDimensions.getHeight());
         primaryStage.setScene(scene);
 
         addKeyListeners(scene);
-        setBackgroundImage(scene);
         sceneIsCreated = true;
 
         return scene;
