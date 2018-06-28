@@ -1,13 +1,15 @@
 package nl.han.ica.yaeger.gameobjects;
 
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import nl.han.ica.yaeger.gameobjects.events.EventTypes;
 import nl.han.ica.yaeger.gameobjects.events.RemoveGameObjectEvent;
+import nl.han.ica.yaeger.gameobjects.interfaces.Bounded;
 
 /**
  * A {@code GameObject} is the root object of all objects that compose the game.
  */
-public abstract class GameObject {
+public abstract class GameObject implements Bounded {
 
     /**
      * Return the {@code Node} that belongs to this {@code GameObject}. A {@code Node}
@@ -33,6 +35,15 @@ public abstract class GameObject {
      */
     public double getSceneHeight() {
         return getGameNode().getScene().getWidth();
+    }
+
+    /**
+     * Return the Bounds, aka Bounding Box, of this GameObject.
+     *
+     * @return The Bounds of thsi GameObject.
+     */
+    public Bounds getBounds() {
+        return getGameNode().getBoundsInParent();
     }
 
     /**

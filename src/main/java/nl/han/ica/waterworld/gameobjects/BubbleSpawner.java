@@ -10,7 +10,7 @@ public class BubbleSpawner extends ObjectSpawer {
     private final int worldHeight;
 
     public BubbleSpawner(int width, int height) {
-        super(1000);
+        super(100);
 
         this.worldWidth = width;
         this.worldHeight = height;

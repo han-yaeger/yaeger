@@ -70,6 +70,10 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
         checkSceneBoundary();
     }
 
+    public void setLocation(double x, double y) {
+        location = new Point2D(x, y);
+    }
+
     private void checkSceneBoundary() {
         var x = imageView.getLayoutX();
         var y = imageView.getLayoutY();
@@ -93,7 +97,7 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
 
     /**
      * This method is being called when this SpriteObject crosses a boundary of the scene.
-     * Override this method to add behaviour.
+     * Override this method to init behaviour.
      *
      * @param border Depending on which of the four sides of the boundary is being crossed.
      */
@@ -108,9 +112,6 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
         return movementVector;
     }
 
-    public void setLocation(double x, double y) {
-        location = new Point2D(x, y);
-    }
 
     private void updateLocation() {
         location = location.add(movement);

@@ -24,6 +24,7 @@ public abstract class YaegerEngine extends Application {
 
     private Set<String> input = new HashSet<>();
 
+    private Set<GameObject> inititialGameObjects = new HashSet<>();
     private GameObjects gameObjects;
     private Stage primaryStage;
 
@@ -59,7 +60,7 @@ public abstract class YaegerEngine extends Application {
     /**
      * This method is called before the scene is created.
      * <p>
-     * At this stage it is possible to set the dimensions of the scene, to add a title to the application or
+     * At this stage it is possible to set the dimensions of the scene, to init a title to the application or
      * perform other initializations.
      * </p>
      */
@@ -75,7 +76,7 @@ public abstract class YaegerEngine extends Application {
     /**
      * This method is called directly after the stage is shown.
      * <p>
-     * Override this method to add behaviour that should be added after the stage is shown.
+     * Override this method to init behaviour that should be added after the stage is shown.
      * </p>
      */
     protected void afterStageIsShown() {
@@ -120,11 +121,11 @@ public abstract class YaegerEngine extends Application {
      */
     protected void addGameObject(GameObject gameObject) {
         if (stageIsShown) {
-            throw new YaegerLifecycleException("It is no longer allowed to add more GameObjects. Please use a " +
+            throw new YaegerLifecycleException("It is no longer allowed to init more GameObjects. Please use a " +
                     "GameObjectSpawner to create new GameObjects after the GameLoop has been created.");
         }
 
-        gameObjects.add(gameObject);
+        inititialGameObjects.add(gameObject);
     }
 
     /**
@@ -137,6 +138,8 @@ public abstract class YaegerEngine extends Application {
     }
 
     private void createGameLoop() {
+        gameObjects.init(inititialGameObjects);
+
         AnimationTimer animator = new AnimationTimer() {
             @Override
             public void handle(long arg0) {
@@ -166,7 +169,8 @@ public abstract class YaegerEngine extends Application {
 
     private Scene createStage() {
         var root = new Group();
-        this.gameObjects = new GameObjects(root);
+        gameObjects = new GameObjects(root);
+
         var scene = new Scene(root, gameDimensions.getWidth(), gameDimensions.getHeight());
         primaryStage.setScene(scene);
 
