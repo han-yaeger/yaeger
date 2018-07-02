@@ -7,7 +7,7 @@ import nl.han.ica.yaeger.gameobjects.sprites.UpdatableSpriteObject;
 public class Swordfish extends UpdatableSpriteObject implements Collider {
 
     public Swordfish(double x, double y) {
-        super("images/swordfish.png", x, y, 270, 2);
+        super("images/swordfish.png", x, y, 1, 270, 2);
     }
 
     @Override

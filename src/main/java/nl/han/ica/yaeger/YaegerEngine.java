@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 import nl.han.ica.yaeger.exceptions.YaegerLifecycleException;
@@ -22,7 +23,7 @@ public abstract class YaegerEngine extends Application {
 
     private GameDimensions gameDimensions = DEFAULT_GAME_DIMENSIONS;
 
-    private Set<String> input = new HashSet<>();
+    private Set<KeyCode> input = new HashSet<>();
 
     private Set<GameObject> inititialGameObjects = new HashSet<>();
     private GameObjects gameObjects;
@@ -154,14 +155,14 @@ public abstract class YaegerEngine extends Application {
     private void addKeyListeners(Scene scene) {
         scene.setOnKeyPressed(
                 e -> {
-                    String code = e.getCode().toString();
+                    var code = e.getCode();
                     input.add(code);
                     gameObjects.notifyGameObjectsOfPressedKeys(input);
                 });
 
         scene.setOnKeyReleased(
                 e -> {
-                    String code = e.getCode().toString();
+                    var code = e.getCode();
                     input.remove(code);
                     gameObjects.notifyGameObjectsOfPressedKeys(input);
                 });

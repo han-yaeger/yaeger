@@ -1,6 +1,7 @@
 package nl.han.ica.yaeger.gameobjects;
 
 import javafx.scene.Group;
+import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.delegates.CollisionDelegate;
 import nl.han.ica.yaeger.exceptions.YaegerLifecycleException;
 import nl.han.ica.yaeger.gameobjects.events.EventTypes;
@@ -77,7 +78,7 @@ public class GameObjects {
      *
      * @param input A Set<String> containing als keys currently pressed.
      */
-    public void notifyGameObjectsOfPressedKeys(Set<String> input) {
+    public void notifyGameObjectsOfPressedKeys(Set<KeyCode> input) {
         gameObjects.stream().filter(gameObject -> gameObject instanceof KeyListener)
                 .forEach(gameObject -> ((KeyListener) gameObject).onPressedKeysChange(input));
     }

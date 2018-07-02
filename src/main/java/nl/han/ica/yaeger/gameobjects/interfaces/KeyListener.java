@@ -1,5 +1,7 @@
 package nl.han.ica.yaeger.gameobjects.interfaces;
 
+import javafx.scene.input.KeyCode;
+
 import java.util.Set;
 
 /**
@@ -10,7 +12,7 @@ public interface KeyListener {
     /**
      * Called when the set of pressed keys changes.
      *
-     * @param pressedKeys A Set of String representations of the keys that are currently pressed
+     * @param pressedKeys A Set of {@code KeyCode} representations of the keys that are currently pressed
      */
-    void onPressedKeysChange(Set<String> pressedKeys);
+    void onPressedKeysChange(Set<KeyCode> pressedKeys);
 }
