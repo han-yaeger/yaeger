@@ -74,9 +74,9 @@ public class GameObjects {
     }
 
     /**
-     * Notify all GameObjects that implement the interface KeyListener that keys are being pressed.
+     * Notify all {@code GameObject} that implement the interface {@code KeyListener} that keys are being pressed.
      *
-     * @param input A Set<String> containing als keys currently pressed.
+     * @param input A {@code Set<KeyCode>} containing als keys currently pressed.
      */
     public void notifyGameObjectsOfPressedKeys(Set<KeyCode> input) {
         gameObjects.stream().filter(gameObject -> gameObject instanceof KeyListener)
@@ -87,7 +87,7 @@ public class GameObjects {
      * Perform all operations required during one cycle of the GameLoop, being:
      *
      * <ul>
-     * <li><b>Collect garbage</b></li> All GameObjects that have been marked as Garbage will be removed.
+     * <li><b>Collect garbage</b> All GameObjects that have been marked as Garbage will be removed.
      * <li><b>Notify GameObjects</b> On all GameObjects that implement the interface Updatable, update()
      * will be called.</li>
      * <li><b>Collect spawned objects</b> All GameObjects created by the ObjectsSpawners will be collected

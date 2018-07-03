@@ -86,7 +86,7 @@ public abstract class YaegerEngine extends Application {
     /**
      * Set the background image of the Scene.
      *
-     * @param scene
+     * @param scene The {@code Scene} that has been created and will be used for the game.
      */
     @Deprecated
     public void setBackgroundImage(Scene scene) {

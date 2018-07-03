@@ -3,7 +3,7 @@ package nl.han.ica.yaeger.gameobjects.events;
 import javafx.event.EventType;
 
 /**
- * The class {@EventTypes} contains all available custom Events that can be emitted by a{@code GameObject}.
+ * The class {@code EventTypes} contains all available custom Events that can be emitted by a {@code GameObject}.
  * All instances are static.
  */
 public class EventTypes {

@@ -33,11 +33,11 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
      * @param x         The x-coordinate at which the {@code UpdatableSpriteObject} should be initially positioned.
      * @param y         The y-coordinate at which the {@code UpdatableSpriteObject} should be initially positioned.
      * @param frames    The number of frames this Image contains. By default the first frame is loaded.
-     * @param direction The direction in angles in which the {@code UpdatableSpriteObject} should move.
-     * @param speed     The speed in pixels at which the {@code UpdatableSpriteObject} should move.
+     * @param initialDirection The initialDirection in angles in which the {@code UpdatableSpriteObject} should move.
+     * @param initialSpeed     The initialSpeed in pixels at which the {@code UpdatableSpriteObject} should move.
      */
-    public UpdatableSpriteObject(final String resource, double x, double y, int frames, double direction, double speed) {
-        this(resource, x, y, frames, direction, speed, 0);
+    public UpdatableSpriteObject(final String resource, double x, double y, int frames, double initialDirection, double initialSpeed) {
+        this(resource, x, y, frames, initialDirection, initialSpeed, 0);
     }
 
     /**
@@ -47,12 +47,12 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
      * @param x         The x-coordinate at which the {@code UpdatableSpriteObject} should be initially positioned.
      * @param y         The y-coordinate at which the {@code UpdatableSpriteObject} should be initially positioned.
      * @param frames    The number of frames this Image contains. By default the first frame is loaded.
-     * @param direction The direction in angles in which the {@code UpdatableSpriteObject} should move.
-     * @param speed     The speed in pixels at which the {@code UpdatableSpriteObject} should move.
-     * @param angle     The initial angle in degrees of the {@code UpdatableSpriteObject}.
+     * @param initialDirection The direction in angles in which the {@code UpdatableSpriteObject} should move.
+     * @param initialSpeed     The speed in pixels at which the {@code UpdatableSpriteObject} should move.
+     * @param initialAngle     The initial angle in degrees at which {@code UpdatableSpriteObject} should be rotated.
      */
-    public UpdatableSpriteObject(final String resource, double x, double y, int frames, double direction, double speed, double angle) {
-        this(resource, x, y, frames, direction, speed, angle, 0);
+    public UpdatableSpriteObject(final String resource, double x, double y, int frames, double initialDirection, double initialSpeed, double initialAngle) {
+        this(resource, x, y, frames, initialDirection, initialSpeed, initialAngle, 0);
     }
 
     /**
@@ -64,18 +64,18 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
      * @param frames        The number of frames this Image contains. By default the first frame is loaded.
      * @param direction     The direction in angles in which the {@code UpdatableSpriteObject} should move.
      * @param speed         The speed in pixels at which the {@code UpdatableSpriteObject} should move.
-     * @param angle         The initial angle in degrees of the SpriteObject.
+     * @param initialAngle     The initial angle in degrees at which {@code UpdatableSpriteObject} should be rotated.
      * @param rotationSpeed The speed at which the SpriteObject should rotate.
      */
-    public UpdatableSpriteObject(final String resource, double x, double y, int frames, double direction, double speed, double angle, double rotationSpeed) {
+    public UpdatableSpriteObject(final String resource, double x, double y, int frames, double direction, double speed, double initialAngle, double rotationSpeed) {
 
-        super(resource, frames, x, y, angle);
+        super(resource, frames, x, y, initialAngle);
 
         this.movement = calculateMovementVector(Math.toRadians(direction - 90), speed);
         this.rotationSpeed = rotationSpeed;
 
         this.imageView.relocate(x, y);
-        this.imageView.setRotate(angle);
+        this.imageView.setRotate(initialAngle);
     }
 
     @Override
@@ -117,14 +117,12 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
         }
     }
 
-
     private Point2D calculateMovementVector(double angleRadians, double speed) {
         var directionVector = new Point2D(Math.cos(angleRadians), Math.sin(angleRadians));
         Point2D movementVector = directionVector.normalize().multiply(speed);
 
         return movementVector;
     }
-
 
     private void updateLocation() {
         location = location.add(movement);
