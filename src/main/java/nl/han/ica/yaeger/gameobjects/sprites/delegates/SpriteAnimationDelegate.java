@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 /**
- * A {@code SpriteAnimationDelegate} holds all responsibility related to Sprites that contain multiple images, which
+ * A {@code SpriteAnimationDelegate} holds all responsibility related to Sprites that contain multiple images.
  */
 public class SpriteAnimationDelegate {
 
@@ -27,6 +27,8 @@ public class SpriteAnimationDelegate {
     }
 
     /**
+     * Set the index of the sprite. Since de modulus (mod frames) is used, this can be an unbounded integer.
+     *
      * @param imageView The {@code ImageView} for which the index should be set.
      * @param index     The index to select. This index will be applied modulo the total number
      *                  of frames.

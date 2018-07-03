@@ -29,10 +29,10 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
     /**
      * Create a new {@code UpdatableSpriteObject}.
      *
-     * @param resource  The url of the image file. Relative to the resources folder.
-     * @param x         The x-coordinate at which the {@code UpdatableSpriteObject} should be initially positioned.
-     * @param y         The y-coordinate at which the {@code UpdatableSpriteObject} should be initially positioned.
-     * @param frames    The number of frames this Image contains. By default the first frame is loaded.
+     * @param resource         The url of the image file. Relative to the resources folder.
+     * @param x                The x-coordinate at which the {@code UpdatableSpriteObject} should be initially positioned.
+     * @param y                The y-coordinate at which the {@code UpdatableSpriteObject} should be initially positioned.
+     * @param frames           The number of frames this Image contains. By default the first frame is loaded.
      * @param initialDirection The initialDirection in angles in which the {@code UpdatableSpriteObject} should move.
      * @param initialSpeed     The initialSpeed in pixels at which the {@code UpdatableSpriteObject} should move.
      */
@@ -43,10 +43,10 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
     /**
      * Create a new {@code UpdatableSpriteObject}.
      *
-     * @param resource  The url of the image file. Relative to the resources folder.
-     * @param x         The x-coordinate at which the {@code UpdatableSpriteObject} should be initially positioned.
-     * @param y         The y-coordinate at which the {@code UpdatableSpriteObject} should be initially positioned.
-     * @param frames    The number of frames this Image contains. By default the first frame is loaded.
+     * @param resource         The url of the image file. Relative to the resources folder.
+     * @param x                The x-coordinate at which the {@code UpdatableSpriteObject} should be initially positioned.
+     * @param y                The y-coordinate at which the {@code UpdatableSpriteObject} should be initially positioned.
+     * @param frames           The number of frames this Image contains. By default the first frame is loaded.
      * @param initialDirection The direction in angles in which the {@code UpdatableSpriteObject} should move.
      * @param initialSpeed     The speed in pixels at which the {@code UpdatableSpriteObject} should move.
      * @param initialAngle     The initial angle in degrees at which {@code UpdatableSpriteObject} should be rotated.
@@ -64,7 +64,7 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
      * @param frames        The number of frames this Image contains. By default the first frame is loaded.
      * @param direction     The direction in angles in which the {@code UpdatableSpriteObject} should move.
      * @param speed         The speed in pixels at which the {@code UpdatableSpriteObject} should move.
-     * @param initialAngle     The initial angle in degrees at which {@code UpdatableSpriteObject} should be rotated.
+     * @param initialAngle  The initial angle in degrees at which {@code UpdatableSpriteObject} should be rotated.
      * @param rotationSpeed The speed at which the SpriteObject should rotate.
      */
     public UpdatableSpriteObject(final String resource, double x, double y, int frames, double direction, double speed, double initialAngle, double rotationSpeed) {
@@ -85,6 +85,15 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
         checkSceneBoundary();
     }
 
+    /**
+     * Alter the speed of this {@code UpdatableSpriteObject}.
+     *
+     * @param change
+     */
+
+    public void alterSpeed(double change) {
+        this.movement.multiply(change);
+    }
 
     /**
      * This method is being called when this {@code UpdatableSpriteObject} crosses a boundary of the scene.
@@ -119,9 +128,8 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
 
     private Point2D calculateMovementVector(double angleRadians, double speed) {
         var directionVector = new Point2D(Math.cos(angleRadians), Math.sin(angleRadians));
-        Point2D movementVector = directionVector.normalize().multiply(speed);
 
-        return movementVector;
+        return directionVector.normalize().multiply(speed);
     }
 
     private void updateLocation() {
