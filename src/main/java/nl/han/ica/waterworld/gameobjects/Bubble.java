@@ -10,7 +10,7 @@ import nl.han.ica.yaeger.resourceconsumer.audio.Sound;
 public class Bubble extends UpdatableSpriteObject implements Collided {
 
     public Bubble(double x, double y) {
-        super("images/bubble.png", x, y, 0, 2, 0, 1);
+        super("images/bubble.png", x, y, 0, 2, 2, 0);
         scaleToWidth(20);
     }
 

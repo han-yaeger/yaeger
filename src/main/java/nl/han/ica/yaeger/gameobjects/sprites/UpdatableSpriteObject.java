@@ -12,6 +12,9 @@ import nl.han.ica.yaeger.gameobjects.interfaces.Updatable;
  */
 public class UpdatableSpriteObject extends SpriteObject implements Updatable {
 
+    private double speed;
+    private double direction;
+
     private Point2D movement;
     private double rotationSpeed;
 
@@ -71,7 +74,11 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
 
         super(resource, frames, x, y, initialAngle);
 
-        this.movement = calculateMovementVector(Math.toRadians(direction - 90), speed);
+        this.speed = speed;
+        this.direction = direction;
+
+        setMovementVector();
+
         this.rotationSpeed = rotationSpeed;
 
         this.imageView.relocate(x, y);
@@ -86,13 +93,32 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
     }
 
     /**
-     * Alter the speed of this {@code UpdatableSpriteObject}.
+     * Change the speed of this {@code UpdatableSpriteObject}. Using this method will increase or decrease
+     * the current speed. If it is required to set the speed to a specific value, use the method {@code setSpeed}.
      *
-     * @param change
+     * @param change A value large than 1 will mean an increment in speed. A value between 0 and 1 will mean a
+     *               decrement in speed.
      */
 
-    public void alterSpeed(double change) {
+    public void changeSpeed(double change) {
+        this.speed = speed * change;
         this.movement.multiply(change);
+
+        setMovementVector();
+    }
+
+    public void setSpeed(double newSpeed) {
+        if (Double.compare(newSpeed, speed) != 0) {
+            speed = newSpeed;
+            setMovementVector();
+        }
+    }
+
+    public void setDirection(double newDirection) {
+        if (Double.compare(newDirection, direction) != 0) {
+            this.direction = newDirection;
+            setMovementVector();
+        }
     }
 
     /**
@@ -126,10 +152,11 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
         }
     }
 
-    private Point2D calculateMovementVector(double angleRadians, double speed) {
-        var directionVector = new Point2D(Math.cos(angleRadians), Math.sin(angleRadians));
+    private void setMovementVector() {
+        double angleInRadians = Math.toRadians(direction - 90);
+        var directionVector = new Point2D(Math.cos(angleInRadians), Math.sin(angleInRadians));
 
-        return directionVector.normalize().multiply(speed);
+        movement = directionVector.normalize().multiply(speed);
     }
 
     private void updateLocation() {
