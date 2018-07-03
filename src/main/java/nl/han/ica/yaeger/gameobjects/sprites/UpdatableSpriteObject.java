@@ -108,18 +108,19 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
     }
 
     public void setSpeed(double newSpeed) {
-        if (Double.compare(newSpeed, speed) != 0) {
+        if (hasSpeedChanged(newSpeed)) {
             speed = newSpeed;
             setMovementVector();
         }
     }
 
     public void setDirection(double newDirection) {
-        if (Double.compare(newDirection, direction) != 0) {
+        if (hasDirectionChanged(newDirection)) {
             this.direction = newDirection;
             setMovementVector();
         }
     }
+
 
     /**
      * This method is being called when this {@code UpdatableSpriteObject} crosses a boundary of the scene.
@@ -167,5 +168,13 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
     private void updateRotation() {
         angle = angle + rotationSpeed;
         imageView.setRotate(angle);
+    }
+
+    private boolean hasDirectionChanged(double newDirection) {
+        return Double.compare(newDirection, direction) != 0;
+    }
+
+    private boolean hasSpeedChanged(double newSpeed) {
+        return Double.compare(newSpeed, speed) != 0;
     }
 }
