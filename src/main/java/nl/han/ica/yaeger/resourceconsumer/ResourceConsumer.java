@@ -15,8 +15,7 @@ public interface ResourceConsumer {
      */
     default String createPathForResource(String resource) {
         var url = getClass().getClassLoader().getResource(resource);
-        var stringUrl = url.toString();
 
-        return stringUrl;
+        return url.toString();
     }
 }

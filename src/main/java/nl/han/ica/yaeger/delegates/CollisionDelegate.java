@@ -2,8 +2,6 @@ package nl.han.ica.yaeger.delegates;
 
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
-import javafx.geometry.Point3D;
 import nl.han.ica.yaeger.gameobjects.GameObject;
 import nl.han.ica.yaeger.gameobjects.interfaces.Collided;
 import nl.han.ica.yaeger.gameobjects.interfaces.Collider;
@@ -96,9 +94,7 @@ public class CollisionDelegate {
         double height = 1;
         double depth = collidedBounds.getDepth();
 
-        BoundingBox topBoundingBox = new BoundingBox(minX, minY, minZ, width, height, depth);
-
-        return topBoundingBox;
+        return new BoundingBox(minX, minY, minZ, width, height, depth);
     }
 
     private Bounds createBottomCollisionBoundingBox(Collided collided) {
@@ -111,9 +107,7 @@ public class CollisionDelegate {
         double height = 1;
         double depth = collidedBounds.getDepth();
 
-        BoundingBox bottomBoundingBox = new BoundingBox(minX, minY, minZ, width, height, depth);
-
-        return bottomBoundingBox;
+        return new BoundingBox(minX, minY, minZ, width, height, depth);
     }
 
     private Bounds createLeftCollisionBoundingBox(Collided collided) {
@@ -126,9 +120,7 @@ public class CollisionDelegate {
         double height = collidedBounds.getHeight();
         double depth = collidedBounds.getDepth();
 
-        BoundingBox leftBoundingBox = new BoundingBox(minX, minY, minZ, width, height, depth);
-
-        return leftBoundingBox;
+        return new BoundingBox(minX, minY, minZ, width, height, depth);
     }
 
     private Bounds createRightCollisionBoundingBox(Collided collided) {
@@ -141,10 +133,6 @@ public class CollisionDelegate {
         double height = collidedBounds.getHeight();
         double depth = collidedBounds.getDepth();
 
-        BoundingBox rightBoundingBox = new BoundingBox(minX, minY, minZ, width, height, depth);
-
-        return rightBoundingBox;
+        return new BoundingBox(minX, minY, minZ, width, height, depth);
     }
-
-
 }

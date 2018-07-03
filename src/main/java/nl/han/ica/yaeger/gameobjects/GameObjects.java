@@ -105,7 +105,7 @@ public class GameObjects {
 
 
     private void collectGarbage() {
-        if (garbage.size() == 0) {
+        if (garbage.isEmpty()) {
             return;
         }
 
@@ -120,7 +120,7 @@ public class GameObjects {
     }
 
     private void addSpawnedObjects() {
-        if (spawners.size() > 0) {
+        if (!spawners.isEmpty()) {
             spawners.stream().forEach(spawner -> spawner.getSpawnedGameObjects().stream().forEach(gameObject -> this.addToGameLoop(gameObject)));
         }
     }
