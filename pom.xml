@@ -28,6 +28,7 @@
         <jacoco.version>0.8.1</jacoco.version>
         <coveralls.version>4.3.0</coveralls.version>
         <javadoc.version>3.0.1</javadoc.version>
+        <plugin.maven.shade.version>3.1.1</plugin.maven.shade.version>
     </properties>
 
     <build>
@@ -87,6 +88,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
+                <version>${plugin.maven.shade.version}</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
