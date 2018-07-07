@@ -58,9 +58,7 @@ public abstract class SpriteObject extends GameObject implements ResourceConsume
         this.angle = angle;
 
         String stringUrl = createPathForResource(resource);
-        Image image = new Image(stringUrl);
-
-        this.imageView = new ImageView(image);
+        this.imageView = new ImageView(stringUrl);
 
         this.imageView.relocate(x, y);
 

@@ -18,9 +18,9 @@
         <!-- General -->
         <reactfx.version>1.4.1</reactfx.version>
         <!-- Testing-->
-        <junit.jupiter.version>5.1.0</junit.jupiter.version>
+        <junit.jupiter.version>5.2.0</junit.jupiter.version>
         <junit-platform-surefire-provider>1.1.0</junit-platform-surefire-provider>
-        <mockito.version>2.17.0</mockito.version>
+        <mockito.version>2.19.0</mockito.version>
         <test-fx.version>4.0.13-alpha</test-fx.version>
         <!-- Continuous Integration -->
         <maven-surefire-plugin>2.19.1</maven-surefire-plugin>
@@ -133,6 +133,12 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
             <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>

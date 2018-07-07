@@ -1,5 +1,7 @@
 package nl.han.ica.yaeger.resourceconsumer;
 
+import nl.han.ica.yaeger.exceptions.YaegerResourceNotAvailableException;
+
 /**
  * A ResourceConsumer offers a default method, that can be used for acquiring the full path of a resource available
  * on the class path. All classes that must perform such a task, should implement this interface and us the method is
@@ -14,8 +16,16 @@ public interface ResourceConsumer {
      * @return The full URL of the resource
      */
     default String createPathForResource(String resource) {
+
+        if (resource == null || resource.isEmpty()) {
+            return "";
+        }
+
         var url = getClass().getClassLoader().getResource(resource);
 
+        if (url == null) {
+            throw new YaegerResourceNotAvailableException(resource);
+        }
         return url.toString();
     }
 }
