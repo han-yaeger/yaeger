@@ -1,9 +1,7 @@
 package nl.han.ica.yaeger.gameobjects.sprites;
 
 import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import nl.han.ica.yaeger.gameobjects.GameObject;
 import nl.han.ica.yaeger.gameobjects.sprites.delegates.SpriteAnimationDelegate;

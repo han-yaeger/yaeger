@@ -16,6 +16,7 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
     private double direction;
 
     private Point2D movement;
+
     /**
      * Create a new SpriteObject.
      *
@@ -44,13 +45,13 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
     /**
      * Create a new {@code UpdatableSpriteObject}.
      *
-     * @param resource      The url of the image file. Relative to the resources folder.
-     * @param x             The x-coordinate at which the {@code UpdatableSpriteObject} should be initially positioned.
-     * @param y             The y-coordinate at which the {@code UpdatableSpriteObject} should be initially positioned.
-     * @param frames        The number of frames this Image contains. By default the first frame is loaded.
-     * @param direction     The direction in angles in which the {@code UpdatableSpriteObject} should move.
-     * @param speed         The speed in pixels at which the {@code UpdatableSpriteObject} should move.
-     * @param initialAngle  The initial angle in degrees at which {@code UpdatableSpriteObject} should be rotated.
+     * @param resource     The url of the image file. Relative to the resources folder.
+     * @param x            The x-coordinate at which the {@code UpdatableSpriteObject} should be initially positioned.
+     * @param y            The y-coordinate at which the {@code UpdatableSpriteObject} should be initially positioned.
+     * @param frames       The number of frames this Image contains. By default the first frame is loaded.
+     * @param direction    The direction in angles in which the {@code UpdatableSpriteObject} should move.
+     * @param speed        The speed in pixels at which the {@code UpdatableSpriteObject} should move.
+     * @param initialAngle The initial angle in degrees at which {@code UpdatableSpriteObject} should be rotated.
      */
     public UpdatableSpriteObject(final String resource, double x, double y, int frames, double direction, double speed, double initialAngle) {
 
@@ -112,11 +113,12 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
 
     /**
      * This method is being called when this {@code UpdatableSpriteObject} crosses a boundary of the scene.
-     * Override this method to init behaviour.
+     * Override this method to add behaviour.
      *
-     * @param border Depending on which of the four sides of the boundary is being crossed.
+     * @param border The border at which the screen is being crossed.
      */
     protected void notifyBoundaryCrossing(SceneBorder border) {
+        // Should be implementented in a child object
     }
 
     private void checkSceneBoundary() {

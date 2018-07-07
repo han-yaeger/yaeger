@@ -8,6 +8,9 @@ import javafx.event.EventType;
  */
 public class EventTypes {
 
+    private EventTypes(){
+    }
+
     /**
      * When an {@code GameObject} emits a {@code DELETE} event, it should be deleted from the game.
      */

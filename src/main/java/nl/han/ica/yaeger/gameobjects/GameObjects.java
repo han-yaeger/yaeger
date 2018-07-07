@@ -50,7 +50,7 @@ public class GameObjects {
             throw new YaegerLifecycleException("The renderloop has already started, so it is no longer allowed to call" +
                     "init(). Please use an ObjectSpawner to add new GameObjects.");
         }
-        initialGameObjects.stream().forEach(gameObject -> addToGameLoop(gameObject));
+        initialGameObjects.stream().forEach(this::addToGameLoop);
     }
 
     /**
@@ -109,7 +109,7 @@ public class GameObjects {
             return;
         }
 
-        garbage.stream().forEach(gameObject -> removeGameObject(gameObject));
+        garbage.stream().forEach(this::removeGameObject);
         gameObjects.removeAll(garbage);
         garbage.clear();
     }

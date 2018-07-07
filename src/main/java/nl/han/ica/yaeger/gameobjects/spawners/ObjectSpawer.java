@@ -19,7 +19,7 @@ public abstract class ObjectSpawer {
      */
     public ObjectSpawer(long interval) {
         this.interval = interval * 1000000;
-        initiTimer();
+        initTimer();
     }
 
     protected void spawn(GameObject gameObject) {
@@ -27,7 +27,7 @@ public abstract class ObjectSpawer {
     }
 
     public Set<GameObject> getSpawnedGameObjects() {
-        if (spawnedGameObjects.size() == 0) {
+        if (spawnedGameObjects.isEmpty()) {
             return new HashSet<>();
         } else {
             Set<GameObject> gameObjects = new HashSet<>(spawnedGameObjects);
@@ -36,7 +36,7 @@ public abstract class ObjectSpawer {
         }
     }
 
-    private void initiTimer() {
+    private void initTimer() {
 
         AnimationTimer animator = new AnimationTimer() {
 
