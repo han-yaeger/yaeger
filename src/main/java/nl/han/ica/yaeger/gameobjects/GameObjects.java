@@ -19,7 +19,7 @@ public class GameObjects {
 
     private Group group;
     private Set<ObjectSpawer> spawners = new HashSet<>();
-    private Set<GameObject> gameObjects = new HashSet<>();
+    private Set<GameObject> aliveGameObjects = new HashSet<>();
     private Set<GameObject> garbage = new HashSet<>();
 
     private CollisionDelegate collisionDelegate;
@@ -79,7 +79,7 @@ public class GameObjects {
      * @param input A {@code Set<KeyCode>} containing als keys currently pressed.
      */
     public void notifyGameObjectsOfPressedKeys(Set<KeyCode> input) {
-        gameObjects.stream().filter(gameObject -> gameObject instanceof KeyListener)
+        aliveGameObjects.stream().filter(gameObject -> gameObject instanceof KeyListener)
                 .forEach(gameObject -> ((KeyListener) gameObject).onPressedKeysChange(input));
     }
 
@@ -110,7 +110,7 @@ public class GameObjects {
         }
 
         garbage.stream().forEach(this::removeGameObject);
-        gameObjects.removeAll(garbage);
+        aliveGameObjects.removeAll(garbage);
         garbage.clear();
     }
 
@@ -121,12 +121,12 @@ public class GameObjects {
 
     private void addSpawnedObjects() {
         if (!spawners.isEmpty()) {
-            spawners.stream().forEach(spawner -> spawner.getSpawnedGameObjects().stream().forEach(gameObject -> this.addToGameLoop(gameObject)));
+            spawners.stream().forEach(spawner -> spawner.getSpawnedGameObjects().stream().forEach(this::addToGameLoop));
         }
     }
 
     private void addToGameLoop(GameObject gameObject) {
-        gameObjects.add(gameObject);
+        aliveGameObjects.add(gameObject);
         collisionDelegate.registerForCollisionDetection(gameObject);
         attachEventListeners(gameObject);
         addToScene(gameObject);
@@ -141,7 +141,7 @@ public class GameObjects {
     }
 
     private void notifyUpdatableGameObjects() {
-        gameObjects.stream().filter(gameObject -> gameObject instanceof Updatable)
+        aliveGameObjects.stream().filter(gameObject -> gameObject instanceof Updatable)
                 .forEach(gameObject -> ((Updatable) gameObject).update());
     }
 }
