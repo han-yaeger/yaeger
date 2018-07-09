@@ -40,7 +40,7 @@ public interface Collided extends Bounded {
     void onCollision(Collider collidingObject, CollisionSide collisionSide);
 
     private boolean collisionHasOccured(Collider collider) {
-        return !this.equals(collider) && getBounds().intersects(collider.getBounds());
+        return getBounds().intersects(collider.getBounds()) && !this.equals(collider);
     }
 
     private CollisionSide findCollisionSide(Collider collider) {
