@@ -18,6 +18,10 @@ public interface Collided extends Bounded {
      * @param colliders A {@code Set} of colliders that should be checked for collisions.
      */
     default void checkForCollisions(Set<Collider> colliders) {
+        if (colliders == null) {
+            return;
+        }
+
         for (Collider collider : colliders) {
             if (collisionHasOccured(collider)) {
                 CollisionSide collisionSide = findCollisionSide(collider);
