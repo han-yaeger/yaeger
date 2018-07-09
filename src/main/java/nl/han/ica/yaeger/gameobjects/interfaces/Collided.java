@@ -82,7 +82,7 @@ public interface Collided extends Bounded {
 
     private Bounds createLeftCollisionBoundingBox() {
         double minX = getBounds().getMinX();
-        double minY = getBounds().getMaxY();
+        double minY = getBounds().getMinY();
         double minZ = getBounds().getMinZ();
         double width = 1;
         double height = getBounds().getHeight();
