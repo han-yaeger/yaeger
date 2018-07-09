@@ -38,8 +38,12 @@ public class CollisionDelegate {
      * @param gameObject The GameObject that should be removed.
      */
     public void removeGameObject(GameObject gameObject) {
-        colliders.remove(gameObject);
-        collideds.remove(gameObject);
+        if (gameObject instanceof Collider) {
+            removeCollider((Collider) gameObject);
+        }
+        if (gameObject instanceof Collided) {
+            removeCollided((Collided) gameObject);
+        }
     }
 
     /**
@@ -47,5 +51,13 @@ public class CollisionDelegate {
      */
     public void checkCollisions() {
         collideds.stream().forEach(collided -> collided.checkForCollisions(colliders));
+    }
+
+    private void removeCollider(Collider collider) {
+        colliders.remove(collider);
+    }
+
+    private void removeCollided(Collided collided) {
+        collideds.remove(collided);
     }
 }
