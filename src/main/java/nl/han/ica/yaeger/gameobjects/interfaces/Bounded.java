@@ -2,6 +2,10 @@ package nl.han.ica.yaeger.gameobjects.interfaces;
 
 import javafx.geometry.Bounds;
 
+/**
+ * Implementing this interface exposes the {@code getBounds} method, which returns the bounds, aka
+ * Bounding Box, of this GameObject.
+ */
 public interface Bounded {
 
 
@@ -10,5 +14,5 @@ public interface Bounded {
      *
      * @return The Bounds of this GameObject.
      */
-    public Bounds getBounds();
+    Bounds getBounds();
 }

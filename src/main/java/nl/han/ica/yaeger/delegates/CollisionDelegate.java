@@ -1,7 +1,5 @@
 package nl.han.ica.yaeger.delegates;
 
-import javafx.geometry.BoundingBox;
-import javafx.geometry.Bounds;
 import nl.han.ica.yaeger.gameobjects.GameObject;
 import nl.han.ica.yaeger.gameobjects.interfaces.Collided;
 import nl.han.ica.yaeger.gameobjects.interfaces.Collider;
@@ -14,23 +12,23 @@ import java.util.Set;
  */
 public class CollisionDelegate {
 
-    private Set<Collided> collidedGameObjects;
-    private Set<Collider> colliderGameObjects;
+    private Set<Collided> collideds;
+    private Set<Collider> colliders;
 
     /**
      * Create a new CollisionDelegate.
      */
     public CollisionDelegate() {
-        collidedGameObjects = new HashSet<>();
-        colliderGameObjects = new HashSet<>();
+        collideds = new HashSet<>();
+        colliders = new HashSet<>();
     }
 
     public void registerForCollisionDetection(GameObject collided) {
         if (collided instanceof Collider) {
-            colliderGameObjects.add((Collider) collided);
+            colliders.add((Collider) collided);
         }
         if (collided instanceof Collided) {
-            collidedGameObjects.add((Collided) collided);
+            collideds.add((Collided) collided);
         }
     }
 
@@ -40,99 +38,14 @@ public class CollisionDelegate {
      * @param gameObject The GameObject that should be removed.
      */
     public void removeGameObject(GameObject gameObject) {
-        colliderGameObjects.remove(gameObject);
-        collidedGameObjects.remove(gameObject);
+        colliders.remove(gameObject);
+        collideds.remove(gameObject);
     }
 
     /**
-     * Check for collisions. If a collision is detected, only the Collided will be notified of this collision.
+     * Check for collisions. Each collidble is asked to check for collisions.
      */
     public void checkCollisions() {
-
-        for (Collided collided : collidedGameObjects) {
-            for (Collider collider : colliderGameObjects) {
-                if (collisionHasOccured(collided, collider)) {
-                    CollisionSide collisionSide = findCollisionSide(collided, collider);
-                    collided.hasCollidedWith(collider, collisionSide);
-                    break;
-                }
-            }
-        }
-    }
-
-    private boolean collisionHasOccured(Collided collided, Collider collider) {
-        return !collided.equals(collider) && collided.getBounds().intersects(collider.getBounds());
-    }
-
-    private CollisionSide findCollisionSide(Collided collided, Collider collider) {
-
-        Bounds topBoundingBox = createTopCollisionBoundingBox(collided);
-        Bounds bottomBoundingBox = createBottomCollisionBoundingBox(collided);
-        Bounds leftBoundingBox = createLeftCollisionBoundingBox(collided);
-        Bounds rightBoundingBox = createRightCollisionBoundingBox(collided);
-
-        if (collider.getBounds().intersects(topBoundingBox)) {
-            return CollisionSide.TOP;
-        } else if (collider.getBounds().intersects(bottomBoundingBox)) {
-            return CollisionSide.BOTTOM;
-        } else if (collider.getBounds().intersects(leftBoundingBox)) {
-            return CollisionSide.LEFT;
-        } else if (collider.getBounds().intersects(rightBoundingBox)) {
-            return CollisionSide.RIGHT;
-        } else {
-            return CollisionSide.NONE;
-        }
-    }
-
-    private Bounds createTopCollisionBoundingBox(Collided collided) {
-        Bounds collidedBounds = collided.getBounds();
-
-        double minX = collidedBounds.getMinX();
-        double minY = collidedBounds.getMaxY() - 1;
-        double minZ = collidedBounds.getMinZ();
-        double width = collidedBounds.getWidth();
-        double height = 1;
-        double depth = collidedBounds.getDepth();
-
-        return new BoundingBox(minX, minY, minZ, width, height, depth);
-    }
-
-    private Bounds createBottomCollisionBoundingBox(Collided collided) {
-        Bounds collidedBounds = collided.getBounds();
-
-        double minX = collidedBounds.getMinX();
-        double minY = collidedBounds.getMinY();
-        double minZ = collidedBounds.getMinZ();
-        double width = collidedBounds.getWidth();
-        double height = 1;
-        double depth = collidedBounds.getDepth();
-
-        return new BoundingBox(minX, minY, minZ, width, height, depth);
-    }
-
-    private Bounds createLeftCollisionBoundingBox(Collided collided) {
-        Bounds collidedBounds = collided.getBounds();
-
-        double minX = collidedBounds.getMinX();
-        double minY = collidedBounds.getMaxY();
-        double minZ = collidedBounds.getMinZ();
-        double width = 1;
-        double height = collidedBounds.getHeight();
-        double depth = collidedBounds.getDepth();
-
-        return new BoundingBox(minX, minY, minZ, width, height, depth);
-    }
-
-    private Bounds createRightCollisionBoundingBox(Collided collided) {
-        Bounds collidedBounds = collided.getBounds();
-
-        double minX = collidedBounds.getMaxX() - 1;
-        double minY = collidedBounds.getMinY();
-        double minZ = collidedBounds.getMinZ();
-        double width = 1;
-        double height = collidedBounds.getHeight();
-        double depth = collidedBounds.getDepth();
-
-        return new BoundingBox(minX, minY, minZ, width, height, depth);
+        collideds.stream().forEach(collided -> collided.checkForCollisions(colliders));
     }
 }

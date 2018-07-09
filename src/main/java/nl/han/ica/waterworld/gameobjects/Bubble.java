@@ -22,7 +22,7 @@ public class Bubble extends UpdatableSpriteObject implements Collided {
     }
 
     @Override
-    public void hasCollidedWith(Collider collidingObject, CollisionSide collisionSide) {
+    public void onCollision(Collider collidingObject, CollisionSide collisionSide) {
         Sound popSound = new Sound("audio/pop.mp3");
         popSound.play();
         remove();
