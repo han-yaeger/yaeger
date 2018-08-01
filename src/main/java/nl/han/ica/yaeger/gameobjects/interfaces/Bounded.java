@@ -8,7 +8,6 @@ import javafx.geometry.Bounds;
  */
 public interface Bounded {
 
-
     /**
      * Return the Bounds, aka Bounding Box, of this GameObject.
      *
