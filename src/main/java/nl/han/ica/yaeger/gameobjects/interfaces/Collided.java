@@ -18,7 +18,7 @@ public interface Collided extends Bounded {
      * @param colliders A {@code Set} of colliders that should be checked for collisions.
      */
     default void checkForCollisions(Set<Collider> colliders) {
-        if (colliders == null) {
+        if (colliders == null || colliders.isEmpty()) {
             return;
         }
 
@@ -32,10 +32,10 @@ public interface Collided extends Bounded {
     }
 
     /**
-     * This method is called if a collision has occured.
+     * This method is called if a collision has occurred.
      *
-     * @param collidingObject
-     * @param collisionSide
+     * @param collidingObject The GameObjects you are colliding with.
+     * @param collisionSide     The side of the collision.
      */
     void onCollision(Collider collidingObject, CollisionSide collisionSide);
 

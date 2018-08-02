@@ -110,7 +110,7 @@ public class GameObjects {
             return;
         }
 
-        garbage.stream().forEach(this::removeGameObject);
+        garbage.forEach(this::removeGameObject);
         statics.removeAll(garbage);
         updatables.removeAll(garbage);
         garbage.clear();
@@ -128,19 +128,26 @@ public class GameObjects {
     }
 
     private void addToGameLoop(GameObject gameObject) {
-        if (gameObject instanceof KeyListener) {
-            keyListeners.add((KeyListener) gameObject);
-        }
+        addToKeylisteners(gameObject);
+        addToUpdatablesOrStatics(gameObject);
 
+        collisionDelegate.registerForCollisionDetection(gameObject);
+        attachEventListeners(gameObject);
+        addToScene(gameObject);
+    }
+
+    private void addToUpdatablesOrStatics(GameObject gameObject) {
         if (gameObject instanceof Updatable) {
             updatables.add((Updatable) gameObject);
         } else {
             statics.add(gameObject);
         }
+    }
 
-        collisionDelegate.registerForCollisionDetection(gameObject);
-        attachEventListeners(gameObject);
-        addToScene(gameObject);
+    private void addToKeylisteners(GameObject gameObject) {
+        if (gameObject instanceof KeyListener) {
+            keyListeners.add((KeyListener) gameObject);
+        }
     }
 
     private void addToScene(GameObject gameObject) {
