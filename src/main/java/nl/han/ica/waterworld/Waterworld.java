@@ -29,6 +29,7 @@ public class Waterworld extends YaegerEngine {
 
     @Override
     protected void beforeGameLoopIsCreated() {
+        setBackgroundImage("background.jpg");
         addInitialGameObjects();
         addDashboard();
         addBackgroundAudio();

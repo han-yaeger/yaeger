@@ -13,11 +13,16 @@ import nl.han.ica.yaeger.gameobjects.GameObject;
 import nl.han.ica.yaeger.gameobjects.GameObjects;
 import nl.han.ica.yaeger.gameobjects.spawners.ObjectSpawer;
 import nl.han.ica.yaeger.metrics.GameDimensions;
+import nl.han.ica.yaeger.resourceconsumer.ResourceConsumer;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class YaegerEngine extends Application {
+/**
+ * {@code YaegerEngine} is de basis-superklasse die ge-extend moet worden. Na het extenden zal een aantal methodes
+ * worden aangeboden, die het mogelijk maken de inhoud van het spel te initialiseren.
+ */
+public abstract class YaegerEngine extends Application implements ResourceConsumer {
 
     private static final GameDimensions DEFAULT_GAME_DIMENSIONS = new GameDimensions(640, 480);
 
@@ -28,15 +33,16 @@ public abstract class YaegerEngine extends Application {
     private Set<GameObject> inititialGameObjects = new HashSet<>();
     private GameObjects gameObjects;
     private Stage primaryStage;
+    private Scene scene;
 
     private boolean sceneIsCreated = false;
     private boolean stageIsShown = false;
 
 
     /**
-     * Call this method the set the width and height of the game.
+     * Zet de breedte en hoogte van het spel.
      *
-     * @param dimensions A GameDimensions that contains the width and height of the game
+     * @param dimensions Een {@link GameDimensions} object encapsuleert de breedte en hoogte van een spel.
      */
     public void setGameDimensions(GameDimensions dimensions) {
         if (sceneIsCreated) {
@@ -46,13 +52,13 @@ public abstract class YaegerEngine extends Application {
     }
 
     /**
-     * Set the title of the game.
+     * Zet de titel van het spel.
      *
-     * @param title The title of the game
+     * @param title De titel van het spel.
      */
     public void setGameTitle(String title) {
         if (sceneIsCreated) {
-            throw new YaegerLifecycleException("Setting game title is not allowed. The scene is already created.");
+            throw new YaegerLifecycleException("Het zetten van de titel is nu niet toegestaan. De scene is al gemaakt en de titel kan niet meer worden gezet.");
         }
 
         primaryStage.setTitle(title);
@@ -84,17 +90,22 @@ public abstract class YaegerEngine extends Application {
     }
 
     /**
-     * Set the background image of the Scene.
+     * Zet het achtergrondplaatje van de Scene.
      *
-     * @param scene The {@code Scene} that has been created and will be used for the game.
+     * @param image De naam van het bestand, inclusief extentie. Er worden zeer veel bestandsformaten ondersteund, maar
+     *              kies bij voorkeur voor een van de volgende:
+     *              <ul>
+     *              <li>jpg, jpeg</li>
+     *              <li>png</li>
+     *              </ul>
      */
-    @Deprecated
-    public void setBackgroundImage(Scene scene) {
-        var url = getClass().getClassLoader().getResource("background.jpg");
-        var stringUrl = url.toString();
+    public void setBackgroundImage(String image) {
+        if (!sceneIsCreated) {
+            throw new YaegerLifecycleException("It is not yet allowed to set the Background of the Scene. This is only allowed after the Scene is created.");
+        }
 
-        var image = new Image(stringUrl);
-        var pattern = new ImagePattern(image);
+        var stringUrl = createPathForResource(image);
+        var pattern = new ImagePattern(new Image(stringUrl));
         scene.setFill(pattern);
     }
 
@@ -172,7 +183,7 @@ public abstract class YaegerEngine extends Application {
         var root = new Group();
         gameObjects = new GameObjects(root);
 
-        var scene = new Scene(root, gameDimensions.getWidth(), gameDimensions.getHeight());
+        scene = new Scene(root, gameDimensions.getWidth(), gameDimensions.getHeight());
         primaryStage.setScene(scene);
 
         addKeyListeners(scene);
