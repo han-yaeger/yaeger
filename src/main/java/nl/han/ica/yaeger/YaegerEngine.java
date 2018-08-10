@@ -20,7 +20,7 @@ import java.util.Set;
 
 /**
  * {@code YaegerEngine} is de basis-superklasse die ge-extend moet worden. Na het extenden zal een aantal methodes
- * worden aangeboden, die het mogelijk maken de inhoud van het spel te initialiseren.
+ * worden aangeboden die het mogelijk maken de inhoud van het spel te initialiseren.
  */
 public abstract class YaegerEngine extends Application implements ResourceConsumer {
 
@@ -46,7 +46,7 @@ public abstract class YaegerEngine extends Application implements ResourceConsum
      */
     protected void setGameDimensions(GameDimensions dimensions) {
         if (sceneIsCreated) {
-            throw new YaegerLifecycleException("Setting game dimensions is not allowed. The stage is already created.");
+            throw new YaegerLifecycleException("Het zetten van de spel dimensies is niet toegestaan. Het algemene scherm (stage) is al aangemaakt.");
         }
         this.gameDimensions = dimensions;
     }
@@ -58,7 +58,7 @@ public abstract class YaegerEngine extends Application implements ResourceConsum
      */
     public void setGameTitle(String title) {
         if (sceneIsCreated) {
-            throw new YaegerLifecycleException("Het zetten van de titel is nu niet toegestaan. De scene is al gemaakt en de titel kan niet meer worden gezet.");
+            throw new YaegerLifecycleException("Het zetten van de titel is nu niet toegestaan. Het algemene scherm (stage) is al aangemaakt.");
         }
 
         primaryStage.setTitle(title);

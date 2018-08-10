@@ -10,11 +10,13 @@ import nl.han.ica.yaeger.resourceconsumer.audio.Sound;
 
 public class Waterworld extends YaegerEngine {
 
-    private static final String GAME_TITLE = "Waterworld";
+    private static final String GAME_TITLE = "Waterworld 2";
     private static final int WATERWORLD_WIDTH = 1204;
     private static final int WATERWORLD_HEIGHT = 903;
 
-    private TextObject dashboardText;
+    private TextObject bubblesPoppedText;
+    private TextObject healthText;
+
     private int bubblesPopped = 0;
 
     public static void main(String[] args) {
@@ -36,10 +38,15 @@ public class Waterworld extends YaegerEngine {
     }
 
     private void addDashboard() {
-        dashboardText = new TextObject(0, 40);
-        dashboardText.setSize(50);
-        addGameObject(dashboardText);
+        bubblesPoppedText = new TextObject(0, 40);
+        bubblesPoppedText.setSize(50);
+        addGameObject(bubblesPoppedText);
         updateBubblesPoppedText();
+
+        healthText = new TextObject(0, 90);
+        healthText.setSize(50);
+        addGameObject(healthText);
+        setHealthText(10);
     }
 
 
@@ -47,7 +54,7 @@ public class Waterworld extends YaegerEngine {
         var swordFish = new Swordfish(200, 200);
         addGameObject(swordFish);
 
-        var player = new Player(100, 100);
+        var player = new Player(100, 100, this);
         addGameObject(player);
     }
 
@@ -58,12 +65,28 @@ public class Waterworld extends YaegerEngine {
     }
 
     /**
-     * Increment the counter that registers the number of popped bubbles and ensure the new value is written
-     * to the screen.
+     * Verhoog de waarde van het aantal ontplofte bubbles.
      */
     public void increaseBubblesPopped() {
         bubblesPopped++;
         updateBubblesPoppedText();
+    }
+
+    /**
+     * Zet de healthwaarde van de speler.
+     *
+     * @param health De health als integer.
+     */
+    public void setHealthText(int health) {
+        healthText.setText("Health: " + health);
+    }
+
+    /**
+     * Deze methode wordt aangeroepen wanneer de speler sterft.
+     */
+    public void playerDied() {
+        System.out.println("All is lost.....");
+
     }
 
 
@@ -73,6 +96,6 @@ public class Waterworld extends YaegerEngine {
     }
 
     private void updateBubblesPoppedText() {
-        dashboardText.setText("Bubbles popped: " + bubblesPopped);
+        bubblesPoppedText.setText("Bubbles popped: " + bubblesPopped);
     }
 }

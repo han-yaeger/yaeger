@@ -19,15 +19,26 @@ public class BubbleSpawner extends ObjectSpawner {
         this.waterworld = waterworld;
     }
 
-    public void createBubble() {
-        var random = new Random().nextInt(worldWidth);
-        var bubble = new Bubble(random, worldHeight - 30, waterworld);
+    private void createAir() {
+        var air = new Air(generateRandomXLocation(), worldHeight - 30, waterworld);
+        spawn(air);
+    }
 
-        spawn(bubble);
+    private void createPoison() {
+        var poison = new Poison(generateRandomXLocation(), worldHeight - 30, waterworld);
+        spawn(poison);
     }
 
     @Override
     public void tick() {
-        createBubble();
+        if (new Random().nextInt(10) < 2) {
+            createPoison();
+        } else {
+            createAir();
+        }
+    }
+
+    private int generateRandomXLocation() {
+        return new Random().nextInt(worldWidth);
     }
 }

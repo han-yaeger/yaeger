@@ -8,12 +8,12 @@ import nl.han.ica.yaeger.gameobjects.interfaces.Collider;
 import nl.han.ica.yaeger.gameobjects.sprites.UpdatableSpriteObject;
 import nl.han.ica.yaeger.resourceconsumer.audio.Sound;
 
-public class Bubble extends UpdatableSpriteObject implements Collided {
+public abstract class Bubble extends UpdatableSpriteObject implements Collided {
 
     private final Waterworld waterworld;
 
-    public Bubble(final double x, final double y, final Waterworld waterworld) {
-        super("images/bubble.png", x, y, 0, 2, 2, 0);
+    public Bubble(final String resource, final double x, final double y, final Waterworld waterworld) {
+        super(resource, x, y, 0, 2, 2, 0);
         this.waterworld = waterworld;
         scaleToWidth(20);
     }
@@ -25,12 +25,15 @@ public class Bubble extends UpdatableSpriteObject implements Collided {
         }
     }
 
-    @Override
-    public void onCollision(Collider collidingObject, CollisionSide collisionSide) {
-        waterworld.increaseBubblesPopped();
+    protected void handleCollision() {
+        getWaterworld().increaseBubblesPopped();
 
         Sound popSound = new Sound("audio/pop.mp3");
         popSound.play();
         remove();
+    }
+
+    protected Waterworld getWaterworld() {
+        return waterworld;
     }
 }
