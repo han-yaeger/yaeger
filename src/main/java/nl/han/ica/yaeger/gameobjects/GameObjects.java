@@ -7,7 +7,7 @@ import nl.han.ica.yaeger.exceptions.YaegerLifecycleException;
 import nl.han.ica.yaeger.gameobjects.events.EventTypes;
 import nl.han.ica.yaeger.gameobjects.interfaces.KeyListener;
 import nl.han.ica.yaeger.gameobjects.interfaces.Updatable;
-import nl.han.ica.yaeger.gameobjects.spawners.ObjectSpawer;
+import nl.han.ica.yaeger.gameobjects.spawners.ObjectSpawner;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +18,7 @@ import java.util.Set;
 public class GameObjects {
 
     private Group group;
-    private Set<ObjectSpawer> spawners = new HashSet<>();
+    private Set<ObjectSpawner> spawners = new HashSet<>();
     private Set<GameObject> statics = new HashSet<>();
     private Set<Updatable> updatables = new HashSet<>();
     private Set<KeyListener> keyListeners = new HashSet<>();
@@ -60,7 +60,7 @@ public class GameObjects {
      *
      * @param spawner The ObjectSpawner to be registered.
      */
-    public void registerSpawner(ObjectSpawer spawner) {
+    public void registerSpawner(ObjectSpawner spawner) {
         this.spawners.add(spawner);
     }
 

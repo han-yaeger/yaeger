@@ -6,7 +6,7 @@ import nl.han.ica.yaeger.gameobjects.GameObject;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class ObjectSpawer {
+public abstract class ObjectSpawner {
 
     private Set<GameObject> spawnedGameObjects = new HashSet<>();
 
@@ -17,7 +17,7 @@ public abstract class ObjectSpawer {
      *
      * @param interval The interval in milli seconds
      */
-    public ObjectSpawer(long interval) {
+    public ObjectSpawner(long interval) {
         this.interval = interval * 1000000;
         initTimer();
     }

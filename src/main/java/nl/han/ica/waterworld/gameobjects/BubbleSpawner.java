@@ -1,11 +1,11 @@
 package nl.han.ica.waterworld.gameobjects;
 
 import nl.han.ica.waterworld.Waterworld;
-import nl.han.ica.yaeger.gameobjects.spawners.ObjectSpawer;
+import nl.han.ica.yaeger.gameobjects.spawners.ObjectSpawner;
 
 import java.util.Random;
 
-public class BubbleSpawner extends ObjectSpawer {
+public class BubbleSpawner extends ObjectSpawner {
 
     private final int worldWidth;
     private final int worldHeight;

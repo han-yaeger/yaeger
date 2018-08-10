@@ -1,6 +1,5 @@
 package nl.han.ica.yaeger.gameobjects.spawners;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,13 +7,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ObjectSpawnerTest {
 
-    private ObjectSpawer objectSpawer;
+    private ObjectSpawner objectSpawner;
 
     private boolean tickHasBeenCalled;
 
     @BeforeEach
     public void setup() {
-        objectSpawer = new TestObjectSpawner(1000);
+        objectSpawner = new TestObjectSpawner(1000);
         tickHasBeenCalled = false;
     }
 
@@ -24,7 +23,7 @@ public class ObjectSpawnerTest {
     }
 
 
-    private class TestObjectSpawner extends ObjectSpawer {
+    private class TestObjectSpawner extends ObjectSpawner {
 
         public TestObjectSpawner(long interval) {
             super(interval);

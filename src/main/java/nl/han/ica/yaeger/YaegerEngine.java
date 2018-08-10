@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import nl.han.ica.yaeger.exceptions.YaegerLifecycleException;
 import nl.han.ica.yaeger.gameobjects.GameObject;
 import nl.han.ica.yaeger.gameobjects.GameObjects;
-import nl.han.ica.yaeger.gameobjects.spawners.ObjectSpawer;
+import nl.han.ica.yaeger.gameobjects.spawners.ObjectSpawner;
 import nl.han.ica.yaeger.metrics.GameDimensions;
 import nl.han.ica.yaeger.resourceconsumer.ResourceConsumer;
 
@@ -44,7 +44,7 @@ public abstract class YaegerEngine extends Application implements ResourceConsum
      *
      * @param dimensions Een {@link GameDimensions} object encapsuleert de breedte en hoogte van een spel.
      */
-    public void setGameDimensions(GameDimensions dimensions) {
+    protected void setGameDimensions(GameDimensions dimensions) {
         if (sceneIsCreated) {
             throw new YaegerLifecycleException("Setting game dimensions is not allowed. The stage is already created.");
         }
@@ -99,7 +99,7 @@ public abstract class YaegerEngine extends Application implements ResourceConsum
      *              <li>png</li>
      *              </ul>
      */
-    public void setBackgroundImage(String image) {
+    protected void setBackgroundImage(String image) {
         if (!sceneIsCreated) {
             throw new YaegerLifecycleException("It is not yet allowed to set the Background of the Scene. This is only allowed after the Scene is created.");
         }
@@ -141,11 +141,12 @@ public abstract class YaegerEngine extends Application implements ResourceConsum
     }
 
     /**
-     * Register an ObjectSpawner.
+     * Registreer een {@link ObjectSpawner}. Na registratie zal de {@link ObjectSpawner} verantwoordelijk worden voor
+     * het aanmaken (spawnen) van nieuwe {@link GameObject}s.
      *
-     * @param spawner The ObjectSpawner to be registered.
+     * @param spawner De {@link ObjectSpawner} die geregistreerd moet worden.
      */
-    public void registerSpawner(ObjectSpawer spawner) {
+    protected void registerSpawner(ObjectSpawner spawner) {
         gameObjects.registerSpawner(spawner);
     }
 
@@ -179,7 +180,7 @@ public abstract class YaegerEngine extends Application implements ResourceConsum
                 });
     }
 
-    private Scene createStage() {
+    private void createStage() {
         var root = new Group();
         gameObjects = new GameObjects(root);
 
@@ -188,8 +189,6 @@ public abstract class YaegerEngine extends Application implements ResourceConsum
 
         addKeyListeners(scene);
         sceneIsCreated = true;
-
-        return scene;
     }
 
     private void showStage() {
