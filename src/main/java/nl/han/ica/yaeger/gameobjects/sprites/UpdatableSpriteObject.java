@@ -88,11 +88,11 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
     }
 
     /**
-     * Set the speed in which this {@code UpdatableSpriteObject} should move.
+     * Zet de snelheid waarmee deze {@link UpdatableSpriteObject} zich beweegt.
      *
-     * @param newSpeed The speed.
+     * @param newSpeed De snelheid.
      */
-    public void setSpeed(double newSpeed) {
+    protected void setSpeed(double newSpeed) {
         if (hasSpeedChanged(newSpeed)) {
             speed = newSpeed;
             setMovementVector();
@@ -100,9 +100,16 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
     }
 
     /**
-     * Set the direction in which this {@code UpdatableSpriteObject} should move.
+     * Zet de richting waarin deze {@link UpdatableSpriteObject} zich beweegt. De waarde is in graden, waarbij
      *
-     * @param newDirection The direction in angles.
+     * <ul>
+     * <li>0 betekend naar boven</li>
+     * <li>90 betekend naar rechts</li>
+     * <li>180 betekend naar beneden</li>
+     * <li>270 betekend naar links</li>
+     * </ul>
+     *
+     * @param newDirection De richting in graden.
      */
     public void setDirection(double newDirection) {
         if (hasDirectionChanged(newDirection)) {
@@ -118,7 +125,7 @@ public class UpdatableSpriteObject extends SpriteObject implements Updatable {
      * @param border The border at which the screen is being crossed.
      */
     protected void notifyBoundaryCrossing(SceneBorder border) {
-        // Should be implementented in a child object
+        // Indien dit grdrag nodig is, moet deze methode in een kind worden geïmplementeerd.
     }
 
     private void checkSceneBoundary() {

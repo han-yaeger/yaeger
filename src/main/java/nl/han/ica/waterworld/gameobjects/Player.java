@@ -41,7 +41,7 @@ public class Player extends UpdatableSpriteObject implements KeyListener, Collid
             setDirection(90);
         } else if (pressedKeys.contains(KeyCode.UP)) {
             setSpeed(3);
-            setDirection(0);
+            setDirection(360);
         } else if (pressedKeys.contains(KeyCode.DOWN)) {
             setSpeed(3);
             setDirection(180);

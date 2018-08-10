@@ -20,12 +20,12 @@ public class BubbleSpawner extends ObjectSpawner {
     }
 
     private void createAir() {
-        var air = new Air(generateRandomXLocation(), worldHeight - 30, waterworld);
+        var air = new Air(generateRandomXLocation(), worldHeight - 30, generateRandomSpeed(), waterworld);
         spawn(air);
     }
 
     private void createPoison() {
-        var poison = new Poison(generateRandomXLocation(), worldHeight - 30, waterworld);
+        var poison = new Poison(generateRandomXLocation(), worldHeight - 30, generateRandomSpeed(), waterworld);
         spawn(poison);
     }
 
@@ -40,5 +40,9 @@ public class BubbleSpawner extends ObjectSpawner {
 
     private int generateRandomXLocation() {
         return new Random().nextInt(worldWidth);
+    }
+
+    private int generateRandomSpeed() {
+        return new Random().nextInt(5);
     }
 }

@@ -6,12 +6,12 @@ import nl.han.ica.yaeger.gameobjects.interfaces.Collider;
 
 public class Air extends Bubble {
 
-    public Air(double x, double y, Waterworld waterworld) {
-        super("images/bubble.png", x, y, waterworld);
+    public Air(final double x, final double y, final double speed, final Waterworld waterworld) {
+        super("images/bubble.png", x, y, speed, waterworld);
     }
 
     @Override
-    public void onCollision(Collider collidingObject, CollisionSide collisionSide) {
+    public void onCollision(final Collider collidingObject, final CollisionSide collisionSide) {
         if (collidingObject instanceof Player) {
             handleCollision();
         }

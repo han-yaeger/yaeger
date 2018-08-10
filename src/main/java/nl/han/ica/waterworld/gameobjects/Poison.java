@@ -6,8 +6,8 @@ import nl.han.ica.yaeger.gameobjects.interfaces.Collider;
 
 public class Poison extends Bubble {
 
-    public Poison(double x, double y, Waterworld waterworld) {
-        super("images/poison.png", x, y, waterworld);
+    public Poison(double x, double y, final double speed, Waterworld waterworld) {
+        super("images/poison.png", x, y, speed, waterworld);
     }
 
     @Override

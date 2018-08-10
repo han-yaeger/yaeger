@@ -12,8 +12,8 @@ public abstract class Bubble extends UpdatableSpriteObject implements Collided {
 
     private final Waterworld waterworld;
 
-    public Bubble(final String resource, final double x, final double y, final Waterworld waterworld) {
-        super(resource, x, y, 0, 2, 2, 0);
+    public Bubble(final String resource, final double x, final double y, final double speed, final Waterworld waterworld) {
+        super(resource, x, y, 0, 2, speed, 0);
         this.waterworld = waterworld;
         scaleToWidth(20);
     }
