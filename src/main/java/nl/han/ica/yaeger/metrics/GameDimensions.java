@@ -1,17 +1,17 @@
 package nl.han.ica.yaeger.metrics;
 
 /**
- * A GameDimensions encapsulates the width and height of a Scene.
+ * Een {@code GameDimensions} encapsuleert de breedte en hoogte van het spel.
  */
 public class GameDimensions {
     private final int width;
     private final int height;
 
     /**
-     * Create a new GameDimensions with the given width and height.
+     * Maak een nieuwe {@code GameDimemsions} met de gegeven breedte en hoogte.
      *
-     * @param width  The width of the Scene
-     * @param height The height of the Scene
+     * @param width  The breedte.
+     * @param height The hoogte.
      */
     public GameDimensions(int width, int height) {
         this.width = width;
@@ -19,14 +19,14 @@ public class GameDimensions {
     }
 
     /**
-     * @return The width of the Scene
+     * @return De breedte.
      */
     public int getWidth() {
         return width;
     }
 
     /**
-     * @return The height of the Scene
+     * @return De hoogte
      */
     public int getHeight() {
         return height;

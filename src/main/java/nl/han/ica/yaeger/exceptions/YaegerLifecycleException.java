@@ -1,14 +1,15 @@
 package nl.han.ica.yaeger.exceptions;
 
 /**
- * A YaegerLifecycleException is thrown when a method is called that breaks te standard lifecycles of Yaeger.
+ * Een {@code YaegerLifecycleException} wordt gegooit waneer een methode wordt gebruikt waarmee de lifecycle van Yaeger
+ * wordt gebroken.
  */
 public class YaegerLifecycleException extends RuntimeException {
 
     /**
-     * Create a new YaegerLifecycleException with the given message.
+     * Maak een nieuwe {@code YaegerLifecycleException} met de gegeven bericht.
      *
-     * @param message The message why this exception was thrown
+     * @param message Het bericht dat getoond moet worden wanneer de exceptie gegooit wordt.
      */
     public YaegerLifecycleException(String message) {
         super(message);

@@ -1,17 +1,18 @@
 package nl.han.ica.yaeger.exceptions;
 
 /**
- * A YaegerResourceNotAvailableException is thrown when a resource is requested, but it is not available..
+ * Een {@code YaegerResourceNotAvailableException} wordt gegooit waneer een {@code Resource} wordt opgevraagd die niet beschikbaar
+ * is op het klasse-pad.
  */
 public class YaegerResourceNotAvailableException extends RuntimeException {
 
     /**
-     * Create a new YaegerResourceNotAvailableException for the given resource.
+     * Maak een nieuwe {@code YaegerResourceNotAvailableException} met de gegeven {@code Resource}.
      *
-     * @param resource The requested resource
+     * @param resource De {@code Resource}
      */
     public YaegerResourceNotAvailableException(String resource) {
 
-        super("Resource " + resource + " can not be found. Make sure this file is placed in the resource/ folder.");
+        super("Resource " + resource + " kan niet worden gevonden. Zorg ervoor dat dit bestand beschikbaar is in de resource/ directory.");
     }
 }

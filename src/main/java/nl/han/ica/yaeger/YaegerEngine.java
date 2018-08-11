@@ -65,26 +65,23 @@ public abstract class YaegerEngine extends Application implements ResourceConsum
     }
 
     /**
-     * This method is called before the scene is created.
+     * Deze methode wordt aangeroepen voordat de {@code Stage} wordt aangemaakt.
+     *
      * <p>
-     * At this stage it is possible to set the dimensions of the scene, to init a title to the application or
-     * perform other initializations.
+     * Op dit moment is het mogelijk om de afmetingen van het scherm te zetten of een titel van het spel te zetten.
      * </p>
      */
     protected void beforeStageIsCreated() {
     }
 
     /**
-     * Override this method to setup the stage before it is shown.
+     * Deze methode wordt aangeroepen voordat de Game Loop wordt aangemaakt.
      */
     protected void beforeGameLoopIsCreated() {
     }
 
     /**
-     * This method is called directly after the stage is shown.
-     * <p>
-     * Override this method to init behaviour that should be added after the stage is shown.
-     * </p>
+     * Deze methode wordt direct na het aanmaken van de Stage aangeroepen.
      */
     protected void afterStageIsShown() {
     }
@@ -101,7 +98,7 @@ public abstract class YaegerEngine extends Application implements ResourceConsum
      */
     protected void setBackgroundImage(String image) {
         if (!sceneIsCreated) {
-            throw new YaegerLifecycleException("It is not yet allowed to set the Background of the Scene. This is only allowed after the Scene is created.");
+            throw new YaegerLifecycleException("Het is nog niet toegestaan de achtergrond van de scene te zetten. Dit kan pas nadat de {@code Scene} is aangemaakt.");
         }
 
         var stringUrl = createPathForResource(image);
@@ -126,10 +123,12 @@ public abstract class YaegerEngine extends Application implements ResourceConsum
     }
 
     /**
-     * Add a new GameObject to the Scene. GameObjects can only be added once. If a GameObject is
-     * added multiple times, only one instance will be added.
+     * Voeg een {@link GameObject} toe aan de {@code Scene}. {@link GameObject}s kunnen maar één keer worden toegevoegd.
+     * Deze methode kan enkel gebruikt worden voor {@link GameObject}en die bij initialisatie aan het spel moeten worden
+     * toegevoegd. Indien er tijdens het spel extra {@link GameObject}en moeten worden toegevoegd, gebruik dan een
+     * {@link ObjectSpawner}.
      *
-     * @param gameObject A GameObject;
+     * @param gameObject Het {@link GameObject} dat moet worden toegevoegd.
      */
     protected void addGameObject(GameObject gameObject) {
         if (stageIsShown) {
