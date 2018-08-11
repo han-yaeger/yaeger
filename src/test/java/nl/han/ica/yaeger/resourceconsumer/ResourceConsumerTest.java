@@ -38,7 +38,7 @@ public class ResourceConsumerTest {
         Throwable exception = assertThrows(YaegerResourceNotAvailableException.class,
                 () -> resourceConsumer.createPathForResource(RESOURCE_NOT_EXISTING));
 
-        assertEquals("Resource unavailable.png can not be found. Make sure this file is placed in the resource/ folder.", exception.getMessage());
+        assertEquals("Resource unavailable.png kan niet worden gevonden. Zorg ervoor dat dit bestand beschikbaar is in de resource/ directory.", exception.getMessage());
     }
 
     @Test
