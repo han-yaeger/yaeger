@@ -53,4 +53,14 @@ public abstract class GameObject implements Bounded {
         var deleteEvent = new RemoveGameObjectEvent(EventTypes.DELETE, this);
         getGameNode().fireEvent(deleteEvent);
     }
+
+    /**
+     * Zet de zichtbaarheid van dit {@code GameObject}. Als default waarde zal deze op {@code true} staan.
+     *
+     * @param visible In het geval van {@code true} zal dit {@code GameObject} zichtbaar zijn.
+     *                In het geval van {@code false} zal dit {@code GameObject} niet zichtbaar zijn.
+     */
+    public void setVisible(boolean visible) {
+        getGameNode().setVisible(visible);
+    }
 }

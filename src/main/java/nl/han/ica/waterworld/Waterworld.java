@@ -1,5 +1,7 @@
 package nl.han.ica.waterworld;
 
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import nl.han.ica.waterworld.gameobjects.BubbleSpawner;
 import nl.han.ica.waterworld.gameobjects.Player;
 import nl.han.ica.waterworld.gameobjects.Swordfish;
@@ -16,6 +18,7 @@ public class Waterworld extends YaegerEngine {
 
     private TextObject bubblesPoppedText;
     private TextObject healthText;
+    private TextObject gameOverText;
 
     private int bubblesPopped = 0;
 
@@ -39,14 +42,20 @@ public class Waterworld extends YaegerEngine {
 
     private void addDashboard() {
         bubblesPoppedText = new TextObject(0, 40);
-        bubblesPoppedText.setSize(50);
+        bubblesPoppedText.setFont(Font.font("palatino", 50));
         addGameObject(bubblesPoppedText);
         updateBubblesPoppedText();
 
         healthText = new TextObject(0, 90);
-        healthText.setSize(50);
+        healthText.setFont(Font.font("palatino", 50));
         addGameObject(healthText);
         setHealthText(10);
+
+        gameOverText = new TextObject(420, 400, "Game over");
+        gameOverText.setFill(Color.DARKRED);
+        gameOverText.setFont(Font.font("palatino", 60));
+        addGameObject(gameOverText);
+        gameOverText.setVisible(false);
     }
 
 
@@ -85,8 +94,9 @@ public class Waterworld extends YaegerEngine {
      * Deze methode wordt aangeroepen wanneer de speler sterft.
      */
     public void playerDied() {
-        System.out.println("All is lost.....");
-
+        gameOverText.setVisible(true);
+        healthText.setVisible(false);
+        bubblesPoppedText.setLocation(370, 460);
     }
 
 

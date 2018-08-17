@@ -149,6 +149,24 @@ public abstract class YaegerEngine extends Application implements ResourceConsum
         gameObjects.registerSpawner(spawner);
     }
 
+    /**
+     * Retourneer de hoogte van het spel.
+     *
+     * @return De hoogte van het spel.
+     */
+    public int getGameHeight() {
+        return this.gameDimensions.getHeight();
+    }
+
+    /**
+     * Retourneer de breedte van het spel.
+     *
+     * @return De breedte van het spel.
+     */
+    public int getGameWidth() {
+        return this.gameDimensions.getWidth();
+    }
+
     private void createGameLoop() {
         gameObjects.init(inititialGameObjects);
 
