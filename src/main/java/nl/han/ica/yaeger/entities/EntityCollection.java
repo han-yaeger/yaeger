@@ -13,7 +13,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * A EntityCollection contains all behavior related to all EntityCollection.
+ * Een {@code EntityCollection} incapsuleert al het gedrag dat gerelateerd is aan de verzameling van alle
+ * {@link Entity} die deel uit maken van een {@link nl.han.ica.yaeger.scene.YaegerScene}.
  */
 public class EntityCollection {
 
@@ -28,12 +29,13 @@ public class EntityCollection {
     private boolean updateHasBeenCalled = false;
 
     /**
-     * Create a new EntityCollection.
+     * Creëer een nieuwe {@code EntityCollection}
      * <p>
-     * The EntityCollection is a subclass of a HashSet and encapsulates all responsibility of adding and removing the
-     * EntityCollection to and from the Group.
+     * Een {@code EntityCollection} encapsuleert alle verantwoordelijkheden met betrekking het toevoegen of
+     * verwijderer van een {@link Entity} aan het spel.
      *
-     * @param group The Group that all EntityCollection should belong to.
+     * @param group De {@link Group} waaraan deze {@code EntityCollection} zijn {@link Entity} aan zal toevoegen of
+     *              verwijderen.
      */
     public EntityCollection(Group group) {
 

@@ -2,7 +2,6 @@ package nl.han.ica.yaeger.entities;
 
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
-import nl.han.ica.yaeger.entities.events.EventTypes;
 import nl.han.ica.yaeger.entities.events.RemoveEntityEvent;
 import nl.han.ica.yaeger.entities.interfaces.Bounded;
 
@@ -21,18 +20,18 @@ public abstract class Entity implements Bounded {
     public abstract Node getGameNode();
 
     /**
-     * Return the width of the Scene that this Entity is part of.
+     * Retourneer de breedte van de Scene waar deze Entity deel van uitmaakt.
      *
-     * @return The width of the Scene as a {@code double}
+     * @return De breedte van de Scene als een {@code double}.
      */
     public double getSceneWidth() {
         return getGameNode().getScene().getWidth();
     }
 
     /**
-     * Return the height of the Scene that this {@code Entity} is part of.
+     * Retourneer de hoogte van de Scene waar deze Entity deel van uitmaakt.
      *
-     * @return The height of the Scene as a {@code double}
+     * @return De hoogte van de Scene als een {@code double}.
      */
     public double getSceneHeight() {
         return getGameNode().getScene().getWidth();
