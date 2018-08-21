@@ -17,6 +17,7 @@ public class GameScene extends DynamicScene {
     private TextEntity bubblesPoppedText;
     private TextEntity healthText;
     private Waterworld waterworld;
+    private Sound backgroundAudio;
 
     public GameScene(final Waterworld waterworld) {
         this.waterworld = waterworld;
@@ -60,6 +61,12 @@ public class GameScene extends DynamicScene {
     }
 
     @Override
+    public void tearDownScene() {
+        super.tearDownScene();
+        backgroundAudio.stop();
+    }
+
+    @Override
     protected void setupSpawners() {
         var spawner = new BubbleSpawner(waterworld.getGameWidth(), waterworld.getGameHeight(), this);
         registerSpawner(spawner);
@@ -77,8 +84,8 @@ public class GameScene extends DynamicScene {
     }
 
     private void setBackgroundAudio() {
-        Sound clip = new Sound("audio/waterworld.mp3", Sound.INDEFINITE);
-        clip.play();
+        backgroundAudio = new Sound("audio/waterworld.mp3", Sound.INDEFINITE);
+        backgroundAudio.play();
     }
 
     private void setupDashboard() {

@@ -29,7 +29,7 @@ public abstract class DynamicScene extends StaticScene {
         setupDynamicEntities();
 
         createGameLoop();
-        
+
         setupSpawners();
         startGameLoop();
     }

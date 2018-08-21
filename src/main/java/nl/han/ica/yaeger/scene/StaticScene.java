@@ -69,11 +69,7 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
         scene.setOnKeyReleased(null);
     }
 
-    /**
-     * Retourneer de {@link Scene} die geëncapsuleert wordt door deze {@code StaticScene}
-     *
-     * @return De {@link Scene} die geëncapsuleert wordt door deze {@code StaticScene}
-     */
+    @Override
     public Scene getScene() {
         return this.scene;
     }

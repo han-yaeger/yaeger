@@ -1,11 +1,13 @@
 package nl.han.ica.yaeger;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.han.ica.yaeger.exceptions.YaegerSceneNotAvailableException;
 import nl.han.ica.yaeger.metrics.GameDimensions;
 import nl.han.ica.yaeger.scene.SceneType;
 import nl.han.ica.yaeger.scene.StaticScene;
+import nl.han.ica.yaeger.scene.YaegerScene;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +24,7 @@ public abstract class YaegerEngine extends Application {
 
     private Stage yaegerStage;
     private Map<SceneType, StaticScene> scenes = new HashMap<>();
-    private StaticScene activeScene;
+    private YaegerScene activeScene;
 
     /**
      * Zet de breedte en hoogte van het spel.
@@ -43,13 +45,13 @@ public abstract class YaegerEngine extends Application {
     }
 
     /**
-     * Zet de huidige actieve {@link StaticScene}. Dit is de {@code Scene} die getoond wordt op het scherm en waarvan,
+     * Zet de huidige actieve {@link YaegerScene}. Dit is de {@code Scene} die getoond wordt op het scherm en waarvan,
      * indien beschikbaar, de {@code Gameloop} en {@code Eventlisteners} hun werk doen.
      *
      * @param type De enumeratie die de type van de {@code Scene} bevat.
-     * @return De {@link StaticScene}.
+     * @return De {@link YaegerScene}.
      */
-    protected StaticScene setActiveScene(SceneType type) {
+    protected YaegerScene setActiveScene(SceneType type) {
         var requestedScene = scenes.get(type);
 
         if (requestedScene == null) {

@@ -11,6 +11,7 @@ public class Sound implements ResourceConsumer {
 
     private final String fileName;
     private final int cycleCount;
+    private AudioClip audioClip;
 
     /**
      * Bij het instantieren van een nieuwe {@code Sound} kan de waarde van de parameter {@code cycleCount}
@@ -44,8 +45,15 @@ public class Sound implements ResourceConsumer {
      */
     public void play() {
         var url = createPathForResource(fileName);
-        var audioClip = new AudioClip(url);
+        audioClip = new AudioClip(url);
         audioClip.setCycleCount(cycleCount);
         audioClip.play();
+    }
+
+    /**
+     * Stop het afspelen van het audiobestand.
+     */
+    public void stop() {
+        audioClip.stop();
     }
 }
