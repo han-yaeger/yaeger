@@ -1,43 +1,28 @@
 package nl.han.ica.yaeger;
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
-import nl.han.ica.yaeger.exceptions.YaegerLifecycleException;
-import nl.han.ica.yaeger.gameobjects.GameObject;
-import nl.han.ica.yaeger.gameobjects.GameObjects;
-import nl.han.ica.yaeger.gameobjects.spawners.ObjectSpawner;
+import nl.han.ica.yaeger.exceptions.YaegerSceneNotAvailableException;
 import nl.han.ica.yaeger.metrics.GameDimensions;
-import nl.han.ica.yaeger.resourceconsumer.ResourceConsumer;
+import nl.han.ica.yaeger.scene.SceneType;
+import nl.han.ica.yaeger.scene.StaticScene;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * {@code YaegerEngine} is de basis-superklasse die ge-extend moet worden. Na het extenden zal een aantal methodes
  * worden aangeboden die het mogelijk maken de inhoud van het spel te initialiseren.
  */
-public abstract class YaegerEngine extends Application implements ResourceConsumer {
+public abstract class YaegerEngine extends Application {
 
     private static final GameDimensions DEFAULT_GAME_DIMENSIONS = new GameDimensions(640, 480);
 
     private GameDimensions gameDimensions = DEFAULT_GAME_DIMENSIONS;
 
-    private Set<KeyCode> input = new HashSet<>();
-
-    private Set<GameObject> inititialGameObjects = new HashSet<>();
-    private GameObjects gameObjects;
-    private Stage primaryStage;
-    private Scene scene;
-
-    private boolean sceneIsCreated = false;
-    private boolean stageIsShown = false;
-
+    private Stage yaegerStage;
+    private Map<SceneType, StaticScene> scenes = new HashMap<>();
+    private StaticScene activeScene;
 
     /**
      * Zet de breedte en hoogte van het spel.
@@ -45,9 +30,6 @@ public abstract class YaegerEngine extends Application implements ResourceConsum
      * @param dimensions Een {@link GameDimensions} object encapsuleert de breedte en hoogte van een spel.
      */
     protected void setGameDimensions(GameDimensions dimensions) {
-        if (sceneIsCreated) {
-            throw new YaegerLifecycleException("Het zetten van de spel dimensies is niet toegestaan. Het algemene scherm (stage) is al aangemaakt.");
-        }
         this.gameDimensions = dimensions;
     }
 
@@ -56,97 +38,74 @@ public abstract class YaegerEngine extends Application implements ResourceConsum
      *
      * @param title De titel van het spel.
      */
-    public void setGameTitle(String title) {
-        if (sceneIsCreated) {
-            throw new YaegerLifecycleException("Het zetten van de titel is nu niet toegestaan. Het algemene scherm (stage) is al aangemaakt.");
-        }
-
-        primaryStage.setTitle(title);
+    protected void setGameTitle(String title) {
+        yaegerStage.setTitle(title);
     }
 
     /**
-     * Deze methode wordt aangeroepen voordat de {@code Stage} wordt aangemaakt.
+     * Zet de huidige actieve {@link StaticScene}. Dit is de {@code Scene} die getoond wordt op het scherm en waarvan,
+     * indien beschikbaar, de {@code Gameloop} en {@code Eventlisteners} hun werk doen.
+     *
+     * @param type De enumeratie die de type van de {@code Scene} bevat.
+     * @return De {@link StaticScene}.
+     */
+    protected StaticScene setActiveScene(SceneType type) {
+        var requestedScene = scenes.get(type);
+
+        if (requestedScene == null) {
+            throw new YaegerSceneNotAvailableException(type);
+        }
+
+        requestedScene.setupScene();
+
+        if (activeScene != null) {
+            activeScene.tearDownScene();
+        }
+
+        activeScene = requestedScene;
+
+        yaegerStage.setScene(activeScene.getScene());
+        return activeScene;
+    }
+
+    /**
+     * Voeg een {@link StaticScene} toe aan dit spel.
+     *
+     * @param type  De enumeratie die de type van de {@code Scene} bevat.
+     * @param scene De {@link StaticScene} die moet worden toegevoegd.
+     */
+    public void addScene(SceneType type, StaticScene scene) {
+        scenes.put(type, scene);
+    }
+
+    /**
+     * Gebruik deze methode voor het initialiseren van het spel.
      *
      * <p>
      * Op dit moment is het mogelijk om de afmetingen van het scherm te zetten of een titel van het spel te zetten.
      * </p>
      */
-    protected void beforeStageIsCreated() {
-    }
+    protected abstract void initializeGame();
 
     /**
-     * Deze methode wordt aangeroepen voordat de Game Loop wordt aangemaakt.
+     * Gebruik deze methode voor het aanmaken en toevoegen van alle {@link StaticScene}s. Gebruik dit moment ook
+     * om de actieve {@link StaticScene} te zetten. Indien deze niet gezet is, zal een willekeurige als actieve
+     * worden gebruikt.
      */
-    protected void beforeGameLoopIsCreated() {
-    }
-
-    /**
-     * Deze methode wordt direct na het aanmaken van de Stage aangeroepen.
-     */
-    protected void afterStageIsShown() {
-    }
-
-    /**
-     * Zet het achtergrondplaatje van de Scene.
-     *
-     * @param image De naam van het bestand, inclusief extentie. Er worden zeer veel bestandsformaten ondersteund, maar
-     *              kies bij voorkeur voor een van de volgende:
-     *              <ul>
-     *              <li>jpg, jpeg</li>
-     *              <li>png</li>
-     *              </ul>
-     */
-    protected void setBackgroundImage(String image) {
-        if (!sceneIsCreated) {
-            throw new YaegerLifecycleException("Het is nog niet toegestaan de achtergrond van de scene te zetten. Dit kan pas nadat de {@code Scene} is aangemaakt.");
-        }
-
-        var stringUrl = createPathForResource(image);
-        var pattern = new ImagePattern(new Image(stringUrl));
-        scene.setFill(pattern);
-    }
-
+    protected abstract void setupScenes();
 
     @Override
     public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
+        yaegerStage = primaryStage;
 
-        beforeStageIsCreated();
+        initializeGame();
 
-        createStage();
+        yaegerStage.setWidth(gameDimensions.getWidth());
+        yaegerStage.setHeight(gameDimensions.getHeight());
 
-        beforeGameLoopIsCreated();
-        createGameLoop();
+        setupScenes();
 
-        showStage();
-        afterStageIsShown();
-    }
-
-    /**
-     * Voeg een {@link GameObject} toe aan de {@code Scene}. {@link GameObject}s kunnen maar één keer worden toegevoegd.
-     * Deze methode kan enkel gebruikt worden voor {@link GameObject}en die bij initialisatie aan het spel moeten worden
-     * toegevoegd. Indien er tijdens het spel extra {@link GameObject}en moeten worden toegevoegd, gebruik dan een
-     * {@link ObjectSpawner}.
-     *
-     * @param gameObject Het {@link GameObject} dat moet worden toegevoegd.
-     */
-    protected void addGameObject(GameObject gameObject) {
-        if (stageIsShown) {
-            throw new YaegerLifecycleException("It is no longer allowed to init more GameObjects. Please use a " +
-                    "GameObjectSpawner to create new GameObjects after the GameLoop has been created.");
-        }
-
-        inititialGameObjects.add(gameObject);
-    }
-
-    /**
-     * Registreer een {@link ObjectSpawner}. Na registratie zal de {@link ObjectSpawner} verantwoordelijk worden voor
-     * het aanmaken (spawnen) van nieuwe {@link GameObject}s.
-     *
-     * @param spawner De {@link ObjectSpawner} die geregistreerd moet worden.
-     */
-    protected void registerSpawner(ObjectSpawner spawner) {
-        gameObjects.registerSpawner(spawner);
+        showGame();
     }
 
     /**
@@ -167,48 +126,14 @@ public abstract class YaegerEngine extends Application implements ResourceConsum
         return this.gameDimensions.getWidth();
     }
 
-    private void createGameLoop() {
-        gameObjects.init(inititialGameObjects);
-
-        AnimationTimer animator = new AnimationTimer() {
-            @Override
-            public void handle(long arg0) {
-
-                gameObjects.update();
-            }
-        };
-
-        animator.start();
+    /**
+     * Stop het spel en sluit het scherm af.
+     */
+    public void quitGame() {
+        yaegerStage.close();
     }
 
-    private void addKeyListeners(Scene scene) {
-        scene.setOnKeyPressed(
-                e -> {
-                    var code = e.getCode();
-                    input.add(code);
-                    gameObjects.notifyGameObjectsOfPressedKeys(input);
-                });
-
-        scene.setOnKeyReleased(
-                e -> {
-                    var code = e.getCode();
-                    input.remove(code);
-                    gameObjects.notifyGameObjectsOfPressedKeys(input);
-                });
-    }
-
-    private void createStage() {
-        var root = new Group();
-        gameObjects = new GameObjects(root);
-
-        scene = new Scene(root, gameDimensions.getWidth(), gameDimensions.getHeight());
-        primaryStage.setScene(scene);
-
-        addKeyListeners(scene);
-        sceneIsCreated = true;
-    }
-
-    private void showStage() {
-        primaryStage.show();
+    private void showGame() {
+        yaegerStage.show();
     }
 }

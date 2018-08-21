@@ -1,8 +1,8 @@
 package nl.han.ica.yaeger.delegates;
 
-import nl.han.ica.yaeger.gameobjects.GameObject;
-import nl.han.ica.yaeger.gameobjects.interfaces.Collided;
-import nl.han.ica.yaeger.gameobjects.interfaces.Collider;
+import nl.han.ica.yaeger.entities.Entity;
+import nl.han.ica.yaeger.entities.interfaces.Collided;
+import nl.han.ica.yaeger.entities.interfaces.Collider;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +23,7 @@ public class CollisionDelegate {
         colliders = new HashSet<>();
     }
 
-    public void registerForCollisionDetection(GameObject collided) {
+    public void registerForCollisionDetection(Entity collided) {
         if (collided instanceof Collider) {
             colliders.add((Collider) collided);
         }
@@ -33,16 +33,16 @@ public class CollisionDelegate {
     }
 
     /**
-     * Remove the GameObject from the list of Objects that are taken into account
+     * Remove the Entity from the list of Objects that are taken into account
      *
-     * @param gameObject The GameObject that should be removed.
+     * @param entity The Entity that should be removed.
      */
-    public void removeGameObject(GameObject gameObject) {
-        if (gameObject instanceof Collider) {
-            removeCollider((Collider) gameObject);
+    public void removeGameObject(Entity entity) {
+        if (entity instanceof Collider) {
+            removeCollider((Collider) entity);
         }
-        if (gameObject instanceof Collided) {
-            removeCollided((Collided) gameObject);
+        if (entity instanceof Collided) {
+            removeCollided((Collided) entity);
         }
     }
 
