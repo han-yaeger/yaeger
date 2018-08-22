@@ -1,15 +1,14 @@
 package nl.han.ica.yaeger;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.han.ica.yaeger.exceptions.YaegerSceneNotAvailableException;
 import nl.han.ica.yaeger.metrics.GameDimensions;
+import nl.han.ica.yaeger.scene.SceneManager;
 import nl.han.ica.yaeger.scene.SceneType;
 import nl.han.ica.yaeger.scene.StaticScene;
 import nl.han.ica.yaeger.scene.YaegerScene;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -23,7 +22,7 @@ public abstract class YaegerEngine extends Application {
     private GameDimensions gameDimensions = DEFAULT_GAME_DIMENSIONS;
 
     private Stage yaegerStage;
-    private Map<SceneType, StaticScene> scenes = new HashMap<>();
+    private SceneManager scenes = new SceneManager();
     private YaegerScene activeScene;
 
     /**
@@ -76,7 +75,7 @@ public abstract class YaegerEngine extends Application {
      * @param type  De enumeratie die de type van de {@code Scene} bevat.
      * @param scene De {@link StaticScene} die moet worden toegevoegd.
      */
-    public void addScene(SceneType type, StaticScene scene) {
+    protected void addScene(SceneType type, StaticScene scene) {
         scenes.put(type, scene);
     }
 

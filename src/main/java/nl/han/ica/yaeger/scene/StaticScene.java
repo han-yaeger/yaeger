@@ -8,6 +8,7 @@ import javafx.scene.paint.ImagePattern;
 import nl.han.ica.yaeger.entities.Entity;
 import nl.han.ica.yaeger.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.resourceconsumer.ResourceConsumer;
+import nl.han.ica.yaeger.resourceconsumer.audio.Sound;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,6 +17,7 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
 
     private Scene scene;
     private Group root;
+    private Sound backgroundAudio;
     protected Set<KeyCode> input = new HashSet<>();
 
     /**
@@ -47,6 +49,21 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
         scene.setFill(pattern);
     }
 
+    /**
+     * Zet de achtergrondaudio van de Scene.
+     *
+     * @param file De naam van het bestand, inclusief extentie. Er worden zeer veel bestandsformaten ondersteund, maar
+     *             kies bij voorkeur voor een van de volgende:
+     *             <ul>
+     *             <li>jpg, jpeg</li>
+     *             <li>png</li>
+     *             </ul>
+     */
+    protected void setBackgroundAudio(String file) {
+
+        backgroundAudio = new Sound(file, Sound.INDEFINITE);
+        backgroundAudio.play();
+    }
 
     /**
      * Implementeer deze methode om bericht te krijgen wanneer set van ingedrukte toetsen wijzigt.
@@ -61,12 +78,20 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
         root = new Group();
         scene = new Scene(root);
         addKeyListeners();
+
+        if (backgroundAudio != null) {
+            backgroundAudio.play();
+        }
     }
 
     @Override
     public void tearDownScene() {
         scene.setOnKeyPressed(null);
         scene.setOnKeyReleased(null);
+
+        if (backgroundAudio != null) {
+            backgroundAudio.stop();
+        }
     }
 
     @Override

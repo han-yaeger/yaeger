@@ -57,7 +57,7 @@ public class GameScene extends DynamicScene {
         super.setupScene();
 
         setBackgroundImage("underwater2.jpg");
-        setBackgroundAudio();
+        setBackgroundAudio("audio/waterworld.mp3");
     }
 
     @Override
@@ -81,11 +81,6 @@ public class GameScene extends DynamicScene {
 
         var player = new Player(100, 100, this);
         addEntity(player);
-    }
-
-    private void setBackgroundAudio() {
-        backgroundAudio = new Sound("audio/waterworld.mp3", Sound.INDEFINITE);
-        backgroundAudio.play();
     }
 
     private void setupDashboard() {

@@ -36,6 +36,7 @@ public class IntroScene extends StaticScene {
         super.setupScene();
 
         setBackgroundImage("underwater2.jpg");
+        setBackgroundAudio("audio/ocean.mp3");
 
         createWaterworldText();
         createButtons();

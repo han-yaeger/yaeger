@@ -4,7 +4,6 @@ import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.delegates.CollisionDelegate;
 import nl.han.ica.yaeger.entities.spawners.EntitySpawner;
-import nl.han.ica.yaeger.exceptions.YaegerLifecycleException;
 import nl.han.ica.yaeger.entities.events.EventTypes;
 import nl.han.ica.yaeger.entities.interfaces.KeyListener;
 import nl.han.ica.yaeger.entities.interfaces.Updatable;
@@ -13,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Een {@code EntityCollection} incapsuleert al het gedrag dat gerelateerd is aan de verzameling van alle
+ * Een {@code EntityCollection} encapsuleert al het gedrag dat gerelateerd is aan de verzameling van alle
  * {@link Entity} die deel uit maken van een {@link nl.han.ica.yaeger.scene.YaegerScene}.
  */
 public class EntityCollection {
@@ -26,41 +25,25 @@ public class EntityCollection {
     private Set<Entity> garbage = new HashSet<>();
 
     private CollisionDelegate collisionDelegate;
-    private boolean updateHasBeenCalled = false;
 
     /**
-     * Creëer een nieuwe {@code EntityCollection}
-     * <p>
-     * Een {@code EntityCollection} encapsuleert alle verantwoordelijkheden met betrekking het toevoegen of
-     * verwijderer van een {@link Entity} aan het spel.
+     * Initialiseer deze {@code EntityCollection}.
      *
-     * @param group De {@link Group} waaraan deze {@code EntityCollection} zijn {@link Entity} aan zal toevoegen of
-     *              verwijderen.
+     * @param group
+     * @param initialEntities Een {@link Set} met {@link Entity} die initieel aan deze {@code EntityCollection} moet worden
+     *                        toegevoegd.
      */
-    public EntityCollection(Group group) {
-
+    public void init(Group group, Set<Entity> initialEntities) {
         this.group = group;
         this.collisionDelegate = new CollisionDelegate();
-    }
 
-    /**
-     * Add a new Entity. The Entity is first added to the list of incubator Objects. Only after the first
-     * update cycle, all incubators are added
-     *
-     * @param initialEntities A Set containing all EntityCollection that should be present at initialization.
-     */
-    public void init(Set<Entity> initialEntities) {
-        if (updateHasBeenCalled) {
-            throw new YaegerLifecycleException("The renderloop has already started, so it is no longer allowed to call" +
-                    "init(). Please use an EntitySpawner to add new EntityCollection.");
-        }
         initialEntities.forEach(this::addToGameLoop);
     }
 
     /**
-     * Register an EntitySpawner.
+     * registreer een {@link EntitySpawner}.
      *
-     * @param spawner The EntitySpawner to be registered.
+     * @param spawner De {@link EntitySpawner} die geregistreerd moet worden.
      */
     public void registerSpawner(EntitySpawner spawner) {
         this.spawners.add(spawner);
@@ -98,8 +81,6 @@ public class EntityCollection {
      * </ul>
      */
     public void update() {
-        updateHasBeenCalled = true;
-
         collectGarbage();
         notifyUpdatables();
         addSpawnedObjects();

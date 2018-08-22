@@ -17,8 +17,9 @@ import java.util.Set;
  */
 public abstract class DynamicScene extends StaticScene {
 
-    protected Set<Entity> initialEntities = new HashSet<>();
-    private EntityCollection entityCollection;
+    private EntityCollection entityCollection = new EntityCollection();
+
+    private Set<Entity> initialEntities = new HashSet<>();
     private AnimationTimer animator;
 
     private boolean gameLoopIsRunning = false;
@@ -37,30 +38,6 @@ public abstract class DynamicScene extends StaticScene {
     protected abstract void setupSpawners();
 
     public abstract void setupDynamicEntities();
-
-    @Override
-    public void tearDownScene() {
-        super.tearDownScene();
-
-        stopGameLoop();
-    }
-
-    /**
-     * Start de {@code Gameloop}.
-     */
-    public void startGameLoop() {
-        gameLoopIsRunning = true;
-        animator.start();
-    }
-
-    /**
-     * Stop de {@code Gameloop}.
-     */
-    public void stopGameLoop() {
-        animator.stop();
-        gameLoopIsRunning = false;
-    }
-
 
     /**
      * Voeg een {@link Entity} toe aan de {@code Scene}. Iedere {@link Entity} kunnen maar één keer worden toegevoegd.
@@ -93,9 +70,25 @@ public abstract class DynamicScene extends StaticScene {
         entityCollection.registerSpawner(spawner);
     }
 
+    @Override
+    public void tearDownScene() {
+        super.tearDownScene();
+
+        stopGameLoop();
+    }
+
+    private void startGameLoop() {
+        gameLoopIsRunning = true;
+        animator.start();
+    }
+
+    private void stopGameLoop() {
+        animator.stop();
+        gameLoopIsRunning = false;
+    }
+
     private void createGameLoop() {
-        entityCollection = new EntityCollection(getRoot());
-        entityCollection.init(initialEntities);
+        entityCollection.init(getRoot(), initialEntities);
 
         animator = new AnimationTimer() {
             @Override

@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.testobjects.gameobjects;
+package nl.han.ica.yaeger.testobjects.entityCollection;
 
 import javafx.scene.Node;
 import nl.han.ica.yaeger.entities.Entity;
