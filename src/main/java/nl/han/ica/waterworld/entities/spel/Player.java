@@ -1,7 +1,7 @@
 package nl.han.ica.waterworld.entities.spel;
 
 import javafx.scene.input.KeyCode;
-import nl.han.ica.waterworld.scenes.GameScene;
+import nl.han.ica.waterworld.scenes.Level;
 import nl.han.ica.yaeger.delegates.CollisionSide;
 import nl.han.ica.yaeger.entities.interfaces.Collidable;
 import nl.han.ica.yaeger.entities.interfaces.Collider;
@@ -13,18 +13,18 @@ import java.util.Set;
 public class Player extends UpdatableSpriteEntity implements KeyListener, Collidable {
 
     private int health = 10;
-    private GameScene game;
+    private Level level;
 
-    public Player(final double x, final double y, final GameScene game) {
+    public Player(final double x, final double y, final Level level) {
         super("images/player.png", x, y, 2, 0, 0);
-        this.game = game;
+        this.level = level;
     }
 
     public void doDamage() {
         health--;
-        game.setHealthText(health);
+        level.setHealthText(health);
         if (health <= 0) {
-            game.playerDied();
+            level.playerDied();
             remove();
         }
     }

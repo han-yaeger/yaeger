@@ -1,6 +1,6 @@
 package nl.han.ica.waterworld.entities.spel;
 
-import nl.han.ica.waterworld.scenes.GameScene;
+import nl.han.ica.waterworld.scenes.Level;
 import nl.han.ica.yaeger.entities.enumerations.SceneBorder;
 import nl.han.ica.yaeger.entities.interfaces.Collided;
 import nl.han.ica.yaeger.entities.sprites.UpdatableSpriteEntity;
@@ -8,11 +8,11 @@ import nl.han.ica.yaeger.resourceconsumer.audio.Sound;
 
 public abstract class Bubble extends UpdatableSpriteEntity implements Collided {
 
-    private final GameScene game;
+    private final Level level;
 
-    public Bubble(final String resource, final double x, final double y, final double speed, final GameScene game) {
+    Bubble(final String resource, final double x, final double y, final double speed, final Level game) {
         super(resource, x, y, 0, 2, speed, 0);
-        this.game = game;
+        this.level = game;
         scaleToWidth(20);
     }
 
@@ -23,15 +23,15 @@ public abstract class Bubble extends UpdatableSpriteEntity implements Collided {
         }
     }
 
-    protected void handleCollision() {
-        game.increaseBubblesPopped();
+    void handleCollision() {
+        level.increaseBubblesPopped();
 
         Sound popSound = new Sound("audio/pop.mp3");
         popSound.play();
         remove();
     }
 
-    protected GameScene getGame() {
-        return game;
+    protected Level getLevel() {
+        return level;
     }
 }

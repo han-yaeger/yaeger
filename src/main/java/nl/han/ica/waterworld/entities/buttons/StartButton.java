@@ -22,7 +22,7 @@ public class StartButton extends TextEntity {
     @Override
     protected void onMousePressed(MouseButton button) {
         if (button.equals(MouseButton.PRIMARY)) {
-            waterworld.nextScene(SceneType.GAME);
+            waterworld.nextScene(SceneType.LEVEL_ONE);
         }
     }
 }

@@ -1,26 +1,16 @@
 package nl.han.ica.waterworld.scenes;
 
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import nl.han.ica.waterworld.Waterworld;
 import nl.han.ica.waterworld.entities.spel.Player;
 import nl.han.ica.waterworld.entities.spel.Swordfish;
 import nl.han.ica.waterworld.entities.spel.spawners.BubbleSpawner;
-import nl.han.ica.yaeger.entities.text.TextEntity;
-import nl.han.ica.yaeger.resourceconsumer.audio.Sound;
 import nl.han.ica.yaeger.scene.SceneType;
-import nl.han.ica.yaeger.scene.DynamicScene;
 
-public class GameScene extends DynamicScene {
+public class LevelOne extends Level {
 
-    private int bubblesPopped = 0;
-    private TextEntity bubblesPoppedText;
-    private TextEntity healthText;
-    private Waterworld waterworld;
-    private Sound backgroundAudio;
 
-    public GameScene(final Waterworld waterworld) {
-        this.waterworld = waterworld;
+    public LevelOne(final Waterworld waterworld) {
+        super(waterworld);
     }
 
     /**
@@ -32,13 +22,6 @@ public class GameScene extends DynamicScene {
         healthText.setText("Health: " + health);
     }
 
-    /**
-     * Verhoog de waarde van het aantal ontplofte bubbles.
-     */
-    public void increaseBubblesPopped() {
-        bubblesPopped++;
-        updateBubblesPoppedText();
-    }
 
     /**
      * Deze methode wordt aangeroepen wanneer de speler sterft.
@@ -61,15 +44,18 @@ public class GameScene extends DynamicScene {
     }
 
     @Override
-    public void tearDownScene() {
-        super.tearDownScene();
-        backgroundAudio.stop();
-    }
-
-    @Override
     protected void setupSpawners() {
         var spawner = new BubbleSpawner(waterworld.getGameWidth(), waterworld.getGameHeight(), this);
         registerSpawner(spawner);
+    }
+
+    @Override
+    public void increaseBubblesPopped() {
+        super.increaseBubblesPopped();
+
+        if (bubblesPopped > 9) {
+            waterworld.nextScene(SceneType.LEVEL_TWO);
+        }
     }
 
     @Override
@@ -81,19 +67,5 @@ public class GameScene extends DynamicScene {
 
         var player = new Player(100, 100, this);
         addEntity(player);
-    }
-
-    private void setupDashboard() {
-        bubblesPoppedText = new TextEntity(10, 40);
-        bubblesPoppedText.setFont(Font.font("palatino", 40));
-        bubblesPoppedText.setFill(Color.VIOLET);
-        addEntity(bubblesPoppedText);
-        updateBubblesPoppedText();
-
-        healthText = new TextEntity(960, 40);
-        healthText.setFont(Font.font("palatino", 40));
-        healthText.setFill(Color.DARKBLUE);
-        addEntity(healthText);
-        setHealthText(10);
     }
 }

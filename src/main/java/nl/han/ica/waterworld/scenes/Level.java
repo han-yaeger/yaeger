@@ -7,18 +7,18 @@ import nl.han.ica.yaeger.entities.text.TextEntity;
 import nl.han.ica.yaeger.scene.DynamicScene;
 import nl.han.ica.yaeger.scene.SceneType;
 
-public abstract class Levels extends DynamicScene {
+public abstract class Level extends DynamicScene {
 
     protected Waterworld waterworld;
-    protected int bubblesPopped = 0;
-    protected TextEntity bubblesPoppedText;
-    protected TextEntity healthText;
+    int bubblesPopped = 0;
+    TextEntity bubblesPoppedText;
+    TextEntity healthText;
 
-    public Levels(final Waterworld waterworld) {
+    Level(final Waterworld waterworld) {
         this.waterworld = waterworld;
     }
 
-    protected void setupDashboard() {
+    void setupDashboard() {
         bubblesPoppedText = new TextEntity(10, 40);
         bubblesPoppedText.setFont(Font.font("palatino", 40));
         bubblesPoppedText.setFill(Color.VIOLET);
@@ -42,7 +42,7 @@ public abstract class Levels extends DynamicScene {
     }
 
     /**
-     * Verhoog de waarde van het aantal ontplofte bubbles.
+     * Verhoog de waarde van het aantal gepopte bubbles.
      */
     public void increaseBubblesPopped() {
         bubblesPopped++;

@@ -2,7 +2,7 @@ package nl.han.ica.waterworld.entities.spel.spawners;
 
 import nl.han.ica.waterworld.entities.spel.Air;
 import nl.han.ica.waterworld.entities.spel.Poison;
-import nl.han.ica.waterworld.scenes.GameScene;
+import nl.han.ica.waterworld.scenes.Level;
 import nl.han.ica.yaeger.entities.spawners.EntitySpawner;
 
 import java.util.Random;
@@ -11,9 +11,9 @@ public class BubbleSpawner extends EntitySpawner {
 
     private final int worldWidth;
     private final int worldHeight;
-    private GameScene waterworld;
+    private Level waterworld;
 
-    public BubbleSpawner(int width, int height, GameScene waterworld) {
+    public BubbleSpawner(int width, int height, Level waterworld) {
         super(100);
 
         this.worldWidth = width;

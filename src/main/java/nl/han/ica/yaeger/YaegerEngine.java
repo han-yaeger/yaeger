@@ -9,8 +9,6 @@ import nl.han.ica.yaeger.scene.SceneType;
 import nl.han.ica.yaeger.scene.StaticScene;
 import nl.han.ica.yaeger.scene.YaegerScene;
 
-import java.util.Map;
-
 /**
  * {@code YaegerEngine} is de basis-superklasse die ge-extend moet worden. Na het extenden zal een aantal methodes
  * worden aangeboden die het mogelijk maken de inhoud van het spel te initialiseren.

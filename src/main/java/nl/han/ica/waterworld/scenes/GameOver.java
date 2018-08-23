@@ -11,18 +11,18 @@ import nl.han.ica.yaeger.scene.StaticScene;
 
 import java.util.Set;
 
-public class GameOverScene extends StaticScene {
+public class GameOver extends StaticScene {
 
     private Waterworld waterworld;
 
-    public GameOverScene(Waterworld waterworld) {
+    public GameOver(Waterworld waterworld) {
         this.waterworld = waterworld;
     }
 
     @Override
     public void onInputChanged(Set<KeyCode> input) {
         if (input.contains(KeyCode.ENTER)) {
-            waterworld.nextScene(SceneType.OPENING);
+            waterworld.nextScene(SceneType.INTRO);
         }
     }
 

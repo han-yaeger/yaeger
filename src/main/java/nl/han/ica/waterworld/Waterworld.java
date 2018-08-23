@@ -1,8 +1,9 @@
 package nl.han.ica.waterworld;
 
-import nl.han.ica.waterworld.scenes.GameScene;
-import nl.han.ica.waterworld.scenes.GameOverScene;
-import nl.han.ica.waterworld.scenes.IntroScene;
+import nl.han.ica.waterworld.scenes.LevelOne;
+import nl.han.ica.waterworld.scenes.GameOver;
+import nl.han.ica.waterworld.scenes.Intro;
+import nl.han.ica.waterworld.scenes.LevelTwo;
 import nl.han.ica.yaeger.YaegerEngine;
 import nl.han.ica.yaeger.metrics.GameDimensions;
 import nl.han.ica.yaeger.scene.SceneType;
@@ -25,16 +26,18 @@ public class Waterworld extends YaegerEngine {
 
     @Override
     public void setupScenes() {
-        var introScene = new IntroScene(this);
-        var gameScene = new GameScene(this);
-        var gameOverScene = new GameOverScene(this);
+        var introScene = new Intro(this);
+        var levelOne = new LevelOne(this);
+        var levelTwo = new LevelTwo(this);
+        var gameOverScene = new GameOver(this);
 
-        addScene(SceneType.OPENING, introScene);
-        addScene(SceneType.GAME, gameScene);
+        addScene(SceneType.INTRO, introScene);
+        addScene(SceneType.LEVEL_ONE, levelOne);
+        addScene(SceneType.LEVEL_TWO, levelTwo);
         addScene(SceneType.GAMEOVER, gameOverScene);
 
 
-        setActiveScene(SceneType.OPENING);
+        setActiveScene(SceneType.INTRO);
     }
 
     public void nextScene(SceneType scene) {
