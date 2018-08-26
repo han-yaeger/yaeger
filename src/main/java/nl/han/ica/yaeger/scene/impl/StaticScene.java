@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.scene;
+package nl.han.ica.yaeger.scene.impl;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -9,6 +9,9 @@ import nl.han.ica.yaeger.entities.Entity;
 import nl.han.ica.yaeger.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.resourceconsumer.ResourceConsumer;
 import nl.han.ica.yaeger.resourceconsumer.audio.Sound;
+import nl.han.ica.yaeger.scene.YaegerScene;
+import nl.han.ica.yaeger.scene.factory.GroupFactory;
+import nl.han.ica.yaeger.scene.factory.SceneFactory;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -75,8 +78,8 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
 
     @Override
     public void setupScene() {
-        root = new Group();
-        scene = new Scene(root);
+        root = new GroupFactory().getInstance();
+        scene = new SceneFactory().getInstance(root);
         addKeyListeners();
 
         if (backgroundAudio != null) {
@@ -86,12 +89,24 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
 
     @Override
     public void tearDownScene() {
-        scene.setOnKeyPressed(null);
-        scene.setOnKeyReleased(null);
+        removeKeyListeners();
+        stopBackgroundAudio();
+        removeElementsFromView();
+    }
 
+    private void removeElementsFromView() {
+        root.getChildren().clear();
+    }
+
+    private void stopBackgroundAudio() {
         if (backgroundAudio != null) {
             backgroundAudio.stop();
         }
+    }
+
+    private void removeKeyListeners() {
+        scene.setOnKeyPressed(null);
+        scene.setOnKeyReleased(null);
     }
 
     @Override

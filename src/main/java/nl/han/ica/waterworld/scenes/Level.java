@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import nl.han.ica.waterworld.Waterworld;
 import nl.han.ica.yaeger.entities.text.TextEntity;
-import nl.han.ica.yaeger.scene.DynamicScene;
+import nl.han.ica.yaeger.scene.impl.DynamicScene;
 import nl.han.ica.yaeger.scene.SceneType;
 
 public abstract class Level extends DynamicScene {

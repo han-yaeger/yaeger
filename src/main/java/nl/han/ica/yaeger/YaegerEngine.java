@@ -4,9 +4,9 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import nl.han.ica.yaeger.exceptions.YaegerSceneNotAvailableException;
 import nl.han.ica.yaeger.metrics.GameDimensions;
-import nl.han.ica.yaeger.scene.SceneManager;
+import nl.han.ica.yaeger.scene.SceneList;
 import nl.han.ica.yaeger.scene.SceneType;
-import nl.han.ica.yaeger.scene.StaticScene;
+import nl.han.ica.yaeger.scene.impl.StaticScene;
 import nl.han.ica.yaeger.scene.YaegerScene;
 
 /**
@@ -20,7 +20,7 @@ public abstract class YaegerEngine extends Application {
     private GameDimensions gameDimensions = DEFAULT_GAME_DIMENSIONS;
 
     private Stage yaegerStage;
-    private SceneManager scenes = new SceneManager();
+    private SceneList scenes = new SceneList();
     private YaegerScene activeScene;
 
     /**
@@ -46,9 +46,8 @@ public abstract class YaegerEngine extends Application {
      * indien beschikbaar, de {@code Gameloop} en {@code Eventlisteners} hun werk doen.
      *
      * @param type De enumeratie die de type van de {@code Scene} bevat.
-     * @return De {@link YaegerScene}.
      */
-    protected YaegerScene setActiveScene(SceneType type) {
+    protected void setActiveScene(SceneType type) {
         var requestedScene = scenes.get(type);
 
         if (requestedScene == null) {
@@ -64,7 +63,6 @@ public abstract class YaegerEngine extends Application {
         activeScene = requestedScene;
 
         yaegerStage.setScene(activeScene.getScene());
-        return activeScene;
     }
 
     /**

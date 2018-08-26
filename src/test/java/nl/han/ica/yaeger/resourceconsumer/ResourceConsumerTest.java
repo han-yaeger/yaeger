@@ -4,9 +4,6 @@ import nl.han.ica.yaeger.exceptions.YaegerResourceNotAvailableException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -14,19 +11,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ResourceConsumerTest {
 
-    public static final String RESOURCE_EXISTING = "images/sprite-with-two-frames.png";
-    public static final String RESOURCE_NOT_EXISTING = "unavailable.png";
+    static final String RESOURCE_EXISTING = "images/sprite-with-two-frames.png";
+    static final String RESOURCE_NOT_EXISTING = "unavailable.png";
 
     ResourceConsumer resourceConsumer;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         resourceConsumer = new ResourceConsumer() {
         };
     }
 
     @Test
-    public void unavailableResourceReturnsCorrectException() {
+    void unavailableResourceReturnsCorrectException() {
         assertThrows(YaegerResourceNotAvailableException.class,
                 () ->
                         resourceConsumer.createPathForResource(RESOURCE_NOT_EXISTING)
@@ -34,7 +31,7 @@ public class ResourceConsumerTest {
     }
 
     @Test
-    public void thrownUnavailableResourceExceptionDisplaysCorrectMessage() {
+    void thrownUnavailableResourceExceptionDisplaysCorrectMessage() {
         Throwable exception = assertThrows(YaegerResourceNotAvailableException.class,
                 () -> resourceConsumer.createPathForResource(RESOURCE_NOT_EXISTING));
 
@@ -42,21 +39,21 @@ public class ResourceConsumerTest {
     }
 
     @Test
-    public void emptyResourceParameterReturnsEmptyString() {
+    void emptyResourceParameterReturnsEmptyString() {
         var path = resourceConsumer.createPathForResource("");
 
         assertEquals("", path);
     }
 
     @Test
-    public void nullResourceParameterReturnsEmptyString() {
+    void nullResourceParameterReturnsEmptyString() {
         var path = resourceConsumer.createPathForResource(null);
 
         assertEquals("", path);
     }
 
     @Test
-    public void availableResourceReturnsExistingPath() {
+    void availableResourceReturnsExistingPath() {
         var path = resourceConsumer.createPathForResource(RESOURCE_EXISTING);
 
         assertTrue(path.startsWith("file:/"));

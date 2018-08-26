@@ -5,27 +5,27 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class EntitySpawnerTest {
+class EntitySpawnerTest {
 
     private EntitySpawner entitySpawner;
 
     private boolean tickHasBeenCalled;
 
     @BeforeEach
-    public void setup() {
+     void setup() {
         entitySpawner = new TestEntitySpawner(1000);
         tickHasBeenCalled = false;
     }
 
     @Test
-    public void testTickIsNotCalledImmediatlyAfterCreation() {
+     void testTickIsNotCalledImmediatlyAfterCreation() {
         assertFalse(tickHasBeenCalled);
     }
 
 
     private class TestEntitySpawner extends EntitySpawner {
 
-        public TestEntitySpawner(long interval) {
+         TestEntitySpawner(long interval) {
             super(interval);
         }
 

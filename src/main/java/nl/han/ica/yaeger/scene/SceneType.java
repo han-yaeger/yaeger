@@ -1,5 +1,8 @@
 package nl.han.ica.yaeger.scene;
 
+/**
+ * Beschikbare {@code SceneType}s voor een implementatie van een {@link YaegerScene}.
+ */
 public enum SceneType {
     INTRO,
     LEVEL_ONE,

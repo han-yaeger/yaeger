@@ -1,7 +1,7 @@
 package nl.han.ica.yaeger.exceptions;
 
 import nl.han.ica.yaeger.scene.SceneType;
-import nl.han.ica.yaeger.scene.StaticScene;
+import nl.han.ica.yaeger.scene.impl.StaticScene;
 
 /**
  * Een {@code YaegerSceneNotAvailableException} wordt gegooit waneer een {@link StaticScene} wordt opgevraagd die niet beschikbaar

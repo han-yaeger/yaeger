@@ -29,7 +29,7 @@ public class EntityCollection {
     /**
      * Initialiseer deze {@code EntityCollection}.
      *
-     * @param group
+     * @param group           De {@link Group} waar alle {@link Entity}s aan moeten worden toegevoegd.
      * @param initialEntities Een {@link Set} met {@link Entity} die initieel aan deze {@code EntityCollection} moet worden
      *                        toegevoegd.
      */
@@ -37,7 +37,9 @@ public class EntityCollection {
         this.group = group;
         this.collisionDelegate = new CollisionDelegate();
 
-        initialEntities.forEach(this::addToGameLoop);
+        if (initialEntities != null && !initialEntities.isEmpty()) {
+            initialEntities.forEach(this::addToGameLoop);
+        }
     }
 
     /**
@@ -55,7 +57,7 @@ public class EntityCollection {
      *
      * @param entity The Entity to be removed.
      */
-    public void markAsGarbage(Entity entity) {
+    private void markAsGarbage(Entity entity) {
 
         this.garbage.add(entity);
     }
@@ -85,6 +87,34 @@ public class EntityCollection {
         notifyUpdatables();
         addSpawnedObjects();
         collisionDelegate.checkCollisions();
+    }
+
+    /**
+     * Leeg deze {@code EntityCollection} van alle {@link Entity}s.
+     */
+    public void clear() {
+        spawners.clear();
+        statics.clear();
+        updatables.clear();
+        garbage.clear();
+    }
+
+    /**
+     * Retoruneerd het aantal {@link Entity}s, die niet {@link Updatable} zijn,  die zijn geregistreerd in deze {@code EntityCollection}
+     *
+     * @return Het aantal {@link Entity}s, die niet {@link Updatable} zijn
+     */
+    public int getNumberOfStaticEntities() {
+        return statics.size();
+    }
+
+    /**
+     * Retoruneerd het aantal {@link Updatable} {@link Entity}s die zijn geregistreerd in deze {@code EntityCollection}.
+     *
+     * @return Het aantal {@link Updatable} {@link Entity}s,
+     */
+    public int getNumberOfDynamicEntities() {
+        return updatables.size();
     }
 
 

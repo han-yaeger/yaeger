@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.scene;
+package nl.han.ica.yaeger.scene.impl;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
@@ -72,9 +72,14 @@ public abstract class DynamicScene extends StaticScene {
 
     @Override
     public void tearDownScene() {
-        super.tearDownScene();
-
         stopGameLoop();
+        clearEntityCollection();
+
+        super.tearDownScene();
+    }
+
+    private void clearEntityCollection() {
+        entityCollection.clear();
     }
 
     private void startGameLoop() {
@@ -84,6 +89,7 @@ public abstract class DynamicScene extends StaticScene {
 
     private void stopGameLoop() {
         animator.stop();
+        animator = null;
         gameLoopIsRunning = false;
     }
 
