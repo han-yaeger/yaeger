@@ -14,24 +14,10 @@ public class LevelOne extends Level {
     }
 
     /**
-     * Zet de healthwaarde van de speler.
-     *
-     * @param health De health als integer.
-     */
-    public void setHealthText(final int health) {
-        healthText.setText("Health: " + health);
-    }
-
-
-    /**
      * Deze methode wordt aangeroepen wanneer de speler sterft.
      */
     public void playerDied() {
         waterworld.nextScene(SceneType.GAMEOVER);
-    }
-
-    private void updateBubblesPoppedText() {
-        bubblesPoppedText.setText("Bubbles popped: " + bubblesPopped);
     }
 
     @Override
@@ -60,7 +46,7 @@ public class LevelOne extends Level {
 
     @Override
     public void setupDynamicEntities() {
-        setupDashboard();
+        super.setupDynamicEntities();
 
         var swordFish = new Swordfish(200, 200);
         addEntity(swordFish);

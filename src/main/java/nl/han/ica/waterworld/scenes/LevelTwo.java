@@ -28,10 +28,7 @@ public class LevelTwo extends Level {
 
     @Override
     public void setupDynamicEntities() {
-        setupDashboard();
-
-        var swordFish = new Swordfish(200, 200);
-        addEntity(swordFish);
+        super.setupDynamicEntities();
 
         var player = new Player(100, 100, this);
         addEntity(player);

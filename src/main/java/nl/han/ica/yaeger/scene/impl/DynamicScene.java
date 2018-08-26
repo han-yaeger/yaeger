@@ -47,6 +47,7 @@ public abstract class DynamicScene extends StaticScene {
      *
      * @param entity Het {@link Entity} dat moet worden toegevoegd.
      */
+    @Override
     protected void addEntity(Entity entity) {
         if (gameLoopIsRunning) {
             throw new YaegerLifecycleException("De GameLoop is al bezig. Het is niet langer toegestaan een Entity toe " +

@@ -1,7 +1,6 @@
 package nl.han.ica.yaeger.entities.events;
 
 import javafx.event.Event;
-import javafx.event.EventType;
 import nl.han.ica.yaeger.entities.Entity;
 
 /**

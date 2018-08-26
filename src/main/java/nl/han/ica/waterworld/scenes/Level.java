@@ -32,6 +32,12 @@ public abstract class Level extends DynamicScene {
         setHealthText(10);
     }
 
+
+    @Override
+    public void setupDynamicEntities() {
+        setupDashboard();
+    }
+
     /**
      * Zet de healthwaarde van de speler.
      *
