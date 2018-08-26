@@ -11,14 +11,14 @@ public abstract class Level extends DynamicScene {
 
     protected Waterworld waterworld;
     int bubblesPopped = 0;
-    TextEntity bubblesPoppedText;
-    TextEntity healthText;
+    private TextEntity bubblesPoppedText;
+    private TextEntity healthText;
 
     Level(final Waterworld waterworld) {
         this.waterworld = waterworld;
     }
 
-    void setupDashboard() {
+    private void setupDashboard() {
         bubblesPoppedText = new TextEntity(10, 40);
         bubblesPoppedText.setFont(Font.font("palatino", 40));
         bubblesPoppedText.setFill(Color.VIOLET);

@@ -13,13 +13,6 @@ public class LevelOne extends Level {
         super(waterworld);
     }
 
-    /**
-     * Deze methode wordt aangeroepen wanneer de speler sterft.
-     */
-    public void playerDied() {
-        waterworld.nextScene(SceneType.GAMEOVER);
-    }
-
     @Override
     public void setupScene() {
 

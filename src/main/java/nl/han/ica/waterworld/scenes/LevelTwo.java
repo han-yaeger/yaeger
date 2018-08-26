@@ -2,7 +2,6 @@ package nl.han.ica.waterworld.scenes;
 
 import nl.han.ica.waterworld.Waterworld;
 import nl.han.ica.waterworld.entities.spel.Player;
-import nl.han.ica.waterworld.entities.spel.Swordfish;
 import nl.han.ica.waterworld.entities.spel.spawners.BubbleSpawner;
 
 public class LevelTwo extends Level {

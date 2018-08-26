@@ -14,12 +14,12 @@ class EntityCollectionTest {
     private EntityCollection entityCollection;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         entityCollection = new EntityCollection();
     }
 
     @Test
-    public void initWithAnNullInitialSetsGivesAnEmptyEntitiyCollection() {
+    void initWithANullInitialSetsGivesAnEmptyEntitiyCollection() {
         // Setup
         Group group = Mockito.mock(Group.class);
 
