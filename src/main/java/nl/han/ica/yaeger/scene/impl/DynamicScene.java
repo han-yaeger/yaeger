@@ -17,7 +17,7 @@ import java.util.Set;
  */
 public abstract class DynamicScene extends StaticScene {
 
-    private EntityCollection entityCollection = new EntityCollection();
+    private EntityCollection entityCollection;
 
     private Set<Entity> initialEntities = new HashSet<>();
     private AnimationTimer animator;
@@ -95,7 +95,7 @@ public abstract class DynamicScene extends StaticScene {
     }
 
     private void createGameLoop() {
-        entityCollection.init(getRoot(), initialEntities);
+        entityCollection = new EntityCollection(getRoot(), initialEntities);
 
         animator = new AnimationTimer() {
             @Override

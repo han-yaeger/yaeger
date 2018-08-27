@@ -27,13 +27,13 @@ public class EntityCollection {
     private CollisionDelegate collisionDelegate;
 
     /**
-     * Initialiseer deze {@code EntityCollection}.
+     * Instantieer een {@code EntityCollection} voor een gegeven {@link Group} en een {@link Set} van {@link Entity}s.
      *
      * @param group           De {@link Group} waar alle {@link Entity}s aan moeten worden toegevoegd.
      * @param initialEntities Een {@link Set} met {@link Entity} die initieel aan deze {@code EntityCollection} moet worden
      *                        toegevoegd.
      */
-    public void init(Group group, Set<Entity> initialEntities) {
+    public EntityCollection(Group group, Set<Entity> initialEntities) {
         this.group = group;
         this.collisionDelegate = new CollisionDelegate();
 

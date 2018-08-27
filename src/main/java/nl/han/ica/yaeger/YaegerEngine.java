@@ -1,6 +1,7 @@
 package nl.han.ica.yaeger;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.han.ica.yaeger.exceptions.YaegerSceneNotAvailableException;
 import nl.han.ica.yaeger.metrics.GameDimensions;
@@ -66,12 +67,12 @@ public abstract class YaegerEngine extends Application {
     }
 
     /**
-     * Voeg een {@link StaticScene} toe aan dit spel.
+     * Voeg een {@link YaegerScene} toe aan dit spel.
      *
      * @param type  De enumeratie die de type van de {@code Scene} bevat.
-     * @param scene De {@link StaticScene} die moet worden toegevoegd.
+     * @param scene De {@link YaegerScene} die moet worden toegevoegd.
      */
-    protected void addScene(SceneType type, StaticScene scene) {
+    protected void addScene(SceneType type, YaegerScene scene) {
         scenes.put(type, scene);
     }
 
@@ -85,8 +86,8 @@ public abstract class YaegerEngine extends Application {
     protected abstract void initializeGame();
 
     /**
-     * Gebruik deze methode voor het aanmaken en toevoegen van alle {@link StaticScene}s. Gebruik dit moment ook
-     * om de actieve {@link StaticScene} te zetten. Indien deze niet gezet is, zal een willekeurige als actieve
+     * Gebruik deze methode voor het aanmaken en toevoegen van alle {@link YaegerScene}s. Gebruik dit moment ook
+     * om de actieve {@link YaegerScene} te zetten. Indien deze niet gezet is, zal een willekeurige als actieve
      * worden gebruikt.
      */
     protected abstract void setupScenes();

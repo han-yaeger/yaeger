@@ -2,7 +2,7 @@ package nl.han.ica.yaeger.entities;
 
 import javafx.scene.Group;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -13,18 +13,13 @@ class EntityCollectionTest {
 
     private EntityCollection entityCollection;
 
-    @BeforeEach
-    void setup() {
-        entityCollection = new EntityCollection();
-    }
-
     @Test
-    void initWithANullInitialSetsGivesAnEmptyEntitiyCollection() {
+    void initWithANullInitialSetsGivesAnEmptyEntityCollection() {
         // Setup
         Group group = Mockito.mock(Group.class);
 
         // Test
-        entityCollection.init(group, null);
+        entityCollection = new EntityCollection(group, null);
 
         // Verify
         Assertions.assertEquals(0, entityCollection.getNumberOfDynamicEntities());
@@ -32,13 +27,13 @@ class EntityCollectionTest {
     }
 
     @Test
-    public void initWithAnEmptyInitialSetsGivesAnEmptyEntitiyCollection() {
+    void initWithAnEmptyInitialSetsGivesAnEmptyEntityCollection() {
         // Setup
         Set<Entity> emptySet = new HashSet<>();
         Group group = Mockito.mock(Group.class);
 
         // Test
-        entityCollection.init(group, emptySet);
+        entityCollection = new EntityCollection(group, emptySet);
 
         // Verify
         Assertions.assertEquals(0, entityCollection.getNumberOfDynamicEntities());
