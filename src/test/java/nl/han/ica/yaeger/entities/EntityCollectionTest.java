@@ -3,8 +3,10 @@ package nl.han.ica.yaeger.entities;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import nl.han.ica.yaeger.entities.events.EventTypes;
 import nl.han.ica.yaeger.entities.interfaces.Updatable;
 import org.junit.jupiter.api.Assertions;
 
@@ -46,7 +48,29 @@ class EntityCollectionTest {
     }
 
     @Test
-    void initWithDynamicEntitiesAreUpdatedWhenUpdateIsCalled() {
+    void initWithStaticEntityIsAddedToTheGroup() {
+        // Setup
+        Entity entity = Mockito.mock(Entity.class);
+        Node node = Mockito.mock(Node.class);
+        Mockito.when(entity.getGameNode()).thenReturn(node);
+
+        Set<Entity> set = new HashSet<>();
+        set.add(entity);
+
+        Group group = Mockito.mock(Group.class);
+        ObservableList<Node> children = Mockito.mock(ObservableList.class);
+        Mockito.when(group.getChildren()).thenReturn(children);
+
+        // Test
+        entityCollection = new EntityCollection(group, set);
+        entityCollection.update();
+
+        // Verify
+        Mockito.verify(children).add(node);
+    }
+
+    @Test
+    void initWithDynamicEntityIsAddedToTheGroupAndUpdateIsCalled() {
         // Setup
         UpdatableEntity updatableEntity = Mockito.mock(UpdatableEntity.class);
         Node node = Mockito.mock(Node.class);
@@ -64,6 +88,7 @@ class EntityCollectionTest {
         entityCollection.update();
 
         // Verify
+        Mockito.verify(children).add(node);
         Mockito.verify(updatableEntity).update();
     }
 }
