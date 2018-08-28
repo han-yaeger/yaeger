@@ -1,13 +1,11 @@
 package nl.han.ica.yaeger;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.han.ica.yaeger.exceptions.YaegerSceneNotAvailableException;
 import nl.han.ica.yaeger.metrics.GameDimensions;
 import nl.han.ica.yaeger.scene.SceneList;
 import nl.han.ica.yaeger.scene.SceneType;
-import nl.han.ica.yaeger.scene.impl.StaticScene;
 import nl.han.ica.yaeger.scene.YaegerScene;
 
 /**
