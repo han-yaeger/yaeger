@@ -129,6 +129,10 @@ public class EntityCollection {
         garbage.clear();
     }
 
+    private void removeAllGameObjects() {
+        this.group.getChildren().clear();
+    }
+
     private void removeGameObject(Entity entity) {
         this.group.getChildren().remove(entity.getGameNode());
         this.collisionDelegate.removeGameObject(entity);

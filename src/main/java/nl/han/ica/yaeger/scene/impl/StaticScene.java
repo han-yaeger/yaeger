@@ -95,7 +95,7 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
     }
 
     private void removeElementsFromView() {
-        root.getChildren().clear();
+        root.getChildren().removeAll();
     }
 
     private void stopBackgroundAudio() {
