@@ -27,17 +27,24 @@ public abstract class DynamicScene extends StaticScene {
     @Override
     public void setupScene() {
         super.setupScene();
-        setupDynamicEntities();
+
+        setupEntities();
 
         createGameLoop();
 
         setupSpawners();
+
         startGameLoop();
     }
 
     protected abstract void setupSpawners();
 
-    public abstract void setupDynamicEntities();
+    /**
+     * Voeg {@link Entity}s toe, die initiëel al deel uitmaken van een {@link nl.han.ica.yaeger.scene.YaegerScene}. Hierbij kun je
+     * denken aan elementen van een {@code Dashboard} of een Speler-{@link Entity}. Elementen van het scherm die tijdens het spel
+     * moeten worden toegevoegd, moeten gebruik maken van een {@link EntitySpawner}.
+     */
+    protected abstract void setupEntities();
 
     /**
      * Voeg een {@link Entity} toe aan de {@code Scene}. Iedere {@link Entity} kunnen maar één keer worden toegevoegd.

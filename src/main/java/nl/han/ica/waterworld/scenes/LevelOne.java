@@ -38,8 +38,8 @@ public class LevelOne extends Level {
     }
 
     @Override
-    public void setupDynamicEntities() {
-        super.setupDynamicEntities();
+    protected void setupEntities() {
+        super.setupEntities();
 
         var swordFish = new Swordfish(200, 200);
         addEntity(swordFish);

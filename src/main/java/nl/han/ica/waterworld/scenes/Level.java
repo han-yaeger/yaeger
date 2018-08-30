@@ -18,7 +18,8 @@ public abstract class Level extends DynamicScene {
         this.waterworld = waterworld;
     }
 
-    private void setupDashboard() {
+    @Override
+    protected void setupEntities() {
         bubblesPoppedText = new TextEntity(10, 40);
         bubblesPoppedText.setFont(Font.font("palatino", 40));
         bubblesPoppedText.setFill(Color.VIOLET);
@@ -30,12 +31,6 @@ public abstract class Level extends DynamicScene {
         healthText.setFill(Color.DARKBLUE);
         addEntity(healthText);
         setHealthText(10);
-    }
-
-
-    @Override
-    public void setupDynamicEntities() {
-        setupDashboard();
     }
 
     /**

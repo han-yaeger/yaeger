@@ -26,8 +26,8 @@ public class LevelTwo extends Level {
     }
 
     @Override
-    public void setupDynamicEntities() {
-        super.setupDynamicEntities();
+    public void setupEntities() {
+        super.setupEntities();
 
         var player = new Player(100, 100, this);
         addEntity(player);

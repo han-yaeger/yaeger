@@ -1,17 +1,15 @@
 package nl.han.ica.yaeger.entities;
 
-import javafx.beans.InvalidationListener;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import nl.han.ica.yaeger.entities.events.EventTypes;
+import javafx.scene.input.KeyCode;
+import nl.han.ica.yaeger.entities.interfaces.KeyListener;
 import nl.han.ica.yaeger.entities.interfaces.Updatable;
 import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.*;
@@ -91,6 +89,58 @@ class EntityCollectionTest {
         Mockito.verify(children).add(node);
         Mockito.verify(updatableEntity).update();
     }
+
+    @Test
+    void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsEmpty() {
+        // Setup
+        KeyListeningEntity keyListeningEntity = Mockito.mock(KeyListeningEntity.class);
+        Node node = Mockito.mock(Node.class);
+        Mockito.when(keyListeningEntity.getGameNode()).thenReturn(node);
+
+        Group group = Mockito.mock(Group.class);
+        ObservableList<Node> children = Mockito.mock(ObservableList.class);
+        Mockito.when(group.getChildren()).thenReturn(children);
+        Set<Entity> entitySet = new HashSet<>();
+        entitySet.add(keyListeningEntity);
+
+        Set<KeyCode> keycodes = new HashSet<>();
+
+        // Test
+        entityCollection = new EntityCollection(group, entitySet);
+        entityCollection.notifyGameObjectsOfPressedKeys(keycodes);
+
+        // Verify
+        Mockito.verify(keyListeningEntity).onPressedKeysChange(keycodes);
+    }
+
+    @Test
+    void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsFilled() {
+        // Setup
+        KeyListeningEntity keyListeningEntity = Mockito.mock(KeyListeningEntity.class);
+        Node node = Mockito.mock(Node.class);
+        Mockito.when(keyListeningEntity.getGameNode()).thenReturn(node);
+
+        Group group = Mockito.mock(Group.class);
+        ObservableList<Node> children = Mockito.mock(ObservableList.class);
+        Mockito.when(group.getChildren()).thenReturn(children);
+        Set<Entity> entitySet = new HashSet<>();
+        entitySet.add(keyListeningEntity);
+
+        Set<KeyCode> keycodes = new HashSet<>();
+        keycodes.add(KeyCode.Y);
+        keycodes.add(KeyCode.A);
+        keycodes.add(KeyCode.E);
+        keycodes.add(KeyCode.G);
+        keycodes.add(KeyCode.E);
+        keycodes.add(KeyCode.R);
+
+        // Test
+        entityCollection = new EntityCollection(group, entitySet);
+        entityCollection.notifyGameObjectsOfPressedKeys(keycodes);
+
+        // Verify
+        Mockito.verify(keyListeningEntity).onPressedKeysChange(keycodes);
+    }
 }
 
 class UpdatableEntity extends Entity implements Updatable {
@@ -102,6 +152,19 @@ class UpdatableEntity extends Entity implements Updatable {
 
     @Override
     public void update() {
+        // Not required here.
+    }
+}
+
+class KeyListeningEntity extends Entity implements KeyListener {
+
+    @Override
+    public Node getGameNode() {
+        return null;
+    }
+
+    @Override
+    public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
         // Not required here.
     }
 }
