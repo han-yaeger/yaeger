@@ -44,7 +44,7 @@ public class LevelOne extends Level {
         var swordFish = new Swordfish(200, 200);
         addEntity(swordFish);
 
-        var player = new Player(100, 100, this);
+        var player = new Player(100, 100, this, 10);
         addEntity(player);
     }
 }

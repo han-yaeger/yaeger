@@ -29,7 +29,7 @@ public class LevelTwo extends Level {
     public void setupEntities() {
         super.setupEntities();
 
-        var player = new Player(100, 100, this);
+        var player = new Player(100, 100, this, 10);
         addEntity(player);
     }
 }

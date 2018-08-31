@@ -97,6 +97,7 @@ public class EntityCollection {
         statics.clear();
         updatables.clear();
         garbage.clear();
+        keyListeners.clear();
     }
 
     /**

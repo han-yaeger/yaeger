@@ -12,15 +12,16 @@ import java.util.Set;
 
 public class Player extends UpdatableSpriteEntity implements KeyListener, Collidable {
 
-    private int health = 10;
+    private int health;
     private Level level;
 
-    public Player(final double x, final double y, final Level level) {
+    public Player(final double x, final double y, final Level level, final int health) {
         super("images/player.png", x, y, 2, 0, 0);
         this.level = level;
+        this.health = health;
     }
 
-    public void doDamage() {
+    void doDamage() {
         health--;
         level.setHealthText(health);
         if (health <= 0) {

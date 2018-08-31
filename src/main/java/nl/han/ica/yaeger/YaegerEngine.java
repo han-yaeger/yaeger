@@ -47,6 +47,7 @@ public abstract class YaegerEngine extends Application {
      * @param type De enumeratie die de type van de {@code Scene} bevat.
      */
     protected void setActiveScene(SceneType type) {
+
         var requestedScene = scenes.get(type);
 
         if (requestedScene == null) {

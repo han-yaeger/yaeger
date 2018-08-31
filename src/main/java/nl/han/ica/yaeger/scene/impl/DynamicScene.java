@@ -81,13 +81,19 @@ public abstract class DynamicScene extends StaticScene {
     @Override
     public void tearDownScene() {
         stopGameLoop();
+        clearInitialEntities();
         clearEntityCollection();
 
         super.tearDownScene();
     }
 
+    private void clearInitialEntities() {
+        initialEntities.clear();
+    }
+
     private void clearEntityCollection() {
         entityCollection.clear();
+        entityCollection = null;
     }
 
     private void startGameLoop() {
