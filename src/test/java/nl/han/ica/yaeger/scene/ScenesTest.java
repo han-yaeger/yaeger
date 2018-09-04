@@ -81,4 +81,25 @@ class ScenesTest {
         // Verify
         Assertions.assertEquals(level1, scenes.getActiveScene());
     }
+
+    @Test
+    void selectingADifferentSceneTearsDownTheCurrentActiveScene() {
+        // Setup
+        YaegerScene intro = mock(YaegerScene.class);
+        YaegerScene level1 = mock(YaegerScene.class);
+
+        Scene javaFXScene = mock(Scene.class);
+
+        when(intro.getScene()).thenReturn(javaFXScene);
+        when(level1.getScene()).thenReturn(javaFXScene);
+
+        scenes.addScene(SceneType.INTRO, intro);
+        scenes.addScene(SceneType.LEVEL_ONE, level1);
+
+        // Test
+        scenes.setActive(SceneType.LEVEL_ONE);
+
+        // Verify
+        verify(intro).tearDownScene();
+    }
 }
