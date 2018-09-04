@@ -3,8 +3,8 @@ package nl.han.ica.yaeger.scene;
 import javafx.scene.Scene;
 
 /**
- * Een {@code YaegerScene} moet gebruikt worden om een apart scherm van een Yaeger spel te encapsuleren.
- * Een spel kan uit meerdere {@code YaegerScene}s bestaan.
+ * Een {@code YaegerScene} moet gebruikt worden om een apart scherm van een Yaeger game te encapsuleren.
+ * Een game kan uit meerdere {@code YaegerScene}s bestaan.
  */
 public interface YaegerScene {
 

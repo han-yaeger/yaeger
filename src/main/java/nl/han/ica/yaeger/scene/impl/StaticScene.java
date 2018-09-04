@@ -24,9 +24,9 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
     protected Set<KeyCode> input = new HashSet<>();
 
     /**
-     * Voeg een {@link Entity} toe aan de {@code Scene}. {@link Entity}s kunnen maar één keer worden toegevoegd.
-     * Deze methode kan enkel gebruikt worden voor {@link Entity}en die bij initialisatie aan het spel moeten worden
-     * toegevoegd. Indien er tijdens het spel extra {@link Entity}en moeten worden toegevoegd, gebruik dan een
+     * Voeg een {@link Entity} toe aan de {@code scene}. {@link Entity}s kunnen maar één keer worden toegevoegd.
+     * Deze methode kan enkel gebruikt worden voor {@link Entity}en die bij initialisatie aan het game moeten worden
+     * toegevoegd. Indien er tijdens het game extra {@link Entity}en moeten worden toegevoegd, gebruik dan een
      * {@link EntitySpawner}.
      *
      * @param entity Het {@link Entity} dat moet worden toegevoegd.
@@ -36,7 +36,7 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
     }
 
     /**
-     * Zet het achtergrondplaatje van de Scene.
+     * Zet het achtergrondplaatje van de scene.
      *
      * @param image De naam van het bestand, inclusief extentie. Er worden zeer veel bestandsformaten ondersteund, maar
      *              kies bij voorkeur voor een van de volgende:
@@ -53,7 +53,7 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
     }
 
     /**
-     * Zet de achtergrondaudio van de Scene.
+     * Zet de achtergrondaudio van de scene.
      *
      * @param file De naam van het bestand, inclusief extentie. Er worden zeer veel bestandsformaten ondersteund, maar
      *             kies bij voorkeur voor een van de volgende:

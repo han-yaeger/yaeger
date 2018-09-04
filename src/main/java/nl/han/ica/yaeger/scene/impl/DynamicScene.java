@@ -41,15 +41,15 @@ public abstract class DynamicScene extends StaticScene {
 
     /**
      * Voeg {@link Entity}s toe, die initiëel al deel uitmaken van een {@link nl.han.ica.yaeger.scene.YaegerScene}. Hierbij kun je
-     * denken aan elementen van een {@code Dashboard} of een Speler-{@link Entity}. Elementen van het scherm die tijdens het spel
+     * denken aan elementen van een {@code Dashboard} of een Speler-{@link Entity}. Elementen van het scherm die tijdens het game
      * moeten worden toegevoegd, moeten gebruik maken van een {@link EntitySpawner}.
      */
     protected abstract void setupEntities();
 
     /**
-     * Voeg een {@link Entity} toe aan de {@code Scene}. Iedere {@link Entity} kunnen maar één keer worden toegevoegd.
-     * Deze methode kan enkel gebruikt worden voor een {@link Entity} die bij initialisatie aan het spel moeten worden
-     * toegevoegd. Indien er tijdens het spel een extra {@link Entity} moet worden toegevoegd, gebruik dan een
+     * Voeg een {@link Entity} toe aan de {@code scene}. Iedere {@link Entity} kunnen maar één keer worden toegevoegd.
+     * Deze methode kan enkel gebruikt worden voor een {@link Entity} die bij initialisatie aan het game moeten worden
+     * toegevoegd. Indien er tijdens het game een extra {@link Entity} moet worden toegevoegd, gebruik dan een
      * {@link EntitySpawner}.
      *
      * @param entity Het {@link Entity} dat moet worden toegevoegd.

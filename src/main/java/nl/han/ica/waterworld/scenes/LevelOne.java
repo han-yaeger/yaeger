@@ -1,9 +1,9 @@
 package nl.han.ica.waterworld.scenes;
 
 import nl.han.ica.waterworld.Waterworld;
-import nl.han.ica.waterworld.entities.spel.Player;
-import nl.han.ica.waterworld.entities.spel.Swordfish;
-import nl.han.ica.waterworld.entities.spel.spawners.BubbleSpawner;
+import nl.han.ica.waterworld.entities.game.Player;
+import nl.han.ica.waterworld.entities.game.Swordfish;
+import nl.han.ica.waterworld.entities.game.spawners.BubbleSpawner;
 import nl.han.ica.yaeger.scene.SceneType;
 
 public class LevelOne extends Level {

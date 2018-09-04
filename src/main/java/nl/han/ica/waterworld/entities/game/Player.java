@@ -1,4 +1,4 @@
-package nl.han.ica.waterworld.entities.spel;
+package nl.han.ica.waterworld.entities.game;
 
 import javafx.scene.input.KeyCode;
 import nl.han.ica.waterworld.scenes.Level;

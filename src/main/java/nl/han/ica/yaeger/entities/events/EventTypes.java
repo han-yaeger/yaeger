@@ -13,7 +13,7 @@ public class EventTypes {
 
     /**
      * Wanneer een {@link nl.han.ica.yaeger.entities.Entity} een {@code REMOVE} event verstuurt, zal deze uit het
-     * spel worden verwijdert.
+     * game worden verwijdert.
      */
     public static final EventType<RemoveEntityEvent> REMOVE = new EventType<>("REMOVE");
 }

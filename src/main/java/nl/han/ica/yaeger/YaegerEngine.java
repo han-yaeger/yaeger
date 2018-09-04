@@ -2,15 +2,14 @@ package nl.han.ica.yaeger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import nl.han.ica.yaeger.exceptions.YaegerSceneNotAvailableException;
 import nl.han.ica.yaeger.metrics.GameDimensions;
-import nl.han.ica.yaeger.scene.SceneList;
+import nl.han.ica.yaeger.scene.Scenes;
 import nl.han.ica.yaeger.scene.SceneType;
 import nl.han.ica.yaeger.scene.YaegerScene;
 
 /**
  * {@code YaegerEngine} is de basis-superklasse die ge-extend moet worden. Na het extenden zal een aantal methodes
- * worden aangeboden die het mogelijk maken de inhoud van het spel te initialiseren.
+ * worden aangeboden die het mogelijk maken de inhoud van het game te initialiseren.
  */
 public abstract class YaegerEngine extends Application {
 
@@ -19,56 +18,41 @@ public abstract class YaegerEngine extends Application {
     private GameDimensions gameDimensions = DEFAULT_GAME_DIMENSIONS;
 
     private Stage yaegerStage;
-    private SceneList scenes = new SceneList();
+    private Scenes scenes;
     private YaegerScene activeScene;
 
     /**
-     * Zet de breedte en hoogte van het spel.
+     * Zet de breedte en hoogte van het game.
      *
-     * @param dimensions Een {@link GameDimensions} object encapsuleert de breedte en hoogte van een spel.
+     * @param dimensions Een {@link GameDimensions} object encapsuleert de breedte en hoogte van een game.
      */
     protected void setGameDimensions(GameDimensions dimensions) {
         this.gameDimensions = dimensions;
     }
 
     /**
-     * Zet de titel van het spel.
+     * Zet de titel van het game.
      *
-     * @param title De titel van het spel.
+     * @param title De titel van het game.
      */
     protected void setGameTitle(String title) {
         yaegerStage.setTitle(title);
     }
 
     /**
-     * Zet de huidige actieve {@link YaegerScene}. Dit is de {@code Scene} die getoond wordt op het scherm en waarvan,
+     * Zet de huidige actieve {@link YaegerScene}. Dit is de {@code scene} die getoond wordt op het scherm en waarvan,
      * indien beschikbaar, de {@code Gameloop} en {@code Eventlisteners} hun werk doen.
      *
-     * @param type De enumeratie die de type van de {@code Scene} bevat.
+     * @param type De enumeratie die de type van de {@link YaegerScene} bevat.
      */
     protected void setActiveScene(SceneType type) {
-
-        var requestedScene = scenes.get(type);
-
-        if (requestedScene == null) {
-            throw new YaegerSceneNotAvailableException(type);
-        }
-
-        requestedScene.setupScene();
-
-        if (activeScene != null) {
-            activeScene.tearDownScene();
-        }
-
-        activeScene = requestedScene;
-
-        yaegerStage.setScene(activeScene.getScene());
+        scenes.setActive(type);
     }
 
     /**
-     * Voeg een {@link YaegerScene} toe aan dit spel.
+     * Voeg een {@link YaegerScene} toe aan dit game.
      *
-     * @param type  De enumeratie die de type van de {@code Scene} bevat.
+     * @param type  De enumeratie die de type van de {@code scene} bevat.
      * @param scene De {@link YaegerScene} die moet worden toegevoegd.
      */
     protected void addScene(SceneType type, YaegerScene scene) {
@@ -76,10 +60,10 @@ public abstract class YaegerEngine extends Application {
     }
 
     /**
-     * Gebruik deze methode voor het initialiseren van het spel.
+     * Gebruik deze methode voor het initialiseren van het game.
      *
      * <p>
-     * Op dit moment is het mogelijk om de afmetingen van het scherm te zetten of een titel van het spel te zetten.
+     * Op dit moment is het mogelijk om de afmetingen van het scherm te zetten of een titel van het game te zetten.
      * </p>
      */
     protected abstract void initializeGame();
@@ -95,6 +79,8 @@ public abstract class YaegerEngine extends Application {
     public void start(Stage primaryStage) {
         yaegerStage = primaryStage;
 
+        scenes = new Scenes(primaryStage);
+
         initializeGame();
 
         yaegerStage.setWidth(gameDimensions.getWidth());
@@ -106,25 +92,25 @@ public abstract class YaegerEngine extends Application {
     }
 
     /**
-     * Retourneer de hoogte van het spel.
+     * Retourneer de hoogte van het game.
      *
-     * @return De hoogte van het spel.
+     * @return De hoogte van het game.
      */
     public int getGameHeight() {
         return this.gameDimensions.getHeight();
     }
 
     /**
-     * Retourneer de breedte van het spel.
+     * Retourneer de breedte van het game.
      *
-     * @return De breedte van het spel.
+     * @return De breedte van het game.
      */
     public int getGameWidth() {
         return this.gameDimensions.getWidth();
     }
 
     /**
-     * Stop het spel en sluit het scherm af.
+     * Stop het game en sluit het scherm af.
      */
     public void quitGame() {
         yaegerStage.close();

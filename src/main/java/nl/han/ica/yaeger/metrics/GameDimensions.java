@@ -1,7 +1,7 @@
 package nl.han.ica.yaeger.metrics;
 
 /**
- * Een {@code GameDimensions} encapsuleert de breedte en hoogte van het spel.
+ * Een {@code GameDimensions} encapsuleert de breedte en hoogte van het game.
  */
 public class GameDimensions {
     private final int width;

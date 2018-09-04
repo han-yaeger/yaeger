@@ -1,7 +1,7 @@
-package nl.han.ica.waterworld.entities.spel.spawners;
+package nl.han.ica.waterworld.entities.game.spawners;
 
-import nl.han.ica.waterworld.entities.spel.Air;
-import nl.han.ica.waterworld.entities.spel.Poison;
+import nl.han.ica.waterworld.entities.game.Air;
+import nl.han.ica.waterworld.entities.game.Poison;
 import nl.han.ica.waterworld.scenes.Level;
 import nl.han.ica.yaeger.entities.spawners.EntitySpawner;
 

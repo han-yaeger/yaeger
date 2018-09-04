@@ -6,7 +6,7 @@ import nl.han.ica.yaeger.entities.events.RemoveEntityEvent;
 import nl.han.ica.yaeger.entities.interfaces.Bounded;
 
 /**
- * Een {@code Entity} is het {@code Root Object} van alle entiteiten die deel uitmaken van het spel.
+ * Een {@code Entity} is het {@code Root Object} van alle entiteiten die deel uitmaken van het game.
  * Deze bevat dan ook al het gedrag dat door alle kind-objecten wordt gedeeld.
  */
 public abstract class Entity implements Bounded {
@@ -20,18 +20,18 @@ public abstract class Entity implements Bounded {
     public abstract Node getGameNode();
 
     /**
-     * Retourneer de breedte van de Scene waar deze Entity deel van uitmaakt.
+     * Retourneer de breedte van de scene waar deze Entity deel van uitmaakt.
      *
-     * @return De breedte van de Scene als een {@code double}.
+     * @return De breedte van de scene als een {@code double}.
      */
     public double getSceneWidth() {
         return getGameNode().getScene().getWidth();
     }
 
     /**
-     * Retourneer de hoogte van de Scene waar deze Entity deel van uitmaakt.
+     * Retourneer de hoogte van de scene waar deze Entity deel van uitmaakt.
      *
-     * @return De hoogte van de Scene als een {@code double}.
+     * @return De hoogte van de scene als een {@code double}.
      */
     public double getSceneHeight() {
         return getGameNode().getScene().getWidth();

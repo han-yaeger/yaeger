@@ -1,4 +1,4 @@
-package nl.han.ica.waterworld.entities.spel;
+package nl.han.ica.waterworld.entities.game;
 
 import nl.han.ica.waterworld.scenes.Level;
 import nl.han.ica.yaeger.entities.enumerations.SceneBorder;

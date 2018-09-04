@@ -16,6 +16,6 @@ public class YaegerSceneNotAvailableException extends RuntimeException {
      */
     public YaegerSceneNotAvailableException(SceneType type) {
 
-        super("StaticScene " + type + " kan niet worden gevonden. Zorg ervoor dat deze Scene is teogevoegd aan de Engine");
+        super("StaticScene " + type + " kan niet worden gevonden. Zorg ervoor dat deze scene is teogevoegd aan de Engine");
     }
 }
