@@ -27,9 +27,14 @@ public class GameOver extends StaticScene {
     }
 
     @Override
+    public void initializeScene() {
+        setBackgroundImage("underwater2.jpg");
+        setBackgroundAudio("audio/ocean.mp3");
+    }
+
+    @Override
     public void setupScene() {
         super.setupScene();
-        setBackgroundImage("underwater2.jpg");
 
         var gameOverText = new TextEntity(440, 350, "Game over");
         gameOverText.setFill(Color.VIOLET);

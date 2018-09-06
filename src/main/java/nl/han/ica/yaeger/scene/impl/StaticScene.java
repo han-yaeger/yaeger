@@ -21,7 +21,18 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
     private Scene scene;
     private Group root;
     private Sound backgroundAudio;
+    private String backgroundAudioUrl;
+    private String backgroundImage;
     protected Set<KeyCode> input = new HashSet<>();
+
+
+    /**
+     * Maak een nieuwe {@code StaticScene}. Tijdens constructie wordt als eerste de methode {@code initializeScene}
+     * aangeroepen.
+     */
+    public StaticScene() {
+        initializeScene();
+    }
 
     /**
      * Voeg een {@link Entity} toe aan de {@code scene}. {@link Entity}s kunnen maar één keer worden toegevoegd.
@@ -46,14 +57,12 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
      *              </ul>
      */
     protected void setBackgroundImage(String image) {
-
-        var stringUrl = createPathForResource(image);
-        var pattern = new ImagePattern(new Image(stringUrl));
-        scene.setFill(pattern);
+        backgroundImage = image;
     }
 
+
     /**
-     * Zet de achtergrondaudio van de scene.
+     * Zet de achtergrond-audio van de scene.
      *
      * @param file De naam van het bestand, inclusief extentie. Er worden zeer veel bestandsformaten ondersteund, maar
      *             kies bij voorkeur voor een van de volgende:
@@ -63,9 +72,8 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
      *             </ul>
      */
     protected void setBackgroundAudio(String file) {
+        backgroundAudioUrl = file;
 
-        backgroundAudio = new Sound(file, Sound.INDEFINITE);
-        backgroundAudio.play();
     }
 
     /**
@@ -82,8 +90,22 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
         scene = new SceneFactory().getInstance(root);
         addKeyListeners();
 
+        setupBackgroundAudio();
+        setupBackgroundImage();
+    }
+
+    private void setupBackgroundAudio() {
         if (backgroundAudio != null) {
+            backgroundAudio = new Sound(backgroundAudioUrl, Sound.INDEFINITE);
             backgroundAudio.play();
+        }
+    }
+
+    private void setupBackgroundImage() {
+        if (backgroundImage != null && scene != null) {
+            var stringUrl = createPathForResource(backgroundImage);
+            var pattern = new ImagePattern(new Image(stringUrl));
+            scene.setFill(pattern);
         }
     }
 
@@ -91,16 +113,19 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
     public void tearDownScene() {
         removeKeyListeners();
         stopBackgroundAudio();
-        removeElementsFromView();
+        clearView();
     }
 
-    private void removeElementsFromView() {
+    private void clearView() {
         root.getChildren().clear();
+        root = null;
+        scene = null;
     }
 
     private void stopBackgroundAudio() {
         if (backgroundAudio != null) {
             backgroundAudio.stop();
+            backgroundAudio = null;
         }
     }
 

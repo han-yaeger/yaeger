@@ -14,10 +14,7 @@ public class LevelOne extends Level {
     }
 
     @Override
-    public void setupScene() {
-
-        super.setupScene();
-
+    public void initializeScene() {
         setBackgroundImage("underwater2.jpg");
         setBackgroundAudio("audio/waterworld.mp3");
     }

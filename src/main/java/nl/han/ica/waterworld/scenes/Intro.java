@@ -21,6 +21,7 @@ public class Intro extends StaticScene {
         this.waterworld = waterworld;
     }
 
+
     @Override
     public void onInputChanged(Set<KeyCode> input) {
         if (input.contains(KeyCode.ENTER)) {
@@ -32,11 +33,14 @@ public class Intro extends StaticScene {
     }
 
     @Override
-    public void setupScene() {
-        super.setupScene();
-
+    public void initializeScene() {
         setBackgroundImage("underwater2.jpg");
         setBackgroundAudio("audio/ocean.mp3");
+    }
+
+    @Override
+    public void setupScene() {
+        super.setupScene();
 
         createWaterworldText();
         createButtons();

@@ -9,6 +9,13 @@ import javafx.scene.Scene;
 public interface YaegerScene {
 
     /**
+     * Initializeer de {@link YaegerScene}. Deze methode wordt aangeroepen voordat het scherm wordt opgebouwd en
+     * de {@link YaegerScene} zichtbaar wordt. Gebruik deze methode voor het zetten van een achtergrondplaatje of
+     * achtergrondmuziek.
+     */
+    void initializeScene();
+
+    /**
      * Deze methode wordt aangeroepen om een scherm op te bouwen. Om het geheugengebruik te minimaliseren moet in
      * deze methode de {@link nl.han.ica.yaeger.entities.Entity}s worden aangemaakt.
      */

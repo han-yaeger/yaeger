@@ -34,6 +34,7 @@ class ScenesTest {
         // Verify
         Assertions.assertEquals(yaegerScene, scenes.getActiveScene());
         verify(stage).setScene(javaFXScene);
+        verify(yaegerScene).setupScene();
     }
 
     @Test
@@ -80,6 +81,7 @@ class ScenesTest {
 
         // Verify
         Assertions.assertEquals(level1, scenes.getActiveScene());
+        verify(level1).setupScene();
     }
 
     @Test
