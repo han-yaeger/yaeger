@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.ImagePattern;
+import nl.han.ica.yaeger.debug.Debugger;
 import nl.han.ica.yaeger.entities.Entity;
 import nl.han.ica.yaeger.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.resourceconsumer.ResourceConsumer;
@@ -20,17 +21,17 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
 
     private Scene scene;
     private Group root;
+    private Debugger debugger;
     private Sound backgroundAudio;
     private String backgroundAudioUrl;
     private String backgroundImage;
     protected Set<KeyCode> input = new HashSet<>();
 
-
     /**
      * Maak een nieuwe {@code StaticScene}. Tijdens constructie wordt als eerste de methode {@code initializeScene}
      * aangeroepen.
      */
-    public StaticScene() {
+    protected StaticScene() {
         initializeScene();
     }
 
@@ -88,6 +89,7 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
     public void setupScene() {
         root = new GroupFactory().getInstance();
         scene = new SceneFactory().getInstance(root);
+        debugger = new Debugger(this);
         addKeyListeners();
 
         setupBackgroundAudio();
@@ -153,14 +155,23 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
                 e -> {
                     var code = e.getCode();
                     input.add(code);
-                    onInputChanged(input);
+                    inputChanged(input);
                 });
 
         scene.setOnKeyReleased(
                 e -> {
                     var code = e.getCode();
                     input.remove(code);
-                    onInputChanged(input);
+                    inputChanged(input);
                 });
+    }
+
+    private void inputChanged(Set<KeyCode> input) {
+
+        if (input.contains(KeyCode.F1)) {
+            debugger.toggle();
+        }
+
+        onInputChanged(input);
     }
 }

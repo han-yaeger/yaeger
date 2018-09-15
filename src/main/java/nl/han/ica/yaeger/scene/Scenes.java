@@ -39,14 +39,16 @@ public class Scenes extends LinkedHashMap<SceneType, YaegerScene> {
 
         if (size() == 1) {
             activeScene = scene;
+
+            scene.setupScene();
             setActiveSceneOnStage();
         }
     }
 
     /**
-     * Retourneer de {@link YaegerScene} die momenteel actief is.
+     * Return the {@link YaegerScene} currently active.
      *
-     * @return De {@link YaegerScene} die momenteel actief is.
+     * @return The {@link YaegerScene} that is currently active.
      */
     public YaegerScene getActiveScene() {
         return activeScene;

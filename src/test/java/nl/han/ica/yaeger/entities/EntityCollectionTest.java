@@ -1,12 +1,12 @@
 package nl.han.ica.yaeger.entities;
 
 import javafx.collections.ObservableList;
-import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.entities.interfaces.KeyListener;
 import nl.han.ica.yaeger.entities.interfaces.Updatable;
+import nl.han.ica.yaeger.entities.spawners.EntitySpawner;
 import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.Test;
@@ -27,8 +27,8 @@ class EntityCollectionTest {
         entityCollection = new EntityCollection(group, null);
 
         // Verify
-        Assertions.assertEquals(0, entityCollection.getNumberOfDynamicEntities());
-        Assertions.assertEquals(0, entityCollection.getNumberOfStaticEntities());
+        Assertions.assertEquals(0, entityCollection.getStatistics().getUpdatables());
+        Assertions.assertEquals(0, entityCollection.getStatistics().getStatics());
     }
 
     @Test
@@ -41,8 +41,8 @@ class EntityCollectionTest {
         entityCollection = new EntityCollection(group, emptySet);
 
         // Verify
-        Assertions.assertEquals(0, entityCollection.getNumberOfDynamicEntities());
-        Assertions.assertEquals(0, entityCollection.getNumberOfStaticEntities());
+        Assertions.assertEquals(0, entityCollection.getStatistics().getUpdatables());
+        Assertions.assertEquals(0, entityCollection.getStatistics().getStatics());
     }
 
     @Test

@@ -55,7 +55,7 @@ public abstract class SpriteEntity extends Entity implements ResourceConsumer {
         setLocation(x, y);
         this.angle = angle;
 
-        String stringUrl = createPathForResource(resource);
+        var stringUrl = createPathForResource(resource);
         this.imageView = new ImageView(stringUrl);
 
         this.imageView.relocate(x, y);
