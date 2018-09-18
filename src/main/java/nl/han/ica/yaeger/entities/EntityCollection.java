@@ -2,6 +2,7 @@ package nl.han.ica.yaeger.entities;
 
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
+import nl.han.ica.yaeger.debug.Debugger;
 import nl.han.ica.yaeger.delegates.CollisionDelegate;
 import nl.han.ica.yaeger.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.entities.events.EventTypes;
@@ -19,6 +20,7 @@ public class EntityCollection {
 
     private final EntityCollectionStatistics statistics;
     private final Group group;
+    private final Debugger debugger;
     private final Set<EntitySpawner> spawners = new HashSet<>();
     private final Set<Entity> statics = new HashSet<>();
     private final Set<Updatable> updatables = new HashSet<>();
@@ -28,14 +30,15 @@ public class EntityCollection {
     private CollisionDelegate collisionDelegate;
 
     /**
-     * Instantieer een {@code EntityCollection} voor een gegeven {@link Group} en een {@link Set} van {@link Entity}s.
+     * Instantiate an {@link EntityCollection} for a given {@link Group} and a {@link Set} of {@link Entity} instances.
      *
-     * @param group           De {@link Group} waar alle {@link Entity}s aan moeten worden toegevoegd.
-     * @param initialEntities Een {@link Set} met {@link Entity} die initieel aan deze {@code EntityCollection} moet worden
-     *                        toegevoegd.
+     * @param group           The {@link Group} to which all instances of {@link Entity}s should be added.
+     * @param initialEntities A {@link Set} containing instances of {@link Entity} that should initially be added to this {@link EntityCollection}.
+     * @param debugger
      */
-    public EntityCollection(Group group, Set<Entity> initialEntities) {
+    public EntityCollection(Group group, Set<Entity> initialEntities, Debugger debugger) {
         this.group = group;
+        this.debugger = debugger;
         this.collisionDelegate = new CollisionDelegate();
         this.statistics = new EntityCollectionStatistics();
 
@@ -45,9 +48,9 @@ public class EntityCollection {
     }
 
     /**
-     * registreer een {@link EntitySpawner}.
+     * Register an {@link EntitySpawner}.
      *
-     * @param spawner De {@link EntitySpawner} die geregistreerd moet worden.
+     * @param spawner The {@link EntitySpawner} to be registered.
      */
     public void registerSpawner(EntitySpawner spawner) {
         this.spawners.add(spawner);
@@ -104,6 +107,11 @@ public class EntityCollection {
         addSpawnedObjects();
         collisionDelegate.checkCollisions();
         updateStatistics();
+        notifyDebugger();
+    }
+
+    private void notifyDebugger() {
+        debugger.update(statistics);
     }
 
 

@@ -6,6 +6,7 @@ import nl.han.ica.yaeger.entities.Entity;
 import nl.han.ica.yaeger.entities.EntityCollection;
 import nl.han.ica.yaeger.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.exceptions.YaegerLifecycleException;
+import nl.han.ica.yaeger.scene.SceneStatistics;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,7 +36,10 @@ public abstract class DynamicScene extends StaticScene {
         setupSpawners();
 
         startGameLoop();
+
+        debugger.toFront();
     }
+
 
     protected abstract void setupSpawners();
 
@@ -108,7 +112,7 @@ public abstract class DynamicScene extends StaticScene {
     }
 
     private void createGameLoop() {
-        entityCollection = new EntityCollection(getRoot(), initialEntities);
+        entityCollection = new EntityCollection(getRoot(), initialEntities, debugger);
 
         animator = new AnimationTimer() {
             @Override

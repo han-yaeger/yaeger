@@ -3,6 +3,7 @@ package nl.han.ica.yaeger.scene;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import nl.han.ica.yaeger.debug.Debugger;
+import nl.han.ica.yaeger.entities.EntityCollectionStatistics;
 
 /**
  * Een {@code YaegerScene} moet gebruikt worden om een apart scherm van een Yaeger game te encapsuleren.

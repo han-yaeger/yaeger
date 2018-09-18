@@ -10,6 +10,7 @@ import nl.han.ica.yaeger.entities.Entity;
 import nl.han.ica.yaeger.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.resourceconsumer.ResourceConsumer;
 import nl.han.ica.yaeger.resourceconsumer.audio.Sound;
+import nl.han.ica.yaeger.scene.SceneStatistics;
 import nl.han.ica.yaeger.scene.YaegerScene;
 import nl.han.ica.yaeger.scene.factory.GroupFactory;
 import nl.han.ica.yaeger.scene.factory.SceneFactory;
@@ -21,7 +22,7 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
 
     private Scene scene;
     private Group root;
-    private Debugger debugger;
+    Debugger debugger;
     private Sound backgroundAudio;
     private String backgroundAudioUrl;
     private String backgroundImage;
@@ -61,7 +62,6 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
         backgroundImage = image;
     }
 
-
     /**
      * Zet de achtergrond-audio van de scene.
      *
@@ -74,7 +74,6 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
      */
     protected void setBackgroundAudio(String file) {
         backgroundAudioUrl = file;
-
     }
 
     /**
@@ -89,11 +88,18 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
     public void setupScene() {
         root = new GroupFactory().getInstance();
         scene = new SceneFactory().getInstance(root);
-        debugger = new Debugger(this);
+        debugger = new Debugger(root, new SceneStatistics());
         addKeyListeners();
 
         setupBackgroundAudio();
         setupBackgroundImage();
+    }
+
+    @Override
+    public void tearDownScene() {
+        removeKeyListeners();
+        stopBackgroundAudio();
+        clearView();
     }
 
     private void setupBackgroundAudio() {
@@ -109,13 +115,6 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
             var pattern = new ImagePattern(new Image(stringUrl));
             scene.setFill(pattern);
         }
-    }
-
-    @Override
-    public void tearDownScene() {
-        removeKeyListeners();
-        stopBackgroundAudio();
-        clearView();
     }
 
     private void clearView() {

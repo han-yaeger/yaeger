@@ -4,12 +4,14 @@ import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
+import nl.han.ica.yaeger.debug.Debugger;
 import nl.han.ica.yaeger.entities.interfaces.KeyListener;
 import nl.han.ica.yaeger.entities.interfaces.Updatable;
-import nl.han.ica.yaeger.entities.spawners.EntitySpawner;
+import nl.han.ica.yaeger.scene.SceneStatistics;
 import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.*;
@@ -22,9 +24,10 @@ class EntityCollectionTest {
     void initWithANullInitialSetsGivesAnEmptyEntityCollection() {
         // Setup
         Group group = Mockito.mock(Group.class);
+        var debugger = Mockito.mock(Debugger.class);
 
         // Test
-        entityCollection = new EntityCollection(group, null);
+        entityCollection = new EntityCollection(group, null, debugger);
 
         // Verify
         Assertions.assertEquals(0, entityCollection.getStatistics().getUpdatables());
@@ -36,9 +39,10 @@ class EntityCollectionTest {
         // Setup
         Set<Entity> emptySet = new HashSet<>();
         Group group = Mockito.mock(Group.class);
+        var debugger = Mockito.mock(Debugger.class);
 
         // Test
-        entityCollection = new EntityCollection(group, emptySet);
+        entityCollection = new EntityCollection(group, emptySet, debugger);
 
         // Verify
         Assertions.assertEquals(0, entityCollection.getStatistics().getUpdatables());
@@ -59,8 +63,10 @@ class EntityCollectionTest {
         ObservableList<Node> children = Mockito.mock(ObservableList.class);
         Mockito.when(group.getChildren()).thenReturn(children);
 
+        var debugger = Mockito.mock(Debugger.class);
+
         // Test
-        entityCollection = new EntityCollection(group, set);
+        entityCollection = new EntityCollection(group, set, debugger);
         entityCollection.update();
 
         // Verify
@@ -81,8 +87,10 @@ class EntityCollectionTest {
         ObservableList<Node> children = Mockito.mock(ObservableList.class);
         Mockito.when(group.getChildren()).thenReturn(children);
 
+        var debugger = Mockito.mock(Debugger.class);
+
         // Test
-        entityCollection = new EntityCollection(group, dynamicSet);
+        entityCollection = new EntityCollection(group, dynamicSet, debugger);
         entityCollection.update();
 
         // Verify
@@ -105,8 +113,10 @@ class EntityCollectionTest {
 
         Set<KeyCode> keycodes = new HashSet<>();
 
+        var debugger = Mockito.mock(Debugger.class);;
+
         // Test
-        entityCollection = new EntityCollection(group, entitySet);
+        entityCollection = new EntityCollection(group, entitySet, debugger);
         entityCollection.notifyGameObjectsOfPressedKeys(keycodes);
 
         // Verify
@@ -126,6 +136,8 @@ class EntityCollectionTest {
         Set<Entity> entitySet = new HashSet<>();
         entitySet.add(keyListeningEntity);
 
+        var debugger = Mockito.mock(Debugger.class);
+
         Set<KeyCode> keycodes = new HashSet<>();
         keycodes.add(KeyCode.Y);
         keycodes.add(KeyCode.A);
@@ -135,7 +147,7 @@ class EntityCollectionTest {
         keycodes.add(KeyCode.R);
 
         // Test
-        entityCollection = new EntityCollection(group, entitySet);
+        entityCollection = new EntityCollection(group, entitySet, debugger);
         entityCollection.notifyGameObjectsOfPressedKeys(keycodes);
 
         // Verify
