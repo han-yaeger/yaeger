@@ -38,10 +38,12 @@ public class LevelOne extends Level {
     protected void setupEntities() {
         super.setupEntities();
 
-        var swordFish = new Swordfish(200, 200);
+        var swordFish = new Swordfish();
+        swordFish.setLocation(200, 200);
         addEntity(swordFish);
 
-        var player = new Player(100, 100, this, 10);
+        var player = new Player(this, 10);
+        player.setLocation(100, 100);
         addEntity(player);
     }
 }

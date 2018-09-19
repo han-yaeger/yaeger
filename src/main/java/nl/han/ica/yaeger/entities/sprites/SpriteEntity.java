@@ -2,6 +2,7 @@ package nl.han.ica.yaeger.entities.sprites;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import nl.han.ica.yaeger.entities.Entity;
 import nl.han.ica.yaeger.entities.sprites.delegates.SpriteAnimationDelegate;
@@ -13,7 +14,7 @@ import nl.han.ica.yaeger.resourceconsumer.ResourceConsumer;
 public abstract class SpriteEntity extends Entity implements ResourceConsumer {
 
     protected ImageView imageView;
-    protected Point2D location;
+    protected Point2D location = new Point2D(0, 0);
     protected double angle;
 
     private SpriteAnimationDelegate spriteAnimationDelegate;
@@ -21,50 +22,49 @@ public abstract class SpriteEntity extends Entity implements ResourceConsumer {
     /**
      * Create a new {@code SpriteEntity} for a given Image.
      *
-     * @param resource The url of the image file. Relative to the resources folder.
-     * @param x        The x-coordinate at which the SpriteEntity should be initially positioned.
-     * @param y        The y-coordinate at which the SpriteEntity should be initially positioned.
+     * @param resource          The url of the image file. Relative to the resources folder.
+     * @param boundingBoxWidth  The bounding box width of this SpriteEntity.
+     * @param boundingBoxHeight The bounding box height of this SpriteEntity.
      */
-    public SpriteEntity(final String resource, final double x, final double y) {
-        this(resource, 1, x, y);
+    public SpriteEntity(final String resource, final double boundingBoxWidth, final double boundingBoxHeight) {
+        this(resource, 1, boundingBoxWidth, boundingBoxHeight);
     }
 
     /**
      * Create a new {@code SpriteEntity} for a given Image.
      *
-     * @param resource The url of the image file. Relative to the resources folder.
-     * @param frames   The number of frames this Image contains. By default the first frame is loaded.
-     * @param x        The x-coordinate at which the SpriteEntity should be initially positioned.
-     * @param y        The y-coordinate at which the SpriteEntity should be initially positioned.
+     * @param resource          The url of the image file. Relative to the resources folder.
+     * @param frames            The number of frames this Image contains. By default the first frame is loaded.
+     * @param boundingBoxWidth  The bounding box width of this SpriteEntity.
+     * @param boundingBoxHeight The bounding box height of this SpriteEntity.
      */
-    public SpriteEntity(final String resource, final int frames, final double x, final double y) {
-        this(resource, frames, x, y, 0);
+    public SpriteEntity(final String resource, final int frames, final double boundingBoxWidth, final double boundingBoxHeight) {
+        this(resource, frames, boundingBoxWidth, boundingBoxHeight, 0);
     }
 
     /**
      * Create a new {@code SpriteEntity}.
      *
-     * @param resource The url of the image file. Relative to the resources folder.
-     * @param frames   The number of frames this Image contains. By default the first frame is loaded.
-     * @param x        The x-coordinate at which the {@code SpriteEntity} should be initially positioned.
-     * @param y        The y-coordinate at which the {@code SpriteEntity} should be initially positioned.
-     * @param angle    The initial angle in degrees of the {@code SpriteEntity}.
+     * @param resource          The url of the image file. Relative to the resources folder.
+     * @param frames            The number of frames this Image contains. By default the first frame is loaded.
+     * @param boundingBoxWidth  The bounding box width of this SpriteEntity.
+     * @param boundingBoxHeight The bounding box height of this SpriteEntity.
+     * @param angle             The initial angle in degrees of the {@code SpriteEntity}.
      */
-    public SpriteEntity(final String resource, final int frames, final double x, final double y, final double angle) {
+    public SpriteEntity(final String resource, final int frames, final double boundingBoxWidth, final double boundingBoxHeight, final double angle) {
 
-        setLocation(x, y);
         this.angle = angle;
 
         var stringUrl = createPathForResource(resource);
-        this.imageView = new ImageView(stringUrl);
-
-        this.imageView.relocate(x, y);
+        var image = new Image(stringUrl, boundingBoxWidth, boundingBoxHeight, true, false);
+        imageView = new ImageView(image);
+        imageView.setManaged(false);
 
         if (frames > 1) {
             spriteAnimationDelegate = new SpriteAnimationDelegate(imageView, frames);
         }
 
-        this.imageView.setRotate(angle);
+        imageView.setRotate(angle);
     }
 
     /**
@@ -84,16 +84,6 @@ public abstract class SpriteEntity extends Entity implements ResourceConsumer {
      */
     public void setCurrentFrameIndex(int index) {
         spriteAnimationDelegate.setSpriteIndex(imageView, index);
-    }
-
-    /**
-     * Scale this {@code SpriteEntity} to the given width. The {@code SpriteEntity} will preserve its aspect ratio.
-     *
-     * @param width The width to which this {@code SpriteEntity} should be scaled.
-     */
-    protected void scaleToWidth(double width) {
-        this.imageView.setPreserveRatio(true);
-        this.imageView.setFitWidth(width);
     }
 
     /**
@@ -117,5 +107,12 @@ public abstract class SpriteEntity extends Entity implements ResourceConsumer {
     @Override
     public Node getGameNode() {
         return imageView;
+    }
+
+    @Override
+    public void remove() {
+        imageView.setImage(null);
+        imageView.setVisible(false);
+        super.remove();
     }
 }

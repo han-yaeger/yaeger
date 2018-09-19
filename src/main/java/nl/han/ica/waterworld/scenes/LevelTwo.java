@@ -26,7 +26,7 @@ public class LevelTwo extends Level {
     public void setupEntities() {
         super.setupEntities();
 
-        var player = new Player(100, 100, this, 10);
+        var player = new Player(this, 10);
         addEntity(player);
     }
 }

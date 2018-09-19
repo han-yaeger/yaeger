@@ -6,8 +6,8 @@ import nl.han.ica.yaeger.entities.interfaces.Collider;
 
 public class Air extends Bubble {
 
-    public Air(final double x, final double y, final double speed, final Level waterworld) {
-        super("images/bubble.png", x, y, speed, waterworld);
+    public Air(final double speed, final Level waterworld) {
+        super("images/bubble.png", speed, waterworld);
     }
 
     @Override

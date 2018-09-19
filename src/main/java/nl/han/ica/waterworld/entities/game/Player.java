@@ -3,6 +3,7 @@ package nl.han.ica.waterworld.entities.game;
 import javafx.scene.input.KeyCode;
 import nl.han.ica.waterworld.scenes.Level;
 import nl.han.ica.yaeger.delegates.CollisionSide;
+import nl.han.ica.yaeger.entities.enumerations.SceneBorder;
 import nl.han.ica.yaeger.entities.interfaces.Collidable;
 import nl.han.ica.yaeger.entities.interfaces.Collider;
 import nl.han.ica.yaeger.entities.interfaces.KeyListener;
@@ -15,8 +16,8 @@ public class Player extends UpdatableSpriteEntity implements KeyListener, Collid
     private int health;
     private Level level;
 
-    public Player(final double x, final double y, final Level level, final int health) {
-        super("images/player.png", x, y, 2, 0, 0);
+    public Player(final Level level, final int health) {
+        super("images/player.png", 40, 40, 2, 0, 0);
         this.level = level;
         this.health = health;
     }
@@ -56,5 +57,10 @@ public class Player extends UpdatableSpriteEntity implements KeyListener, Collid
         if (collidingObject instanceof Swordfish) {
             doDamage();
         }
+    }
+
+    @Override
+    protected void notifyBoundaryCrossing(SceneBorder border) {
+        // Not needed
     }
 }

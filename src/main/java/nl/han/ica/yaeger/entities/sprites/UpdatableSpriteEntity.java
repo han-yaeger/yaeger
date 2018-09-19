@@ -10,7 +10,7 @@ import nl.han.ica.yaeger.entities.interfaces.Updatable;
  * Because of this, it is required to specify its direction and speed at construction. Furthermore it is also possible
  * to set a rotation speed.
  */
-public class UpdatableSpriteEntity extends SpriteEntity implements Updatable {
+public abstract class UpdatableSpriteEntity extends SpriteEntity implements Updatable {
 
     private double speed;
     private double direction;
@@ -20,49 +20,48 @@ public class UpdatableSpriteEntity extends SpriteEntity implements Updatable {
     /**
      * Create a new SpriteEntity.
      *
-     * @param resource The url of the image file. Relative to the resources folder.
-     * @param x        The x-coordinate at which the {@code UpdatableSpriteEntity} should be initially positioned.
-     * @param y        The y-coordinate at which the {@code UpdatableSpriteEntity} should be initially positioned.
+     * @param resource          The url of the image file. Relative to the resources folder.
+     * @param boundingBoxWidth  The bounding box width of this SpriteEntity.
+     * @param boundingBoxHeight The bounding box height of this SpriteEntity.
      */
-    public UpdatableSpriteEntity(final String resource, double x, double y) {
-        this(resource, x, y, 1, 0, 0);
+    public UpdatableSpriteEntity(final String resource, final double boundingBoxWidth, final double boundingBoxHeight) {
+        this(resource, boundingBoxWidth, boundingBoxHeight, 1, 0, 0);
     }
 
     /**
      * Create a new {@code UpdatableSpriteEntity}.
      *
-     * @param resource         The url of the image file. Relative to the resources folder.
-     * @param x                The x-coordinate at which the {@code UpdatableSpriteEntity} should be initially positioned.
-     * @param y                The y-coordinate at which the {@code UpdatableSpriteEntity} should be initially positioned.
-     * @param frames           The number of frames this Image contains. By default the first frame is loaded.
-     * @param initialDirection The initialDirection in angles in which the {@code UpdatableSpriteEntity} should move.
-     * @param initialSpeed     The initialSpeed in pixels at which the {@code UpdatableSpriteEntity} should move.
+     * @param resource          The url of the image file. Relative to the resources folder.
+     * @param boundingBoxWidth  The bounding box width of this SpriteEntity.
+     * @param boundingBoxHeight The bounding box height of this SpriteEntity.
+     * @param frames            The number of frames this Image contains. By default the first frame is loaded.
+     * @param initialDirection  The initialDirection in angles in which the {@code UpdatableSpriteEntity} should move.
+     * @param initialSpeed      The initialSpeed in pixels at which the {@code UpdatableSpriteEntity} should move.
      */
-    public UpdatableSpriteEntity(final String resource, double x, double y, int frames, double initialDirection, double initialSpeed) {
-        this(resource, x, y, frames, initialDirection, initialSpeed, 0);
+    public UpdatableSpriteEntity(final String resource, final double boundingBoxWidth, final double boundingBoxHeight, int frames, double initialDirection, double initialSpeed) {
+        this(resource, boundingBoxWidth, boundingBoxHeight, frames, initialDirection, initialSpeed, 0);
     }
 
     /**
      * Create a new {@code UpdatableSpriteEntity}.
      *
-     * @param resource     The url of the image file. Relative to the resources folder.
-     * @param x            The x-coordinate at which the {@code UpdatableSpriteEntity} should be initially positioned.
-     * @param y            The y-coordinate at which the {@code UpdatableSpriteEntity} should be initially positioned.
-     * @param frames       The number of frames this Image contains. By default the first frame is loaded.
-     * @param direction    The direction in angles in which the {@code UpdatableSpriteEntity} should move.
-     * @param speed        The speed in pixels at which the {@code UpdatableSpriteEntity} should move.
-     * @param initialAngle The initial angle in degrees at which {@code UpdatableSpriteEntity} should be rotated.
+     * @param resource          The url of the image file. Relative to the resources folder.
+     * @param boundingBoxWidth  The bounding box width of this SpriteEntity.
+     * @param boundingBoxHeight The bounding box height of this SpriteEntity.
+     * @param frames            The number of frames this Image contains. By default the first frame is loaded.
+     * @param direction         The direction in angles in which the {@code UpdatableSpriteEntity} should move.
+     * @param speed             The speed in pixels at which the {@code UpdatableSpriteEntity} should move.
+     * @param initialAngle      The initial angle in degrees at which {@code UpdatableSpriteEntity} should be rotated.
      */
-    public UpdatableSpriteEntity(final String resource, double x, double y, int frames, double direction, double speed, double initialAngle) {
+    public UpdatableSpriteEntity(final String resource, final double boundingBoxWidth, final double boundingBoxHeight, int frames, double direction, double speed, double initialAngle) {
 
-        super(resource, frames, x, y, initialAngle);
+        super(resource, frames, boundingBoxWidth, boundingBoxHeight, initialAngle);
 
         this.speed = speed;
         this.direction = direction;
 
         setMovementVector();
 
-        this.imageView.relocate(x, y);
         this.imageView.setRotate(initialAngle);
     }
 
@@ -124,9 +123,7 @@ public class UpdatableSpriteEntity extends SpriteEntity implements Updatable {
      *
      * @param border The border at which the screen is being crossed.
      */
-    protected void notifyBoundaryCrossing(SceneBorder border) {
-        // Indien dit grdrag nodig is, moet deze methode in een kind worden geïmplementeerd.
-    }
+    protected abstract void notifyBoundaryCrossing(SceneBorder border);
 
     private void checkSceneBoundary() {
         var x = imageView.getLayoutX();

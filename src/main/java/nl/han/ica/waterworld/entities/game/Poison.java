@@ -6,8 +6,8 @@ import nl.han.ica.yaeger.entities.interfaces.Collider;
 
 public class Poison extends Bubble {
 
-    public Poison(double x, double y, final double speed, Level level) {
-        super("images/poison.png", x, y, speed, level);
+    public Poison(final double speed, Level level) {
+        super("images/poison.png", speed, level);
     }
 
     @Override
