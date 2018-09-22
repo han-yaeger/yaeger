@@ -10,7 +10,6 @@ import nl.han.ica.yaeger.entities.Entity;
 import nl.han.ica.yaeger.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.resourceconsumer.ResourceConsumer;
 import nl.han.ica.yaeger.resourceconsumer.audio.Sound;
-import nl.han.ica.yaeger.scene.SceneStatistics;
 import nl.han.ica.yaeger.scene.YaegerScene;
 import nl.han.ica.yaeger.scene.factory.GroupFactory;
 import nl.han.ica.yaeger.scene.factory.SceneFactory;
@@ -88,7 +87,7 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
     public void setupScene() {
         root = new GroupFactory().getInstance();
         scene = new SceneFactory().getInstance(root);
-        debugger = new Debugger(root, new SceneStatistics());
+        debugger = new Debugger(root);
         addKeyListeners();
 
         setupBackgroundAudio();
