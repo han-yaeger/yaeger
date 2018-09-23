@@ -7,11 +7,9 @@ import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.debug.Debugger;
 import nl.han.ica.yaeger.entities.interfaces.KeyListener;
 import nl.han.ica.yaeger.entities.interfaces.Updatable;
-import nl.han.ica.yaeger.scene.SceneStatistics;
 import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.*;

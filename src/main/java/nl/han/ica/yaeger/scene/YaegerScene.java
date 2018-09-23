@@ -1,9 +1,6 @@
 package nl.han.ica.yaeger.scene;
 
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import nl.han.ica.yaeger.debug.Debugger;
-import nl.han.ica.yaeger.entities.EntityCollectionStatistics;
 
 /**
  * Een {@code YaegerScene} moet gebruikt worden om een apart scherm van een Yaeger game te encapsuleren.
@@ -25,14 +22,15 @@ public interface YaegerScene {
     void setupScene();
 
     /**
-     * Deze methode wordt aangeroepen om een scherm weer af te breken en daarmee geheugen vrij te geven.
+     * Handles all behaviour regarding the tear down of a {@link YaegerScene} to maximize the number of
+     * Objects that are eligable for Garbage Collection.
      */
     void tearDownScene();
 
     /**
-     * Retourneer de {@link Scene} die geëncapsuleert wordt door deze {@code YaegerScene}
+     * Return the {@link Scene} that is encapsulated by this {@link YaegerScene}
      *
-     * @return De {@link Scene} die geëncapsuleert wordt door deze {@code YaegerScene}
+     * @return The {@link Scene} that is encapsulated bu this {@link YaegerScene}
      */
     Scene getScene();
 }
