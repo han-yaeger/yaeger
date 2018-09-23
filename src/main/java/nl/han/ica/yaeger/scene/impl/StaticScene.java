@@ -102,7 +102,7 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
     }
 
     private void setupBackgroundAudio() {
-        if (backgroundAudio != null) {
+        if (backgroundAudioUrl != null) {
             backgroundAudio = new Sound(backgroundAudioUrl, Sound.INDEFINITE);
             backgroundAudio.play();
         }
