@@ -1,14 +1,14 @@
 package nl.han.ica.yaeger.debug;
 
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
+import nl.han.ica.yaeger.StatisticsObserver;
 import nl.han.ica.yaeger.entities.EntityCollectionStatistics;
 
 /**
  * The Debugger is used to gather and show in game debug information.
  */
-public class Debugger extends Node {
+public class Debugger implements StatisticsObserver {
 
     private static final String YAEGER_DEBUGGER_TITLE = "YAEGER DEBUGGER";
     private static final String PROCESSORS_AMOUNT = "Available processors:";
@@ -55,6 +55,7 @@ public class Debugger extends Node {
      *                                   statistics related to the current state of the
      *                                   {@link nl.han.ica.yaeger.entities.EntityCollection}.
      */
+    @Override
     public void update(EntityCollectionStatistics entityCollectionStatistics) {
         if (!gridpane.isVisible()) {
             return;
@@ -101,8 +102,6 @@ public class Debugger extends Node {
         gridpane.add(new DebugLabel(MEMORY_USED), 0, 3);
         usedMemory = new DebugValue();
         gridpane.add(usedMemory, 1, 3);
-
-        ;
     }
 
     private void addDynamics() {

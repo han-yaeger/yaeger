@@ -2,6 +2,7 @@ package nl.han.ica.yaeger.entities;
 
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
+import nl.han.ica.yaeger.StatisticsObserver;
 import nl.han.ica.yaeger.debug.Debugger;
 import nl.han.ica.yaeger.delegates.CollisionDelegate;
 import nl.han.ica.yaeger.entities.spawners.EntitySpawner;
@@ -9,7 +10,9 @@ import nl.han.ica.yaeger.entities.events.EventTypes;
 import nl.han.ica.yaeger.entities.interfaces.KeyListener;
 import nl.han.ica.yaeger.entities.interfaces.Updatable;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,12 +23,13 @@ public class EntityCollection {
 
     private final EntityCollectionStatistics statistics;
     private final Group group;
-    private final Debugger debugger;
     private final Set<EntitySpawner> spawners = new HashSet<>();
     private final Set<Entity> statics = new HashSet<>();
     private final Set<Updatable> updatables = new HashSet<>();
     private final Set<KeyListener> keyListeners = new HashSet<>();
     private final Set<Entity> garbage = new HashSet<>();
+
+    private final List<StatisticsObserver> statisticsObservers = new ArrayList<>();
 
     private CollisionDelegate collisionDelegate;
 
@@ -34,17 +38,24 @@ public class EntityCollection {
      *
      * @param group           The {@link Group} to which all instances of {@link Entity}s should be added.
      * @param initialEntities A {@link Set} containing instances of {@link Entity} that should initially be added to this {@link EntityCollection}.
-     * @param debugger
      */
-    public EntityCollection(Group group, Set<Entity> initialEntities, Debugger debugger) {
+    public EntityCollection(Group group, Set<Entity> initialEntities) {
         this.group = group;
-        this.debugger = debugger;
         this.collisionDelegate = new CollisionDelegate();
         this.statistics = new EntityCollectionStatistics();
 
         if (initialEntities != null && !initialEntities.isEmpty()) {
             initialEntities.forEach(this::addToGameLoop);
         }
+    }
+
+    /**
+     * Add an {@link StatisticsObserver} to the {@link List} of
+     *
+     * @param observer
+     */
+    public void addStatisticsObserver(StatisticsObserver observer) {
+        statisticsObservers.add(observer);
     }
 
     /**
@@ -77,6 +88,15 @@ public class EntityCollection {
     }
 
     /**
+     * Return the statistics related to this {@link EntityCollection}.
+     *
+     * @return An instance of {@link EntityCollectionStatistics}.
+     */
+    public EntityCollectionStatistics getStatistics() {
+        return statistics;
+    }
+
+    /**
      * Perform all operations required during one cycle of the GameLoop, being:
      *
      * <ul>
@@ -97,7 +117,10 @@ public class EntityCollection {
      * will be notified.
      * </li>
      * <li>
-     * <b>Update Statics</b> Update the of this cycle.
+     * <b>Update Statics</b> Update the {@link EntityCollectionStatistics}.
+     * </li>
+     * <li>
+     * <b>Notify Statistics Observer</b> Notify all registered {@link StatisticsObserver}.
      * </li>
      * </ul>
      */
@@ -107,13 +130,8 @@ public class EntityCollection {
         addSpawnedObjects();
         collisionDelegate.checkCollisions();
         updateStatistics();
-        notifyDebugger();
+        notifyStatisticsObservers();
     }
-
-    private void notifyDebugger() {
-        debugger.update(statistics);
-    }
-
 
     /**
      * Clear this {@link EntityCollection}.
@@ -126,13 +144,8 @@ public class EntityCollection {
         keyListeners.clear();
     }
 
-    /**
-     * Return all statistics from this {@link EntityCollection}.
-     *
-     * @return An {@link EntityCollectionStatistics}.
-     */
-    public EntityCollectionStatistics getStatistics() {
-        return statistics;
+    private void notifyStatisticsObservers() {
+        statisticsObservers.forEach(statisticsObserver -> statisticsObserver.update(statistics));
     }
 
     private void collectGarbage() {

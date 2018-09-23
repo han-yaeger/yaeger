@@ -19,7 +19,6 @@ public abstract class YaegerEngine extends Application {
 
     private Stage yaegerStage;
     private Scenes scenes;
-    private YaegerScene activeScene;
 
     /**
      * Zet de breedte en hoogte van het game.
