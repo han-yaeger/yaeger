@@ -13,7 +13,6 @@ public abstract class Bubble extends UpdatableSpriteEntity implements Collided {
     Bubble(final String resource, final double speed, final Level game) {
         super(resource, 20, 20, 0, 2, speed, 0);
         this.level = game;
-//        scaleToWidth(20);
     }
 
     @Override
