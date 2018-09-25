@@ -2,30 +2,26 @@ package nl.han.ica.yaeger.scene.impl;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.ImagePattern;
 import nl.han.ica.yaeger.debug.Debugger;
 import nl.han.ica.yaeger.entities.Entity;
 import nl.han.ica.yaeger.entities.spawners.EntitySpawner;
-import nl.han.ica.yaeger.resourceconsumer.ResourceConsumer;
-import nl.han.ica.yaeger.resourceconsumer.audio.Sound;
 import nl.han.ica.yaeger.scene.YaegerScene;
+import nl.han.ica.yaeger.scene.delegates.BackgroundDelegate;
 import nl.han.ica.yaeger.scene.factory.GroupFactory;
 import nl.han.ica.yaeger.scene.factory.SceneFactory;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class StaticScene implements YaegerScene, ResourceConsumer {
+public abstract class StaticScene implements YaegerScene {
 
     private Scene scene;
     private Group root;
     Debugger debugger;
-    private Sound backgroundAudio;
-    private String backgroundAudioUrl;
-    private String backgroundImage;
     protected Set<KeyCode> input = new HashSet<>();
+
+    private BackgroundDelegate backgroundDelegate = new BackgroundDelegate();
 
     /**
      * Maak een nieuwe {@code StaticScene}. Tijdens constructie wordt als eerste de methode {@code initializeScene}
@@ -48,31 +44,26 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
     }
 
     /**
-     * Zet het achtergrondplaatje van de scene.
+     * Set the name of the background image file.
      *
-     * @param image De naam van het bestand, inclusief extentie. Er worden zeer veel bestandsformaten ondersteund, maar
-     *              kies bij voorkeur voor een van de volgende:
+     * @param image The name of the image file, including extention. Although many different file types are supported,
+     *              the following types are preferred:
      *              <ul>
      *              <li>jpg, jpeg</li>
      *              <li>png</li>
      *              </ul>
      */
     protected void setBackgroundImage(String image) {
-        backgroundImage = image;
+        backgroundDelegate.setBackgroundImageUrl(image);
     }
 
     /**
-     * Zet de achtergrond-audio van de scene.
+     * Set the name of the background audio file. Currently only *.mp3 files are supported.
      *
-     * @param file De naam van het bestand, inclusief extentie. Er worden zeer veel bestandsformaten ondersteund, maar
-     *             kies bij voorkeur voor een van de volgende:
-     *             <ul>
-     *             <li>jpg, jpeg</li>
-     *             <li>png</li>
-     *             </ul>
+     * @param file The name of the audio file, including extention.
      */
     protected void setBackgroundAudio(String file) {
-        backgroundAudioUrl = file;
+        backgroundDelegate.setBackgroundAudio(file);
     }
 
     /**
@@ -90,43 +81,20 @@ public abstract class StaticScene implements YaegerScene, ResourceConsumer {
         debugger = new Debugger(root);
         addKeyListeners();
 
-        setupBackgroundAudio();
-        setupBackgroundImage();
+        backgroundDelegate.setup(scene);
     }
 
     @Override
     public void tearDownScene() {
         removeKeyListeners();
-        stopBackgroundAudio();
+        backgroundDelegate.tearDown(scene);
         clearView();
-    }
-
-    private void setupBackgroundAudio() {
-        if (backgroundAudioUrl != null) {
-            backgroundAudio = new Sound(backgroundAudioUrl, Sound.INDEFINITE);
-            backgroundAudio.play();
-        }
-    }
-
-    private void setupBackgroundImage() {
-        if (backgroundImage != null && scene != null) {
-            var stringUrl = createPathForResource(backgroundImage);
-            var pattern = new ImagePattern(new Image(stringUrl));
-            scene.setFill(pattern);
-        }
     }
 
     private void clearView() {
         root.getChildren().clear();
         root = null;
         scene = null;
-    }
-
-    private void stopBackgroundAudio() {
-        if (backgroundAudio != null) {
-            backgroundAudio.stop();
-            backgroundAudio = null;
-        }
     }
 
     private void removeKeyListeners() {
