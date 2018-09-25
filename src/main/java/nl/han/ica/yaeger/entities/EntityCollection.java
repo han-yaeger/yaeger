@@ -3,7 +3,6 @@ package nl.han.ica.yaeger.entities;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.StatisticsObserver;
-import nl.han.ica.yaeger.debug.Debugger;
 import nl.han.ica.yaeger.delegates.CollisionDelegate;
 import nl.han.ica.yaeger.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.entities.events.EventTypes;

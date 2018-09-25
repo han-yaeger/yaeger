@@ -21,12 +21,11 @@ public class Debugger implements StatisticsObserver {
     private static final String KEYLISTENERS = "Dynamic Entities:";
 
     private GridPane gridpane;
-    private DebugValue dynamics;
-    private DebugValue statics;
-    private DebugValue spawners;
-    private DebugValue keyListeners;
-    private DebugValue garbage;
-
+    private DebugValue dynamicEntities;
+    private DebugValue staticEntities;
+    private DebugValue entitySpawners;
+    private DebugValue keyListeningEntities;
+    private DebugValue garbageEntities;
     private DebugValue usedMemory;
     private DebugValue allocatedMemory;
 
@@ -61,11 +60,11 @@ public class Debugger implements StatisticsObserver {
             return;
         }
 
-        dynamics.setText(String.valueOf(entityCollectionStatistics.getUpdatables()));
-        statics.setText(String.valueOf(entityCollectionStatistics.getStatics()));
-        keyListeners.setText(String.valueOf(entityCollectionStatistics.getKeyListeners()));
-        spawners.setText(String.valueOf(entityCollectionStatistics.getSpawners()));
-        garbage.setText(String.valueOf(entityCollectionStatistics.getGarbage()));
+        dynamicEntities.setText(String.valueOf(entityCollectionStatistics.getUpdatables()));
+        staticEntities.setText(String.valueOf(entityCollectionStatistics.getStatics()));
+        keyListeningEntities.setText(String.valueOf(entityCollectionStatistics.getKeyListeners()));
+        entitySpawners.setText(String.valueOf(entityCollectionStatistics.getSpawners()));
+        garbageEntities.setText(String.valueOf(entityCollectionStatistics.getGarbage()));
 
         allocatedMemory.setText(String.valueOf(Runtime.getRuntime().totalMemory()));
         usedMemory.setText(String.valueOf(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()));
@@ -105,37 +104,37 @@ public class Debugger implements StatisticsObserver {
     }
 
     private void addDynamics() {
-        dynamics = new DebugValue();
+        dynamicEntities = new DebugValue();
 
         gridpane.add(new DebugLabel(ENTITIES_DYNAMIC), 0, 4);
-        gridpane.add(dynamics, 1, 4);
+        gridpane.add(dynamicEntities, 1, 4);
     }
 
     private void addStatics() {
-        statics = new DebugValue();
+        staticEntities = new DebugValue();
 
         gridpane.add(new DebugLabel(ENTITIES_STATIC), 0, 5);
-        gridpane.add(statics, 1, 5);
+        gridpane.add(staticEntities, 1, 5);
     }
 
     private void addSpawners() {
-        spawners = new DebugValue();
+        entitySpawners = new DebugValue();
 
         gridpane.add(new DebugLabel(SPAWNERS), 0, 6);
-        gridpane.add(spawners, 1, 6);
+        gridpane.add(entitySpawners, 1, 6);
     }
 
     private void addGarbage() {
-        garbage = new DebugValue();
+        garbageEntities = new DebugValue();
 
         gridpane.add(new DebugLabel(GARBAGE), 0, 7);
-        gridpane.add(garbage, 1, 7);
+        gridpane.add(garbageEntities, 1, 7);
     }
 
     private void addKeyListeners() {
-        keyListeners = new DebugValue();
+        keyListeningEntities = new DebugValue();
 
         gridpane.add(new DebugLabel(KEYLISTENERS), 0, 8);
-        gridpane.add(keyListeners, 1, 8);
+        gridpane.add(keyListeningEntities, 1, 8);
     }
 }

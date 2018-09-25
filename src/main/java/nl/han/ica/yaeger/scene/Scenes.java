@@ -4,9 +4,10 @@ import javafx.stage.Stage;
 import nl.han.ica.yaeger.exceptions.YaegerSceneNotAvailableException;
 
 import java.util.LinkedHashMap;
+import java.util.Objects;
 
 /**
- * Een {@code Scenes} encapsuleert al het gedrag van de geimplementeerde {@link YaegerScene}.
+ * A {@link Scenes} contains all instances of {@link YaegerScene} that are part of the Game.
  */
 public class Scenes extends LinkedHashMap<SceneType, YaegerScene> {
 
@@ -18,16 +19,7 @@ public class Scenes extends LinkedHashMap<SceneType, YaegerScene> {
     }
 
     /**
-     * Laad de {@link YaegerScene} van het gegeven type.
-     *
-     * @param type Het {@link SceneType} dat geladen moet worden.
-     */
-    public void loadScene(SceneType type) {
-
-    }
-
-    /**
-     * Voeg een {@link YaegerScene} toe aan de lijst van {@code scenes}. Een {@link YaegerScene} is altijd gekoppeld
+     * Voeg een {@link YaegerScene} toe aan de lijst van {@link Scenes}. Een {@link YaegerScene} is altijd gekoppeld
      * aan een {@link SceneType}. Van ieder {@link SceneType} kan er maar één worden toegevoegd aan de lijst van
      * {@code scenes}.
      *
@@ -81,5 +73,19 @@ public class Scenes extends LinkedHashMap<SceneType, YaegerScene> {
 
     private void setActiveSceneOnStage() {
         stage.setScene(activeScene.getScene());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Scenes scenes = (Scenes) o;
+        return Objects.equals(stage, scenes.stage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), stage);
     }
 }
