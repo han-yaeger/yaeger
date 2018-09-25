@@ -30,9 +30,9 @@ public abstract class YaegerEngine extends Application {
     }
 
     /**
-     * Zet de titel van het game.
+     * Set the title of the Game.
      *
-     * @param title De titel van het game.
+     * @param title A {@link String} containing the title of the Game.
      */
     protected void setGameTitle(String title) {
         yaegerStage.setTitle(title);
@@ -49,9 +49,9 @@ public abstract class YaegerEngine extends Application {
     }
 
     /**
-     * Voeg een {@link YaegerScene} toe aan dit game.
+     * Add a {@link YaegerScene} to the Game.
      *
-     * @param type  De enumeratie die de type van de {@code scene} bevat.
+     * @param type  A {@link SceneType} enumeration that represents the type of the {@link YaegerScene}.
      * @param scene De {@link YaegerScene} die moet worden toegevoegd.
      */
     protected void addScene(SceneType type, YaegerScene scene) {
@@ -91,25 +91,25 @@ public abstract class YaegerEngine extends Application {
     }
 
     /**
-     * Retourneer de hoogte van het game.
+     * Returns the height of the Game.
      *
-     * @return De hoogte van het game.
+     * @return The height of the Game.
      */
     public int getGameHeight() {
         return this.gameDimensions.getHeight();
     }
 
     /**
-     * Retourneer de breedte van het game.
+     * Returns the width of the Game.
      *
-     * @return De breedte van het game.
+     * @return The width of the Game.
      */
     public int getGameWidth() {
         return this.gameDimensions.getWidth();
     }
 
     /**
-     * Stop het game en sluit het scherm af.
+     * Stop the Game and close the screen.
      */
     public void quitGame() {
         yaegerStage.close();
