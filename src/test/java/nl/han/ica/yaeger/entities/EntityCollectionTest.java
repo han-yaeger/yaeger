@@ -28,7 +28,6 @@ class EntityCollectionTest {
         entityCollection = new EntityCollection(group, null);
         entityCollection.addStatisticsObserver(debugger);
 
-
         // Verify
         Assertions.assertEquals(0, entityCollection.getStatistics().getStatics());
     }
@@ -61,8 +60,6 @@ class EntityCollectionTest {
         Group group = Mockito.mock(Group.class);
         ObservableList<Node> children = Mockito.mock(ObservableList.class);
         Mockito.when(group.getChildren()).thenReturn(children);
-
-        var debugger = Mockito.mock(Debugger.class);
 
         // Test
         entityCollection = new EntityCollection(group, set);

@@ -47,7 +47,6 @@ class BackgroundDelegateTest {
         backgroundDelegate.setBackgroundAudio(AUDIO_FILE);
 
         // Test
-
         backgroundDelegate.tearDown(scene);
 
         // Verify
@@ -61,7 +60,6 @@ class BackgroundDelegateTest {
         backgroundDelegate.setBackgroundAudio(AUDIO_FILE);
 
         // Test
-
         backgroundDelegate.tearDown(scene);
 
         // Verify

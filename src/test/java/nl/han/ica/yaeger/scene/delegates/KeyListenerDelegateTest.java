@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class KeyListenerDelegateTest {
+class KeyListenerDelegateTest {
 
     private KeyListenerDelegate keyListenerDelegate;
 
