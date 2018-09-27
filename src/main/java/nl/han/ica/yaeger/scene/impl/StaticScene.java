@@ -3,24 +3,24 @@ package nl.han.ica.yaeger.scene.impl;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import nl.han.ica.yaeger.KeyListener;
 import nl.han.ica.yaeger.debug.Debugger;
 import nl.han.ica.yaeger.entities.Entity;
 import nl.han.ica.yaeger.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.scene.YaegerScene;
 import nl.han.ica.yaeger.scene.delegates.BackgroundDelegate;
+import nl.han.ica.yaeger.scene.delegates.KeyListenerDelegate;
 import nl.han.ica.yaeger.scene.factory.GroupFactory;
 import nl.han.ica.yaeger.scene.factory.SceneFactory;
 
-import java.util.HashSet;
 import java.util.Set;
 
-public abstract class StaticScene implements YaegerScene {
+public abstract class StaticScene implements YaegerScene, KeyListener {
 
     private Scene scene;
     private Group root;
     Debugger debugger;
-    protected Set<KeyCode> input = new HashSet<>();
-
+    private KeyListenerDelegate keyListenerDelegate = new KeyListenerDelegate();
     private BackgroundDelegate backgroundDelegate = new BackgroundDelegate();
 
     /**
@@ -67,26 +67,38 @@ public abstract class StaticScene implements YaegerScene {
     }
 
     /**
-     * Implementeer deze methode om bericht te krijgen wanneer set van ingedrukte toetsen wijzigt.
+     * Implement this method to be informed when a key has been pressed or released..
      *
-     * @param input Een {@link Set} die alle toetsen bevat die momenteel ingedrukt zijn.
+     * @param input A {@link Set} containg all keys currently pressed.
      */
     public abstract void onInputChanged(Set<KeyCode> input);
 
+    /**
+     * Return the {@link Group} to which all instances of {@link Entity} are added.
+     *
+     * @return The {@link Group} to which all instances of {@link Entity} are added.
+     */
+    protected Group getRoot() {
+        return this.root;
+    }
+
+    @Override
+    public Scene getScene() {
+        return this.scene;
+    }
 
     @Override
     public void setupScene() {
         root = new GroupFactory().getInstance();
         scene = new SceneFactory().getInstance(root);
         debugger = new Debugger(root);
-        addKeyListeners();
-
+        keyListenerDelegate.setup(scene, this);
         backgroundDelegate.setup(scene);
     }
 
     @Override
     public void tearDownScene() {
-        removeKeyListeners();
+        keyListenerDelegate.tearDown(scene);
         backgroundDelegate.tearDown(scene);
         clearView();
     }
@@ -97,43 +109,8 @@ public abstract class StaticScene implements YaegerScene {
         scene = null;
     }
 
-    private void removeKeyListeners() {
-        scene.setOnKeyPressed(null);
-        scene.setOnKeyReleased(null);
-    }
-
     @Override
-    public Scene getScene() {
-        return this.scene;
-    }
-
-    /**
-     * Retourneer de {@link Group} waar alle {@link Entity} aan moeten worden toegevoegd.
-     *
-     * @return De {@link Group} waar alle {@link Entity} aan moeten worden toegevoegd.
-     */
-    protected Group getRoot() {
-        return this.root;
-    }
-
-    private void addKeyListeners() {
-        scene.setOnKeyPressed(
-                e -> {
-                    var code = e.getCode();
-                    input.add(code);
-                    inputChanged(input);
-                });
-
-        scene.setOnKeyReleased(
-                e -> {
-                    var code = e.getCode();
-                    input.remove(code);
-                    inputChanged(input);
-                });
-    }
-
-    private void inputChanged(Set<KeyCode> input) {
-
+    public void onPressedKeysChange(Set<KeyCode> input) {
         if (input.contains(KeyCode.F1)) {
             debugger.toggle();
         }

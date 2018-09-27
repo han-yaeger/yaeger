@@ -1,7 +1,6 @@
 package nl.han.ica.yaeger.scene.delegates;
 
 import javafx.scene.Scene;
-import javafx.scene.paint.ImagePattern;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -6,7 +6,7 @@ import nl.han.ica.yaeger.delegates.CollisionSide;
 import nl.han.ica.yaeger.entities.enumerations.SceneBorder;
 import nl.han.ica.yaeger.entities.interfaces.Collidable;
 import nl.han.ica.yaeger.entities.interfaces.Collider;
-import nl.han.ica.yaeger.entities.interfaces.KeyListener;
+import nl.han.ica.yaeger.KeyListener;
 import nl.han.ica.yaeger.entities.sprites.UpdatableSpriteEntity;
 
 import java.util.Set;

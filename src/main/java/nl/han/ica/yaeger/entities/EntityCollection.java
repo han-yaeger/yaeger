@@ -6,7 +6,7 @@ import nl.han.ica.yaeger.StatisticsObserver;
 import nl.han.ica.yaeger.delegates.CollisionDelegate;
 import nl.han.ica.yaeger.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.entities.events.EventTypes;
-import nl.han.ica.yaeger.entities.interfaces.KeyListener;
+import nl.han.ica.yaeger.KeyListener;
 import nl.han.ica.yaeger.entities.interfaces.Updatable;
 
 import java.util.ArrayList;

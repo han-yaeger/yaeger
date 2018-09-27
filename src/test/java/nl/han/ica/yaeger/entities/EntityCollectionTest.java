@@ -5,7 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.debug.Debugger;
-import nl.han.ica.yaeger.entities.interfaces.KeyListener;
+import nl.han.ica.yaeger.KeyListener;
 import nl.han.ica.yaeger.entities.interfaces.Updatable;
 import org.junit.jupiter.api.Assertions;
 
