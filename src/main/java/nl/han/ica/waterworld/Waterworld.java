@@ -4,9 +4,9 @@ import nl.han.ica.waterworld.scenes.LevelOne;
 import nl.han.ica.waterworld.scenes.GameOver;
 import nl.han.ica.waterworld.scenes.Intro;
 import nl.han.ica.waterworld.scenes.LevelTwo;
-import nl.han.ica.yaeger.YaegerEngine;
-import nl.han.ica.yaeger.metrics.GameDimensions;
-import nl.han.ica.yaeger.scene.SceneType;
+import nl.han.ica.yaeger.engine.YaegerEngine;
+import nl.han.ica.yaeger.engine.metrics.GameDimensions;
+import nl.han.ica.yaeger.engine.scene.SceneType;
 
 public class Waterworld extends YaegerEngine {
 

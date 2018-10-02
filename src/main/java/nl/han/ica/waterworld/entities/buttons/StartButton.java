@@ -5,8 +5,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import nl.han.ica.waterworld.Waterworld;
-import nl.han.ica.yaeger.entities.text.TextEntity;
-import nl.han.ica.yaeger.scene.SceneType;
+import nl.han.ica.yaeger.engine.entities.text.TextEntity;
+import nl.han.ica.yaeger.engine.scene.SceneType;
 
 public class StartButton extends TextEntity {
 

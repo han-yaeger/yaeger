@@ -5,9 +5,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import nl.han.ica.waterworld.Waterworld;
-import nl.han.ica.yaeger.entities.text.TextEntity;
-import nl.han.ica.yaeger.scene.SceneType;
-import nl.han.ica.yaeger.scene.impl.StaticScene;
+import nl.han.ica.yaeger.engine.entities.text.TextEntity;
+import nl.han.ica.yaeger.engine.scene.SceneType;
+import nl.han.ica.yaeger.engine.scene.impl.StaticScene;
 
 import java.util.Set;
 

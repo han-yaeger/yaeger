@@ -4,7 +4,7 @@ import nl.han.ica.waterworld.Waterworld;
 import nl.han.ica.waterworld.entities.game.Player;
 import nl.han.ica.waterworld.entities.game.Swordfish;
 import nl.han.ica.waterworld.entities.game.spawners.BubbleSpawner;
-import nl.han.ica.yaeger.scene.SceneType;
+import nl.han.ica.yaeger.engine.scene.SceneType;
 
 public class LevelOne extends Level {
 

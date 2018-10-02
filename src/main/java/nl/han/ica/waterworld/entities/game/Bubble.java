@@ -1,10 +1,10 @@
 package nl.han.ica.waterworld.entities.game;
 
 import nl.han.ica.waterworld.scenes.Level;
-import nl.han.ica.yaeger.entities.enumerations.SceneBorder;
-import nl.han.ica.yaeger.entities.interfaces.Collided;
-import nl.han.ica.yaeger.entities.sprites.UpdatableSpriteEntity;
-import nl.han.ica.yaeger.resourceconsumer.audio.Sound;
+import nl.han.ica.yaeger.engine.entities.enumerations.SceneBorder;
+import nl.han.ica.yaeger.engine.entities.interfaces.Collided;
+import nl.han.ica.yaeger.engine.entities.sprites.UpdatableSpriteEntity;
+import nl.han.ica.yaeger.engine.resourceconsumer.audio.Sound;
 
 public abstract class Bubble extends UpdatableSpriteEntity implements Collided {
 

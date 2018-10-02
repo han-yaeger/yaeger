@@ -3,9 +3,9 @@ package nl.han.ica.waterworld.scenes;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import nl.han.ica.waterworld.Waterworld;
-import nl.han.ica.yaeger.entities.text.TextEntity;
-import nl.han.ica.yaeger.scene.impl.DynamicScene;
-import nl.han.ica.yaeger.scene.SceneType;
+import nl.han.ica.yaeger.engine.entities.text.TextEntity;
+import nl.han.ica.yaeger.engine.scene.impl.DynamicScene;
+import nl.han.ica.yaeger.engine.scene.SceneType;
 
 public abstract class Level extends DynamicScene {
 

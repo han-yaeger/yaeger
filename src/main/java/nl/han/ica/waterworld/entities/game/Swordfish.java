@@ -1,8 +1,8 @@
 package nl.han.ica.waterworld.entities.game;
 
-import nl.han.ica.yaeger.entities.enumerations.SceneBorder;
-import nl.han.ica.yaeger.entities.interfaces.Collider;
-import nl.han.ica.yaeger.entities.sprites.UpdatableSpriteEntity;
+import nl.han.ica.yaeger.engine.entities.enumerations.SceneBorder;
+import nl.han.ica.yaeger.engine.entities.interfaces.Collider;
+import nl.han.ica.yaeger.engine.entities.sprites.UpdatableSpriteEntity;
 
 public class Swordfish extends UpdatableSpriteEntity implements Collider {
 
