@@ -6,7 +6,6 @@ import javafx.stage.Stage;
 import nl.han.ica.yaeger.engine.exceptions.YaegerSceneNotAvailableException;
 import nl.han.ica.yaeger.module.YaegerModule;
 
-import javax.inject.Inject;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
