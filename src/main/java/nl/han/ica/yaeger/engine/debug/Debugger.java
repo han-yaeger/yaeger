@@ -6,7 +6,7 @@ import nl.han.ica.yaeger.engine.StatisticsObserver;
 import nl.han.ica.yaeger.engine.entities.EntityCollectionStatistics;
 
 /**
- * The Debugger is used to gather and show in game debug information.
+ * The {@link Debugger} is used to gather and show in game debug information.
  */
 public class Debugger implements StatisticsObserver {
 

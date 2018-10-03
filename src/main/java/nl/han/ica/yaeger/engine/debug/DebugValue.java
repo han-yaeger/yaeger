@@ -7,13 +7,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class DebugValue extends Label {
+/**
+ * Extends the JavaFX {@link Label} and sets the relevant properties.
+ */
+class DebugValue extends Label {
 
-    public DebugValue() {
+    DebugValue() {
         this("");
     }
 
-    public DebugValue(String string) {
+    DebugValue(String string) {
         super(string);
 
         setTextFill(Color.GREEN);

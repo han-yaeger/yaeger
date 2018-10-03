@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.module.scene;
+package nl.han.ica.yaeger.module.factories;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;

@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.module.debugger;
+package nl.han.ica.yaeger.module.factories;
 
 import javafx.scene.Group;
 import nl.han.ica.yaeger.engine.debug.Debugger;

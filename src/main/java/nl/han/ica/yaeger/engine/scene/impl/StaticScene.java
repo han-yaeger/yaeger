@@ -11,8 +11,8 @@ import nl.han.ica.yaeger.engine.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.engine.scene.YaegerScene;
 import nl.han.ica.yaeger.engine.scene.delegates.BackgroundDelegate;
 import nl.han.ica.yaeger.engine.scene.delegates.KeyListenerDelegate;
-import nl.han.ica.yaeger.module.debugger.DebuggerFactory;
-import nl.han.ica.yaeger.module.scene.SceneFactory;
+import nl.han.ica.yaeger.module.factories.DebuggerFactory;
+import nl.han.ica.yaeger.module.factories.SceneFactory;
 
 import java.util.Set;
 

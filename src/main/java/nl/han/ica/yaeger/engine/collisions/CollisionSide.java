@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine.delegates;
+package nl.han.ica.yaeger.engine.collisions;
 
 public enum CollisionSide {
     TOP,

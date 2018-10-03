@@ -2,7 +2,7 @@ package nl.han.ica.yaeger.engine.entities.interfaces;
 
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
-import nl.han.ica.yaeger.engine.delegates.CollisionSide;
+import nl.han.ica.yaeger.engine.collisions.CollisionSide;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

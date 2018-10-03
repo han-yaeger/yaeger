@@ -1,15 +1,15 @@
 package nl.han.ica.yaeger.engine.exceptions;
 
 /**
- * Een {@code YaegerLifecycleException} wordt gegooit waneer een methode wordt gebruikt waarmee de lifecycle van Yaeger
- * wordt gebroken.
+ * A {@link YaegerLifecycleException} indicates that a method is called that does not abide the lifecycle
+ * of Yaeger.
  */
 public class YaegerLifecycleException extends RuntimeException {
 
     /**
-     * Maak een nieuwe {@code YaegerLifecycleException} met de gegeven bericht.
+     * Create a new {@link YaegerLifecycleException} with the given message.
      *
-     * @param message Het bericht dat getoond moet worden wanneer de exceptie gegooit wordt.
+     * @param message The message that should be shown when the exception is thrown.
      */
     public YaegerLifecycleException(String message) {
         super(message);

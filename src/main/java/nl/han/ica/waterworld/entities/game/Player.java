@@ -2,7 +2,7 @@ package nl.han.ica.waterworld.entities.game;
 
 import javafx.scene.input.KeyCode;
 import nl.han.ica.waterworld.scenes.Level;
-import nl.han.ica.yaeger.engine.delegates.CollisionSide;
+import nl.han.ica.yaeger.engine.collisions.CollisionSide;
 import nl.han.ica.yaeger.engine.entities.enumerations.SceneBorder;
 import nl.han.ica.yaeger.engine.entities.interfaces.Collidable;
 import nl.han.ica.yaeger.engine.entities.interfaces.Collider;
