@@ -147,7 +147,7 @@ public class EntityCollection {
     }
 
     private void clearSpawners() {
-        spawners.forEach(entitySpawner -> entitySpawner.destroy());
+        spawners.forEach(EntitySpawner::destroy);
         spawners.clear();
     }
 
