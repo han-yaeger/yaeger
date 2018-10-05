@@ -103,7 +103,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
     }
 
     @Override
-    public void tearDownScene() {
+    public void destroy() {
         keyListenerDelegate.tearDown(scene);
         backgroundDelegate.tearDown(scene);
         clearView();

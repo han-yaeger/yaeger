@@ -1,14 +1,16 @@
 package nl.han.ica.yaeger.engine.entities.spawners;
 
 import javafx.animation.AnimationTimer;
+import nl.han.ica.yaeger.engine.Destructable;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class EntitySpawner {
+public abstract class EntitySpawner implements Destructable {
 
     private Set<Entity> spawnedEntities = new HashSet<>();
+    private AnimationTimer animator;
 
     private long interval;
 
@@ -38,7 +40,8 @@ public abstract class EntitySpawner {
 
     private void initTimer() {
 
-        AnimationTimer animator = new AnimationTimer() {
+
+        animator = new AnimationTimer() {
 
             private long lastUpdate = System.currentTimeMillis();
 
@@ -57,4 +60,8 @@ public abstract class EntitySpawner {
 
     public abstract void tick();
 
+    @Override
+    public void destroy() {
+        animator.stop();
+    }
 }

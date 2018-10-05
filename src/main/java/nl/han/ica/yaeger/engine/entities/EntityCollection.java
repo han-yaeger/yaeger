@@ -139,11 +139,16 @@ public class EntityCollection {
      * Clear this {@link EntityCollection}.
      */
     public void clear() {
-        spawners.clear();
+        clearSpawners();
         statics.clear();
         updatables.clear();
         garbage.clear();
         keyListeners.clear();
+    }
+
+    private void clearSpawners() {
+        spawners.forEach(entitySpawner -> entitySpawner.destroy());
+        spawners.clear();
     }
 
     private void notifyStatisticsObservers() {

@@ -69,7 +69,7 @@ public class Scenes extends LinkedHashMap<SceneType, YaegerScene> {
         requestedScene.setupScene();
 
         if (activeScene != null) {
-            activeScene.tearDownScene();
+            activeScene.destroy();
         }
 
         activeScene = requestedScene;

@@ -1,13 +1,14 @@
 package nl.han.ica.yaeger.engine.scene;
 
 import javafx.scene.Scene;
+import nl.han.ica.yaeger.engine.Destructable;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
 
 /**
  * Een {@code YaegerScene} moet gebruikt worden om een apart scherm van een Yaeger game te encapsuleren.
  * Een game kan uit meerdere {@code YaegerScene}s bestaan.
  */
-public interface YaegerScene {
+public interface YaegerScene extends Destructable {
 
     /**
      * Initializeer de {@link YaegerScene}. Deze methode wordt aangeroepen voordat het scherm wordt opgebouwd en
@@ -21,12 +22,6 @@ public interface YaegerScene {
      * deze methode de {@link Entity}s worden aangemaakt.
      */
     void setupScene();
-
-    /**
-     * Handles all behaviour regarding the tear down of a {@link YaegerScene} to maximize the number of
-     * Objects that are eligable for Garbage Collection.
-     */
-    void tearDownScene();
 
     /**
      * Return the {@link Scene} that is encapsulated by this {@link YaegerScene}

@@ -102,6 +102,6 @@ class ScenesTest {
         scenes.setActive(SceneType.LEVEL_ONE);
 
         // Verify
-        verify(intro).tearDownScene();
+        verify(intro).destroy();
     }
 }
