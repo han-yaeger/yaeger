@@ -1,7 +1,6 @@
 package nl.han.ica.waterworld.scenes;
 
 import nl.han.ica.waterworld.Waterworld;
-import nl.han.ica.waterworld.entities.game.Player;
 import nl.han.ica.waterworld.entities.game.Swordfish;
 import nl.han.ica.waterworld.entities.game.spawners.BubbleSpawner;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
@@ -10,7 +9,7 @@ import nl.han.ica.yaeger.engine.scene.SceneType;
 public class LevelOne extends Level {
 
 
-    public static final String BACKGROUND_IMAGE = "underwater2.jpg";
+    private static final String BACKGROUND_IMAGE = "underwater2.jpg";
 
     public LevelOne(final Waterworld waterworld) {
         super(waterworld);
