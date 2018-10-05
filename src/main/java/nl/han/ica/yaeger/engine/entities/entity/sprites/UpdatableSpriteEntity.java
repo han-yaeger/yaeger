@@ -1,8 +1,8 @@
-package nl.han.ica.yaeger.engine.entities.sprites;
+package nl.han.ica.yaeger.engine.entities.entity.sprites;
 
 import javafx.geometry.Point2D;
 import nl.han.ica.yaeger.engine.entities.enumerations.SceneBorder;
-import nl.han.ica.yaeger.engine.entities.interfaces.Updatable;
+import nl.han.ica.yaeger.engine.entities.entity.Updatable;
 
 /**
  * An {@code UpdatableSpriteEntity} extends all behaviour of a {@code SpriteEntity}, but also implements the
@@ -12,53 +12,46 @@ import nl.han.ica.yaeger.engine.entities.interfaces.Updatable;
  */
 public abstract class UpdatableSpriteEntity extends SpriteEntity implements Updatable {
 
-    private double speed;
-    private double direction;
-
-    private Point2D movement;
+    private Movement movement;
+    private Point2D movementVector;
 
     /**
      * Create a new SpriteEntity.
      *
-     * @param resource          The url of the image file. Relative to the resources folder.
-     * @param boundingBoxWidth  The bounding box width of this SpriteEntity.
-     * @param boundingBoxHeight The bounding box height of this SpriteEntity.
+     * @param resource    The url of the image file. Relative to the resources folder.
+     * @param boundingBox The bounding box of this {@code SpriteEntity}.
      */
-    public UpdatableSpriteEntity(final String resource, final double boundingBoxWidth, final double boundingBoxHeight) {
-        this(resource, boundingBoxWidth, boundingBoxHeight, 1, 0, 0);
+    public UpdatableSpriteEntity(final String resource, final BoundingBox boundingBox) {
+        this(resource, boundingBox, 1, new Movement(0, 0), 0);
     }
 
     /**
      * Create a new {@code UpdatableSpriteEntity}.
      *
-     * @param resource          The url of the image file. Relative to the resources folder.
-     * @param boundingBoxWidth  The bounding box width of this SpriteEntity.
-     * @param boundingBoxHeight The bounding box height of this SpriteEntity.
-     * @param frames            The number of frames this Image contains. By default the first frame is loaded.
-     * @param initialDirection  The initialDirection in angles in which the {@code UpdatableSpriteEntity} should move.
-     * @param initialSpeed      The initialSpeed in pixels at which the {@code UpdatableSpriteEntity} should move.
+     * @param resource    The url of the image file. Relative to the resources folder.
+     * @param boundingBox The bounding box of this {@code SpriteEntity}.
+     * @param frames      The number of frames this Image contains. By default the first frame is loaded.
+     * @param movement    The movement of this {@code UpdatableSpriteEntity}
      */
-    public UpdatableSpriteEntity(final String resource, final double boundingBoxWidth, final double boundingBoxHeight, int frames, double initialDirection, double initialSpeed) {
-        this(resource, boundingBoxWidth, boundingBoxHeight, frames, initialDirection, initialSpeed, 0);
+    public UpdatableSpriteEntity(final String resource, final BoundingBox boundingBox, int frames, final Movement movement) {
+        this(resource, boundingBox, frames, movement, 0);
     }
 
     /**
      * Create a new {@code UpdatableSpriteEntity}.
      *
-     * @param resource          The url of the image file. Relative to the resources folder.
-     * @param boundingBoxWidth  The bounding box width of this SpriteEntity.
-     * @param boundingBoxHeight The bounding box height of this SpriteEntity.
-     * @param frames            The number of frames this Image contains. By default the first frame is loaded.
-     * @param direction         The direction in angles in which the {@code UpdatableSpriteEntity} should move.
-     * @param speed             The speed in pixels at which the {@code UpdatableSpriteEntity} should move.
-     * @param initialAngle      The initial angle in degrees at which {@code UpdatableSpriteEntity} should be rotated.
+     * @param resource     The url of the image file. Relative to the resources folder.
+     * @param boundingBox  The bounding box of this {@code SpriteEntity}.
+     * @param frames       The number of frames this Image contains. By default the first frame is loaded.
+     * @param movement     The movement of this {@code UpdatableSpriteEntity}
+     * @param initialAngle The initial angle in degrees at which {@code UpdatableSpriteEntity} should be rotated.
      */
-    public UpdatableSpriteEntity(final String resource, final double boundingBoxWidth, final double boundingBoxHeight, int frames, double direction, double speed, double initialAngle) {
+    public UpdatableSpriteEntity(final String resource, final BoundingBox boundingBox, int frames, final Movement movement, final double initialAngle) {
 
-        super(resource, frames, boundingBoxWidth, boundingBoxHeight, initialAngle);
+        super(resource, frames, boundingBox, initialAngle);
 
-        this.speed = speed;
-        this.direction = direction;
+        this.movement = movement;
+
 
         setMovementVector();
 
@@ -80,8 +73,8 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
      *               decrement in speed.
      */
     public void changeSpeed(double change) {
-        this.speed = speed * change;
-        this.movement.multiply(change);
+        movement.setSpeed(movement.getSpeed() * change);
+        this.movementVector.multiply(change);
 
         setMovementVector();
     }
@@ -93,7 +86,7 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
      */
     protected void setSpeed(double newSpeed) {
         if (hasSpeedChanged(newSpeed)) {
-            speed = newSpeed;
+            movement.setSpeed(newSpeed);
             setMovementVector();
         }
     }
@@ -112,7 +105,7 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
      */
     public void setDirection(double newDirection) {
         if (hasDirectionChanged(newDirection)) {
-            this.direction = newDirection;
+            movement.setDirection(newDirection);
             setMovementVector();
         }
     }
@@ -147,22 +140,22 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     }
 
     private void setMovementVector() {
-        double angleInRadians = Math.toRadians(direction - 90);
+        double angleInRadians = Math.toRadians(movement.getDirection() - 90);
         var directionVector = new Point2D(Math.cos(angleInRadians), Math.sin(angleInRadians));
 
-        movement = directionVector.normalize().multiply(speed);
+        movementVector = directionVector.normalize().multiply(movement.getSpeed());
     }
 
     private void updateLocation() {
-        location = location.add(movement);
+        location = location.add(movementVector);
         imageView.relocate(location.getX(), location.getY());
     }
 
     private boolean hasDirectionChanged(double newDirection) {
-        return Double.compare(newDirection, direction) != 0;
+        return Double.compare(newDirection, movement.getDirection()) != 0;
     }
 
     private boolean hasSpeedChanged(double newSpeed) {
-        return Double.compare(newSpeed, speed) != 0;
+        return Double.compare(newSpeed, movement.getSpeed()) != 0;
     }
 }

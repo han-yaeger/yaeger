@@ -1,7 +1,7 @@
 package nl.han.ica.yaeger.engine.entities.spawners;
 
 import javafx.animation.AnimationTimer;
-import nl.han.ica.yaeger.engine.entities.Entity;
+import nl.han.ica.yaeger.engine.entities.entity.Entity;
 
 import java.util.HashSet;
 import java.util.Set;

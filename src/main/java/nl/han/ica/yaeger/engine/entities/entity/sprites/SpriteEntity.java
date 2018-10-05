@@ -1,11 +1,11 @@
-package nl.han.ica.yaeger.engine.entities.sprites;
+package nl.han.ica.yaeger.engine.entities.entity.sprites;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import nl.han.ica.yaeger.engine.entities.Entity;
-import nl.han.ica.yaeger.engine.entities.sprites.delegates.SpriteAnimationDelegate;
+import nl.han.ica.yaeger.engine.entities.entity.Entity;
+import nl.han.ica.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimationDelegate;
 import nl.han.ica.yaeger.engine.resourceconsumer.ResourceConsumer;
 
 /**
@@ -23,11 +23,10 @@ public abstract class SpriteEntity extends Entity implements ResourceConsumer {
      * Create a new {@code SpriteEntity} for a given Image.
      *
      * @param resource          The url of the image file. Relative to the resources folder.
-     * @param boundingBoxWidth  The bounding box width of this SpriteEntity.
-     * @param boundingBoxHeight The bounding box height of this SpriteEntity.
+     * @param boundingBox       The bounding box of this SpriteEntity.
      */
-    public SpriteEntity(final String resource, final double boundingBoxWidth, final double boundingBoxHeight) {
-        this(resource, 1, boundingBoxWidth, boundingBoxHeight);
+    public SpriteEntity(final String resource, final BoundingBox boundingBox) {
+        this(resource, 1, boundingBox);
     }
 
     /**
@@ -35,11 +34,10 @@ public abstract class SpriteEntity extends Entity implements ResourceConsumer {
      *
      * @param resource          The url of the image file. Relative to the resources folder.
      * @param frames            The number of frames this Image contains. By default the first frame is loaded.
-     * @param boundingBoxWidth  The bounding box width of this SpriteEntity.
-     * @param boundingBoxHeight The bounding box height of this SpriteEntity.
+     * @param boundingBox       The bounding box of this SpriteEntity.
      */
-    public SpriteEntity(final String resource, final int frames, final double boundingBoxWidth, final double boundingBoxHeight) {
-        this(resource, frames, boundingBoxWidth, boundingBoxHeight, 0);
+    public SpriteEntity(final String resource, final int frames, final BoundingBox boundingBox) {
+        this(resource, frames, boundingBox, 0);
     }
 
     /**
@@ -47,16 +45,15 @@ public abstract class SpriteEntity extends Entity implements ResourceConsumer {
      *
      * @param resource          The url of the image file. Relative to the resources folder.
      * @param frames            The number of frames this Image contains. By default the first frame is loaded.
-     * @param boundingBoxWidth  The bounding box width of this SpriteEntity.
-     * @param boundingBoxHeight The bounding box height of this SpriteEntity.
+     * @param boundingBox       The bounding box of this {@code SpriteEntity}.
      * @param angle             The initial angle in degrees of the {@code SpriteEntity}.
      */
-    public SpriteEntity(final String resource, final int frames, final double boundingBoxWidth, final double boundingBoxHeight, final double angle) {
+    public SpriteEntity(final String resource, final int frames, final BoundingBox boundingBox, final double angle) {
 
         this.angle = angle;
 
         var stringUrl = createPathForResource(resource);
-        var image = new Image(stringUrl, boundingBoxWidth, boundingBoxHeight, true, false);
+        var image = new Image(stringUrl, boundingBox.getWidth(), boundingBox.getHeight(), true, false);
         imageView = new ImageView(image);
         imageView.setManaged(false);
 

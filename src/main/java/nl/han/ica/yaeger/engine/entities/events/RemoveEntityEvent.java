@@ -1,7 +1,7 @@
 package nl.han.ica.yaeger.engine.entities.events;
 
 import javafx.event.Event;
-import nl.han.ica.yaeger.engine.entities.Entity;
+import nl.han.ica.yaeger.engine.entities.entity.Entity;
 
 /**
  * Verstuur een {@code RemoveEntityEvent} wanneer een {@link Entity} verwijdert moet worden.

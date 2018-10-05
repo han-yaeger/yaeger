@@ -3,7 +3,7 @@ package nl.han.ica.waterworld.scenes;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import nl.han.ica.waterworld.Waterworld;
-import nl.han.ica.yaeger.engine.entities.text.TextEntity;
+import nl.han.ica.yaeger.engine.entities.entity.text.TextEntity;
 import nl.han.ica.yaeger.engine.scene.impl.DynamicScene;
 import nl.han.ica.yaeger.engine.scene.SceneType;
 

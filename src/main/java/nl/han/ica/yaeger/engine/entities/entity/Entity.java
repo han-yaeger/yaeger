@@ -1,9 +1,8 @@
-package nl.han.ica.yaeger.engine.entities;
+package nl.han.ica.yaeger.engine.entities.entity;
 
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import nl.han.ica.yaeger.engine.entities.events.RemoveEntityEvent;
-import nl.han.ica.yaeger.engine.entities.interfaces.Bounded;
 
 /**
  * Een {@code Entity} is het {@code Root Object} van alle entiteiten die deel uitmaken van het game.

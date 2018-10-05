@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import nl.han.ica.waterworld.Waterworld;
-import nl.han.ica.yaeger.engine.entities.text.TextEntity;
+import nl.han.ica.yaeger.engine.entities.entity.text.TextEntity;
 
 public class QuitButton extends TextEntity {
 

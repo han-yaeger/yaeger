@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine.entities.interfaces;
+package nl.han.ica.yaeger.engine.entities.entity;
 
 import javafx.geometry.Bounds;
 

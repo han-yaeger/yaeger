@@ -2,8 +2,9 @@ package nl.han.ica.yaeger.engine.scene.impl;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
-import nl.han.ica.yaeger.engine.entities.Entity;
+import nl.han.ica.yaeger.engine.entities.entity.Entity;
 import nl.han.ica.yaeger.engine.entities.EntityCollection;
+import nl.han.ica.yaeger.engine.entities.entity.Updatable;
 import nl.han.ica.yaeger.engine.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.engine.exceptions.YaegerLifecycleException;
 
@@ -12,8 +13,8 @@ import java.util.Set;
 
 /**
  * Een {@code DynamicScene} is een {@link StaticScene} met een eigen {@code GameLoop}. Deze {@code GameLoop}
- * roept ieder frame (waarbij wordt uitgegaan van 60fps) op alle geregistreerde {@link nl.han.ica.yaeger.engine.entities.Entity}s
- * die de interface {@link nl.han.ica.yaeger.engine.entities.interfaces.Updatable} implementeren, de {@code update()} methode aan.
+ * roept ieder frame (waarbij wordt uitgegaan van 60fps) op alle geregistreerde {@link Entity}s
+ * die de interface {@link Updatable} implementeren, de {@code update()} methode aan.
  */
 public abstract class DynamicScene extends StaticScene {
 

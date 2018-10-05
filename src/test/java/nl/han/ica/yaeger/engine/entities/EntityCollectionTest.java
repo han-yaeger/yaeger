@@ -6,7 +6,8 @@ import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.engine.debug.Debugger;
 import nl.han.ica.yaeger.engine.KeyListener;
-import nl.han.ica.yaeger.engine.entities.interfaces.Updatable;
+import nl.han.ica.yaeger.engine.entities.entity.Entity;
+import nl.han.ica.yaeger.engine.entities.entity.Updatable;
 import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.Test;

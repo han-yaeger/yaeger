@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.engine.KeyListener;
 import nl.han.ica.yaeger.engine.debug.Debugger;
-import nl.han.ica.yaeger.engine.entities.Entity;
+import nl.han.ica.yaeger.engine.entities.entity.Entity;
 import nl.han.ica.yaeger.engine.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.engine.scene.YaegerScene;
 import nl.han.ica.yaeger.engine.scene.delegates.BackgroundDelegate;

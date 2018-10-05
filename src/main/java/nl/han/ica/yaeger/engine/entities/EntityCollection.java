@@ -4,10 +4,13 @@ import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.engine.StatisticsObserver;
 import nl.han.ica.yaeger.engine.collisions.CollisionDelegate;
+import nl.han.ica.yaeger.engine.entities.entity.Collided;
+import nl.han.ica.yaeger.engine.entities.entity.Collider;
+import nl.han.ica.yaeger.engine.entities.entity.Entity;
 import nl.han.ica.yaeger.engine.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.engine.entities.events.EventTypes;
 import nl.han.ica.yaeger.engine.KeyListener;
-import nl.han.ica.yaeger.engine.entities.interfaces.Updatable;
+import nl.han.ica.yaeger.engine.entities.entity.Updatable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -111,8 +114,8 @@ public class EntityCollection {
      * </li>
      * <li>
      * <b>Check for collisions</b> Check if collisions have occured between instances of
-     * {@link nl.han.ica.yaeger.engine.entities.interfaces.Collided} and
-     * {@link nl.han.ica.yaeger.engine.entities.interfaces.Collider}. In such a case, the {@link nl.han.ica.yaeger.engine.entities.interfaces.Collided}
+     * {@link Collided} and
+     * {@link Collider}. In such a case, the {@link Collided}
      * will be notified.
      * </li>
      * <li>

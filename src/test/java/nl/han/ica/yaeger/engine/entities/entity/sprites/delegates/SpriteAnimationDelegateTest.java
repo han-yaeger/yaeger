@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine.entities.sprites.delegates;
+package nl.han.ica.yaeger.engine.entities.entity.sprites.delegates;
 
 
 import javafx.scene.image.Image;

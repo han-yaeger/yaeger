@@ -1,8 +1,8 @@
 package nl.han.ica.yaeger.engine.collisions;
 
-import nl.han.ica.yaeger.engine.entities.Entity;
-import nl.han.ica.yaeger.engine.entities.interfaces.Collided;
-import nl.han.ica.yaeger.engine.entities.interfaces.Collider;
+import nl.han.ica.yaeger.engine.entities.entity.Entity;
+import nl.han.ica.yaeger.engine.entities.entity.Collided;
+import nl.han.ica.yaeger.engine.entities.entity.Collider;
 
 import java.util.HashSet;
 import java.util.Set;

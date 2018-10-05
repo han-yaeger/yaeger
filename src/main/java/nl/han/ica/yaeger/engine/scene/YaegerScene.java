@@ -1,6 +1,7 @@
 package nl.han.ica.yaeger.engine.scene;
 
 import javafx.scene.Scene;
+import nl.han.ica.yaeger.engine.entities.entity.Entity;
 
 /**
  * Een {@code YaegerScene} moet gebruikt worden om een apart scherm van een Yaeger game te encapsuleren.
@@ -17,7 +18,7 @@ public interface YaegerScene {
 
     /**
      * Deze methode wordt aangeroepen om een scherm op te bouwen. Om het geheugengebruik te minimaliseren moet in
-     * deze methode de {@link nl.han.ica.yaeger.engine.entities.Entity}s worden aangemaakt.
+     * deze methode de {@link Entity}s worden aangemaakt.
      */
     void setupScene();
 
