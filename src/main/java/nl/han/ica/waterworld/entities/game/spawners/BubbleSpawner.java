@@ -2,7 +2,7 @@ package nl.han.ica.waterworld.entities.game.spawners;
 
 import nl.han.ica.waterworld.entities.game.Air;
 import nl.han.ica.waterworld.entities.game.Poison;
-import nl.han.ica.waterworld.scenes.Level;
+import nl.han.ica.waterworld.scenes.levels.Level;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.spawners.EntitySpawner;
 

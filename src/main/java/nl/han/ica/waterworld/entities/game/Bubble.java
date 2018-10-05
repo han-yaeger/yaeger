@@ -1,6 +1,6 @@
 package nl.han.ica.waterworld.entities.game;
 
-import nl.han.ica.waterworld.scenes.Level;
+import nl.han.ica.waterworld.scenes.levels.Level;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.BoundingBox;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Movement;

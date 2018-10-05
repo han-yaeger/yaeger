@@ -1,9 +1,10 @@
-package nl.han.ica.waterworld.scenes;
+package nl.han.ica.waterworld.scenes.levels;
 
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import nl.han.ica.waterworld.Waterworld;
 import nl.han.ica.waterworld.entities.game.Player;
+import nl.han.ica.waterworld.entities.game.spawners.BubbleSpawner;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.text.TextEntity;
 import nl.han.ica.yaeger.engine.scene.impl.DynamicScene;
@@ -60,6 +61,12 @@ public abstract class Level extends DynamicScene {
     public void increaseBubblesPopped() {
         bubblesPopped++;
         updateBubblesPoppedText();
+    }
+
+    @Override
+    protected void setupSpawners() {
+        var spawner = new BubbleSpawner(waterworld.getGameWidth(), waterworld.getGameHeight(), this);
+        registerSpawner(spawner);
     }
 
     /**
