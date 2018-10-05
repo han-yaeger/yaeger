@@ -4,10 +4,13 @@ import nl.han.ica.waterworld.Waterworld;
 import nl.han.ica.waterworld.entities.game.Player;
 import nl.han.ica.waterworld.entities.game.Swordfish;
 import nl.han.ica.waterworld.entities.game.spawners.BubbleSpawner;
+import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.scene.SceneType;
 
 public class LevelOne extends Level {
 
+
+    public static final String BACKGROUND_IMAGE = "underwater2.jpg";
 
     public LevelOne(final Waterworld waterworld) {
         super(waterworld);
@@ -15,8 +18,8 @@ public class LevelOne extends Level {
 
     @Override
     public void initializeScene() {
-        setBackgroundImage("underwater2.jpg");
-        setBackgroundAudio("audio/waterworld.mp3");
+        super.initializeScene();
+        setBackgroundImage(BACKGROUND_IMAGE);
     }
 
     @Override
@@ -38,12 +41,7 @@ public class LevelOne extends Level {
     protected void setupEntities() {
         super.setupEntities();
 
-        var swordFish = new Swordfish();
-        swordFish.setLocation(200, 200);
+        var swordFish = new Swordfish(new Position(200, 200));
         addEntity(swordFish);
-
-        var player = new Player(this, 10);
-        player.setLocation(100, 100);
-        addEntity(player);
     }
 }

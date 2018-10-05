@@ -3,11 +3,15 @@ package nl.han.ica.waterworld.scenes;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import nl.han.ica.waterworld.Waterworld;
+import nl.han.ica.waterworld.entities.game.Player;
+import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.text.TextEntity;
 import nl.han.ica.yaeger.engine.scene.impl.DynamicScene;
 import nl.han.ica.yaeger.engine.scene.SceneType;
 
 public abstract class Level extends DynamicScene {
+
+    public static final String BACKGROUND_AUDIO = "audio/waterworld.mp3";
 
     protected Waterworld waterworld;
     int bubblesPopped = 0;
@@ -20,17 +24,25 @@ public abstract class Level extends DynamicScene {
 
     @Override
     protected void setupEntities() {
-        bubblesPoppedText = new TextEntity(10, 40);
-        bubblesPoppedText.setFont(Font.font("palatino", 40));
+        bubblesPoppedText = new TextEntity(new Position(10, 40));
+        bubblesPoppedText.setFont(Font.font(Waterworld.FONT, 40));
         bubblesPoppedText.setFill(Color.VIOLET);
         addEntity(bubblesPoppedText);
         updateBubblesPoppedText();
 
-        healthText = new TextEntity(960, 40);
-        healthText.setFont(Font.font("palatino", 40));
+        healthText = new TextEntity(new Position(960, 40));
+        healthText.setFont(Font.font(Waterworld.FONT, 40));
         healthText.setFill(Color.DARKBLUE);
         addEntity(healthText);
         setHealthText(10);
+
+        var player = new Player(new Position(100, 100), this, 10);
+        addEntity(player);
+    }
+
+    @Override
+    public void initializeScene() {
+        setBackgroundAudio(BACKGROUND_AUDIO);
     }
 
     /**

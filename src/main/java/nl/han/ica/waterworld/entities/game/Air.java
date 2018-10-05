@@ -3,11 +3,12 @@ package nl.han.ica.waterworld.entities.game;
 import nl.han.ica.waterworld.scenes.Level;
 import nl.han.ica.yaeger.engine.collisions.CollisionSide;
 import nl.han.ica.yaeger.engine.entities.entity.Collider;
+import nl.han.ica.yaeger.engine.entities.entity.Position;
 
 public class Air extends Bubble {
 
-    public Air(final double speed, final Level waterworld) {
-        super("images/bubble.png", speed, waterworld);
+    public Air(final Position position, final double speed, final Level waterworld) {
+        super(position, "images/bubble.png", speed, waterworld);
     }
 
     @Override

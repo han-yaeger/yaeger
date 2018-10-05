@@ -3,6 +3,7 @@ package nl.han.ica.waterworld.entities.game.spawners;
 import nl.han.ica.waterworld.entities.game.Air;
 import nl.han.ica.waterworld.entities.game.Poison;
 import nl.han.ica.waterworld.scenes.Level;
+import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.spawners.EntitySpawner;
 
 import java.util.Random;
@@ -22,15 +23,13 @@ public class BubbleSpawner extends EntitySpawner {
     }
 
     private void createAir() {
-        var air = new Air(generateRandomSpeed(), waterworld);
-        air.setLocation(generateRandomXLocation(), worldHeight - 30);
+        var air = new Air(new Position(generateRandomXLocation(), worldHeight - 30), generateRandomSpeed(), waterworld);
 
         spawn(air);
     }
 
     private void createPoison() {
-        var poison = new Poison(generateRandomSpeed(), waterworld);
-        poison.setLocation(generateRandomXLocation(), worldHeight - 30);
+        var poison = new Poison(new Position(generateRandomXLocation(), worldHeight - 30), generateRandomSpeed(), waterworld);
 
         spawn(poison);
     }

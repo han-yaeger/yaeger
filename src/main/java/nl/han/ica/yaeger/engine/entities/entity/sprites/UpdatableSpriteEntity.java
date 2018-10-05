@@ -1,6 +1,7 @@
 package nl.han.ica.yaeger.engine.entities.entity.sprites;
 
 import javafx.geometry.Point2D;
+import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.enumerations.SceneBorder;
 import nl.han.ica.yaeger.engine.entities.entity.Updatable;
 
@@ -18,37 +19,40 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     /**
      * Create a new SpriteEntity.
      *
+     * @param position    the initial {@link Position} of this Entity
      * @param resource    The url of the image file. Relative to the resources folder.
      * @param boundingBox The bounding box of this {@code SpriteEntity}.
      */
-    public UpdatableSpriteEntity(final String resource, final BoundingBox boundingBox) {
-        this(resource, boundingBox, 1, new Movement(0, 0), 0);
+    public UpdatableSpriteEntity(final Position position, final String resource, final BoundingBox boundingBox) {
+        this(position, resource, boundingBox, 1, new Movement(0, 0), 0);
     }
 
     /**
      * Create a new {@code UpdatableSpriteEntity}.
      *
+     * @param position    the initial {@link Position} of this Entity
      * @param resource    The url of the image file. Relative to the resources folder.
      * @param boundingBox The bounding box of this {@code SpriteEntity}.
      * @param frames      The number of frames this Image contains. By default the first frame is loaded.
      * @param movement    The movement of this {@code UpdatableSpriteEntity}
      */
-    public UpdatableSpriteEntity(final String resource, final BoundingBox boundingBox, int frames, final Movement movement) {
-        this(resource, boundingBox, frames, movement, 0);
+    public UpdatableSpriteEntity(final Position position,final String resource, final BoundingBox boundingBox, int frames, final Movement movement) {
+        this(position, resource, boundingBox, frames, movement, 0);
     }
 
     /**
      * Create a new {@code UpdatableSpriteEntity}.
      *
+     * @param position    the initial {@link Position} of this Entity
      * @param resource     The url of the image file. Relative to the resources folder.
      * @param boundingBox  The bounding box of this {@code SpriteEntity}.
      * @param frames       The number of frames this Image contains. By default the first frame is loaded.
      * @param movement     The movement of this {@code UpdatableSpriteEntity}
      * @param initialAngle The initial angle in degrees at which {@code UpdatableSpriteEntity} should be rotated.
      */
-    public UpdatableSpriteEntity(final String resource, final BoundingBox boundingBox, int frames, final Movement movement, final double initialAngle) {
+    public UpdatableSpriteEntity(final Position position,final String resource, final BoundingBox boundingBox, int frames, final Movement movement, final double initialAngle) {
 
-        super(resource, frames, boundingBox, initialAngle);
+        super(position, resource, frames, boundingBox, initialAngle);
 
         this.movement = movement;
 
@@ -147,8 +151,8 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     }
 
     private void updateLocation() {
-        location = location.add(movementVector);
-        imageView.relocate(location.getX(), location.getY());
+        position = position.add(movementVector);
+        imageView.relocate(position.getX(), position.getY());
     }
 
     private boolean hasDirectionChanged(double newDirection) {

@@ -3,6 +3,7 @@ package nl.han.ica.waterworld.entities.game;
 import javafx.scene.input.KeyCode;
 import nl.han.ica.waterworld.scenes.Level;
 import nl.han.ica.yaeger.engine.collisions.CollisionSide;
+import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.BoundingBox;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Movement;
 import nl.han.ica.yaeger.engine.entities.enumerations.SceneBorder;
@@ -18,8 +19,8 @@ public class Player extends UpdatableSpriteEntity implements KeyListener, Collid
     private int health;
     private Level level;
 
-    public Player(final Level level, final int health) {
-        super("images/player.png", new BoundingBox(40, 40), 2, new Movement(0, 0));
+    public Player(final Position position, final Level level, final int health) {
+        super(position, "images/player.png", new BoundingBox(40, 40), 2, new Movement(0, 0));
         this.level = level;
         this.health = health;
     }

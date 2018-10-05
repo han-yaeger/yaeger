@@ -3,11 +3,12 @@ package nl.han.ica.waterworld.entities.game;
 import nl.han.ica.waterworld.scenes.Level;
 import nl.han.ica.yaeger.engine.collisions.CollisionSide;
 import nl.han.ica.yaeger.engine.entities.entity.Collider;
+import nl.han.ica.yaeger.engine.entities.entity.Position;
 
 public class Poison extends Bubble {
 
-    public Poison(final double speed, Level level) {
-        super("images/poison.png", speed, level);
+    public Poison(final Position position, final double speed, final Level level) {
+        super(position, "images/poison.png", speed, level);
     }
 
     @Override

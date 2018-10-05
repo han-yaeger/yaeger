@@ -7,6 +7,7 @@ import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.engine.debug.Debugger;
 import nl.han.ica.yaeger.engine.KeyListener;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
+import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.Updatable;
 import org.junit.jupiter.api.Assertions;
 
@@ -148,6 +149,10 @@ class EntityCollectionTest {
 
 class UpdatableEntity extends Entity implements Updatable {
 
+    UpdatableEntity() {
+        super(new Position(0, 0));
+    }
+
     @Override
     public Node getGameNode() {
         return null;
@@ -160,6 +165,10 @@ class UpdatableEntity extends Entity implements Updatable {
 }
 
 class KeyListeningEntity extends Entity implements KeyListener {
+
+    KeyListeningEntity() {
+        super(new Position(0, 0));
+    }
 
     @Override
     public Node getGameNode() {

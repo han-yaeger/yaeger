@@ -10,6 +10,18 @@ import nl.han.ica.yaeger.engine.entities.events.RemoveEntityEvent;
  */
 public abstract class Entity implements Bounded {
 
+    private Position position;
+
+    /**
+     * Create a new instance of {@link Entity}.
+     *
+     * @param position the initial {@link Position} of this Entity
+     */
+    protected Entity(Position position) {
+
+        this.position = position;
+    }
+
     /**
      * Retourneer de {@link Node} waar deze {@code Entity} bij hoort. Een {@link Node} is
      * onderdeel van de onderliggende structuur.
@@ -62,5 +74,12 @@ public abstract class Entity implements Bounded {
      */
     public void setVisible(boolean visible) {
         getGameNode().setVisible(visible);
+    }
+
+    /**
+     * @return the {@link Position} of this {@link Entity}
+     */
+    public Position getPosition() {
+        return position;
     }
 }

@@ -5,18 +5,20 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import nl.han.ica.waterworld.Waterworld;
+import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.text.TextEntity;
 import nl.han.ica.yaeger.engine.scene.SceneType;
 
 public class StartButton extends TextEntity {
 
+    public static final String PLAY_GAME = "Play game";
     private Waterworld waterworld;
 
     public StartButton(Waterworld waterworld) {
-        super(380, 400, "Play game");
+        super(new Position(380, 400), PLAY_GAME);
         this.waterworld = waterworld;
         setFill(Color.VIOLET);
-        setFont(Font.font("palatino", FontWeight.BOLD, 30));
+        setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 30));
     }
 
     @Override

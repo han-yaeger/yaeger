@@ -5,7 +5,6 @@ package nl.han.ica.yaeger.engine.entities.entity.sprites;
  */
 public class Movement {
 
-
     private double direction;
     private double speed;
 
@@ -52,5 +51,12 @@ public class Movement {
      */
     public void setSpeed(double speed) {
         this.speed = speed;
+    }
+
+    public class Direction {
+        public static final double UP = 0d;
+        public static final double DOWN = 180d;
+        public static final double LEFT = 270d;
+        public static final double RIGHT = 90d;
     }
 }

@@ -10,6 +10,8 @@ import nl.han.ica.yaeger.engine.scene.SceneType;
 
 public class Waterworld extends YaegerEngine {
 
+    public static final String FONT = "palatino";
+
     private static final String GAME_TITLE = "Waterworld 2";
     private static final int WATERWORLD_WIDTH = 1204;
     private static final int WATERWORLD_HEIGHT = 903;
