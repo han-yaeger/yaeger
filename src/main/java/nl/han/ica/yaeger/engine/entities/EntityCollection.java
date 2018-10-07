@@ -167,7 +167,7 @@ public class EntityCollection {
 
     private void removeGameObject(Removeable entity) {
         this.group.getChildren().remove(entity.getGameNode());
-        this.collisionDelegate.removeGameObject(entity);
+        this.collisionDelegate.remove(entity);
     }
 
     private void addSpawnedObjects() {
@@ -180,7 +180,7 @@ public class EntityCollection {
         addToKeylisteners(entity);
         addToUpdatablesOrStatics(entity);
 
-        collisionDelegate.registerForCollisionDetection(entity);
+        collisionDelegate.register(entity);
         attachEventListeners(entity);
         addToScene(entity);
     }

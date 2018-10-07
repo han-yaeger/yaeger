@@ -22,34 +22,68 @@ public class CollisionDelegate {
         colliders = new HashSet<>();
     }
 
-    public void registerForCollisionDetection(Entity collided) {
-        if (collided instanceof Collider) {
-            colliders.add((Collider) collided);
+    /**
+     * Register an {@link Entity} to be evaluated for collision detection. The {@link Entity} will only be added
+     * if
+     *
+     * @param entity the {@link Entity} that should be registered
+     */
+    public void register(Entity entity) {
+        if (entity instanceof Collider) {
+            register((Collider) entity);
         }
-        if (collided instanceof Collided) {
-            collideds.add((Collided) collided);
+        if (entity instanceof Collided) {
+            register((Collided) entity);
         }
+    }
+
+    /**
+     * Register a {@link Collider} to be evaluated for collision detection.
+     *
+     * @param collider the {@link Collider} that should be registered
+     */
+    public void register(Collider collider) {
+        colliders.add(collider);
+    }
+
+    /**
+     * Register a {@link Collided} to be evaluated for collision detection.
+     *
+     * @param collided the {@link Collided} that should be registered
+     */
+    public void register(Collided collided) {
+        collideds.add(collided);
+    }
+
+    /**
+     * Register a {@link Collidable} to be evaluated for collision detection.
+     *
+     * @param collidable the {@link Collidable} that should be registered
+     */
+    public void register(Collidable collidable) {
+        collideds.add(collidable);
+        colliders.add(collidable);
     }
 
     /**
      * Remove the {@link Removeable} from the list of Objects that are taken into account
      *
-     * @param entity The Entity that should be removed.
+     * @param removeable The {@link Removeable} that should be removed.
      */
-    public void removeGameObject(Removeable entity) {
-        if (entity instanceof Collider) {
-            removeCollider((Collider) entity);
+    public void remove(Removeable removeable) {
+        if (removeable instanceof Collider) {
+            removeCollider((Collider) removeable);
         }
-        if (entity instanceof Collided) {
-            removeCollided((Collided) entity);
+        if (removeable instanceof Collided) {
+            removeCollided((Collided) removeable);
         }
     }
 
     /**
-     * Check for collisions. Each collidble is asked to check for collisions.
+     * Check for collisions. Each {@link Collidable} is asked to check for collisions.
      */
     public void checkCollisions() {
-        collideds.stream().forEach(collided -> collided.checkForCollisions(colliders));
+        collideds.forEach(collided -> collided.checkForCollisions(colliders));
     }
 
     private void removeCollider(Collider collider) {
