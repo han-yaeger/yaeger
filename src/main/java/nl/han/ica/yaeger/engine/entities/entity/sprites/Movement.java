@@ -60,7 +60,14 @@ public class Movement {
         this.speed = speed;
     }
 
+    /**
+     * A {@code Direction} provides default values for the direction of a {@link Movement}.
+     */
     public class Direction {
+
+        private Direction() {
+        }
+
         public static final double UP = 0d;
         public static final double DOWN = 180d;
         public static final double LEFT = 270d;

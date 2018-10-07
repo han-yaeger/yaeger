@@ -16,7 +16,7 @@ import java.util.Set;
 
 public class Player extends UpdatableSpriteEntity implements KeyListener, Collidable {
 
-    public static final String IMAGES_PLAYER_PNG = "images/player.png";
+    private static final String IMAGES_PLAYER_PNG = "images/player.png";
     private int health;
     private Level level;
 

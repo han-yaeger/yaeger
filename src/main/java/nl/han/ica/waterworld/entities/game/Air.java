@@ -7,7 +7,7 @@ import nl.han.ica.yaeger.engine.entities.entity.Position;
 
 public class Air extends Bubble {
 
-    public static final String IMAGES_BUBBLE_PNG = "images/bubble.png";
+    private static final String IMAGES_BUBBLE_PNG = "images/bubble.png";
 
     public Air(final Position position, final double speed, final Level waterworld) {
         super(position, IMAGES_BUBBLE_PNG, speed, waterworld);

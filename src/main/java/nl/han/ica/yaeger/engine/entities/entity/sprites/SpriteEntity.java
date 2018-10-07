@@ -57,7 +57,6 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
         this.positionVector = position;
 
         this.angle = angle;
-        this.positionVector = position;
 
         var stringUrl = createPathForResource(resource);
         var image = new Image(stringUrl, boundingBox.getWidth(), boundingBox.getHeight(), true, false);

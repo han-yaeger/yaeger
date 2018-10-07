@@ -7,7 +7,6 @@ import nl.han.ica.yaeger.engine.scene.SceneType;
 
 public class LevelOne extends Level {
 
-
     private static final String BACKGROUND_IMAGE = "underwater2.jpg";
 
     public LevelOne(final Waterworld waterworld) {

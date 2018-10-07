@@ -7,7 +7,7 @@ import nl.han.ica.yaeger.engine.entities.entity.Position;
 
 public class Poison extends Bubble {
 
-    public static final String IMAGES_POISON_PNG = "images/poison.png";
+    private static final String IMAGES_POISON_PNG = "images/poison.png";
 
     public Poison(final Position position, final double speed, final Level level) {
         super(position, IMAGES_POISON_PNG, speed, level);

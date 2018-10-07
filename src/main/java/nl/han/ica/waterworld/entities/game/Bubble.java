@@ -11,11 +11,11 @@ import nl.han.ica.yaeger.engine.resourceconsumer.audio.Sound;
 
 public abstract class Bubble extends UpdatableSpriteEntity implements Collided {
 
-    public static final String AUDIO_POP_MP3 = "audio/pop.mp3";
+    private static final String AUDIO_POP_MP3 = "audio/pop.mp3";
     private final Level level;
 
     Bubble(final Position position, final String resource, final double speed, final Level game) {
-        super(position, resource, new BoundingBox(20, 20), 0, new Movement(2, speed), 0);
+        super(position, resource, new BoundingBox(20, 20), 0, new Movement(Movement.Direction.UP, speed), 0);
         this.level = game;
     }
 
