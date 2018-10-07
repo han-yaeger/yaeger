@@ -1,8 +1,8 @@
-package nl.han.ica.yaeger.engine.entities.entity;
+package nl.han.ica.yaeger.engine.collisions;
 
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
-import nl.han.ica.yaeger.engine.collisions.CollisionSide;
+import nl.han.ica.yaeger.engine.entities.entity.Bounded;
 
 import java.util.Set;
 

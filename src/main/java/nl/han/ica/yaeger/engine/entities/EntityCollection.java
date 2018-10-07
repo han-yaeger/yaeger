@@ -3,14 +3,13 @@ package nl.han.ica.yaeger.engine.entities;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.engine.StatisticsObserver;
+import nl.han.ica.yaeger.engine.collisions.Collided;
+import nl.han.ica.yaeger.engine.collisions.Collider;
 import nl.han.ica.yaeger.engine.collisions.CollisionDelegate;
-import nl.han.ica.yaeger.engine.entities.entity.Collided;
-import nl.han.ica.yaeger.engine.entities.entity.Collider;
-import nl.han.ica.yaeger.engine.entities.entity.Entity;
+import nl.han.ica.yaeger.engine.entities.entity.*;
 import nl.han.ica.yaeger.engine.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.engine.entities.events.EventTypes;
 import nl.han.ica.yaeger.engine.KeyListener;
-import nl.han.ica.yaeger.engine.entities.entity.Updatable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -29,7 +28,7 @@ public class EntityCollection {
     private final Set<Entity> statics = new HashSet<>();
     private final Set<Updatable> updatables = new HashSet<>();
     private final Set<KeyListener> keyListeners = new HashSet<>();
-    private final Set<Entity> garbage = new HashSet<>();
+    private final Set<Removeable> garbage = new HashSet<>();
 
     private final List<StatisticsObserver> statisticsObservers = new ArrayList<>();
 
@@ -70,12 +69,12 @@ public class EntityCollection {
     }
 
     /**
-     * Mark an {@link Entity} as garbage. After this is done, the {@link Entity} is set for Garbage Collection and will
+     * Mark an {@link Removeable} as garbage. After this is done, the {@link Removeable} is set for Garbage Collection and will
      * be collected in the next Garbage Collection cycle.
      *
-     * @param entity The {@link Entity} to be removed.
+     * @param entity The {@link Removeable} to be removed.
      */
-    private void markAsGarbage(Entity entity) {
+    private void markAsGarbage(Removeable entity) {
 
         this.garbage.add(entity);
     }
@@ -166,7 +165,7 @@ public class EntityCollection {
         garbage.clear();
     }
 
-    private void removeGameObject(Entity entity) {
+    private void removeGameObject(Removeable entity) {
         this.group.getChildren().remove(entity.getGameNode());
         this.collisionDelegate.removeGameObject(entity);
     }

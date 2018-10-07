@@ -8,12 +8,7 @@ import nl.han.ica.yaeger.engine.entities.events.RemoveEntityEvent;
  * Een {@code Entity} is het {@code Root Object} van alle entiteiten die deel uitmaken van het game.
  * Deze bevat dan ook al het gedrag dat door alle kind-objecten wordt gedeeld.
  */
-public interface Entity extends Bounded {
-
-    /**
-     * Perform all necessary actions to remove the entity.
-     */
-    void remove();
+public interface Entity extends Bounded, Removeable {
 
     /**
      * Retourneer de {@link Node} waar deze {@code Entity} bij hoort. Een {@link Node} is
@@ -50,14 +45,6 @@ public interface Entity extends Bounded {
         return getGameNode().getBoundsInParent();
     }
 
-    /**
-     * Verstuur een {@link javafx.event.Event} om alle {@code Listeners} op de hoogte te stellen dat deze
-     * {@code Entity} moet worden verwijdert.
-     */
-    default void notifyRemove() {
-        var removeEvent = new RemoveEntityEvent(this);
-        getGameNode().fireEvent(removeEvent);
-    }
 
     /**
      * Zet de zichtbaarheid van deze {@code Entity}. Als default waarde zal deze op {@code true} staan.

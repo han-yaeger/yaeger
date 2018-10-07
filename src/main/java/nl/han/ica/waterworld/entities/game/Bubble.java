@@ -5,12 +5,13 @@ import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.BoundingBox;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Movement;
 import nl.han.ica.yaeger.engine.entities.enumerations.SceneBorder;
-import nl.han.ica.yaeger.engine.entities.entity.Collided;
+import nl.han.ica.yaeger.engine.collisions.Collided;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.UpdatableSpriteEntity;
 import nl.han.ica.yaeger.engine.resourceconsumer.audio.Sound;
 
 public abstract class Bubble extends UpdatableSpriteEntity implements Collided {
 
+    public static final String AUDIO_POP_MP3 = "audio/pop.mp3";
     private final Level level;
 
     Bubble(final Position position, final String resource, final double speed, final Level game) {
@@ -28,7 +29,7 @@ public abstract class Bubble extends UpdatableSpriteEntity implements Collided {
     void handleCollision() {
         level.increaseBubblesPopped();
 
-        Sound popSound = new Sound("audio/pop.mp3");
+        Sound popSound = new Sound(AUDIO_POP_MP3);
         popSound.play();
         remove();
     }

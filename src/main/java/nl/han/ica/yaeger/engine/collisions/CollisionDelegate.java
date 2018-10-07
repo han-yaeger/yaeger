@@ -1,8 +1,7 @@
 package nl.han.ica.yaeger.engine.collisions;
 
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
-import nl.han.ica.yaeger.engine.entities.entity.Collided;
-import nl.han.ica.yaeger.engine.entities.entity.Collider;
+import nl.han.ica.yaeger.engine.entities.entity.Removeable;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -33,11 +32,11 @@ public class CollisionDelegate {
     }
 
     /**
-     * Remove the Entity from the list of Objects that are taken into account
+     * Remove the {@link Removeable} from the list of Objects that are taken into account
      *
      * @param entity The Entity that should be removed.
      */
-    public void removeGameObject(Entity entity) {
+    public void removeGameObject(Removeable entity) {
         if (entity instanceof Collider) {
             removeCollider((Collider) entity);
         }

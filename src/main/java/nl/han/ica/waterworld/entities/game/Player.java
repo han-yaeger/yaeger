@@ -7,8 +7,8 @@ import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.BoundingBox;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Movement;
 import nl.han.ica.yaeger.engine.entities.enumerations.SceneBorder;
-import nl.han.ica.yaeger.engine.entities.entity.Collidable;
-import nl.han.ica.yaeger.engine.entities.entity.Collider;
+import nl.han.ica.yaeger.engine.collisions.Collidable;
+import nl.han.ica.yaeger.engine.collisions.Collider;
 import nl.han.ica.yaeger.engine.KeyListener;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.UpdatableSpriteEntity;
 
@@ -16,11 +16,12 @@ import java.util.Set;
 
 public class Player extends UpdatableSpriteEntity implements KeyListener, Collidable {
 
+    public static final String IMAGES_PLAYER_PNG = "images/player.png";
     private int health;
     private Level level;
 
     public Player(final Position position, final Level level, final int health) {
-        super(position, "images/player.png", new BoundingBox(40, 40), 2, new Movement(0, 0));
+        super(position, IMAGES_PLAYER_PNG, new BoundingBox(40, 40), 2, new Movement(0, 0));
         this.level = level;
         this.health = health;
     }

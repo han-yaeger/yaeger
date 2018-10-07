@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine.entities.entity;
+package nl.han.ica.yaeger.engine.collisions;
 
 /**
  * A {@code Collidable} is a composite interface that is both a {@code Collider} and a {@code Collided}.

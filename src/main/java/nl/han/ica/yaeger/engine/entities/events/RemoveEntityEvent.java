@@ -2,28 +2,29 @@ package nl.han.ica.yaeger.engine.entities.events;
 
 import javafx.event.Event;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
+import nl.han.ica.yaeger.engine.entities.entity.Removeable;
 
 /**
- * Verstuur een {@code RemoveEntityEvent} wanneer een {@link Entity} verwijdert moet worden.
+ * Verstuur een {@code RemoveEntityEvent} wanneer een {@link Removeable} verwijdert moet worden.
  */
 public class RemoveEntityEvent extends Event {
 
-    private Entity source;
+    private Removeable source;
 
     /**
-     * Creëer een nieuw {@code RemoveEntityEvent}. Bij creatie moet het {@link Entity} worden meegegeven dat
+     * Creëer een nieuw {@code RemoveEntityEvent}. Bij creatie moet het {@link Removeable} worden meegegeven dat
      * verwijdert dient te worden.
      *
-     * @param source Het {@code Entity} dat verwijdert dient te worden.
+     * @param source Het {@link Removeable} dat verwijdert dient te worden.
      */
-    public RemoveEntityEvent(Entity source) {
+    public RemoveEntityEvent(Removeable source) {
         super(EventTypes.REMOVE);
 
         this.source = source;
     }
 
     @Override
-    public Entity getSource() {
+    public Removeable getSource() {
         return source;
     }
 }
