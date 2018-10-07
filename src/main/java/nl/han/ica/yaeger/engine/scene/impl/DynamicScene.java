@@ -119,7 +119,7 @@ public abstract class DynamicScene extends StaticScene {
             @Override
             public void handle(long arg0) {
 
-                entityCollection.update();
+                entityCollection.update(arg0);
             }
         };
     }

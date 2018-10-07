@@ -65,7 +65,7 @@ class EntityCollectionTest {
 
         // Test
         entityCollection = new EntityCollection(group, set);
-        entityCollection.update();
+        entityCollection.update(0);
 
         // Verify
         Mockito.verify(children).add(node);
@@ -87,11 +87,11 @@ class EntityCollectionTest {
 
         // Test
         entityCollection = new EntityCollection(group, dynamicSet);
-        entityCollection.update();
+        entityCollection.update(0);
 
         // Verify
         Mockito.verify(children).add(node);
-        Mockito.verify(updatableEntity).update();
+        Mockito.verify(updatableEntity).update(0);
     }
 
     @Test
@@ -165,7 +165,7 @@ class UpdatableEntity implements Entity, Updatable {
     }
 
     @Override
-    public void update() {
+    public void update(long timestamp) {
         // Not required here.
     }
 }

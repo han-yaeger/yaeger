@@ -124,10 +124,12 @@ public class EntityCollection {
      * <b>Notify Statistics Observer</b> Notify all registered {@link StatisticsObserver}.
      * </li>
      * </ul>
+     *
+     * @param timestamp the timestamp of the update
      */
-    public void update() {
+    public void update(long timestamp) {
         collectGarbage();
-        notifyUpdatables();
+        notifyUpdatables(timestamp);
         addSpawnedObjects();
         collisionDelegate.checkCollisions();
         updateStatistics();
@@ -207,8 +209,8 @@ public class EntityCollection {
         entity.getGameNode().addEventHandler(EventTypes.REMOVE, event -> markAsGarbage(event.getSource()));
     }
 
-    private void notifyUpdatables() {
-        updatables.forEach(Updatable::update);
+    private void notifyUpdatables(long timestamp) {
+        updatables.forEach(updatable -> updatable.update(timestamp));
     }
 
     private void updateStatistics() {
