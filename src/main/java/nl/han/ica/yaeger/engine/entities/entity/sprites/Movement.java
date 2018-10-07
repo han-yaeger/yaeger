@@ -10,6 +10,13 @@ public class Movement {
 
     /**
      * Creates a new instance of {@code Movement}.
+     */
+    public Movement() {
+        this(0, 0);
+    }
+
+    /**
+     * Creates a new instance of {@code Movement}.
      *
      * @param direction the direction of the {@code Movement}
      * @param speed     the speed of the {@code Movement}

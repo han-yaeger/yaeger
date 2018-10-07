@@ -147,14 +147,20 @@ class EntityCollectionTest {
     }
 }
 
-class UpdatableEntity extends Entity implements Updatable {
+class UpdatableEntity implements Entity, Updatable {
 
-    UpdatableEntity() {
-        super(new Position(0, 0));
+    @Override
+    public void remove() {
+        // Not required here.
     }
 
     @Override
     public Node getGameNode() {
+        return null;
+    }
+
+    @Override
+    public Position getPosition() {
         return null;
     }
 
@@ -164,14 +170,20 @@ class UpdatableEntity extends Entity implements Updatable {
     }
 }
 
-class KeyListeningEntity extends Entity implements KeyListener {
+class KeyListeningEntity implements Entity, KeyListener {
 
-    KeyListeningEntity() {
-        super(new Position(0, 0));
+    @Override
+    public void remove() {
+        // Not required here.
     }
 
     @Override
     public Node getGameNode() {
+        return null;
+    }
+
+    @Override
+    public Position getPosition() {
         return null;
     }
 

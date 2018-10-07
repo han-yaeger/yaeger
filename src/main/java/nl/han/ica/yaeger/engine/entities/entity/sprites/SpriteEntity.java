@@ -12,10 +12,10 @@ import nl.han.ica.yaeger.engine.resourceconsumer.ResourceConsumer;
 /**
  * A {@code SpriteEntity} is a {@code Entity} that is represented by an Image.
  */
-public abstract class SpriteEntity extends Entity implements ResourceConsumer {
+public abstract class SpriteEntity implements Entity, ResourceConsumer {
 
     protected ImageView imageView;
-    protected Point2D position = new Point2D(0, 0);
+    protected Point2D positionVector = new Point2D(0, 0);
     protected double angle;
 
     private SpriteAnimationDelegate spriteAnimationDelegate;
@@ -54,10 +54,10 @@ public abstract class SpriteEntity extends Entity implements ResourceConsumer {
      */
     public SpriteEntity(final Position position, final String resource, final int frames, final BoundingBox boundingBox, final double angle) {
 
-        super(position);
+        this.positionVector = position;
 
         this.angle = angle;
-        this.position = position;
+        this.positionVector = position;
 
         var stringUrl = createPathForResource(resource);
         var image = new Image(stringUrl, boundingBox.getWidth(), boundingBox.getHeight(), true, false);
@@ -72,13 +72,13 @@ public abstract class SpriteEntity extends Entity implements ResourceConsumer {
     }
 
     /**
-     * Set the position of this {@code SpriteEntity}
+     * Set the positionVector of this {@code SpriteEntity}
      *
      * @param x The x-coordinate
      * @param y The y-coordinate
      */
     public void setLocation(double x, double y) {
-        position = new Point2D(x, y);
+        positionVector = new Point2D(x, y);
     }
 
     /**
@@ -96,7 +96,7 @@ public abstract class SpriteEntity extends Entity implements ResourceConsumer {
      * @return the x-coordinate
      */
     protected double getX() {
-        return position.getX();
+        return positionVector.getX();
     }
 
     /**
@@ -105,7 +105,7 @@ public abstract class SpriteEntity extends Entity implements ResourceConsumer {
      * @return the y-coordinate
      */
     protected double getY() {
-        return position.getY();
+        return positionVector.getY();
     }
 
     @Override
@@ -117,6 +117,11 @@ public abstract class SpriteEntity extends Entity implements ResourceConsumer {
     public void remove() {
         imageView.setImage(null);
         imageView.setVisible(false);
-        super.remove();
+        notifyRemove();
+    }
+
+    @Override
+    public Position getPosition() {
+        return (Position) positionVector;
     }
 }

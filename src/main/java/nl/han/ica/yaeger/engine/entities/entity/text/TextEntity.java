@@ -8,14 +8,14 @@ import javafx.scene.text.Text;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 
-public class TextEntity extends Entity {
+public class TextEntity implements Entity {
 
     private Text text;
 
     /**
      * Creëer een nieuw {@code TextEntity} op de gegeven coördinaten. Het ankerpunt is hierbij links-boven.
      *
-     * @param position    the initial {@link Position} of this Entity
+     * @param position the initial {@link Position} of this Entity
      */
     public TextEntity(final Position position) {
         this(position, "");
@@ -24,11 +24,10 @@ public class TextEntity extends Entity {
     /**
      * Creëer een nieuw {@code TextEntity} op de gegeven coördinaten. Het ankerpunt is hierbij links-boven.
      *
-     * @param position    the initial {@link Position} of this Entity
-     * @param text De initiele text die getoond moet worden.
+     * @param position the initial {@link Position} of this Entity
+     * @param text     De initiele text die getoond moet worden.
      */
     public TextEntity(Position position, final String text) {
-        super(position);
         this.text = new Text(position.getX(), position.getY(), text);
         this.text.setOnMousePressed(event -> onMousePressed(event.getButton()));
     }
@@ -77,33 +76,11 @@ public class TextEntity extends Entity {
         text.setFont(font);
     }
 
-    /**
-     * Zet de x-locatie van dit {@code TextEntity}.
-     *
-     * @param x De x-coordinaat waarop het {@code TextEntity} moet worden gepositioneerd.
-     */
-    public void setX(double x) {
-        text.setX(x);
-    }
-
-    /**
-     * Zet de y-locatie van dit {@code TextEntity}.
-     *
-     * @param y De y-coordinaat waarop het {@code TextEntity} moet worden gepositioneerd.
-     */
-    public void setY(double y) {
-        text.setY(y);
-    }
-
-    /**
-     * Zet de locatie van dit {@code TextEntity}.
-     *
-     * @param x De x-coordinaat waarop het {@code TextEntity} moet worden gepositioneerd.
-     * @param y De y-coordinaat waarop het {@code TextEntity} moet worden gepositioneerd.
-     */
-    public void setLocation(double x, double y) {
-        setX(x);
-        setY(y);
+    @Override
+    public void remove() {
+        text.setVisible(false);
+        text.setText(null);
+        notifyRemove();
     }
 
     @Override
@@ -114,5 +91,10 @@ public class TextEntity extends Entity {
     @Override
     public void setVisible(boolean visible) {
         text.setVisible(visible);
+    }
+
+    @Override
+    public Position getPosition() {
+        return new Position(text.getX(), text.getY());
     }
 }
