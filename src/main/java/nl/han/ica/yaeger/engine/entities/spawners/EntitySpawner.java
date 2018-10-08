@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * An {@code EntitiySpawner} is the abstract superclass that thould be extended to create an object that
+ * An {@code EntitiySpawner} is the abstract superclass that should be extended to create an object that
  * spawns a subclass of {@link Entity}.
  */
 public abstract class EntitySpawner implements Destructable {

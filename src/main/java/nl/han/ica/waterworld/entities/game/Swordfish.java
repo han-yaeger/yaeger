@@ -3,7 +3,7 @@ package nl.han.ica.waterworld.entities.game;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.BoundingBox;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Movement;
-import nl.han.ica.yaeger.engine.entities.enumerations.SceneBorder;
+import nl.han.ica.yaeger.engine.scene.SceneBorder;
 import nl.han.ica.yaeger.engine.collisions.Collider;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.UpdatableSpriteEntity;
 

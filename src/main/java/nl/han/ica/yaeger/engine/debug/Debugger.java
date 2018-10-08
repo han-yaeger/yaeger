@@ -2,7 +2,6 @@ package nl.han.ica.yaeger.engine.debug;
 
 import javafx.scene.Group;
 import javafx.scene.layout.GridPane;
-import nl.han.ica.yaeger.engine.StatisticsObserver;
 import nl.han.ica.yaeger.engine.entities.EntityCollectionStatistics;
 
 /**

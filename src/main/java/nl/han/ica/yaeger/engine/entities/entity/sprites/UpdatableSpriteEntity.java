@@ -2,7 +2,7 @@ package nl.han.ica.yaeger.engine.entities.entity.sprites;
 
 import javafx.geometry.Point2D;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
-import nl.han.ica.yaeger.engine.entities.enumerations.SceneBorder;
+import nl.han.ica.yaeger.engine.scene.SceneBorder;
 import nl.han.ica.yaeger.engine.entities.entity.Updatable;
 
 /**

@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine;
+package nl.han.ica.yaeger.engine.debug;
 
 import nl.han.ica.yaeger.engine.entities.EntityCollectionStatistics;
 

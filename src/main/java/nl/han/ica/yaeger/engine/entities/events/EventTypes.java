@@ -1,11 +1,9 @@
 package nl.han.ica.yaeger.engine.entities.events;
 
 import javafx.event.EventType;
-import nl.han.ica.yaeger.engine.entities.entity.Entity;
 
 /**
- * {@code EventTypes} bevat alle beschikbaar custom Events die door een {@link Entity}
- * kunnen worden verstuurd.
+ * {@code EventTypes} contains all available custom Events.
  */
 public class EventTypes {
 
@@ -13,8 +11,8 @@ public class EventTypes {
     }
 
     /**
-     * Wanneer een {@link Entity} een {@code REMOVE} event verstuurt, zal deze uit het
-     * game worden verwijdert.
+     * When a {@link nl.han.ica.yaeger.engine.entities.entity.Removeable} sends an {@code REMOVE} event,
+     * it will be removed from the game.
      */
     public static final EventType<RemoveEntityEvent> REMOVE = new EventType<>("REMOVE");
 }

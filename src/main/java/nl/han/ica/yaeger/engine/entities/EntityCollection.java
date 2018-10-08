@@ -2,7 +2,7 @@ package nl.han.ica.yaeger.engine.entities;
 
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
-import nl.han.ica.yaeger.engine.StatisticsObserver;
+import nl.han.ica.yaeger.engine.debug.StatisticsObserver;
 import nl.han.ica.yaeger.engine.collisions.Collided;
 import nl.han.ica.yaeger.engine.collisions.Collider;
 import nl.han.ica.yaeger.engine.collisions.CollisionDelegate;
