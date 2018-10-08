@@ -1,5 +1,8 @@
 package nl.han.ica.yaeger.engine.collisions;
 
+import javafx.scene.Node;
+import nl.han.ica.yaeger.engine.entities.entity.Entity;
+import nl.han.ica.yaeger.engine.entities.entity.Position;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,7 +60,65 @@ class CollisionDelegateTest {
         Assertions.assertEquals(2, argument.getValue().size());
     }
 
+    @Test
+    void entitiesGetCorrectlyAdded() {
+        // Setup
+        Entity collidedEntity = mock(CollidedTestEntity.class);
+        Entity colliderEntity = mock(ColliderTestEntity.class);
 
+        collisionDelegate.register(collidedEntity);
+        collisionDelegate.register(colliderEntity);
+
+        ArgumentCaptor<Set> argument = ArgumentCaptor.forClass(Set.class);
+
+        // Test
+        collisionDelegate.checkCollisions();
+
+        // Verify
+        Mockito.verify((Collided) collidedEntity).checkForCollisions(argument.capture());
+        Assertions.assertEquals(1, argument.getValue().size());
+    }
+
+    private class CollidedTestEntity implements Entity, Collided {
+
+        @Override
+        public void onCollision(Collider collidingObject, CollisionSide collisionSide) {
+
+        }
+
+        @Override
+        public void remove() {
+
+        }
+
+        @Override
+        public Node getGameNode() {
+            return null;
+        }
+
+        @Override
+        public Position getPosition() {
+            return null;
+        }
+    }
+
+    private class ColliderTestEntity implements Entity, Collider {
+
+        @Override
+        public void remove() {
+
+        }
+
+        @Override
+        public Node getGameNode() {
+            return null;
+        }
+
+        @Override
+        public Position getPosition() {
+            return null;
+        }
+    }
 }
 
 
