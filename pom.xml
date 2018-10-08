@@ -81,7 +81,7 @@
                 </executions>
                 <configuration>
                     <excludes>
-                        <exclude>nl/han/ica/waterworld/*;nl.han.ica.testworld/*</exclude>
+                        <exclude>nl/han/ica/waterworld/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
