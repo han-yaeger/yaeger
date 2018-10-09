@@ -15,7 +15,7 @@ public abstract class Bubble extends UpdatableSpriteEntity implements Collided {
     private final Level level;
 
     Bubble(final Position position, final String resource, final double speed, final Level game) {
-        super(position, resource, new BoundingBox(20, 20), 0, new Movement(Movement.Direction.UP, speed), 0);
+        super(resource, position, new BoundingBox(20, 20), 0, new Movement(Movement.Direction.UP, speed), 0);
         this.level = game;
     }
 

@@ -12,7 +12,7 @@ public class Swordfish extends UpdatableSpriteEntity implements Collider {
     private static final String IMAGES_SWORDFISH_PNG = "images/swordfish.png";
 
     public Swordfish(final Position position) {
-        super(position, IMAGES_SWORDFISH_PNG, new BoundingBox(300, 108), 1, new Movement(Movement.Direction.LEFT, 2));
+        super(IMAGES_SWORDFISH_PNG, position, new BoundingBox(300, 108), 1, new Movement(Movement.Direction.LEFT, 2));
     }
 
     @Override

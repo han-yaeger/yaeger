@@ -6,10 +6,8 @@ import nl.han.ica.yaeger.engine.scene.SceneBorder;
 import nl.han.ica.yaeger.engine.entities.entity.Updatable;
 
 /**
- * An {@code UpdatableSpriteEntity} extends all behaviour of a {@code SpriteEntity}, but also implements the
- * {@code Updatable} Interface.
- * Because of this, it is required to specify its direction and speed at construction. Furthermore it is also possible
- * to set a rotation speed.
+ * An {@code UpdatableSpriteEntity} extends all behaviour of a {@link SpriteEntity}, but also implements the
+ * {@link Updatable} Interface.
  */
 public abstract class UpdatableSpriteEntity extends SpriteEntity implements Updatable {
 
@@ -19,43 +17,42 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     /**
      * Create a new SpriteEntity.
      *
-     * @param position    the initial {@link Position} of this Entity
      * @param resource    The url of the image file. Relative to the resources folder.
+     * @param position    the initial {@link Position} of this Entity
      * @param boundingBox The bounding box of this {@code SpriteEntity}.
      */
-    public UpdatableSpriteEntity(final Position position, final String resource, final BoundingBox boundingBox) {
-        this(position, resource, boundingBox, 1, new Movement(0, 0), 0);
+    public UpdatableSpriteEntity(final String resource, final Position position, final BoundingBox boundingBox) {
+        this(resource, position, boundingBox, 1, new Movement(0, 0), 0);
     }
 
     /**
      * Create a new {@code UpdatableSpriteEntity}.
      *
-     * @param position    the initial {@link Position} of this Entity
      * @param resource    The url of the image file. Relative to the resources folder.
+     * @param position    the initial {@link Position} of this Entity
      * @param boundingBox The bounding box of this {@code SpriteEntity}.
      * @param frames      The number of frames this Image contains. By default the first frame is loaded.
      * @param movement    The movement of this {@code UpdatableSpriteEntity}
      */
-    public UpdatableSpriteEntity(final Position position, final String resource, final BoundingBox boundingBox, int frames, final Movement movement) {
-        this(position, resource, boundingBox, frames, movement, 0);
+    public UpdatableSpriteEntity(final String resource, final Position position, final BoundingBox boundingBox, int frames, final Movement movement) {
+        this(resource, position, boundingBox, frames, movement, 0);
     }
 
     /**
      * Create a new {@code UpdatableSpriteEntity}.
      *
-     * @param position     the initial {@link Position} of this Entity
      * @param resource     The url of the image file. Relative to the resources folder.
+     * @param position     the initial {@link Position} of this Entity
      * @param boundingBox  The bounding box of this {@code SpriteEntity}.
      * @param frames       The number of frames this Image contains. By default the first frame is loaded.
      * @param movement     The movement of this {@code UpdatableSpriteEntity}
      * @param initialAngle The initial angle in degrees at which {@code UpdatableSpriteEntity} should be rotated.
      */
-    public UpdatableSpriteEntity(final Position position, final String resource, final BoundingBox boundingBox, int frames, final Movement movement, final double initialAngle) {
+    public UpdatableSpriteEntity(final String resource, final Position position, final BoundingBox boundingBox, int frames, final Movement movement, final double initialAngle) {
 
-        super(position, resource, frames, boundingBox, initialAngle);
+        super(resource, position, frames, boundingBox, initialAngle);
 
         this.movement = movement;
-
 
         setMovementVector();
 
@@ -84,9 +81,9 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     }
 
     /**
-     * Zet de snelheid waarmee deze {@link UpdatableSpriteEntity} zich beweegt.
+     * Set the speed with which this {@link UpdatableSpriteEntity} moves.
      *
-     * @param newSpeed De snelheid.
+     * @param newSpeed the speed
      */
     protected void setSpeed(double newSpeed) {
         if (hasSpeedChanged(newSpeed)) {
@@ -107,7 +104,7 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
      *
      * @param newDirection De richting in graden.
      */
-    public void setDirection(double newDirection) {
+    protected void setDirection(double newDirection) {
         if (hasDirectionChanged(newDirection)) {
             movement.setDirection(newDirection);
             setMovementVector();

@@ -23,36 +23,35 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     /**
      * Create a new {@code SpriteEntity} for a given Image.
      *
-     * @param position    the initial {@link Position} of this Entity
      * @param resource    The url of the image file. Relative to the resources folder.
+     * @param position    the initial {@link Position} of this Entity
      * @param boundingBox The bounding box of this SpriteEntity.
      */
-    public SpriteEntity(final Position position, final String resource, final BoundingBox boundingBox) {
-        this(position, resource, 1, boundingBox);
+    public SpriteEntity(final String resource, final Position position, final BoundingBox boundingBox) {
+        this(resource, position, 1, boundingBox);
     }
 
     /**
      * Create a new {@code SpriteEntity} for a given Image.
      *
-     * @param position    the initial {@link Position} of this Entity
      * @param resource    The url of the image file. Relative to the resources folder.
+     * @param position    the initial {@link Position} of this Entity
      * @param frames      The number of frames this Image contains. By default the first frame is loaded.
      * @param boundingBox The bounding box of this SpriteEntity.
      */
-    public SpriteEntity(final Position position, final String resource, final int frames, final BoundingBox boundingBox) {
-        this(position, resource, frames, boundingBox, 0);
+    public SpriteEntity(final String resource, final Position position, final int frames, final BoundingBox boundingBox) {
+        this(resource, position, frames, boundingBox, 0);
     }
 
     /**
      * Create a new {@code SpriteEntity}.
-     *
+     *  @param resource    The url of the image file. Relative to the resources folder.
      * @param position    the initial {@link Position} of this Entity
-     * @param resource    The url of the image file. Relative to the resources folder.
      * @param frames      The number of frames this Image contains. By default the first frame is loaded.
      * @param boundingBox The bounding box of this {@code SpriteEntity}.
      * @param angle       The initial angle in degrees of the {@code SpriteEntity}.
      */
-    public SpriteEntity(final Position position, final String resource, final int frames, final BoundingBox boundingBox, final double angle) {
+    public SpriteEntity(final String resource, final Position position, final int frames, final BoundingBox boundingBox, final double angle) {
 
         this.positionVector = position;
 
