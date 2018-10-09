@@ -1,6 +1,7 @@
 package nl.han.ica.waterworld.scenes.levels;
 
 import nl.han.ica.waterworld.Waterworld;
+import nl.han.ica.waterworld.entities.game.AnimatedSwordFish;
 import nl.han.ica.waterworld.entities.game.Swordfish;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.scene.SceneType;
@@ -23,7 +24,7 @@ public class LevelOne extends Level {
     public void increaseBubblesPopped() {
         super.increaseBubblesPopped();
 
-        if (bubblesPopped > 9) {
+        if (bubblesPopped > 2) {
             waterworld.nextScene(SceneType.LEVEL_TWO);
         }
     }

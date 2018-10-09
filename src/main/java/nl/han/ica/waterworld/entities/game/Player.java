@@ -58,7 +58,7 @@ public class Player extends UpdatableSpriteEntity implements KeyListener, Collid
 
     @Override
     public void onCollision(Collider collidingObject, CollisionSide collisionSide) {
-        if (collidingObject instanceof Swordfish) {
+        if (collidingObject instanceof Swordfish || collidingObject instanceof AnimatedSwordFish) {
             doDamage();
         }
     }
