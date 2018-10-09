@@ -3,19 +3,18 @@ package nl.han.ica.yaeger.engine.resourceconsumer;
 import nl.han.ica.yaeger.engine.exceptions.YaegerResourceNotAvailableException;
 
 /**
- * Een {@code ResourceConsumer} bevat een defaut methode die gebruikt kan worden voor het volledige pad naar een
- * {@code Resource} op het klasse-pad.
+ * Implementing a {@code ResourceConsumer} exposes a default methode that can be used to acquire the absolute path to a
+ * resource available on the class path.
  */
 public interface ResourceConsumer {
 
     /**
-     * Retourneer het volledige pad voor een gegeven {@code Resource}.  De {@code Resource} moet beschikbaar zijn
-     * op het klasse-pad. Indien de {@code Resource} niet gevonden wordt zal er een
-     * {@link YaegerResourceNotAvailableException} worden gegooit.
+     * Returns the absolute path for a given {@code Resource}.
      *
-     * @param resource De {@code Resource} op het klasse-pad.
-     * @return De volledige pad van de {@code Resource} .
-     * @throws YaegerResourceNotAvailableException
+     * @param resource the {@code Resource}, which should be available on the class path
+     * @return the relative path to the {@code Resource}
+     * @throws YaegerResourceNotAvailableException an {@link YaegerResourceNotAvailableException} is thrown if the
+     *                                             resource can not be found on the class path
      */
     default String createPathForResource(String resource) {
 
