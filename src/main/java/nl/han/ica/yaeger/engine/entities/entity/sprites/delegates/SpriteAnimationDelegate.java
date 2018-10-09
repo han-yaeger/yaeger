@@ -15,10 +15,10 @@ public class SpriteAnimationDelegate {
     private List<Rectangle2D> viewports = new ArrayList<>();
 
     /**
-     * Create a new {@code SpriteAnimationDelegate} for the given {@code ImageView} and number of frames.
+     * Create a new {@code SpriteAnimationDelegate} for the given {@link ImageView} and number of frames.
      * After construction, the spriteIndex will be set to the first frame.
      *
-     * @param imageView The {@code ImageView} for which the different frames should be created.
+     * @param imageView The {@link ImageView} for which the different frames should be created.
      * @param frames    The number of frames available.
      */
     public SpriteAnimationDelegate(ImageView imageView, int frames) {
