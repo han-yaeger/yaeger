@@ -1,34 +1,30 @@
 package nl.han.ica.yaeger.engine.entities.entity.sprites.delegates;
 
-
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import nl.han.ica.yaeger.engine.resourceconsumer.ResourceConsumer;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
-@ExtendWith(MockitoExtension.class)
-public class SpriteAnimationDelegateTest implements ResourceConsumer {
+class SpriteAnimationDelegateTest implements ResourceConsumer {
 
-    @Mock
-    private ImageView imageViewMock;
+    private static final double IMAGE_WIDTH = 100d;
 
-    @Mock
-    private Image imageMock;
+    @Test
+    void viewPortIsSetOnCreation() {
 
-//    @Test
-//    public void viewPortIsSetOnCreationTest() {
-//
-//        // Setup
-//        when(imageViewMock.getImage()).thenReturn(imageMock);
-//        when(imageMock.getWidth()).thenReturn(75d);
-//        when(imageMock.getHeight()).thenReturn(32d);
-//
-//        // Test
-//        var spriteAnimationDelegate = new SpriteAnimationDelegate(imageViewMock, 2);
-//
-//        // Verify
-//        verify(imageViewMock).setViewport(any(Rectangle2D.class));
-//    }
+        // Setup
+        ImageView imageView = Mockito.mock(ImageView.class);
+        Image image = Mockito.mock(Image.class);
+
+        Mockito.when(imageView.getImage()).thenReturn(image);
+        Mockito.when(image.getWidth()).thenReturn(IMAGE_WIDTH);
+
+        // Test
+        SpriteAnimationDelegate spriteAnimationDelegate = new SpriteAnimationDelegate(imageView, 2);
+
+        // Verify
+        Mockito.verify(imageView).setViewport(Mockito.any(Rectangle2D.class));
+    }
 }
