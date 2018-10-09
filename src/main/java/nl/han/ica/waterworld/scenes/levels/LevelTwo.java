@@ -2,7 +2,6 @@ package nl.han.ica.waterworld.scenes.levels;
 
 import nl.han.ica.waterworld.Waterworld;
 import nl.han.ica.waterworld.entities.game.AnimatedSwordFish;
-import nl.han.ica.waterworld.entities.game.Swordfish;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 
 public class LevelTwo extends Level {
