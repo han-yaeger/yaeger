@@ -14,9 +14,8 @@ import nl.han.ica.yaeger.engine.resourceconsumer.ResourceConsumer;
  */
 public abstract class SpriteEntity implements Entity, ResourceConsumer {
 
-    protected ImageView imageView;
-    protected Point2D positionVector = new Point2D(0, 0);
-    protected double angle;
+    ImageView imageView;
+    Point2D positionVector = new Point2D(0, 0);
 
     private SpriteAnimationDelegate spriteAnimationDelegate;
 
@@ -25,10 +24,10 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
      *
      * @param resource    The url of the image file. Relative to the resources folder.
      * @param position    the initial {@link Position} of this Entity
-     * @param boundingBox The bounding box of this SpriteEntity.
+     * @param size The bounding box of this SpriteEntity.
      */
-    public SpriteEntity(final String resource, final Position position, final BoundingBox boundingBox) {
-        this(resource, position, 1, boundingBox);
+    public SpriteEntity(final String resource, final Position position, final Size size) {
+        this(resource, position, size, 1);
     }
 
     /**
@@ -36,36 +35,28 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
      *
      * @param resource    The url of the image file. Relative to the resources folder.
      * @param position    the initial {@link Position} of this Entity
+     * @param size The bounding box of this SpriteEntity.
      * @param frames      The number of frames this Image contains. By default the first frame is loaded.
-     * @param boundingBox The bounding box of this SpriteEntity.
      */
-    public SpriteEntity(final String resource, final Position position, final int frames, final BoundingBox boundingBox) {
-        this(resource, position, frames, boundingBox, 0);
-    }
-
-    /**
-     * Create a new {@code SpriteEntity}.
-     *  @param resource    The url of the image file. Relative to the resources folder.
-     * @param position    the initial {@link Position} of this Entity
-     * @param frames      The number of frames this Image contains. By default the first frame is loaded.
-     * @param boundingBox The bounding box of this {@code SpriteEntity}.
-     * @param angle       The initial angle in degrees of the {@code SpriteEntity}.
-     */
-    public SpriteEntity(final String resource, final Position position, final int frames, final BoundingBox boundingBox, final double angle) {
-
+    public SpriteEntity(final String resource, final Position position, final Size size, final int frames) {
         this.positionVector = position;
 
-        this.angle = angle;
-
         var stringUrl = createPathForResource(resource);
-        var image = new Image(stringUrl, boundingBox.getWidth(), boundingBox.getHeight(), true, false);
+        var image = new Image(stringUrl, size.getWidth(), size.getHeight(), true, false);
         imageView = new ImageView(image);
         imageView.setManaged(false);
 
         if (frames > 1) {
             spriteAnimationDelegate = new SpriteAnimationDelegate(imageView, frames);
         }
+    }
 
+    /**
+     * Rotate this {@code SpriteEntity} by the given angles.
+     *
+     * @param angle the rotation angle as a {@code double}
+     */
+    public void rotate(double angle) {
         imageView.setRotate(angle);
     }
 

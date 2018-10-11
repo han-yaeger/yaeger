@@ -15,7 +15,7 @@ public class BubbleSpawner extends EntitySpawner {
     private Level waterworld;
 
     public BubbleSpawner(int width, int height, Level waterworld) {
-        super(10);
+        super(1);
 
         this.worldWidth = width;
         this.worldHeight = height;
@@ -23,13 +23,13 @@ public class BubbleSpawner extends EntitySpawner {
     }
 
     private void createAir() {
-        var air = new Air(new Position(generateRandomXLocation(), worldHeight - 30), generateRandomSpeed(), waterworld);
+        var air = new Air(generateRandomPosition(), generateRandomSpeed(), waterworld);
 
         spawn(air);
     }
 
     private void createPoison() {
-        var poison = new Poison(new Position(generateRandomXLocation(), worldHeight - 30), generateRandomSpeed(), waterworld);
+        var poison = new Poison(generateRandomPosition(), generateRandomSpeed(), waterworld);
 
         spawn(poison);
     }
@@ -43,11 +43,13 @@ public class BubbleSpawner extends EntitySpawner {
         }
     }
 
-    private int generateRandomXLocation() {
-        return new Random().nextInt(worldWidth);
-    }
-
     private int generateRandomSpeed() {
         return new Random().nextInt(5);
+    }
+
+    private Position generateRandomPosition() {
+        int x = new Random().nextInt(worldWidth);
+        int y = worldHeight - 30;
+        return new Position(x, y);
     }
 }

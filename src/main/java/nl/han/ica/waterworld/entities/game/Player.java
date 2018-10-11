@@ -4,7 +4,7 @@ import javafx.scene.input.KeyCode;
 import nl.han.ica.waterworld.scenes.levels.Level;
 import nl.han.ica.yaeger.engine.collisions.CollisionSide;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
-import nl.han.ica.yaeger.engine.entities.entity.sprites.BoundingBox;
+import nl.han.ica.yaeger.engine.entities.entity.sprites.Size;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Movement;
 import nl.han.ica.yaeger.engine.scene.SceneBorder;
 import nl.han.ica.yaeger.engine.collisions.Collidable;
@@ -21,7 +21,7 @@ public class Player extends UpdatableSpriteEntity implements KeyListener, Collid
     private Level level;
 
     public Player(final Position position, final Level level, final int health) {
-        super(IMAGES_PLAYER_PNG, position, new BoundingBox(40, 40), 2, new Movement(0, 0));
+        super(IMAGES_PLAYER_PNG, position, new Size(40, 40), 2, new Movement(0, 0));
         this.level = level;
         this.health = health;
     }

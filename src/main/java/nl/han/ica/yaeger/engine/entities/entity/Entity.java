@@ -36,14 +36,13 @@ public interface Entity extends Bounded, Removeable {
     }
 
     /**
-     * Retourneer de {@code Bounds}, oftewel de {@code BoundingBox} van deze {@code Entity}.
+     * Retourneer de {@code Bounds}, oftewel de {@code Size} van deze {@code Entity}.
      *
      * @return De {@code Bounds} van deze {@code Entity}.
      */
     default Bounds getBounds() {
         return getGameNode().getBoundsInParent();
     }
-
 
     /**
      * Zet de zichtbaarheid van deze {@code Entity}. Als default waarde zal deze op {@code true} staan.

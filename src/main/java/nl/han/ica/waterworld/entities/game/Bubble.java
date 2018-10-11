@@ -2,7 +2,7 @@ package nl.han.ica.waterworld.entities.game;
 
 import nl.han.ica.waterworld.scenes.levels.Level;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
-import nl.han.ica.yaeger.engine.entities.entity.sprites.BoundingBox;
+import nl.han.ica.yaeger.engine.entities.entity.sprites.Size;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Movement;
 import nl.han.ica.yaeger.engine.scene.SceneBorder;
 import nl.han.ica.yaeger.engine.collisions.Collided;
@@ -15,7 +15,7 @@ public abstract class Bubble extends UpdatableSpriteEntity implements Collided {
     private final Level level;
 
     Bubble(final Position position, final String resource, final double speed, final Level game) {
-        super(resource, position, new BoundingBox(20, 20), 0, new Movement(Movement.Direction.UP, speed), 0);
+        super(resource, position, new Size(20, 20), 0, new Movement(Movement.Direction.UP, speed));
         this.level = game;
     }
 
