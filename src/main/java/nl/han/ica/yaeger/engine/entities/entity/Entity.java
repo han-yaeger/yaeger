@@ -18,18 +18,18 @@ public interface Entity extends Bounded, Removeable {
     Node getGameNode();
 
     /**
-     * Retourneer de breedte van de scene waar deze Entity deel van uitmaakt.
+     * Retourneer de breedte van de scenes waar deze Entity deel van uitmaakt.
      *
-     * @return De breedte van de scene als een {@code double}.
+     * @return De breedte van de scenes als een {@code double}.
      */
     default double getSceneWidth() {
         return getGameNode().getScene().getWidth();
     }
 
     /**
-     * Retourneer de hoogte van de scene waar deze Entity deel van uitmaakt.
+     * Retourneer de hoogte van de scenes waar deze Entity deel van uitmaakt.
      *
-     * @return De hoogte van de scene als een {@code double}.
+     * @return De hoogte van de scenes als een {@code double}.
      */
     default double getSceneHeight() {
         return getGameNode().getScene().getWidth();

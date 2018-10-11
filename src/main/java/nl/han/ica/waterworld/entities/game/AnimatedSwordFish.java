@@ -5,7 +5,7 @@ import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Size;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Movement;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.UpdatableSpriteEntity;
-import nl.han.ica.yaeger.engine.scene.SceneBorder;
+import nl.han.ica.yaeger.engine.scenes.SceneBorder;
 
 public class AnimatedSwordFish extends UpdatableSpriteEntity implements Collider {
     private static final String IMAGES_ANIMATED_SWORDFISH_PNG = "images/animated-swordfish.png";

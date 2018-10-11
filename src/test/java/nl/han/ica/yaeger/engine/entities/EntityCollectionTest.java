@@ -12,9 +12,10 @@ import nl.han.ica.yaeger.engine.entities.entity.Updatable;
 import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.*;
+
+import static org.mockito.Mockito.*;
 
 class EntityCollectionTest {
 
@@ -23,8 +24,8 @@ class EntityCollectionTest {
     @Test
     void initWithANullInitialSetsGivesAnEmptyStaticEntityCollection() {
         // Setup
-        Group group = Mockito.mock(Group.class);
-        Debugger debugger = Mockito.mock(Debugger.class);
+        Group group = mock(Group.class);
+        Debugger debugger = mock(Debugger.class);
 
         // Test
         entityCollection = new EntityCollection(group, null);
@@ -38,8 +39,8 @@ class EntityCollectionTest {
     void initWithAnEmptyInitialSetsGivesAnEmptyDynamicEntityCollection() {
         // Setup
         Set<Entity> emptySet = new HashSet<>();
-        Group group = Mockito.mock(Group.class);
-        Debugger debugger = Mockito.mock(Debugger.class);
+        Group group = mock(Group.class);
+        Debugger debugger = mock(Debugger.class);
 
         // Test
         entityCollection = new EntityCollection(group, emptySet);
@@ -52,58 +53,58 @@ class EntityCollectionTest {
     @Test
     void initWithStaticEntityIsAddedToTheGroup() {
         // Setup
-        Entity entity = Mockito.mock(Entity.class);
-        Node node = Mockito.mock(Node.class);
-        Mockito.when(entity.getGameNode()).thenReturn(node);
+        Entity entity = mock(Entity.class);
+        Node node = mock(Node.class);
+        when(entity.getGameNode()).thenReturn(node);
 
         Set<Entity> set = new HashSet<>();
         set.add(entity);
 
-        Group group = Mockito.mock(Group.class);
-        ObservableList<Node> children = Mockito.mock(ObservableList.class);
-        Mockito.when(group.getChildren()).thenReturn(children);
+        Group group = mock(Group.class);
+        ObservableList<Node> children = mock(ObservableList.class);
+        when(group.getChildren()).thenReturn(children);
 
         // Test
         entityCollection = new EntityCollection(group, set);
         entityCollection.update(0);
 
         // Verify
-        Mockito.verify(children).add(node);
+        verify(children).add(node);
     }
 
     @Test
     void initWithDynamicEntityIsAddedToTheGroupAndUpdateIsCalled() {
         // Setup
-        UpdatableEntity updatableEntity = Mockito.mock(UpdatableEntity.class);
-        Node node = Mockito.mock(Node.class);
-        Mockito.when(updatableEntity.getGameNode()).thenReturn(node);
+        UpdatableEntity updatableEntity = mock(UpdatableEntity.class);
+        Node node = mock(Node.class);
+        when(updatableEntity.getGameNode()).thenReturn(node);
 
         Set<Entity> dynamicSet = new HashSet<>();
         dynamicSet.add(updatableEntity);
 
-        Group group = Mockito.mock(Group.class);
-        ObservableList<Node> children = Mockito.mock(ObservableList.class);
-        Mockito.when(group.getChildren()).thenReturn(children);
+        Group group = mock(Group.class);
+        ObservableList<Node> children = mock(ObservableList.class);
+        when(group.getChildren()).thenReturn(children);
 
         // Test
         entityCollection = new EntityCollection(group, dynamicSet);
         entityCollection.update(0);
 
         // Verify
-        Mockito.verify(children).add(node);
-        Mockito.verify(updatableEntity).update(0);
+        verify(children).add(node);
+        verify(updatableEntity).update(0);
     }
 
     @Test
     void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsEmpty() {
         // Setup
-        KeyListeningEntity keyListeningEntity = Mockito.mock(KeyListeningEntity.class);
-        Node node = Mockito.mock(Node.class);
-        Mockito.when(keyListeningEntity.getGameNode()).thenReturn(node);
+        KeyListeningEntity keyListeningEntity = mock(KeyListeningEntity.class);
+        Node node = mock(Node.class);
+        when(keyListeningEntity.getGameNode()).thenReturn(node);
 
-        Group group = Mockito.mock(Group.class);
-        ObservableList<Node> children = Mockito.mock(ObservableList.class);
-        Mockito.when(group.getChildren()).thenReturn(children);
+        Group group = mock(Group.class);
+        ObservableList<Node> children = mock(ObservableList.class);
+        when(group.getChildren()).thenReturn(children);
         Set<Entity> entitySet = new HashSet<>();
         entitySet.add(keyListeningEntity);
 
@@ -114,19 +115,19 @@ class EntityCollectionTest {
         entityCollection.notifyGameObjectsOfPressedKeys(keycodes);
 
         // Verify
-        Mockito.verify(keyListeningEntity).onPressedKeysChange(keycodes);
+        verify(keyListeningEntity).onPressedKeysChange(keycodes);
     }
 
     @Test
     void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsFilled() {
         // Setup
-        KeyListeningEntity keyListeningEntity = Mockito.mock(KeyListeningEntity.class);
-        Node node = Mockito.mock(Node.class);
-        Mockito.when(keyListeningEntity.getGameNode()).thenReturn(node);
+        KeyListeningEntity keyListeningEntity = mock(KeyListeningEntity.class);
+        Node node = mock(Node.class);
+        when(keyListeningEntity.getGameNode()).thenReturn(node);
 
-        Group group = Mockito.mock(Group.class);
-        ObservableList<Node> children = Mockito.mock(ObservableList.class);
-        Mockito.when(group.getChildren()).thenReturn(children);
+        Group group = mock(Group.class);
+        ObservableList<Node> children = mock(ObservableList.class);
+        when(group.getChildren()).thenReturn(children);
         Set<Entity> entitySet = new HashSet<>();
         entitySet.add(keyListeningEntity);
 
@@ -143,7 +144,7 @@ class EntityCollectionTest {
         entityCollection.notifyGameObjectsOfPressedKeys(keycodes);
 
         // Verify
-        Mockito.verify(keyListeningEntity).onPressedKeysChange(keycodes);
+        verify(keyListeningEntity).onPressedKeysChange(keycodes);
     }
 }
 

@@ -9,8 +9,8 @@ import nl.han.ica.waterworld.entities.buttons.QuitButton;
 import nl.han.ica.waterworld.entities.buttons.StartButton;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.text.TextEntity;
-import nl.han.ica.yaeger.engine.scene.SceneType;
-import nl.han.ica.yaeger.engine.scene.impl.StaticScene;
+import nl.han.ica.yaeger.engine.scenes.SceneType;
+import nl.han.ica.yaeger.engine.scenes.impl.StaticScene;
 
 import java.util.Set;
 

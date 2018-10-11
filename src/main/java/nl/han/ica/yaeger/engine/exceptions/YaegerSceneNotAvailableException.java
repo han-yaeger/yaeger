@@ -1,7 +1,7 @@
 package nl.han.ica.yaeger.engine.exceptions;
 
-import nl.han.ica.yaeger.engine.scene.SceneType;
-import nl.han.ica.yaeger.engine.scene.impl.StaticScene;
+import nl.han.ica.yaeger.engine.scenes.SceneType;
+import nl.han.ica.yaeger.engine.scenes.impl.StaticScene;
 
 /**
  * Een {@code YaegerSceneNotAvailableException} wordt gegooit waneer een {@link StaticScene} wordt opgevraagd die niet beschikbaar
@@ -16,6 +16,6 @@ public class YaegerSceneNotAvailableException extends RuntimeException {
      */
     public YaegerSceneNotAvailableException(SceneType type) {
 
-        super("StaticScene " + type + " kan niet worden gevonden. Zorg ervoor dat deze scene is teogevoegd aan de Engine");
+        super("StaticScene " + type + " kan niet worden gevonden. Zorg ervoor dat deze scenes is teogevoegd aan de Engine");
     }
 }

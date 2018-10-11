@@ -18,7 +18,7 @@ import java.util.Set;
 
 /**
  * An {@link EntityCollection} encapsulates all behaviour related to all instances of {@link Entity} that are part of
- * a {@link nl.han.ica.yaeger.engine.scene.YaegerScene}.
+ * a {@link nl.han.ica.yaeger.engine.scenes.YaegerScene}.
  */
 public class EntityCollection {
 

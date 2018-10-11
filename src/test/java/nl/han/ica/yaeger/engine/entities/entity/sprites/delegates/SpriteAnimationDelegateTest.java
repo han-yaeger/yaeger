@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
+import static org.mockito.Mockito.*;
+
 class SpriteAnimationDelegateTest implements ResourceConsumer {
 
     private static final double IMAGE_WIDTH = 100d;
@@ -20,29 +22,29 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
     void viewPortIsSetOnCreation() {
 
         // Setup
-        ImageView imageView = Mockito.mock(ImageView.class);
-        Image image = Mockito.mock(Image.class);
+        ImageView imageView = mock(ImageView.class);
+        Image image = mock(Image.class);
 
-        Mockito.when(imageView.getImage()).thenReturn(image);
-        Mockito.when(image.getWidth()).thenReturn(IMAGE_WIDTH);
+        when(imageView.getImage()).thenReturn(image);
+        when(image.getWidth()).thenReturn(IMAGE_WIDTH);
 
         // Test
         SpriteAnimationDelegate spriteAnimationDelegate = new SpriteAnimationDelegate(imageView, FRAMES);
 
         // Verify
-        Mockito.verify(imageView).setViewport(Mockito.any(Rectangle2D.class));
+        verify(imageView).setViewport(any(Rectangle2D.class));
     }
 
     @Test
     void viewPortRectangleIsCalculatedCorrectly() {
 
         // Setup
-        ImageView imageView = Mockito.mock(ImageView.class);
-        Image image = Mockito.mock(Image.class);
+        ImageView imageView = mock(ImageView.class);
+        Image image = mock(Image.class);
 
-        Mockito.when(imageView.getImage()).thenReturn(image);
-        Mockito.when(image.getWidth()).thenReturn(IMAGE_WIDTH);
-        Mockito.when(image.getHeight()).thenReturn(IMAGE_HEIGHT);
+        when(imageView.getImage()).thenReturn(image);
+        when(image.getWidth()).thenReturn(IMAGE_WIDTH);
+        when(image.getHeight()).thenReturn(IMAGE_HEIGHT);
 
         ArgumentCaptor<Rectangle2D> argument = ArgumentCaptor.forClass(Rectangle2D.class);
 
@@ -50,7 +52,7 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
         SpriteAnimationDelegate spriteAnimationDelegate = new SpriteAnimationDelegate(imageView, FRAMES);
 
         // Verify
-        Mockito.verify(imageView).setViewport(argument.capture());
+        verify(imageView).setViewport(argument.capture());
         Assertions.assertEquals(IMAGE_HEIGHT, argument.getValue().getHeight(), DELTA);
         Assertions.assertEquals(IMAGE_WIDTH / FRAMES, argument.getValue().getWidth(), DELTA);
     }

@@ -1,10 +1,12 @@
-package nl.han.ica.yaeger.engine.scene.delegates;
+package nl.han.ica.yaeger.engine.scenes.delegates;
 
 import javafx.scene.Scene;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import static org.mockito.Mockito.*;
 
 class BackgroundDelegateTest {
 
@@ -43,7 +45,7 @@ class BackgroundDelegateTest {
     @Test
     void callingTearDownDoesNotClearTheSetAudio() {
         // Setup
-        Scene scene = Mockito.mock(Scene.class);
+        Scene scene = mock(Scene.class);
         backgroundDelegate.setBackgroundAudio(AUDIO_FILE);
 
         // Test
@@ -56,7 +58,7 @@ class BackgroundDelegateTest {
     @Test
     void callingTearDownDoesClearTheCreatedAudioFile() {
         // Setup
-        Scene scene = Mockito.mock(Scene.class);
+        Scene scene = mock(Scene.class);
         backgroundDelegate.setBackgroundAudio(AUDIO_FILE);
 
         // Test

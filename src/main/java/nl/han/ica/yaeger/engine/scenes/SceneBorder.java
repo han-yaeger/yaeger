@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine.scene;
+package nl.han.ica.yaeger.engine.scenes;
 
 public enum SceneBorder {
     TOP,

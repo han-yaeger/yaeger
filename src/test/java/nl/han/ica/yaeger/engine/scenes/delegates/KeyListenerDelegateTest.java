@@ -1,10 +1,12 @@
-package nl.han.ica.yaeger.engine.scene.delegates;
+package nl.han.ica.yaeger.engine.scenes.delegates;
 
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import static org.mockito.Mockito.*;
 
 class KeyListenerDelegateTest {
 
@@ -18,25 +20,25 @@ class KeyListenerDelegateTest {
     @Test
     void setupAttachesListenersToTheScene() {
         // Setup
-        Scene scene = Mockito.mock(Scene.class);
+        Scene scene = mock(Scene.class);
 
         // Test
         keyListenerDelegate.setup(scene, null);
 
         // Verify
-        Mockito.verify(scene).setOnKeyPressed(Mockito.any(EventHandler.class));
+        verify(scene).setOnKeyPressed(any(EventHandler.class));
     }
 
     @Test
     void tearDownRemovesListenersToTheScene() {
         // Setup
-        Scene scene = Mockito.mock(Scene.class);
+        Scene scene = mock(Scene.class);
         keyListenerDelegate.setup(scene, null);
 
         // Test
         keyListenerDelegate.tearDown(scene);
 
         // Verify
-        Mockito.verify(scene).setOnKeyPressed(null);
+        verify(scene).setOnKeyPressed(null);
     }
 }

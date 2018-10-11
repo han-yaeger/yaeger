@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine.scene.impl;
+package nl.han.ica.yaeger.engine.scenes.impl;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
@@ -6,14 +6,13 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.engine.debug.Debugger;
-import nl.han.ica.yaeger.engine.scene.delegates.KeyListenerDelegate;
+import nl.han.ica.yaeger.engine.scenes.delegates.KeyListenerDelegate;
 import nl.han.ica.yaeger.engine.userinput.KeyListener;
 import nl.han.ica.yaeger.module.factories.DebuggerFactory;
 import nl.han.ica.yaeger.module.factories.SceneFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine.scene.delegates;
+package nl.han.ica.yaeger.engine.scenes.delegates;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -8,7 +8,7 @@ import nl.han.ica.yaeger.engine.resourceconsumer.audio.Sound;
 
 /**
  * A {@link BackgroundDelegate} follows the Delegate pattern and embraces Composition over Inheritence.
- * It can be used to deal with both background audio and background images for a {@link nl.han.ica.yaeger.engine.scene.YaegerScene}.
+ * It can be used to deal with both background audio and background images for a {@link nl.han.ica.yaeger.engine.scenes.YaegerScene}.
  */
 public class BackgroundDelegate implements ResourceConsumer {
 

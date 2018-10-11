@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine.scene;
+package nl.han.ica.yaeger.engine.scenes;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;

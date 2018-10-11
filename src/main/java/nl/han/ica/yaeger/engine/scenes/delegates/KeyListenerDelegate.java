@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine.scene.delegates;
+package nl.han.ica.yaeger.engine.scenes.delegates;
 
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;

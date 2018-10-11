@@ -27,12 +27,12 @@ public class CollidedTest {
     private static final Bounds TEST_NOT_COLLIDING_BOUNDINGBOX = new BoundingBox(0, 0, 0, 1, 1, 0);
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         collided = new TestCollided();
     }
 
     @Test
-    public void testNullCollidersGivesNoCollisions() {
+    void testNullCollidersGivesNoCollisions() {
         // Setup
 
         // Test
@@ -43,7 +43,7 @@ public class CollidedTest {
     }
 
     @Test
-    public void testNoCollidersGivesNoCollisions() {
+    void testNoCollidersGivesNoCollisions() {
         // Setup
         Set<Collider> emptySet = Set.of();
 
@@ -55,7 +55,7 @@ public class CollidedTest {
     }
 
     @Test
-    public void testTrivialCollisionGivesCollision() {
+    void testTrivialCollisionGivesCollision() {
         // Setup
         Collider trivialCollider = () -> TEST_COLLIDED_BOUNDINGBOX;
         Set<Collider> testColliders = Set.of(trivialCollider);
@@ -68,7 +68,7 @@ public class CollidedTest {
     }
 
     @Test
-    public void testNoCollisionReportNoCollision() {
+    void testNoCollisionReportNoCollision() {
         // Setup
         Collider noCollisionCollider = () -> TEST_NOT_COLLIDING_BOUNDINGBOX;
         Set<Collider> testColliders = Set.of(noCollisionCollider);
@@ -81,7 +81,7 @@ public class CollidedTest {
     }
 
     @Test
-    public void tesCollisionWithSelfReportsNoCollision() {
+    void tesCollisionWithSelfReportsNoCollision() {
         // Setup
         TestCollidable collidable = new TestCollidable();
         Set<Collider> testColliders = Set.of(collidable);
@@ -94,7 +94,7 @@ public class CollidedTest {
     }
 
     @Test
-    public void testBottomCollisionReportsCorrectly() {
+    void testBottomCollisionReportsCorrectly() {
         // Setup
         Collider noCollisionCollider = () -> TEST_NOT_COLLIDING_BOUNDINGBOX;
         Collider bottomCollisionCollider = () -> TEST_COLLIDED_BOTTOM_BOUNDINGBOX;
@@ -110,7 +110,7 @@ public class CollidedTest {
     }
 
     @Test
-    public void testTopCollisionReportsCorrectly() {
+    void testTopCollisionReportsCorrectly() {
         // Setup
         Collider noCollisionCollider = () -> TEST_NOT_COLLIDING_BOUNDINGBOX;
         Collider topCollisionCollider = () -> TEST_COLLIDED_TOP_BOUNDINGBOX;
@@ -126,7 +126,7 @@ public class CollidedTest {
     }
 
     @Test
-    public void testLeftCollisionReportsCorrectly() {
+    void testLeftCollisionReportsCorrectly() {
         // Setup
         Collider noCollisionCollider = () -> TEST_NOT_COLLIDING_BOUNDINGBOX;
         Collider leftCollisionCollider = () -> TEST_COLLIDED_LEFT_BOUNDINGBOX;
@@ -142,7 +142,7 @@ public class CollidedTest {
     }
 
     @Test
-    public void testRightCollisionReportsCorrectly() {
+    void testRightCollisionReportsCorrectly() {
         // Setup
         Collider noCollisionCollider = () -> TEST_NOT_COLLIDING_BOUNDINGBOX;
         Collider rightCollisionCollider = () -> TEST_COLLIDED_RIGHT_BOUNDINGBOX;

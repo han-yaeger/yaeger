@@ -3,7 +3,7 @@ package nl.han.ica.waterworld.scenes.levels;
 import nl.han.ica.waterworld.Waterworld;
 import nl.han.ica.waterworld.entities.game.Swordfish;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
-import nl.han.ica.yaeger.engine.scene.SceneType;
+import nl.han.ica.yaeger.engine.scenes.SceneType;
 
 public class LevelOne extends Level {
 

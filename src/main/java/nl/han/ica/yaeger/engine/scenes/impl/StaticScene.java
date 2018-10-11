@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine.scene.impl;
+package nl.han.ica.yaeger.engine.scenes.impl;
 
 import com.google.inject.Inject;
 import javafx.scene.Group;
@@ -8,9 +8,9 @@ import nl.han.ica.yaeger.engine.userinput.KeyListener;
 import nl.han.ica.yaeger.engine.debug.Debugger;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
 import nl.han.ica.yaeger.engine.entities.spawners.EntitySpawner;
-import nl.han.ica.yaeger.engine.scene.YaegerScene;
-import nl.han.ica.yaeger.engine.scene.delegates.BackgroundDelegate;
-import nl.han.ica.yaeger.engine.scene.delegates.KeyListenerDelegate;
+import nl.han.ica.yaeger.engine.scenes.YaegerScene;
+import nl.han.ica.yaeger.engine.scenes.delegates.BackgroundDelegate;
+import nl.han.ica.yaeger.engine.scenes.delegates.KeyListenerDelegate;
 import nl.han.ica.yaeger.module.factories.DebuggerFactory;
 import nl.han.ica.yaeger.module.factories.SceneFactory;
 

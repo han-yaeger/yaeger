@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine.scene;
+package nl.han.ica.yaeger.engine.scenes;
 
 /**
  * Beschikbare {@code SceneType}s voor een implementatie van een {@link YaegerScene}.

@@ -7,8 +7,8 @@ import nl.han.ica.waterworld.entities.game.Player;
 import nl.han.ica.waterworld.entities.game.spawners.BubbleSpawner;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.text.TextEntity;
-import nl.han.ica.yaeger.engine.scene.impl.DynamicScene;
-import nl.han.ica.yaeger.engine.scene.SceneType;
+import nl.han.ica.yaeger.engine.scenes.impl.DynamicScene;
+import nl.han.ica.yaeger.engine.scenes.SceneType;
 
 public abstract class Level extends DynamicScene {
 

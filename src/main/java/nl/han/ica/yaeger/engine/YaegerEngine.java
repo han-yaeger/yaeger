@@ -2,9 +2,9 @@ package nl.han.ica.yaeger.engine;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import nl.han.ica.yaeger.engine.scene.Scenes;
-import nl.han.ica.yaeger.engine.scene.SceneType;
-import nl.han.ica.yaeger.engine.scene.YaegerScene;
+import nl.han.ica.yaeger.engine.scenes.Scenes;
+import nl.han.ica.yaeger.engine.scenes.SceneType;
+import nl.han.ica.yaeger.engine.scenes.YaegerScene;
 
 /**
  * {@code YaegerEngine} is de basis-superklasse die ge-extend moet worden. Na het extenden zal een aantal methodes
@@ -38,7 +38,7 @@ public abstract class YaegerEngine extends Application {
     }
 
     /**
-     * Zet de huidige actieve {@link YaegerScene}. Dit is de {@code scene} die getoond wordt op het scherm en waarvan,
+     * Zet de huidige actieve {@link YaegerScene}. Dit is de {@code scenes} die getoond wordt op het scherm en waarvan,
      * indien beschikbaar, de {@code Gameloop} en {@code Eventlisteners} hun werk doen.
      *
      * @param type De enumeratie die de type van de {@link YaegerScene} bevat.

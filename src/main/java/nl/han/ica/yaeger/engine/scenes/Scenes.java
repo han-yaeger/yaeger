@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine.scene;
+package nl.han.ica.yaeger.engine.scenes;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -50,7 +50,7 @@ public class Scenes extends LinkedHashMap<SceneType, YaegerScene> {
     }
 
     /**
-     * Zet de huidige actieve {@link YaegerScene}. Dit is de {@code scene} die getoond wordt op het scherm en waarvan,
+     * Zet de huidige actieve {@link YaegerScene}. Dit is de {@code scenes} die getoond wordt op het scherm en waarvan,
      * indien beschikbaar, de {@code Gameloop} en {@code Eventlisteners} hun werk doen.
      *
      * @param type De enumeratie die de type van de {@link YaegerScene} bevat.

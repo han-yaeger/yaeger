@@ -2,7 +2,7 @@ package nl.han.ica.yaeger.engine.entities.entity.sprites;
 
 import javafx.geometry.Point2D;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
-import nl.han.ica.yaeger.engine.scene.SceneBorder;
+import nl.han.ica.yaeger.engine.scenes.SceneBorder;
 import nl.han.ica.yaeger.engine.entities.entity.Updatable;
 
 /**
@@ -95,7 +95,7 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     }
 
     /**
-     * This method is being called when this {@code UpdatableSpriteEntity} crosses a boundary of the scene.
+     * This method is being called when this {@code UpdatableSpriteEntity} crosses a boundary of the scenes.
      * Override this method to add behaviour.
      *
      * @param border The border at which the screen is being crossed.

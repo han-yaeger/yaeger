@@ -4,7 +4,7 @@ import nl.han.ica.waterworld.scenes.levels.Level;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Size;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Movement;
-import nl.han.ica.yaeger.engine.scene.SceneBorder;
+import nl.han.ica.yaeger.engine.scenes.SceneBorder;
 import nl.han.ica.yaeger.engine.collisions.Collided;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.UpdatableSpriteEntity;
 import nl.han.ica.yaeger.engine.resourceconsumer.audio.Sound;
