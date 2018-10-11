@@ -28,8 +28,8 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
     private BackgroundDelegate backgroundDelegate;
 
     /**
-     * Maak een nieuwe {@code StaticScene}. Tijdens constructie wordt als eerste de methode {@code initializeScene}
-     * aangeroepen.
+     * Instantiate a new  {@code StaticScene}. During construction, the lifecycle method {@code initializeScene}
+     * will be called.
      */
     protected StaticScene() {
         backgroundDelegate = new BackgroundDelegate();
@@ -38,12 +38,13 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
     }
 
     /**
-     * Voeg een {@link Entity} toe aan de {@code scene}. {@link Entity}s kunnen maar één keer worden toegevoegd.
-     * Deze methode kan enkel gebruikt worden voor {@link Entity}en die bij initialisatie aan het game moeten worden
-     * toegevoegd. Indien er tijdens het game extra {@link Entity}en moeten worden toegevoegd, gebruik dan een
-     * {@link EntitySpawner}.
+     * Add an {@link Entity} to this {@link YaegerScene}. An {@link Entity} can only be added once.
+     * <p>
+     * This method can only be used to add an instance of {@link Entity} during initialisation.If
+     * one should be added during the game, a {@link EntitySpawner} should be used.
+     * </p>
      *
-     * @param entity Het {@link Entity} dat moet worden toegevoegd.
+     * @param entity the {@link Entity} to be added
      */
     protected void addEntity(Entity entity) {
         root.getChildren().add(entity.getGameNode());
@@ -64,7 +65,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
     }
 
     /**
-     * Set the name of the background audio file. Currently only *.mp3 files are supported.
+     * Set the name of the background audio file. Currently only {@code *.mp3} files are supported.
      *
      * @param file The name of the audio file, including extention.
      */
@@ -73,9 +74,9 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
     }
 
     /**
-     * Implement this method to be informed when a key has been pressed or released..
+     * Implement this method to be informed when a key has been pressed or released.
      *
-     * @param input A {@link Set} containg all keys currently pressed.
+     * @param input A {@link Set} containing all keys currently pressed.
      */
     public abstract void onInputChanged(Set<KeyCode> input);
 
@@ -86,6 +87,49 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
      */
     protected Group getRoot() {
         return this.root;
+    }
+
+
+    /**
+     * Set the {@link Group} to be used. The {@link Group} will be the root node of the graph that
+     * will be constructed for this {@link Scene}.
+     *
+     * @param root the {@link Group} to be used
+     */
+    @Inject
+    public void setRoot(Group root) {
+        this.root = root;
+    }
+
+    /**
+     * Set the {@link KeyListener} that should be used. In general, this will be the {@link YaegerScene}
+     * itself.
+     *
+     * @param keyListenerDelegate the {@link KeyListener} to be used
+     */
+    @Inject
+    public void setKeyListenerDelegate(KeyListenerDelegate keyListenerDelegate) {
+        this.keyListenerDelegate = keyListenerDelegate;
+    }
+
+    /**
+     * Set the {@link SceneFactory} that should be used to create a {@link Scene}.
+     *
+     * @param sceneFactory the {@link SceneFactory} to be used
+     */
+    @Inject
+    public void setSceneFactory(SceneFactory sceneFactory) {
+        this.sceneFactory = sceneFactory;
+    }
+
+    /**
+     * Set the {@link DebuggerFactory} that should be used to create a {@link Debugger}.
+     *
+     * @param debuggerFactory the {@link DebuggerFactory} to be used
+     */
+    @Inject
+    public void setDebuggerFactory(DebuggerFactory debuggerFactory) {
+        this.debuggerFactory = debuggerFactory;
     }
 
     @Override
@@ -109,12 +153,6 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
         clearView();
     }
 
-    private void clearView() {
-        root.getChildren().clear();
-        root = null;
-        scene = null;
-    }
-
     @Override
     public void onPressedKeysChange(Set<KeyCode> input) {
         if (input.contains(KeyCode.F1)) {
@@ -124,23 +162,9 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
         onInputChanged(input);
     }
 
-    @Inject
-    public void setRoot(Group root) {
-        this.root = root;
-    }
-
-    @Inject
-    public void setKeyListenerDelegate(KeyListenerDelegate keyListenerDelegate) {
-        this.keyListenerDelegate = keyListenerDelegate;
-    }
-
-    @Inject
-    public void setSceneFactory(SceneFactory sceneFactory) {
-        this.sceneFactory = sceneFactory;
-    }
-
-    @Inject
-    public void setDebuggerFactory(DebuggerFactory debuggerFactory) {
-        this.debuggerFactory = debuggerFactory;
+    private void clearView() {
+        root.getChildren().clear();
+        root = null;
+        scene = null;
     }
 }
