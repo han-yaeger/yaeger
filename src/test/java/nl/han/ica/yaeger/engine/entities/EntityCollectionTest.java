@@ -5,7 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.engine.debug.Debugger;
-import nl.han.ica.yaeger.engine.KeyListener;
+import nl.han.ica.yaeger.engine.userinput.KeyListener;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.Updatable;

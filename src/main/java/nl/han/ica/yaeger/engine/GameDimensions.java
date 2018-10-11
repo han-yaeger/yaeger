@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine.metrics;
+package nl.han.ica.yaeger.engine;
 
 /**
  * Een {@code GameDimensions} encapsuleert de breedte en hoogte van het game.

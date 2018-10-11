@@ -2,7 +2,7 @@ package nl.han.ica.yaeger.engine.scene.delegates;
 
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import nl.han.ica.yaeger.engine.KeyListener;
+import nl.han.ica.yaeger.engine.userinput.KeyListener;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine;
+package nl.han.ica.yaeger.engine.userinput;
 
 import javafx.scene.input.KeyCode;
 

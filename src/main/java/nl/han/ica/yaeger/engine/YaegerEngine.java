@@ -2,7 +2,6 @@ package nl.han.ica.yaeger.engine;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import nl.han.ica.yaeger.engine.metrics.GameDimensions;
 import nl.han.ica.yaeger.engine.scene.Scenes;
 import nl.han.ica.yaeger.engine.scene.SceneType;
 import nl.han.ica.yaeger.engine.scene.YaegerScene;

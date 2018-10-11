@@ -9,7 +9,7 @@ import nl.han.ica.yaeger.engine.collisions.CollisionDelegate;
 import nl.han.ica.yaeger.engine.entities.entity.*;
 import nl.han.ica.yaeger.engine.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.engine.entities.events.EventTypes;
-import nl.han.ica.yaeger.engine.KeyListener;
+import nl.han.ica.yaeger.engine.userinput.KeyListener;
 
 import java.util.ArrayList;
 import java.util.HashSet;
