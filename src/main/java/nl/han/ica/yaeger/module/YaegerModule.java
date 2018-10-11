@@ -9,8 +9,5 @@ public class YaegerModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(Group.class);
-        bind(BackgroundDelegate.class);
-        bind(KeyListenerDelegate.class);
     }
 }

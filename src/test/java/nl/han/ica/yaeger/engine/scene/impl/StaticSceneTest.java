@@ -1,27 +1,57 @@
 package nl.han.ica.yaeger.engine.scene.impl;
 
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import nl.han.ica.yaeger.engine.debug.Debugger;
 import nl.han.ica.yaeger.engine.scene.delegates.KeyListenerDelegate;
 import nl.han.ica.yaeger.engine.userinput.KeyListener;
 import nl.han.ica.yaeger.module.factories.DebuggerFactory;
 import nl.han.ica.yaeger.module.factories.SceneFactory;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import static org.mockito.Mockito.*;
 
 class StaticSceneTest {
+    private TestStaticScene testStaticScene;
+    private SceneFactory sceneFactory;
+    private DebuggerFactory debuggerFactory;
+    private KeyListenerDelegate keyListenerDelegate;
+    private Group root;
+    private Scene scene;
+
+    @BeforeEach
+    void setup() {
+        testStaticScene = new TestStaticScene();
+
+        root = mock(Group.class);
+        keyListenerDelegate = mock(KeyListenerDelegate.class);
+        sceneFactory = mock(SceneFactory.class);
+        debuggerFactory = mock(DebuggerFactory.class);
+
+        testStaticScene.setDebuggerFactory(debuggerFactory);
+        testStaticScene.setSceneFactory(sceneFactory);
+        testStaticScene.setRoot(root);
+        testStaticScene.setKeyListenerDelegate(keyListenerDelegate);
+
+
+        scene = mock(Scene.class);
+        when(sceneFactory.create(root)).thenReturn(scene);
+    }
 
     @Test
     void initiaizeIsCalledAfterCreation() {
         // Setup
 
         // Test
-        TestStaticScene testStaticScene = new TestStaticScene();
 
         // Verify
         Assertions.assertTrue(testStaticScene.initializeCalled);
@@ -29,21 +59,7 @@ class StaticSceneTest {
 
     @Test
     void setupSceneDoesAllRequiredSetup() {
-
         // Setup
-        Group root = mock(Group.class);
-        Scene scene = mock(Scene.class);
-        KeyListenerDelegate keyListenerDelegate = mock(KeyListenerDelegate.class);
-        SceneFactory sceneFactory = mock(SceneFactory.class);
-        DebuggerFactory debuggerFactory = mock(DebuggerFactory.class);
-
-        TestStaticScene testStaticScene = new TestStaticScene();
-        testStaticScene.setDebuggerFactory(debuggerFactory);
-        testStaticScene.setSceneFactory(sceneFactory);
-        testStaticScene.setRoot(root);
-        testStaticScene.setKeyListenerDelegate(keyListenerDelegate);
-
-        when(sceneFactory.create(root)).thenReturn(scene);
 
         // Test
         testStaticScene.setupScene();
@@ -54,6 +70,63 @@ class StaticSceneTest {
         verify(keyListenerDelegate).setup(any(Scene.class), any(KeyListener.class));
     }
 
+    @Test
+    void destroyDelegatesDestroy() {
+        // Setup
+        ObservableList<Node> children = mock(ObservableList.class);
+        when(root.getChildren()).thenReturn(children);
+
+        testStaticScene.setupScene();
+
+        // Test
+        testStaticScene.destroy();
+
+        // Verify
+        verify(keyListenerDelegate).tearDown(scene);
+        verify(children).clear();
+        verify(scene).setFill(null);
+    }
+
+    @Test
+    void pressingKeyDoesNotTogglesDebugger() {
+        // Setup
+        Set<KeyCode> input = new HashSet<>();
+        input.add(KeyCode.Y);
+        input.add(KeyCode.A);
+        input.add(KeyCode.E);
+        input.add(KeyCode.G);
+        input.add(KeyCode.E);
+        input.add(KeyCode.R);
+
+
+        Debugger debugger = mock(Debugger.class);
+        when(debuggerFactory.create(root)).thenReturn(debugger);
+        testStaticScene.setupScene();
+
+        // Test
+        testStaticScene.onPressedKeysChange(input);
+
+        // Verify
+        verifyNoMoreInteractions(debugger);
+    }
+
+    @Test
+    void pressingF1TogglesDebugger() {
+        // Setup
+        Set<KeyCode> input = new HashSet<>();
+        input.add(KeyCode.F1);
+
+        Debugger debugger = mock(Debugger.class);
+        when(debuggerFactory.create(root)).thenReturn(debugger);
+
+        testStaticScene.setupScene();
+
+        // Test
+        testStaticScene.onPressedKeysChange(input);
+
+        // Verify
+        verify(debugger).toggle();
+    }
 
     private class TestStaticScene extends StaticScene {
 
