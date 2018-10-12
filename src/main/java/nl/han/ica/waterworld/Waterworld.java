@@ -5,7 +5,7 @@ import nl.han.ica.waterworld.scenes.GameOver;
 import nl.han.ica.waterworld.scenes.Intro;
 import nl.han.ica.waterworld.scenes.levels.LevelTwo;
 import nl.han.ica.yaeger.engine.YaegerEngine;
-import nl.han.ica.yaeger.engine.GameDimensions;
+import nl.han.ica.yaeger.engine.entities.entity.sprites.Size;
 import nl.han.ica.yaeger.engine.scenes.SceneType;
 
 public class Waterworld extends YaegerEngine {
@@ -22,7 +22,7 @@ public class Waterworld extends YaegerEngine {
 
     @Override
     protected void initializeGame() {
-        setGameDimensions(new GameDimensions(WATERWORLD_WIDTH, WATERWORLD_HEIGHT));
+        setSize(new Size(WATERWORLD_WIDTH, WATERWORLD_HEIGHT));
         setGameTitle(GAME_TITLE);
     }
 
@@ -37,7 +37,6 @@ public class Waterworld extends YaegerEngine {
         addScene(SceneType.LEVEL_ONE, levelOne);
         addScene(SceneType.LEVEL_TWO, levelTwo);
         addScene(SceneType.GAMEOVER, gameOverScene);
-
 
         setActiveScene(SceneType.INTRO);
     }

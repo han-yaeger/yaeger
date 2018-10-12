@@ -6,7 +6,7 @@ import nl.han.ica.yaeger.engine.debug.Debugger;
 /**
  * A {@link DebuggerFactory} can be used to create instances of {@link Debugger}.
  */
-public class DebuggerFactory {
+public class   DebuggerFactory {
     /**
      * Create a {@link Debugger}.
      *

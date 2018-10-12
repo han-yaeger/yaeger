@@ -10,11 +10,11 @@ import java.util.Random;
 
 public class BubbleSpawner extends EntitySpawner {
 
-    private final int worldWidth;
-    private final int worldHeight;
+    private final double worldWidth;
+    private final double worldHeight;
     private Level waterworld;
 
-    public BubbleSpawner(int width, int height, Level waterworld) {
+    public BubbleSpawner(double width, double height, Level waterworld) {
         super(1);
 
         this.worldWidth = width;
@@ -48,8 +48,8 @@ public class BubbleSpawner extends EntitySpawner {
     }
 
     private Position generateRandomPosition() {
-        int x = new Random().nextInt(worldWidth);
-        int y = worldHeight - 30;
+        int x = new Random().nextInt((int) Math.round(worldWidth));
+        int y = (int) Math.round(worldHeight) - 30;
         return new Position(x, y);
     }
 }

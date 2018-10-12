@@ -2,6 +2,7 @@ package nl.han.ica.yaeger.engine;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import nl.han.ica.yaeger.engine.entities.entity.sprites.Size;
 import nl.han.ica.yaeger.engine.scenes.Scenes;
 import nl.han.ica.yaeger.engine.scenes.SceneType;
 import nl.han.ica.yaeger.engine.scenes.YaegerScene;
@@ -12,9 +13,9 @@ import nl.han.ica.yaeger.engine.scenes.YaegerScene;
  */
 public abstract class YaegerEngine extends Application {
 
-    private static final GameDimensions DEFAULT_GAME_DIMENSIONS = new GameDimensions(640, 480);
+    private static final Size DEFAULT_GAME_DIMENSIONS = new Size(640, 480);
 
-    private GameDimensions gameDimensions = DEFAULT_GAME_DIMENSIONS;
+    private Size size = DEFAULT_GAME_DIMENSIONS;
 
     private Stage yaegerStage;
     private Scenes scenes;
@@ -22,10 +23,10 @@ public abstract class YaegerEngine extends Application {
     /**
      * Zet de breedte en hoogte van het game.
      *
-     * @param dimensions Een {@link GameDimensions} object encapsuleert de breedte en hoogte van een game.
+     * @param size Een {@link Size} object encapsuleert de breedte en hoogte van een game.
      */
-    protected void setGameDimensions(GameDimensions dimensions) {
-        this.gameDimensions = dimensions;
+    protected void setSize(Size size) {
+        this.size = size;
     }
 
     /**
@@ -81,8 +82,8 @@ public abstract class YaegerEngine extends Application {
 
         initializeGame();
 
-        yaegerStage.setWidth(gameDimensions.getWidth());
-        yaegerStage.setHeight(gameDimensions.getHeight());
+        yaegerStage.setWidth(size.getWidth());
+        yaegerStage.setHeight(size.getHeight());
 
         setupScenes();
 
@@ -94,8 +95,8 @@ public abstract class YaegerEngine extends Application {
      *
      * @return The height of the Game.
      */
-    public int getGameHeight() {
-        return this.gameDimensions.getHeight();
+    public double getGameHeight() {
+        return this.size.getHeight();
     }
 
     /**
@@ -103,8 +104,8 @@ public abstract class YaegerEngine extends Application {
      *
      * @return The width of the Game.
      */
-    public int getGameWidth() {
-        return this.gameDimensions.getWidth();
+    public double getGameWidth() {
+        return this.size.getWidth();
     }
 
     /**
