@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import nl.han.ica.yaeger.engine.repositories.AudioRepository;
 import nl.han.ica.yaeger.engine.userinput.KeyListener;
 import nl.han.ica.yaeger.engine.debug.Debugger;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
@@ -167,4 +168,6 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
         root = null;
         scene = null;
     }
+
+
 }

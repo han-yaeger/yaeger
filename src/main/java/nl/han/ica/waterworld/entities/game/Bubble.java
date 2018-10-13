@@ -4,10 +4,10 @@ import nl.han.ica.waterworld.scenes.levels.Level;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Size;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Movement;
+import nl.han.ica.yaeger.engine.resourceconsumer.audio.SoundClip;
 import nl.han.ica.yaeger.engine.scenes.SceneBorder;
 import nl.han.ica.yaeger.engine.collisions.Collided;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.UpdatableSpriteEntity;
-import nl.han.ica.yaeger.engine.resourceconsumer.audio.Sound;
 
 public abstract class Bubble extends UpdatableSpriteEntity implements Collided {
 
@@ -29,7 +29,7 @@ public abstract class Bubble extends UpdatableSpriteEntity implements Collided {
     void handleCollision() {
         level.increaseBubblesPopped();
 
-        Sound popSound = new Sound(AUDIO_POP_MP3);
+        SoundClip popSound = new SoundClip(AUDIO_POP_MP3);
         popSound.play();
         remove();
     }

@@ -4,7 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import nl.han.ica.yaeger.engine.resourceconsumer.ResourceConsumer;
-import nl.han.ica.yaeger.engine.resourceconsumer.audio.Sound;
+import nl.han.ica.yaeger.engine.resourceconsumer.audio.SoundClip;
 
 /**
  * A {@link BackgroundDelegate} follows the Delegate pattern and embraces Composition over Inheritence.
@@ -12,7 +12,7 @@ import nl.han.ica.yaeger.engine.resourceconsumer.audio.Sound;
  */
 public class BackgroundDelegate implements ResourceConsumer {
 
-    Sound backgroundAudio;
+    SoundClip backgroundAudio;
     String backgroundAudioUrl;
     String backgroundImageUrl;
 
@@ -63,7 +63,7 @@ public class BackgroundDelegate implements ResourceConsumer {
 
     private void setupBackgroundAudio() {
         if (backgroundAudioUrl != null) {
-            backgroundAudio = new Sound(backgroundAudioUrl, Sound.INDEFINITE);
+            backgroundAudio = new SoundClip(backgroundAudioUrl, SoundClip.INDEFINITE);
             backgroundAudio.play();
         }
     }
