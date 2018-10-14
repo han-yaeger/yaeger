@@ -1,13 +1,16 @@
 package nl.han.ica.yaeger.engine.entities.entity.sprites;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimationDelegate;
+import nl.han.ica.yaeger.engine.repositories.ImageRepository;
 import nl.han.ica.yaeger.engine.resourceconsumer.ResourceConsumer;
+import nl.han.ica.yaeger.module.YaegerModule;
 
 /**
  * A {@code SpriteEntity} is a {@code Entity} that is represented by an Image.
@@ -22,9 +25,9 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     /**
      * Create a new {@code SpriteEntity} for a given Image.
      *
-     * @param resource    The url of the image file. Relative to the resources folder.
-     * @param position    the initial {@link Position} of this Entity
-     * @param size The bounding box of this SpriteEntity.
+     * @param resource The url of the image file. Relative to the resources folder.
+     * @param position the initial {@link Position} of this Entity
+     * @param size     The bounding box of this SpriteEntity.
      */
     public SpriteEntity(final String resource, final Position position, final Size size) {
         this(resource, position, size, 1);
@@ -33,16 +36,19 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     /**
      * Create a new {@code SpriteEntity} for a given Image.
      *
-     * @param resource    The url of the image file. Relative to the resources folder.
-     * @param position    the initial {@link Position} of this Entity
-     * @param size The bounding box of this SpriteEntity.
-     * @param frames      The number of frames this Image contains. By default the first frame is loaded.
+     * @param resource The url of the image file. Relative to the resources folder.
+     * @param position the initial {@link Position} of this Entity
+     * @param size     The bounding box of this SpriteEntity.
+     * @param frames   The number of frames this Image contains. By default the first frame is loaded.
      */
     public SpriteEntity(final String resource, final Position position, final Size size, final int frames) {
         this.positionVector = position;
 
-        var stringUrl = createPathForResource(resource);
-        var image = new Image(stringUrl, size.getWidth(), size.getHeight(), true, false);
+        ImageRepository imageRepository = ImageRepository.getInstance();
+        Injector injector = Guice.createInjector(new YaegerModule());
+        injector.injectMembers(imageRepository);
+
+        var image = imageRepository.get(resource, size.getWidth(), size.getHeight(), true);
         imageView = new ImageView(image);
         imageView.setManaged(false);
 

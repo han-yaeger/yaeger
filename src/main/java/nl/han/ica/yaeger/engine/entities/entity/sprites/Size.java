@@ -5,8 +5,8 @@ package nl.han.ica.yaeger.engine.entities.entity.sprites;
  */
 public class Size {
 
-    private double width;
-    private double height;
+    private int width;
+    private int height;
 
     /**
      * Creates a new instance of {@code Size}.
@@ -14,7 +14,7 @@ public class Size {
      * @param width  the width of the {@code Size}
      * @param height the height of the {@code Size}
      */
-    public Size(final double width, final double height) {
+    public Size(final int width, final int height) {
         this.width = width;
         this.height = height;
     }
@@ -22,14 +22,14 @@ public class Size {
     /**
      * @return The height the height of the {@code Size}
      */
-    public double getHeight() {
+    public int getHeight() {
         return height;
     }
 
     /**
      * @return The width the height of the {@code Size}
      */
-    public double getWidth() {
+    public int getWidth() {
         return width;
     }
 }
