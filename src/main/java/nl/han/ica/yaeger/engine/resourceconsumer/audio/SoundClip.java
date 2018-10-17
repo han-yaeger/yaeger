@@ -2,12 +2,11 @@ package nl.han.ica.yaeger.engine.resourceconsumer.audio;
 
 import javafx.scene.media.AudioClip;
 import nl.han.ica.yaeger.engine.repositories.AudioRepository;
-import nl.han.ica.yaeger.engine.resourceconsumer.ResourceConsumer;
 
 /**
  * A {@code SoundClip} encapsulates a mp3 audio file.
  */
-public class SoundClip implements ResourceConsumer {
+public class SoundClip {
 
     private final String fileName;
     private final int cycleCount;
@@ -47,8 +46,7 @@ public class SoundClip implements ResourceConsumer {
      * Play the file.
      */
     public void play() {
-        var url = createPathForResource(fileName);
-        audioClip = new AudioClip(url);
+        audioClip = audioRepository.get(fileName);
         audioClip.setCycleCount(cycleCount);
         audioClip.play();
     }

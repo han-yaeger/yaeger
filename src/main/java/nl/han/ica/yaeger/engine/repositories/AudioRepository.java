@@ -1,17 +1,18 @@
 package nl.han.ica.yaeger.engine.repositories;
 
-import nl.han.ica.yaeger.engine.resourceconsumer.audio.SoundClip;
+import javafx.scene.media.AudioClip;
+import nl.han.ica.yaeger.engine.resourceconsumer.ResourceConsumer;
 
 import java.util.*;
 
 /**
  * An {@code AudioRepository} provides a central repository for acquiring audio files.
  */
-public class AudioRepository {
+public class AudioRepository implements ResourceConsumer {
 
     private static final String CYCLECOUNT = "-cyclecount-";
 
-    private Map<String, SoundClip> audioMap;
+    private Map<String, AudioClip> audioMap;
 
     private static AudioRepository audioRepository;
 
@@ -27,27 +28,34 @@ public class AudioRepository {
     }
 
     /**
-     * Return a {@link SoundClip} for the given [@code audiofile].
+     * Return a {@link AudioClip} for the given [@code audiofile].
      *
-     * @param audiofile the filename of the {@link SoundClip}
-     * @return the {@link SoundClip} that was requested
+     * @param audiofile the filename of the {@link AudioClip}
+     * @return the {@link AudioClip} that was requested
      */
-    public SoundClip get(String audiofile) {
+    public AudioClip get(String audiofile) {
         if (!audioMap.containsKey(audiofile)) {
-            audioMap.put(audiofile, new SoundClip(audiofile));
+            audioMap.put(audiofile, new AudioClip(createPathForResource(audiofile)));
         }
         return audioMap.get(audiofile);
     }
 
     /**
-     * Return a {@link SoundClip} for the given [@code audiofile] and {@code cycleCount}.
+     * Return a {@link AudioClip} for the given [@code audiofile] and {@code cycleCount}.
      *
-     * @param audiofile  the filename of the {@link SoundClip}
-     * @param cycleCount the number of times the {@link SoundClip} should be repeated. To
+     * @param audiofile  the filename of the {@link AudioClip}
+     * @param cycleCount the number of times the {@link AudioClip} should be repeated. To
      *                   set this value to Indefinite, use {@code SoundClip.INDEFINITE}
-     * @return the {@link SoundClip} that was requested
+     * @return the {@link AudioClip} that was requested
      */
-    public SoundClip get(String audiofile, int cycleCount) {
-        return get(audiofile + CYCLECOUNT + cycleCount);
+    public AudioClip get(String audiofile, int cycleCount) {
+        var key = audiofile + CYCLECOUNT + cycleCount;
+        if (audioMap.containsKey(key)) {
+            return audioMap.get(key);
+        } else {
+            var audioClip = new AudioClip(createPathForResource(audiofile));
+            audioMap.put(key, audioClip);
+            return audioClip;
+        }
     }
 }

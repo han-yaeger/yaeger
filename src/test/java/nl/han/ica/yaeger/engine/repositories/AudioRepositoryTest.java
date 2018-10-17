@@ -1,11 +1,11 @@
 package nl.han.ica.yaeger.engine.repositories;
 
-import nl.han.ica.yaeger.engine.resourceconsumer.audio.SoundClip;
+import javafx.scene.media.AudioClip;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class AudioRepositoryTest {
+class AudioRepositoryTest {
 
     private AudioRepository audioRepository;
 
@@ -19,10 +19,10 @@ public class AudioRepositoryTest {
         // Setup
 
         // Test
-        SoundClip soundClip = audioRepository.get("Waterworld.mp3");
+        AudioClip audioClip = audioRepository.get("Waterworld.mp3");
 
         // Verify
-        Assertions.assertNotNull(soundClip);
+        Assertions.assertNotNull(audioClip);
     }
 
     @Test
@@ -30,11 +30,11 @@ public class AudioRepositoryTest {
         // Setup
 
         // Test
-        SoundClip soundClip1 = audioRepository.get("Waterworld.mp3");
-        SoundClip soundClip2 = audioRepository.get("Waterworld.mp3");
+        AudioClip audioClip1 = audioRepository.get("Waterworld.mp3");
+        AudioClip audioClip2 = audioRepository.get("Waterworld.mp3");
 
         // Verify
-        Assertions.assertSame(soundClip1, soundClip2);
+        Assertions.assertSame(audioClip1, audioClip2);
     }
 
     @Test
@@ -42,10 +42,10 @@ public class AudioRepositoryTest {
         // Setup
 
         // Test
-        SoundClip soundClip = audioRepository.get("Waterworld.mp3", 2);
+        AudioClip audioClip = audioRepository.get("Waterworld.mp3", 2);
 
         // Verify
-        Assertions.assertNotNull(soundClip);
+        Assertions.assertNotNull(audioClip);
     }
 
     @Test
@@ -53,10 +53,10 @@ public class AudioRepositoryTest {
         // Setup
 
         // Test
-        SoundClip soundClip1 = audioRepository.get("Waterworld.mp3");
-        SoundClip soundClip2 = audioRepository.get("Waterworld.mp3", 3);
+        AudioClip audioClip1 = audioRepository.get("Waterworld.mp3");
+        AudioClip audioClip2 = audioRepository.get("Waterworld.mp3", 3);
 
         // Verify
-        Assertions.assertNotSame(soundClip1, soundClip2);
+        Assertions.assertNotSame(audioClip1, audioClip2);
     }
 }
