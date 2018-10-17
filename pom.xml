@@ -81,7 +81,7 @@
                 </executions>
                 <configuration>
                     <excludes>
-                        <exclude>nl/han/ica/waterworld/*;nl/han/ica/yaeger/module/*</exclude>
+                        <exclude>nl/han/ica/waterworld/**/*;nl/han/ica/yaeger/module/**/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
@@ -118,7 +118,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${javadoc.version}</version>
                 <configuration>
-                    <excludePackageNames>nl.han.ica.waterworld;</excludePackageNames>
+                    <excludePackageNames>nl.han.ica.waterworld</excludePackageNames>
                 </configuration>
             </plugin>
         </plugins>
