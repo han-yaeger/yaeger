@@ -1,17 +1,18 @@
 package nl.han.ica.yaeger.engine.resourceconsumer.audio;
 
 import javafx.scene.media.AudioClip;
+import nl.han.ica.yaeger.engine.repositories.AudioRepository;
 import nl.han.ica.yaeger.engine.resourceconsumer.ResourceConsumer;
 
 /**
- * Een {@code SoundClip} encapsuleert een mp3 audio-bestand. Een {@code SoundClip} kan worden afgespeeld, waarbij het
- * mogelijk is om die herhaaldelijk te doen.
+ * A {@code SoundClip} encapsulates a mp3 audio file.
  */
 public class SoundClip implements ResourceConsumer {
 
     private final String fileName;
     private final int cycleCount;
     private AudioClip audioClip;
+    private AudioRepository audioRepository;
 
     /**
      * Bij het instantieren van een nieuwe {@code SoundClip} kan de waarde van de parameter {@code cycleCount}
@@ -38,10 +39,12 @@ public class SoundClip implements ResourceConsumer {
     public SoundClip(String fileName, int cycleCount) {
         this.fileName = fileName;
         this.cycleCount = cycleCount;
+
+        this.audioRepository = AudioRepository.getInstance();
     }
 
     /**
-     * Speel het audiobestand af.
+     * Play the file.
      */
     public void play() {
         var url = createPathForResource(fileName);
@@ -51,7 +54,7 @@ public class SoundClip implements ResourceConsumer {
     }
 
     /**
-     * Stop het afspelen van het audiobestand.
+     * Stop playing the file.
      */
     public void stop() {
         audioClip.stop();
