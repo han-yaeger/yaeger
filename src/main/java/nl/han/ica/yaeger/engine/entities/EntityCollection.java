@@ -51,9 +51,9 @@ public class EntityCollection {
     }
 
     /**
-     * Add an {@link StatisticsObserver} to the {@link List} of
+     * Add a {@link StatisticsObserver}.
      *
-     * @param observer
+     * @param observer the {@link StatisticsObserver} to be added
      */
     public void addStatisticsObserver(StatisticsObserver observer) {
         statisticsObservers.add(observer);
