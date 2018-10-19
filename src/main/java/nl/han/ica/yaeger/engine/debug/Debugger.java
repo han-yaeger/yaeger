@@ -17,7 +17,7 @@ public class Debugger implements StatisticsObserver {
     private static final String ENTITIES_STATIC = "Static Entities:";
     private static final String SPAWNERS = "Spawners:";
     private static final String GARBAGE = "Garbage:";
-    private static final String KEYLISTENERS = "Dynamic Entities:";
+    private static final String KEYLISTENERS = "Keylistening Entities:";
 
     private GridPane gridpane;
     private DebugValue dynamicEntities;
