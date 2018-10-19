@@ -84,6 +84,13 @@
                         <exclude>nl/han/ica/waterworld/**/*;nl/han/ica/yaeger/module/**/*</exclude>
                     </excludes>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.ow2.asm</groupId>
+                        <artifactId>asm</artifactId>
+                        <version>${ow2.asm.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
