@@ -13,14 +13,14 @@
     <properties>
         <!-- Project and Java -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.version>3.7.0</maven.compiler.version>
-        <java.version>10</java.version>
+        <maven.compiler.version>3.8.0</maven.compiler.version>
+        <java.version>11</java.version>
         <!-- General -->
         <reactfx.version>1.4.1</reactfx.version>
         <!-- Testing-->
         <junit.jupiter.version>5.2.0</junit.jupiter.version>
         <junit-platform-surefire-provider>1.1.0</junit-platform-surefire-provider>
-        <mockito.version>2.19.0</mockito.version>
+        <mockito.version>2.23.0</mockito.version>
         <test-fx.version>4.0.13-alpha</test-fx.version>
         <!-- Continuous Integration -->
         <maven-surefire-plugin>2.19.1</maven-surefire-plugin>
@@ -41,6 +41,8 @@
                     <release>${java.version}</release>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -124,7 +126,21 @@
         </plugins>
     </build>
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>11</version>
+        </dependency>
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
