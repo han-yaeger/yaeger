@@ -15,8 +15,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.version>3.8.0</maven.compiler.version>
         <java.version>11</java.version>
-        <!-- General -->
-        <reactfx.version>1.4.1</reactfx.version>
         <!-- Testing-->
         <junit.jupiter.version>5.2.0</junit.jupiter.version>
         <junit-platform-surefire-provider>1.1.0</junit-platform-surefire-provider>
