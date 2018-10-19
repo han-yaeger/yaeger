@@ -38,7 +38,7 @@
                 <configuration>
                     <release>${java.version}</release>
                     <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <target>8</target>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
                 </configuration>
