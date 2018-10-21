@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine.debug;
+package nl.han.ica.yaeger.javafx.components.debugger;
 
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
@@ -7,9 +7,9 @@ import javafx.scene.layout.GridPane;
 /**
  * Extends the JavaFX {@link GridPane} and sets the relevant properties.
  */
-class DebuggerGridPane extends GridPane {
+public class DebuggerGridPane extends GridPane {
 
-    DebuggerGridPane() {
+    public DebuggerGridPane() {
         setBackground(Background.EMPTY);
         setStyle("-fx-background-color: rgba(0, 0, 0, 0.7);");
         setPadding(new Insets(10, 10, 10, 10));

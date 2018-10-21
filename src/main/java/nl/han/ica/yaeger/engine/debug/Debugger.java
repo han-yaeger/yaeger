@@ -2,10 +2,15 @@ package nl.han.ica.yaeger.engine.debug;
 
 import javafx.scene.Group;
 import javafx.scene.layout.GridPane;
+import nl.han.ica.yaeger.engine.repositories.AudioRepository;
+import nl.han.ica.yaeger.engine.repositories.ImageRepository;
+import nl.han.ica.yaeger.javafx.components.debugger.DebugLabel;
+import nl.han.ica.yaeger.javafx.components.debugger.DebugValue;
+import nl.han.ica.yaeger.javafx.components.debugger.DebuggerGridPane;
 import nl.han.ica.yaeger.engine.entities.EntityCollectionStatistics;
 
 /**
- * The {@link Debugger} is used to gather and show in game debug information.
+ * The {@code Debugger} is used to gather and show in game debug information.
  */
 public class Debugger implements StatisticsObserver {
 
@@ -18,6 +23,11 @@ public class Debugger implements StatisticsObserver {
     private static final String SPAWNERS = "Spawners:";
     private static final String GARBAGE = "Garbage:";
     private static final String KEYLISTENERS = "Keylistening Entities:";
+    private static final String AUDIO_FILES = "Audio files";
+    private static final String IMAGE_FILES = "Image files";
+
+    private AudioRepository audioRepository;
+    private ImageRepository imageRepository;
 
     private GridPane gridpane;
     private DebugValue dynamicEntities;
@@ -28,8 +38,13 @@ public class Debugger implements StatisticsObserver {
     private DebugValue usedMemory;
     private DebugValue allocatedMemory;
 
+    private DebugValue audioFiles;
+    private DebugValue imageFiles;
+
     public Debugger(Group group) {
         createGridPane(group);
+        audioRepository = AudioRepository.getInstance();
+        imageRepository = ImageRepository.getInstance();
     }
 
     /**
@@ -65,8 +80,11 @@ public class Debugger implements StatisticsObserver {
         entitySpawners.setText(String.valueOf(entityCollectionStatistics.getSpawners()));
         garbageEntities.setText(String.valueOf(entityCollectionStatistics.getGarbage()));
 
-        allocatedMemory.setText(String.valueOf(Runtime.getRuntime().totalMemory()));
-        usedMemory.setText(String.valueOf(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()));
+        allocatedMemory.setText(getTotalMemory());
+        usedMemory.setText(getUsedMemory());
+
+        audioFiles.setText(String.valueOf(audioRepository.size()));
+        imageFiles.setText(String.valueOf(imageRepository.size()));
     }
 
     private void createGridPane(Group group) {
@@ -74,12 +92,8 @@ public class Debugger implements StatisticsObserver {
 
         addHeader();
         addSystemStatistics();
-
-        addDynamics();
-        addStatics();
-        addSpawners();
-        addKeyListeners();
-        addGarbage();
+        addEntityStatistics();
+        addResourcesStatistics();
 
         group.getChildren().add(gridpane);
     }
@@ -89,51 +103,44 @@ public class Debugger implements StatisticsObserver {
     }
 
     private void addSystemStatistics() {
-        gridpane.add(new DebugLabel(PROCESSORS_AMOUNT), 0, 1);
-        gridpane.add(new DebugValue(String.valueOf(Runtime.getRuntime().availableProcessors())), 1, 1);
+        addDebugLine(PROCESSORS_AMOUNT, String.valueOf(Runtime.getRuntime().availableProcessors()));
 
-        gridpane.add(new DebugLabel(MEMORY_ALLOCATED), 0, 2);
-        allocatedMemory = new DebugValue();
-        gridpane.add(allocatedMemory, 1, 2);
-
-
-        gridpane.add(new DebugLabel(MEMORY_USED), 0, 3);
-        usedMemory = new DebugValue();
-        gridpane.add(usedMemory, 1, 3);
+        allocatedMemory = addDebugLine(MEMORY_ALLOCATED, getTotalMemory());
+        usedMemory = addDebugLine(MEMORY_USED, getUsedMemory());
     }
 
-    private void addDynamics() {
-        dynamicEntities = new DebugValue();
-
-        gridpane.add(new DebugLabel(ENTITIES_DYNAMIC), 0, 4);
-        gridpane.add(dynamicEntities, 1, 4);
+    private void addEntityStatistics() {
+        dynamicEntities = addDebugLine(ENTITIES_DYNAMIC);
+        staticEntities = addDebugLine(ENTITIES_STATIC);
+        entitySpawners = addDebugLine(SPAWNERS);
+        garbageEntities = addDebugLine(GARBAGE);
+        keyListeningEntities = addDebugLine(KEYLISTENERS);
     }
 
-    private void addStatics() {
-        staticEntities = new DebugValue();
-
-        gridpane.add(new DebugLabel(ENTITIES_STATIC), 0, 5);
-        gridpane.add(staticEntities, 1, 5);
+    private void addResourcesStatistics() {
+        audioFiles = addDebugLine(AUDIO_FILES);
+        imageFiles = addDebugLine(IMAGE_FILES);
     }
 
-    private void addSpawners() {
-        entitySpawners = new DebugValue();
-
-        gridpane.add(new DebugLabel(SPAWNERS), 0, 6);
-        gridpane.add(entitySpawners, 1, 6);
+    private DebugValue addDebugLine(String label) {
+        return addDebugLine(label, "");
     }
 
-    private void addGarbage() {
-        garbageEntities = new DebugValue();
+    private DebugValue addDebugLine(String label, String value) {
+        DebugValue debugValue = new DebugValue(value);
 
-        gridpane.add(new DebugLabel(GARBAGE), 0, 7);
-        gridpane.add(garbageEntities, 1, 7);
+        int nextrow = gridpane.getRowCount() + 1;
+        gridpane.add(new DebugLabel(label), 0, nextrow);
+        gridpane.add(debugValue, 1, nextrow);
+
+        return debugValue;
     }
 
-    private void addKeyListeners() {
-        keyListeningEntities = new DebugValue();
+    private String getTotalMemory() {
+        return String.valueOf(Runtime.getRuntime().totalMemory());
+    }
 
-        gridpane.add(new DebugLabel(KEYLISTENERS), 0, 8);
-        gridpane.add(keyListeningEntities, 1, 8);
+    private String getUsedMemory() {
+        return String.valueOf(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory());
     }
 }

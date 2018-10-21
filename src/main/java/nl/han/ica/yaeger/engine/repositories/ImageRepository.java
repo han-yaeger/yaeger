@@ -2,7 +2,7 @@ package nl.han.ica.yaeger.engine.repositories;
 
 import com.google.inject.Inject;
 import javafx.scene.image.Image;
-import nl.han.ica.javafx.factories.ImageFactory;
+import nl.han.ica.yaeger.javafx.factories.ImageFactory;
 import nl.han.ica.yaeger.engine.resourceconsumer.ResourceConsumer;
 
 import java.util.Map;
@@ -85,5 +85,19 @@ public class ImageRepository implements ResourceConsumer {
 
     private String constructKey(String url, int requestedWidth, int requestedHeight, boolean preserveRatio) {
         return requestedWidth + "-" + requestedHeight + "-" + preserveRatio + "-" + url;
+    }
+
+    /**
+     * Returns the number of key-value mappings in this map.  If the
+     * map contains more than {@code Integer.MAX_VALUE} elements, returns
+     * {@code Integer.MAX_VALUE}.
+     *
+     * @return the number of key-value mappings in this map
+     */
+    public int size() {
+        if (spriteMap == null) {
+            return 0;
+        }
+        return spriteMap.size();
     }
 }

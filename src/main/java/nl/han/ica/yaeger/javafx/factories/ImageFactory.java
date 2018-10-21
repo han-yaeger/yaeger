@@ -1,4 +1,4 @@
-package nl.han.ica.javafx.factories;
+package nl.han.ica.yaeger.javafx.factories;
 
 import javafx.beans.NamedArg;
 import javafx.scene.image.Image;

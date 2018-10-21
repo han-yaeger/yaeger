@@ -58,4 +58,18 @@ public class AudioRepository implements ResourceConsumer {
             return audioClip;
         }
     }
+
+    /**
+     * Returns the number of key-value mappings in this map.  If the
+     * map contains more than {@code Integer.MAX_VALUE} elements, returns
+     * {@code Integer.MAX_VALUE}.
+     *
+     * @return the number of key-value mappings in this map
+     */
+    public int size() {
+        if (audioMap == null) {
+            return 0;
+        }
+        return audioMap.size();
+    }
 }
