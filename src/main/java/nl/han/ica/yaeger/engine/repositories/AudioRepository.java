@@ -1,6 +1,7 @@
 package nl.han.ica.yaeger.engine.repositories;
 
 import javafx.scene.media.AudioClip;
+import nl.han.ica.yaeger.engine.Destructable;
 import nl.han.ica.yaeger.engine.resourceconsumer.ResourceConsumer;
 
 import java.util.*;
@@ -8,7 +9,7 @@ import java.util.*;
 /**
  * An {@code AudioRepository} provides a central repository for acquiring audio files.
  */
-public class AudioRepository implements ResourceConsumer {
+public class AudioRepository implements ResourceConsumer, Destructable {
 
     private static final String CYCLECOUNT = "-cyclecount-";
 
@@ -71,5 +72,10 @@ public class AudioRepository implements ResourceConsumer {
             return 0;
         }
         return audioMap.size();
+    }
+
+    @Override
+    public void destroy() {
+        audioMap.clear();
     }
 }

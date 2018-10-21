@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
 
-public class ImageRepositoryTest {
+class ImageRepositoryTest {
 
     private ImageRepository imageRepository;
     private ImageFactory imageFactory;
@@ -21,8 +21,9 @@ public class ImageRepositoryTest {
     }
 
     @Test
-    void getCreatesAndReturnsASprite() {
+    void getCreatesAndReturnsAnImage() {
         // Setup
+        imageRepository.destroy();
         Image image = mock(Image.class);
         when(imageFactory.create(anyString())).thenReturn(image);
 
@@ -31,11 +32,13 @@ public class ImageRepositoryTest {
 
         // Verify
         Assertions.assertEquals(image, createdImage);
+        Assertions.assertEquals(1, imageRepository.size());
     }
 
     @Test
     void callingGetTwiceCreatesCreatesOnlyOneImage() {
         // Setup
+        imageRepository.destroy();
         Image image = mock(Image.class);
         when(imageFactory.create(anyString())).thenReturn(image);
 
@@ -45,11 +48,28 @@ public class ImageRepositoryTest {
 
         // Verify
         Assertions.assertSame(image1, image2);
+        Assertions.assertEquals(1, imageRepository.size());
+    }
+
+    @Test
+    void callingGetForDifferentImagesCreatesDifferentImages() {
+        // Setup
+        imageRepository.destroy();
+        Image image = mock(Image.class);
+        when(imageFactory.create(anyString())).thenReturn(image);
+
+        // Test
+        Image image1 = imageRepository.get("images/bubble.png");
+        Image image2 = imageRepository.get("images/poison.png");
+
+        // Verify
+        Assertions.assertEquals(2, imageRepository.size());
     }
 
     @Test
     void callingGetWithSpecifiedWidthAndHeightReturnsAnImage() {
         // Setup
+        imageRepository.destroy();
         Image image = mock(Image.class);
         when(imageFactory.create(anyString(), anyDouble(), anyDouble(), anyBoolean())).thenReturn(image);
 
@@ -58,6 +78,7 @@ public class ImageRepositoryTest {
 
         // Verify
         Assertions.assertSame(image, createdImage);
+        Assertions.assertEquals(1, imageRepository.size());
     }
 }
 

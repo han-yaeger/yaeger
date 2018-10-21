@@ -2,6 +2,7 @@ package nl.han.ica.yaeger.engine.repositories;
 
 import com.google.inject.Inject;
 import javafx.scene.image.Image;
+import nl.han.ica.yaeger.engine.Destructable;
 import nl.han.ica.yaeger.javafx.factories.ImageFactory;
 import nl.han.ica.yaeger.engine.resourceconsumer.ResourceConsumer;
 
@@ -11,7 +12,7 @@ import java.util.WeakHashMap;
 /**
  * An {@code ImageRepository} provides a central repository for acquiring sprites.
  */
-public class ImageRepository implements ResourceConsumer {
+public class ImageRepository implements ResourceConsumer, Destructable {
 
     private Map<String, Image> spriteMap;
     private ImageFactory factory;
@@ -99,5 +100,10 @@ public class ImageRepository implements ResourceConsumer {
             return 0;
         }
         return spriteMap.size();
+    }
+
+    @Override
+    public void destroy() {
+        spriteMap.clear();
     }
 }
