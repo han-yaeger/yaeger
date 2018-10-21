@@ -81,7 +81,8 @@
                 </executions>
                 <configuration>
                     <excludes>
-                        <exclude>nl/han/ica/waterworld/**/*;nl/han/ica/yaeger/module/**/*</exclude>
+                        <exclude>nl/han/ica/waterworld/**/*</exclude>
+                        <exclude>nl/han/ica/yaeger/module/**/*</exclude>
                     </excludes>
                 </configuration>
                 <dependencies>
