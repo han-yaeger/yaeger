@@ -15,11 +15,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.version>3.8.0</maven.compiler.version>
         <java.version>11</java.version>
+        <javafx.version>11</javafx.version>
         <!-- Testing-->
         <junit.jupiter.version>5.2.0</junit.jupiter.version>
         <junit-platform-surefire-provider>1.1.0</junit-platform-surefire-provider>
         <mockito.version>2.23.0</mockito.version>
-        <test-fx.version>4.0.13-alpha</test-fx.version>
         <!-- Continuous Integration -->
         <maven-surefire-plugin>2.19.1</maven-surefire-plugin>
         <ow2.asm.version>6.2.1</ow2.asm.version>
@@ -135,17 +135,17 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>11</version>
+            <version>${javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>11</version>
+            <version>${javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
-            <version>11</version>
+            <version>${javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.inject</groupId>
