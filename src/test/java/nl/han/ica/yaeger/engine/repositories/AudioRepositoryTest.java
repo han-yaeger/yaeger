@@ -15,6 +15,18 @@ class AudioRepositoryTest {
     }
 
     @Test
+    void afterDestroyRepositoryIsEmpty() {
+        // Setup
+        audioRepository.destroy();
+
+        // Test
+        int size = audioRepository.size();
+
+        // Verify
+        Assertions.assertEquals(0, size);
+    }
+
+    @Test
     void getCreatesAndReturnsAnAudioClip() {
         // Setup
         audioRepository.destroy();

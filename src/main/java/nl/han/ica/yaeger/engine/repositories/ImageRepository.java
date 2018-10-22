@@ -45,6 +45,7 @@ public class ImageRepository implements ResourceConsumer, Destructable {
      * @return an {@link Image} with content loaded from the specified url
      */
     public Image get(String url) {
+
         if (spriteMap.containsKey(url)) {
             return spriteMap.get(url);
         } else {

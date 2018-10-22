@@ -21,6 +21,18 @@ class ImageRepositoryTest {
     }
 
     @Test
+    void afterDestroyRepositoryIsEmpty() {
+        // Setup
+        imageRepository.destroy();
+
+        // Test
+        int size = imageRepository.size();
+
+        // Verify
+        Assertions.assertEquals(0, size);
+    }
+
+    @Test
     void getCreatesAndReturnsAnImage() {
         // Setup
         imageRepository.destroy();

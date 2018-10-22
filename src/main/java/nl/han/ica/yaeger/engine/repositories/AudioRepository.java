@@ -35,10 +35,7 @@ public class AudioRepository implements ResourceConsumer, Destructable {
      * @return the {@link AudioClip} that was requested
      */
     public AudioClip get(String audiofile) {
-        if (!audioMap.containsKey(audiofile)) {
-            audioMap.put(audiofile, new AudioClip(createPathForResource(audiofile)));
-        }
-        return audioMap.get(audiofile);
+        return get(audiofile, 0);
     }
 
     /**
@@ -50,7 +47,10 @@ public class AudioRepository implements ResourceConsumer, Destructable {
      * @return the {@link AudioClip} that was requested
      */
     public AudioClip get(String audiofile, int cycleCount) {
-        var key = audiofile + CYCLECOUNT + cycleCount;
+        var key = audiofile;
+        if (cycleCount != 0) {
+            key = audiofile + CYCLECOUNT + cycleCount;
+        }
         if (audioMap.containsKey(key)) {
             return audioMap.get(key);
         } else {
