@@ -2,17 +2,20 @@ package nl.han.ica.yaeger.engine.entities.entity.sprites;
 
 import javafx.geometry.Point2D;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
-import nl.han.ica.yaeger.engine.scenes.SceneBorder;
+import nl.han.ica.yaeger.engine.entities.entity.SceneBoundaryCrosser;
+import nl.han.ica.yaeger.engine.entities.entity.sprites.delegates.SceneBoundaryCrossingDelegate;
 import nl.han.ica.yaeger.engine.entities.entity.Updatable;
 
 /**
  * An {@code UpdatableSpriteEntity} extends all behaviour of a {@link SpriteEntity}, but also implements the
  * {@link Updatable} Interface.
  */
-public abstract class UpdatableSpriteEntity extends SpriteEntity implements Updatable {
+public abstract class UpdatableSpriteEntity extends SpriteEntity implements Updatable, SceneBoundaryCrosser {
 
     private Movement movement;
     private Point2D movementVector;
+
+    private SceneBoundaryCrossingDelegate sceneBoundaryCrossingDelegate;
 
     /**
      * Create a new SpriteEntity.
@@ -38,6 +41,7 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
         super(resource, position, size, frames);
 
         this.movement = movement;
+        this.sceneBoundaryCrossingDelegate = new SceneBoundaryCrossingDelegate(this);
 
         setMovementVector();
     }
@@ -45,7 +49,7 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     @Override
     public void update(long timestamp) {
         updateLocation();
-        checkSceneBoundary();
+        sceneBoundaryCrossingDelegate.checkSceneBoundary(imageView);
     }
 
     /**
@@ -91,35 +95,6 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
         if (hasDirectionChanged(newDirection)) {
             movement.setDirection(newDirection);
             setMovementVector();
-        }
-    }
-
-    /**
-     * This method is being called when this {@code UpdatableSpriteEntity} crosses a boundary of the scenes.
-     * Override this method to add behaviour.
-     *
-     * @param border The border at which the screen is being crossed.
-     */
-    protected abstract void notifyBoundaryCrossing(SceneBorder border);
-
-    private void checkSceneBoundary() {
-        var x = imageView.getLayoutX();
-        var y = imageView.getLayoutY();
-        var width = imageView.getLayoutBounds().getWidth();
-        var height = imageView.getLayoutBounds().getHeight();
-        var rightSideXCoordinate = x + width;
-        var bottomYCoordinate = y + height;
-        var screenBottom = imageView.getScene().getHeight();
-        var screenRight = imageView.getScene().getWidth();
-
-        if (rightSideXCoordinate <= 0) {
-            notifyBoundaryCrossing(SceneBorder.LEFT);
-        } else if (bottomYCoordinate <= 0) {
-            notifyBoundaryCrossing(SceneBorder.TOP);
-        } else if (y >= screenBottom) {
-            notifyBoundaryCrossing(SceneBorder.BOTTOM);
-        } else if (x >= screenRight) {
-            notifyBoundaryCrossing(SceneBorder.RIGHT);
         }
     }
 

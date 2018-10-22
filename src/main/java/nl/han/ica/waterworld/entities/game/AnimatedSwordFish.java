@@ -15,7 +15,7 @@ public class AnimatedSwordFish extends UpdatableSpriteEntity implements Collider
     }
 
     @Override
-    protected void notifyBoundaryCrossing(SceneBorder border) {
+    public void notifyBoundaryCrossing(SceneBorder border) {
         if (border.equals(SceneBorder.LEFT)) {
             setLocation(getSceneWidth(), getY());
         }

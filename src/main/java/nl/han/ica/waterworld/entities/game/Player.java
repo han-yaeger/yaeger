@@ -64,7 +64,7 @@ public class Player extends UpdatableSpriteEntity implements KeyListener, Collid
     }
 
     @Override
-    protected void notifyBoundaryCrossing(SceneBorder border) {
+    public void notifyBoundaryCrossing(SceneBorder border) {
         // Not needed
     }
 }
