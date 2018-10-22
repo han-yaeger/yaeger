@@ -14,13 +14,13 @@ import java.util.WeakHashMap;
  */
 public class ImageRepository implements ResourceConsumer, Destructable {
 
-    private Map<String, Image> spriteMap;
+    private Map<String, Image> imageMap;
     private ImageFactory factory;
 
-    private static ImageRepository spriteRepository;
+    private static ImageRepository imageRepository;
 
     private ImageRepository() {
-        spriteMap = new WeakHashMap<>();
+        imageMap = new WeakHashMap<>();
     }
 
     /**
@@ -29,11 +29,11 @@ public class ImageRepository implements ResourceConsumer, Destructable {
      * @return A Singleton instance of a {@code ImageRepository}
      */
     public static ImageRepository getInstance() {
-        if (spriteRepository == null) {
-            spriteRepository = new ImageRepository();
+        if (imageRepository == null) {
+            imageRepository = new ImageRepository();
         }
 
-        return spriteRepository;
+        return imageRepository;
     }
 
     /**
@@ -46,11 +46,11 @@ public class ImageRepository implements ResourceConsumer, Destructable {
      */
     public Image get(String url) {
 
-        if (spriteMap.containsKey(url)) {
-            return spriteMap.get(url);
+        if (imageMap.containsKey(url)) {
+            return imageMap.get(url);
         } else {
             var image = factory.create(createPathForResource(url));
-            spriteMap.put(url, image);
+            imageMap.put(url, image);
             return image;
         }
     }
@@ -71,11 +71,11 @@ public class ImageRepository implements ResourceConsumer, Destructable {
 
         String imageKey = constructKey(url, requestedWidth, requestedHeight, preserveRatio);
 
-        if (spriteMap.containsKey(imageKey)) {
-            return spriteMap.get(imageKey);
+        if (imageMap.containsKey(imageKey)) {
+            return imageMap.get(imageKey);
         } else {
             var image = factory.create(createPathForResource(url), requestedWidth, requestedHeight, preserveRatio);
-            spriteMap.put(imageKey, image);
+            imageMap.put(imageKey, image);
             return image;
         }
     }
@@ -97,14 +97,14 @@ public class ImageRepository implements ResourceConsumer, Destructable {
      * @return the number of key-value mappings in this map
      */
     public int size() {
-        if (spriteMap == null) {
+        if (imageMap == null) {
             return 0;
         }
-        return spriteMap.size();
+        return imageMap.size();
     }
 
     @Override
     public void destroy() {
-        spriteMap.clear();
+        imageMap.clear();
     }
 }

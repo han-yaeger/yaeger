@@ -21,7 +21,7 @@ public class Player extends UpdatableSpriteEntity implements KeyListener, Collid
     private Level level;
 
     public Player(final Position position, final Level level, final int health) {
-        super(IMAGES_PLAYER_PNG, position, new Size(40, 40), 2, new Movement(0, 0));
+        super(IMAGES_PLAYER_PNG, position, new Size(20, 40), 2, new Movement(0, 0));
         this.level = level;
         this.health = health;
     }

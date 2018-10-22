@@ -11,7 +11,7 @@ public class AnimatedSwordFish extends UpdatableSpriteEntity implements Collider
     private static final String IMAGES_ANIMATED_SWORDFISH_PNG = "images/animated-swordfish.png";
 
     public AnimatedSwordFish(Position position) {
-        super(IMAGES_ANIMATED_SWORDFISH_PNG, position, new Size(1489, 50), 12, new Movement(Movement.Direction.LEFT, 3));
+        super(IMAGES_ANIMATED_SWORDFISH_PNG, position, new Size(124, 50), 12, new Movement(Movement.Direction.LEFT, 3));
     }
 
     @Override

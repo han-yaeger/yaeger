@@ -23,38 +23,45 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     private SpriteAnimationDelegate spriteAnimationDelegate;
 
     /**
-     * Create a new {@code SpriteEntity} for a given Image.
+     * Instantiate a new {@code SpriteEntity} for a given Image.
      *
      * @param resource The url of the image file. Relative to the resources folder.
      * @param position the initial {@link Position} of this Entity
      * @param size     The bounding box of this SpriteEntity.
      */
-    public SpriteEntity(final String resource, final Position position, final Size size) {
+    protected SpriteEntity(final String resource, final Position position, final Size size) {
         this(resource, position, size, 1);
     }
 
     /**
-     * Create a new {@code SpriteEntity} for a given Image.
+     * Instantiate a new {@code SpriteEntity} for a given Image.
      *
      * @param resource The url of the image file. Relative to the resources folder.
      * @param position the initial {@link Position} of this Entity
      * @param size     The bounding box of this SpriteEntity.
      * @param frames   The number of frames this Image contains. By default the first frame is loaded.
      */
-    public SpriteEntity(final String resource, final Position position, final Size size, final int frames) {
+    protected SpriteEntity(final String resource, final Position position, final Size size, final int frames) {
         this.positionVector = position;
 
-        ImageRepository imageRepository = ImageRepository.getInstance();
-        Injector injector = Guice.createInjector(new YaegerModule());
-        injector.injectMembers(imageRepository);
+        var requestedWidth = size.getWidth() * frames;
 
-        var image = imageRepository.get(resource, size.getWidth(), size.getHeight(), true);
-        imageView = new ImageView(image);
-        imageView.setManaged(false);
+        this.imageView = createImageView(resource, requestedWidth, size.getHeight());
 
         if (frames > 1) {
             spriteAnimationDelegate = new SpriteAnimationDelegate(imageView, frames);
         }
+    }
+
+    private ImageView createImageView(final String resource, final int requestedWidth, final int requestedHeight) {
+        ImageRepository imageRepository = ImageRepository.getInstance();
+        Injector injector = Guice.createInjector(new YaegerModule());
+        injector.injectMembers(imageRepository);
+
+        var image = imageRepository.get(resource, requestedWidth, requestedHeight, true);
+        var iView = new ImageView(image);
+        iView.setManaged(false);
+        return iView;
     }
 
     /**
