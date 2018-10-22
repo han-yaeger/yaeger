@@ -3,8 +3,8 @@ package nl.han.ica.yaeger.engine.scenes.delegates;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
-import nl.han.ica.yaeger.engine.resourceconsumer.ResourceConsumer;
-import nl.han.ica.yaeger.engine.resourceconsumer.audio.SoundClip;
+import nl.han.ica.yaeger.engine.media.ResourceConsumer;
+import nl.han.ica.yaeger.engine.media.audio.SoundClip;
 
 /**
  * A {@link BackgroundDelegate} follows the Delegate pattern and embraces Composition over Inheritence.

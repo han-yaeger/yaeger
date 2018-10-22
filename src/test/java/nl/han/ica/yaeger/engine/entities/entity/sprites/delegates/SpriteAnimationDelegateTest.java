@@ -3,11 +3,10 @@ package nl.han.ica.yaeger.engine.entities.entity.sprites.delegates;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import nl.han.ica.yaeger.engine.resourceconsumer.ResourceConsumer;
+import nl.han.ica.yaeger.engine.media.ResourceConsumer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
 
 import static org.mockito.Mockito.*;
 

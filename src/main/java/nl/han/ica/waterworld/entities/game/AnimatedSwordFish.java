@@ -1,6 +1,6 @@
 package nl.han.ica.waterworld.entities.game;
 
-import nl.han.ica.yaeger.engine.collisions.Collider;
+import nl.han.ica.yaeger.engine.entities.collisions.Collider;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Size;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Movement;

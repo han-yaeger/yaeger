@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine.collisions;
+package nl.han.ica.yaeger.engine.entities.collisions;
 
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;

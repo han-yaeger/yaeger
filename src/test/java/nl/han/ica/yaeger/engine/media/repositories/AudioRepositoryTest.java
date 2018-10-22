@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine.repositories;
+package nl.han.ica.yaeger.engine.media.repositories;
 
 import javafx.scene.media.AudioClip;
 import org.junit.jupiter.api.Assertions;

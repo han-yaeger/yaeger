@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine.collisions;
+package nl.han.ica.yaeger.engine.entities.collisions;
 
 import javafx.scene.Node;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;

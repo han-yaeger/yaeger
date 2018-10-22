@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine.resourceconsumer;
+package nl.han.ica.yaeger.engine.media;
 
 import nl.han.ica.yaeger.engine.exceptions.YaegerResourceNotAvailableException;
 

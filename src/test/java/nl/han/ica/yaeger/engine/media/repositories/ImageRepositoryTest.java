@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.engine.repositories;
+package nl.han.ica.yaeger.engine.media.repositories;
 
 import javafx.scene.image.Image;
 import nl.han.ica.yaeger.javafx.factories.ImageFactory;

@@ -1,7 +1,7 @@
-package nl.han.ica.yaeger.engine.resourceconsumer.audio;
+package nl.han.ica.yaeger.engine.media.audio;
 
 import javafx.scene.media.AudioClip;
-import nl.han.ica.yaeger.engine.repositories.AudioRepository;
+import nl.han.ica.yaeger.engine.media.repositories.AudioRepository;
 
 /**
  * A {@code SoundClip} encapsulates a mp3 audio file.

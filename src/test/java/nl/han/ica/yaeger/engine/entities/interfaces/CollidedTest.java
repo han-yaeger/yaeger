@@ -2,10 +2,10 @@ package nl.han.ica.yaeger.engine.entities.interfaces;
 
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
-import nl.han.ica.yaeger.engine.collisions.CollisionSide;
-import nl.han.ica.yaeger.engine.collisions.Collidable;
-import nl.han.ica.yaeger.engine.collisions.Collided;
-import nl.han.ica.yaeger.engine.collisions.Collider;
+import nl.han.ica.yaeger.engine.entities.collisions.CollisionSide;
+import nl.han.ica.yaeger.engine.entities.collisions.Collidable;
+import nl.han.ica.yaeger.engine.entities.collisions.Collided;
+import nl.han.ica.yaeger.engine.entities.collisions.Collider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

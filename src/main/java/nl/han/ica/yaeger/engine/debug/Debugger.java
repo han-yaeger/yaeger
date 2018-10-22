@@ -2,8 +2,8 @@ package nl.han.ica.yaeger.engine.debug;
 
 import javafx.scene.Group;
 import javafx.scene.layout.GridPane;
-import nl.han.ica.yaeger.engine.repositories.AudioRepository;
-import nl.han.ica.yaeger.engine.repositories.ImageRepository;
+import nl.han.ica.yaeger.engine.media.repositories.AudioRepository;
+import nl.han.ica.yaeger.engine.media.repositories.ImageRepository;
 import nl.han.ica.yaeger.javafx.components.debugger.DebugLabel;
 import nl.han.ica.yaeger.javafx.components.debugger.DebugValue;
 import nl.han.ica.yaeger.javafx.components.debugger.DebuggerGridPane;

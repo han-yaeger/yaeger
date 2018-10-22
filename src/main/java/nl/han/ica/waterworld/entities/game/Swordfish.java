@@ -4,7 +4,7 @@ import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Size;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Movement;
 import nl.han.ica.yaeger.engine.scenes.SceneBorder;
-import nl.han.ica.yaeger.engine.collisions.Collider;
+import nl.han.ica.yaeger.engine.entities.collisions.Collider;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.UpdatableSpriteEntity;
 
 public class Swordfish extends UpdatableSpriteEntity implements Collider {

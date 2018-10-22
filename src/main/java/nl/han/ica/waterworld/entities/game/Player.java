@@ -2,13 +2,13 @@ package nl.han.ica.waterworld.entities.game;
 
 import javafx.scene.input.KeyCode;
 import nl.han.ica.waterworld.scenes.levels.Level;
-import nl.han.ica.yaeger.engine.collisions.CollisionSide;
+import nl.han.ica.yaeger.engine.entities.collisions.CollisionSide;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Size;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Movement;
 import nl.han.ica.yaeger.engine.scenes.SceneBorder;
-import nl.han.ica.yaeger.engine.collisions.Collidable;
-import nl.han.ica.yaeger.engine.collisions.Collider;
+import nl.han.ica.yaeger.engine.entities.collisions.Collidable;
+import nl.han.ica.yaeger.engine.entities.collisions.Collider;
 import nl.han.ica.yaeger.engine.userinput.KeyListener;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.UpdatableSpriteEntity;
 

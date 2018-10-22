@@ -8,8 +8,8 @@ import javafx.scene.image.ImageView;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimationDelegate;
-import nl.han.ica.yaeger.engine.repositories.ImageRepository;
-import nl.han.ica.yaeger.engine.resourceconsumer.ResourceConsumer;
+import nl.han.ica.yaeger.engine.media.repositories.ImageRepository;
+import nl.han.ica.yaeger.engine.media.ResourceConsumer;
 import nl.han.ica.yaeger.module.YaegerModule;
 
 /**

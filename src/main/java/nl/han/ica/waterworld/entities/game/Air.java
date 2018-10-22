@@ -1,8 +1,8 @@
 package nl.han.ica.waterworld.entities.game;
 
 import nl.han.ica.waterworld.scenes.levels.Level;
-import nl.han.ica.yaeger.engine.collisions.CollisionSide;
-import nl.han.ica.yaeger.engine.collisions.Collider;
+import nl.han.ica.yaeger.engine.entities.collisions.CollisionSide;
+import nl.han.ica.yaeger.engine.entities.collisions.Collider;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 
 public class Air extends Bubble {

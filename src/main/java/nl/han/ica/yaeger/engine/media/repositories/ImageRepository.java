@@ -1,10 +1,10 @@
-package nl.han.ica.yaeger.engine.repositories;
+package nl.han.ica.yaeger.engine.media.repositories;
 
 import com.google.inject.Inject;
 import javafx.scene.image.Image;
 import nl.han.ica.yaeger.engine.Destructable;
 import nl.han.ica.yaeger.javafx.factories.ImageFactory;
-import nl.han.ica.yaeger.engine.resourceconsumer.ResourceConsumer;
+import nl.han.ica.yaeger.engine.media.ResourceConsumer;
 
 import java.util.Map;
 import java.util.WeakHashMap;

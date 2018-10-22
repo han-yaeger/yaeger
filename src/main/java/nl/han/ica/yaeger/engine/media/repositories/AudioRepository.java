@@ -1,8 +1,8 @@
-package nl.han.ica.yaeger.engine.repositories;
+package nl.han.ica.yaeger.engine.media.repositories;
 
 import javafx.scene.media.AudioClip;
 import nl.han.ica.yaeger.engine.Destructable;
-import nl.han.ica.yaeger.engine.resourceconsumer.ResourceConsumer;
+import nl.han.ica.yaeger.engine.media.ResourceConsumer;
 
 import java.util.*;
 
