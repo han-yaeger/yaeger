@@ -4,7 +4,7 @@ import javafx.geometry.BoundingBox;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import nl.han.ica.yaeger.engine.entities.entity.SceneBoundaryCrosser;
-import org.junit.jupiter.api.Assertions;
+import nl.han.ica.yaeger.engine.scenes.SceneBorder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -35,13 +35,65 @@ class SceneBoundaryCrossingDelegateTest {
     @Test
     void centeredObjectCrossesNoBoundary() {
         // Setup
-        Mockito.when(imageView.getX()).thenReturn(20d);
-        Mockito.when(imageView.getY()).thenReturn(20d);
+        Mockito.when(imageView.getLayoutX()).thenReturn(20d);
+        Mockito.when(imageView.getLayoutY()).thenReturn(20d);
 
         // Test
         sceneBoundaryCrossingDelegate.checkSceneBoundary(imageView);
 
         // Verify
         Mockito.verifyNoMoreInteractions(sceneBoundaryCrosser);
+    }
+
+    @Test
+    void objectCrossesLeftBoundaryTest() {
+        // Setup
+        Mockito.when(imageView.getLayoutX()).thenReturn(-20d);
+        Mockito.when(imageView.getLayoutY()).thenReturn(20d);
+
+        // Test
+        sceneBoundaryCrossingDelegate.checkSceneBoundary(imageView);
+
+        // Verify
+        Mockito.verify(sceneBoundaryCrosser).notifyBoundaryCrossing(SceneBorder.LEFT);
+    }
+
+    @Test
+    void objectCrossesRightBoundaryTest() {
+        // Setup
+        Mockito.when(imageView.getLayoutX()).thenReturn(60d);
+        Mockito.when(imageView.getLayoutY()).thenReturn(20d);
+
+        // Test
+        sceneBoundaryCrossingDelegate.checkSceneBoundary(imageView);
+
+        // Verify
+        Mockito.verify(sceneBoundaryCrosser).notifyBoundaryCrossing(SceneBorder.RIGHT);
+    }
+
+    @Test
+    void objectCrossesTopBoundaryTest() {
+        // Setup
+        Mockito.when(imageView.getLayoutX()).thenReturn(20d);
+        Mockito.when(imageView.getLayoutY()).thenReturn(-20d);
+
+        // Test
+        sceneBoundaryCrossingDelegate.checkSceneBoundary(imageView);
+
+        // Verify
+        Mockito.verify(sceneBoundaryCrosser).notifyBoundaryCrossing(SceneBorder.TOP);
+    }
+
+    @Test
+    void objectCrossesBottomBoundaryTest() {
+        // Setup
+        Mockito.when(imageView.getLayoutX()).thenReturn(20d);
+        Mockito.when(imageView.getLayoutY()).thenReturn(60d);
+
+        // Test
+        sceneBoundaryCrossingDelegate.checkSceneBoundary(imageView);
+
+        // Verify
+        Mockito.verify(sceneBoundaryCrosser).notifyBoundaryCrossing(SceneBorder.BOTTOM);
     }
 }
