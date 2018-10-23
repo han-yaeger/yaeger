@@ -8,3 +8,7 @@
 The full java API of yaeger is available at
 
 [https://meronbrouwer.github.io/yaeger/](https://meronbrouwer.github.io/yaeger/)
+
+# Disclaimer
+
+This application is in no way affiliated to the HAN University of Applied Sciences. 
