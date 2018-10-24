@@ -89,7 +89,7 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
      * @param index The index that should be shown. The index is zero based and the frame modulo index will be shown.
      */
     public void setCurrentFrameIndex(int index) {
-        spriteAnimationDelegate.setSpriteIndex(imageView, index);
+        spriteAnimationDelegate.setSpriteIndex(index);
     }
 
     /**

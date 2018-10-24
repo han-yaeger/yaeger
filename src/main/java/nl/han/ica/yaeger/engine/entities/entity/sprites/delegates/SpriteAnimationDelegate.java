@@ -2,6 +2,8 @@ package nl.han.ica.yaeger.engine.entities.entity.sprites.delegates;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
+import nl.han.ica.yaeger.engine.entities.entity.Entity;
+import nl.han.ica.yaeger.engine.entities.entity.Updatable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +12,13 @@ import java.util.stream.IntStream;
 /**
  * A {@code SpriteAnimationDelegate} holds all responsibility related to Sprites that contain multiple images.
  */
-public class SpriteAnimationDelegate {
+public class SpriteAnimationDelegate implements Updatable {
 
+    private long previousCycleTime = 0;
+    private long autoCycleInterval = 0;
+    private ImageView imageView;
     private List<Rectangle2D> viewports = new ArrayList<>();
+    private int currentIndex = 0;
 
     /**
      * Create a new {@code SpriteAnimationDelegate} for the given {@link ImageView} and number of frames.
@@ -22,24 +28,50 @@ public class SpriteAnimationDelegate {
      * @param frames    The number of frames available.
      */
     public SpriteAnimationDelegate(ImageView imageView, int frames) {
-        createViewPorts(imageView, frames);
-        setSpriteIndex(imageView, 0);
+        this.imageView = imageView;
+
+        createViewPorts(frames);
+        setSpriteIndex(0);
     }
 
     /**
      * Set the index of the sprite. Since de modulus (mod frames) is used, this can be an unbounded integer.
      *
-     * @param imageView The {@link ImageView} for which the index should be set.
-     * @param index     The index to select. This index will be applied modulo the total number
-     *                  of frames.
+     * @param index The index to select. This index will be applied modulo the total number
+     *              of frames.
      */
-    public void setSpriteIndex(ImageView imageView, int index) {
+    public void setSpriteIndex(int index) {
         var modulus = index % viewports.size();
         imageView.setViewport(viewports.get(modulus));
+        currentIndex = index;
     }
 
-    private void createViewPorts(ImageView imageView, int frames) {
-        var frameWidth = getFrameWidth(imageView, frames);
+    @Override
+    public void update(long timestamp) {
+        if (timestamp > previousCycleTime + autoCycleInterval) {
+            next();
+            previousCycleTime = timestamp;
+        }
+    }
+
+    /**
+     * Set the interval at which the sprite should be automatically cycled
+     *
+     * @param interval the interval milli-seconds
+     */
+    public void setAutoCycle(long interval) {
+        this.autoCycleInterval = interval * 1000000;
+    }
+
+    /**
+     * Set the next index of the sprite.
+     */
+    public void next() {
+        setSpriteIndex(++currentIndex);
+    }
+
+    private void createViewPorts(int frames) {
+        var frameWidth = getFrameWidth(frames);
         var frameHeight = imageView.getImage().getHeight();
 
         IntStream.range(0, frames).forEach(frame -> addViewPort(frame, frameWidth, frameHeight));
@@ -49,7 +81,7 @@ public class SpriteAnimationDelegate {
         viewports.add(new Rectangle2D(frame * frameWidth, 0, frameWidth, frameHeight));
     }
 
-    private double getFrameWidth(ImageView imageView, int frames) {
+    private double getFrameWidth(int frames) {
         return imageView.getImage().getWidth() / frames;
     }
 }

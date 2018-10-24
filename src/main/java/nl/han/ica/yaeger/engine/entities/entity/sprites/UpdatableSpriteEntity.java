@@ -50,6 +50,7 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     public void update(long timestamp) {
         updateLocation();
         sceneBoundaryCrossingDelegate.checkSceneBoundary(imageView);
+
     }
 
     /**
