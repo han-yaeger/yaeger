@@ -48,6 +48,10 @@ public class SpriteAnimationDelegate implements Updatable {
 
     @Override
     public void update(long timestamp) {
+        if (autoCycleInterval == 0) {
+            return;
+        }
+
         if (timestamp > previousCycleTime + autoCycleInterval) {
             next();
             previousCycleTime = timestamp;

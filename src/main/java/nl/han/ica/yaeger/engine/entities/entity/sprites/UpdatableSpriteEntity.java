@@ -51,6 +51,10 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
         updateLocation();
         sceneBoundaryCrossingDelegate.checkSceneBoundary(imageView);
 
+        if (spriteAnimationDelegate != null) {
+            spriteAnimationDelegate.update(timestamp);
+        }
+
     }
 
     /**
@@ -61,11 +65,20 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
      * @param change A value large than 1 will mean an increment in speed. A value between 0 and 1 will mean a
      *               decrement in speed.
      */
-    public void changeSpeed(double change) {
+    protected void changeSpeed(double change) {
         movement.setSpeed(movement.getSpeed() * change);
         this.movementVector.multiply(change);
 
         setMovementVector();
+    }
+
+    /**
+     * Set the interval at which the sprite should be automatically cycled
+     *
+     * @param interval the interval milli-seconds
+     */
+    protected void setAutoCycle(long interval) {
+        spriteAnimationDelegate.setAutoCycle(interval);
     }
 
     /**
