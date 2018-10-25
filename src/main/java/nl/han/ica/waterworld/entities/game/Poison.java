@@ -15,8 +15,10 @@ public class Poison extends Bubble {
 
     @Override
     public void onCollision(Collider collidingObject, CollisionSide collisionSide) {
+        super.onCollision(collidingObject, collisionSide);
+
         if (collidingObject instanceof Player) {
-            handleCollision();
+            handlePlayerCollision();
 
             Player player = (Player) collidingObject;
             player.doDamage();

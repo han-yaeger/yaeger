@@ -1,6 +1,8 @@
 package nl.han.ica.waterworld.entities.game;
 
 import nl.han.ica.waterworld.scenes.levels.Level;
+import nl.han.ica.yaeger.engine.entities.collisions.Collider;
+import nl.han.ica.yaeger.engine.entities.collisions.CollisionSide;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Size;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.Movement;
@@ -26,9 +28,24 @@ public abstract class Bubble extends UpdatableSpriteEntity implements Collided {
         }
     }
 
-    void handleCollision() {
+    @Override
+    public void onCollision(Collider collidingObject, CollisionSide collisionSide) {
+        if (collidingObject instanceof AnimatedShark) {
+            handleSharkCollision();
+        }
+    }
+
+    void handleSharkCollision() {
+        removeBubble();
+    }
+
+    void handlePlayerCollision() {
         level.increaseBubblesPopped();
 
+        removeBubble();
+    }
+
+    private void removeBubble() {
         SoundClip popSound = new SoundClip(AUDIO_POP_MP3);
         popSound.play();
         remove();

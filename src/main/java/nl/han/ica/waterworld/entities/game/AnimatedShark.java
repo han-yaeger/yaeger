@@ -11,8 +11,8 @@ public class AnimatedShark extends UpdatableSpriteEntity implements Collider {
     private static final String IMAGES_ANIMATED_SHARK_PNG = "images/shark.png";
 
     public AnimatedShark(Position position) {
-        super(IMAGES_ANIMATED_SHARK_PNG, position, new Size(200, 200), 19, new Movement(Movement.Direction.LEFT, 3));
-        setAutoCycle(30);
+        super(IMAGES_ANIMATED_SHARK_PNG, position, new Size(200, 200), 19, new Movement(Movement.Direction.LEFT, 4));
+        setAutoCycle(25);
     }
 
     @Override
