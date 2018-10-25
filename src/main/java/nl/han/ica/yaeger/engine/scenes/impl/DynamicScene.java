@@ -4,7 +4,6 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
 import nl.han.ica.yaeger.engine.entities.EntityCollection;
-import nl.han.ica.yaeger.engine.entities.entity.Updatable;
 import nl.han.ica.yaeger.engine.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.engine.exceptions.YaegerLifecycleException;
 
@@ -12,9 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Een {@code DynamicScene} is een {@link StaticScene} met een eigen {@code GameLoop}. Deze {@code GameLoop}
- * roept ieder frame (waarbij wordt uitgegaan van 60fps) op alle geregistreerde {@link Entity}s
- * die de interface {@link Updatable} implementeren, de {@code update()} methode aan.
+ * Instantiate a new  {@code DynamicScene}. A {@code DynamicScene} extends a {@link StaticScene}, but adds its own {@code Gameloop}.
  */
 public abstract class DynamicScene extends StaticScene {
 
@@ -61,8 +58,8 @@ public abstract class DynamicScene extends StaticScene {
     @Override
     protected void addEntity(Entity entity) {
         if (gameLoopIsRunning) {
-            throw new YaegerLifecycleException("De GameLoop is al bezig. Het is niet langer toegestaan een Entity toe " +
-                    "te voegen. Gebruik hiervoor een EntitySpawner");
+            throw new YaegerLifecycleException("The GameLoop is running. It is no longer allowed to add an Entity. " +
+                    "Please register an EntitySpawner to add Entities.");
         }
         initialEntities.add(entity);
     }
@@ -73,10 +70,10 @@ public abstract class DynamicScene extends StaticScene {
     }
 
     /**
-     * Registreer een {@link EntitySpawner}. Na registratie zal de {@link EntitySpawner} verantwoordelijk worden voor
-     * het aanmaken (spawnen) van nieuwe {@link Entity}s.
+     * Register an {@link EntitySpawner}. After being registered, the {@link EntitySpawner} will be responsible for spawning
+     * new instances of {@link Entity}.
      *
-     * @param spawner De {@link EntitySpawner} die geregistreerd moet worden.
+     * @param spawner the {@link EntitySpawner} to be registered
      */
     protected void registerSpawner(EntitySpawner spawner) {
         entityCollection.registerSpawner(spawner);

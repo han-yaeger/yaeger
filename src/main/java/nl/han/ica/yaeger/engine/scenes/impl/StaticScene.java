@@ -28,7 +28,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
     private BackgroundDelegate backgroundDelegate;
 
     /**
-     * Instantiate a new  {@code StaticScene}. During construction, the lifecycle method {@code initializeScene}
+     * Instantiate a new {@code StaticScene}. During construction, the lifecycle method {@code initializeScene}
      * will be called.
      */
     protected StaticScene() {
