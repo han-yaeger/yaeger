@@ -23,7 +23,6 @@ class DynamicSceneTest {
     private DebuggerFactory debuggerFactory;
     private KeyListenerDelegate keyListenerDelegate;
     private Group root;
-    private Scene scene;
 
     @BeforeEach
     void setup() {
@@ -39,8 +38,7 @@ class DynamicSceneTest {
         testScene.setRoot(root);
         testScene.setKeyListenerDelegate(keyListenerDelegate);
 
-
-        scene = mock(Scene.class);
+        Scene scene = mock(Scene.class);
         when(sceneFactory.create(root)).thenReturn(scene);
     }
 
@@ -105,13 +103,11 @@ class DynamicSceneTest {
         @Override
         protected void setupSpawners() {
             setupSpawnersCalled = true;
-
         }
 
         @Override
         protected void setupEntities() {
             setupEntitiesCalled = true;
-
         }
 
         @Override

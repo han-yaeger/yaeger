@@ -29,5 +29,4 @@ public interface Removeable {
         var removeEvent = new RemoveEntityEvent(this);
         getGameNode().fireEvent(removeEvent);
     }
-
 }
