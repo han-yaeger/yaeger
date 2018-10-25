@@ -48,7 +48,7 @@ class StaticSceneTest {
     }
 
     @Test
-    void initiaizeIsCalledAfterCreation() {
+    void initializeIsCalledAfterCreation() {
         // Setup
 
         // Test
