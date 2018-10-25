@@ -7,12 +7,12 @@ import nl.han.ica.yaeger.engine.entities.entity.sprites.Movement;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.UpdatableSpriteEntity;
 import nl.han.ica.yaeger.engine.scenes.SceneBorder;
 
-public class AnimatedSwordFish extends UpdatableSpriteEntity implements Collider {
-    private static final String IMAGES_ANIMATED_SWORDFISH_PNG = "images/animated-swordfish.png";
+public class AnimatedShark extends UpdatableSpriteEntity implements Collider {
+    private static final String IMAGES_ANIMATED_SHARK_PNG = "images/shark.png";
 
-    public AnimatedSwordFish(Position position) {
-        super(IMAGES_ANIMATED_SWORDFISH_PNG, position, new Size(124, 50), 12, new Movement(Movement.Direction.LEFT, 3));
-        setAutoCycle(50);
+    public AnimatedShark(Position position) {
+        super(IMAGES_ANIMATED_SHARK_PNG, position, new Size(200, 200), 19, new Movement(Movement.Direction.LEFT, 3));
+        setAutoCycle(30);
     }
 
     @Override
