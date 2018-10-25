@@ -3,6 +3,8 @@ package nl.han.ica.yaeger.engine.entities.entity;
 import javafx.scene.Node;
 import nl.han.ica.yaeger.engine.entities.events.RemoveEntityEvent;
 
+import java.io.Serializable;
+
 /**
  * A {@code Removeable} denotes an {@code Object}, most likely an {@link Entity}, that is eligible for
  * removance from its parent.

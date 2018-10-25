@@ -8,21 +8,21 @@ import nl.han.ica.yaeger.engine.entities.entity.Removeable;
  */
 public class RemoveEntityEvent extends Event {
 
-    private Removeable source;
+    private transient Removeable removeable;
 
     /**
      * Instantiate a new {@code RemoveEntityEvent}. Pass the {@link Removeable} as an argument.
      *
-     * @param source the {@link Removeable} that needs to be removed
+     * @param removeable the {@link Removeable} that needs to be removed
      */
-    public RemoveEntityEvent(Removeable source) {
+    public RemoveEntityEvent(Removeable removeable) {
         super(EventTypes.REMOVE);
 
-        this.source = source;
+        this.removeable = removeable;
     }
 
     @Override
     public Removeable getSource() {
-        return source;
+        return removeable;
     }
 }

@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 public class Scenes extends LinkedHashMap<SceneType, YaegerScene> {
 
-    private final Stage stage;
+    private final transient Stage stage;
     private transient YaegerScene activeScene;
 
     public Scenes(Stage stage) {

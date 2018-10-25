@@ -2,7 +2,6 @@ package nl.han.ica.yaeger.engine.entities.entity.sprites.delegates;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
-import nl.han.ica.yaeger.engine.entities.entity.Entity;
 import nl.han.ica.yaeger.engine.entities.entity.Updatable;
 
 import java.util.ArrayList;
