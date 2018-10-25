@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.engine.debug.Debugger;
+import nl.han.ica.yaeger.engine.entities.entity.Entity;
 import nl.han.ica.yaeger.engine.scenes.delegates.KeyListenerDelegate;
 import nl.han.ica.yaeger.engine.userinput.KeyListener;
 import nl.han.ica.yaeger.module.factories.DebuggerFactory;
@@ -72,7 +73,7 @@ class StaticSceneTest {
     @Test
     void destroyDelegatesDestroy() {
         // Setup
-        ObservableList<Node> children = mock(ObservableList.class);
+        var children = mock(ObservableList.class);
         when(root.getChildren()).thenReturn(children);
 
         testStaticScene.setupScene();
@@ -87,9 +88,28 @@ class StaticSceneTest {
     }
 
     @Test
+    void addEntityAddsTheEntityToTheGroup() {
+        // Setup
+        var children = mock(ObservableList.class);
+        when(root.getChildren()).thenReturn(children);
+
+        var testEntity = mock(Entity.class);
+        var gameNode = mock(Node.class);
+        when(testEntity.getGameNode()).thenReturn(gameNode);
+
+        testStaticScene.setupScene();
+
+        // Test
+        testStaticScene.addEntity(testEntity);
+
+        // Verify
+        verify(children).add(gameNode);
+    }
+
+    @Test
     void pressingKeyDoesNotTogglesDebugger() {
         // Setup
-        Set<KeyCode> input = new HashSet<>();
+        var input = new HashSet<KeyCode>();
         input.add(KeyCode.Y);
         input.add(KeyCode.A);
         input.add(KeyCode.E);
@@ -112,10 +132,10 @@ class StaticSceneTest {
     @Test
     void pressingF1TogglesDebugger() {
         // Setup
-        Set<KeyCode> input = new HashSet<>();
+        var input = new HashSet<KeyCode>();
         input.add(KeyCode.F1);
 
-        Debugger debugger = mock(Debugger.class);
+        var debugger = mock(Debugger.class);
         when(debuggerFactory.create(root)).thenReturn(debugger);
 
         testStaticScene.setupScene();
@@ -141,6 +161,4 @@ class StaticSceneTest {
             initializeCalled = true;
         }
     }
-
-
 }
