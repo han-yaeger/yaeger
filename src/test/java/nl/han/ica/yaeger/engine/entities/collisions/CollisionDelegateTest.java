@@ -38,7 +38,6 @@ class CollisionDelegateTest {
 
         // Verify
         Mockito.verify(collided).checkForCollisions(argument.capture());
-        Mockito.verify(collided).checkForCollisions(argument.capture());
         Assertions.assertEquals(1, argument.getValue().size());
     }
 

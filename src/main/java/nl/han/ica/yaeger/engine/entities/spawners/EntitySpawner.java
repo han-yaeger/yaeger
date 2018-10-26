@@ -59,7 +59,12 @@ public abstract class EntitySpawner implements Destructable {
 
     @Override
     public void destroy() {
-        timer.stop();
+        if (spawnedEntities != null) {
+            spawnedEntities.clear();
+        }
+        if (timer != null) {
+            timer.stop();
+        }
     }
 
     private void initTimer() {
