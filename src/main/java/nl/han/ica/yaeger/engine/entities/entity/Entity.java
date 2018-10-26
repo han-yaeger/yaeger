@@ -4,51 +4,50 @@ import javafx.geometry.Bounds;
 import javafx.scene.Node;
 
 /**
- * Een {@code Entity} is het {@code Root Object} van alle entiteiten die deel uitmaken van het game.
- * Deze bevat dan ook al het gedrag dat door alle kind-objecten wordt gedeeld.
+ * An {@code Entity} will serve as the {@code Root Interface} for all objects that are part of a {@code Yaeger} game.
  */
 public interface Entity extends Bounded, Removeable {
 
     /**
-     * Retourneer de {@link Node} waar deze {@code Entity} bij hoort. Een {@link Node} is
-     * onderdeel van de onderliggende structuur.
+     * Return the {@link Node} that is related to this {@link Entity}.
      *
-     * @return Node
+     * @return Node the {@link Node} that is related to this {@link Entity}
      */
     Node getGameNode();
 
     /**
-     * Retourneer de breedte van de scenes waar deze Entity deel van uitmaakt.
+     * Return the width of the {@link javafx.scene.Scene} that this {@code Entity}
+     * is part of.
      *
-     * @return De breedte van de scenes als een {@code double}.
+     * @return the width of this {@code Scene} as a {@code double}
      */
     default double getSceneWidth() {
         return getGameNode().getScene().getWidth();
     }
 
     /**
-     * Retourneer de hoogte van de scenes waar deze Entity deel van uitmaakt.
+     * Return the height of the {@link javafx.scene.Scene} that this {@code Entity}
+     * is part of.
      *
-     * @return De hoogte van de scenes als een {@code double}.
+     * @return the height of this {@code Scene} as a {@code double}
      */
     default double getSceneHeight() {
-        return getGameNode().getScene().getWidth();
+        return getGameNode().getScene().getHeight();
     }
 
     /**
-     * Retourneer de {@code Bounds}, oftewel de {@code Size} van deze {@code Entity}.
+     * Return the {@link Bounds} of this {@code Entity}.
      *
-     * @return De {@code Bounds} van deze {@code Entity}.
+     * @return the {@link Bounds} of this {@code Entity}
      */
     default Bounds getBounds() {
         return getGameNode().getBoundsInParent();
     }
 
     /**
-     * Zet de zichtbaarheid van deze {@code Entity}. Als default waarde zal deze op {@code true} staan.
+     * Set if this {@code Entity} should be visible.
      *
-     * @param visible In het geval van {@code true} zal deze {@code Entity} zichtbaar zijn.
-     *                In het geval van {@code false} zal deze {@code Entity} niet zichtbaar zijn.
+     * @param visible a {@code boolean} stating whether this {@code Entity} should be visible
      */
     default void setVisible(boolean visible) {
         getGameNode().setVisible(visible);
