@@ -19,6 +19,13 @@ public class TextEntity implements Entity {
     private boolean visible = true;
 
     /**
+     * Instantiate a new {@code TextEntity}.
+     */
+    public TextEntity() {
+        this(new Position(0, 0));
+    }
+
+    /**
      * Instantiate a new {@code TextEntity} for the given {@link Position}.
      *
      * @param position the initial {@link Position} of this {@code TextEntity}
@@ -37,6 +44,7 @@ public class TextEntity implements Entity {
         this.position = position;
         this.initialText = text;
     }
+
 
     /**
      * Deze methode wordt aangeroepen wanneer er op deze {@code TextEntity} wordt geklikt.

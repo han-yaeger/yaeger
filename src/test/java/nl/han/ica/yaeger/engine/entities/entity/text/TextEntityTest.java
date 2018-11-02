@@ -16,7 +16,9 @@ import static org.mockito.Mockito.*;
 class TextEntityTest {
 
     private static final String YAEGER = "Yaeger";
-    private static final Position POSITION = new Position(0, 0);
+    private static final Position POSITION = new Position(37, 37);
+    private static final Font FONT = Font.font(Waterworld.FONT, FontWeight.BOLD, 240);
+    private static final Color COLOR = Color.DARKBLUE;
     private Text text;
 
     @BeforeEach
@@ -33,8 +35,35 @@ class TextEntityTest {
         textEntity.setDelegate(text);
 
         // Verify
-        verify(text).setX(0);
-        verify(text).setY(0);
+        verify(text).setX(POSITION.getX());
+        verify(text).setY(POSITION.getY());
+    }
+
+    @Test
+    void getPositionReturnsTheSetPosition() {
+        // Setup
+        var textEntity = new TextEntity();
+
+        // Test
+        textEntity.setPosition(POSITION);
+        textEntity.setDelegate(text);
+
+        // Verify
+        Assertions.assertEquals(POSITION, textEntity.getPosition());
+    }
+
+    @Test
+    void settingTheDelegateSetsPositionOnDelegateForEmptyConstructor() {
+        // Setup
+        var textEntity = new TextEntity();
+
+        // Test
+        textEntity.setPosition(POSITION);
+        textEntity.setDelegate(text);
+
+        // Verify
+        verify(text).setX(POSITION.getX());
+        verify(text).setY(POSITION.getY());
     }
 
     @Test
@@ -54,28 +83,40 @@ class TextEntityTest {
     void settingTheDelegateSetsFillOnDelegate() {
         // Setup
         var textEntity = new TextEntity(POSITION);
-        var color = Color.DARKBLUE;
 
         // Test
-        textEntity.setFill(color);
+        textEntity.setFill(COLOR);
         textEntity.setDelegate(text);
 
         // Verify
-        verify(text).setFill(color);
+        verify(text).setFill(COLOR);
     }
 
     @Test
     void settingTheDelegateSetsFontOnDelegate() {
         // Setup
         var textEntity = new TextEntity(POSITION);
-        var font = Font.font(Waterworld.FONT, FontWeight.BOLD, 240);
+
 
         // Test
-        textEntity.setFont(font);
+        textEntity.setFont(FONT);
         textEntity.setDelegate(text);
 
         // Verify
-        verify(text).setFont(font);
+        verify(text).setFont(FONT);
+    }
+
+    @Test
+    void settingTheDelegateSetsVisibleOnDelegate() {
+        // Setup
+        var textEntity = new TextEntity(POSITION);
+
+        // Test
+        textEntity.setVisible(false);
+        textEntity.setDelegate(text);
+
+        // Verify
+        verify(text).setVisible(false);
     }
 
     @Test
@@ -127,5 +168,28 @@ class TextEntityTest {
 
         // Verify
         Assertions.assertEquals(text, textEntity.getGameNode());
+    }
+
+    @Test
+    void settingValuesAfterDelegateIsSetDelegatesTheValues() {
+        // Setup
+        var textEntity = new TextEntity();
+        textEntity.setDelegate(text);
+
+        // Test
+        textEntity.setPosition(POSITION);
+        textEntity.setText(YAEGER);
+        textEntity.setVisible(false);
+        textEntity.setFont(FONT);
+        textEntity.setFill(COLOR);
+
+        // Verify
+        verify(text).setVisible(false);
+        verify(text).setFill(COLOR);
+        verify(text).setText(YAEGER);
+        verify(text).setFont(FONT);
+        verify(text).setX(POSITION.getX());
+        verify(text).setY(POSITION.getY());
+
     }
 }
