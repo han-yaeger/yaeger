@@ -1,5 +1,6 @@
 package nl.han.ica.yaeger.engine.entities.entity.text;
 
+import com.google.inject.Inject;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
@@ -11,25 +12,27 @@ import nl.han.ica.yaeger.engine.entities.entity.Position;
 public class TextEntity implements Entity {
 
     private Text text;
+    private Position position;
+    private String initialText;
 
     /**
-     * Creëer een nieuw {@code TextEntity} op de gegeven coördinaten. Het ankerpunt is hierbij links-boven.
+     * Instantiate a new {@code TextEntity} for the given {@link Position}.
      *
-     * @param position the initial {@link Position} of this Entity
+     * @param position the initial {@link Position} of this {@code TextEntity}
      */
     public TextEntity(final Position position) {
         this(position, "");
     }
 
     /**
-     * Creëer een nieuw {@code TextEntity} op de gegeven coördinaten. Het ankerpunt is hierbij links-boven.
+     * Instantiate a new {@code TextEntity} for the given {@link Position} and text.
      *
-     * @param position the initial {@link Position} of this Entity
-     * @param text     De initiele text die getoond moet worden.
+     * @param position the initial {@link Position} of this {@code TextEntity}
+     * @param text     a {@link String} containing the initial text to be displayed
      */
-    public TextEntity(Position position, final String text) {
-        this.text = new Text(position.getX(), position.getY(), text);
-        this.text.setOnMousePressed(event -> onMousePressed(event.getButton()));
+    public TextEntity(final Position position, final String text) {
+        this.position = position;
+        this.initialText = text;
     }
 
     /**
@@ -42,18 +45,18 @@ public class TextEntity implements Entity {
     }
 
     /**
-     * Zet de text die getoond moet worden.
+     * Set the {@link String} that should be shown.
      *
-     * @param text De text die getoond moet worden.
+     * @param text the {@link String} that should be shown
      */
     public void setText(final String text) {
         this.text.setText(text);
     }
 
     /**
-     * Zet de kleur van de text.
+     * Set the color of the text.
      *
-     * @param color De kleur van de text.
+     * @param color an instance of {@link Color}
      */
     public void setFill(Color color) {
         text.setFill(color);
@@ -96,5 +99,18 @@ public class TextEntity implements Entity {
     @Override
     public Position getPosition() {
         return new Position(text.getX(), text.getY());
+    }
+
+    @Inject
+    public void setDelgate(Text text) {
+        this.text = text;
+        if (position != null) {
+            this.text.setX(position.getX());
+            this.text.setY(position.getY());
+        }
+        if (initialText != null && !initialText.isEmpty()) {
+            this.text.setText(initialText);
+        }
+        this.text.setOnMousePressed(event -> onMousePressed(event.getButton()));
     }
 }

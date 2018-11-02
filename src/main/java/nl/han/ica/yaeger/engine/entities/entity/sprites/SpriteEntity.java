@@ -18,9 +18,9 @@ import nl.han.ica.yaeger.module.YaegerModule;
 public abstract class SpriteEntity implements Entity, ResourceConsumer {
 
     ImageView imageView;
+    
     Point2D positionVector = new Point2D(0, 0);
-
-    protected SpriteAnimationDelegate spriteAnimationDelegate;
+    SpriteAnimationDelegate spriteAnimationDelegate;
 
     /**
      * Instantiate a new {@code SpriteEntity} for a given Image.

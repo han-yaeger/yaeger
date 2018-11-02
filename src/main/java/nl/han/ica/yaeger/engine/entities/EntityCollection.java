@@ -1,5 +1,7 @@
 package nl.han.ica.yaeger.engine.entities;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.engine.debug.StatisticsObserver;
@@ -10,6 +12,7 @@ import nl.han.ica.yaeger.engine.entities.entity.*;
 import nl.han.ica.yaeger.engine.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.engine.entities.events.EventTypes;
 import nl.han.ica.yaeger.engine.userinput.KeyListener;
+import nl.han.ica.yaeger.module.YaegerModule;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -179,12 +182,18 @@ public class EntityCollection {
     }
 
     private void addToGameLoop(Entity entity) {
+        injectDelegatesInto(entity);
         addToKeylisteners(entity);
         addToUpdatablesOrStatics(entity);
 
         collisionDelegate.register(entity);
         attachEventListeners(entity);
         addToScene(entity);
+    }
+
+    private void injectDelegatesInto(Entity entity) {
+        Injector injector = Guice.createInjector(new YaegerModule());
+        injector.injectMembers(entity);
     }
 
     private void addToUpdatablesOrStatics(Entity entity) {
