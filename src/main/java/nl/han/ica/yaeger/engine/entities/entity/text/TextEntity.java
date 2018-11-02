@@ -11,9 +11,12 @@ import nl.han.ica.yaeger.engine.entities.entity.Position;
 
 public class TextEntity implements Entity {
 
-    private Text text;
+    private Text textDelegate;
     private Position position;
+    private Color fill;
+    private Font font;
     private String initialText;
+    private boolean visible = true;
 
     /**
      * Instantiate a new {@code TextEntity} for the given {@link Position}.
@@ -25,10 +28,10 @@ public class TextEntity implements Entity {
     }
 
     /**
-     * Instantiate a new {@code TextEntity} for the given {@link Position} and text.
+     * Instantiate a new {@code TextEntity} for the given {@link Position} and textDelegate.
      *
      * @param position the initial {@link Position} of this {@code TextEntity}
-     * @param text     a {@link String} containing the initial text to be displayed
+     * @param text     a {@link String} containing the initial textDelegate to be displayed
      */
     public TextEntity(final Position position, final String text) {
         this.position = position;
@@ -50,67 +53,105 @@ public class TextEntity implements Entity {
      * @param text the {@link String} that should be shown
      */
     public void setText(final String text) {
-        this.text.setText(text);
+        this.initialText = text;
+        if (this.textDelegate != null) {
+            this.textDelegate.setText(text);
+        }
     }
 
     /**
-     * Set the color of the text.
+     * Set the color of the textDelegate.
      *
      * @param color an instance of {@link Color}
      */
     public void setFill(Color color) {
-        text.setFill(color);
+        this.fill = color;
+        if (textDelegate != null) {
+            textDelegate.setFill(color);
+        }
     }
 
     /**
-     * Zet het FONT van de text. Gebruik deze methode om zowel het lettertype, de grootte als andere eigenschappen
-     * van het FONT te zetten.
+     * Set the {@link Font} to be used. A {@link Font} encapsulates multiple properties.
+     *
      * <p>
-     * Voor het enkel het zetten van het lettertype en de grootte:
-     * <p>
+     * To only set the font type and size:
      * {@code setFont(Font.FONT ("Verdana", 20));}
      * <p>
-     * Ook is het mogelijk gelijk andere waardes, zoals fontweight te zetten:
+     * It is also possible to set more properties:
      * {@code setFont(Font.FONT("Verdana", FontWeight.BOLD, 70));}
      *
-     * @param font Het FONT.
+     * @param font the {@link Font} to be used
      */
     public void setFont(Font font) {
-        text.setFont(font);
+        this.font = font;
+
+        if (textDelegate != null) {
+            textDelegate.setFont(font);
+        }
+    }
+
+    /**
+     * Set the {@link Position} of this {@code TextEntity}.
+     *
+     * @param position a {@link Position} encapsulating the x and y coordinate
+     */
+    public void setPosition(Position position) {
+        this.position = position;
+
+        if (textDelegate != null) {
+            textDelegate.setX(position.getX());
+            textDelegate.setY(position.getY());
+        }
     }
 
     @Override
     public void remove() {
-        text.setVisible(false);
-        text.setText(null);
+        textDelegate.setVisible(false);
+        textDelegate.setText(null);
         notifyRemove();
     }
 
     @Override
     public Node getGameNode() {
-        return text;
+        return textDelegate;
     }
 
     @Override
     public void setVisible(boolean visible) {
-        text.setVisible(visible);
+        this.visible = visible;
+        if (textDelegate != null) {
+            textDelegate.setVisible(visible);
+        }
     }
 
     @Override
     public Position getPosition() {
-        return new Position(text.getX(), text.getY());
+        return position;
     }
 
     @Inject
-    public void setDelgate(Text text) {
-        this.text = text;
+    public void setDelegate(Text text) {
+        this.textDelegate = text;
+        init();
+
+    }
+
+    private void init() {
         if (position != null) {
-            this.text.setX(position.getX());
-            this.text.setY(position.getY());
+            textDelegate.setX(position.getX());
+            textDelegate.setY(position.getY());
+        }
+        if (font != null) {
+            textDelegate.setFont(font);
+        }
+        if (fill != null) {
+            textDelegate.setFill(fill);
         }
         if (initialText != null && !initialText.isEmpty()) {
-            this.text.setText(initialText);
+            textDelegate.setText(initialText);
         }
-        this.text.setOnMousePressed(event -> onMousePressed(event.getButton()));
+        textDelegate.setVisible(visible);
+        textDelegate.setOnMousePressed(event -> onMousePressed(event.getButton()));
     }
 }

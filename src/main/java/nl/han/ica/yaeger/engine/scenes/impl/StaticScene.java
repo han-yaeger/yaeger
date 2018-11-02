@@ -1,6 +1,8 @@
 package nl.han.ica.yaeger.engine.scenes.impl;
 
+import com.google.inject.Guice;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -11,6 +13,7 @@ import nl.han.ica.yaeger.engine.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.engine.scenes.YaegerScene;
 import nl.han.ica.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.han.ica.yaeger.engine.scenes.delegates.KeyListenerDelegate;
+import nl.han.ica.yaeger.module.YaegerModule;
 import nl.han.ica.yaeger.module.factories.DebuggerFactory;
 import nl.han.ica.yaeger.module.factories.SceneFactory;
 
@@ -47,6 +50,8 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
      * @param entity the {@link Entity} to be added
      */
     protected void addEntity(Entity entity) {
+        Injector injector = Guice.createInjector(new YaegerModule());
+        injector.injectMembers(entity);
         root.getChildren().add(entity.getGameNode());
     }
 

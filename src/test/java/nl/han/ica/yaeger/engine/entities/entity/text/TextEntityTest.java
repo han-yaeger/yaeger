@@ -1,6 +1,10 @@
 package nl.han.ica.yaeger.engine.entities.entity.text;
 
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import nl.han.ica.waterworld.Waterworld;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.events.RemoveEntityEvent;
 import org.junit.jupiter.api.Assertions;
@@ -21,16 +25,57 @@ class TextEntityTest {
     }
 
     @Test
-    void settingTheTextSetsPositionOnText() {
+    void settingTheDelegateSetsPositionOnDelegate() {
         // Setup
         var textEntity = new TextEntity(POSITION);
 
         // Test
-        textEntity.setDelgate(text);
+        textEntity.setDelegate(text);
 
         // Verify
         verify(text).setX(0);
         verify(text).setY(0);
+    }
+
+    @Test
+    void settingTheDelegateSetsTextOnDelegate() {
+        // Setup
+        var textEntity = new TextEntity(POSITION);
+
+        // Test
+        textEntity.setText(YAEGER);
+        textEntity.setDelegate(text);
+
+        // Verify
+        verify(text).setText(YAEGER);
+    }
+
+    @Test
+    void settingTheDelegateSetsFillOnDelegate() {
+        // Setup
+        var textEntity = new TextEntity(POSITION);
+        var color = Color.DARKBLUE;
+
+        // Test
+        textEntity.setFill(color);
+        textEntity.setDelegate(text);
+
+        // Verify
+        verify(text).setFill(color);
+    }
+
+    @Test
+    void settingTheDelegateSetsFontOnDelegate() {
+        // Setup
+        var textEntity = new TextEntity(POSITION);
+        var font = Font.font(Waterworld.FONT, FontWeight.BOLD, 240);
+
+        // Test
+        textEntity.setFont(font);
+        textEntity.setDelegate(text);
+
+        // Verify
+        verify(text).setFont(font);
     }
 
     @Test
@@ -39,7 +84,7 @@ class TextEntityTest {
         var textEntity = new TextEntity(POSITION);
 
         // Test
-        textEntity.setDelgate(text);
+        textEntity.setDelegate(text);
 
         // Verify
         verify(text).setOnMousePressed(any());
@@ -51,7 +96,7 @@ class TextEntityTest {
         var textEntity = new TextEntity(POSITION, YAEGER);
 
         // Test
-        textEntity.setDelgate(text);
+        textEntity.setDelegate(text);
 
         // Verify
         verify(text).setText(YAEGER);
@@ -61,13 +106,13 @@ class TextEntityTest {
     void callingRemoveCleansUpTheEntity() {
         // Setup
         var textEntity = new TextEntity(POSITION, YAEGER);
-        textEntity.setDelgate(text);
+        textEntity.setDelegate(text);
 
         // Test
         textEntity.remove();
 
         // Verify
-        verify(text).setVisible(false);
+        verify(text, times(1)).setVisible(false);
         verify(text).setText(null);
         verify(text).fireEvent(any(RemoveEntityEvent.class));
     }
@@ -78,7 +123,7 @@ class TextEntityTest {
         var textEntity = new TextEntity(POSITION, YAEGER);
 
         // Test
-        textEntity.setDelgate(text);
+        textEntity.setDelegate(text);
 
         // Verify
         Assertions.assertEquals(text, textEntity.getGameNode());

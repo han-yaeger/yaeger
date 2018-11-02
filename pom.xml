@@ -32,6 +32,17 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.5.0</version>
+                <executions><execution>
+                    <goals><goal>java</goal></goals>
+                </execution></executions>
+                <configuration>
+                    <mainClass>nl.han.ica.waterworld.Waterworld</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler.version}</version>
