@@ -190,6 +190,5 @@ class TextEntityTest {
         verify(text).setFont(FONT);
         verify(text).setX(POSITION.getX());
         verify(text).setY(POSITION.getY());
-
     }
 }

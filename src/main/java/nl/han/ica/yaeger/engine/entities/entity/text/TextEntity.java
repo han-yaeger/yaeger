@@ -9,6 +9,10 @@ import javafx.scene.text.Text;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 
+/**
+ * A {@code TextEntity} can be used to display a line of text on a {@link nl.han.ica.yaeger.engine.scenes.YaegerScene}.
+ * 
+ */
 public class TextEntity implements Entity {
 
     private Text textDelegate;
