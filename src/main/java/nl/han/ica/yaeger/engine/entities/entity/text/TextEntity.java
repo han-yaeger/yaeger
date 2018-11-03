@@ -49,16 +49,6 @@ public class TextEntity implements Entity {
         this.initialText = text;
     }
 
-
-    /**
-     * Deze methode wordt aangeroepen wanneer er op deze {@code TextEntity} wordt geklikt.
-     *
-     * @param button De muisknop waarmee wordt geklikt. Dit is een instantie van {@link MouseButton}.
-     */
-    protected void onMousePressed(MouseButton button) {
-        // implementeer deze methode om gebruik te maken van dit gedrag
-    }
-
     /**
      * Set the {@link String} that should be shown.
      *
