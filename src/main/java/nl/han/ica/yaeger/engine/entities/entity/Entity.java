@@ -1,7 +1,6 @@
 package nl.han.ica.yaeger.engine.entities.entity;
 
 import javafx.geometry.Bounds;
-import javafx.scene.Node;
 
 /**
  * An {@code Entity} will serve as the {@code Root Interface} for all objects that are part of a {@code Yaeger} game.

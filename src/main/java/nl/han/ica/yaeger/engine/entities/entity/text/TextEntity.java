@@ -2,7 +2,6 @@ package nl.han.ica.yaeger.engine.entities.entity.text;
 
 import com.google.inject.Inject;
 import javafx.scene.Node;
-import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
