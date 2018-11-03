@@ -5,10 +5,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import nl.han.ica.waterworld.Waterworld;
+import nl.han.ica.yaeger.engine.entities.entity.MouseButtonListener;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.text.TextEntity;
 
-public class QuitButton extends TextEntity {
+public class QuitButton extends TextEntity implements MouseButtonListener {
 
     public static final String EXIT_GAME = "Exit game";
     private Waterworld waterworld;
@@ -21,7 +22,7 @@ public class QuitButton extends TextEntity {
     }
 
     @Override
-    protected void onMousePressed(MouseButton button) {
+    public void onMousePressed(MouseButton button) {
         if (button.equals(MouseButton.PRIMARY)) {
             waterworld.quitGame();
         }

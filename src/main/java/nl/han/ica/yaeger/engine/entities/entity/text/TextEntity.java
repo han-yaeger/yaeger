@@ -7,11 +7,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
+import nl.han.ica.yaeger.engine.entities.entity.MouseButtonListener;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 
 /**
  * A {@code TextEntity} can be used to display a line of text on a {@link nl.han.ica.yaeger.engine.scenes.YaegerScene}.
- * 
  */
 public class TextEntity implements Entity {
 
@@ -164,6 +164,9 @@ public class TextEntity implements Entity {
             textDelegate.setText(initialText);
         }
         textDelegate.setVisible(visible);
-        textDelegate.setOnMousePressed(event -> onMousePressed(event.getButton()));
+
+        if (this instanceof MouseButtonListener) {
+            ((MouseButtonListener) this).attachMousePressedListener();
+        }
     }
 }

@@ -53,7 +53,7 @@ class TextEntityTest {
     }
 
     @Test
-    void settingTheDelegateSetsPositionOnDelegateForEmptyConstructor() {
+    void settingDelegateSetsPositionOnDelegateForEmptyConstructor() {
         // Setup
         var textEntity = new TextEntity();
 
@@ -67,7 +67,7 @@ class TextEntityTest {
     }
 
     @Test
-    void settingTheDelegateSetsTextOnDelegate() {
+    void settingDelegateSetsTextOnDelegate() {
         // Setup
         var textEntity = new TextEntity(POSITION);
 
@@ -80,7 +80,7 @@ class TextEntityTest {
     }
 
     @Test
-    void settingTheDelegateSetsFillOnDelegate() {
+    void settingDelegateSetsFillOnDelegate() {
         // Setup
         var textEntity = new TextEntity(POSITION);
 
@@ -93,7 +93,7 @@ class TextEntityTest {
     }
 
     @Test
-    void settingTheDelegateSetsFontOnDelegate() {
+    void settingDelegateSetsFontOnDelegate() {
         // Setup
         var textEntity = new TextEntity(POSITION);
 
@@ -107,7 +107,7 @@ class TextEntityTest {
     }
 
     @Test
-    void settingTheDelegateSetsVisibleOnDelegate() {
+    void settingDelegateSetsVisibleOnDelegate() {
         // Setup
         var textEntity = new TextEntity(POSITION);
 
@@ -120,19 +120,7 @@ class TextEntityTest {
     }
 
     @Test
-    void settingTheTextWiresAMousePressedEvent() {
-        // Setup
-        var textEntity = new TextEntity(POSITION);
-
-        // Test
-        textEntity.setDelegate(text);
-
-        // Verify
-        verify(text).setOnMousePressed(any());
-    }
-
-    @Test
-    void settingTheTextWithContentDelegatesContent() {
+    void settingDelegateWithContentDelegatesContent() {
         // Setup
         var textEntity = new TextEntity(POSITION, YAEGER);
 

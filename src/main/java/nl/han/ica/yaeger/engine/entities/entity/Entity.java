@@ -6,14 +6,7 @@ import javafx.scene.Node;
 /**
  * An {@code Entity} will serve as the {@code Root Interface} for all objects that are part of a {@code Yaeger} game.
  */
-public interface Entity extends Bounded, Removeable {
-
-    /**
-     * Return the {@link Node} that is related to this {@link Entity}.
-     *
-     * @return Node the {@link Node} that is related to this {@link Entity}
-     */
-    Node getGameNode();
+public interface Entity extends Bounded, Removeable, NodeProvider {
 
     /**
      * Return the width of the {@link javafx.scene.Scene} that this {@code Entity}
