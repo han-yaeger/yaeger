@@ -6,6 +6,7 @@ import com.google.inject.Injector;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import nl.han.ica.yaeger.engine.entities.EntityCollection;
 import nl.han.ica.yaeger.engine.userinput.KeyListener;
 import nl.han.ica.yaeger.engine.debug.Debugger;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
@@ -20,6 +21,8 @@ import nl.han.ica.yaeger.module.factories.SceneFactory;
 import java.util.Set;
 
 public abstract class StaticScene implements YaegerScene, KeyListener {
+
+    private EntityCollection entityCollection;
 
     private SceneFactory sceneFactory;
     private DebuggerFactory debuggerFactory;
@@ -174,4 +177,11 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
     }
 
 
+    public EntityCollection getEntityCollection() {
+        return entityCollection;
+    }
+
+    public void setEntityCollection(EntityCollection entityCollection) {
+        this.entityCollection = entityCollection;
+    }
 }

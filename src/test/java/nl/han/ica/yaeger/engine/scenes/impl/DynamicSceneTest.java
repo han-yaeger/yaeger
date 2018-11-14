@@ -106,7 +106,7 @@ class DynamicSceneTest {
         }
 
         @Override
-        protected void setupEntities() {
+        protected void setupInitialEntities() {
             setupEntitiesCalled = true;
         }
 

@@ -29,8 +29,8 @@ public class LevelOne extends Level {
     }
 
     @Override
-    protected void setupEntities() {
-        super.setupEntities();
+    protected void setupInitialEntities() {
+        super.setupInitialEntities();
 
         var swordFish = new Swordfish(new Position(200, 200));
         addEntity(swordFish);

@@ -24,7 +24,7 @@ public abstract class Level extends DynamicScene {
     }
 
     @Override
-    protected void setupEntities() {
+    protected void setupInitialEntities() {
         bubblesPoppedText = new TextEntity(new Position(10, 40));
         bubblesPoppedText.setFont(Font.font(Waterworld.FONT, 40));
         bubblesPoppedText.setFill(Color.VIOLET);

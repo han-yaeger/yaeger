@@ -15,8 +15,6 @@ import java.util.Set;
  */
 public abstract class DynamicScene extends StaticScene {
 
-    private EntityCollection entityCollection;
-
     private Set<Entity> initialEntities = new HashSet<>();
     private AnimationTimer animator;
 
@@ -26,7 +24,7 @@ public abstract class DynamicScene extends StaticScene {
     public void setupScene() {
         super.setupScene();
 
-        setupEntities();
+        setupInitialEntities();
 
         createGameLoop();
 
@@ -45,7 +43,7 @@ public abstract class DynamicScene extends StaticScene {
      * denken aan elementen van een {@code Dashboard} of een Speler-{@link Entity}. Elementen van het scherm die tijdens het game
      * moeten worden toegevoegd, moeten gebruik maken van een {@link EntitySpawner}.
      */
-    protected abstract void setupEntities();
+    protected abstract void setupInitialEntities();
 
     /**
      * Voeg een {@link Entity} toe aan de {@code scenes}. Iedere {@link Entity} kunnen maar één keer worden toegevoegd.
@@ -66,7 +64,7 @@ public abstract class DynamicScene extends StaticScene {
 
     @Override
     public void onInputChanged(Set<KeyCode> input) {
-        entityCollection.notifyGameObjectsOfPressedKeys(input);
+        getEntityCollection().notifyGameObjectsOfPressedKeys(input);
     }
 
     /**
@@ -76,7 +74,7 @@ public abstract class DynamicScene extends StaticScene {
      * @param spawner the {@link EntitySpawner} to be registered
      */
     protected void registerSpawner(EntitySpawner spawner) {
-        entityCollection.registerSpawner(spawner);
+        getEntityCollection().registerSpawner(spawner);
     }
 
     @Override
@@ -93,8 +91,8 @@ public abstract class DynamicScene extends StaticScene {
     }
 
     private void clearEntityCollection() {
-        entityCollection.clear();
-        entityCollection = null;
+        getEntityCollection().clear();
+        setEntityCollection(null);
     }
 
     private void startGameLoop() {
@@ -109,14 +107,14 @@ public abstract class DynamicScene extends StaticScene {
     }
 
     private void createGameLoop() {
-        entityCollection = new EntityCollection(getRoot(), initialEntities);
-        entityCollection.addStatisticsObserver(debugger);
+        setEntityCollection(new EntityCollection(getRoot(), initialEntities));
+        getEntityCollection().addStatisticsObserver(debugger);
 
         animator = new AnimationTimer() {
             @Override
             public void handle(long arg0) {
 
-                entityCollection.update(arg0);
+                getEntityCollection().update(arg0);
             }
         };
     }

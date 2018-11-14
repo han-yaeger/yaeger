@@ -78,6 +78,43 @@ class CollisionDelegateTest {
         Assertions.assertEquals(1, argument.getValue().size());
     }
 
+    @Test
+    void afterRemoveCollidedNoCollisionsAreChecked() {
+        // Setup
+        Entity collidedEntity = mock(CollidedTestEntity.class);
+        Entity colliderEntity = mock(ColliderTestEntity.class);
+
+        collisionDelegate.register(collidedEntity);
+        collisionDelegate.register(colliderEntity);
+
+        // Test
+        collisionDelegate.remove(collidedEntity);
+        collisionDelegate.checkCollisions();
+
+        // Verify
+        Mockito.verifyNoMoreInteractions(collidedEntity);
+    }
+
+    @Test
+    void afterRemoveColliderNoCollisionsAreReported() {
+        // Setup
+        Entity collidedEntity = mock(CollidedTestEntity.class);
+        Entity colliderEntity = mock(ColliderTestEntity.class);
+
+        collisionDelegate.register(collidedEntity);
+        collisionDelegate.register(colliderEntity);
+
+        ArgumentCaptor<Set> argument = ArgumentCaptor.forClass(Set.class);
+
+        // Test
+        collisionDelegate.remove(colliderEntity);
+        collisionDelegate.checkCollisions();
+
+        // Verify
+        Mockito.verify((Collided) collidedEntity).checkForCollisions(argument.capture());
+        Assertions.assertEquals(0, argument.getValue().size());
+    }
+
     private class CollidedTestEntity implements Entity, Collided {
 
         @Override
