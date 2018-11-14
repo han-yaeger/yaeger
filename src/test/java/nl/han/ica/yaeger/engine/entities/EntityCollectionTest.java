@@ -169,6 +169,11 @@ class UpdatableEntity implements Entity, Updatable {
     public void update(long timestamp) {
         // Not required here.
     }
+
+    @Override
+    public void init() {
+        // Not required here.
+    }
 }
 
 class KeyListeningEntity implements Entity, KeyListener {
@@ -190,6 +195,11 @@ class KeyListeningEntity implements Entity, KeyListener {
 
     @Override
     public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
+        // Not required here.
+    }
+
+    @Override
+    public void init() {
         // Not required here.
     }
 }

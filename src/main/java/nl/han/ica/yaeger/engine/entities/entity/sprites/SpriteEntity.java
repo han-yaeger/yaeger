@@ -1,6 +1,7 @@
 package nl.han.ica.yaeger.engine.entities.entity.sprites;
 
 import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -11,14 +12,17 @@ import nl.han.ica.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimatio
 import nl.han.ica.yaeger.engine.media.repositories.ImageRepository;
 import nl.han.ica.yaeger.engine.media.ResourceConsumer;
 import nl.han.ica.yaeger.module.YaegerModule;
+import nl.han.ica.yaeger.module.factories.SpriteAnimationDelegateFactory;
 
 /**
  * A {@code SpriteEntity} is a {@code Entity} that is represented by an Image.
  */
 public abstract class SpriteEntity implements Entity, ResourceConsumer {
 
+    private SpriteAnimationDelegateFactory spriteAnimationDelegateFactory;
+    private int frames;
     ImageView imageView;
-    
+
     Point2D positionVector = new Point2D(0, 0);
     SpriteAnimationDelegate spriteAnimationDelegate;
 
@@ -48,8 +52,14 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
 
         this.imageView = createImageView(resource, requestedWidth, size.getHeight());
 
+        this.frames = frames;
+
+    }
+
+    @Override
+    public void init() {
         if (frames > 1) {
-            spriteAnimationDelegate = new SpriteAnimationDelegate(imageView, frames);
+            spriteAnimationDelegate = SpriteAnimationDelegateFactory.create(imageView, frames);
         }
     }
 
@@ -125,5 +135,10 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     @Override
     public Position getPosition() {
         return (Position) positionVector;
+    }
+
+    @Inject
+    public void setSpriteAnimationDelegateFactory(SpriteAnimationDelegateFactory spriteAnimationDelegateFactory) {
+        this.spriteAnimationDelegateFactory = spriteAnimationDelegateFactory;
     }
 }

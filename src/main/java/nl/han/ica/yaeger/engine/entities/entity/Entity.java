@@ -1,11 +1,12 @@
 package nl.han.ica.yaeger.engine.entities.entity;
 
 import javafx.geometry.Bounds;
+import nl.han.ica.yaeger.engine.Initializable;
 
 /**
  * An {@code Entity} will serve as the {@code Root Interface} for all objects that are part of a {@code Yaeger} game.
  */
-public interface Entity extends Bounded, Removeable, NodeProvider {
+public interface Entity extends Initializable, Bounded, Removeable, NodeProvider {
 
     /**
      * Return the width of the {@link javafx.scene.Scene} that this {@code Entity}

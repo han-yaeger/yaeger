@@ -87,7 +87,7 @@ class EntityTest {
 
         @Override
         public void remove() {
-
+            // Not required here.
         }
 
         @Override
@@ -100,8 +100,13 @@ class EntityTest {
             return null;
         }
 
-        public void setNode(Node node) {
+        void setNode(Node node) {
             this.node = node;
+        }
+
+        @Override
+        public void init() {
+            // Not required here.
         }
     }
 }

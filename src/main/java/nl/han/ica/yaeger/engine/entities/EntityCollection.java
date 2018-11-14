@@ -182,7 +182,7 @@ public class EntityCollection {
     }
 
     private void addToGameLoop(Entity entity) {
-        injectDelegatesInto(entity);
+        initialize(entity);
         addToKeylisteners(entity);
         addToUpdatablesOrStatics(entity);
 
@@ -191,9 +191,10 @@ public class EntityCollection {
         addToScene(entity);
     }
 
-    private void injectDelegatesInto(Entity entity) {
+    private void initialize(Entity entity) {
         Injector injector = Guice.createInjector(new YaegerModule());
         injector.injectMembers(entity);
+        entity.init();
     }
 
     private void addToUpdatablesOrStatics(Entity entity) {

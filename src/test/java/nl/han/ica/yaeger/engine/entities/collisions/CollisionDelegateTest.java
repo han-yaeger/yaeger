@@ -119,12 +119,12 @@ class CollisionDelegateTest {
 
         @Override
         public void onCollision(Collider collidingObject, CollisionSide collisionSide) {
-
+            // Not required here.
         }
 
         @Override
         public void remove() {
-
+            // Not required here.
         }
 
         @Override
@@ -135,6 +135,11 @@ class CollisionDelegateTest {
         @Override
         public Position getPosition() {
             return null;
+        }
+
+        @Override
+        public void init() {
+            // Not required here.
         }
     }
 
@@ -142,7 +147,7 @@ class CollisionDelegateTest {
 
         @Override
         public void remove() {
-
+            // Not required here.
         }
 
         @Override
@@ -153,6 +158,11 @@ class CollisionDelegateTest {
         @Override
         public Position getPosition() {
             return null;
+        }
+
+        @Override
+        public void init() {
+            // Not required here.
         }
     }
 }

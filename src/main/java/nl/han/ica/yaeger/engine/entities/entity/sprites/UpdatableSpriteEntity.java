@@ -12,6 +12,7 @@ import nl.han.ica.yaeger.engine.entities.entity.Updatable;
  */
 public abstract class UpdatableSpriteEntity extends SpriteEntity implements Updatable, SceneBoundaryCrosser {
 
+    private long autoCycleInterval = 0;
     private Movement movement;
     private Point2D movementVector;
 
@@ -78,7 +79,15 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
      * @param interval the interval milli-seconds
      */
     protected void setAutoCycle(long interval) {
-        spriteAnimationDelegate.setAutoCycle(interval);
+        this.autoCycleInterval = interval;
+    }
+
+    @Override
+    public void init() {
+        super.init();
+        if (autoCycleInterval != 0) {
+            spriteAnimationDelegate.setAutoCycle(autoCycleInterval);
+        }
     }
 
     /**

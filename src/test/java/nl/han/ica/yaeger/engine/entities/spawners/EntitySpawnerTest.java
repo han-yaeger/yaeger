@@ -71,7 +71,7 @@ class EntitySpawnerTest {
     private class TestEntity implements Entity {
         @Override
         public void remove() {
-
+            // Not required here.
         }
 
         @Override
@@ -82,6 +82,11 @@ class EntitySpawnerTest {
         @Override
         public Position getPosition() {
             return null;
+        }
+
+        @Override
+        public void init() {
+            // Not required here.
         }
     }
 }

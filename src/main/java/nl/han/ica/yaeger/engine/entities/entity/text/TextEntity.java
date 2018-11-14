@@ -138,7 +138,7 @@ public class TextEntity implements Entity {
 
     }
 
-    private void init() {
+    public void init() {
         if (position != null) {
             textDelegate.setX(position.getX());
             textDelegate.setY(position.getY());
