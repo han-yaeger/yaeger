@@ -44,7 +44,7 @@ public class Debugger implements StatisticsObserver {
     public Debugger(Group group) {
         createGridPane(group);
         audioRepository = AudioRepository.getInstance();
-        imageRepository = ImageRepository.getInstance();
+        imageRepository = new ImageRepository();
     }
 
     /**

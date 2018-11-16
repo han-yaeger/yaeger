@@ -15,7 +15,7 @@ class ImageRepositoryTest {
 
     @BeforeEach
     void setup() {
-        imageRepository = ImageRepository.getInstance();
+        imageRepository = new ImageRepository();
         imageFactory = mock(ImageFactory.class);
         imageRepository.setFactory(imageFactory);
     }

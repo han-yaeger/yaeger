@@ -1,5 +1,6 @@
 package nl.han.ica.yaeger.engine.scenes.impl;
 
+import com.google.inject.Injector;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -27,6 +28,7 @@ class StaticSceneTest {
     private KeyListenerDelegate keyListenerDelegate;
     private Group root;
     private Scene scene;
+    private Injector injector;
 
     @BeforeEach
     void setup() {
@@ -36,6 +38,7 @@ class StaticSceneTest {
         keyListenerDelegate = mock(KeyListenerDelegate.class);
         sceneFactory = mock(SceneFactory.class);
         debuggerFactory = mock(DebuggerFactory.class);
+        injector = mock(Injector.class);
 
         testStaticScene.setDebuggerFactory(debuggerFactory);
         testStaticScene.setSceneFactory(sceneFactory);
@@ -62,7 +65,7 @@ class StaticSceneTest {
         // Setup
 
         // Test
-        testStaticScene.setupScene();
+        testStaticScene.setupScene(injector);
 
         // Verify
         verify(sceneFactory).create(root);
@@ -76,7 +79,7 @@ class StaticSceneTest {
         var children = mock(ObservableList.class);
         when(root.getChildren()).thenReturn(children);
 
-        testStaticScene.setupScene();
+        testStaticScene.setupScene(injector);
 
         // Test
         testStaticScene.destroy();
@@ -97,7 +100,7 @@ class StaticSceneTest {
         var gameNode = mock(Node.class);
         when(testEntity.getGameNode()).thenReturn(gameNode);
 
-        testStaticScene.setupScene();
+        testStaticScene.setupScene(injector);
 
         // Test
         testStaticScene.addEntity(testEntity);
@@ -120,7 +123,7 @@ class StaticSceneTest {
 
         Debugger debugger = mock(Debugger.class);
         when(debuggerFactory.create(root)).thenReturn(debugger);
-        testStaticScene.setupScene();
+        testStaticScene.setupScene(injector);
 
         // Test
         testStaticScene.onPressedKeysChange(input);
@@ -138,7 +141,7 @@ class StaticSceneTest {
         var debugger = mock(Debugger.class);
         when(debuggerFactory.create(root)).thenReturn(debugger);
 
-        testStaticScene.setupScene();
+        testStaticScene.setupScene(injector);
 
         // Test
         testStaticScene.onPressedKeysChange(input);

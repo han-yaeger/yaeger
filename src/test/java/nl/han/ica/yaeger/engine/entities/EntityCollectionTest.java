@@ -1,5 +1,6 @@
 package nl.han.ica.yaeger.engine.entities;
 
+import com.google.inject.Injector;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -11,6 +12,7 @@ import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.Updatable;
 import org.junit.jupiter.api.Assertions;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -20,6 +22,13 @@ import static org.mockito.Mockito.*;
 class EntityCollectionTest {
 
     private EntityCollection entityCollection;
+    private Injector injector;
+
+    @BeforeEach
+    void setup() {
+        injector = mock(Injector.class);
+    }
+
 
     @Test
     void initWithANullInitialSetsGivesAnEmptyStaticEntityCollection() {
@@ -28,7 +37,7 @@ class EntityCollectionTest {
         Debugger debugger = mock(Debugger.class);
 
         // Test
-        entityCollection = new EntityCollection(group, null);
+        entityCollection = new EntityCollection(group, null, injector);
         entityCollection.addStatisticsObserver(debugger);
 
         // Verify
@@ -43,7 +52,7 @@ class EntityCollectionTest {
         Debugger debugger = mock(Debugger.class);
 
         // Test
-        entityCollection = new EntityCollection(group, emptySet);
+        entityCollection = new EntityCollection(group, emptySet, injector);
 
         // Verify
         Assertions.assertEquals(0, entityCollection.getStatistics().getUpdatables());
@@ -65,7 +74,7 @@ class EntityCollectionTest {
         when(group.getChildren()).thenReturn(children);
 
         // Test
-        entityCollection = new EntityCollection(group, set);
+        entityCollection = new EntityCollection(group, set, injector);
         entityCollection.update(0);
 
         // Verify
@@ -87,7 +96,7 @@ class EntityCollectionTest {
         when(group.getChildren()).thenReturn(children);
 
         // Test
-        entityCollection = new EntityCollection(group, dynamicSet);
+        entityCollection = new EntityCollection(group, dynamicSet, injector);
         entityCollection.update(0);
 
         // Verify
@@ -111,7 +120,7 @@ class EntityCollectionTest {
         Set<KeyCode> keycodes = new HashSet<>();
 
         // Test
-        entityCollection = new EntityCollection(group, entitySet);
+        entityCollection = new EntityCollection(group, entitySet, injector);
         entityCollection.notifyGameObjectsOfPressedKeys(keycodes);
 
         // Verify
@@ -140,7 +149,7 @@ class EntityCollectionTest {
         keycodes.add(KeyCode.R);
 
         // Test
-        entityCollection = new EntityCollection(group, entitySet);
+        entityCollection = new EntityCollection(group, entitySet, injector);
         entityCollection.notifyGameObjectsOfPressedKeys(keycodes);
 
         // Verify

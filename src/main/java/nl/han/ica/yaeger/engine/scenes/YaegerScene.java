@@ -1,5 +1,6 @@
 package nl.han.ica.yaeger.engine.scenes;
 
+import com.google.inject.Injector;
 import javafx.scene.Scene;
 import nl.han.ica.yaeger.engine.Destructable;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
@@ -20,8 +21,9 @@ public interface YaegerScene extends Destructable {
     /**
      * Deze methode wordt aangeroepen om een scherm op te bouwen. Om het geheugengebruik te minimaliseren moet in
      * deze methode de {@link Entity}s worden aangemaakt.
+     * @param injector
      */
-    void setupScene();
+    void setupScene(Injector injector);
 
     /**
      * Return the {@link Scene} that is encapsulated by this {@link YaegerScene}

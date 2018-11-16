@@ -1,5 +1,6 @@
 package nl.han.ica.yaeger.engine.scenes;
 
+import com.google.inject.Injector;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Assertions;
@@ -34,7 +35,7 @@ class ScenesTest {
         // Verify
         Assertions.assertEquals(yaegerScene, scenes.getActiveScene());
         verify(stage).setScene(javaFXScene);
-        verify(yaegerScene).setupScene();
+        verify(yaegerScene).setupScene(any(Injector.class));
     }
 
     @Test
@@ -81,7 +82,7 @@ class ScenesTest {
 
         // Verify
         Assertions.assertEquals(level1, scenes.getActiveScene());
-        verify(level1).setupScene();
+        verify(level1).setupScene(any(Injector.class));
     }
 
     @Test

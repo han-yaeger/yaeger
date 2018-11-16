@@ -1,5 +1,6 @@
 package nl.han.ica.yaeger.engine.scenes.impl;
 
+import com.google.inject.Injector;
 import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
@@ -21,8 +22,8 @@ public abstract class DynamicScene extends StaticScene {
     private boolean gameLoopIsRunning = false;
 
     @Override
-    public void setupScene() {
-        super.setupScene();
+    public void setupScene(Injector injector) {
+        super.setupScene(injector);
 
         setupInitialEntities();
 
@@ -107,7 +108,7 @@ public abstract class DynamicScene extends StaticScene {
     }
 
     private void createGameLoop() {
-        setEntityCollection(new EntityCollection(getRoot(), initialEntities));
+        setEntityCollection(new EntityCollection(getRoot(), initialEntities, getInjector()));
         getEntityCollection().addStatisticsObserver(debugger);
 
         animator = new AnimationTimer() {
@@ -118,4 +119,6 @@ public abstract class DynamicScene extends StaticScene {
             }
         };
     }
+
+
 }

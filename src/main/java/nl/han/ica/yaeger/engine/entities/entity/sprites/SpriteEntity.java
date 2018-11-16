@@ -1,8 +1,6 @@
 package nl.han.ica.yaeger.engine.entities.entity.sprites;
 
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -11,7 +9,6 @@ import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimationDelegate;
 import nl.han.ica.yaeger.engine.media.repositories.ImageRepository;
 import nl.han.ica.yaeger.engine.media.ResourceConsumer;
-import nl.han.ica.yaeger.module.YaegerModule;
 import nl.han.ica.yaeger.module.factories.SpriteAnimationDelegateFactory;
 
 /**
@@ -19,11 +16,14 @@ import nl.han.ica.yaeger.module.factories.SpriteAnimationDelegateFactory;
  */
 public abstract class SpriteEntity implements Entity, ResourceConsumer {
 
+    private final String resource;
+    private final Size size;
     private SpriteAnimationDelegateFactory spriteAnimationDelegateFactory;
+    private ImageRepository imageRepository;
     private int frames;
     ImageView imageView;
 
-    Point2D positionVector = new Point2D(0, 0);
+    Point2D position;
     SpriteAnimationDelegate spriteAnimationDelegate;
 
     /**
@@ -46,28 +46,24 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
      * @param frames   The number of frames this Image contains. By default the first frame is loaded.
      */
     protected SpriteEntity(final String resource, final Position position, final Size size, final int frames) {
-        this.positionVector = position;
-
-        var requestedWidth = size.getWidth() * frames;
-
-        this.imageView = createImageView(resource, requestedWidth, size.getHeight());
-
+        this.position = position;
         this.frames = frames;
-
+        this.resource = resource;
+        this.position = position;
+        this.size = size;
     }
 
     @Override
     public void init() {
+        var requestedWidth = size.getWidth() * frames;
+        imageView = createImageView(resource, requestedWidth, size.getHeight());
+
         if (frames > 1) {
             spriteAnimationDelegate = SpriteAnimationDelegateFactory.create(imageView, frames);
         }
     }
 
     private ImageView createImageView(final String resource, final int requestedWidth, final int requestedHeight) {
-        ImageRepository imageRepository = ImageRepository.getInstance();
-        Injector injector = Guice.createInjector(new YaegerModule());
-        injector.injectMembers(imageRepository);
-
         var image = imageRepository.get(resource, requestedWidth, requestedHeight, true);
         var iView = new ImageView(image);
         iView.setManaged(false);
@@ -84,13 +80,13 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     }
 
     /**
-     * Set the positionVector of this {@code SpriteEntity}
+     * Set the position of this {@code SpriteEntity}
      *
      * @param x The x-coordinate
      * @param y The y-coordinate
      */
-    public void setLocation(double x, double y) {
-        positionVector = new Point2D(x, y);
+    public void setPosition(double x, double y) {
+        position = new Point2D(x, y);
     }
 
     /**
@@ -108,7 +104,7 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
      * @return the x-coordinate
      */
     protected double getX() {
-        return positionVector.getX();
+        return position.getX();
     }
 
     /**
@@ -117,7 +113,7 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
      * @return the y-coordinate
      */
     protected double getY() {
-        return positionVector.getY();
+        return position.getY();
     }
 
     @Override
@@ -134,11 +130,16 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
 
     @Override
     public Position getPosition() {
-        return (Position) positionVector;
+        return (Position) position;
     }
 
     @Inject
     public void setSpriteAnimationDelegateFactory(SpriteAnimationDelegateFactory spriteAnimationDelegateFactory) {
         this.spriteAnimationDelegateFactory = spriteAnimationDelegateFactory;
+    }
+
+    @Inject
+    public void setImageRepository(ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
     }
 }

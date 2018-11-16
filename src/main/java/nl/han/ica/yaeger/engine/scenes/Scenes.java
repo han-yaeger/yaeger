@@ -16,8 +16,10 @@ public class Scenes extends LinkedHashMap<SceneType, YaegerScene> {
 
     private final transient Stage stage;
     private transient YaegerScene activeScene;
+    private Injector injector;
 
     public Scenes(Stage stage) {
+        this.injector =  Guice.createInjector(new YaegerModule());
         this.stage = stage;
     }
 
@@ -35,7 +37,7 @@ public class Scenes extends LinkedHashMap<SceneType, YaegerScene> {
         if (size() == 1) {
             activeScene = scene;
 
-            scene.setupScene();
+            scene.setupScene(injector);
             setActiveSceneOnStage();
         }
     }
@@ -63,10 +65,9 @@ public class Scenes extends LinkedHashMap<SceneType, YaegerScene> {
             throw new YaegerSceneNotAvailableException(type);
         }
 
-        Injector injector = Guice.createInjector(new YaegerModule());
         injector.injectMembers(requestedScene);
 
-        requestedScene.setupScene();
+        requestedScene.setupScene(injector);
 
         if (activeScene != null) {
             activeScene.destroy();

@@ -1,6 +1,5 @@
 package nl.han.ica.yaeger.engine.entities;
 
-import com.google.inject.Guice;
 import com.google.inject.Injector;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
@@ -12,7 +11,6 @@ import nl.han.ica.yaeger.engine.entities.entity.*;
 import nl.han.ica.yaeger.engine.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.engine.entities.events.EventTypes;
 import nl.han.ica.yaeger.engine.userinput.KeyListener;
-import nl.han.ica.yaeger.module.YaegerModule;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -26,6 +24,7 @@ import java.util.Set;
 public class EntityCollection {
 
     private final EntityCollectionStatistics statistics;
+    private Injector injector;
     private final Group group;
     private final Set<EntitySpawner> spawners = new HashSet<>();
     private final Set<Entity> statics = new HashSet<>();
@@ -42,8 +41,10 @@ public class EntityCollection {
      *
      * @param group           The {@link Group} to which all instances of {@link Entity}s should be added.
      * @param initialEntities A {@link Set} containing instances of {@link Entity} that should initially be added to this {@link EntityCollection}.
+     * @param injector        An {@link Injector} that can be used for Dependency Injection
      */
-    public EntityCollection(Group group, Set<Entity> initialEntities) {
+    public EntityCollection(Group group, Set<Entity> initialEntities, Injector injector) {
+        this.injector = injector;
         this.group = group;
         this.collisionDelegate = new CollisionDelegate();
         this.statistics = new EntityCollectionStatistics();
@@ -192,7 +193,7 @@ public class EntityCollection {
     }
 
     private void initialize(Entity entity) {
-        Injector injector = Guice.createInjector(new YaegerModule());
+
         injector.injectMembers(entity);
         entity.init();
     }

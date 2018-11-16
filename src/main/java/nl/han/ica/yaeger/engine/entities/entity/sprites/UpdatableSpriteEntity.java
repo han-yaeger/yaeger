@@ -129,8 +129,8 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     }
 
     private void updateLocation() {
-        positionVector = positionVector.add(movementVector);
-        imageView.relocate(positionVector.getX(), positionVector.getY());
+        position = position.add(movementVector);
+        imageView.relocate(position.getX(), position.getY());
     }
 
     private boolean hasDirectionChanged(double newDirection) {

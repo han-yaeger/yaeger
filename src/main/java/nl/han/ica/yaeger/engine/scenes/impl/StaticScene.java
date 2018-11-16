@@ -32,6 +32,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
     Debugger debugger;
     private KeyListenerDelegate keyListenerDelegate;
     private BackgroundDelegate backgroundDelegate;
+    private Injector injector;
 
     /**
      * Instantiate a new {@code StaticScene}. During construction, the lifecycle method {@code initializeScene}
@@ -53,7 +54,6 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
      * @param entity the {@link Entity} to be added
      */
     protected void addEntity(Entity entity) {
-        Injector injector = Guice.createInjector(new YaegerModule());
         injector.injectMembers(entity);
         root.getChildren().add(entity.getGameNode());
     }
@@ -146,7 +146,8 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
     }
 
     @Override
-    public void setupScene() {
+    public void setupScene(Injector injector) {
+        this.injector = injector;
         scene = sceneFactory.create(root);
         debugger = debuggerFactory.create(root);
 
@@ -174,6 +175,10 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
         root.getChildren().clear();
         root = null;
         scene = null;
+    }
+
+    public Injector getInjector() {
+        return this.injector;
     }
 
 

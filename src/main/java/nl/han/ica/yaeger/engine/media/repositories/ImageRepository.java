@@ -1,6 +1,7 @@
 package nl.han.ica.yaeger.engine.media.repositories;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import javafx.scene.image.Image;
 import nl.han.ica.yaeger.engine.Destructable;
 import nl.han.ica.yaeger.javafx.factories.ImageFactory;
@@ -12,28 +13,14 @@ import java.util.WeakHashMap;
 /**
  * An {@code ImageRepository} provides a central repository for acquiring sprites.
  */
+@Singleton
 public class ImageRepository implements ResourceConsumer, Destructable {
 
-    private Map<String, Image> imageMap;
+    private Map<String, Image> imageMap = new WeakHashMap<>();
     private ImageFactory factory;
 
-    private static ImageRepository imageRepository;
-
-    private ImageRepository() {
-        imageMap = new WeakHashMap<>();
-    }
-
-    /**
-     * Return an instance of the {@code ImageRepository}. Note that this is a Singleton.
-     *
-     * @return A Singleton instance of a {@code ImageRepository}
-     */
-    public static ImageRepository getInstance() {
-        if (imageRepository == null) {
-            imageRepository = new ImageRepository();
-        }
-
-        return imageRepository;
+    public ImageRepository() {
+        System.out.println("Created an ImageRespository " + this);
     }
 
     /**

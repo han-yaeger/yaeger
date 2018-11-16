@@ -1,5 +1,6 @@
 package nl.han.ica.yaeger.engine.scenes.impl;
 
+import com.google.inject.Injector;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import nl.han.ica.yaeger.engine.debug.Debugger;
@@ -23,6 +24,7 @@ class DynamicSceneTest {
     private DebuggerFactory debuggerFactory;
     private KeyListenerDelegate keyListenerDelegate;
     private Group root;
+    private Injector injector;
 
     @BeforeEach
     void setup() {
@@ -32,6 +34,7 @@ class DynamicSceneTest {
         keyListenerDelegate = mock(KeyListenerDelegate.class);
         sceneFactory = mock(SceneFactory.class);
         debuggerFactory = mock(DebuggerFactory.class);
+        injector = mock(Injector.class);
 
         testScene.setDebuggerFactory(debuggerFactory);
         testScene.setSceneFactory(sceneFactory);
@@ -59,7 +62,7 @@ class DynamicSceneTest {
         when(debuggerFactory.create(root)).thenReturn(debugger);
 
         // Test
-        testScene.setupScene();
+        testScene.setupScene(injector);
 
         // Verify
         verify(sceneFactory).create(root);
@@ -74,7 +77,7 @@ class DynamicSceneTest {
         when(debuggerFactory.create(root)).thenReturn(debugger);
 
         // Test
-        testScene.setupScene();
+        testScene.setupScene(injector);
 
         // Verify
         Assertions.assertTrue(testScene.setupSpawnersCalled);
@@ -87,7 +90,7 @@ class DynamicSceneTest {
         when(debuggerFactory.create(root)).thenReturn(debugger);
 
         // Test
-        testScene.setupScene();
+        testScene.setupScene(injector);
 
         // Verify
         Assertions.assertTrue(testScene.setupEntitiesCalled);
