@@ -13,7 +13,7 @@ public class AudioRepository implements ResourceConsumer, Destructable {
 
     private static final String CYCLECOUNT = "-cyclecount-";
 
-    private Map<String, AudioClip> audioMap;
+    private Map<String, AudioClip> audioMap = new WeakHashMap<>();
 
     private static AudioRepository audioRepository;
 
@@ -22,10 +22,6 @@ public class AudioRepository implements ResourceConsumer, Destructable {
             audioRepository = new AudioRepository();
         }
         return audioRepository;
-    }
-
-    private AudioRepository() {
-        audioMap = new WeakHashMap<>();
     }
 
     /**
@@ -68,9 +64,6 @@ public class AudioRepository implements ResourceConsumer, Destructable {
      * @return the number of key-value mappings in this map
      */
     public int size() {
-        if (audioMap == null) {
-            return 0;
-        }
         return audioMap.size();
     }
 
