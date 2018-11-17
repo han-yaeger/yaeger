@@ -104,7 +104,6 @@ class ImageRepositoryTest {
         Image firstImage = imageRepository.get("images/bubble.png", 20, 20, true);
         Image secondImage = imageRepository.get("images/bubble.png", 20, 20, true);
 
-
         // Verify
         Assertions.assertSame(image, firstImage);
         Assertions.assertSame(firstImage, secondImage);
