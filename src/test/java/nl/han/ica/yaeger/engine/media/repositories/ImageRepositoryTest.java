@@ -92,5 +92,23 @@ class ImageRepositoryTest {
         Assertions.assertSame(image, createdImage);
         Assertions.assertEquals(1, imageRepository.size());
     }
+
+    @Test
+    void callingTwiceGetWithSpecifiedWidthAndHeightReturnsSameImage() {
+        // Setup
+        imageRepository.destroy();
+        Image image = mock(Image.class);
+        when(imageFactory.create(anyString(), anyDouble(), anyDouble(), anyBoolean())).thenReturn(image);
+
+        // Test
+        Image firstImage = imageRepository.get("images/bubble.png", 20, 20, true);
+        Image secondImage = imageRepository.get("images/bubble.png", 20, 20, true);
+
+
+        // Verify
+        Assertions.assertSame(image, firstImage);
+        Assertions.assertSame(firstImage, secondImage);
+        Assertions.assertEquals(1, imageRepository.size());
+    }
 }
 

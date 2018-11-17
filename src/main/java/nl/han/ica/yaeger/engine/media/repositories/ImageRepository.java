@@ -19,10 +19,6 @@ public class ImageRepository implements ResourceConsumer, Destructable {
     private Map<String, Image> imageMap = new WeakHashMap<>();
     private ImageFactory factory;
 
-    public ImageRepository() {
-        System.out.println("Created an ImageRespository " + this);
-    }
-
     /**
      * Return an {@link Image} with content loaded from the specified
      * url.
@@ -84,9 +80,6 @@ public class ImageRepository implements ResourceConsumer, Destructable {
      * @return the number of key-value mappings in this map
      */
     public int size() {
-        if (imageMap == null) {
-            return 0;
-        }
         return imageMap.size();
     }
 
