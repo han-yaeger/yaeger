@@ -94,6 +94,7 @@
                     <excludes>
                         <exclude>nl/han/ica/waterworld/**/*</exclude>
                         <exclude>nl/han/ica/yaeger/module/**/*</exclude>
+                        <exclude>nl/han/ica/yaeger/javafx/**/*</exclude>
                     </excludes>
                 </configuration>
                 <dependencies>
