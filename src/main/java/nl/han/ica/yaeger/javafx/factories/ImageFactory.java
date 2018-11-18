@@ -1,11 +1,13 @@
 package nl.han.ica.yaeger.javafx.factories;
 
+import com.google.inject.Singleton;
 import javafx.beans.NamedArg;
 import javafx.scene.image.Image;
 
 /**
  * An {@code ImageFactory} should be used for creating instance of {@link Image}.
  */
+@Singleton
 public class ImageFactory {
 
     /**

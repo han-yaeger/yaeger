@@ -9,6 +9,7 @@ import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimationDelegate;
 import nl.han.ica.yaeger.engine.media.repositories.ImageRepository;
 import nl.han.ica.yaeger.engine.media.ResourceConsumer;
+import nl.han.ica.yaeger.javafx.factories.ImageViewFactory;
 import nl.han.ica.yaeger.module.factories.SpriteAnimationDelegateFactory;
 
 /**
@@ -20,6 +21,7 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     private final Size size;
     private SpriteAnimationDelegateFactory spriteAnimationDelegateFactory;
     private ImageRepository imageRepository;
+    private ImageViewFactory imageViewFactory;
     private int frames;
     ImageView imageView;
 
@@ -59,15 +61,13 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
         imageView = createImageView(resource, requestedWidth, size.getHeight());
 
         if (frames > 1) {
-            spriteAnimationDelegate = SpriteAnimationDelegateFactory.create(imageView, frames);
+            spriteAnimationDelegate = spriteAnimationDelegateFactory.create(imageView, frames);
         }
     }
 
     private ImageView createImageView(final String resource, final int requestedWidth, final int requestedHeight) {
         var image = imageRepository.get(resource, requestedWidth, requestedHeight, true);
-        var iView = new ImageView(image);
-        iView.setManaged(false);
-        return iView;
+        return imageViewFactory.create(image);
     }
 
     /**
@@ -141,5 +141,9 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     @Inject
     public void setImageRepository(ImageRepository imageRepository) {
         this.imageRepository = imageRepository;
+    }
+
+    public void setImageViewFactory(ImageViewFactory imageViewFactory) {
+        this.imageViewFactory = imageViewFactory;
     }
 }

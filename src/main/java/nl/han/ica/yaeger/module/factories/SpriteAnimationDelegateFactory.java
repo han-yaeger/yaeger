@@ -13,7 +13,7 @@ public class SpriteAnimationDelegateFactory {
      * @param frames    The number of frames available
      * @return an {@link SpriteAnimationDelegate}
      */
-    public static SpriteAnimationDelegate create(ImageView imageView, int frames) {
+    public SpriteAnimationDelegate create(ImageView imageView, int frames) {
         return new SpriteAnimationDelegate(imageView, frames);
     }
 }
