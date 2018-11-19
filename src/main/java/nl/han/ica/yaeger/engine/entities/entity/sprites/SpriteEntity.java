@@ -142,6 +142,7 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
         this.imageRepository = imageRepository;
     }
 
+    @Inject
     public void setImageViewFactory(ImageViewFactory imageViewFactory) {
         this.imageViewFactory = imageViewFactory;
     }

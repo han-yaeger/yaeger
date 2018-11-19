@@ -53,6 +53,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
      */
     protected void addEntity(Entity entity) {
         injector.injectMembers(entity);
+        entity.init();
         root.getChildren().add(entity.getGameNode());
     }
 

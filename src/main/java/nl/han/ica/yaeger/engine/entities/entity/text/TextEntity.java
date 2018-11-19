@@ -132,10 +132,8 @@ public class TextEntity implements Entity {
     }
 
     @Inject
-    public void setDelegate(Text text) {
+    public void setTextDelegate(Text text) {
         this.textDelegate = text;
-        init();
-
     }
 
     public void init() {

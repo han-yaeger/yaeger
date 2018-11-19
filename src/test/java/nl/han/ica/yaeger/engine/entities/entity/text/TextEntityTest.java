@@ -1,10 +1,12 @@
 package nl.han.ica.yaeger.engine.entities.entity.text;
 
+import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import nl.han.ica.waterworld.Waterworld;
+import nl.han.ica.yaeger.engine.entities.entity.MouseButtonListener;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.events.RemoveEntityEvent;
 import org.junit.jupiter.api.Assertions;
@@ -32,7 +34,8 @@ class TextEntityTest {
         var textEntity = new TextEntity(POSITION);
 
         // Test
-        textEntity.setDelegate(text);
+        textEntity.setTextDelegate(text);
+        textEntity.init();
 
         // Verify
         verify(text).setX(POSITION.getX());
@@ -46,7 +49,8 @@ class TextEntityTest {
 
         // Test
         textEntity.setPosition(POSITION);
-        textEntity.setDelegate(text);
+        textEntity.setTextDelegate(text);
+        textEntity.init();
 
         // Verify
         Assertions.assertEquals(POSITION, textEntity.getPosition());
@@ -59,7 +63,8 @@ class TextEntityTest {
 
         // Test
         textEntity.setPosition(POSITION);
-        textEntity.setDelegate(text);
+        textEntity.setTextDelegate(text);
+        textEntity.init();
 
         // Verify
         verify(text).setX(POSITION.getX());
@@ -73,7 +78,8 @@ class TextEntityTest {
 
         // Test
         textEntity.setText(YAEGER);
-        textEntity.setDelegate(text);
+        textEntity.setTextDelegate(text);
+        textEntity.init();
 
         // Verify
         verify(text).setText(YAEGER);
@@ -86,7 +92,8 @@ class TextEntityTest {
 
         // Test
         textEntity.setFill(COLOR);
-        textEntity.setDelegate(text);
+        textEntity.setTextDelegate(text);
+        textEntity.init();
 
         // Verify
         verify(text).setFill(COLOR);
@@ -100,7 +107,8 @@ class TextEntityTest {
 
         // Test
         textEntity.setFont(FONT);
-        textEntity.setDelegate(text);
+        textEntity.setTextDelegate(text);
+        textEntity.init();
 
         // Verify
         verify(text).setFont(FONT);
@@ -113,7 +121,8 @@ class TextEntityTest {
 
         // Test
         textEntity.setVisible(false);
-        textEntity.setDelegate(text);
+        textEntity.setTextDelegate(text);
+        textEntity.init();
 
         // Verify
         verify(text).setVisible(false);
@@ -125,7 +134,8 @@ class TextEntityTest {
         var textEntity = new TextEntity(POSITION, YAEGER);
 
         // Test
-        textEntity.setDelegate(text);
+        textEntity.setTextDelegate(text);
+        textEntity.init();
 
         // Verify
         verify(text).setText(YAEGER);
@@ -135,7 +145,8 @@ class TextEntityTest {
     void callingRemoveCleansUpTheEntity() {
         // Setup
         var textEntity = new TextEntity(POSITION, YAEGER);
-        textEntity.setDelegate(text);
+        textEntity.setTextDelegate(text);
+        textEntity.init();
 
         // Test
         textEntity.remove();
@@ -152,7 +163,8 @@ class TextEntityTest {
         var textEntity = new TextEntity(POSITION, YAEGER);
 
         // Test
-        textEntity.setDelegate(text);
+        textEntity.setTextDelegate(text);
+        textEntity.init();
 
         // Verify
         Assertions.assertEquals(text, textEntity.getGameNode());
@@ -162,7 +174,8 @@ class TextEntityTest {
     void settingValuesAfterDelegateIsSetDelegatesTheValues() {
         // Setup
         var textEntity = new TextEntity();
-        textEntity.setDelegate(text);
+        textEntity.setTextDelegate(text);
+        textEntity.init();
 
         // Test
         textEntity.setPosition(POSITION);
@@ -178,5 +191,33 @@ class TextEntityTest {
         verify(text).setFont(FONT);
         verify(text).setX(POSITION.getX());
         verify(text).setY(POSITION.getY());
+    }
+
+    @Test
+    void initializingAMouseButtonListeningTextEntityAttachesMouseListener() {
+        // Setup
+        var textEntity = new MouseButtonListeningTextEntity();
+        textEntity.setTextDelegate(text);
+
+        // Text
+        textEntity.init();
+
+        // Verify
+        Assertions.assertTrue(textEntity.mouseListenerAttached);
+    }
+
+    private class MouseButtonListeningTextEntity extends TextEntity implements MouseButtonListener {
+
+        private boolean mouseListenerAttached = false;
+
+        @Override
+        public void attachMousePressedListener() {
+            mouseListenerAttached = true;
+        }
+
+        @Override
+        public void onMousePressed(MouseButton button) {
+
+        }
     }
 }

@@ -193,7 +193,6 @@ public class EntityCollection {
     }
 
     private void initialize(Entity entity) {
-
         injector.injectMembers(entity);
         entity.init();
     }
