@@ -1,10 +1,8 @@
-package nl.han.ica.yaeger.engine.entities.sprites;
+package nl.han.ica.yaeger.engine.entities.entity.sprites;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
-import nl.han.ica.yaeger.engine.entities.entity.sprites.Size;
-import nl.han.ica.yaeger.engine.entities.entity.sprites.SpriteEntity;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimationDelegate;
 import nl.han.ica.yaeger.engine.entities.events.RemoveEntityEvent;
 import nl.han.ica.yaeger.engine.media.repositories.ImageRepository;
@@ -201,6 +199,36 @@ class SpriteEntityTest {
 
         // Verify
         verify(imageView).setRotate(rotation);
+    }
+
+    @Test
+    void setFrameIndexDelegatesToSpriteAnimationDelegate() {
+        // Setup
+        var spriteEntity = new TestSpriteEntityWithTwoFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE, 2);
+        spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        spriteEntity.setImageRepository(imageRepository);
+        spriteEntity.setImageViewFactory(imageViewFactory);
+
+        var frames = 2;
+        var image = mock(Image.class);
+        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * frames, HEIGHT, true)).thenReturn(image);
+
+        var imageView = mock(ImageView.class);
+        when(imageViewFactory.create(image)).thenReturn(imageView);
+
+
+        var spriteAnimationDelegate = mock(SpriteAnimationDelegate.class);
+        when(spriteAnimationDelegateFactory.create(imageView, 2)).thenReturn(spriteAnimationDelegate);
+
+        spriteEntity.init();
+
+        // Test
+        spriteEntity.setCurrentFrameIndex(frames);
+
+        // Verify
+        verify(spriteAnimationDelegate).setSpriteIndex(frames);
+
+
     }
 
     private class TestSpriteEntityWithDefaultFrames extends SpriteEntity {
