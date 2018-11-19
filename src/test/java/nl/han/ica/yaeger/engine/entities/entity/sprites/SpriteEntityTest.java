@@ -227,8 +227,6 @@ class SpriteEntityTest {
 
         // Verify
         verify(spriteAnimationDelegate).setSpriteIndex(frames);
-
-
     }
 
     private class TestSpriteEntityWithDefaultFrames extends SpriteEntity {
@@ -244,7 +242,6 @@ class SpriteEntityTest {
         double getYPosition() {
             return getY();
         }
-
     }
 
     private class TestSpriteEntityWithTwoFrames extends SpriteEntity {

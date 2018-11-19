@@ -16,10 +16,10 @@ public class Scenes extends LinkedHashMap<SceneType, YaegerScene> {
 
     private final transient Stage stage;
     private transient YaegerScene activeScene;
-    private Injector injector;
+    private transient Injector injector;
 
     public Scenes(Stage stage) {
-        this.injector =  Guice.createInjector(new YaegerModule());
+        this.injector = Guice.createInjector(new YaegerModule());
         this.stage = stage;
     }
 
