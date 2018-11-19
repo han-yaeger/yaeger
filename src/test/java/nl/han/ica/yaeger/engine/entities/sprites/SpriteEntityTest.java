@@ -120,7 +120,6 @@ class SpriteEntityTest {
 
     @Test
     void getYReturnsTheExpectedXCoordinate() {
-
         // Setup
         var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE);
 
@@ -153,6 +152,55 @@ class SpriteEntityTest {
         verify(imageView).setImage(null);
         verify(imageView).setVisible(false);
         verify(imageView).fireEvent(any(RemoveEntityEvent.class));
+    }
+
+    @Test
+    void getPositionReturnsCorrectPosition() {
+        // Setup
+        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE);
+
+        // Test
+        var position = spriteEntity.getPosition();
+
+        // Verify
+        Assertions.assertEquals(DEFAULT_POSITION, position);
+    }
+
+    @Test
+    void setPositionUpdatesThePosition() {
+        // Setup
+        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE);
+
+        // Test
+        var newPosition = new Position(42, 48);
+        spriteEntity.setPosition(newPosition);
+
+        // Verify
+        var position = spriteEntity.getPosition();
+        Assertions.assertEquals(newPosition, position);
+    }
+
+    @Test
+    void setRotationDelegatesToTheImageView() {
+        // Setup
+        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE);
+        spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        spriteEntity.setImageRepository(imageRepository);
+        spriteEntity.setImageViewFactory(imageViewFactory);
+
+        var image = mock(Image.class);
+        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
+
+        var imageView = mock(ImageView.class);
+        when(imageViewFactory.create(image)).thenReturn(imageView);
+        spriteEntity.init();
+
+        // Test
+        var rotation = 45d;
+        spriteEntity.rotate(rotation);
+
+        // Verify
+        verify(imageView).setRotate(rotation);
     }
 
     private class TestSpriteEntityWithDefaultFrames extends SpriteEntity {

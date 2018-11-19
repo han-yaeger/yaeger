@@ -18,7 +18,7 @@ public class Swordfish extends UpdatableSpriteEntity implements Collider {
     @Override
     public void notifyBoundaryCrossing(SceneBorder border) {
         if (border.equals(SceneBorder.LEFT)) {
-            setPosition(getSceneWidth(), getY());
+            setPosition(new Position(getSceneWidth(), getY()));
         }
     }
 }

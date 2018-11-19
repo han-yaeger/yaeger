@@ -82,11 +82,10 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     /**
      * Set the position of this {@code SpriteEntity}
      *
-     * @param x The x-coordinate
-     * @param y The y-coordinate
+     * @param position The new {@link Position}
      */
-    public void setPosition(double x, double y) {
-        position = new Point2D(x, y);
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     /**
