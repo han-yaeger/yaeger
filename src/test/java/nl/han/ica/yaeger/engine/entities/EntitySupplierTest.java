@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class EntitySupplierTest {
@@ -21,7 +23,7 @@ class EntitySupplierTest {
     }
 
     @Test
-    void spawnAddsEntitiesToSpawnedEntities() {
+    void addEntitiesAddsEntity() {
         // Setup
         Entity entity = new TestEntity();
 
@@ -43,6 +45,17 @@ class EntitySupplierTest {
 
         // Verify
         Assertions.assertEquals(0, entitySupplier.size());
+    }
+
+    @Test
+    void getOnEmptySetReturnsEmptySet() {
+        // Setup
+
+        // Test
+        Set<Entity> entities = entitySupplier.get();
+
+        // Verify
+        Assertions.assertEquals(0, entities.size());
     }
 
     private class TestEntity implements Entity {

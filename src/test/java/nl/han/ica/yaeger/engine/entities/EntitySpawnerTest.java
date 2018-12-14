@@ -57,6 +57,26 @@ class EntitySpawnerTest {
         Assertions.assertEquals(0, entitySpawner.size());
     }
 
+    @Test
+    void nullIsNotEqual() {
+        // Setup
+
+        // Test
+
+        // Verify
+        Assertions.assertNotEquals(null, entitySpawner);
+    }
+
+    @Test
+    void sameObjectIsEqual() {
+        // Setup
+
+        // Test
+
+        // Verify
+        Assertions.assertEquals(entitySpawner, entitySpawner);
+    }
+
     private class TestEntitySpawner extends EntitySpawner {
 
         TestEntitySpawner(long interval) {
