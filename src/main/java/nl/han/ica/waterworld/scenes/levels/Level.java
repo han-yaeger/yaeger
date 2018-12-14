@@ -4,6 +4,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import nl.han.ica.waterworld.Waterworld;
 import nl.han.ica.waterworld.entities.game.Player;
+import nl.han.ica.waterworld.entities.game.Swordfish;
 import nl.han.ica.waterworld.entities.game.spawners.BubbleSpawner;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.text.TextEntity;
@@ -36,6 +37,9 @@ public abstract class Level extends DynamicScene {
         healthText.setFill(Color.DARKBLUE);
         addEntity(healthText);
         setHealthText(10);
+
+        var swordFish = new Swordfish(new Position(200, 200));
+        addEntity(swordFish);
 
         var player = new Player(new Position(100, 100), this, 10);
         addEntity(player);

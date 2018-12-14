@@ -20,14 +20,6 @@ public class LevelOne extends Level {
     }
 
     @Override
-    public void setupEntities() {
-        super.setupEntities();
-
-        var swordFish = new Swordfish(new Position(200, 200));
-        addEntity(swordFish);
-    }
-
-    @Override
     public void increaseBubblesPopped() {
         super.increaseBubblesPopped();
 
