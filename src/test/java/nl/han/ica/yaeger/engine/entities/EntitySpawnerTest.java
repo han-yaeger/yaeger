@@ -1,5 +1,6 @@
-package nl.han.ica.yaeger.engine.entities.spawners;
+package nl.han.ica.yaeger.engine.entities;
 
+import com.google.inject.Injector;
 import javafx.scene.Node;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
@@ -40,7 +41,7 @@ class EntitySpawnerTest {
         entitySpawner.spawn(entity);
 
         // Verify
-        Assertions.assertEquals(1, entitySpawner.getSpawnedEntities().size());
+        Assertions.assertEquals(1, entitySpawner.size());
     }
 
     @Test
@@ -53,7 +54,7 @@ class EntitySpawnerTest {
         entitySpawner.destroy();
 
         // Verify
-        Assertions.assertEquals(0, entitySpawner.getSpawnedEntities().size());
+        Assertions.assertEquals(0, entitySpawner.size());
     }
 
     private class TestEntitySpawner extends EntitySpawner {
@@ -85,7 +86,7 @@ class EntitySpawnerTest {
         }
 
         @Override
-        public void init() {
+        public void init(Injector injector) {
             // Not required here.
         }
     }

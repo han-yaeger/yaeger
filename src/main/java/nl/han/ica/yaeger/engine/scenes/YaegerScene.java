@@ -1,29 +1,32 @@
 package nl.han.ica.yaeger.engine.scenes;
 
-import com.google.inject.Injector;
 import javafx.scene.Scene;
-import nl.han.ica.yaeger.engine.Destructable;
-import nl.han.ica.yaeger.engine.entities.entity.Entity;
+import nl.han.ica.yaeger.engine.Clearable;
+import nl.han.ica.yaeger.engine.Configurable;
+import nl.han.ica.yaeger.engine.Destroyable;
+import nl.han.ica.yaeger.engine.Initializable;
 
 /**
- * Een {@code YaegerScene} moet gebruikt worden om een apart scherm van een Yaeger game te encapsuleren.
- * Een game kan uit meerdere {@code YaegerScene}s bestaan.
+ * A {@code YaegerScene} encapsulates a scene or level from a {@code Yaeger Game}.
  */
-public interface YaegerScene extends Destructable {
+public interface YaegerScene extends Destroyable, Initializable, Configurable, Clearable {
 
     /**
-     * Initializeer de {@link YaegerScene}. Deze methode wordt aangeroepen voordat het scherm wordt opgebouwd en
-     * de {@link YaegerScene} zichtbaar wordt. Gebruik deze methode voor het zetten van een achtergrondplaatje of
-     * achtergrondmuziek.
+     * Setup the {@link YaegerScene}. Use this method to add background images and/or background audio.
      */
-    void initializeScene();
+    void setupScene();
 
     /**
-     * Deze methode wordt aangeroepen om een scherm op te bouwen. Om het geheugengebruik te minimaliseren moet in
-     * deze methode de {@link Entity}s worden aangemaakt.
-     * @param injector
+     * Use this method to setup all instances of {@link nl.han.ica.yaeger.engine.entities.entity.Entity} that should
+     * be added to the {@link YaegerScene} before activation.
      */
-    void setupScene(Injector injector);
+    void setupEntities();
+
+    /**
+     * Use this method to trigger behaviour that should be set after the {@link YaegerScene} has been completely
+     * set up.
+     */
+    void postActivation();
 
     /**
      * Return the {@link Scene} that is encapsulated by this {@link YaegerScene}

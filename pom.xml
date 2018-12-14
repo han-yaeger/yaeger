@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.version>3.8.0</maven.compiler.version>
         <java.version>11</java.version>
-        <javafx.version>11</javafx.version>
+        <javafx.version>11.0.1</javafx.version>
         <!-- Testing-->
         <junit.jupiter.version>5.2.0</junit.jupiter.version>
         <junit-platform-surefire-provider>1.1.0</junit-platform-surefire-provider>
@@ -144,6 +144,11 @@
         </plugins>
     </build>
     <dependencies>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>

@@ -1,6 +1,5 @@
 package nl.han.ica.waterworld.scenes;
 
-import com.google.inject.Injector;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -40,15 +39,13 @@ public class Intro extends StaticScene {
     }
 
     @Override
-    public void initializeScene() {
+    public void setupScene() {
         setBackgroundImage(BACKGROUND_IMAGE);
-        setBackgroundAudio(BACKGROUND_AUDIO);
+//        setBackgroundAudio(BACKGROUND_AUDIO);
     }
 
     @Override
-    public void setupScene(Injector injector) {
-        super.setupScene(injector);
-
+    public void setupEntities() {
         createWaterworldText();
         createButtons();
     }

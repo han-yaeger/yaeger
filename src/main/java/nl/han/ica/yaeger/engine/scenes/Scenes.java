@@ -34,11 +34,10 @@ public class Scenes extends LinkedHashMap<SceneType, YaegerScene> {
     public void addScene(SceneType type, YaegerScene scene) {
         put(type, scene);
 
-        if (size() == 1) {
-            activeScene = scene;
+        scene.init(injector);
 
-            scene.setupScene(injector);
-            setActiveSceneOnStage();
+        if (size() == 1) {
+            activate(scene);
         }
     }
 
@@ -52,10 +51,10 @@ public class Scenes extends LinkedHashMap<SceneType, YaegerScene> {
     }
 
     /**
-     * Zet de huidige actieve {@link YaegerScene}. Dit is de {@code scenes} die getoond wordt op het scherm en waarvan,
+     * Set the {@link YaegerScene} of the given {@link SceneType}. Dit is de {@code scenes} die getoond wordt op het scherm en waarvan,
      * indien beschikbaar, de {@code Gameloop} en {@code Eventlisteners} hun werk doen.
      *
-     * @param type De enumeratie die de type van de {@link YaegerScene} bevat.
+     * @param type the {@link SceneType} of the {@link YaegerScene} to set as the active scene
      */
     public void setActive(SceneType type) {
 
@@ -65,17 +64,21 @@ public class Scenes extends LinkedHashMap<SceneType, YaegerScene> {
             throw new YaegerSceneNotAvailableException(type);
         }
 
-        injector.injectMembers(requestedScene);
-
-        requestedScene.setupScene(injector);
-
         if (activeScene != null) {
             activeScene.destroy();
         }
 
-        activeScene = requestedScene;
+        activate(requestedScene);
+    }
 
+    private void activate(YaegerScene scene) {
+        injector.injectMembers(scene);
+        scene.configure();
+        scene.setupScene();
+        scene.setupEntities();
+        activeScene = scene;
         setActiveSceneOnStage();
+        scene.postActivation();
     }
 
     private void setActiveSceneOnStage() {

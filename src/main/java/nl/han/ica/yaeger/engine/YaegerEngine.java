@@ -55,7 +55,8 @@ public abstract class YaegerEngine extends Application {
      * @param scene De {@link YaegerScene} die moet worden toegevoegd.
      */
     protected void addScene(SceneType type, YaegerScene scene) {
-        scenes.put(type, scene);
+
+        scenes.addScene(type, scene);
     }
 
     /**

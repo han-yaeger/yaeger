@@ -14,14 +14,14 @@ public class LevelTwo extends Level {
     }
 
     @Override
-    public void initializeScene() {
-        super.initializeScene();
+    public void setupScene() {
+        super.setupScene();
         setBackgroundImage(BACKGROUND_IMAGE);
     }
 
     @Override
-    public void setupInitialEntities() {
-        super.setupInitialEntities();
+    public void setupEntities() {
+        super.setupEntities();
 
         var swordFish = new Swordfish(new Position(200, 200));
         addEntity(swordFish);

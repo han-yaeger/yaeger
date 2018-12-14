@@ -1,5 +1,6 @@
 package nl.han.ica.yaeger.engine.entities.entity.sprites;
 
+import com.google.inject.Injector;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
@@ -28,6 +29,7 @@ class SpriteEntityTest {
     private ImageViewFactory imageViewFactory;
     private SpriteAnimationDelegate spriteAnimationDelegate;
     private ImageRepository imageRepository;
+    private Injector injector;
 
     @BeforeEach
     void setup() {
@@ -37,6 +39,7 @@ class SpriteEntityTest {
         when(spriteAnimationDelegateFactory.create(any(ImageView.class), anyInt())).thenReturn(spriteAnimationDelegate);
 
         imageRepository = mock(ImageRepository.class);
+        injector = mock(Injector.class);
     }
 
     @Test
@@ -76,7 +79,7 @@ class SpriteEntityTest {
         when(imageViewFactory.create(image)).thenReturn(imageView);
 
         // Test
-        spriteEntity.init();
+        spriteEntity.init(injector);
 
         // Verify
         verifyNoMoreInteractions(spriteAnimationDelegateFactory);
@@ -97,7 +100,7 @@ class SpriteEntityTest {
         when(imageViewFactory.create(image)).thenReturn(imageView);
 
         // Test
-        spriteEntity.init();
+        spriteEntity.init(injector);
 
         // Verify
         verify(spriteAnimationDelegateFactory).create(imageView, 2);
@@ -141,7 +144,7 @@ class SpriteEntityTest {
 
         var imageView = mock(ImageView.class);
         when(imageViewFactory.create(image)).thenReturn(imageView);
-        spriteEntity.init();
+        spriteEntity.init(injector);
 
         // Test
         spriteEntity.remove();
@@ -191,7 +194,7 @@ class SpriteEntityTest {
 
         var imageView = mock(ImageView.class);
         when(imageViewFactory.create(image)).thenReturn(imageView);
-        spriteEntity.init();
+        spriteEntity.init(injector);
 
         // Test
         var rotation = 45d;
@@ -220,7 +223,7 @@ class SpriteEntityTest {
         var spriteAnimationDelegate = mock(SpriteAnimationDelegate.class);
         when(spriteAnimationDelegateFactory.create(imageView, 2)).thenReturn(spriteAnimationDelegate);
 
-        spriteEntity.init();
+        spriteEntity.init(injector);
 
         // Test
         spriteEntity.setCurrentFrameIndex(frames);

@@ -1,5 +1,6 @@
 package nl.han.ica.yaeger.engine.entities.collisions;
 
+import com.google.inject.Injector;
 import javafx.scene.Node;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
@@ -138,7 +139,7 @@ class CollisionDelegateTest {
         }
 
         @Override
-        public void init() {
+        public void init(Injector injector) {
             // Not required here.
         }
     }
@@ -161,7 +162,7 @@ class CollisionDelegateTest {
         }
 
         @Override
-        public void init() {
+        public void init(Injector injector) {
             // Not required here.
         }
     }

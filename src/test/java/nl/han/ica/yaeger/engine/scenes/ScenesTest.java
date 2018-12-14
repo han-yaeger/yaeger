@@ -13,11 +13,13 @@ class ScenesTest {
 
     private Stage stage;
     private Scenes scenes;
+    private Injector injector;
 
     @BeforeEach
     void setup() {
         stage = mock(Stage.class);
         scenes = new Scenes(stage);
+        injector = mock(Injector.class);
     }
 
     @Test
@@ -35,7 +37,23 @@ class ScenesTest {
         // Verify
         Assertions.assertEquals(yaegerScene, scenes.getActiveScene());
         verify(stage).setScene(javaFXScene);
-        verify(yaegerScene).setupScene(any(Injector.class));
+        verify(yaegerScene).init(any(Injector.class));
+    }
+
+    @Test
+    void addedScenesAreInitializedAfterAdding() {
+        // Setup
+        YaegerScene yaegerScene = mock(YaegerScene.class);
+        Scene javaFXScene = mock(Scene.class);
+
+        when(yaegerScene.getScene()).thenReturn(javaFXScene);
+        doNothing().when(stage).setScene(javaFXScene);
+
+        // Test
+        scenes.addScene(SceneType.INTRO, yaegerScene);
+
+        // Verify
+        verify(yaegerScene).init(any(Injector.class));
     }
 
     @Test
@@ -82,7 +100,7 @@ class ScenesTest {
 
         // Verify
         Assertions.assertEquals(level1, scenes.getActiveScene());
-        verify(level1).setupScene(any(Injector.class));
+        verify(level1).init(any(Injector.class));
     }
 
     @Test

@@ -14,9 +14,17 @@ public class LevelOne extends Level {
     }
 
     @Override
-    public void initializeScene() {
-        super.initializeScene();
+    public void setupScene() {
+        super.setupScene();
         setBackgroundImage(BACKGROUND_IMAGE);
+    }
+
+    @Override
+    public void setupEntities() {
+        super.setupEntities();
+
+        var swordFish = new Swordfish(new Position(200, 200));
+        addEntity(swordFish);
     }
 
     @Override
@@ -26,13 +34,5 @@ public class LevelOne extends Level {
         if (bubblesPopped > 2) {
             waterworld.nextScene(SceneType.LEVEL_TWO);
         }
-    }
-
-    @Override
-    protected void setupInitialEntities() {
-        super.setupInitialEntities();
-
-        var swordFish = new Swordfish(new Position(200, 200));
-        addEntity(swordFish);
     }
 }

@@ -1,5 +1,6 @@
 package nl.han.ica.yaeger.engine.entities.entity.text;
 
+import com.google.inject.Injector;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -22,10 +23,13 @@ class TextEntityTest {
     private static final Font FONT = Font.font(Waterworld.FONT, FontWeight.BOLD, 240);
     private static final Color COLOR = Color.DARKBLUE;
     private Text text;
+    private Injector injector;
 
     @BeforeEach
     void setup() {
+
         text = mock(Text.class);
+        injector = mock(Injector.class);
     }
 
     @Test
@@ -35,7 +39,7 @@ class TextEntityTest {
 
         // Test
         textEntity.setTextDelegate(text);
-        textEntity.init();
+        textEntity.init(injector);
 
         // Verify
         verify(text).setX(POSITION.getX());
@@ -50,7 +54,7 @@ class TextEntityTest {
         // Test
         textEntity.setPosition(POSITION);
         textEntity.setTextDelegate(text);
-        textEntity.init();
+        textEntity.init(injector);
 
         // Verify
         Assertions.assertEquals(POSITION, textEntity.getPosition());
@@ -64,7 +68,7 @@ class TextEntityTest {
         // Test
         textEntity.setPosition(POSITION);
         textEntity.setTextDelegate(text);
-        textEntity.init();
+        textEntity.init(injector);
 
         // Verify
         verify(text).setX(POSITION.getX());
@@ -79,7 +83,7 @@ class TextEntityTest {
         // Test
         textEntity.setText(YAEGER);
         textEntity.setTextDelegate(text);
-        textEntity.init();
+        textEntity.init(injector);
 
         // Verify
         verify(text).setText(YAEGER);
@@ -93,7 +97,7 @@ class TextEntityTest {
         // Test
         textEntity.setFill(COLOR);
         textEntity.setTextDelegate(text);
-        textEntity.init();
+        textEntity.init(injector);
 
         // Verify
         verify(text).setFill(COLOR);
@@ -108,7 +112,7 @@ class TextEntityTest {
         // Test
         textEntity.setFont(FONT);
         textEntity.setTextDelegate(text);
-        textEntity.init();
+        textEntity.init(injector);
 
         // Verify
         verify(text).setFont(FONT);
@@ -122,7 +126,7 @@ class TextEntityTest {
         // Test
         textEntity.setVisible(false);
         textEntity.setTextDelegate(text);
-        textEntity.init();
+        textEntity.init(injector);
 
         // Verify
         verify(text).setVisible(false);
@@ -135,7 +139,7 @@ class TextEntityTest {
 
         // Test
         textEntity.setTextDelegate(text);
-        textEntity.init();
+        textEntity.init(injector);
 
         // Verify
         verify(text).setText(YAEGER);
@@ -146,7 +150,7 @@ class TextEntityTest {
         // Setup
         var textEntity = new TextEntity(POSITION, YAEGER);
         textEntity.setTextDelegate(text);
-        textEntity.init();
+        textEntity.init(injector);
 
         // Test
         textEntity.remove();
@@ -164,7 +168,7 @@ class TextEntityTest {
 
         // Test
         textEntity.setTextDelegate(text);
-        textEntity.init();
+        textEntity.init(injector);
 
         // Verify
         Assertions.assertEquals(text, textEntity.getGameNode());
@@ -175,7 +179,7 @@ class TextEntityTest {
         // Setup
         var textEntity = new TextEntity();
         textEntity.setTextDelegate(text);
-        textEntity.init();
+        textEntity.init(injector);
 
         // Test
         textEntity.setPosition(POSITION);
@@ -200,7 +204,7 @@ class TextEntityTest {
         textEntity.setTextDelegate(text);
 
         // Text
-        textEntity.init();
+        textEntity.init(injector);
 
         // Verify
         Assertions.assertTrue(textEntity.mouseListenerAttached);

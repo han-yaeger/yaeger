@@ -1,6 +1,7 @@
 package nl.han.ica.yaeger.engine.entities.entity.sprites;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -56,7 +57,7 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     }
 
     @Override
-    public void init() {
+    public void init(Injector injector) {
         var requestedWidth = size.getWidth() * frames;
         imageView = createImageView(resource, requestedWidth, size.getHeight());
 

@@ -20,7 +20,7 @@ public class Debugger implements StatisticsObserver {
     private static final String MEMORY_USED = "Total used memory:";
     private static final String ENTITIES_DYNAMIC = "Dynamic Entities:";
     private static final String ENTITIES_STATIC = "Static Entities:";
-    private static final String SPAWNERS = "Spawners:";
+    private static final String SUPPLIERS = "Suppliers:";
     private static final String GARBAGE = "Garbage:";
     private static final String KEYLISTENERS = "Keylistening Entities:";
     private static final String AUDIO_FILES = "Audio files";
@@ -77,7 +77,7 @@ public class Debugger implements StatisticsObserver {
         dynamicEntities.setText(String.valueOf(entityCollectionStatistics.getUpdatables()));
         staticEntities.setText(String.valueOf(entityCollectionStatistics.getStatics()));
         keyListeningEntities.setText(String.valueOf(entityCollectionStatistics.getKeyListeners()));
-        entitySpawners.setText(String.valueOf(entityCollectionStatistics.getSpawners()));
+        entitySpawners.setText(String.valueOf(entityCollectionStatistics.getSuppliers()));
         garbageEntities.setText(String.valueOf(entityCollectionStatistics.getGarbage()));
 
         allocatedMemory.setText(getTotalMemory());
@@ -112,7 +112,7 @@ public class Debugger implements StatisticsObserver {
     private void addEntityStatistics() {
         dynamicEntities = addDebugLine(ENTITIES_DYNAMIC);
         staticEntities = addDebugLine(ENTITIES_STATIC);
-        entitySpawners = addDebugLine(SPAWNERS);
+        entitySpawners = addDebugLine(SUPPLIERS);
         garbageEntities = addDebugLine(GARBAGE);
         keyListeningEntities = addDebugLine(KEYLISTENERS);
     }

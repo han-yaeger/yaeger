@@ -1,5 +1,6 @@
 package nl.han.ica.yaeger.engine.entities;
 
+import com.google.inject.Injector;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
@@ -105,7 +106,7 @@ class EntityTest {
         }
 
         @Override
-        public void init() {
+        public void init(Injector injector) {
             // Not required here.
         }
     }

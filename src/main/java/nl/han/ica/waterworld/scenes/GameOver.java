@@ -1,6 +1,5 @@
 package nl.han.ica.waterworld.scenes;
 
-import com.google.inject.Injector;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -33,15 +32,13 @@ public class GameOver extends StaticScene {
     }
 
     @Override
-    public void initializeScene() {
+    public void setupScene() {
         setBackgroundImage(BACKGROUND_IMAGE);
-        setBackgroundAudio(BACKGROUND_AUDIO);
+//        setBackgroundAudio(BACKGROUND_AUDIO);
     }
 
     @Override
-    public void setupScene(Injector injector) {
-        super.setupScene(injector);
-
+    public void setupEntities() {
         var gameOverText = new TextEntity(new Position(440, 350), GAME_OVER);
         gameOverText.setFill(Color.VIOLET);
         gameOverText.setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 60));

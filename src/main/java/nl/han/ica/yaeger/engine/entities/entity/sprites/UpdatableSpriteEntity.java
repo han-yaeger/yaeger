@@ -1,5 +1,6 @@
 package nl.han.ica.yaeger.engine.entities.entity.sprites;
 
+import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.SceneBoundaryCrosser;
@@ -83,8 +84,8 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     }
 
     @Override
-    public void init() {
-        super.init();
+    public void init(Injector injector) {
+        super.init(injector);
         if (autoCycleInterval != 0) {
             spriteAnimationDelegate.setAutoCycle(autoCycleInterval);
         }

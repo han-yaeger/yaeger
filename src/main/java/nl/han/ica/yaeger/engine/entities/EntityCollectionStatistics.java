@@ -12,7 +12,7 @@ public class EntityCollectionStatistics {
     private int garbage;
     private int statics;
 
-    public void setSpawners(int spawners) {
+    public void setSuppliers(int spawners) {
         this.spawners = spawners;
     }
 
@@ -32,7 +32,7 @@ public class EntityCollectionStatistics {
         this.garbage = garbage;
     }
 
-    public int getSpawners() {
+    public int getSuppliers() {
         return spawners;
     }
 

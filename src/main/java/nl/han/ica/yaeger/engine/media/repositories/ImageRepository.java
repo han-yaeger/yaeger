@@ -3,7 +3,7 @@ package nl.han.ica.yaeger.engine.media.repositories;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import javafx.scene.image.Image;
-import nl.han.ica.yaeger.engine.Destructable;
+import nl.han.ica.yaeger.engine.Destroyable;
 import nl.han.ica.yaeger.javafx.factories.ImageFactory;
 import nl.han.ica.yaeger.engine.media.ResourceConsumer;
 
@@ -14,7 +14,7 @@ import java.util.WeakHashMap;
  * An {@code ImageRepository} provides a central repository for acquiring sprites.
  */
 @Singleton
-public class ImageRepository implements ResourceConsumer, Destructable {
+public class ImageRepository implements ResourceConsumer, Destroyable {
 
     private Map<String, Image> imageMap = new WeakHashMap<>();
     private ImageFactory factory;

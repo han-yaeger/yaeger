@@ -1,6 +1,7 @@
 package nl.han.ica.yaeger.engine.entities.entity.text;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -136,7 +137,8 @@ public class TextEntity implements Entity {
         this.textDelegate = text;
     }
 
-    public void init() {
+    @Override
+    public void init(Injector injector) {
         if (position != null) {
             textDelegate.setX(position.getX());
             textDelegate.setY(position.getY());

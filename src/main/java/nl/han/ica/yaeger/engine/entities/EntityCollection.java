@@ -3,12 +3,12 @@ package nl.han.ica.yaeger.engine.entities;
 import com.google.inject.Injector;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
+import nl.han.ica.yaeger.engine.Initializable;
 import nl.han.ica.yaeger.engine.debug.StatisticsObserver;
 import nl.han.ica.yaeger.engine.entities.collisions.Collided;
 import nl.han.ica.yaeger.engine.entities.collisions.Collider;
 import nl.han.ica.yaeger.engine.entities.collisions.CollisionDelegate;
 import nl.han.ica.yaeger.engine.entities.entity.*;
-import nl.han.ica.yaeger.engine.entities.spawners.EntitySpawner;
 import nl.han.ica.yaeger.engine.entities.events.EventTypes;
 import nl.han.ica.yaeger.engine.userinput.KeyListener;
 
@@ -21,12 +21,12 @@ import java.util.Set;
  * An {@link EntityCollection} encapsulates all behaviour related to all instances of {@link Entity} that are part of
  * a {@link nl.han.ica.yaeger.engine.scenes.YaegerScene}.
  */
-public class EntityCollection {
+public class EntityCollection implements Initializable {
 
     private final EntityCollectionStatistics statistics;
     private Injector injector;
     private final Group group;
-    private final Set<EntitySpawner> spawners = new HashSet<>();
+    private final Set<EntitySupplier> suppliers = new HashSet<>();
     private final Set<Entity> statics = new HashSet<>();
     private final Set<Updatable> updatables = new HashSet<>();
     private final Set<KeyListener> keyListeners = new HashSet<>();
@@ -39,19 +39,12 @@ public class EntityCollection {
     /**
      * Instantiate an {@link EntityCollection} for a given {@link Group} and a {@link Set} of {@link Entity} instances.
      *
-     * @param group           The {@link Group} to which all instances of {@link Entity}s should be added.
-     * @param initialEntities A {@link Set} containing instances of {@link Entity} that should initially be added to this {@link EntityCollection}.
-     * @param injector        An {@link Injector} that can be used for Dependency Injection
+     * @param group The {@link Group} to which all instances of {@link Entity}s should be added.
      */
-    public EntityCollection(Group group, Set<Entity> initialEntities, Injector injector) {
-        this.injector = injector;
+    public EntityCollection(Group group) {
         this.group = group;
         this.collisionDelegate = new CollisionDelegate();
         this.statistics = new EntityCollectionStatistics();
-
-        if (initialEntities != null && !initialEntities.isEmpty()) {
-            initialEntities.forEach(this::addToGameLoop);
-        }
     }
 
     /**
@@ -64,12 +57,12 @@ public class EntityCollection {
     }
 
     /**
-     * Register an {@link EntitySpawner}.
+     * Register an {@link EntitySupplier}.
      *
-     * @param spawner The {@link EntitySpawner} to be registered.
+     * @param supplier The {@link EntitySupplier} to be registered.
      */
-    public void registerSpawner(EntitySpawner spawner) {
-        this.spawners.add(spawner);
+    public void registerSupplier(EntitySupplier supplier) {
+        this.suppliers.add(supplier);
     }
 
     /**
@@ -134,26 +127,30 @@ public class EntityCollection {
     public void update(long timestamp) {
         collectGarbage();
         notifyUpdatables(timestamp);
-        addSpawnedObjects();
+        addSuppliedEntities();
         collisionDelegate.checkCollisions();
         updateStatistics();
         notifyStatisticsObservers();
+    }
+
+    public void initialUpdate() {
+        addSuppliedEntities();
     }
 
     /**
      * Clear this {@link EntityCollection}.
      */
     public void clear() {
-        clearSpawners();
+        clearSuppliers();
         statics.clear();
         updatables.clear();
         garbage.clear();
         keyListeners.clear();
     }
 
-    private void clearSpawners() {
-        spawners.forEach(EntitySpawner::destroy);
-        spawners.clear();
+    private void clearSuppliers() {
+        suppliers.forEach(EntitySupplier::clear);
+        suppliers.clear();
     }
 
     private void notifyStatisticsObservers() {
@@ -176,9 +173,9 @@ public class EntityCollection {
         this.collisionDelegate.remove(entity);
     }
 
-    private void addSpawnedObjects() {
-        if (!spawners.isEmpty()) {
-            spawners.forEach(spawner -> spawner.getSpawnedEntities().forEach(this::addToGameLoop));
+    private void addSuppliedEntities() {
+        if (!suppliers.isEmpty()) {
+            suppliers.forEach(supplier -> supplier.get().forEach(this::addToGameLoop));
         }
     }
 
@@ -194,7 +191,7 @@ public class EntityCollection {
 
     private void initialize(Entity entity) {
         injector.injectMembers(entity);
-        entity.init();
+        entity.init(injector);
     }
 
     private void addToUpdatablesOrStatics(Entity entity) {
@@ -228,6 +225,13 @@ public class EntityCollection {
         statistics.setStatics(statics.size());
         statistics.setGarbage(garbage.size());
         statistics.setKeyListeners(keyListeners.size());
-        statistics.setSpawners(spawners.size());
+        statistics.setSuppliers(suppliers.size());
     }
+
+    @Override
+    public void init(Injector injector) {
+        this.injector = injector;
+    }
+
+
 }

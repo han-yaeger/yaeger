@@ -1,18 +1,19 @@
 package nl.han.ica.yaeger.engine.scenes.impl;
 
-import com.google.inject.Injector;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.engine.debug.Debugger;
+import nl.han.ica.yaeger.engine.entities.EntityCollection;
+import nl.han.ica.yaeger.engine.entities.EntitySupplier;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
+import nl.han.ica.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.han.ica.yaeger.engine.scenes.delegates.KeyListenerDelegate;
 import nl.han.ica.yaeger.engine.userinput.KeyListener;
 import nl.han.ica.yaeger.module.factories.DebuggerFactory;
+import nl.han.ica.yaeger.module.factories.EntityCollectionFactory;
 import nl.han.ica.yaeger.module.factories.SceneFactory;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,51 +26,54 @@ class StaticSceneTest {
     private TestStaticScene testStaticScene;
     private SceneFactory sceneFactory;
     private DebuggerFactory debuggerFactory;
+    private EntityCollectionFactory entityCollectionFactory;
+
     private KeyListenerDelegate keyListenerDelegate;
+    private BackgroundDelegate backgroundDelegate;
+
+    private EntityCollection entityCollection;
+    private EntitySupplier entitySupplier;
     private Group root;
     private Scene scene;
-    private Injector injector;
 
     @BeforeEach
     void setup() {
         testStaticScene = new TestStaticScene();
 
         root = mock(Group.class);
+        backgroundDelegate = mock(BackgroundDelegate.class);
         keyListenerDelegate = mock(KeyListenerDelegate.class);
+        entitySupplier = mock(EntitySupplier.class);
         sceneFactory = mock(SceneFactory.class);
         debuggerFactory = mock(DebuggerFactory.class);
-        injector = mock(Injector.class);
+        entityCollectionFactory = mock(EntityCollectionFactory.class);
 
         testStaticScene.setDebuggerFactory(debuggerFactory);
         testStaticScene.setSceneFactory(sceneFactory);
+        testStaticScene.setEntityCollectionFactory(entityCollectionFactory);
         testStaticScene.setRoot(root);
+        testStaticScene.setBackgroundDelegate(backgroundDelegate);
         testStaticScene.setKeyListenerDelegate(keyListenerDelegate);
-
+        testStaticScene.setEntitySupplier(entitySupplier);
 
         scene = mock(Scene.class);
+        entityCollection = mock(EntityCollection.class);
+
         when(sceneFactory.create(root)).thenReturn(scene);
+        when(entityCollectionFactory.create(root)).thenReturn(entityCollection);
     }
 
     @Test
-    void initializeIsCalledAfterCreation() {
+    void configurePerformsAllRequiredConfiguration() {
         // Setup
 
         // Test
-
-        // Verify
-        Assertions.assertTrue(testStaticScene.initializeCalled);
-    }
-
-    @Test
-    void setupSceneDoesAllRequiredSetup() {
-        // Setup
-
-        // Test
-        testStaticScene.setupScene(injector);
+        testStaticScene.configure();
 
         // Verify
         verify(sceneFactory).create(root);
         verify(debuggerFactory).create(root);
+        verify(entityCollectionFactory).create(root);
         verify(keyListenerDelegate).setup(any(Scene.class), any(KeyListener.class));
     }
 
@@ -79,34 +83,29 @@ class StaticSceneTest {
         var children = mock(ObservableList.class);
         when(root.getChildren()).thenReturn(children);
 
-        testStaticScene.setupScene(injector);
+        testStaticScene.configure();
 
         // Test
         testStaticScene.destroy();
 
         // Verify
         verify(keyListenerDelegate).tearDown(scene);
+        verify(backgroundDelegate).destroy();
         verify(children).clear();
-        verify(scene).setFill(null);
     }
 
     @Test
-    void addEntityAddsTheEntityToTheGroup() {
+    void addEntityAddsTheEntitySupplier() {
         // Setup
-        var children = mock(ObservableList.class);
-        when(root.getChildren()).thenReturn(children);
+        testStaticScene.configure();
 
         var testEntity = mock(Entity.class);
-        var gameNode = mock(Node.class);
-        when(testEntity.getGameNode()).thenReturn(gameNode);
-
-        testStaticScene.setupScene(injector);
 
         // Test
         testStaticScene.addEntity(testEntity);
 
         // Verify
-        verify(children).add(gameNode);
+        verify(entitySupplier).add(testEntity);
     }
 
     @Test
@@ -120,10 +119,9 @@ class StaticSceneTest {
         input.add(KeyCode.E);
         input.add(KeyCode.R);
 
-
         Debugger debugger = mock(Debugger.class);
         when(debuggerFactory.create(root)).thenReturn(debugger);
-        testStaticScene.setupScene(injector);
+        testStaticScene.configure();
 
         // Test
         testStaticScene.onPressedKeysChange(input);
@@ -141,7 +139,7 @@ class StaticSceneTest {
         var debugger = mock(Debugger.class);
         when(debuggerFactory.create(root)).thenReturn(debugger);
 
-        testStaticScene.setupScene(injector);
+        testStaticScene.configure();
 
         // Test
         testStaticScene.onPressedKeysChange(input);
@@ -152,16 +150,16 @@ class StaticSceneTest {
 
     private class TestStaticScene extends StaticScene {
 
-        private boolean initializeCalled;
-
         @Override
-        public void onInputChanged(Set<KeyCode> input) {
-
+        public void setupScene() {
         }
 
         @Override
-        public void initializeScene() {
-            initializeCalled = true;
+        public void setupEntities() {
+        }
+
+        @Override
+        public void onInputChanged(Set<KeyCode> input) {
         }
     }
 }

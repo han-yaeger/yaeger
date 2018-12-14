@@ -1,19 +1,15 @@
-package nl.han.ica.yaeger.engine.entities.spawners;
+package nl.han.ica.yaeger.engine.entities;
 
 import javafx.animation.AnimationTimer;
-import nl.han.ica.yaeger.engine.Destructable;
+import nl.han.ica.yaeger.engine.Destroyable;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * An {@code EntitiySpawner} is the abstract superclass that should be extended to create an object that
  * spawns a subclass of {@link Entity}.
  */
-public abstract class EntitySpawner implements Destructable {
+public abstract class EntitySpawner extends EntitySupplier implements Destroyable {
 
-    private Set<Entity> spawnedEntities = new HashSet<>();
     private AnimationTimer timer;
 
     private long interval;
@@ -34,22 +30,7 @@ public abstract class EntitySpawner implements Destructable {
      * @param entity the {@link Entity} to be spawned
      */
     protected void spawn(Entity entity) {
-        spawnedEntities.add(entity);
-    }
-
-    /**
-     * Return the {@link Set} of spawned {@code Entities}. After this method is called, the {@link Set} is cleared.
-     *
-     * @return a {@link Set} containing instances of {@link Entity d}
-     */
-    public Set<Entity> getSpawnedEntities() {
-        if (spawnedEntities.isEmpty()) {
-            return new HashSet<>();
-        } else {
-            Set<Entity> entities = new HashSet<>(spawnedEntities);
-            spawnedEntities.clear();
-            return entities;
-        }
+        add(entity);
     }
 
     /**
@@ -59,9 +40,9 @@ public abstract class EntitySpawner implements Destructable {
 
     @Override
     public void destroy() {
-        if (spawnedEntities != null) {
-            spawnedEntities.clear();
-        }
+
+        clear();
+
         if (timer != null) {
             timer.stop();
         }

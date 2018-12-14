@@ -31,77 +31,49 @@ class EntityCollectionTest {
 
 
     @Test
-    void initWithANullInitialSetsGivesAnEmptyStaticEntityCollection() {
+    void newInstanceIsEmtpy() {
         // Setup
         Group group = mock(Group.class);
         Debugger debugger = mock(Debugger.class);
 
         // Test
-        entityCollection = new EntityCollection(group, null, injector);
+        entityCollection = new EntityCollection(group);
         entityCollection.addStatisticsObserver(debugger);
 
         // Verify
         Assertions.assertEquals(0, entityCollection.getStatistics().getStatics());
-    }
-
-    @Test
-    void initWithAnEmptyInitialSetsGivesAnEmptyDynamicEntityCollection() {
-        // Setup
-        Set<Entity> emptySet = new HashSet<>();
-        Group group = mock(Group.class);
-        Debugger debugger = mock(Debugger.class);
-
-        // Test
-        entityCollection = new EntityCollection(group, emptySet, injector);
-
-        // Verify
         Assertions.assertEquals(0, entityCollection.getStatistics().getUpdatables());
-        Assertions.assertEquals(0, entityCollection.getStatistics().getStatics());
+        Assertions.assertEquals(0, entityCollection.getStatistics().getGarbage());
+        Assertions.assertEquals(0, entityCollection.getStatistics().getKeyListeners());
+        Assertions.assertEquals(0, entityCollection.getStatistics().getSuppliers());
     }
 
     @Test
-    void initWithStaticEntityIsAddedToTheGroup() {
-        // Setup
-        Entity entity = mock(Entity.class);
-        Node node = mock(Node.class);
-        when(entity.getGameNode()).thenReturn(node);
-
-        Set<Entity> set = new HashSet<>();
-        set.add(entity);
-
-        Group group = mock(Group.class);
-        ObservableList<Node> children = mock(ObservableList.class);
-        when(group.getChildren()).thenReturn(children);
-
-        // Test
-        entityCollection = new EntityCollection(group, set, injector);
-        entityCollection.update(0);
-
-        // Verify
-        verify(children).add(node);
-    }
-
-    @Test
-    void initWithDynamicEntityIsAddedToTheGroupAndUpdateIsCalled() {
+    void suppliersEntitiesAreTransferredAtUpdate() {
         // Setup
         UpdatableEntity updatableEntity = mock(UpdatableEntity.class);
         Node node = mock(Node.class);
         when(updatableEntity.getGameNode()).thenReturn(node);
 
-        Set<Entity> dynamicSet = new HashSet<>();
-        dynamicSet.add(updatableEntity);
+        Set<Entity> updatables = new HashSet<>();
+        updatables.add(updatableEntity);
+        EntitySupplier supplier = mock(EntitySupplier.class);
+        when(supplier.get()).thenReturn(updatables);
+        supplier.add(updatableEntity);
 
         Group group = mock(Group.class);
         ObservableList<Node> children = mock(ObservableList.class);
         when(group.getChildren()).thenReturn(children);
 
+        entityCollection = new EntityCollection(group);
+        entityCollection.init(injector);
+
         // Test
-        entityCollection = new EntityCollection(group, dynamicSet, injector);
-        entityCollection.update(0);
+        entityCollection.registerSupplier(supplier);
+        entityCollection.initialUpdate();
 
         // Verify
-        verify(children).add(node);
-        verify(updatableEntity).update(0);
+        verify(supplier).get();
     }
 
     @Test
@@ -114,13 +86,17 @@ class EntityCollectionTest {
         Group group = mock(Group.class);
         ObservableList<Node> children = mock(ObservableList.class);
         when(group.getChildren()).thenReturn(children);
-        Set<Entity> entitySet = new HashSet<>();
-        entitySet.add(keyListeningEntity);
+
+        EntitySupplier entitySupplier = new EntitySupplier();
+        entitySupplier.add(keyListeningEntity);
 
         Set<KeyCode> keycodes = new HashSet<>();
 
         // Test
-        entityCollection = new EntityCollection(group, entitySet, injector);
+        entityCollection = new EntityCollection(group);
+        entityCollection.init(injector);
+        entityCollection.registerSupplier(entitySupplier);
+        entityCollection.update(0);
         entityCollection.notifyGameObjectsOfPressedKeys(keycodes);
 
         // Verify
@@ -137,8 +113,9 @@ class EntityCollectionTest {
         Group group = mock(Group.class);
         ObservableList<Node> children = mock(ObservableList.class);
         when(group.getChildren()).thenReturn(children);
-        Set<Entity> entitySet = new HashSet<>();
-        entitySet.add(keyListeningEntity);
+
+        EntitySupplier entitySupplier = new EntitySupplier();
+        entitySupplier.add(keyListeningEntity);
 
         Set<KeyCode> keycodes = new HashSet<>();
         keycodes.add(KeyCode.Y);
@@ -149,7 +126,10 @@ class EntityCollectionTest {
         keycodes.add(KeyCode.R);
 
         // Test
-        entityCollection = new EntityCollection(group, entitySet, injector);
+        entityCollection = new EntityCollection(group);
+        entityCollection.init(injector);
+        entityCollection.registerSupplier(entitySupplier);
+        entityCollection.update(0);
         entityCollection.notifyGameObjectsOfPressedKeys(keycodes);
 
         // Verify
@@ -180,7 +160,7 @@ class UpdatableEntity implements Entity, Updatable {
     }
 
     @Override
-    public void init() {
+    public void init(Injector injector) {
         // Not required here.
     }
 }
@@ -208,7 +188,7 @@ class KeyListeningEntity implements Entity, KeyListener {
     }
 
     @Override
-    public void init() {
+    public void init(Injector injector) {
         // Not required here.
     }
 }

@@ -6,40 +6,58 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.engine.entities.EntityCollection;
+import nl.han.ica.yaeger.engine.entities.EntitySupplier;
 import nl.han.ica.yaeger.engine.userinput.KeyListener;
 import nl.han.ica.yaeger.engine.debug.Debugger;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
-import nl.han.ica.yaeger.engine.entities.spawners.EntitySpawner;
+import nl.han.ica.yaeger.engine.entities.EntitySpawner;
 import nl.han.ica.yaeger.engine.scenes.YaegerScene;
 import nl.han.ica.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.han.ica.yaeger.engine.scenes.delegates.KeyListenerDelegate;
 import nl.han.ica.yaeger.module.factories.DebuggerFactory;
+import nl.han.ica.yaeger.module.factories.EntityCollectionFactory;
 import nl.han.ica.yaeger.module.factories.SceneFactory;
 
 import java.util.Set;
 
 public abstract class StaticScene implements YaegerScene, KeyListener {
 
-    private EntityCollection entityCollection;
-
-    private SceneFactory sceneFactory;
+    private EntityCollectionFactory entityCollectionFactory;
     private DebuggerFactory debuggerFactory;
+    private SceneFactory sceneFactory;
+
+    protected Injector injector;
+
+    protected EntityCollection entityCollection;
+    EntitySupplier entitySupplier;
+    private KeyListenerDelegate keyListenerDelegate;
+    private BackgroundDelegate backgroundDelegate;
 
     private Scene scene;
     private Group root;
     Debugger debugger;
-    private KeyListenerDelegate keyListenerDelegate;
-    private BackgroundDelegate backgroundDelegate;
-    private Injector injector;
 
-    /**
-     * Instantiate a new {@code StaticScene}. During construction, the lifecycle method {@code initializeScene}
-     * will be called.
-     */
-    protected StaticScene() {
-        backgroundDelegate = new BackgroundDelegate();
+    @Override
+    public void init(Injector injector) {
+        this.injector = injector;
+    }
 
-        initializeScene();
+    @Override
+    public void configure() {
+        scene = sceneFactory.create(root);
+        entityCollection = entityCollectionFactory.create(root);
+        debugger = debuggerFactory.create(root);
+
+        entityCollection.init(injector);
+        keyListenerDelegate.setup(scene, this);
+        backgroundDelegate.setup(scene);
+    }
+
+    @Override
+    public void postActivation() {
+        entityCollection.registerSupplier(entitySupplier);
+        entityCollection.initialUpdate();
+        debugger.toFront();
     }
 
     /**
@@ -52,32 +70,30 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
      * @param entity the {@link Entity} to be added
      */
     protected void addEntity(Entity entity) {
-        injector.injectMembers(entity);
-        entity.init();
-        root.getChildren().add(entity.getGameNode());
+        entitySupplier.add(entity);
     }
 
     /**
      * Set the name of the background image file.
      *
-     * @param image The name of the image file, including extention. Although many different file types are supported,
-     *              the following types are preferred:
-     *              <ul>
-     *              <li>jpg, jpeg</li>
-     *              <li>png</li>
-     *              </ul>
+     * @param url The name of the image file, including extention. Although many different file types are supported,
+     *            the following types are preferred:
+     *            <ul>
+     *            <li>jpg, jpeg</li>
+     *            <li>png</li>
+     *            </ul>
      */
-    protected void setBackgroundImage(String image) {
-        backgroundDelegate.setBackgroundImageUrl(image);
+    protected void setBackgroundImage(String url) {
+        backgroundDelegate.setBackgroundImage(url);
     }
 
     /**
      * Set the name of the background audio file. Currently only {@code *.mp3} files are supported.
      *
-     * @param file The name of the audio file, including extention.
+     * @param url The name of the audio file, including extention.
      */
-    protected void setBackgroundAudio(String file) {
-        backgroundDelegate.setBackgroundAudio(file);
+    protected void setBackgroundAudio(String url) {
+        backgroundDelegate.setBackgroundAudio(url);
     }
 
     /**
@@ -87,15 +103,34 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
      */
     public abstract void onInputChanged(Set<KeyCode> input);
 
-    /**
-     * Return the {@link Group} to which all instances of {@link Entity} are added.
-     *
-     * @return The {@link Group} to which all instances of {@link Entity} are added.
-     */
-    protected Group getRoot() {
-        return this.root;
+    @Override
+    public Scene getScene() {
+        return this.scene;
     }
 
+
+    @Override
+    public void destroy() {
+        keyListenerDelegate.tearDown(scene);
+        backgroundDelegate.destroy();
+        clear();
+    }
+
+    @Override
+    public void onPressedKeysChange(Set<KeyCode> input) {
+        if (input.contains(KeyCode.F1)) {
+            debugger.toggle();
+        }
+
+        onInputChanged(input);
+    }
+
+    @Override
+    public void clear() {
+        root.getChildren().clear();
+        root = null;
+        scene = null;
+    }
 
     /**
      * Set the {@link Group} to be used. The {@link Group} will be the root node of the graph that
@@ -139,53 +174,18 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
         this.debuggerFactory = debuggerFactory;
     }
 
-    @Override
-    public Scene getScene() {
-        return this.scene;
+    @Inject
+    public void setBackgroundDelegate(BackgroundDelegate backgroundDelegate) {
+        this.backgroundDelegate = backgroundDelegate;
     }
 
-    @Override
-    public void setupScene(Injector injector) {
-        this.injector = injector;
-        scene = sceneFactory.create(root);
-        debugger = debuggerFactory.create(root);
-
-        keyListenerDelegate.setup(scene, this);
-        backgroundDelegate.setup(scene);
+    @Inject
+    public void setEntityCollectionFactory(EntityCollectionFactory entityCollectionFactory) {
+        this.entityCollectionFactory = entityCollectionFactory;
     }
 
-    @Override
-    public void destroy() {
-        keyListenerDelegate.tearDown(scene);
-        backgroundDelegate.tearDown(scene);
-        clearView();
-    }
-
-    @Override
-    public void onPressedKeysChange(Set<KeyCode> input) {
-        if (input.contains(KeyCode.F1)) {
-            debugger.toggle();
-        }
-
-        onInputChanged(input);
-    }
-
-    private void clearView() {
-        root.getChildren().clear();
-        root = null;
-        scene = null;
-    }
-
-    public Injector getInjector() {
-        return this.injector;
-    }
-
-
-    public EntityCollection getEntityCollection() {
-        return entityCollection;
-    }
-
-    public void setEntityCollection(EntityCollection entityCollection) {
-        this.entityCollection = entityCollection;
+    @Inject
+    public void setEntitySupplier(EntitySupplier entitySupplier) {
+        this.entitySupplier = entitySupplier;
     }
 }
