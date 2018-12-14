@@ -43,8 +43,7 @@ public abstract class Level extends DynamicScene {
 
     @Override
     public void setupScene() {
-
-//        setBackgroundAudio(BACKGROUND_AUDIO);
+        setBackgroundAudio(BACKGROUND_AUDIO);
     }
 
     /**

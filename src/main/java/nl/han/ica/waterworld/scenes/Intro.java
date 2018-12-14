@@ -41,7 +41,7 @@ public class Intro extends StaticScene {
     @Override
     public void setupScene() {
         setBackgroundImage(BACKGROUND_IMAGE);
-//        setBackgroundAudio(BACKGROUND_AUDIO);
+        setBackgroundAudio(BACKGROUND_AUDIO);
     }
 
     @Override

@@ -4,13 +4,15 @@ import javafx.animation.AnimationTimer;
 import nl.han.ica.yaeger.engine.Destroyable;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
 
+import java.util.Objects;
+
 /**
  * An {@code EntitiySpawner} is the abstract superclass that should be extended to create an object that
  * spawns a subclass of {@link Entity}.
  */
 public abstract class EntitySpawner extends EntitySupplier implements Destroyable {
 
-    private AnimationTimer timer;
+    private transient AnimationTimer timer;
 
     private long interval;
 
@@ -64,5 +66,20 @@ public abstract class EntitySpawner extends EntitySupplier implements Destroyabl
         };
 
         timer.start();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        EntitySpawner entities = (EntitySpawner) o;
+        return interval == entities.interval &&
+                Objects.equals(timer, entities.timer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), timer, interval);
     }
 }

@@ -26,9 +26,4 @@ public class EntitySupplier extends HashSet<Entity> implements Clearable {
             return allEntities;
         }
     }
-
-    @Override
-    public void clear() {
-        super.clear();
-    }
 }
