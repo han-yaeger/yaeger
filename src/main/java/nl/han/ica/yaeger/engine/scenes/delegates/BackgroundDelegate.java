@@ -1,11 +1,15 @@
 package nl.han.ica.yaeger.engine.scenes.delegates;
 
+import com.google.inject.Inject;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.ImagePattern;
 import nl.han.ica.yaeger.engine.Destroyable;
 import nl.han.ica.yaeger.engine.media.ResourceConsumer;
 import nl.han.ica.yaeger.engine.media.audio.SoundClip;
+import nl.han.ica.yaeger.engine.media.repositories.AudioRepository;
+import nl.han.ica.yaeger.engine.media.repositories.ImageRepository;
 
 /**
  * A {@link BackgroundDelegate} follows the Delegate pattern and embraces Composition over Inheritence.
@@ -14,7 +18,11 @@ import nl.han.ica.yaeger.engine.media.audio.SoundClip;
 public class BackgroundDelegate implements ResourceConsumer, Destroyable {
 
     private Scene scene;
-    SoundClip backgroundAudio;
+
+    private ImageRepository imageRepository;
+    private AudioRepository audioRepository;
+
+    AudioClip backgroundAudio;
 
     /**
      * Setup the {@link Scene} belonging to this  {@link BackgroundDelegate}.
@@ -25,14 +33,25 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
         this.scene = scene;
     }
 
+    /**
+     * Set the background audio. The audio will loop indefinite while the {@link Scene} is active.
+     *
+     * @param backgroundAudioUrl the url of the audio file
+     */
     public void setBackgroundAudio(String backgroundAudioUrl) {
         if (backgroundAudioUrl != null) {
 
-            backgroundAudio = new SoundClip(backgroundAudioUrl, SoundClip.INDEFINITE);
+            backgroundAudio = audioRepository.get(backgroundAudioUrl, SoundClip.INDEFINITE);
             backgroundAudio.play();
         }
     }
 
+    /**
+     * Set the background image. The image will be set as the full background for the
+     * {@link Scene}.
+     *
+     * @param backgroundImageUrl the url of the image file
+     */
     public void setBackgroundImage(String backgroundImageUrl) {
         if (backgroundImageUrl != null && scene != null) {
             var stringUrl = createPathForResource(backgroundImageUrl);
@@ -53,5 +72,15 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
         stopBackgroundAudio();
         scene.setFill(null);
         scene = null;
+    }
+
+    @Inject
+    public void setImageRepository(ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
+    }
+
+    @Inject
+    public void setAudioRepository(AudioRepository audioRepository) {
+        this.audioRepository = audioRepository;
     }
 }
