@@ -52,7 +52,6 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
         this.position = position;
         this.frames = frames;
         this.resource = resource;
-        this.position = position;
         this.size = size;
     }
 
