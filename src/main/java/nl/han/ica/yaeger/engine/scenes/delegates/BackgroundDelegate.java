@@ -2,14 +2,13 @@ package nl.han.ica.yaeger.engine.scenes.delegates;
 
 import com.google.inject.Inject;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
-import javafx.scene.paint.ImagePattern;
 import nl.han.ica.yaeger.engine.Destroyable;
 import nl.han.ica.yaeger.engine.media.ResourceConsumer;
 import nl.han.ica.yaeger.engine.media.audio.SoundClip;
 import nl.han.ica.yaeger.engine.media.repositories.AudioRepository;
 import nl.han.ica.yaeger.engine.media.repositories.ImageRepository;
+import nl.han.ica.yaeger.javafx.factories.ImagePatternFactory;
 
 /**
  * A {@link BackgroundDelegate} follows the Delegate pattern and embraces Composition over Inheritence.
@@ -21,8 +20,9 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
 
     private ImageRepository imageRepository;
     private AudioRepository audioRepository;
+    private ImagePatternFactory imagePatternFactory;
 
-    AudioClip backgroundAudio;
+    private AudioClip backgroundAudio;
 
     /**
      * Setup the {@link Scene} belonging to this  {@link BackgroundDelegate}.
@@ -54,8 +54,8 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
      */
     public void setBackgroundImage(String backgroundImageUrl) {
         if (backgroundImageUrl != null && scene != null) {
-            var stringUrl = createPathForResource(backgroundImageUrl);
-            var pattern = new ImagePattern(new Image(stringUrl));
+            var image = imageRepository.get(backgroundImageUrl);
+            var pattern = imagePatternFactory.create(image);
             scene.setFill(pattern);
         }
     }
@@ -82,5 +82,10 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
     @Inject
     public void setAudioRepository(AudioRepository audioRepository) {
         this.audioRepository = audioRepository;
+    }
+
+    @Inject
+    public void setImagePatternFactory(ImagePatternFactory imagePatternFactory) {
+        this.imagePatternFactory = imagePatternFactory;
     }
 }
