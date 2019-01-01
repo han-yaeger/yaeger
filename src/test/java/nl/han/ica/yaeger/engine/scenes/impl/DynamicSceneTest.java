@@ -1,14 +1,13 @@
 package nl.han.ica.yaeger.engine.scenes.impl;
 
-import com.google.inject.Injector;
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import nl.han.ica.yaeger.engine.debug.Debugger;
 import nl.han.ica.yaeger.engine.entities.EntityCollection;
+import nl.han.ica.yaeger.engine.entities.EntitySpawner;
 import nl.han.ica.yaeger.engine.entities.EntitySupplier;
 import nl.han.ica.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.han.ica.yaeger.engine.scenes.delegates.KeyListenerDelegate;
-import nl.han.ica.yaeger.engine.userinput.KeyListener;
 import nl.han.ica.yaeger.module.factories.DebuggerFactory;
 import nl.han.ica.yaeger.module.factories.EntityCollectionFactory;
 import nl.han.ica.yaeger.module.factories.SceneFactory;
@@ -16,10 +15,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class DynamicSceneTest {
 
@@ -72,6 +68,33 @@ class DynamicSceneTest {
 
         // Verify
         Assertions.assertTrue(testScene.setupSpawnersCalled);
+    }
+
+    @Test
+    void registerSpawnerDelegatesToTheEntityCollection() {
+        // Setup
+        var spawner = mock(EntitySpawner.class);
+        testScene.configure();
+
+        // Test
+        testScene.registerSpawner(spawner);
+
+        // Verify
+        verify(entityCollection).registerSupplier(spawner);
+    }
+
+    @Test
+    void destroyClearsEntityCollection() {
+        // Setup
+        var children = mock(ObservableList.class);
+        when(root.getChildren()).thenReturn(children);
+        testScene.configure();
+
+        // Test
+        testScene.destroy();
+
+        // Verify
+        verify(entityCollection).clear();
     }
 
     private class TestDynamicScene extends DynamicScene {
