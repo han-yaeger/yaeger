@@ -1,18 +1,21 @@
 package nl.han.ica.yaeger.engine.exceptions;
 
+import nl.han.ica.yaeger.engine.scenes.SceneType;
+import nl.han.ica.yaeger.engine.scenes.impl.StaticScene;
+
 /**
- * Een {@code YaegerResourceNotAvailableException} wordt gegooit waneer een {@code Resource} wordt opgevraagd die niet beschikbaar
- * is op het klasse-pad.
+ * A {@code YaegerResourceNotAvailableException} is thrown when a {@code Resource} is requested, but not available on
+ * the classpath.
  */
 public class YaegerResourceNotAvailableException extends RuntimeException {
 
     /**
-     * Maak een nieuwe {@code YaegerResourceNotAvailableException} met de gegeven {@code Resource}.
+     * Instantiate a new {@code YaegerResourceNotAvailableException} for the given {@code resource}.
      *
-     * @param resource De {@code Resource}
+     * @param resource the resource that is requested.
      */
     public YaegerResourceNotAvailableException(String resource) {
 
-        super("Resource " + resource + " kan niet worden gevonden. Zorg ervoor dat dit bestand beschikbaar is in de resource/ directory.");
+        super("Resource " + resource + " can not be found. Ensure that it is placed in resource/ folder.");
     }
 }

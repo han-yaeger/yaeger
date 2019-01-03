@@ -4,18 +4,18 @@ import nl.han.ica.yaeger.engine.scenes.SceneType;
 import nl.han.ica.yaeger.engine.scenes.impl.StaticScene;
 
 /**
- * Een {@code YaegerSceneNotAvailableException} wordt gegooit waneer een {@link StaticScene} wordt opgevraagd die niet beschikbaar
- * is.
+ * A {@code YaegerSceneNotAvailableException} is thrown when a  {@link nl.han.ica.yaeger.engine.scenes.YaegerScene} is
+ * requested that is not available.
  */
 public class YaegerSceneNotAvailableException extends RuntimeException {
 
     /**
-     * Maak een nieuwe {@code YaegerSceneNotAvailableException} met de gegeven {@code type}.
+     * Instantiate a new {@code YaegerSceneNotAvailableException} with the given {@link SceneType}.
      *
      * @param type De type van de {@link StaticScene}
      */
     public YaegerSceneNotAvailableException(SceneType type) {
 
-        super("StaticScene " + type + " kan niet worden gevonden. Zorg ervoor dat deze scenes is teogevoegd aan de Engine");
+        super("Scene " + type + " is not available. Ensure the scene is added to the game.");
     }
 }
