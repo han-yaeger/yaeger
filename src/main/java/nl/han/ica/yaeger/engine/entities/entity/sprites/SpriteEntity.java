@@ -23,6 +23,8 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     private SpriteAnimationDelegateFactory spriteAnimationDelegateFactory;
     private ImageRepository imageRepository;
     private ImageViewFactory imageViewFactory;
+
+
     private int frames;
     ImageView imageView;
 
@@ -113,6 +115,15 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
      */
     protected double getY() {
         return position.getY();
+    }
+
+    /**
+     * Return the number of frames comprising this {@code SpriteEntity}.
+     *
+     * @return the number of frames as an {@code int}
+     */
+    protected int getFrames() {
+        return frames;
     }
 
     @Override

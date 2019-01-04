@@ -86,7 +86,7 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     @Override
     public void init(Injector injector) {
         super.init(injector);
-        if (autoCycleInterval != 0) {
+        if (getFrames() > 1 && autoCycleInterval != 0) {
             spriteAnimationDelegate.setAutoCycle(autoCycleInterval);
         }
     }
