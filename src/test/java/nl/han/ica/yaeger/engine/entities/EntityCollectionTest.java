@@ -49,6 +49,21 @@ class EntityCollectionTest {
     }
 
     @Test
+    void clearClearsSupplier() {
+        // Setup
+        EntitySupplier supplier = mock(EntitySupplier.class);
+        Group group = mock(Group.class);
+        entityCollection = new EntityCollection(group);
+        entityCollection.registerSupplier(supplier);
+
+        // Test
+        entityCollection.clear();
+
+        // Verify
+        verify(supplier).clear();
+    }
+
+    @Test
     void suppliersEntitiesAreTransferredAtUpdate() {
         // Setup
         UpdatableEntity updatableEntity = mock(UpdatableEntity.class);
