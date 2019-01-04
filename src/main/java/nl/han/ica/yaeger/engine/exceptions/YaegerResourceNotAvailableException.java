@@ -1,8 +1,5 @@
 package nl.han.ica.yaeger.engine.exceptions;
 
-import nl.han.ica.yaeger.engine.scenes.SceneType;
-import nl.han.ica.yaeger.engine.scenes.impl.StaticScene;
-
 /**
  * A {@code YaegerResourceNotAvailableException} is thrown when a {@code Resource} is requested, but not available on
  * the classpath.
