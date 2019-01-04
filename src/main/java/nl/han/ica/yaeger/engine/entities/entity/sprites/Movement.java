@@ -1,5 +1,7 @@
 package nl.han.ica.yaeger.engine.entities.entity.sprites;
 
+import javafx.beans.NamedArg;
+
 /**
  * A {@code Movement} encapsulates both a {@code direction} and a {@code speed}.
  */
@@ -21,7 +23,7 @@ public class Movement {
      * @param direction the direction of the {@code Movement}
      * @param speed     the speed of the {@code Movement}
      */
-    public Movement(final double direction, final double speed) {
+    public Movement(@NamedArg("direction") final double direction, @NamedArg("direction") final double speed) {
         this.direction = direction;
         this.speed = speed;
     }
