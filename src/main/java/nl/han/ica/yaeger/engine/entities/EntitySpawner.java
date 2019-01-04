@@ -74,12 +74,11 @@ public abstract class EntitySpawner extends EntitySupplier implements Destroyabl
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         EntitySpawner entities = (EntitySpawner) o;
-        return interval == entities.interval &&
-                Objects.equals(timer, entities.timer);
+        return interval == entities.interval;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), timer, interval);
+        return Objects.hash(super.hashCode(), interval);
     }
 }

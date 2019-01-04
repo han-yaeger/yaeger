@@ -68,6 +68,17 @@ class EntitySpawnerTest {
     }
 
     @Test
+    void differentIntervalIsNotEqual() {
+        // Setup
+        var otherEntitySpawner = new TestEntitySpawner(37);
+
+        // Test
+
+        // Verify
+        Assertions.assertNotEquals(entitySpawner, otherEntitySpawner);
+    }
+
+    @Test
     void sameObjectIsEqual() {
         // Setup
 
@@ -75,6 +86,27 @@ class EntitySpawnerTest {
 
         // Verify
         Assertions.assertEquals(entitySpawner, entitySpawner);
+    }
+
+    @Test
+    void sameObjectIsSameHashCode() {
+        // Setup
+
+        // Test
+
+        // Verify
+        Assertions.assertEquals(entitySpawner.hashCode(), entitySpawner.hashCode());
+    }
+
+    @Test
+    void differentIntervalIsDifferentHashCode() {
+        // Setup
+        var otherEntitySpawner = new TestEntitySpawner(37);
+
+        // Test
+
+        // Verify
+        Assertions.assertNotEquals(entitySpawner.hashCode(), otherEntitySpawner.hashCode());
     }
 
     private class TestEntitySpawner extends EntitySpawner {
