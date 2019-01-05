@@ -3,6 +3,7 @@ package nl.han.ica.yaeger.engine.scenes.impl;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.engine.entities.EntityCollection;
 import nl.han.ica.yaeger.engine.entities.EntitySpawner;
 import nl.han.ica.yaeger.engine.entities.EntitySupplier;
@@ -14,6 +15,8 @@ import nl.han.ica.yaeger.module.factories.SceneFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashSet;
 
 import static org.mockito.Mockito.*;
 
@@ -95,6 +98,20 @@ class DynamicSceneTest {
 
         // Verify
         verify(entityCollection).clear();
+    }
+
+    @Test
+    void onInputChangeNotifiesEntityCollection() {
+        // Setup
+        var input = new HashSet<KeyCode>();
+        input.add(KeyCode.F1);
+        testScene.configure();
+
+        // Test
+        testScene.onInputChanged(input);
+
+        // Verify
+        verify(entityCollection).notifyGameObjectsOfPressedKeys(input);
     }
 
     private class TestDynamicScene extends DynamicScene {
