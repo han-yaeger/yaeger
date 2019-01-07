@@ -19,7 +19,6 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     private Movement movement;
     private Point2D movementVector;
 
-
     private SceneBoundaryCrossingDelegateFactory sceneBoundaryCrossingDelegateFactory;
     private SceneBoundaryCrossingDelegate sceneBoundaryCrossingDelegate;
 
@@ -32,6 +31,18 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
      */
     public UpdatableSpriteEntity(final String resource, final Position position, final Size size) {
         this(resource, position, size, 1, new Movement(0, 0));
+    }
+
+    /**
+     * Create a new SpriteEntity.
+     *
+     * @param resource The url of the image file. Relative to the resources folder.
+     * @param position the initial {@link Position} of this Entity
+     * @param size     The bounding box of this {@code SpriteEntity}.
+     * @param frames   The number of frames this Image contains. By default the first frame is loaded.
+     */
+    public UpdatableSpriteEntity(final String resource, final Position position, final Size size, int frames) {
+        this(resource, position, size, frames, new Movement(0, 0));
     }
 
     /**

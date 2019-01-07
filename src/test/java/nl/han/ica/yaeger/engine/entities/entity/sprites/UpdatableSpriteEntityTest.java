@@ -49,7 +49,6 @@ class UpdatableSpriteEntityTest {
         imageViewFactory = mock(ImageViewFactory.class);
         spriteAnimationDelegate = mock(SpriteAnimationDelegate.class);
         spriteAnimationDelegateFactory = mock(SpriteAnimationDelegateFactory.class);
-        when(spriteAnimationDelegateFactory.create(any(ImageView.class), anyInt())).thenReturn(spriteAnimationDelegate);
 
         sceneBoundaryCrossingDelegateFactory = mock(SceneBoundaryCrossingDelegateFactory.class);
         sceneBoundaryCrossingDelegate = mock(SceneBoundaryCrossingDelegate.class);
@@ -91,9 +90,36 @@ class UpdatableSpriteEntityTest {
     }
 
     @Test
+    void autocycleGetsDelegatedToSpriteAnimationDelegate() {
+        // Setup
+        var frames = 2;
+        var image = mock(Image.class);
+        var imageView = mock(ImageView.class);
+        var updatableSpriteEntity = new AutoCyclingUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE, frames);
+        updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        updatableSpriteEntity.setImageRepository(imageRepository);
+        updatableSpriteEntity.setImageViewFactory(imageViewFactory);
+        updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        updatableSpriteEntity.setSceneBoundaryCrossingDelegateFactory(sceneBoundaryCrossingDelegateFactory);
+
+        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * frames, HEIGHT, true)).thenReturn(image);
+
+        when(imageViewFactory.create(image)).thenReturn(imageView);
+        when(spriteAnimationDelegateFactory.create(imageView, frames)).thenReturn(spriteAnimationDelegate);
+
+        when(sceneBoundaryCrossingDelegateFactory.create(updatableSpriteEntity)).thenReturn(sceneBoundaryCrossingDelegate);
+
+        // Test
+        updatableSpriteEntity.init(injector);
+
+        // Verify
+        verify(spriteAnimationDelegate).setAutoCycle(2);
+    }
+
+    @Test
     void createsAnSceneBoundaryCrossingDelegateAtInitialization() {
         // Setup
-        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE, 1, movement);
+        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE, 2, movement);
         updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
 
         updatableSpriteEntity.setImageRepository(imageRepository);
@@ -107,7 +133,6 @@ class UpdatableSpriteEntityTest {
         // Verify
         verify(sceneBoundaryCrossingDelegateFactory).create(updatableSpriteEntity);
     }
-
 
     @Test
     void updateUpdatesLocation() {
@@ -196,5 +221,19 @@ class UpdatableSpriteEntityTest {
 
         }
     }
+
+    private class AutoCyclingUpdatableSpriteEntity extends UpdatableSpriteEntity {
+
+        AutoCyclingUpdatableSpriteEntity(String resource, Position position, Size size, int frames) {
+            super(resource, position, size, frames);
+            setAutoCycle(2);
+        }
+
+        @Override
+        public void notifyBoundaryCrossing(SceneBorder border) {
+
+        }
+    }
+
 
 }
