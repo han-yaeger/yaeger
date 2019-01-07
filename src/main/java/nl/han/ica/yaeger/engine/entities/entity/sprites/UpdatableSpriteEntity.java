@@ -1,11 +1,13 @@
 package nl.han.ica.yaeger.engine.entities.entity.sprites;
 
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.SceneBoundaryCrosser;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.delegates.SceneBoundaryCrossingDelegate;
 import nl.han.ica.yaeger.engine.entities.entity.Updatable;
+import nl.han.ica.yaeger.module.factories.SceneBoundaryCrossingDelegateFactory;
 
 /**
  * An {@code UpdatableSpriteEntity} extends all behaviour of a {@link SpriteEntity}, but also implements the
@@ -17,6 +19,8 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     private Movement movement;
     private Point2D movementVector;
 
+
+    private SceneBoundaryCrossingDelegateFactory sceneBoundaryCrossingDelegateFactory;
     private SceneBoundaryCrossingDelegate sceneBoundaryCrossingDelegate;
 
     /**
@@ -43,8 +47,6 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
         super(resource, position, size, frames);
 
         this.movement = movement;
-        this.sceneBoundaryCrossingDelegate = new SceneBoundaryCrossingDelegate(this);
-
         setMovementVector();
     }
 
@@ -56,7 +58,6 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
         if (spriteAnimationDelegate != null) {
             spriteAnimationDelegate.update(timestamp);
         }
-
     }
 
     /**
@@ -89,6 +90,7 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
         if (getFrames() > 1 && autoCycleInterval != 0) {
             spriteAnimationDelegate.setAutoCycle(autoCycleInterval);
         }
+        sceneBoundaryCrossingDelegate = sceneBoundaryCrossingDelegateFactory.create(this);
     }
 
     /**
@@ -140,5 +142,10 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
 
     private boolean hasSpeedChanged(double newSpeed) {
         return Double.compare(newSpeed, movement.getSpeed()) != 0;
+    }
+
+    @Inject
+    public void setSceneBoundaryCrossingDelegateFactory(SceneBoundaryCrossingDelegateFactory sceneBoundaryCrossingDelegateFactory) {
+        this.sceneBoundaryCrossingDelegateFactory = sceneBoundaryCrossingDelegateFactory;
     }
 }

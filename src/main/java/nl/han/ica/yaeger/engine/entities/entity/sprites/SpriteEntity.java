@@ -140,7 +140,7 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
 
     @Override
     public Position getPosition() {
-        return (Position) position;
+        return new Position(position);
     }
 
     @Inject

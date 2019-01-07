@@ -56,5 +56,4 @@ class MouseButtonListenerTest {
             this.node = node;
         }
     }
-
 }

@@ -16,4 +16,13 @@ public class Position extends Point2D {
     public Position(double x, double y) {
         super(x, y);
     }
+
+    /**
+     * Creates a new instance of {@code Position}.
+     *
+     * @param point a {@link Point2D respresentation of this {@code Position}
+     */
+    public Position(Point2D point) {
+        super(point.getX(), point.getY());
+    }
 }
