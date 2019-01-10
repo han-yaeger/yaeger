@@ -64,7 +64,7 @@ class StaticSceneTest {
     }
 
     @Test
-    void configurePerformsAllRequiredConfiguration() {
+    void configureCreatesAScene() {
         // Setup
 
         // Test
@@ -72,9 +72,58 @@ class StaticSceneTest {
 
         // Verify
         verify(sceneFactory).create(root);
+    }
+
+
+    @Test
+    void configureCreatesADebugger() {
+        // Setup
+
+        // Test
+        testStaticScene.configure();
+
+        // Verify
         verify(debuggerFactory).create(root);
+    }
+
+
+    @Test
+    void configureCreatesAnEntityCollection() {
+        // Setup
+
+        // Test
+        testStaticScene.configure();
+
+        // Verify
         verify(entityCollectionFactory).create(root);
+    }
+
+    @Test
+    void configureSetsUpAKeyListenerDelegate() {
+        // Setup
+
+        // Test
+        testStaticScene.configure();
+
+        // Verify
         verify(keyListenerDelegate).setup(any(Scene.class), any(KeyListener.class));
+    }
+
+
+    @Test
+    void configureAddsTheDebuggerAsAStatisticsObserverToTheEntityCollection() {
+        // Setup
+        var debugger = mock(Debugger.class);
+        when(debuggerFactory.create(root)).thenReturn(debugger);
+
+        var entityCollection = mock(EntityCollection.class);
+        when(entityCollectionFactory.create(root)).thenReturn(entityCollection);
+
+        // Test
+        testStaticScene.configure();
+
+        // Verify
+        verify(entityCollection).addStatisticsObserver(debugger);
     }
 
     @Test

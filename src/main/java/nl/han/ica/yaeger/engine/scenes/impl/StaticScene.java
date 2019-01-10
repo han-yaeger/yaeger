@@ -48,6 +48,8 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
         entityCollection = entityCollectionFactory.create(root);
         debugger = debuggerFactory.create(root);
 
+        entityCollection.addStatisticsObserver(debugger);
+
         entityCollection.init(injector);
         keyListenerDelegate.setup(scene, this);
         backgroundDelegate.setup(scene);
