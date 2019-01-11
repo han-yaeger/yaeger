@@ -26,6 +26,7 @@ public class Position extends Point2D {
         super(point.getX(), point.getY());
     }
 
+    @Override
     public Position add(Point2D point2D) {
         return new Position(super.add(point2D));
     }

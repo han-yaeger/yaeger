@@ -70,9 +70,8 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
 
     private ImageView createImageView(final String resource, final int requestedWidth, final int requestedHeight) {
         var image = imageRepository.get(resource, requestedWidth, requestedHeight, true);
-        ImageView imageView = imageViewFactory.create(image);
 
-        return imageView;
+        return imageViewFactory.create(image);
     }
 
     /**
