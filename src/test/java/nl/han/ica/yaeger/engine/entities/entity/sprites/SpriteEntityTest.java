@@ -108,9 +108,20 @@ class SpriteEntityTest {
 
     @Test
     void getXReturnsTheExpectedXCoordinate() {
-
-        // Setup
         var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE);
+        spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        spriteEntity.setImageRepository(imageRepository);
+        spriteEntity.setImageViewFactory(imageViewFactory);
+
+        var image = mock(Image.class);
+        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
+
+        var imageView = mock(ImageView.class);
+        when(imageViewFactory.create(image)).thenReturn(imageView);
+        spriteEntity.init(injector);
+
+        when(imageView.getX()).thenReturn(DEFAULT_POSITION.getX());
+        when(imageView.getY()).thenReturn(DEFAULT_POSITION.getY());
 
         // Test
         var x = spriteEntity.getXPosition();
@@ -121,8 +132,20 @@ class SpriteEntityTest {
 
     @Test
     void getYReturnsTheExpectedXCoordinate() {
-        // Setup
         var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE);
+        spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        spriteEntity.setImageRepository(imageRepository);
+        spriteEntity.setImageViewFactory(imageViewFactory);
+
+        var image = mock(Image.class);
+        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
+
+        var imageView = mock(ImageView.class);
+        when(imageViewFactory.create(image)).thenReturn(imageView);
+        spriteEntity.init(injector);
+
+        when(imageView.getX()).thenReturn(DEFAULT_POSITION.getX());
+        when(imageView.getY()).thenReturn(DEFAULT_POSITION.getY());
 
         // Test
         var y = spriteEntity.getYPosition();
@@ -159,6 +182,19 @@ class SpriteEntityTest {
     void getPositionReturnsCorrectPosition() {
         // Setup
         var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE);
+        spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        spriteEntity.setImageRepository(imageRepository);
+        spriteEntity.setImageViewFactory(imageViewFactory);
+
+        var image = mock(Image.class);
+        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
+
+        var imageView = mock(ImageView.class);
+        when(imageViewFactory.create(image)).thenReturn(imageView);
+        spriteEntity.init(injector);
+
+        when(imageView.getX()).thenReturn(DEFAULT_POSITION.getX());
+        when(imageView.getY()).thenReturn(DEFAULT_POSITION.getY());
 
         // Test
         var position = spriteEntity.getPosition();
@@ -168,17 +204,27 @@ class SpriteEntityTest {
     }
 
     @Test
-    void setPositionUpdatesThePosition() {
+    void setPositionDelegatesToTheImageView() {
         // Setup
         var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE);
+        spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        spriteEntity.setImageRepository(imageRepository);
+        spriteEntity.setImageViewFactory(imageViewFactory);
+
+        var image = mock(Image.class);
+        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
+
+        var imageView = mock(ImageView.class);
+        when(imageViewFactory.create(image)).thenReturn(imageView);
+        spriteEntity.init(injector);
 
         // Test
-        var newPosition = new Position(42, 48);
-        spriteEntity.setPosition(newPosition);
+        var position = new Position(42, 48);
+        spriteEntity.setPosition(position);
 
         // Verify
-        var position = spriteEntity.getPosition();
-        Assertions.assertEquals(newPosition, position);
+        verify(imageView).setX(position.getX());
+        verify(imageView).setY(position.getY());
     }
 
     @Test

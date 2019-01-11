@@ -35,8 +35,8 @@ class SceneBoundaryCrossingDelegateTest {
     @Test
     void centeredObjectCrossesNoBoundary() {
         // Setup
-        Mockito.when(imageView.getLayoutX()).thenReturn(20d);
-        Mockito.when(imageView.getLayoutY()).thenReturn(20d);
+        Mockito.when(imageView.getX()).thenReturn(20d);
+        Mockito.when(imageView.getY()).thenReturn(20d);
 
         // Test
         sceneBoundaryCrossingDelegate.checkSceneBoundary(imageView);
@@ -48,8 +48,8 @@ class SceneBoundaryCrossingDelegateTest {
     @Test
     void objectCrossesLeftBoundaryTest() {
         // Setup
-        Mockito.when(imageView.getLayoutX()).thenReturn(-20d);
-        Mockito.when(imageView.getLayoutY()).thenReturn(20d);
+        Mockito.when(imageView.getX()).thenReturn(-20d);
+        Mockito.when(imageView.getY()).thenReturn(20d);
 
         // Test
         sceneBoundaryCrossingDelegate.checkSceneBoundary(imageView);
@@ -61,8 +61,8 @@ class SceneBoundaryCrossingDelegateTest {
     @Test
     void objectCrossesRightBoundaryTest() {
         // Setup
-        Mockito.when(imageView.getLayoutX()).thenReturn(60d);
-        Mockito.when(imageView.getLayoutY()).thenReturn(20d);
+        Mockito.when(imageView.getX()).thenReturn(60d);
+        Mockito.when(imageView.getY()).thenReturn(20d);
 
         // Test
         sceneBoundaryCrossingDelegate.checkSceneBoundary(imageView);
@@ -74,8 +74,8 @@ class SceneBoundaryCrossingDelegateTest {
     @Test
     void objectCrossesTopBoundaryTest() {
         // Setup
-        Mockito.when(imageView.getLayoutX()).thenReturn(20d);
-        Mockito.when(imageView.getLayoutY()).thenReturn(-20d);
+        Mockito.when(imageView.getX()).thenReturn(20d);
+        Mockito.when(imageView.getY()).thenReturn(-20d);
 
         // Test
         sceneBoundaryCrossingDelegate.checkSceneBoundary(imageView);
@@ -87,8 +87,8 @@ class SceneBoundaryCrossingDelegateTest {
     @Test
     void objectCrossesBottomBoundaryTest() {
         // Setup
-        Mockito.when(imageView.getLayoutX()).thenReturn(20d);
-        Mockito.when(imageView.getLayoutY()).thenReturn(60d);
+        Mockito.when(imageView.getX()).thenReturn(20d);
+        Mockito.when(imageView.getY()).thenReturn(60d);
 
         // Test
         sceneBoundaryCrossingDelegate.checkSceneBoundary(imageView);

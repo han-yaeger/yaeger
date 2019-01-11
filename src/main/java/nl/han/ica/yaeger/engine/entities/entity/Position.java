@@ -25,4 +25,12 @@ public class Position extends Point2D {
     public Position(Point2D point) {
         super(point.getX(), point.getY());
     }
+
+    public Position add(Point2D point2D) {
+        return new Position(super.add(point2D));
+    }
+
+    public Position add(Position position) {
+        return new Position(super.add(position));
+    }
 }

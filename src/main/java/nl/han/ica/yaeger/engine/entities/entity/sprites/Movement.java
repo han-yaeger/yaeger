@@ -1,6 +1,7 @@
 package nl.han.ica.yaeger.engine.entities.entity.sprites;
 
 import javafx.beans.NamedArg;
+import javafx.geometry.Point2D;
 
 /**
  * A {@code Movement} encapsulates both a {@code direction} and a {@code speed}.
@@ -28,6 +29,25 @@ public class Movement {
         this.speed = speed;
     }
 
+    /**
+     * Return the angle in radians.
+     *
+     * @return a {@code double} representing the angle in radians
+     */
+    public double getAngleInRadians() {
+        return Math.toRadians(getDirection() - 90);
+    }
+
+    /**
+     * Return a vector representation of the movement.
+     *
+     * @return a {@link Point2D} representing a vector of the movement
+     */
+    public Point2D getVector() {
+        var directionVector = new Point2D(Math.cos(getAngleInRadians()), Math.sin(getAngleInRadians()));
+
+        return directionVector.normalize().multiply(getSpeed());
+    }
 
     /**
      * @return the direction of the {@code Movement}

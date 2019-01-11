@@ -2,7 +2,6 @@ package nl.han.ica.yaeger.engine.entities.entity.sprites;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
@@ -28,30 +27,30 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     private int frames;
     ImageView imageView;
 
-    Point2D position;
+    Position position;
     SpriteAnimationDelegate spriteAnimationDelegate;
 
     /**
      * Instantiate a new {@code SpriteEntity} for a given Image.
      *
-     * @param resource The url of the image file. Relative to the resources folder.
-     * @param position the initial {@link Position} of this Entity
-     * @param size     The bounding box of this SpriteEntity.
+     * @param resource        The url of the image file. Relative to the resources folder.
+     * @param initialPosition the initial {@link Position} of this Entity
+     * @param size            The bounding box of this SpriteEntity.
      */
-    protected SpriteEntity(final String resource, final Position position, final Size size) {
-        this(resource, position, size, 1);
+    protected SpriteEntity(final String resource, final Position initialPosition, final Size size) {
+        this(resource, initialPosition, size, 1);
     }
 
     /**
      * Instantiate a new {@code SpriteEntity} for a given Image.
      *
-     * @param resource The url of the image file. Relative to the resources folder.
-     * @param position the initial {@link Position} of this Entity
-     * @param size     The bounding box of this SpriteEntity.
-     * @param frames   The number of frames this Image contains. By default the first frame is loaded.
+     * @param resource        The url of the image file. Relative to the resources folder.
+     * @param initialPosition the initial {@link Position} of this Entity
+     * @param size            The bounding box of this SpriteEntity.
+     * @param frames          The number of frames this Image contains. By default the first frame is loaded.
      */
-    protected SpriteEntity(final String resource, final Position position, final Size size, final int frames) {
-        this.position = position;
+    protected SpriteEntity(final String resource, final Position initialPosition, final Size size, final int frames) {
+        this.position = initialPosition;
         this.frames = frames;
         this.resource = resource;
         this.size = size;
@@ -61,6 +60,8 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     public void init(Injector injector) {
         var requestedWidth = size.getWidth() * frames;
         imageView = createImageView(resource, requestedWidth, size.getHeight());
+        imageView.setX(position.getX());
+        imageView.setY(position.getY());
 
         if (frames > 1) {
             spriteAnimationDelegate = spriteAnimationDelegateFactory.create(imageView, frames);
@@ -69,7 +70,9 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
 
     private ImageView createImageView(final String resource, final int requestedWidth, final int requestedHeight) {
         var image = imageRepository.get(resource, requestedWidth, requestedHeight, true);
-        return imageViewFactory.create(image);
+        ImageView imageView = imageViewFactory.create(image);
+
+        return imageView;
     }
 
     /**
@@ -87,7 +90,10 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
      * @param position The new {@link Position}
      */
     public void setPosition(Position position) {
-        this.position = position;
+        if (imageView != null) {
+            imageView.setX(position.getX());
+            imageView.setY(position.getY());
+        }
     }
 
     /**
@@ -105,7 +111,7 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
      * @return the x-coordinate
      */
     protected double getX() {
-        return position.getX();
+        return imageView.getX();
     }
 
     /**
@@ -114,7 +120,7 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
      * @return the y-coordinate
      */
     protected double getY() {
-        return position.getY();
+        return imageView.getY();
     }
 
     /**
@@ -140,7 +146,7 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
 
     @Override
     public Position getPosition() {
-        return new Position(position);
+        return new Position(imageView.getX(), imageView.getY());
     }
 
     @Inject

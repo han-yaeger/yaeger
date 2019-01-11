@@ -29,8 +29,8 @@ public class SceneBoundaryCrossingDelegate {
      * @param imageView the {@link ImageView} that should be checked
      */
     public void checkSceneBoundary(ImageView imageView) {
-        var x = imageView.getLayoutX();
-        var y = imageView.getLayoutY();
+        var x = imageView.getX();
+        var y = imageView.getY();
         var width = imageView.getLayoutBounds().getWidth();
         var height = imageView.getLayoutBounds().getHeight();
         var rightSideXCoordinate = x + width;

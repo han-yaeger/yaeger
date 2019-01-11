@@ -15,7 +15,7 @@ public class BubbleSpawner extends EntitySpawner {
     private Level waterworld;
 
     public BubbleSpawner(double width, double height, Level waterworld) {
-        super(1);
+        super(100);
 
         this.worldWidth = width;
         this.worldHeight = height;
@@ -50,6 +50,7 @@ public class BubbleSpawner extends EntitySpawner {
     private Position generateRandomPosition() {
         int x = new Random().nextInt((int) Math.round(worldWidth));
         int y = (int) Math.round(worldHeight) - 30;
+
         return new Position(x, y);
     }
 }

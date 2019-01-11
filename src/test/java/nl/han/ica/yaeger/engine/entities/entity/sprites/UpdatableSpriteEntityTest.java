@@ -18,8 +18,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
 class UpdatableSpriteEntityTest {
@@ -72,6 +70,8 @@ class UpdatableSpriteEntityTest {
     void setAutocycleDoesNotBreakWhithOnlyOneFrame() {
         // Setup
         var autocycleValue = 37;
+        var image = mock(Image.class);
+        var imageView = mock(ImageView.class);
         var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE);
         updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         updatableSpriteEntity.setImageRepository(imageRepository);
@@ -79,7 +79,13 @@ class UpdatableSpriteEntityTest {
         updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         updatableSpriteEntity.setSceneBoundaryCrossingDelegateFactory(sceneBoundaryCrossingDelegateFactory);
 
+        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
+
+        when(imageViewFactory.create(image)).thenReturn(imageView);
+        when(spriteAnimationDelegateFactory.create(imageView, 1)).thenReturn(spriteAnimationDelegate);
+
         when(sceneBoundaryCrossingDelegateFactory.create(updatableSpriteEntity)).thenReturn(sceneBoundaryCrossingDelegate);
+
 
         updatableSpriteEntity.setAutoCycle(autocycleValue);
 
@@ -119,13 +125,20 @@ class UpdatableSpriteEntityTest {
     @Test
     void createsAnSceneBoundaryCrossingDelegateAtInitialization() {
         // Setup
-        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE, 2, movement);
+        var image = mock(Image.class);
+        var imageView = mock(ImageView.class);
+        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE, 1, movement);
         updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
 
         updatableSpriteEntity.setImageRepository(imageRepository);
         updatableSpriteEntity.setImageViewFactory(imageViewFactory);
         updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         updatableSpriteEntity.setSceneBoundaryCrossingDelegateFactory(sceneBoundaryCrossingDelegateFactory);
+
+        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
+
+        when(imageViewFactory.create(image)).thenReturn(imageView);
+        when(spriteAnimationDelegateFactory.create(imageView, 1)).thenReturn(spriteAnimationDelegate);
 
         // Test
         updatableSpriteEntity.init(injector);

@@ -2,7 +2,6 @@ package nl.han.ica.yaeger.engine.entities.entity.sprites;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import javafx.geometry.Point2D;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.SceneBoundaryCrosser;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.delegates.SceneBoundaryCrossingDelegate;
@@ -17,7 +16,6 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
 
     private long autoCycleInterval = 0;
     private Movement movement;
-    private Point2D movementVector;
 
     private SceneBoundaryCrossingDelegateFactory sceneBoundaryCrossingDelegateFactory;
     private SceneBoundaryCrossingDelegate sceneBoundaryCrossingDelegate;
@@ -25,40 +23,39 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     /**
      * Create a new SpriteEntity.
      *
-     * @param resource The url of the image file. Relative to the resources folder.
-     * @param position the initial {@link Position} of this Entity
-     * @param size     The bounding box of this {@code SpriteEntity}.
+     * @param resource        The url of the image file. Relative to the resources folder.
+     * @param initialPosition the initial {@link Position} of this Entity
+     * @param size            The bounding box of this {@code SpriteEntity}.
      */
-    public UpdatableSpriteEntity(final String resource, final Position position, final Size size) {
-        this(resource, position, size, 1, new Movement(0, 0));
+    public UpdatableSpriteEntity(final String resource, final Position initialPosition, final Size size) {
+        this(resource, initialPosition, size, 1, new Movement(0, 0));
     }
 
     /**
      * Create a new SpriteEntity.
      *
-     * @param resource The url of the image file. Relative to the resources folder.
-     * @param position the initial {@link Position} of this Entity
-     * @param size     The bounding box of this {@code SpriteEntity}.
-     * @param frames   The number of frames this Image contains. By default the first frame is loaded.
+     * @param resource        The url of the image file. Relative to the resources folder.
+     * @param initialPosition the initial {@link Position} of this Entity
+     * @param size            The bounding box of this {@code SpriteEntity}.
+     * @param frames          The number of frames this Image contains. By default the first frame is loaded.
      */
-    public UpdatableSpriteEntity(final String resource, final Position position, final Size size, int frames) {
-        this(resource, position, size, frames, new Movement(0, 0));
+    public UpdatableSpriteEntity(final String resource, final Position initialPosition, final Size size, int frames) {
+        this(resource, initialPosition, size, frames, new Movement(0, 0));
     }
 
     /**
      * Create a new {@code UpdatableSpriteEntity}.
      *
-     * @param resource The url of the image file. Relative to the resources folder.
-     * @param position the initial {@link Position} of this Entity
-     * @param size     The bounding box of this {@code SpriteEntity}.
-     * @param frames   The number of frames this Image contains. By default the first frame is loaded.
-     * @param movement The movement of this {@code UpdatableSpriteEntity}
+     * @param resource        The url of the image file. Relative to the resources folder.
+     * @param initialPosition the initial {@link Position} of this Entity
+     * @param size            The bounding box of this {@code SpriteEntity}.
+     * @param frames          The number of frames this Image contains. By default the first frame is loaded.
+     * @param initialMovement The movement of this {@code UpdatableSpriteEntity}
      */
-    public UpdatableSpriteEntity(final String resource, final Position position, final Size size, int frames, final Movement movement) {
-        super(resource, position, size, frames);
+    public UpdatableSpriteEntity(final String resource, final Position initialPosition, final Size size, int frames, final Movement initialMovement) {
+        super(resource, initialPosition, size, frames);
 
-        this.movement = movement;
-        setMovementVector();
+        movement = initialMovement;
     }
 
     @Override
@@ -81,9 +78,6 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
      */
     protected void changeSpeed(double change) {
         movement.setSpeed(movement.getSpeed() * change);
-        this.movementVector.multiply(change);
-
-        setMovementVector();
     }
 
     /**
@@ -98,6 +92,7 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     @Override
     public void init(Injector injector) {
         super.init(injector);
+
         if (getFrames() > 1 && autoCycleInterval != 0) {
             spriteAnimationDelegate.setAutoCycle(autoCycleInterval);
         }
@@ -112,39 +107,31 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     protected void setSpeed(double newSpeed) {
         if (hasSpeedChanged(newSpeed)) {
             movement.setSpeed(newSpeed);
-            setMovementVector();
         }
     }
 
     /**
-     * Zet de richting waarin deze {@link UpdatableSpriteEntity} zich beweegt. De waarde is in graden, waarbij
+     * Set the {@link nl.han.ica.yaeger.engine.entities.entity.sprites.Movement.Direction} in which
+     * this {@link UpdatableSpriteEntity} should move. This value is in degrees, where
      *
      * <ul>
-     * <li>0 betekend naar boven</li>
-     * <li>90 betekend naar rechts</li>
-     * <li>180 betekend naar beneden</li>
-     * <li>270 betekend naar links</li>
+     * <li>0 means up</li>
+     * <li>90 means to the right</li>
+     * <li>180 means down</li>
+     * <li>270 to the left</li>
      * </ul>
+     * <p>
      *
-     * @param newDirection De richting in graden.
+     * @param newDirection the direction in degrees
      */
     protected void setDirection(double newDirection) {
         if (hasDirectionChanged(newDirection)) {
             movement.setDirection(newDirection);
-            setMovementVector();
         }
     }
 
-    private void setMovementVector() {
-        double angleInRadians = Math.toRadians(movement.getDirection() - 90);
-        var directionVector = new Point2D(Math.cos(angleInRadians), Math.sin(angleInRadians));
-
-        movementVector = directionVector.normalize().multiply(movement.getSpeed());
-    }
-
     private void updateLocation() {
-        position = position.add(movementVector);
-        imageView.relocate(position.getX(), position.getY());
+        setPosition(getPosition().add(movement.getVector()));
     }
 
     private boolean hasDirectionChanged(double newDirection) {
