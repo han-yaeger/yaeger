@@ -11,7 +11,6 @@ import nl.han.ica.yaeger.engine.entities.entity.Entity;
 import nl.han.ica.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.han.ica.yaeger.engine.scenes.delegates.KeyListenerDelegate;
 import nl.han.ica.yaeger.engine.userinput.KeyListener;
-import nl.han.ica.yaeger.module.factories.DebuggerFactory;
 import nl.han.ica.yaeger.module.factories.EntityCollectionFactory;
 import nl.han.ica.yaeger.module.factories.SceneFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,11 +24,11 @@ import static org.mockito.Mockito.*;
 class StaticSceneTest {
     private TestStaticScene testStaticScene;
     private SceneFactory sceneFactory;
-    private DebuggerFactory debuggerFactory;
     private EntityCollectionFactory entityCollectionFactory;
 
     private KeyListenerDelegate keyListenerDelegate;
     private BackgroundDelegate backgroundDelegate;
+    private Debugger debugger;
 
     private EntityCollection entityCollection;
     private EntitySupplier entitySupplier;
@@ -43,12 +42,12 @@ class StaticSceneTest {
         root = mock(Group.class);
         backgroundDelegate = mock(BackgroundDelegate.class);
         keyListenerDelegate = mock(KeyListenerDelegate.class);
+        debugger = mock(Debugger.class);
         entitySupplier = mock(EntitySupplier.class);
         sceneFactory = mock(SceneFactory.class);
-        debuggerFactory = mock(DebuggerFactory.class);
         entityCollectionFactory = mock(EntityCollectionFactory.class);
 
-        testStaticScene.setDebuggerFactory(debuggerFactory);
+        testStaticScene.setDebugger(debugger);
         testStaticScene.setSceneFactory(sceneFactory);
         testStaticScene.setEntityCollectionFactory(entityCollectionFactory);
         testStaticScene.setRoot(root);
@@ -76,14 +75,14 @@ class StaticSceneTest {
 
 
     @Test
-    void configureCreatesADebugger() {
+    void configureSetsUpADebugger() {
         // Setup
 
         // Test
         testStaticScene.configure();
 
         // Verify
-        verify(debuggerFactory).create(root);
+        verify(debugger).setup(root);
     }
 
 
@@ -113,9 +112,6 @@ class StaticSceneTest {
     @Test
     void configureAddsTheDebuggerAsAStatisticsObserverToTheEntityCollection() {
         // Setup
-        var debugger = mock(Debugger.class);
-        when(debuggerFactory.create(root)).thenReturn(debugger);
-
         var entityCollection = mock(EntityCollection.class);
         when(entityCollectionFactory.create(root)).thenReturn(entityCollection);
 
@@ -158,35 +154,10 @@ class StaticSceneTest {
     }
 
     @Test
-    void pressingKeyDoesNotTogglesDebugger() {
-        // Setup
-        var input = new HashSet<KeyCode>();
-        input.add(KeyCode.Y);
-        input.add(KeyCode.A);
-        input.add(KeyCode.E);
-        input.add(KeyCode.G);
-        input.add(KeyCode.E);
-        input.add(KeyCode.R);
-
-        Debugger debugger = mock(Debugger.class);
-        when(debuggerFactory.create(root)).thenReturn(debugger);
-        testStaticScene.configure();
-
-        // Test
-        testStaticScene.onPressedKeysChange(input);
-
-        // Verify
-        verifyNoMoreInteractions(debugger);
-    }
-
-    @Test
     void pressingF1TogglesDebugger() {
         // Setup
         var input = new HashSet<KeyCode>();
         input.add(KeyCode.F1);
-
-        var debugger = mock(Debugger.class);
-        when(debuggerFactory.create(root)).thenReturn(debugger);
 
         testStaticScene.configure();
 

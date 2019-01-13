@@ -14,7 +14,6 @@ import nl.han.ica.yaeger.engine.entities.EntitySpawner;
 import nl.han.ica.yaeger.engine.scenes.YaegerScene;
 import nl.han.ica.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.han.ica.yaeger.engine.scenes.delegates.KeyListenerDelegate;
-import nl.han.ica.yaeger.module.factories.DebuggerFactory;
 import nl.han.ica.yaeger.module.factories.EntityCollectionFactory;
 import nl.han.ica.yaeger.module.factories.SceneFactory;
 
@@ -23,7 +22,7 @@ import java.util.Set;
 public abstract class StaticScene implements YaegerScene, KeyListener {
 
     private EntityCollectionFactory entityCollectionFactory;
-    private DebuggerFactory debuggerFactory;
+    //    private DebuggerFactory debuggerFactory;
     private SceneFactory sceneFactory;
 
     protected Injector injector;
@@ -45,12 +44,12 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
     @Override
     public void configure() {
         scene = sceneFactory.create(root);
-        entityCollection = entityCollectionFactory.create(root);
-        debugger = debuggerFactory.create(root);
 
+        entityCollection = entityCollectionFactory.create(root);
+        entityCollection.init(injector);
         entityCollection.addStatisticsObserver(debugger);
 
-        entityCollection.init(injector);
+        debugger.setup(root);
         keyListenerDelegate.setup(scene, this);
         backgroundDelegate.setup(scene);
     }
@@ -167,13 +166,13 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
     }
 
     /**
-     * Set the {@link DebuggerFactory} that should be used to create a {@link Debugger}.
+     * Set the {@link Debugger} that should be used.
      *
-     * @param debuggerFactory the {@link DebuggerFactory} to be used
+     * @param debugger the {@link Debugger} to be used
      */
     @Inject
-    public void setDebuggerFactory(DebuggerFactory debuggerFactory) {
-        this.debuggerFactory = debuggerFactory;
+    public void setDebugger(Debugger debugger) {
+        this.debugger = debugger;
     }
 
     @Inject

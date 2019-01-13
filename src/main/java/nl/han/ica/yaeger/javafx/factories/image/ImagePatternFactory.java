@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.javafx.factories;
+package nl.han.ica.yaeger.javafx.factories.image;
 
 import com.google.inject.Singleton;
 import javafx.beans.NamedArg;

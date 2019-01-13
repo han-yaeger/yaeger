@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import javafx.scene.image.Image;
 import nl.han.ica.yaeger.engine.Destroyable;
-import nl.han.ica.yaeger.javafx.factories.ImageFactory;
+import nl.han.ica.yaeger.javafx.factories.image.ImageFactory;
 import nl.han.ica.yaeger.engine.media.ResourceConsumer;
 
 import java.util.Map;

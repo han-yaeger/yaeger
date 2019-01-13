@@ -1,13 +1,14 @@
 package nl.han.ica.yaeger.engine.debug;
 
+import com.google.inject.Inject;
 import javafx.scene.Group;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import nl.han.ica.yaeger.engine.media.repositories.AudioRepository;
 import nl.han.ica.yaeger.engine.media.repositories.ImageRepository;
-import nl.han.ica.yaeger.javafx.components.debugger.DebugLabel;
-import nl.han.ica.yaeger.javafx.components.debugger.DebugValue;
-import nl.han.ica.yaeger.javafx.components.debugger.DebuggerGridPane;
+import nl.han.ica.yaeger.javafx.factories.debug.DebugLabelFactory;
 import nl.han.ica.yaeger.engine.entities.EntityCollectionStatistics;
+import nl.han.ica.yaeger.javafx.factories.debug.DebugGridPaneFactory;
 
 /**
  * The {@code Debugger} is used to gather and show in game debug information.
@@ -29,22 +30,23 @@ public class Debugger implements StatisticsObserver {
     private AudioRepository audioRepository;
     private ImageRepository imageRepository;
 
+    private DebugGridPaneFactory debugGridPaneFactory;
+    private DebugLabelFactory debugLabelFactory;
+
     private GridPane gridpane;
-    private DebugValue dynamicEntities;
-    private DebugValue staticEntities;
-    private DebugValue entitySpawners;
-    private DebugValue keyListeningEntities;
-    private DebugValue garbageEntities;
-    private DebugValue usedMemory;
-    private DebugValue allocatedMemory;
+    private Label dynamicEntities;
+    private Label staticEntities;
+    private Label entitySpawners;
+    private Label keyListeningEntities;
+    private Label garbageEntities;
+    private Label usedMemory;
+    private Label allocatedMemory;
 
-    private DebugValue audioFiles;
-    private DebugValue imageFiles;
+    private Label audioFiles;
+    private Label imageFiles;
 
-    public Debugger(Group group) {
+    public void setup(Group group) {
         createGridPane(group);
-        audioRepository = AudioRepository.getInstance();
-        imageRepository = new ImageRepository();
     }
 
     /**
@@ -88,7 +90,7 @@ public class Debugger implements StatisticsObserver {
     }
 
     private void createGridPane(Group group) {
-        gridpane = new DebuggerGridPane();
+        gridpane = debugGridPaneFactory.create();
 
         addHeader();
         addSystemStatistics();
@@ -99,7 +101,7 @@ public class Debugger implements StatisticsObserver {
     }
 
     private void addHeader() {
-        gridpane.add(new DebugLabel(YAEGER_DEBUGGER_TITLE), 0, 0, 2, 1);
+        gridpane.add(debugLabelFactory.createLabel(YAEGER_DEBUGGER_TITLE), 0, 0, 2, 1);
     }
 
     private void addSystemStatistics() {
@@ -122,15 +124,14 @@ public class Debugger implements StatisticsObserver {
         imageFiles = addDebugLine(IMAGE_FILES);
     }
 
-    private DebugValue addDebugLine(String label) {
+    private Label addDebugLine(String label) {
         return addDebugLine(label, "");
     }
 
-    private DebugValue addDebugLine(String label, String value) {
-        DebugValue debugValue = new DebugValue(value);
-
+    private Label addDebugLine(String label, String value) {
+        Label debugValue = debugLabelFactory.createValue(value);
         int nextrow = gridpane.getRowCount() + 1;
-        gridpane.add(new DebugLabel(label), 0, nextrow);
+        gridpane.add(debugLabelFactory.createLabel(label), 0, nextrow);
         gridpane.add(debugValue, 1, nextrow);
 
         return debugValue;
@@ -142,5 +143,25 @@ public class Debugger implements StatisticsObserver {
 
     private String getUsedMemory() {
         return String.valueOf(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory());
+    }
+
+    @Inject
+    public void setAudioRepository(AudioRepository audioRepository) {
+        this.audioRepository = audioRepository;
+    }
+
+    @Inject
+    public void setImageRepository(ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
+    }
+
+    @Inject
+    public void setDebugGridPaneFactory(DebugGridPaneFactory debugGridPaneFactory) {
+        this.debugGridPaneFactory = debugGridPaneFactory;
+    }
+
+    @Inject
+    public void setDebugLabelFactory(DebugLabelFactory debugLabelFactory) {
+        this.debugLabelFactory = debugLabelFactory;
     }
 }

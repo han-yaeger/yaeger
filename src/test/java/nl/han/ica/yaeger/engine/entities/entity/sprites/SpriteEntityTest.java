@@ -7,7 +7,7 @@ import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimationDelegate;
 import nl.han.ica.yaeger.engine.entities.events.RemoveEntityEvent;
 import nl.han.ica.yaeger.engine.media.repositories.ImageRepository;
-import nl.han.ica.yaeger.javafx.factories.ImageViewFactory;
+import nl.han.ica.yaeger.javafx.factories.image.ImageViewFactory;
 import nl.han.ica.yaeger.module.factories.SpriteAnimationDelegateFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

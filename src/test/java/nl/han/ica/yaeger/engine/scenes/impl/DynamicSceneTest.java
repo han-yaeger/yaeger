@@ -4,12 +4,12 @@ import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import nl.han.ica.yaeger.engine.debug.Debugger;
 import nl.han.ica.yaeger.engine.entities.EntityCollection;
 import nl.han.ica.yaeger.engine.entities.EntitySpawner;
 import nl.han.ica.yaeger.engine.entities.EntitySupplier;
 import nl.han.ica.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.han.ica.yaeger.engine.scenes.delegates.KeyListenerDelegate;
-import nl.han.ica.yaeger.module.factories.DebuggerFactory;
 import nl.han.ica.yaeger.module.factories.EntityCollectionFactory;
 import nl.han.ica.yaeger.module.factories.SceneFactory;
 import org.junit.jupiter.api.Assertions;
@@ -24,7 +24,7 @@ class DynamicSceneTest {
 
     private TestDynamicScene testScene;
     private SceneFactory sceneFactory;
-    private DebuggerFactory debuggerFactory;
+    private Debugger debugger;
     private EntityCollectionFactory entityCollectionFactory;
 
     private KeyListenerDelegate keyListenerDelegate;
@@ -44,10 +44,10 @@ class DynamicSceneTest {
         keyListenerDelegate = mock(KeyListenerDelegate.class);
         entitySupplier = mock(EntitySupplier.class);
         sceneFactory = mock(SceneFactory.class);
-        debuggerFactory = mock(DebuggerFactory.class);
+        debugger = mock(Debugger.class);
         entityCollectionFactory = mock(EntityCollectionFactory.class);
 
-        testScene.setDebuggerFactory(debuggerFactory);
+        testScene.setDebugger(debugger);
         testScene.setSceneFactory(sceneFactory);
         testScene.setEntityCollectionFactory(entityCollectionFactory);
         testScene.setRoot(root);

@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.javafx.factories;
+package nl.han.ica.yaeger.javafx.factories.image;
 
 import com.google.inject.Singleton;
 import javafx.beans.NamedArg;
@@ -20,12 +20,12 @@ public class ImageFactory {
      * @throws NullPointerException     if URL is null
      * @throws IllegalArgumentException if URL is invalid or unsupported
      */
-    public Image create(@NamedArg("url") String url) {
+    public Image create(String url) {
         return new Image(url);
     }
 
     /**
-     * Construct a new {@code Image} with the specified parameters.
+     * Construct a new {@link Image} with the specified parameters.
      *
      * @param url             the string representing the URL to use in fetching the pixel
      *                        data
@@ -37,8 +37,8 @@ public class ImageFactory {
      * @throws NullPointerException     if URL is null
      * @throws IllegalArgumentException if URL is invalid or unsupported
      */
-    public Image create(@NamedArg("url") String url, @NamedArg("requestedWidth") double requestedWidth, @NamedArg("requestedHeight") double requestedHeight,
-                        @NamedArg("preserveRatio") boolean preserveRatio) {
+    public Image create(String url, double requestedWidth, double requestedHeight,
+                        boolean preserveRatio) {
         return new Image(url, requestedWidth, requestedHeight, preserveRatio, true);
     }
 }

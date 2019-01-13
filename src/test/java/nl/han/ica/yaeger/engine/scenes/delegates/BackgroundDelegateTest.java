@@ -7,7 +7,7 @@ import javafx.scene.paint.ImagePattern;
 import nl.han.ica.yaeger.engine.media.audio.SoundClip;
 import nl.han.ica.yaeger.engine.media.repositories.AudioRepository;
 import nl.han.ica.yaeger.engine.media.repositories.ImageRepository;
-import nl.han.ica.yaeger.javafx.factories.ImagePatternFactory;
+import nl.han.ica.yaeger.javafx.factories.image.ImagePatternFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

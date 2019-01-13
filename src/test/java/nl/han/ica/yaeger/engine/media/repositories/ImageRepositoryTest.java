@@ -1,7 +1,7 @@
 package nl.han.ica.yaeger.engine.media.repositories;
 
 import javafx.scene.image.Image;
-import nl.han.ica.yaeger.javafx.factories.ImageFactory;
+import nl.han.ica.yaeger.javafx.factories.image.ImageFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,5 +1,6 @@
 package nl.han.ica.yaeger.engine.media.repositories;
 
+import com.google.inject.Singleton;
 import javafx.scene.media.AudioClip;
 import nl.han.ica.yaeger.engine.Destroyable;
 import nl.han.ica.yaeger.engine.media.ResourceConsumer;
@@ -9,6 +10,7 @@ import java.util.*;
 /**
  * An {@code AudioRepository} provides a central repository for acquiring audio files.
  */
+@Singleton
 public class AudioRepository implements ResourceConsumer, Destroyable {
 
     private static final String CYCLECOUNT = "-cyclecount-";
