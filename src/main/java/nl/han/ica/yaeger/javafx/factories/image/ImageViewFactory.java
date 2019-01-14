@@ -1,7 +1,6 @@
 package nl.han.ica.yaeger.javafx.factories.image;
 
 import com.google.inject.Singleton;
-import javafx.beans.NamedArg;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -17,7 +16,7 @@ public class ImageViewFactory {
      * @param image the {@link Image} for which an {@link ImageView should be created
      * @return An instance of {@link ImageView}
      */
-    public ImageView create(@NamedArg("image") Image image) {
+    public ImageView create(Image image) {
         return new ImageView(image);
     }
 }

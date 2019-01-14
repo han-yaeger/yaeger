@@ -22,7 +22,6 @@ import java.util.Set;
 public abstract class StaticScene implements YaegerScene, KeyListener {
 
     private EntityCollectionFactory entityCollectionFactory;
-    //    private DebuggerFactory debuggerFactory;
     private SceneFactory sceneFactory;
 
     protected Injector injector;

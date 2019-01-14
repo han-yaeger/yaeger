@@ -1,7 +1,6 @@
 package nl.han.ica.yaeger.javafx.factories.image;
 
 import com.google.inject.Singleton;
-import javafx.beans.NamedArg;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 
@@ -18,7 +17,7 @@ public class ImagePatternFactory {
      * @param image the {@link Image} for which an {@link javafx.scene.paint.ImagePattern} should be created.
      * @return An instance of {@link javafx.scene.paint.ImagePattern}
      */
-    public ImagePattern create(@NamedArg("image") Image image) {
+    public ImagePattern create(Image image) {
         return new ImagePattern(image);
     }
 }
