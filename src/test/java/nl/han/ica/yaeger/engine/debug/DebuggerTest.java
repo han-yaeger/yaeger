@@ -61,4 +61,29 @@ class DebuggerTest {
         verify(debugLabelFactory, atLeastOnce()).createLabel(anyString());
         verify(debugLabelFactory, atLeastOnce()).createValue(anyString());
     }
+
+    @Test
+    void toFrontSetsTheGridPaneToFront() {
+        // Setup
+        sut.setup(group);
+
+        // Test
+        sut.toFront();
+
+        // Verify
+        verify(gridPane).toFront();
+    }
+
+    @Test
+    void toggleChangesVisibillityOfGridPane() {
+        // Setup
+        when(gridPane.isVisible()).thenReturn(true);
+        sut.setup(group);
+
+        // Test
+        sut.toggle();
+
+        // Verify
+        verify(gridPane).setVisible(false);
+    }
 }
