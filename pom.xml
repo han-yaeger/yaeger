@@ -133,9 +133,33 @@
                     <excludePackageNames>nl.han.ica.waterworld</excludePackageNames>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.4.3</version>
+                <configuration>
+                    <excludedClasses>
+                        <param>nl/han/ica/waterworld/**/*</param>
+                        <param>nl/han/ica/yaeger/module/**/*</param>
+                        <param>nl/han/ica/yaeger/javafx/**/*</param>
+                    </excludedClasses>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>0.8</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
+        <dependency>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-maven</artifactId>
+            <version>1.4.3</version>
+        </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
