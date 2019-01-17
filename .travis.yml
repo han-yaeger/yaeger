@@ -16,9 +16,6 @@ after_success:
   - mvn jacoco:report coveralls:report
   - mvn javadoc:javadoc
   - mvn install:install-file -Dfile=target/yaeger-shadyjar.jar -DgroupId=nl.han.ica -DartifactId=yaeger-shadyjar -Dversion=1.0.0 -Dpackaging=jar -DgeneratePom=true
-  - mkdir -p target/site/apidocs/nl/han/ica/yaeger-shadyjar/1.0.0
-  - cp /home/travis/.m2/repository/nl/han/ica/yaeger-shadyjar/1.0.0/yaeger-shadyjar-1.0.0.pom target/site/apidocs/nl/han/ica/yaeger-shadyjar/1.0.0/
-  - mv target/yaeger-shadyjar.jar target/site/apidocs/nl/han/ica/yaeger/1.0.0/yaeger-shadyjar-1.0.0.jar
 
 deploy:
     provider: pages
