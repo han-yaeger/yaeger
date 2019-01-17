@@ -86,7 +86,8 @@
                     <excludes>
                         <exclude>nl/han/ica/waterworld/**/*</exclude>
                         <exclude>nl/han/ica/yaeger/module/**/*</exclude>
-                        <exclude>nl/han/ica/yaeger/javafx/**/*</exclude>
+                        <exclude>nl/han/ica/yaeger/javafx/factories/debug/*</exclude>
+                        <exclude>nl/han/ica/yaeger/javafx/factories/image/*</exclude>
                     </excludes>
                 </configuration>
                 <dependencies>
