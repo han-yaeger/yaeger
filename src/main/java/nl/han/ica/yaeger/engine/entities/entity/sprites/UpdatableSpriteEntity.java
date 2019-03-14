@@ -30,9 +30,7 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     public UpdatableSpriteEntity(final String resource, final Position initialPosition, final Size size) {
         this(resource, initialPosition, size, 1);
 
-        mover = new UpdatableSpriteEntityMover(this);
-
-        mover.addMovement(new Movement(0, 0));
+        mover = new UpdatableSpriteEntityMover(this, new Movement(0, 0));
     }
 
     /**
@@ -46,9 +44,7 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     public UpdatableSpriteEntity(final String resource, final Position initialPosition, final Size size, int frames) {
         this(resource, initialPosition, size, frames, new Movement(0, 0));
 
-        mover = new UpdatableSpriteEntityMover(this);
-
-        mover.addMovement(new Movement(0, 0));
+        mover = new UpdatableSpriteEntityMover(this, new Movement(0, 0));
     }
 
     /**
@@ -63,9 +59,7 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     public UpdatableSpriteEntity(final String resource, final Position initialPosition, final Size size, int frames, final Movement initialMovement) {
         super(resource, initialPosition, size, frames);
 
-        mover = new UpdatableSpriteEntityMover(this);
-
-        mover.addMovement(initialMovement);
+        mover = new UpdatableSpriteEntityMover(this, initialMovement);
     }
 
     @Override

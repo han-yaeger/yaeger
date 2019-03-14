@@ -6,7 +6,12 @@ public class UpdatableSpriteEntityMover {
     private UpdatableSpriteEntity updatableSpriteEntity;
 
     public UpdatableSpriteEntityMover(UpdatableSpriteEntity updatableSpriteEntity) {
+        this(updatableSpriteEntity,new Movement(0,0));
+    }
+
+    public UpdatableSpriteEntityMover(UpdatableSpriteEntity updatableSpriteEntity, Movement movement) {
         this.updatableSpriteEntity = updatableSpriteEntity;
+        this.movement = movement;
     }
 
     /**
