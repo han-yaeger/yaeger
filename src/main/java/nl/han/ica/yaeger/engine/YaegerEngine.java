@@ -21,7 +21,7 @@ public abstract class YaegerEngine extends Application {
     private Scenes scenes;
 
     /**
-     * Zet de breedte en hoogte van het game.
+     * Set the {@link Size}, being the {@code width} and {@code height} of the game.
      *
      * @param size Een {@link Size} object encapsuleert de breedte en hoogte van een game.
      */
