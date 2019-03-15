@@ -6,7 +6,7 @@ public class UpdatableSpriteEntityMover {
     private UpdatableSpriteEntity updatableSpriteEntity;
 
     public UpdatableSpriteEntityMover(UpdatableSpriteEntity updatableSpriteEntity) {
-        this(updatableSpriteEntity,new Movement(0,0));
+        this(updatableSpriteEntity, new Movement(0, 0));
     }
 
     public UpdatableSpriteEntityMover(UpdatableSpriteEntity updatableSpriteEntity, Movement movement) {
