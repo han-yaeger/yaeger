@@ -6,6 +6,7 @@ import nl.han.ica.yaeger.engine.Initializable;
 /**
  * An {@code Entity} will serve as the {@code Root Interface} for all objects that are part of a {@code Yaeger} game.
  */
+
 public interface Entity extends Initializable, Bounded, Removeable, NodeProvider {
 
     /**

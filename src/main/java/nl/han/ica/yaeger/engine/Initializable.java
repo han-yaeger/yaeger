@@ -5,6 +5,7 @@ import com.google.inject.Injector;
 /**
  * Stating an {@code Object} is {@link Initializable} exposes the {@code init} lifecycle hook.
  */
+@FunctionalInterface
 public interface Initializable {
 
     /**

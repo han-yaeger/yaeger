@@ -2,6 +2,7 @@ package nl.han.ica.yaeger.engine.entities.entity;
 
 import nl.han.ica.yaeger.engine.scenes.SceneBorder;
 
+@FunctionalInterface
 public interface SceneBoundaryCrosser {
 
     /**

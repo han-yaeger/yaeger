@@ -7,6 +7,7 @@ import java.util.Set;
 /**
  * A KeyListener is notified when the set of pressed keys changes.
  */
+@FunctionalInterface
 public interface KeyListener {
 
     /**

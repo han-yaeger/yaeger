@@ -4,6 +4,7 @@ package nl.han.ica.yaeger.engine;
  * Denote that this {@code Object} can be cleared. Calling {@code clear()} does not guaranty maximum minimization of
  * memory footprint. To guaranty this, implement the interface {@link Destroyable}.
  */
+@FunctionalInterface
 public interface Clearable {
 
     /**

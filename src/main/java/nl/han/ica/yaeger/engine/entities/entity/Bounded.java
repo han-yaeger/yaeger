@@ -6,6 +6,7 @@ import javafx.geometry.Bounds;
  * Implementing this interface exposes the {@code getBounds} method, which returns the bounds, aka
  * Bounding Box, of this Entity.
  */
+@FunctionalInterface
 public interface Bounded {
 
     /**

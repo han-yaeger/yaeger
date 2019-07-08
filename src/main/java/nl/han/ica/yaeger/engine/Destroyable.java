@@ -3,6 +3,7 @@ package nl.han.ica.yaeger.engine;
 /**
  * Denote that this {@code Object} is Destroyable and hence ensures maximum Objects eligible for Garbage Collection.
  */
+@FunctionalInterface
 public interface Destroyable {
 
     /**

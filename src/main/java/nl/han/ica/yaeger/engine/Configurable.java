@@ -3,6 +3,7 @@ package nl.han.ica.yaeger.engine;
 /**
  * Implementing {@code Configurable} denotes the Object can, and usually must, be configured before it can be used.
  */
+@FunctionalInterface
 public interface Configurable {
 
     /**
