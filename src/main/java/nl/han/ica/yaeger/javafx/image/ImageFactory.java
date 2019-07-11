@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.javafx.factories.image;
+package nl.han.ica.yaeger.javafx.image;
 
 import com.google.inject.Singleton;
 import javafx.scene.image.Image;

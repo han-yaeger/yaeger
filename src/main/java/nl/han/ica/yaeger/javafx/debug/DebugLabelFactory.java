@@ -1,4 +1,4 @@
-package nl.han.ica.yaeger.javafx.factories.debug;
+package nl.han.ica.yaeger.javafx.debug;
 
 import javafx.geometry.HPos;
 import javafx.scene.control.Label;

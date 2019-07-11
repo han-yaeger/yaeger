@@ -6,9 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import nl.han.ica.yaeger.engine.media.repositories.AudioRepository;
 import nl.han.ica.yaeger.engine.media.repositories.ImageRepository;
-import nl.han.ica.yaeger.javafx.factories.debug.DebugLabelFactory;
+import nl.han.ica.yaeger.javafx.debug.DebugLabelFactory;
 import nl.han.ica.yaeger.engine.entities.EntityCollectionStatistics;
-import nl.han.ica.yaeger.javafx.factories.debug.DebugGridPaneFactory;
+import nl.han.ica.yaeger.javafx.debug.DebugGridPaneFactory;
 
 /**
  * The {@code Debugger} is used to gather and show in game debug information.

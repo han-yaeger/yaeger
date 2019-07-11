@@ -10,7 +10,7 @@ import nl.han.ica.yaeger.engine.entities.entity.sprites.delegates.SceneBoundaryC
 import nl.han.ica.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimationDelegate;
 import nl.han.ica.yaeger.engine.media.repositories.ImageRepository;
 import nl.han.ica.yaeger.engine.scenes.SceneBorder;
-import nl.han.ica.yaeger.javafx.factories.image.ImageViewFactory;
+import nl.han.ica.yaeger.javafx.image.ImageViewFactory;
 import nl.han.ica.yaeger.module.factories.SceneBoundaryCrossingDelegateFactory;
 import nl.han.ica.yaeger.module.factories.SpriteAnimationDelegateFactory;
 import org.junit.jupiter.api.Assertions;

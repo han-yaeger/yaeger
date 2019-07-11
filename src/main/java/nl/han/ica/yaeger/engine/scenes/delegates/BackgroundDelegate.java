@@ -8,7 +8,7 @@ import nl.han.ica.yaeger.engine.media.ResourceConsumer;
 import nl.han.ica.yaeger.engine.media.audio.SoundClip;
 import nl.han.ica.yaeger.engine.media.repositories.AudioRepository;
 import nl.han.ica.yaeger.engine.media.repositories.ImageRepository;
-import nl.han.ica.yaeger.javafx.factories.image.ImagePatternFactory;
+import nl.han.ica.yaeger.javafx.image.ImagePatternFactory;
 
 /**
  * A {@link BackgroundDelegate} follows the Delegate pattern and embraces Composition over Inheritence.
