@@ -1,9 +1,12 @@
 package nl.han.ica.yaeger.engine.scenes.impl;
 
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
 import nl.han.ica.yaeger.engine.entities.EntitySpawner;
+import nl.han.ica.yaeger.javafx.animationtimer.AnimationTimerFactory;
 
 import java.util.Set;
 
@@ -13,7 +16,9 @@ import java.util.Set;
  */
 public abstract class DynamicScene extends StaticScene {
 
-    private AnimationTimer animator;
+
+    private transient AnimationTimer animator;
+    private transient AnimationTimerFactory animationTimerFactory;
 
     @Override
     public void configure() {
@@ -40,6 +45,9 @@ public abstract class DynamicScene extends StaticScene {
      * @param spawner the {@link EntitySpawner} to be registered
      */
     protected void registerSpawner(EntitySpawner spawner) {
+        injector.injectMembers(spawner);
+        spawner.init(injector);
+
         entityCollection.registerSupplier(spawner);
     }
 
@@ -62,12 +70,11 @@ public abstract class DynamicScene extends StaticScene {
     }
 
     private void createGameLoop() {
-        animator = new AnimationTimer() {
-            @Override
-            public void handle(long arg0) {
+        animator = this.animationTimerFactory.create(entityCollection::update);
+    }
 
-                entityCollection.update(arg0);
-            }
-        };
+    @Inject
+    public void setAnimationTimerFactory(AnimationTimerFactory animationTimerFactory) {
+        this.animationTimerFactory = animationTimerFactory;
     }
 }

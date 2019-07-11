@@ -1,30 +1,45 @@
 package nl.han.ica.yaeger.engine.entities;
 
 import com.google.inject.Injector;
+import javafx.animation.AnimationTimer;
 import javafx.scene.Node;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
+import nl.han.ica.yaeger.javafx.animationtimer.AnimationTimerFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class EntitySpawnerTest {
 
     private EntitySpawner entitySpawner;
+    private AnimationTimer animationTimer;
+    private AnimationTimerFactory animationTimerFactory;
+
 
     private boolean tickHasBeenCalled;
 
     @BeforeEach
     void setup() {
         entitySpawner = new TestEntitySpawner(1000);
+        animationTimer = mock(AnimationTimer.class);
+        animationTimerFactory = mock(AnimationTimerFactory.class);
+
+        entitySpawner.setAnimationTimerFactory(animationTimerFactory);
+
+        when(animationTimerFactory.createTimeableAnimationTimer(any(), anyLong())).thenReturn(animationTimer);
+
         tickHasBeenCalled = false;
     }
 
     @Test
     void testTickIsNotCalledImmediatlyAfterCreation() {
         // Setup
+        entitySpawner.init(null);
 
         // Test
 
@@ -33,8 +48,20 @@ class EntitySpawnerTest {
     }
 
     @Test
+    void intervalIsDelegatedToSpawner(){
+        // Setup
+        entitySpawner.init(null);
+
+        // Test
+
+        // Verify
+        verify(animationTimerFactory).createTimeableAnimationTimer(any(), eq(1000L));
+    }
+
+    @Test
     void spawnAddsEntitiesToSpawnedEntities() {
         // Setup
+        entitySpawner.init(null);
         Entity entity = new TestEntity();
 
         // Test
@@ -47,6 +74,7 @@ class EntitySpawnerTest {
     @Test
     void destroyClearsListOfSpawnedEntities() {
         // Setup
+        entitySpawner.init(null);
         Entity entity = new TestEntity();
 
         // Test
@@ -60,6 +88,7 @@ class EntitySpawnerTest {
     @Test
     void nullIsNotEqual() {
         // Setup
+        entitySpawner.init(null);
 
         // Test
 
@@ -70,6 +99,7 @@ class EntitySpawnerTest {
     @Test
     void differentIntervalIsNotEqual() {
         // Setup
+        entitySpawner.init(null);
         var otherEntitySpawner = new TestEntitySpawner(37);
 
         // Test
@@ -81,6 +111,7 @@ class EntitySpawnerTest {
     @Test
     void sameObjectIsEqual() {
         // Setup
+        entitySpawner.init(null);
 
         // Test
 
@@ -91,6 +122,7 @@ class EntitySpawnerTest {
     @Test
     void sameObjectIsSameHashCode() {
         // Setup
+        entitySpawner.init(null);
 
         // Test
 

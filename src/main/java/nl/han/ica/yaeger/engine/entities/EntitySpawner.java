@@ -1,8 +1,12 @@
 package nl.han.ica.yaeger.engine.entities;
 
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 import javafx.animation.AnimationTimer;
 import nl.han.ica.yaeger.engine.Destroyable;
+import nl.han.ica.yaeger.engine.Initializable;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
+import nl.han.ica.yaeger.javafx.animationtimer.AnimationTimerFactory;
 
 import java.util.Objects;
 
@@ -10,9 +14,10 @@ import java.util.Objects;
  * An {@code EntitiySpawner} is the abstract superclass that should be extended to create an object that
  * spawns a subclass of {@link Entity}.
  */
-public abstract class EntitySpawner extends EntitySupplier implements Destroyable {
+public abstract class EntitySpawner extends EntitySupplier implements Destroyable, Initializable {
 
     private transient AnimationTimer timer;
+    private transient AnimationTimerFactory animationTimerFactory;
 
     private long interval;
 
@@ -22,7 +27,11 @@ public abstract class EntitySpawner extends EntitySupplier implements Destroyabl
      * @param interval the interval at which instances of {@link Entity} should ne spawned, in milli-seconds
      */
     public EntitySpawner(long interval) {
-        this.interval = interval * 1000000;
+        this.interval = interval;
+    }
+
+    @Override
+    public void init(Injector injector) {
         initTimer();
     }
 
@@ -51,19 +60,7 @@ public abstract class EntitySpawner extends EntitySupplier implements Destroyabl
     }
 
     private void initTimer() {
-        timer = new AnimationTimer() {
-
-            private long lastUpdate = System.currentTimeMillis();
-
-            @Override
-            public void handle(long now) {
-                if (now - lastUpdate >= interval) {
-
-                    tick();
-                    lastUpdate = now;
-                }
-            }
-        };
+        timer = this.animationTimerFactory.createTimeableAnimationTimer(this::tick, this.interval);
 
         timer.start();
     }
@@ -80,5 +77,10 @@ public abstract class EntitySpawner extends EntitySupplier implements Destroyabl
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), interval);
+    }
+
+    @Inject
+    public void setAnimationTimerFactory(AnimationTimerFactory animationTimerFactory) {
+        this.animationTimerFactory = animationTimerFactory;
     }
 }

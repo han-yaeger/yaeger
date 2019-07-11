@@ -1,5 +1,7 @@
 package nl.han.ica.yaeger.engine.scenes.impl;
 
+import com.google.inject.Injector;
+import javafx.animation.AnimationTimer;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -10,6 +12,7 @@ import nl.han.ica.yaeger.engine.entities.EntitySpawner;
 import nl.han.ica.yaeger.engine.entities.EntitySupplier;
 import nl.han.ica.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.han.ica.yaeger.engine.scenes.delegates.KeyListenerDelegate;
+import nl.han.ica.yaeger.javafx.animationtimer.AnimationTimerFactory;
 import nl.han.ica.yaeger.module.factories.EntityCollectionFactory;
 import nl.han.ica.yaeger.module.factories.SceneFactory;
 import org.junit.jupiter.api.Assertions;
@@ -26,6 +29,8 @@ class DynamicSceneTest {
     private SceneFactory sceneFactory;
     private Debugger debugger;
     private EntityCollectionFactory entityCollectionFactory;
+    private AnimationTimer animationTimer;
+    private AnimationTimerFactory animationTimerFactory;
 
     private KeyListenerDelegate keyListenerDelegate;
     private BackgroundDelegate backgroundDelegate;
@@ -45,7 +50,9 @@ class DynamicSceneTest {
         entitySupplier = mock(EntitySupplier.class);
         sceneFactory = mock(SceneFactory.class);
         debugger = mock(Debugger.class);
+        animationTimer = mock(AnimationTimer.class);
         entityCollectionFactory = mock(EntityCollectionFactory.class);
+        animationTimerFactory = mock(AnimationTimerFactory.class);
 
         testScene.setDebugger(debugger);
         testScene.setSceneFactory(sceneFactory);
@@ -54,12 +61,14 @@ class DynamicSceneTest {
         testScene.setBackgroundDelegate(backgroundDelegate);
         testScene.setKeyListenerDelegate(keyListenerDelegate);
         testScene.setEntitySupplier(entitySupplier);
+        testScene.setAnimationTimerFactory(animationTimerFactory);
 
         scene = mock(Scene.class);
         entityCollection = mock(EntityCollection.class);
 
         when(sceneFactory.create(root)).thenReturn(scene);
         when(entityCollectionFactory.create(root)).thenReturn(entityCollection);
+        when(animationTimerFactory.create(any())).thenReturn(animationTimer);
     }
 
     @Test
@@ -76,7 +85,17 @@ class DynamicSceneTest {
     @Test
     void registerSpawnerDelegatesToTheEntityCollection() {
         // Setup
+        var injector = mock(Injector.class);
+        testScene.init(injector);
+
+        var animationTimer = mock(AnimationTimer.class);
+        var animationTimerFactory = mock(AnimationTimerFactory.class);
         var spawner = mock(EntitySpawner.class);
+        spawner.setAnimationTimerFactory(animationTimerFactory);
+        spawner.init(null);
+
+        when(animationTimerFactory.createTimeableAnimationTimer(any(), anyLong())).thenReturn(animationTimer);
+
         testScene.configure();
 
         // Test
