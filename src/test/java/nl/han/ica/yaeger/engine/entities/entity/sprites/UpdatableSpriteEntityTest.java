@@ -29,10 +29,10 @@ class UpdatableSpriteEntityTest {
     private final static int WIDTH = 39;
     private final static int HEIGHT = 41;
     private final static Size DEFAULT_SIZE = new Size(WIDTH, HEIGHT);
-    private final static Double DIRECTION = Movement.Direction.UP;
+    private final static Double DIRECTION = MovementVector.Direction.UP;
     private final static int SPEED = 1;
 
-    private final static Movement movement = new Movement(DIRECTION, SPEED);
+    private final static MovementVector MOVEMENT_VECTOR = new MovementVector(DIRECTION, SPEED);
 
     private SpriteAnimationDelegateFactory spriteAnimationDelegateFactory;
     private SceneBoundaryCrossingDelegateFactory sceneBoundaryCrossingDelegateFactory;
@@ -127,7 +127,7 @@ class UpdatableSpriteEntityTest {
         // Setup
         var image = mock(Image.class);
         var imageView = mock(ImageView.class);
-        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE, 1, movement);
+        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE, 1, MOVEMENT_VECTOR);
         updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
 
         updatableSpriteEntity.setImageRepository(imageRepository);
@@ -150,7 +150,7 @@ class UpdatableSpriteEntityTest {
     @Test
     void updateUpdatesLocation() {
         // Setup
-        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE, 1, movement);
+        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE, 1, MOVEMENT_VECTOR);
         updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
 
         updatableSpriteEntity.setImageRepository(imageRepository);
@@ -186,7 +186,7 @@ class UpdatableSpriteEntityTest {
     @Test
     void updateChecksSceneBoundaryCrossing() {
         // Setup
-        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE, 1, movement);
+        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE, 1, MOVEMENT_VECTOR);
         updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
 
         updatableSpriteEntity.setImageRepository(imageRepository);
@@ -225,8 +225,8 @@ class UpdatableSpriteEntityTest {
             super(resource, position, size);
         }
 
-        TestUpdatableSpriteEntity(String resource, Position position, Size size, int frames, Movement movement) {
-            super(resource, position, size, frames, movement);
+        TestUpdatableSpriteEntity(String resource, Position position, Size size, int frames, MovementVector movementVector) {
+            super(resource, position, size, frames, movementVector);
         }
 
         @Override

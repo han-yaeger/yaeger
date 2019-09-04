@@ -2,16 +2,16 @@ package nl.han.ica.yaeger.engine.entities.entity.sprites;
 
 public class UpdatableSpriteEntityMover {
 
-    private Movement movement;
+    private MovementVector movementVector;
     private UpdatableSpriteEntity updatableSpriteEntity;
 
     public UpdatableSpriteEntityMover(UpdatableSpriteEntity updatableSpriteEntity) {
-        this(updatableSpriteEntity, new Movement(0, 0));
+        this(updatableSpriteEntity, new MovementVector(0, 0));
     }
 
-    public UpdatableSpriteEntityMover(UpdatableSpriteEntity updatableSpriteEntity, Movement movement) {
+    public UpdatableSpriteEntityMover(UpdatableSpriteEntity updatableSpriteEntity, MovementVector movementVector) {
         this.updatableSpriteEntity = updatableSpriteEntity;
-        this.movement = movement;
+        this.movementVector = movementVector;
     }
 
     /**
@@ -23,7 +23,7 @@ public class UpdatableSpriteEntityMover {
      *               decrement in speed.
      */
     protected void changeSpeed(double change) {
-        movement.setSpeed(movement.getSpeed() * change);
+        movementVector.setSpeed(movementVector.getSpeed() * change);
     }
 
     /**
@@ -33,12 +33,12 @@ public class UpdatableSpriteEntityMover {
      */
     protected void setSpeed(double newSpeed) {
         if (hasSpeedChanged(newSpeed)) {
-            movement.setSpeed(newSpeed);
+            movementVector.setSpeed(newSpeed);
         }
     }
 
     /**
-     * Set the {@link nl.han.ica.yaeger.engine.entities.entity.sprites.Movement.Direction} in which
+     * Set the {@link MovementVector.Direction} in which
      * this {@link UpdatableSpriteEntity} should move. This value is in degrees, where
      *
      * <ul>
@@ -53,23 +53,23 @@ public class UpdatableSpriteEntityMover {
      */
     protected void setDirection(double newDirection) {
         if (hasDirectionChanged(newDirection)) {
-            movement.setDirection(newDirection);
+            movementVector.setDirection(newDirection);
         }
     }
 
     private boolean hasDirectionChanged(double newDirection) {
-        return Double.compare(newDirection, movement.getDirection()) != 0;
+        return Double.compare(newDirection, movementVector.getDirection()) != 0;
     }
 
     private boolean hasSpeedChanged(double newSpeed) {
-        return Double.compare(newSpeed, movement.getSpeed()) != 0;
+        return Double.compare(newSpeed, movementVector.getSpeed()) != 0;
     }
 
     public void updateLocation() {
-        updatableSpriteEntity.setPosition(updatableSpriteEntity.getPosition().add(movement.getVector()));
+        updatableSpriteEntity.setPosition(updatableSpriteEntity.getPosition().add(movementVector.getVector()));
     }
 
-    public void addMovement(Movement movement) {
-        this.movement = movement;
+    public void addMovement(MovementVector movementVector) {
+        this.movementVector = movementVector;
     }
 }

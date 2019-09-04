@@ -7,7 +7,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import nl.han.ica.waterworld.Waterworld;
-import nl.han.ica.yaeger.engine.entities.entity.MouseButtonListener;
+import nl.han.ica.yaeger.engine.userinput.MouseButtonListener;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 import nl.han.ica.yaeger.engine.entities.events.RemoveEntityEvent;
 import org.junit.jupiter.api.Assertions;

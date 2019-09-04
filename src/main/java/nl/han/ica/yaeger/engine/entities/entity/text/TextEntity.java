@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import nl.han.ica.yaeger.engine.entities.entity.Entity;
-import nl.han.ica.yaeger.engine.entities.entity.MouseButtonListener;
+import nl.han.ica.yaeger.engine.userinput.MouseButtonListener;
 import nl.han.ica.yaeger.engine.entities.entity.Position;
 
 /**

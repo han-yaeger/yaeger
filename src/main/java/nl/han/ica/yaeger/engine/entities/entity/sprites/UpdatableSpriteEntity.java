@@ -40,7 +40,7 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
      * @param frames          The number of frames this Image contains. By default the first frame is loaded.
      */
     public UpdatableSpriteEntity(final String resource, final Position initialPosition, final Size size, int frames) {
-        this(resource, initialPosition, size, frames, new Movement(0, 0));
+        this(resource, initialPosition, size, frames, new MovementVector(0, 0));
     }
 
     /**
@@ -50,12 +50,12 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
      * @param initialPosition the initial {@link Position} of this Entity
      * @param size            The bounding box of this {@code SpriteEntity}.
      * @param frames          The number of frames this Image contains. By default the first frame is loaded.
-     * @param initialMovement The movement of this {@code UpdatableSpriteEntity}
+     * @param initialMovementVector The movement of this {@code UpdatableSpriteEntity}
      */
-    public UpdatableSpriteEntity(final String resource, final Position initialPosition, final Size size, int frames, final Movement initialMovement) {
+    public UpdatableSpriteEntity(final String resource, final Position initialPosition, final Size size, int frames, final MovementVector initialMovementVector) {
         super(resource, initialPosition, size, frames);
 
-        mover = new UpdatableSpriteEntityMover(this, initialMovement);
+        mover = new UpdatableSpriteEntityMover(this, initialMovementVector);
     }
 
     @Override

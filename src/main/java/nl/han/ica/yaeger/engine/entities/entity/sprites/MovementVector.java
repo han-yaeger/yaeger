@@ -4,27 +4,27 @@ import javafx.beans.NamedArg;
 import javafx.geometry.Point2D;
 
 /**
- * A {@code Movement} encapsulates both a {@code direction} and a {@code speed}.
+ * A {@code MovementVector} encapsulates both a {@code direction} and a {@code speed}.
  */
-public class Movement {
+public class MovementVector {
 
     private double direction;
     private double speed;
 
     /**
-     * Creates a new instance of {@code Movement}.
+     * Creates a new instance of {@code MovementVector}.
      */
-    public Movement() {
+    public MovementVector() {
         this(0, 0);
     }
 
     /**
-     * Creates a new instance of {@code Movement}.
+     * Creates a new instance of {@code MovementVector}.
      *
-     * @param direction the direction of the {@code Movement}
-     * @param speed     the speed of the {@code Movement}
+     * @param direction the direction of the {@code MovementVector}
+     * @param speed     the speed of the {@code MovementVector}
      */
-    public Movement(@NamedArg("direction") final double direction, @NamedArg("direction") final double speed) {
+    public MovementVector(@NamedArg("direction") final double direction, @NamedArg("direction") final double speed) {
         this.direction = direction;
         this.speed = speed;
     }
@@ -50,7 +50,7 @@ public class Movement {
     }
 
     /**
-     * @return the direction of the {@code Movement}
+     * @return the direction of the {@code MovementVector}
      */
     public double getDirection() {
         return direction;
@@ -67,7 +67,7 @@ public class Movement {
 
 
     /**
-     * @return the speed of the {@code Movement}
+     * @return the speed of the {@code MovementVector}
      */
     public double getSpeed() {
         return speed;
@@ -83,7 +83,7 @@ public class Movement {
     }
 
     /**
-     * A {@code Direction} provides default values for the direction of a {@link Movement}.
+     * A {@code Direction} provides default values for the direction of a {@link MovementVector}.
      */
     public class Direction {
 

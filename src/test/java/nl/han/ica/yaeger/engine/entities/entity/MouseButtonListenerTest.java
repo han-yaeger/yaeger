@@ -3,6 +3,7 @@ package nl.han.ica.yaeger.engine.entities.entity;
 import com.google.inject.Injector;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
+import nl.han.ica.yaeger.engine.userinput.MouseButtonListener;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
