@@ -85,11 +85,11 @@
                 </executions>
                 <configuration>
                     <excludes>
-                        <exclude>nl/han/ica/waterworld/**/*</exclude>
-                        <exclude>nl/han/ica/yaeger/module/**/*</exclude>
-                        <exclude>nl/han/ica/yaeger/javafx/debug/*</exclude>
-                        <exclude>nl/han/ica/yaeger/javafx/image/*</exclude>
-                        <exclude>nl/han/ica/yaeger/javafx/animationtimer/*</exclude>
+                        <exclude>nl/meron/waterworld/**/*</exclude>
+                        <exclude>nl/meron/yaeger/module/**/*</exclude>
+                        <exclude>nl/meron/yaeger/javafx/debug/*</exclude>
+                        <exclude>nl/meron/yaeger/javafx/image/*</exclude>
+                        <exclude>nl/meron/yaeger/javafx/animationtimer/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
@@ -110,7 +110,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.0.1</version>
                 <configuration>
-                    <excludePackageNames>nl.han.ica.waterworld</excludePackageNames>
+                    <excludePackageNames>nl.meron.waterworld</excludePackageNames>
                 </configuration>
             </plugin>
             <plugin>
@@ -119,9 +119,9 @@
                 <version>1.4.5</version>
                 <configuration>
                     <excludedClasses>
-                        <param>nl/han/ica/waterworld/**/*</param>
-                        <param>nl/han/ica/yaeger/module/**/*</param>
-                        <param>nl/han/ica/yaeger/javafx/**/*</param>
+                        <param>nl/meron/waterworld/**/*</param>
+                        <param>nl/meron/yaeger/module/**/*</param>
+                        <param>nl/meron/yaeger/javafx/**/*</param>
                     </excludedClasses>
                 </configuration>
                 <dependencies>
