@@ -161,6 +161,11 @@
             <version>12.0.1</version>
         </dependency>
         <dependency>
+            <groupId>org.dyn4j</groupId>
+            <artifactId>dyn4j</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
             <version>4.2.2</version>
