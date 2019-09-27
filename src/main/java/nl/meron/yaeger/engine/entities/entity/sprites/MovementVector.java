@@ -1,6 +1,5 @@
 package nl.meron.yaeger.engine.entities.entity.sprites;
 
-import javafx.beans.NamedArg;
 import javafx.geometry.Point2D;
 
 /**
@@ -24,7 +23,7 @@ public class MovementVector {
      * @param direction the direction of the {@code MovementVector}
      * @param speed     the speed of the {@code MovementVector}
      */
-    public MovementVector(@NamedArg("direction") final double direction, @NamedArg("direction") final double speed) {
+    public MovementVector(final double direction, final double speed) {
         this.direction = direction;
         this.speed = speed;
     }

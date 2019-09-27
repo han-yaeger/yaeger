@@ -3,7 +3,6 @@ package nl.meron.yaeger.engine.entities.entity.sprites.delegates;
 import javafx.scene.image.ImageView;
 import nl.meron.yaeger.engine.entities.entity.SceneBoundaryCrosser;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
-import nl.meron.yaeger.engine.entities.entity.SceneBoundaryCrosser;
 
 /**
  * A {@code SceneBoundaryCrossingDelegate} holds all responsibility for checking if the {@link javafx.scene.Scene}
