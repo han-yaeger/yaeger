@@ -2,11 +2,10 @@ package nl.meron.waterworld.scenes.levels;
 
 import nl.meron.waterworld.Waterworld;
 import nl.meron.yaeger.engine.scenes.SceneType;
-import nl.meron.waterworld.Waterworld;
 
 public class LevelOne extends Level {
 
-    private static final String BACKGROUND_IMAGE = "underwater2.jpg";
+    private static final String BACKGROUND_IMAGE = "waterworld/underwater2.jpg";
 
     public LevelOne(final Waterworld waterworld) {
         super(waterworld);

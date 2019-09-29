@@ -13,7 +13,7 @@ import nl.meron.yaeger.engine.scenes.SceneType;
 
 public abstract class Level extends DynamicScene {
 
-    private static final String BACKGROUND_AUDIO = "audio/waterworld.mp3";
+    private static final String BACKGROUND_AUDIO = "waterworld/audio/waterworld.mp3";
 
     protected Waterworld waterworld;
     int bubblesPopped = 0;

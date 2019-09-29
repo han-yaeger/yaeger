@@ -11,18 +11,15 @@ import nl.meron.yaeger.engine.entities.entity.Position;
 import nl.meron.yaeger.engine.entities.entity.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.SceneType;
 import nl.meron.yaeger.engine.scenes.impl.StaticScene;
-import nl.meron.waterworld.Waterworld;
-import nl.meron.waterworld.entities.buttons.QuitButton;
-import nl.meron.waterworld.entities.buttons.StartButton;
 
 import java.util.Set;
 
 public class Intro extends StaticScene {
 
-    private static final String BACKGROUND_AUDIO = "audio/ocean.mp3";
+    private static final String BACKGROUND_AUDIO = "waterworld/audio/ocean.mp3";
     private static final String WATERWORLD_NAME = "Waterworld";
     private static final String WATERWORLD_VERSION = "2";
-    private static final String BACKGROUND_IMAGE = "underwater2.jpg";
+    private static final String BACKGROUND_IMAGE = "waterworld/underwater2.jpg";
 
     private Waterworld waterworld;
 

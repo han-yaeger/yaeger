@@ -3,12 +3,10 @@ package nl.meron.waterworld.scenes.levels;
 import nl.meron.waterworld.Waterworld;
 import nl.meron.waterworld.entities.game.AnimatedShark;
 import nl.meron.yaeger.engine.entities.entity.Position;
-import nl.meron.waterworld.Waterworld;
-import nl.meron.waterworld.entities.game.AnimatedShark;
 
 public class LevelTwo extends Level {
 
-    private static final String BACKGROUND_IMAGE = "underwater3.jpg";
+    private static final String BACKGROUND_IMAGE = "waterworld/underwater3.jpg";
 
     public LevelTwo(Waterworld waterworld) {
         super(waterworld);

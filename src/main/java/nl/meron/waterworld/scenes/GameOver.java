@@ -9,15 +9,14 @@ import nl.meron.yaeger.engine.entities.entity.Position;
 import nl.meron.yaeger.engine.entities.entity.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.SceneType;
 import nl.meron.yaeger.engine.scenes.impl.StaticScene;
-import nl.meron.waterworld.Waterworld;
 
 import java.util.Set;
 
 public class GameOver extends StaticScene {
 
     public static final String GAME_OVER = "Game over";
-    public static final String BACKGROUND_IMAGE = "underwater2.jpg";
-    public static final String BACKGROUND_AUDIO = "audio/ocean.mp3";
+    public static final String BACKGROUND_IMAGE = "waterworld/underwater2.jpg";
+    public static final String BACKGROUND_AUDIO = "waterworld/audio/ocean.mp3";
 
     private Waterworld waterworld;
 

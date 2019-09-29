@@ -47,7 +47,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>nl.meron.waterworld.Waterworld</mainClass>
+                    <mainClass>nl.meron.pong.Pong</mainClass>
                 </configuration>
             </plugin>
             <plugin>
