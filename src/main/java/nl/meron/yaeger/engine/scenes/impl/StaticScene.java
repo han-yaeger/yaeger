@@ -81,26 +81,13 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
         entitySupplier.add(entity);
     }
 
-    /**
-     * Set the name of the background image file.
-     *
-     * @param url The name of the image file, including extention. Although many different file types are supported,
-     *            the following types are preferred:
-     *            <ul>
-     *            <li>jpg, jpeg</li>
-     *            <li>png</li>
-     *            </ul>
-     */
-    protected void setBackgroundImage(String url) {
+    @Override
+    public void setBackgroundImage(String url) {
         backgroundDelegate.setBackgroundImage(url);
     }
 
-    /**
-     * Set the name of the background audio file. Currently only {@code *.mp3} files are supported.
-     *
-     * @param url The name of the audio file, including extention.
-     */
-    protected void setBackgroundAudio(String url) {
+    @Override
+    public void setBackgroundAudio(String url) {
         backgroundDelegate.setBackgroundAudio(url);
     }
 

@@ -23,7 +23,7 @@ public abstract class YaegerEngine extends Application {
     /**
      * Set the {@link Size}, being the {@code width} and {@code height} of the game.
      *
-     * @param size Een {@link Size} object encapsuleert de breedte en hoogte van een game.
+     * @param size A {@link Size} object that encapsulates the {@code width} and {@code height} of the game
      */
     protected void setSize(Size size) {
         this.size = size;
@@ -32,17 +32,16 @@ public abstract class YaegerEngine extends Application {
     /**
      * Set the title of the Game.
      *
-     * @param title A {@link String} containing the title of the Game.
+     * @param title A {@link String} containing the title of the Game
      */
     protected void setGameTitle(String title) {
         yaegerStage.setTitle(title);
     }
 
     /**
-     * Zet de huidige actieve {@link YaegerScene}. Dit is de {@code scenes} die getoond wordt op het scherm en waarvan,
-     * indien beschikbaar, de {@code Gameloop} en {@code Eventlisteners} hun werk doen.
+     * Set the current active {@link YaegerScene}.
      *
-     * @param type De enumeratie die de type van de {@link YaegerScene} bevat.
+     * @param type The {@link SceneType} that corresponds to the {@link YaegerScene}.
      */
     protected void setActiveScene(SceneType type) {
         scenes.setActive(type);
@@ -51,8 +50,8 @@ public abstract class YaegerEngine extends Application {
     /**
      * Add a {@link YaegerScene} to the Game.
      *
-     * @param type  A {@link SceneType} enumeration that represents the type of the {@link YaegerScene}.
-     * @param scene De {@link YaegerScene} die moet worden toegevoegd.
+     * @param type  A {@link SceneType} enumeration that represents the type of the {@link YaegerScene}
+     * @param scene The {@link YaegerScene} that should be added
      */
     protected void addScene(SceneType type, YaegerScene scene) {
 
@@ -60,18 +59,20 @@ public abstract class YaegerEngine extends Application {
     }
 
     /**
-     * Gebruik deze methode voor het initialiseren van het game.
+     * Use this method for game initialization code.
      *
      * <p>
-     * Op dit moment is het mogelijk om de afmetingen van het scherm te zetten of een titel van het game te zetten.
+     * Initialization options are:
+     *     <ul>
+     *         <li>setSize()</li>
+     *         <li>setGameTitle()</li>
+     *     </ul>
      * </p>
      */
     protected abstract void initializeGame();
 
     /**
-     * Gebruik deze methode voor het aanmaken en toevoegen van alle {@link YaegerScene}s. Gebruik dit moment ook
-     * om de actieve {@link YaegerScene} te zetten. Indien deze niet gezet is, zal een willekeurige als actieve
-     * worden gebruikt.
+     * Use this method to create and add the different instances of {@link YaegerScene} that comprise the Game.
      */
     protected abstract void setupScenes();
 
@@ -110,7 +111,7 @@ public abstract class YaegerEngine extends Application {
     }
 
     /**
-     * Stop the Game and close the screen.
+     * Stop the Game and close the Game.
      */
     public void quitGame() {
         yaegerStage.close();
