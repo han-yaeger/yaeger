@@ -19,6 +19,7 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
         <plugin.maven.shade.version>3.1.1</plugin.maven.shade.version>
         <sonar.exclusions>
+            **/pong/**/*,
             **/waterworld/**/*,
             **/yaeger/module/**/*,
             **/yaeger/javafx/**/*.java
@@ -85,6 +86,7 @@
                 </executions>
                 <configuration>
                     <excludes>
+                        <exclude>nl/meron/pong/**/*</exclude>
                         <exclude>nl/meron/waterworld/**/*</exclude>
                         <exclude>nl/meron/yaeger/module/**/*</exclude>
                         <exclude>nl/meron/yaeger/javafx/debug/*</exclude>
@@ -111,6 +113,7 @@
                 <version>3.0.1</version>
                 <configuration>
                     <excludePackageNames>nl.meron.waterworld</excludePackageNames>
+                    <excludePackageNames>nl.meron.pong</excludePackageNames>
                 </configuration>
             </plugin>
             <plugin>
@@ -119,6 +122,7 @@
                 <version>1.4.5</version>
                 <configuration>
                     <excludedClasses>
+                        <param>nl/meron/pong/**/*</param>
                         <param>nl/meron/waterworld/**/*</param>
                         <param>nl/meron/yaeger/module/**/*</param>
                         <param>nl/meron/yaeger/javafx/**/*</param>
