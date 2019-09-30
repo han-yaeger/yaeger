@@ -27,7 +27,6 @@ public class Intro extends StaticScene {
         this.waterworld = waterworld;
     }
 
-
     @Override
     public void onInputChanged(Set<KeyCode> input) {
         if (input.contains(KeyCode.ENTER)) {

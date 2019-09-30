@@ -117,6 +117,15 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
         mover.setDirection(newDirection);
     }
 
+    /**
+     * Get the direction in which this {@code Entity} is moving
+     *
+     * @return a {@code double} representing the direction
+     */
+    protected double getDirection(){
+        return mover.getDirection();
+    }
+
     private void updateLocation() {
         mover.updateLocation();
     }

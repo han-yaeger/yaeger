@@ -57,6 +57,15 @@ public class UpdatableSpriteEntityMover {
         }
     }
 
+    /**
+     * Get the direction in which this {@code Entity} is moving
+     *
+     * @return a {@code double} representing the direction
+     */
+    protected double getDirection(){
+        return movementVector.getDirection();
+    }
+
     private boolean hasDirectionChanged(double newDirection) {
         return Double.compare(newDirection, movementVector.getDirection()) != 0;
     }
