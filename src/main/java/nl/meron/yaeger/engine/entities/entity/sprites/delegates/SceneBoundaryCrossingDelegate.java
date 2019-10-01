@@ -1,7 +1,7 @@
 package nl.meron.yaeger.engine.entities.entity.sprites.delegates;
 
 import javafx.scene.image.ImageView;
-import nl.meron.yaeger.engine.entities.entity.SceneBoundaryCrosser;
+import nl.meron.yaeger.engine.entities.entity.SceneBoundaryCrossingWatcher;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 
 /**
@@ -10,14 +10,14 @@ import nl.meron.yaeger.engine.scenes.SceneBorder;
  */
 public class SceneBoundaryCrossingDelegate {
 
-    private SceneBoundaryCrosser boundaryCrosser;
+    private SceneBoundaryCrossingWatcher boundaryCrosser;
 
     /**
      * Instantiate a new {@code SceneBoundaryCrossingDelegate}
      *
-     * @param boundaryCrosser the {@link SceneBoundaryCrosser} that should be checkeds
+     * @param boundaryCrosser the {@link SceneBoundaryCrossingWatcher} that should be checkeds
      */
-    public SceneBoundaryCrossingDelegate(SceneBoundaryCrosser boundaryCrosser) {
+    public SceneBoundaryCrossingDelegate(SceneBoundaryCrossingWatcher boundaryCrosser) {
         this.boundaryCrosser = boundaryCrosser;
 
     }

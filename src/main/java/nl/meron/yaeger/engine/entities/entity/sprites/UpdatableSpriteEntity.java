@@ -3,20 +3,16 @@ package nl.meron.yaeger.engine.entities.entity.sprites;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import nl.meron.yaeger.engine.entities.entity.Position;
-import nl.meron.yaeger.engine.entities.entity.SceneBoundaryCrosser;
+import nl.meron.yaeger.engine.entities.entity.SceneBoundaryCrossingWatcher;
 import nl.meron.yaeger.engine.entities.entity.sprites.delegates.SceneBoundaryCrossingDelegate;
 import nl.meron.yaeger.engine.entities.entity.Updatable;
-import nl.meron.yaeger.module.factories.SceneBoundaryCrossingDelegateFactory;
-import nl.meron.yaeger.engine.entities.entity.SceneBoundaryCrosser;
-import nl.meron.yaeger.engine.entities.entity.Updatable;
-import nl.meron.yaeger.engine.entities.entity.sprites.delegates.SceneBoundaryCrossingDelegate;
 import nl.meron.yaeger.module.factories.SceneBoundaryCrossingDelegateFactory;
 
 /**
  * An {@code UpdatableSpriteEntity} extends all behaviour of a {@link SpriteEntity}, but also implements the
  * {@link Updatable} Interface.
  */
-public abstract class UpdatableSpriteEntity extends SpriteEntity implements Updatable, SceneBoundaryCrosser {
+public abstract class UpdatableSpriteEntity extends SpriteEntity implements Updatable, SceneBoundaryCrossingWatcher {
 
     private long autoCycleInterval = 0;
     private UpdatableSpriteEntityMover mover;

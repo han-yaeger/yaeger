@@ -3,9 +3,8 @@ package nl.meron.yaeger.engine.entities.entity.sprites.delegates;
 import javafx.geometry.BoundingBox;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import nl.meron.yaeger.engine.entities.entity.SceneBoundaryCrosser;
+import nl.meron.yaeger.engine.entities.entity.SceneBoundaryCrossingWatcher;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
-import nl.meron.yaeger.engine.entities.entity.SceneBoundaryCrosser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -15,13 +14,13 @@ class SceneBoundaryCrossingDelegateTest {
     public static final double SCENE_WIDTH = 40d;
     public static final double SCENE_HEIGHT = 40d;
     private SceneBoundaryCrossingDelegate sceneBoundaryCrossingDelegate;
-    private SceneBoundaryCrosser sceneBoundaryCrosser;
+    private SceneBoundaryCrossingWatcher sceneBoundaryCrossingWatchingDelegate;
     private ImageView imageView;
 
     @BeforeEach
     void setup() {
-        sceneBoundaryCrosser = Mockito.mock(SceneBoundaryCrosser.class);
-        sceneBoundaryCrossingDelegate = new SceneBoundaryCrossingDelegate(sceneBoundaryCrosser);
+        sceneBoundaryCrossingWatchingDelegate = Mockito.mock(SceneBoundaryCrossingWatcher.class);
+        sceneBoundaryCrossingDelegate = new SceneBoundaryCrossingDelegate(sceneBoundaryCrossingWatchingDelegate);
 
         imageView = Mockito.mock(ImageView.class);
         var bounds = new BoundingBox(0, 0, 2, 2);
@@ -43,7 +42,7 @@ class SceneBoundaryCrossingDelegateTest {
         sceneBoundaryCrossingDelegate.checkSceneBoundary(imageView);
 
         // Verify
-        Mockito.verifyNoMoreInteractions(sceneBoundaryCrosser);
+        Mockito.verifyNoMoreInteractions(sceneBoundaryCrossingWatchingDelegate);
     }
 
     @Test
@@ -56,7 +55,7 @@ class SceneBoundaryCrossingDelegateTest {
         sceneBoundaryCrossingDelegate.checkSceneBoundary(imageView);
 
         // Verify
-        Mockito.verify(sceneBoundaryCrosser).notifyBoundaryCrossing(SceneBorder.LEFT);
+        Mockito.verify(sceneBoundaryCrossingWatchingDelegate).notifyBoundaryCrossing(SceneBorder.LEFT);
     }
 
     @Test
@@ -69,7 +68,7 @@ class SceneBoundaryCrossingDelegateTest {
         sceneBoundaryCrossingDelegate.checkSceneBoundary(imageView);
 
         // Verify
-        Mockito.verify(sceneBoundaryCrosser).notifyBoundaryCrossing(SceneBorder.RIGHT);
+        Mockito.verify(sceneBoundaryCrossingWatchingDelegate).notifyBoundaryCrossing(SceneBorder.RIGHT);
     }
 
     @Test
@@ -82,7 +81,7 @@ class SceneBoundaryCrossingDelegateTest {
         sceneBoundaryCrossingDelegate.checkSceneBoundary(imageView);
 
         // Verify
-        Mockito.verify(sceneBoundaryCrosser).notifyBoundaryCrossing(SceneBorder.TOP);
+        Mockito.verify(sceneBoundaryCrossingWatchingDelegate).notifyBoundaryCrossing(SceneBorder.TOP);
     }
 
     @Test
@@ -95,6 +94,6 @@ class SceneBoundaryCrossingDelegateTest {
         sceneBoundaryCrossingDelegate.checkSceneBoundary(imageView);
 
         // Verify
-        Mockito.verify(sceneBoundaryCrosser).notifyBoundaryCrossing(SceneBorder.BOTTOM);
+        Mockito.verify(sceneBoundaryCrossingWatchingDelegate).notifyBoundaryCrossing(SceneBorder.BOTTOM);
     }
 }
