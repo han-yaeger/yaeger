@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * An {@code EntitySupplier} encapsulates a {@link HashSet} of instances of {@link Entity}.s
+ * An {@code EntitySupplier} encapsulates a {@link HashSet} of instances of {@link Entity}.
  */
 public class EntitySupplier extends HashSet<Entity> implements Clearable {
 

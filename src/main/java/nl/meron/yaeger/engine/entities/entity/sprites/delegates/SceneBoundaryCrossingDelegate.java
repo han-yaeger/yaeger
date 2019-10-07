@@ -1,7 +1,7 @@
 package nl.meron.yaeger.engine.entities.entity.sprites.delegates;
 
 import javafx.scene.image.ImageView;
-import nl.meron.yaeger.engine.entities.entity.SceneBoundaryCrossingWatcher;
+import nl.meron.yaeger.engine.entities.entity.updatetasks.SceneBoundaryCrossingWatcher;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 
 /**

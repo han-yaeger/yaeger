@@ -1,13 +1,11 @@
 package nl.meron.yaeger.engine.scenes.impl;
 
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.EntitySpawner;
 import nl.meron.yaeger.javafx.animationtimer.AnimationTimerFactory;
-import nl.meron.yaeger.engine.entities.entity.Entity;
 
 import java.util.Set;
 

@@ -6,7 +6,6 @@ import nl.meron.yaeger.engine.entities.collisions.CollisionSide;
 import nl.meron.yaeger.engine.entities.entity.Position;
 import nl.meron.yaeger.engine.entities.entity.sprites.MovementVector;
 import nl.meron.yaeger.engine.entities.entity.sprites.Size;
-import nl.meron.yaeger.engine.scenes.SceneBorder;
 import nl.meron.yaeger.engine.entities.collisions.Collidable;
 import nl.meron.yaeger.engine.entities.collisions.Collider;
 import nl.meron.yaeger.engine.userinput.KeyListener;
@@ -16,7 +15,7 @@ import java.util.Set;
 
 public class Player extends UpdatableSpriteEntity implements KeyListener, Collidable {
 
-    private static final String IMAGES_PLAYER_PNG = "images/player.png";
+    private static final String IMAGES_PLAYER_PNG = "waterworld/images/player.png";
     private int health;
     private Level level;
 
@@ -61,10 +60,5 @@ public class Player extends UpdatableSpriteEntity implements KeyListener, Collid
         if (collidingObject instanceof Swordfish || collidingObject instanceof AnimatedShark) {
             doDamage();
         }
-    }
-
-    @Override
-    public void notifyBoundaryCrossing(SceneBorder border) {
-        // Not needed
     }
 }

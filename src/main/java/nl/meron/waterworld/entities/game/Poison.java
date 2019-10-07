@@ -7,7 +7,7 @@ import nl.meron.yaeger.engine.entities.entity.Position;
 
 public class Poison extends Bubble {
 
-    private static final String IMAGES_POISON_PNG = "images/poison.png";
+    private static final String IMAGES_POISON_PNG = "waterworld/images/poison.png";
 
     public Poison(final Position position, final double speed, final Level level) {
         super(position, IMAGES_POISON_PNG, speed, level);

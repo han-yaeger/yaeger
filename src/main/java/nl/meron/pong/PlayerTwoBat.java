@@ -14,11 +14,6 @@ public class PlayerTwoBat extends PongBat {
     }
 
     @Override
-    public void notifyBoundaryCrossing(SceneBorder border) {
-        setSpeed(0);
-    }
-
-    @Override
     public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
         if (pressedKeys.contains(KeyCode.K)) {
             setSpeed(SPEED);
@@ -26,6 +21,10 @@ public class PlayerTwoBat extends PongBat {
         } else if (pressedKeys.contains(KeyCode.M)) {
             setSpeed(SPEED);
             setDirection(MovementVector.Direction.DOWN);
+        } else {
+            setSpeed(0);
         }
     }
+
+
 }

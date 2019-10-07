@@ -1,24 +1,17 @@
 package nl.meron.yaeger.engine.entities.entity.sprites;
 
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import nl.meron.yaeger.engine.entities.entity.Position;
-import nl.meron.yaeger.engine.entities.entity.SceneBoundaryCrossingWatcher;
-import nl.meron.yaeger.engine.entities.entity.sprites.delegates.SceneBoundaryCrossingDelegate;
 import nl.meron.yaeger.engine.entities.entity.Updatable;
-import nl.meron.yaeger.module.factories.SceneBoundaryCrossingDelegateFactory;
 
 /**
  * An {@code UpdatableSpriteEntity} extends all behaviour of a {@link SpriteEntity}, but also implements the
  * {@link Updatable} Interface.
  */
-public abstract class UpdatableSpriteEntity extends SpriteEntity implements Updatable, SceneBoundaryCrossingWatcher {
+public abstract class UpdatableSpriteEntity extends SpriteEntity implements Updatable {
 
     private long autoCycleInterval = 0;
     private UpdatableSpriteEntityMover mover;
-
-    private SceneBoundaryCrossingDelegateFactory sceneBoundaryCrossingDelegateFactory;
-    private SceneBoundaryCrossingDelegate sceneBoundaryCrossingDelegate;
 
     /**
      * Create a new SpriteEntity.
@@ -46,10 +39,10 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     /**
      * Create a new {@code UpdatableSpriteEntity}.
      *
-     * @param resource        The url of the image file. Relative to the resources folder.
-     * @param initialPosition the initial {@link Position} of this Entity
-     * @param size            The bounding box of this {@code SpriteEntity}.
-     * @param frames          The number of frames this Image contains. By default the first frame is loaded.
+     * @param resource              The url of the image file. Relative to the resources folder.
+     * @param initialPosition       the initial {@link Position} of this Entity
+     * @param size                  The bounding box of this {@code SpriteEntity}.
+     * @param frames                The number of frames this Image contains. By default the first frame is loaded.
      * @param initialMovementVector The movement of this {@code UpdatableSpriteEntity}
      */
     public UpdatableSpriteEntity(final String resource, final Position initialPosition, final Size size, int frames, final MovementVector initialMovementVector) {
@@ -61,11 +54,12 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     @Override
     public void update(long timestamp) {
         updateLocation();
-        sceneBoundaryCrossingDelegate.checkSceneBoundary(imageView);
 
         if (spriteAnimationDelegate != null) {
             spriteAnimationDelegate.update(timestamp);
         }
+
+        updateTasks.forEach(task -> task.executeTask(this));
     }
 
     /**
@@ -94,7 +88,6 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
         if (getFrames() > 1 && autoCycleInterval != 0) {
             spriteAnimationDelegate.setAutoCycle(autoCycleInterval);
         }
-        sceneBoundaryCrossingDelegate = sceneBoundaryCrossingDelegateFactory.create(this);
     }
 
     /**
@@ -118,16 +111,11 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
      *
      * @return a {@code double} representing the direction
      */
-    protected double getDirection(){
+    protected double getDirection() {
         return mover.getDirection();
     }
 
     private void updateLocation() {
         mover.updateLocation();
-    }
-
-    @Inject
-    public void setSceneBoundaryCrossingDelegateFactory(SceneBoundaryCrossingDelegateFactory sceneBoundaryCrossingDelegateFactory) {
-        this.sceneBoundaryCrossingDelegateFactory = sceneBoundaryCrossingDelegateFactory;
     }
 }

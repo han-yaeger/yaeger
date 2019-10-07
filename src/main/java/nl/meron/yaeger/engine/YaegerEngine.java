@@ -1,6 +1,7 @@
 package nl.meron.yaeger.engine;
 
 import javafx.application.Application;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import nl.meron.yaeger.engine.entities.entity.sprites.Size;
 import nl.meron.yaeger.engine.scenes.Scenes;
@@ -12,6 +13,7 @@ import nl.meron.yaeger.engine.scenes.YaegerScene;
  * worden aangeboden die het mogelijk maken de inhoud van het game te initialiseren.
  */
 public abstract class YaegerEngine extends Application {
+    public static final KeyCode TOGGLE_DEBUGGER_KEY = KeyCode.F1;
 
     private static final Size DEFAULT_GAME_DIMENSIONS = new Size(640, 480);
 

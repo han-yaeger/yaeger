@@ -5,6 +5,7 @@ import com.google.inject.Injector;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import nl.meron.yaeger.engine.YaegerEngine;
 import nl.meron.yaeger.engine.entities.EntityCollection;
 import nl.meron.yaeger.engine.entities.EntitySupplier;
 import nl.meron.yaeger.engine.userinput.KeyListener;
@@ -15,14 +16,6 @@ import nl.meron.yaeger.engine.scenes.YaegerScene;
 import nl.meron.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.meron.yaeger.engine.scenes.delegates.KeyListenerDelegate;
 import nl.meron.yaeger.module.factories.EntityCollectionFactory;
-import nl.meron.yaeger.module.factories.SceneFactory;
-import nl.meron.yaeger.engine.debug.Debugger;
-import nl.meron.yaeger.engine.entities.EntityCollection;
-import nl.meron.yaeger.engine.entities.EntitySupplier;
-import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.scenes.delegates.BackgroundDelegate;
-import nl.meron.yaeger.engine.scenes.delegates.KeyListenerDelegate;
-import nl.meron.yaeger.engine.userinput.KeyListener;
 import nl.meron.yaeger.module.factories.SceneFactory;
 
 import java.util.Set;
@@ -113,7 +106,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
 
     @Override
     public void onPressedKeysChange(Set<KeyCode> input) {
-        if (input.contains(KeyCode.F1)) {
+        if (input.contains(YaegerEngine.TOGGLE_DEBUGGER_KEY)) {
             debugger.toggle();
         }
 

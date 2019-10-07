@@ -3,7 +3,7 @@ package nl.meron.yaeger.engine.entities.entity.sprites.delegates;
 import javafx.geometry.BoundingBox;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import nl.meron.yaeger.engine.entities.entity.SceneBoundaryCrossingWatcher;
+import nl.meron.yaeger.engine.entities.entity.updatetasks.SceneBoundaryCrossingWatcher;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

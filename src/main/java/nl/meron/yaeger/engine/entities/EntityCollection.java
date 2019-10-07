@@ -9,6 +9,7 @@ import nl.meron.yaeger.engine.entities.collisions.Collided;
 import nl.meron.yaeger.engine.entities.collisions.Collider;
 import nl.meron.yaeger.engine.entities.collisions.CollisionDelegate;
 import nl.meron.yaeger.engine.entities.entity.Entity;
+import nl.meron.yaeger.engine.entities.entity.updatetasks.EntityUpdateTaskSupplier;
 import nl.meron.yaeger.engine.entities.entity.Removeable;
 import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.entities.events.EventTypes;
@@ -132,6 +133,7 @@ public class EntityCollection implements Initializable {
         notifyUpdatables(timestamp);
         addSuppliedEntities();
         collisionDelegate.checkCollisions();
+
         updateStatistics();
         notifyStatisticsObservers();
     }
@@ -199,9 +201,18 @@ public class EntityCollection implements Initializable {
 
     private void addToUpdatablesOrStatics(Entity entity) {
         if (entity instanceof Updatable) {
-            updatables.add((Updatable) entity);
+            var updatable = (Updatable) entity;
+            addEntityUpdateTasks(updatable);
+            updatables.add(updatable);
         } else {
             statics.add(entity);
+        }
+    }
+
+    private void addEntityUpdateTasks(Updatable updatable) {
+        if (updatable instanceof EntityUpdateTaskSupplier){
+            var taskSupplier = (EntityUpdateTaskSupplier) updatable;
+            updatable.addTask(taskSupplier.getTask());
         }
     }
 

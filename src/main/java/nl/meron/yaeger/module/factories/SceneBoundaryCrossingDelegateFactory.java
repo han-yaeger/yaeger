@@ -1,7 +1,7 @@
 package nl.meron.yaeger.module.factories;
 
 import com.google.inject.Singleton;
-import nl.meron.yaeger.engine.entities.entity.SceneBoundaryCrossingWatcher;
+import nl.meron.yaeger.engine.entities.entity.updatetasks.SceneBoundaryCrossingWatcher;
 import nl.meron.yaeger.engine.entities.entity.sprites.delegates.SceneBoundaryCrossingDelegate;
 
 /**

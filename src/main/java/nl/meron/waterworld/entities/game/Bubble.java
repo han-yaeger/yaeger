@@ -4,19 +4,17 @@ import nl.meron.waterworld.scenes.levels.Level;
 import nl.meron.yaeger.engine.entities.collisions.Collider;
 import nl.meron.yaeger.engine.entities.collisions.CollisionSide;
 import nl.meron.yaeger.engine.entities.entity.Position;
+import nl.meron.yaeger.engine.entities.entity.updatetasks.SceneBoundaryCrossingWatcher;
 import nl.meron.yaeger.engine.entities.entity.sprites.MovementVector;
 import nl.meron.yaeger.engine.entities.entity.sprites.Size;
 import nl.meron.yaeger.engine.media.audio.SoundClip;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 import nl.meron.yaeger.engine.entities.collisions.Collided;
 import nl.meron.yaeger.engine.entities.entity.sprites.UpdatableSpriteEntity;
-import nl.meron.yaeger.engine.entities.collisions.Collided;
-import nl.meron.yaeger.engine.entities.collisions.Collider;
-import nl.meron.yaeger.engine.media.audio.SoundClip;
 
-public abstract class Bubble extends UpdatableSpriteEntity implements Collided {
+public abstract class Bubble extends UpdatableSpriteEntity implements Collided, SceneBoundaryCrossingWatcher {
 
-    private static final String AUDIO_POP_MP3 = "audio/pop.mp3";
+    private static final String AUDIO_POP_MP3 = "waterworld/audio/pop.mp3";
     private final Level level;
 
     Bubble(final Position position, final String resource, final double speed, final Level game) {

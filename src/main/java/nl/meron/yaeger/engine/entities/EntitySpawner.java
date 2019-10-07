@@ -7,10 +7,6 @@ import nl.meron.yaeger.engine.Destroyable;
 import nl.meron.yaeger.engine.Initializable;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.javafx.animationtimer.AnimationTimerFactory;
-import nl.meron.yaeger.engine.Destroyable;
-import nl.meron.yaeger.engine.Initializable;
-import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.javafx.animationtimer.AnimationTimerFactory;
 
 import java.util.Objects;
 
