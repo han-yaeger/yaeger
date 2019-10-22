@@ -133,6 +133,30 @@ public class TextEntity implements Entity {
         return position;
     }
 
+    @Override
+    public double getRightSideXCoordinate() {
+        //TODO implement this
+        return 0;
+    }
+
+    @Override
+    public double getLeftSideXCoordinate() {
+        //TODO implement this
+        return 0;
+    }
+
+    @Override
+    public double getBottomYCoordinate() {
+        //TODO implement this
+        return 0;
+    }
+
+    @Override
+    public double getTopYCoordinate() {
+        //TODO implement this
+        return 0;
+    }
+
     @Inject
     public void setTextDelegate(Text text) {
         this.textDelegate = text;

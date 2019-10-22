@@ -101,6 +101,26 @@ class EntityTest {
             return null;
         }
 
+        @Override
+        public double getRightSideXCoordinate() {
+            return 0;
+        }
+
+        @Override
+        public double getLeftSideXCoordinate() {
+            return 0;
+        }
+
+        @Override
+        public double getBottomYCoordinate() {
+            return 0;
+        }
+
+        @Override
+        public double getTopYCoordinate() {
+            return 0;
+        }
+
         void setNode(Node node) {
             this.node = node;
         }

@@ -52,4 +52,9 @@ public interface Entity extends Initializable, Bounded, Removeable, NodeProvider
      * @return the {@link Position} of this {@link Entity}
      */
     Position getPosition();
+
+    double getRightSideXCoordinate();
+    double getLeftSideXCoordinate();
+    double getBottomYCoordinate();
+    double getTopYCoordinate();
 }

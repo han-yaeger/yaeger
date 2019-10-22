@@ -59,7 +59,7 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
             spriteAnimationDelegate.update(timestamp);
         }
 
-        updateTasks.forEach(task -> task.executeTask(this));
+        updateTasks.forEach(task -> task.executeTask());
     }
 
     /**

@@ -5,5 +5,5 @@ import nl.meron.yaeger.engine.entities.entity.Entity;
 @FunctionalInterface
 public interface EntityUpdateTask {
 
-    void executeTask(Entity entity);
+    void executeTask();
 }

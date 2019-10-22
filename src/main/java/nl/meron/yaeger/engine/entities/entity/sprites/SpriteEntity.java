@@ -152,6 +152,26 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
         return new Position(imageView.getX(), imageView.getY());
     }
 
+    @Override
+    public double getRightSideXCoordinate() {
+        return getPosition().getX() + getBounds().getWidth();
+    }
+
+    @Override
+    public double getLeftSideXCoordinate() {
+        return getPosition().getX();
+    }
+
+    @Override
+    public double getBottomYCoordinate() {
+        return getPosition().getY() + getBounds().getHeight();
+    }
+
+    @Override
+    public double getTopYCoordinate() {
+        return getPosition().getY();
+    }
+
     @Inject
     public void setSpriteAnimationDelegateFactory(SpriteAnimationDelegateFactory spriteAnimationDelegateFactory) {
         this.spriteAnimationDelegateFactory = spriteAnimationDelegateFactory;

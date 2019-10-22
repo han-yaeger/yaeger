@@ -7,7 +7,7 @@ import nl.meron.yaeger.engine.scenes.SceneBorder;
  * Implement this interface to be notified if the {@link Entity} completely crosses
  * the boundary of the scene.
  */
-public interface SceneBoundaryCrossingWatcher extends EntityUpdateTaskSupplier {
+public interface SceneBoundaryCrossingWatcher extends Entity, EntityUpdateTaskSupplier {
 
     /**
      * This method is being called when this {@link SceneBoundaryCrossingWatcher} crosses a boundary of the {@link javafx.scene.Scene}.
@@ -17,26 +17,17 @@ public interface SceneBoundaryCrossingWatcher extends EntityUpdateTaskSupplier {
     void notifyBoundaryCrossing(SceneBorder border);
 
     default EntityUpdateTask getTask() {
-        return (entity) -> watch(entity);
+        return () -> watch();
     }
 
-    private void watch(Entity entity) {
-        var x = entity.getPosition().getX();
-        var y = entity.getPosition().getY();
-        var width = entity.getBounds().getWidth();
-        var height = entity.getBounds().getHeight();
-        var rightSideXCoordinate = x + width;
-        var bottomYCoordinate = y + height;
-        var screenBottom = entity.getSceneHeight();
-        var screenRight = entity.getSceneWidth();
-
-        if (rightSideXCoordinate <= 0) {
+    private void watch() {
+        if (getRightSideXCoordinate() <= 0) {
             notifyBoundaryCrossing(SceneBorder.LEFT);
-        } else if (bottomYCoordinate <= 0) {
+        } else if (getBottomYCoordinate() <= 0) {
             notifyBoundaryCrossing(SceneBorder.TOP);
-        } else if (y >= screenBottom) {
+        } else if (getTopYCoordinate() >= getSceneHeight()) {
             notifyBoundaryCrossing(SceneBorder.BOTTOM);
-        } else if (x >= screenRight) {
+        } else if (getLeftSideXCoordinate() >= getSceneWidth()) {
             notifyBoundaryCrossing(SceneBorder.RIGHT);
         }
     }

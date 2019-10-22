@@ -33,8 +33,8 @@ public interface Updatable {
         updateTasks.add(task);
     }
 
-    default void executeTasks(Entity entity){
+    default void executeTasks(){
 
-        updateTasks.forEach(task -> task.executeTask(entity));
+        updateTasks.forEach(task -> task.executeTask());
     }
 }
