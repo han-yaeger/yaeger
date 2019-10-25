@@ -2,7 +2,6 @@ package nl.meron.yaeger.engine.entities.entity;
 
 import javafx.geometry.Bounds;
 import nl.meron.yaeger.engine.Initializable;
-import nl.meron.yaeger.engine.Initializable;
 
 /**
  * An {@code Entity} will serve as the {@code Root Interface} for all objects that are part of a {@code Yaeger} game.
@@ -49,12 +48,35 @@ public interface Entity extends Initializable, Bounded, Removeable, NodeProvider
     }
 
     /**
-     * @return the {@link Position} of this {@link Entity}
+     * @return the {@link Point} of this {@link Entity}
      */
-    Position getPosition();
+    Point getAnchorPoint();
 
-    double getRightSideXCoordinate();
-    double getLeftSideXCoordinate();
-    double getBottomYCoordinate();
-    double getTopYCoordinate();
+    /**
+     * @return a {@code double} of the right side x value
+     */
+    default double getRightSideX() {
+        return getAnchorPoint().getX() + getBounds().getWidth();
+    }
+
+    /**
+     * @return a {@code double} of the left side x value
+     */
+    default double getLeftSideX() {
+        return getAnchorPoint().getX();
+    }
+
+    /**
+     * @return a {@code double} of the bottom y value
+     */
+    default double getBottomY() {
+        return getAnchorPoint().getY() + getBounds().getHeight();
+    }
+
+    /**
+     * @return a {@code double} of the top y value
+     */
+    default double getTopY() {
+        return getAnchorPoint().getY();
+    }
 }

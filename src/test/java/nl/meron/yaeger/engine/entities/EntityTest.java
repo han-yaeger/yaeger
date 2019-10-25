@@ -6,7 +6,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.entities.entity.Position;
+import nl.meron.yaeger.engine.entities.entity.Point;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,9 @@ import static org.mockito.Mockito.*;
 class EntityTest {
 
     private static final double SCENE_WIDTH = 37d;
-    public static final double SCENE_HEIGHT = 42d;
+    private static final double SCENE_HEIGHT = 42d;
+    private static final BoundingBox BOUNDING_BOX = new BoundingBox(0, 0, 10, 10);
+    private static final Point ANCHORPOINT = new Point(0, 0);
 
     private Entity testEntity;
     private Node node;
@@ -70,15 +72,61 @@ class EntityTest {
     @Test
     void getBoundsDelegatesToNode() {
         // Setup
-        BoundingBox bounds = new BoundingBox(0, 0, 10, 10);
-        when(node.getBoundsInParent()).thenReturn(bounds);
+        when(node.getBoundsInParent()).thenReturn(BOUNDING_BOX);
 
         // Test
         Bounds entityBounds = testEntity.getBounds();
 
         // Verify
-        assertEquals(bounds, entityBounds);
+        assertEquals(BOUNDING_BOX, entityBounds);
+    }
 
+    @Test
+    void getRightSideXDelegatesWork() {
+        // Arrange
+        when(node.getBoundsInParent()).thenReturn(BOUNDING_BOX);
+
+        // Act
+        double rightSideX = testEntity.getRightSideX();
+
+        // Assert
+        assertEquals(ANCHORPOINT.getX() + BOUNDING_BOX.getWidth(), rightSideX);
+    }
+
+    @Test
+    void getLeftSideXDelegatesWork() {
+        // Arrange
+        when(node.getBoundsInParent()).thenReturn(BOUNDING_BOX);
+
+        // Act
+        double leftSideX = testEntity.getLeftSideX();
+
+        // Assert
+        assertEquals(ANCHORPOINT.getX() , leftSideX);
+    }
+
+    @Test
+    void getBottomSideYDelegatesWork() {
+        // Arrange
+        when(node.getBoundsInParent()).thenReturn(BOUNDING_BOX);
+
+        // Act
+        double bottomY = testEntity.getBottomY();
+
+        // Assert
+        assertEquals(ANCHORPOINT.getY() + BOUNDING_BOX.getHeight(), bottomY);
+    }
+
+    @Test
+    void getTopSideYDelegatesWork() {
+        // Arrange
+        when(node.getBoundsInParent()).thenReturn(BOUNDING_BOX);
+
+        // Act
+        double topY = testEntity.getTopY();
+
+        // Assert
+        assertEquals(ANCHORPOINT.getY(), topY);
     }
 
 
@@ -97,28 +145,8 @@ class EntityTest {
         }
 
         @Override
-        public Position getPosition() {
-            return null;
-        }
-
-        @Override
-        public double getRightSideXCoordinate() {
-            return 0;
-        }
-
-        @Override
-        public double getLeftSideXCoordinate() {
-            return 0;
-        }
-
-        @Override
-        public double getBottomYCoordinate() {
-            return 0;
-        }
-
-        @Override
-        public double getTopYCoordinate() {
-            return 0;
+        public Point getAnchorPoint() {
+            return ANCHORPOINT;
         }
 
         void setNode(Node node) {

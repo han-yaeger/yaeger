@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import nl.meron.waterworld.Waterworld;
-import nl.meron.yaeger.engine.entities.entity.Position;
+import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.SceneType;
 import nl.meron.yaeger.engine.scenes.impl.StaticScene;
@@ -39,7 +39,7 @@ public class GameOver extends StaticScene {
 
     @Override
     public void setupEntities() {
-        var gameOverText = new TextEntity(new Position(440, 350), GAME_OVER);
+        var gameOverText = new TextEntity(new Point(440, 350), GAME_OVER);
         gameOverText.setFill(Color.VIOLET);
         gameOverText.setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 60));
         addEntity(gameOverText);

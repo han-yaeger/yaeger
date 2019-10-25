@@ -9,12 +9,12 @@ import nl.meron.yaeger.engine.entities.collisions.Collided;
 import nl.meron.yaeger.engine.entities.collisions.Collider;
 import nl.meron.yaeger.engine.entities.collisions.CollisionDelegate;
 import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.entities.entity.updatetasks.EntityUpdateTaskSupplier;
 import nl.meron.yaeger.engine.entities.entity.Removeable;
 import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.entities.events.EventTypes;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 import nl.meron.yaeger.engine.userinput.KeyListener;
+import nl.meron.yaeger.engine.userinput.MousePressedListener;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -187,11 +187,17 @@ public class EntityCollection implements Initializable {
     private void addToGameLoop(Entity entity) {
         initialize(entity);
         addToKeylisteners(entity);
+        attachMouseEventListeners(entity);
+        attachGameEventListeners(entity);
         addToUpdatablesOrStatics(entity);
-
         collisionDelegate.register(entity);
-        attachEventListeners(entity);
         addToScene(entity);
+    }
+
+    private void attachMouseEventListeners(Entity entity) {
+        if (entity instanceof MousePressedListener) {
+            ((MousePressedListener) entity).attachMousePressedListener();
+        }
     }
 
     private void initialize(Entity entity) {
@@ -202,17 +208,9 @@ public class EntityCollection implements Initializable {
     private void addToUpdatablesOrStatics(Entity entity) {
         if (entity instanceof Updatable) {
             var updatable = (Updatable) entity;
-            addEntityUpdateTasks(updatable);
             updatables.add(updatable);
         } else {
             statics.add(entity);
-        }
-    }
-
-    private void addEntityUpdateTasks(Updatable updatable) {
-        if (updatable instanceof EntityUpdateTaskSupplier){
-            var taskSupplier = (EntityUpdateTaskSupplier) updatable;
-            updatable.addTask(taskSupplier.getTask());
         }
     }
 
@@ -226,7 +224,7 @@ public class EntityCollection implements Initializable {
         this.group.getChildren().add(entity.getGameNode());
     }
 
-    private void attachEventListeners(Entity entity) {
+    private void attachGameEventListeners(Entity entity) {
         entity.getGameNode().addEventHandler(EventTypes.REMOVE, event -> markAsGarbage(event.getSource()));
     }
 

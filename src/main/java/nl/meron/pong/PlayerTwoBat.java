@@ -1,16 +1,15 @@
 package nl.meron.pong;
 
 import javafx.scene.input.KeyCode;
-import nl.meron.yaeger.engine.entities.entity.Position;
-import nl.meron.yaeger.engine.entities.entity.sprites.MovementVector;
+import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.sprites.movement.MovementVector;
 import nl.meron.yaeger.engine.entities.entity.sprites.Size;
-import nl.meron.yaeger.engine.scenes.SceneBorder;
 
 import java.util.Set;
 
 public class PlayerTwoBat extends PongBat {
-    public PlayerTwoBat(Position initialPosition, Size size) {
-        super(initialPosition, size);
+    public PlayerTwoBat(Point initialPoint, Size size) {
+        super(initialPoint, size);
     }
 
     @Override

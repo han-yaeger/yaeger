@@ -2,7 +2,7 @@ package nl.meron.waterworld.scenes.levels;
 
 import nl.meron.waterworld.Waterworld;
 import nl.meron.waterworld.entities.game.AnimatedShark;
-import nl.meron.yaeger.engine.entities.entity.Position;
+import nl.meron.yaeger.engine.entities.entity.Point;
 
 public class LevelTwo extends Level {
 
@@ -22,7 +22,7 @@ public class LevelTwo extends Level {
     public void setupEntities() {
         super.setupEntities();
 
-        var animatedSwordFish = new AnimatedShark(new Position(400, 400));
+        var animatedSwordFish = new AnimatedShark(new Point(400, 400));
         addEntity(animatedSwordFish);
     }
 }

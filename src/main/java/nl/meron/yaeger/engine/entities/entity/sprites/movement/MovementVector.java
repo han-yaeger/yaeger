@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.entities.entity.sprites;
+package nl.meron.yaeger.engine.entities.entity.sprites.movement;
 
 import javafx.geometry.Point2D;
 

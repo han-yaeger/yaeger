@@ -1,6 +1,6 @@
 package nl.meron.yaeger.engine.entities.entity.sprites.movement;
 
-import nl.meron.yaeger.engine.entities.entity.Position;
+import nl.meron.yaeger.engine.entities.entity.Point;
 
 /**
  * The base interface of
@@ -9,9 +9,9 @@ import nl.meron.yaeger.engine.entities.entity.Position;
 public interface Movement {
 
     /**
-     * @param currentPosition The current {@link Position} from which the movement should be applied
+     * @param currentPoint The current {@link Point} from which the movement should be applied
      * @param timestamp       A timestamp
-     * @return The new {@link Position} after this {@code Movement} has been applied
+     * @return The new {@link Point} after this {@code Movement} has been applied
      */
-    Position move(Position currentPosition, double timestamp);
+    Point move(Point currentPoint, double timestamp);
 }

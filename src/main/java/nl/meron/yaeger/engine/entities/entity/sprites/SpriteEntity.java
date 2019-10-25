@@ -5,13 +5,9 @@ import com.google.inject.Injector;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.entities.entity.Position;
+import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimationDelegate;
 import nl.meron.yaeger.engine.media.repositories.ImageRepository;
-import nl.meron.yaeger.engine.media.ResourceConsumer;
-import nl.meron.yaeger.javafx.image.ImageViewFactory;
-import nl.meron.yaeger.module.factories.SpriteAnimationDelegateFactory;
-import nl.meron.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimationDelegate;
 import nl.meron.yaeger.engine.media.ResourceConsumer;
 import nl.meron.yaeger.javafx.image.ImageViewFactory;
 import nl.meron.yaeger.module.factories.SpriteAnimationDelegateFactory;
@@ -27,34 +23,33 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     private ImageRepository imageRepository;
     private ImageViewFactory imageViewFactory;
 
-
     private int frames;
     ImageView imageView;
 
-    Position position;
+    Point point;
     SpriteAnimationDelegate spriteAnimationDelegate;
 
     /**
      * Instantiate a new {@code SpriteEntity} for a given Image.
      *
-     * @param resource        The url of the image file. Relative to the resources folder.
-     * @param initialPosition the initial {@link Position} of this Entity
-     * @param size            The bounding box of this SpriteEntity.
+     * @param resource     The url of the image file. Relative to the resources folder.
+     * @param initialPoint the initial {@link Point} of this Entity
+     * @param size         The bounding box of this SpriteEntity.
      */
-    protected SpriteEntity(final String resource, final Position initialPosition, final Size size) {
-        this(resource, initialPosition, size, 1);
+    protected SpriteEntity(final String resource, final Point initialPoint, final Size size) {
+        this(resource, initialPoint, size, 1);
     }
 
     /**
      * Instantiate a new {@code SpriteEntity} for a given Image.
      *
-     * @param resource        The url of the image file. Relative to the resources folder.
-     * @param initialPosition the initial {@link Position} of this Entity
-     * @param size            The bounding box of this SpriteEntity.
-     * @param frames          The number of frames this Image contains. By default the first frame is loaded.
+     * @param resource     The url of the image file. Relative to the resources folder.
+     * @param initialPoint the initial {@link Point} of this Entity
+     * @param size         The bounding box of this SpriteEntity.
+     * @param frames       The number of frames this Image contains. By default the first frame is loaded.
      */
-    protected SpriteEntity(final String resource, final Position initialPosition, final Size size, final int frames) {
-        this.position = initialPosition;
+    protected SpriteEntity(final String resource, final Point initialPoint, final Size size, final int frames) {
+        this.point = initialPoint;
         this.frames = frames;
         this.resource = resource;
         this.size = size;
@@ -64,8 +59,8 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     public void init(Injector injector) {
         var requestedWidth = size.getWidth() * frames;
         imageView = createImageView(resource, requestedWidth, size.getHeight());
-        imageView.setX(position.getX());
-        imageView.setY(position.getY());
+        imageView.setX(point.getX());
+        imageView.setY(point.getY());
 
         if (frames > 1) {
             spriteAnimationDelegate = spriteAnimationDelegateFactory.create(imageView, frames);
@@ -90,12 +85,12 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     /**
      * Set the position of this {@code SpriteEntity}
      *
-     * @param position The new {@link Position}
+     * @param point The new {@link Point}
      */
-    public void setPosition(Position position) {
+    public void setPoint(Point point) {
         if (imageView != null) {
-            imageView.setX(position.getX());
-            imageView.setY(position.getY());
+            imageView.setX(point.getX());
+            imageView.setY(point.getY());
         }
     }
 
@@ -148,28 +143,8 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     }
 
     @Override
-    public Position getPosition() {
-        return new Position(imageView.getX(), imageView.getY());
-    }
-
-    @Override
-    public double getRightSideXCoordinate() {
-        return getPosition().getX() + getBounds().getWidth();
-    }
-
-    @Override
-    public double getLeftSideXCoordinate() {
-        return getPosition().getX();
-    }
-
-    @Override
-    public double getBottomYCoordinate() {
-        return getPosition().getY() + getBounds().getHeight();
-    }
-
-    @Override
-    public double getTopYCoordinate() {
-        return getPosition().getY();
+    public Point getAnchorPoint() {
+        return new Point(imageView.getX(), imageView.getY());
     }
 
     @Inject

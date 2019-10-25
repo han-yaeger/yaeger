@@ -5,7 +5,7 @@ import javafx.geometry.Point2D;
 /**
  * A 2D geometric point that represents the x, y coordinates.
  */
-public class Position extends Point2D {
+public class Point extends Point2D {
 
     /**
      * Creates a new instance of {@code Position}.
@@ -13,7 +13,7 @@ public class Position extends Point2D {
      * @param x the x coordinate of the {@code Position}
      * @param y the y coordinate of the {@code Position}
      */
-    public Position(double x, double y) {
+    public Point(double x, double y) {
         super(x, y);
     }
 
@@ -22,16 +22,16 @@ public class Position extends Point2D {
      *
      * @param point a {@link Point2D respresentation of this {@code Position}
      */
-    public Position(Point2D point) {
+    public Point(Point2D point) {
         super(point.getX(), point.getY());
     }
 
     @Override
-    public Position add(Point2D point2D) {
-        return new Position(super.add(point2D));
+    public Point add(Point2D point2D) {
+        return new Point(super.add(point2D));
     }
 
-    public Position add(Position position) {
-        return new Position(super.add(position));
+    public Point add(Point point) {
+        return new Point(super.add(point));
     }
 }

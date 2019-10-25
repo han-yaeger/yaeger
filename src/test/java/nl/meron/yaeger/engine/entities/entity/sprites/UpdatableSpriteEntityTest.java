@@ -5,13 +5,11 @@ import javafx.geometry.BoundingBox;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import nl.meron.yaeger.engine.entities.entity.Position;
-import nl.meron.yaeger.engine.entities.entity.sprites.delegates.SceneBoundaryCrossingDelegate;
+import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimationDelegate;
+import nl.meron.yaeger.engine.entities.entity.sprites.movement.MovementVector;
 import nl.meron.yaeger.engine.media.repositories.ImageRepository;
-import nl.meron.yaeger.engine.scenes.SceneBorder;
 import nl.meron.yaeger.javafx.image.ImageViewFactory;
-import nl.meron.yaeger.module.factories.SceneBoundaryCrossingDelegateFactory;
 import nl.meron.yaeger.module.factories.SpriteAnimationDelegateFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +23,7 @@ class UpdatableSpriteEntityTest {
     private final static String DEFAULT_RESOURCE = "images/bubble.png";
     private final static int X_POSITION = 37;
     private final static int Y_POSITION = 37;
-    private final static Position DEFAULT_POSITION = new Position(X_POSITION, Y_POSITION);
+    private final static Point DEFAULT_POINT = new Point(X_POSITION, Y_POSITION);
     private final static int WIDTH = 39;
     private final static int HEIGHT = 41;
     private final static Size DEFAULT_SIZE = new Size(WIDTH, HEIGHT);
@@ -55,7 +53,7 @@ class UpdatableSpriteEntityTest {
         // Setup
 
         // Test
-        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE);
+        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
 
         // Verify
         Assertions.assertNotNull(updatableSpriteEntity);
@@ -67,7 +65,7 @@ class UpdatableSpriteEntityTest {
         var autocycleValue = 37;
         var image = mock(Image.class);
         var imageView = mock(ImageView.class);
-        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE);
+        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
         updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         updatableSpriteEntity.setImageRepository(imageRepository);
         updatableSpriteEntity.setImageViewFactory(imageViewFactory);
@@ -92,7 +90,7 @@ class UpdatableSpriteEntityTest {
         var frames = 2;
         var image = mock(Image.class);
         var imageView = mock(ImageView.class);
-        var updatableSpriteEntity = new AutoCyclingUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE, frames);
+        var updatableSpriteEntity = new AutoCyclingUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, frames);
         updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         updatableSpriteEntity.setImageRepository(imageRepository);
         updatableSpriteEntity.setImageViewFactory(imageViewFactory);
@@ -113,7 +111,7 @@ class UpdatableSpriteEntityTest {
     @Test
     void updateUpdatesLocation() {
         // Setup
-        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE, 1, MOVEMENT_VECTOR);
+        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, 1, MOVEMENT_VECTOR);
         updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
 
         updatableSpriteEntity.setImageRepository(imageRepository);
@@ -140,24 +138,24 @@ class UpdatableSpriteEntityTest {
         updatableSpriteEntity.update(1l);
 
         // Verify
-        assertNotEquals(DEFAULT_POSITION, updatableSpriteEntity.getPosition());
+        assertNotEquals(DEFAULT_POINT, updatableSpriteEntity.getAnchorPoint());
     }
 
     private class TestUpdatableSpriteEntity extends UpdatableSpriteEntity {
 
-        TestUpdatableSpriteEntity(String resource, Position position, Size size) {
-            super(resource, position, size);
+        TestUpdatableSpriteEntity(String resource, Point point, Size size) {
+            super(resource, point, size);
         }
 
-        TestUpdatableSpriteEntity(String resource, Position position, Size size, int frames, MovementVector movementVector) {
-            super(resource, position, size, frames, movementVector);
+        TestUpdatableSpriteEntity(String resource, Point point, Size size, int frames, MovementVector movementVector) {
+            super(resource, point, size, frames, movementVector);
         }
     }
 
     private class AutoCyclingUpdatableSpriteEntity extends UpdatableSpriteEntity {
 
-        AutoCyclingUpdatableSpriteEntity(String resource, Position position, Size size, int frames) {
-            super(resource, position, size, frames);
+        AutoCyclingUpdatableSpriteEntity(String resource, Point point, Size size, int frames) {
+            super(resource, point, size, frames);
             setAutoCycle(2);
         }
     }

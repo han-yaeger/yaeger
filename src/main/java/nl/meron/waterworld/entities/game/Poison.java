@@ -3,14 +3,14 @@ package nl.meron.waterworld.entities.game;
 import nl.meron.waterworld.scenes.levels.Level;
 import nl.meron.yaeger.engine.entities.collisions.CollisionSide;
 import nl.meron.yaeger.engine.entities.collisions.Collider;
-import nl.meron.yaeger.engine.entities.entity.Position;
+import nl.meron.yaeger.engine.entities.entity.Point;
 
 public class Poison extends Bubble {
 
     private static final String IMAGES_POISON_PNG = "waterworld/images/poison.png";
 
-    public Poison(final Position position, final double speed, final Level level) {
-        super(position, IMAGES_POISON_PNG, speed, level);
+    public Poison(final Point point, final double speed, final Level level) {
+        super(point, IMAGES_POISON_PNG, speed, level);
     }
 
     @Override

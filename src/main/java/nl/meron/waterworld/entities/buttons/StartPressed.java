@@ -5,26 +5,27 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import nl.meron.waterworld.Waterworld;
-import nl.meron.yaeger.engine.userinput.MouseButtonListener;
-import nl.meron.yaeger.engine.entities.entity.Position;
+import nl.meron.yaeger.engine.userinput.MousePressedListener;
+import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.text.TextEntity;
+import nl.meron.yaeger.engine.scenes.SceneType;
 
-public class QuitButton extends TextEntity implements MouseButtonListener {
+public class StartPressed extends TextEntity implements MousePressedListener {
 
-    public static final String EXIT_GAME = "Exit game";
+    public static final String PLAY_GAME = "Play game";
     private Waterworld waterworld;
 
-    public QuitButton(Waterworld waterworld) {
-        super(new Position(680, 400), EXIT_GAME);
+    public StartPressed(Waterworld waterworld) {
+        super(new Point(380, 400), PLAY_GAME);
         this.waterworld = waterworld;
-        setFill(Color.YELLOWGREEN);
+        setFill(Color.VIOLET);
         setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 30));
     }
 
     @Override
     public void onMousePressed(MouseButton button) {
         if (button.equals(MouseButton.PRIMARY)) {
-            waterworld.quitGame();
+            waterworld.nextScene(SceneType.LEVEL_ONE);
         }
     }
 }

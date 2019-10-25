@@ -3,7 +3,7 @@ package nl.meron.yaeger.engine.entities.entity.sprites;
 import com.google.inject.Injector;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import nl.meron.yaeger.engine.entities.entity.Position;
+import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimationDelegate;
 import nl.meron.yaeger.engine.entities.events.RemoveEntityEvent;
 import nl.meron.yaeger.engine.media.repositories.ImageRepository;
@@ -20,7 +20,7 @@ class SpriteEntityTest {
     private final static String DEFAULT_RESOURCE = "images/bubble.png";
     private final static int X_POSITION = 37;
     private final static int Y_POSITION = 37;
-    private final static Position DEFAULT_POSITION = new Position(X_POSITION, Y_POSITION);
+    private final static Point DEFAULT_POINT = new Point(X_POSITION, Y_POSITION);
     private final static int WIDTH = 39;
     private final static int HEIGHT = 41;
     private final static Size DEFAULT_SIZE = new Size(WIDTH, HEIGHT);
@@ -47,7 +47,7 @@ class SpriteEntityTest {
         // Setup
 
         // Test
-        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE);
+        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
 
         // Verify
         Assertions.assertNotNull(spriteEntity);
@@ -58,7 +58,7 @@ class SpriteEntityTest {
         // Setup
 
         // Test
-        var spriteEntity = new TestSpriteEntityWithTwoFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE, 2);
+        var spriteEntity = new TestSpriteEntityWithTwoFrames(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, 2);
 
         // Verify
         Assertions.assertNotNull(spriteEntity);
@@ -67,7 +67,7 @@ class SpriteEntityTest {
     @Test
     void callingInitAfterInstantiatingWithSingleFrameImageWiresDelegates() {
         // Setup
-        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE);
+        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
         spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         spriteEntity.setImageRepository(imageRepository);
         spriteEntity.setImageViewFactory(imageViewFactory);
@@ -88,7 +88,7 @@ class SpriteEntityTest {
     @Test
     void callingInitAfterInstantiatingWithDoubleFrameImageWiresDelegates() {
         // Setup
-        var spriteEntity = new TestSpriteEntityWithTwoFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE, 2);
+        var spriteEntity = new TestSpriteEntityWithTwoFrames(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, 2);
         spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         spriteEntity.setImageRepository(imageRepository);
         spriteEntity.setImageViewFactory(imageViewFactory);
@@ -108,7 +108,7 @@ class SpriteEntityTest {
 
     @Test
     void getXReturnsTheExpectedXCoordinate() {
-        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE);
+        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
         spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         spriteEntity.setImageRepository(imageRepository);
         spriteEntity.setImageViewFactory(imageViewFactory);
@@ -120,8 +120,8 @@ class SpriteEntityTest {
         when(imageViewFactory.create(image)).thenReturn(imageView);
         spriteEntity.init(injector);
 
-        when(imageView.getX()).thenReturn(DEFAULT_POSITION.getX());
-        when(imageView.getY()).thenReturn(DEFAULT_POSITION.getY());
+        when(imageView.getX()).thenReturn(DEFAULT_POINT.getX());
+        when(imageView.getY()).thenReturn(DEFAULT_POINT.getY());
 
         // Test
         var x = spriteEntity.getXPosition();
@@ -132,7 +132,7 @@ class SpriteEntityTest {
 
     @Test
     void getYReturnsTheExpectedXCoordinate() {
-        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE);
+        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
         spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         spriteEntity.setImageRepository(imageRepository);
         spriteEntity.setImageViewFactory(imageViewFactory);
@@ -144,8 +144,8 @@ class SpriteEntityTest {
         when(imageViewFactory.create(image)).thenReturn(imageView);
         spriteEntity.init(injector);
 
-        when(imageView.getX()).thenReturn(DEFAULT_POSITION.getX());
-        when(imageView.getY()).thenReturn(DEFAULT_POSITION.getY());
+        when(imageView.getX()).thenReturn(DEFAULT_POINT.getX());
+        when(imageView.getY()).thenReturn(DEFAULT_POINT.getY());
 
         // Test
         var y = spriteEntity.getYPosition();
@@ -157,7 +157,7 @@ class SpriteEntityTest {
     @Test
     void removingAnEntitySetsImageViewCorrectly() {
         // Setup
-        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE);
+        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
         spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         spriteEntity.setImageRepository(imageRepository);
         spriteEntity.setImageViewFactory(imageViewFactory);
@@ -181,7 +181,7 @@ class SpriteEntityTest {
     @Test
     void getPositionReturnsCorrectPosition() {
         // Setup
-        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE);
+        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
         spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         spriteEntity.setImageRepository(imageRepository);
         spriteEntity.setImageViewFactory(imageViewFactory);
@@ -193,20 +193,20 @@ class SpriteEntityTest {
         when(imageViewFactory.create(image)).thenReturn(imageView);
         spriteEntity.init(injector);
 
-        when(imageView.getX()).thenReturn(DEFAULT_POSITION.getX());
-        when(imageView.getY()).thenReturn(DEFAULT_POSITION.getY());
+        when(imageView.getX()).thenReturn(DEFAULT_POINT.getX());
+        when(imageView.getY()).thenReturn(DEFAULT_POINT.getY());
 
         // Test
-        var position = spriteEntity.getPosition();
+        var position = spriteEntity.getAnchorPoint();
 
         // Verify
-        Assertions.assertEquals(DEFAULT_POSITION, position);
+        Assertions.assertEquals(DEFAULT_POINT, position);
     }
 
     @Test
     void setPositionDelegatesToTheImageView() {
         // Setup
-        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE);
+        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
         spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         spriteEntity.setImageRepository(imageRepository);
         spriteEntity.setImageViewFactory(imageViewFactory);
@@ -219,8 +219,8 @@ class SpriteEntityTest {
         spriteEntity.init(injector);
 
         // Test
-        var position = new Position(42, 48);
-        spriteEntity.setPosition(position);
+        var position = new Point(42, 48);
+        spriteEntity.setPoint(position);
 
         // Verify
         verify(imageView).setX(position.getX());
@@ -230,7 +230,7 @@ class SpriteEntityTest {
     @Test
     void setRotationDelegatesToTheImageView() {
         // Setup
-        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE);
+        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
         spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         spriteEntity.setImageRepository(imageRepository);
         spriteEntity.setImageViewFactory(imageViewFactory);
@@ -253,7 +253,7 @@ class SpriteEntityTest {
     @Test
     void setFrameIndexDelegatesToSpriteAnimationDelegate() {
         // Setup
-        var spriteEntity = new TestSpriteEntityWithTwoFrames(DEFAULT_RESOURCE, DEFAULT_POSITION, DEFAULT_SIZE, 2);
+        var spriteEntity = new TestSpriteEntityWithTwoFrames(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, 2);
         spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         spriteEntity.setImageRepository(imageRepository);
         spriteEntity.setImageViewFactory(imageViewFactory);
@@ -280,8 +280,8 @@ class SpriteEntityTest {
 
     private class TestSpriteEntityWithDefaultFrames extends SpriteEntity {
 
-        TestSpriteEntityWithDefaultFrames(String resource, Position position, Size size) {
-            super(resource, position, size);
+        TestSpriteEntityWithDefaultFrames(String resource, Point point, Size size) {
+            super(resource, point, size);
         }
 
         double getXPosition() {
@@ -295,8 +295,8 @@ class SpriteEntityTest {
 
     private class TestSpriteEntityWithTwoFrames extends SpriteEntity {
 
-        TestSpriteEntityWithTwoFrames(String resource, Position position, Size size, int frames) {
-            super(resource, position, size, frames);
+        TestSpriteEntityWithTwoFrames(String resource, Point point, Size size, int frames) {
+            super(resource, point, size, frames);
         }
     }
 }

@@ -1,4 +1,6 @@
-package nl.meron.yaeger.engine.entities.entity.sprites;
+package nl.meron.yaeger.engine.entities.entity.sprites.movement;
+
+import nl.meron.yaeger.engine.entities.entity.sprites.UpdatableSpriteEntity;
 
 public class UpdatableSpriteEntityMover {
 
@@ -22,7 +24,7 @@ public class UpdatableSpriteEntityMover {
      * @param change A value large than 1 will mean an increment in speed. A value between 0 and 1 will mean a
      *               decrement in speed.
      */
-    protected void changeSpeed(double change) {
+    public void changeSpeed(double change) {
         movementVector.setSpeed(movementVector.getSpeed() * change);
     }
 
@@ -31,7 +33,7 @@ public class UpdatableSpriteEntityMover {
      *
      * @param newSpeed the speed
      */
-    protected void setSpeed(double newSpeed) {
+    public void setSpeed(double newSpeed) {
         if (hasSpeedChanged(newSpeed)) {
             movementVector.setSpeed(newSpeed);
         }
@@ -51,7 +53,7 @@ public class UpdatableSpriteEntityMover {
      *
      * @param newDirection the direction in degrees
      */
-    protected void setDirection(double newDirection) {
+    public void setDirection(double newDirection) {
         if (hasDirectionChanged(newDirection)) {
             movementVector.setDirection(newDirection);
         }
@@ -62,7 +64,7 @@ public class UpdatableSpriteEntityMover {
      *
      * @return a {@code double} representing the direction
      */
-    protected double getDirection(){
+    public double getDirection(){
         return movementVector.getDirection();
     }
 
@@ -75,7 +77,7 @@ public class UpdatableSpriteEntityMover {
     }
 
     public void updateLocation() {
-        updatableSpriteEntity.setPosition(updatableSpriteEntity.getPosition().add(movementVector.getVector()));
+        updatableSpriteEntity.setPoint(updatableSpriteEntity.getAnchorPoint().add(movementVector.getVector()));
     }
 
     public void addMovement(MovementVector movementVector) {

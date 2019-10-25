@@ -3,7 +3,7 @@ package nl.meron.yaeger.engine.entities;
 import com.google.inject.Injector;
 import javafx.scene.Node;
 import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.entities.entity.Position;
+import nl.meron.yaeger.engine.entities.entity.Point;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -70,28 +70,8 @@ class EntitySupplierTest {
         }
 
         @Override
-        public Position getPosition() {
+        public Point getAnchorPoint() {
             return null;
-        }
-
-        @Override
-        public double getRightSideXCoordinate() {
-            return 0;
-        }
-
-        @Override
-        public double getLeftSideXCoordinate() {
-            return 0;
-        }
-
-        @Override
-        public double getBottomYCoordinate() {
-            return 0;
-        }
-
-        @Override
-        public double getTopYCoordinate() {
-            return 0;
         }
 
         @Override

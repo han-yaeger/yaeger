@@ -8,8 +8,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
-import nl.meron.yaeger.engine.userinput.MouseButtonListener;
-import nl.meron.yaeger.engine.entities.entity.Position;
+import nl.meron.yaeger.engine.userinput.MousePressedListener;
+import nl.meron.yaeger.engine.entities.entity.Point;
 
 /**
  * A {@code TextEntity} can be used to display a line of text on a {@link YaegerScene}.
@@ -17,7 +17,7 @@ import nl.meron.yaeger.engine.entities.entity.Position;
 public class TextEntity implements Entity {
 
     private Text textDelegate;
-    private Position position;
+    private Point point;
     private Color fill;
     private Font font;
     private String initialText;
@@ -27,26 +27,26 @@ public class TextEntity implements Entity {
      * Instantiate a new {@code TextEntity}.
      */
     public TextEntity() {
-        this(new Position(0, 0));
+        this(new Point(0, 0));
     }
 
     /**
-     * Instantiate a new {@code TextEntity} for the given {@link Position}.
+     * Instantiate a new {@code TextEntity} for the given {@link Point}.
      *
-     * @param position the initial {@link Position} of this {@code TextEntity}
+     * @param position the initial {@link Point} of this {@code TextEntity}
      */
-    public TextEntity(final Position position) {
+    public TextEntity(final Point position) {
         this(position, "");
     }
 
     /**
-     * Instantiate a new {@code TextEntity} for the given {@link Position} and textDelegate.
+     * Instantiate a new {@code TextEntity} for the given {@link Point} and textDelegate.
      *
-     * @param position the initial {@link Position} of this {@code TextEntity}
-     * @param text     a {@link String} containing the initial textDelegate to be displayed
+     * @param point the initial {@link Point} of this {@code TextEntity}
+     * @param text  a {@link String} containing the initial textDelegate to be displayed
      */
-    public TextEntity(final Position position, final String text) {
-        this.position = position;
+    public TextEntity(final Point point, final String text) {
+        this.point = point;
         this.initialText = text;
     }
 
@@ -95,16 +95,16 @@ public class TextEntity implements Entity {
     }
 
     /**
-     * Set the {@link Position} of this {@code TextEntity}.
+     * Set the position of this {@code TextEntity}.
      *
-     * @param position a {@link Position} encapsulating the x and y coordinate
+     * @param point a {@link Point} encapsulating the x and y coordinate
      */
-    public void setPosition(Position position) {
-        this.position = position;
+    public void setPosition(Point point) {
+        this.point = point;
 
         if (textDelegate != null) {
-            textDelegate.setX(position.getX());
-            textDelegate.setY(position.getY());
+            textDelegate.setX(point.getX());
+            textDelegate.setY(point.getY());
         }
     }
 
@@ -129,44 +129,15 @@ public class TextEntity implements Entity {
     }
 
     @Override
-    public Position getPosition() {
-        return position;
-    }
-
-    @Override
-    public double getRightSideXCoordinate() {
-        //TODO implement this
-        return 0;
-    }
-
-    @Override
-    public double getLeftSideXCoordinate() {
-        //TODO implement this
-        return 0;
-    }
-
-    @Override
-    public double getBottomYCoordinate() {
-        //TODO implement this
-        return 0;
-    }
-
-    @Override
-    public double getTopYCoordinate() {
-        //TODO implement this
-        return 0;
-    }
-
-    @Inject
-    public void setTextDelegate(Text text) {
-        this.textDelegate = text;
+    public Point getAnchorPoint() {
+        return point;
     }
 
     @Override
     public void init(Injector injector) {
-        if (position != null) {
-            textDelegate.setX(position.getX());
-            textDelegate.setY(position.getY());
+        if (point != null) {
+            textDelegate.setX(point.getX());
+            textDelegate.setY(point.getY());
         }
         if (font != null) {
             textDelegate.setFont(font);
@@ -179,8 +150,13 @@ public class TextEntity implements Entity {
         }
         textDelegate.setVisible(visible);
 
-        if (this instanceof MouseButtonListener) {
-            ((MouseButtonListener) this).attachMousePressedListener();
+        if (this instanceof MousePressedListener) {
+            ((MousePressedListener) this).attachMousePressedListener();
         }
+    }
+
+    @Inject
+    public void setTextDelegate(Text text) {
+        this.textDelegate = text;
     }
 }

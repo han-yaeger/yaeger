@@ -3,7 +3,7 @@ package nl.meron.yaeger.engine.entities.collisions;
 import com.google.inject.Injector;
 import javafx.scene.Node;
 import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.entities.entity.Position;
+import nl.meron.yaeger.engine.entities.entity.Point;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -134,27 +134,27 @@ class CollisionDelegateTest {
         }
 
         @Override
-        public Position getPosition() {
+        public Point getAnchorPoint() {
             return null;
         }
 
         @Override
-        public double getRightSideXCoordinate() {
+        public double getRightSideX() {
             return 0;
         }
 
         @Override
-        public double getLeftSideXCoordinate() {
+        public double getLeftSideX() {
             return 0;
         }
 
         @Override
-        public double getBottomYCoordinate() {
+        public double getBottomY() {
             return 0;
         }
 
         @Override
-        public double getTopYCoordinate() {
+        public double getTopY() {
             return 0;
         }
 
@@ -177,27 +177,27 @@ class CollisionDelegateTest {
         }
 
         @Override
-        public Position getPosition() {
+        public Point getAnchorPoint() {
             return null;
         }
 
         @Override
-        public double getRightSideXCoordinate() {
+        public double getRightSideX() {
             return 0;
         }
 
         @Override
-        public double getLeftSideXCoordinate() {
+        public double getLeftSideX() {
             return 0;
         }
 
         @Override
-        public double getBottomYCoordinate() {
+        public double getBottomY() {
             return 0;
         }
 
         @Override
-        public double getTopYCoordinate() {
+        public double getTopY() {
             return 0;
         }
 

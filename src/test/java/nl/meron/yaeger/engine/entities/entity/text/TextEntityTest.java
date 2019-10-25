@@ -7,10 +7,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import nl.meron.waterworld.Waterworld;
-import nl.meron.yaeger.engine.userinput.MouseButtonListener;
-import nl.meron.yaeger.engine.entities.entity.Position;
+import nl.meron.yaeger.engine.userinput.MousePressedListener;
+import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.events.RemoveEntityEvent;
-import nl.meron.waterworld.Waterworld;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,7 @@ import static org.mockito.Mockito.*;
 class TextEntityTest {
 
     private static final String YAEGER = "Yaeger";
-    private static final Position POSITION = new Position(37, 37);
+    private static final Point POINT = new Point(37, 37);
     private static final Font FONT = Font.font(Waterworld.FONT, FontWeight.BOLD, 240);
     private static final Color COLOR = Color.DARKBLUE;
     private Text text;
@@ -36,15 +35,15 @@ class TextEntityTest {
     @Test
     void settingTheDelegateSetsPositionOnDelegate() {
         // Setup
-        var textEntity = new TextEntity(POSITION);
+        var textEntity = new TextEntity(POINT);
 
         // Test
         textEntity.setTextDelegate(text);
         textEntity.init(injector);
 
         // Verify
-        verify(text).setX(POSITION.getX());
-        verify(text).setY(POSITION.getY());
+        verify(text).setX(POINT.getX());
+        verify(text).setY(POINT.getY());
     }
 
     @Test
@@ -53,12 +52,12 @@ class TextEntityTest {
         var textEntity = new TextEntity();
 
         // Test
-        textEntity.setPosition(POSITION);
+        textEntity.setPosition(POINT);
         textEntity.setTextDelegate(text);
         textEntity.init(injector);
 
         // Verify
-        Assertions.assertEquals(POSITION, textEntity.getPosition());
+        Assertions.assertEquals(POINT, textEntity.getAnchorPoint());
     }
 
     @Test
@@ -67,19 +66,19 @@ class TextEntityTest {
         var textEntity = new TextEntity();
 
         // Test
-        textEntity.setPosition(POSITION);
+        textEntity.setPosition(POINT);
         textEntity.setTextDelegate(text);
         textEntity.init(injector);
 
         // Verify
-        verify(text).setX(POSITION.getX());
-        verify(text).setY(POSITION.getY());
+        verify(text).setX(POINT.getX());
+        verify(text).setY(POINT.getY());
     }
 
     @Test
     void settingDelegateSetsTextOnDelegate() {
         // Setup
-        var textEntity = new TextEntity(POSITION);
+        var textEntity = new TextEntity(POINT);
 
         // Test
         textEntity.setText(YAEGER);
@@ -93,7 +92,7 @@ class TextEntityTest {
     @Test
     void settingDelegateSetsFillOnDelegate() {
         // Setup
-        var textEntity = new TextEntity(POSITION);
+        var textEntity = new TextEntity(POINT);
 
         // Test
         textEntity.setFill(COLOR);
@@ -107,7 +106,7 @@ class TextEntityTest {
     @Test
     void settingDelegateSetsFontOnDelegate() {
         // Setup
-        var textEntity = new TextEntity(POSITION);
+        var textEntity = new TextEntity(POINT);
 
 
         // Test
@@ -122,7 +121,7 @@ class TextEntityTest {
     @Test
     void settingDelegateSetsVisibleOnDelegate() {
         // Setup
-        var textEntity = new TextEntity(POSITION);
+        var textEntity = new TextEntity(POINT);
 
         // Test
         textEntity.setVisible(false);
@@ -136,7 +135,7 @@ class TextEntityTest {
     @Test
     void settingDelegateWithContentDelegatesContent() {
         // Setup
-        var textEntity = new TextEntity(POSITION, YAEGER);
+        var textEntity = new TextEntity(POINT, YAEGER);
 
         // Test
         textEntity.setTextDelegate(text);
@@ -149,7 +148,7 @@ class TextEntityTest {
     @Test
     void callingRemoveCleansUpTheEntity() {
         // Setup
-        var textEntity = new TextEntity(POSITION, YAEGER);
+        var textEntity = new TextEntity(POINT, YAEGER);
         textEntity.setTextDelegate(text);
         textEntity.init(injector);
 
@@ -165,7 +164,7 @@ class TextEntityTest {
     @Test
     void getGameNodeReturnsTheTextDelegate() {
         // Setup
-        var textEntity = new TextEntity(POSITION, YAEGER);
+        var textEntity = new TextEntity(POINT, YAEGER);
 
         // Test
         textEntity.setTextDelegate(text);
@@ -183,7 +182,7 @@ class TextEntityTest {
         textEntity.init(injector);
 
         // Test
-        textEntity.setPosition(POSITION);
+        textEntity.setPosition(POINT);
         textEntity.setText(YAEGER);
         textEntity.setVisible(false);
         textEntity.setFont(FONT);
@@ -194,14 +193,14 @@ class TextEntityTest {
         verify(text).setFill(COLOR);
         verify(text).setText(YAEGER);
         verify(text).setFont(FONT);
-        verify(text).setX(POSITION.getX());
-        verify(text).setY(POSITION.getY());
+        verify(text).setX(POINT.getX());
+        verify(text).setY(POINT.getY());
     }
 
     @Test
     void initializingAMouseButtonListeningTextEntityAttachesMouseListener() {
         // Setup
-        var textEntity = new MouseButtonListeningTextEntity();
+        var textEntity = new MousePressedListeningTextEntity();
         textEntity.setTextDelegate(text);
 
         // Text
@@ -211,7 +210,7 @@ class TextEntityTest {
         Assertions.assertTrue(textEntity.mouseListenerAttached);
     }
 
-    private class MouseButtonListeningTextEntity extends TextEntity implements MouseButtonListener {
+    private class MousePressedListeningTextEntity extends TextEntity implements MousePressedListener {
 
         private boolean mouseListenerAttached = false;
 

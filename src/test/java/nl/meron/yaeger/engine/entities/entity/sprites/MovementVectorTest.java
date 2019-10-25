@@ -1,5 +1,6 @@
 package nl.meron.yaeger.engine.entities.entity.sprites;
 
+import nl.meron.yaeger.engine.entities.entity.sprites.movement.MovementVector;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

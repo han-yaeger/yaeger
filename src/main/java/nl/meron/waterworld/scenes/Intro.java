@@ -5,9 +5,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import nl.meron.waterworld.Waterworld;
-import nl.meron.waterworld.entities.buttons.QuitButton;
-import nl.meron.waterworld.entities.buttons.StartButton;
-import nl.meron.yaeger.engine.entities.entity.Position;
+import nl.meron.waterworld.entities.buttons.QuitPressed;
+import nl.meron.waterworld.entities.buttons.StartPressed;
+import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.SceneType;
 import nl.meron.yaeger.engine.scenes.impl.StaticScene;
@@ -50,21 +50,21 @@ public class Intro extends StaticScene {
     }
 
     private void createButtons() {
-        var playGameText = new StartButton(waterworld);
+        var playGameText = new StartPressed(waterworld);
         addEntity(playGameText);
 
-        var quitGameText = new QuitButton(waterworld);
+        var quitGameText = new QuitPressed(waterworld);
         addEntity(quitGameText);
     }
 
     private void createWaterworldText() {
 
-        var twoText = new TextEntity(new Position(540, 370), WATERWORLD_VERSION);
+        var twoText = new TextEntity(new Point(540, 370), WATERWORLD_VERSION);
         twoText.setFill(Color.ORANGE);
         twoText.setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 240));
         addEntity(twoText);
 
-        var waterworldText = new TextEntity(new Position(380, 320), WATERWORLD_NAME);
+        var waterworldText = new TextEntity(new Point(380, 320), WATERWORLD_NAME);
         waterworldText.setFill(Color.DARKBLUE);
         waterworldText.setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 80));
         addEntity(waterworldText);

@@ -1,8 +1,10 @@
 package nl.meron.yaeger.engine.entities.entity.sprites;
 
 import com.google.inject.Injector;
-import nl.meron.yaeger.engine.entities.entity.Position;
+import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.Updatable;
+import nl.meron.yaeger.engine.entities.entity.sprites.movement.MovementVector;
+import nl.meron.yaeger.engine.entities.entity.sprites.movement.UpdatableSpriteEntityMover;
 
 /**
  * An {@code UpdatableSpriteEntity} extends all behaviour of a {@link SpriteEntity}, but also implements the
@@ -17,36 +19,36 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
      * Create a new SpriteEntity.
      *
      * @param resource        The url of the image file. Relative to the resources folder.
-     * @param initialPosition the initial {@link Position} of this Entity
+     * @param initialPoint the initial {@link Point} of this Entity
      * @param size            The bounding box of this {@code SpriteEntity}.
      */
-    public UpdatableSpriteEntity(final String resource, final Position initialPosition, final Size size) {
-        this(resource, initialPosition, size, 1);
+    public UpdatableSpriteEntity(final String resource, final Point initialPoint, final Size size) {
+        this(resource, initialPoint, size, 1);
     }
 
     /**
      * Create a new SpriteEntity.
      *
      * @param resource        The url of the image file. Relative to the resources folder.
-     * @param initialPosition the initial {@link Position} of this Entity
+     * @param initialPoint the initial {@link Point} of this Entity
      * @param size            The bounding box of this {@code SpriteEntity}.
      * @param frames          The number of frames this Image contains. By default the first frame is loaded.
      */
-    public UpdatableSpriteEntity(final String resource, final Position initialPosition, final Size size, int frames) {
-        this(resource, initialPosition, size, frames, new MovementVector(0, 0));
+    public UpdatableSpriteEntity(final String resource, final Point initialPoint, final Size size, int frames) {
+        this(resource, initialPoint, size, frames, new MovementVector(0, 0));
     }
 
     /**
      * Create a new {@code UpdatableSpriteEntity}.
      *
      * @param resource              The url of the image file. Relative to the resources folder.
-     * @param initialPosition       the initial {@link Position} of this Entity
+     * @param initialPoint       the initial {@link Point} of this Entity
      * @param size                  The bounding box of this {@code SpriteEntity}.
      * @param frames                The number of frames this Image contains. By default the first frame is loaded.
      * @param initialMovementVector The movement of this {@code UpdatableSpriteEntity}
      */
-    public UpdatableSpriteEntity(final String resource, final Position initialPosition, final Size size, int frames, final MovementVector initialMovementVector) {
-        super(resource, initialPosition, size, frames);
+    public UpdatableSpriteEntity(final String resource, final Point initialPoint, final Size size, int frames, final MovementVector initialMovementVector) {
+        super(resource, initialPoint, size, frames);
 
         mover = new UpdatableSpriteEntityMover(this, initialMovementVector);
     }
@@ -58,8 +60,6 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
         if (spriteAnimationDelegate != null) {
             spriteAnimationDelegate.update(timestamp);
         }
-
-        updateTasks.forEach(task -> task.executeTask());
     }
 
     /**

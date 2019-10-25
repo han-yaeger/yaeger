@@ -3,12 +3,12 @@ package nl.meron.yaeger.engine.entities.entity;
 import com.google.inject.Injector;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
-import nl.meron.yaeger.engine.userinput.MouseButtonListener;
+import nl.meron.yaeger.engine.userinput.MousePressedListener;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
 
-class MouseButtonListenerTest {
+class MousePressedListenerTest {
 
     @Test
     void attachMousePressedListenerAttachesMouseListener() {
@@ -24,32 +24,32 @@ class MouseButtonListenerTest {
         verify(node).setOnMousePressed(any());
     }
 
-    private class MouseListeningEntity implements MouseButtonListener, Entity {
+    private class MouseListeningEntity implements MousePressedListener, Entity {
 
         private Node node;
 
         @Override
-        public Position getPosition() {
+        public Point getAnchorPoint() {
             return null;
         }
 
         @Override
-        public double getRightSideXCoordinate() {
+        public double getRightSideX() {
             return 0;
         }
 
         @Override
-        public double getLeftSideXCoordinate() {
+        public double getLeftSideX() {
             return 0;
         }
 
         @Override
-        public double getBottomYCoordinate() {
+        public double getBottomY() {
             return 0;
         }
 
         @Override
-        public double getTopYCoordinate() {
+        public double getTopY() {
             return 0;
         }
 

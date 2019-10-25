@@ -5,11 +5,13 @@ import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.userinput.KeyListener;
 import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.entities.entity.Position;
+import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.Updatable;
+import nl.meron.yaeger.engine.userinput.MousePressedListener;
 import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -150,6 +152,29 @@ class EntityCollectionTest {
         // Verify
         verify(keyListeningEntity).onPressedKeysChange(keycodes);
     }
+    @Test
+    void mousePressedListeningEntityAttachesListenerOnMousePressedEvent() {
+        // Setup
+        MousePressedListeningEntity mousePressedListeningEntity = mock(MousePressedListeningEntity.class);
+        Node node = mock(Node.class);
+        when(mousePressedListeningEntity.getGameNode()).thenReturn(node);
+
+        Group group = mock(Group.class);
+        ObservableList<Node> children = mock(ObservableList.class);
+        when(group.getChildren()).thenReturn(children);
+
+        EntitySupplier entitySupplier = new EntitySupplier();
+        entitySupplier.add(mousePressedListeningEntity);
+
+        // Test
+        entityCollection = new EntityCollection(group);
+        entityCollection.init(injector);
+        entityCollection.registerSupplier(entitySupplier);
+        entityCollection.update(0);
+
+        // Verify
+        verify(mousePressedListeningEntity).attachMousePressedListener();
+    }
 }
 
 class UpdatableEntity implements Entity, Updatable {
@@ -165,28 +190,8 @@ class UpdatableEntity implements Entity, Updatable {
     }
 
     @Override
-    public Position getPosition() {
+    public Point getAnchorPoint() {
         return null;
-    }
-
-    @Override
-    public double getRightSideXCoordinate() {
-        return 0;
-    }
-
-    @Override
-    public double getLeftSideXCoordinate() {
-        return 0;
-    }
-
-    @Override
-    public double getBottomYCoordinate() {
-        return 0;
-    }
-
-    @Override
-    public double getTopYCoordinate() {
-        return 0;
     }
 
     @Override
@@ -197,6 +202,34 @@ class UpdatableEntity implements Entity, Updatable {
     @Override
     public void init(Injector injector) {
         // Not required here.
+    }
+}
+
+class MousePressedListeningEntity implements Entity, MousePressedListener{
+
+    @Override
+    public Point getAnchorPoint() {
+        return null;
+    }
+
+    @Override
+    public void init(Injector injector) {
+
+    }
+
+    @Override
+    public void remove() {
+
+    }
+
+    @Override
+    public Node getGameNode() {
+        return null;
+    }
+
+    @Override
+    public void onMousePressed(MouseButton button) {
+
     }
 }
 
@@ -213,28 +246,8 @@ class KeyListeningEntity implements Entity, KeyListener {
     }
 
     @Override
-    public Position getPosition() {
+    public Point getAnchorPoint() {
         return null;
-    }
-
-    @Override
-    public double getRightSideXCoordinate() {
-        return 0;
-    }
-
-    @Override
-    public double getLeftSideXCoordinate() {
-        return 0;
-    }
-
-    @Override
-    public double getBottomYCoordinate() {
-        return 0;
-    }
-
-    @Override
-    public double getTopYCoordinate() {
-        return 0;
     }
 
     @Override

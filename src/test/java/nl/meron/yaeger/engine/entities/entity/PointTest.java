@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PositionTest {
+class PointTest {
 
     @Test
     void addingPositionsWorksAsExpected() {
         // Setup
-        var position = new Position(0d, 0d);
-        var positionToAdd = new Position(1d, 1d);
+        var position = new Point(0d, 0d);
+        var positionToAdd = new Point(1d, 1d);
 
         // Test
         var addedPosition = position.add(positionToAdd);
