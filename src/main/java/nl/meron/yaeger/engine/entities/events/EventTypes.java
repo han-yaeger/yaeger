@@ -2,6 +2,7 @@ package nl.meron.yaeger.engine.entities.events;
 
 import javafx.event.EventType;
 import nl.meron.yaeger.engine.entities.entity.Removeable;
+import nl.meron.yaeger.engine.entities.events.system.RemoveEntityEvent;
 
 /**
  * {@code EventTypes} contains all available custom Events.

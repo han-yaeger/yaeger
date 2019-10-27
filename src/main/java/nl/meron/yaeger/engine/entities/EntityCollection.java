@@ -12,10 +12,10 @@ import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Removeable;
 import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.entities.events.EventTypes;
-import nl.meron.yaeger.engine.entities.events.listeners.MouseReleasedListener;
+import nl.meron.yaeger.engine.entities.events.userinput.MouseReleasedListener;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
-import nl.meron.yaeger.engine.entities.events.listeners.KeyListener;
-import nl.meron.yaeger.engine.entities.events.listeners.MousePressedListener;
+import nl.meron.yaeger.engine.entities.events.userinput.KeyListener;
+import nl.meron.yaeger.engine.entities.events.userinput.MousePressedListener;
 
 import java.util.ArrayList;
 import java.util.HashSet;

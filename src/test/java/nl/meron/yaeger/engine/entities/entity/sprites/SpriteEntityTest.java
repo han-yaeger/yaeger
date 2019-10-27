@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimationDelegate;
-import nl.meron.yaeger.engine.entities.events.RemoveEntityEvent;
+import nl.meron.yaeger.engine.entities.events.system.RemoveEntityEvent;
 import nl.meron.yaeger.engine.media.repositories.ImageRepository;
 import nl.meron.yaeger.javafx.image.ImageViewFactory;
 import nl.meron.yaeger.module.factories.SpriteAnimationDelegateFactory;

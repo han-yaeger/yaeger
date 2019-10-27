@@ -1,7 +1,7 @@
 package nl.meron.yaeger.engine.entities.entity;
 
 import javafx.scene.Node;
-import nl.meron.yaeger.engine.entities.events.RemoveEntityEvent;
+import nl.meron.yaeger.engine.entities.events.system.RemoveEntityEvent;
 
 /**
  * A {@code Removeable} denotes an {@code Object}, most likely an {@link Entity}, that is eligible for

@@ -1,8 +1,9 @@
-package nl.meron.yaeger.engine.entities.events;
+package nl.meron.yaeger.engine.entities.events.system;
 
 import javafx.event.Event;
 import nl.meron.yaeger.engine.entities.entity.Removeable;
 import nl.meron.yaeger.engine.entities.entity.Removeable;
+import nl.meron.yaeger.engine.entities.events.EventTypes;
 
 /**
  * Send a {@code RemoveEntityEvent} when a  {@link Removeable} needs to be removed.

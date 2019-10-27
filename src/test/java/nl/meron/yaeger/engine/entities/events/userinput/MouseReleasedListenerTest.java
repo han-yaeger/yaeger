@@ -1,10 +1,9 @@
-package nl.meron.yaeger.engine.entities.events.listeners;
+package nl.meron.yaeger.engine.entities.events.userinput;
 
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;

@@ -1,8 +1,7 @@
-package nl.meron.yaeger.engine.entities.events.listeners;
+package nl.meron.yaeger.engine.entities.events.system;
 
 import nl.meron.yaeger.engine.entities.entity.Removeable;
-import nl.meron.yaeger.engine.entities.entity.Removeable;
-import nl.meron.yaeger.engine.entities.events.RemoveEntityEvent;
+import nl.meron.yaeger.engine.entities.events.system.RemoveEntityEvent;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

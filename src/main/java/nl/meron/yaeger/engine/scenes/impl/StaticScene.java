@@ -8,7 +8,7 @@ import javafx.scene.input.KeyCode;
 import nl.meron.yaeger.engine.YaegerEngine;
 import nl.meron.yaeger.engine.entities.EntityCollection;
 import nl.meron.yaeger.engine.entities.EntitySupplier;
-import nl.meron.yaeger.engine.entities.events.listeners.KeyListener;
+import nl.meron.yaeger.engine.entities.events.userinput.KeyListener;
 import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.EntitySpawner;
