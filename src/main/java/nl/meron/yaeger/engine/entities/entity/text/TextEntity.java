@@ -8,7 +8,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
-import nl.meron.yaeger.engine.userinput.MousePressedListener;
+import nl.meron.yaeger.engine.entities.events.listeners.MousePressedListener;
 import nl.meron.yaeger.engine.entities.entity.Point;
 
 /**

@@ -8,7 +8,7 @@ import nl.meron.yaeger.engine.entities.entity.sprites.movement.MovementVector;
 import nl.meron.yaeger.engine.entities.entity.sprites.Size;
 import nl.meron.yaeger.engine.entities.collisions.Collidable;
 import nl.meron.yaeger.engine.entities.collisions.Collider;
-import nl.meron.yaeger.engine.userinput.KeyListener;
+import nl.meron.yaeger.engine.entities.events.listeners.KeyListener;
 import nl.meron.yaeger.engine.entities.entity.sprites.UpdatableSpriteEntity;
 
 import java.util.Set;

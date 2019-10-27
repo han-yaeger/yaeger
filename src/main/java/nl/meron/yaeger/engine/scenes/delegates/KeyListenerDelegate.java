@@ -2,7 +2,7 @@ package nl.meron.yaeger.engine.scenes.delegates;
 
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import nl.meron.yaeger.engine.userinput.KeyListener;
+import nl.meron.yaeger.engine.entities.events.listeners.KeyListener;
 
 import java.util.HashSet;
 import java.util.Set;

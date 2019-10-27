@@ -7,11 +7,12 @@ import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import nl.meron.yaeger.engine.debug.Debugger;
-import nl.meron.yaeger.engine.userinput.KeyListener;
+import nl.meron.yaeger.engine.entities.events.listeners.KeyListener;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.Updatable;
-import nl.meron.yaeger.engine.userinput.MousePressedListener;
+import nl.meron.yaeger.engine.entities.events.listeners.MousePressedListener;
+import nl.meron.yaeger.engine.entities.events.listeners.MouseReleasedListener;
 import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -35,8 +36,8 @@ class EntityCollectionTest {
     @Test
     void newInstanceIsEmtpy() {
         // Setup
-        Group group = mock(Group.class);
-        Debugger debugger = mock(Debugger.class);
+        var group = mock(Group.class);
+        var debugger = mock(Debugger.class);
 
         // Test
         entityCollection = new EntityCollection(group);
@@ -53,8 +54,8 @@ class EntityCollectionTest {
     @Test
     void clearClearsSupplier() {
         // Setup
-        EntitySupplier supplier = mock(EntitySupplier.class);
-        Group group = mock(Group.class);
+        var supplier = mock(EntitySupplier.class);
+        var group = mock(Group.class);
         entityCollection = new EntityCollection(group);
         entityCollection.registerSupplier(supplier);
 
@@ -68,18 +69,18 @@ class EntityCollectionTest {
     @Test
     void suppliersEntitiesAreTransferredAtUpdate() {
         // Setup
-        UpdatableEntity updatableEntity = mock(UpdatableEntity.class);
-        Node node = mock(Node.class);
+        var updatableEntity = mock(UpdatableEntity.class);
+        var node = mock(Node.class);
         when(updatableEntity.getGameNode()).thenReturn(node);
 
         Set<Entity> updatables = new HashSet<>();
         updatables.add(updatableEntity);
-        EntitySupplier supplier = mock(EntitySupplier.class);
+        var supplier = mock(EntitySupplier.class);
         when(supplier.get()).thenReturn(updatables);
         supplier.add(updatableEntity);
 
-        Group group = mock(Group.class);
-        ObservableList<Node> children = mock(ObservableList.class);
+        var group = mock(Group.class);
+        var children = mock(ObservableList.class);
         when(group.getChildren()).thenReturn(children);
 
         entityCollection = new EntityCollection(group);
@@ -96,15 +97,15 @@ class EntityCollectionTest {
     @Test
     void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsEmpty() {
         // Setup
-        KeyListeningEntity keyListeningEntity = mock(KeyListeningEntity.class);
-        Node node = mock(Node.class);
+        var keyListeningEntity = mock(KeyListeningEntity.class);
+        var node = mock(Node.class);
         when(keyListeningEntity.getGameNode()).thenReturn(node);
 
-        Group group = mock(Group.class);
-        ObservableList<Node> children = mock(ObservableList.class);
+        var group = mock(Group.class);
+        var children = mock(ObservableList.class);
         when(group.getChildren()).thenReturn(children);
 
-        EntitySupplier entitySupplier = new EntitySupplier();
+        var entitySupplier = new EntitySupplier();
         entitySupplier.add(keyListeningEntity);
 
         Set<KeyCode> keycodes = new HashSet<>();
@@ -123,15 +124,15 @@ class EntityCollectionTest {
     @Test
     void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsFilled() {
         // Setup
-        KeyListeningEntity keyListeningEntity = mock(KeyListeningEntity.class);
-        Node node = mock(Node.class);
+        var keyListeningEntity = mock(KeyListeningEntity.class);
+        var node = mock(Node.class);
         when(keyListeningEntity.getGameNode()).thenReturn(node);
 
-        Group group = mock(Group.class);
-        ObservableList<Node> children = mock(ObservableList.class);
+        var group = mock(Group.class);
+        var children = mock(ObservableList.class);
         when(group.getChildren()).thenReturn(children);
 
-        EntitySupplier entitySupplier = new EntitySupplier();
+        var entitySupplier = new EntitySupplier();
         entitySupplier.add(keyListeningEntity);
 
         Set<KeyCode> keycodes = new HashSet<>();
@@ -152,18 +153,19 @@ class EntityCollectionTest {
         // Verify
         verify(keyListeningEntity).onPressedKeysChange(keycodes);
     }
+
     @Test
     void mousePressedListeningEntityAttachesListenerOnMousePressedEvent() {
         // Setup
-        MousePressedListeningEntity mousePressedListeningEntity = mock(MousePressedListeningEntity.class);
-        Node node = mock(Node.class);
+        var mousePressedListeningEntity = mock(MousePressedListeningEntity.class);
+        var node = mock(Node.class);
         when(mousePressedListeningEntity.getGameNode()).thenReturn(node);
 
-        Group group = mock(Group.class);
-        ObservableList<Node> children = mock(ObservableList.class);
+        var group = mock(Group.class);
+        var children = mock(ObservableList.class);
         when(group.getChildren()).thenReturn(children);
 
-        EntitySupplier entitySupplier = new EntitySupplier();
+        var entitySupplier = new EntitySupplier();
         entitySupplier.add(mousePressedListeningEntity);
 
         // Test
@@ -174,6 +176,30 @@ class EntityCollectionTest {
 
         // Verify
         verify(mousePressedListeningEntity).attachMousePressedListener();
+    }
+
+    @Test
+    void mouseReleasedListeningEntityAttachesListenerOnMouseReleasedEvent() {
+        // Setup
+        var mousePressedListeningEntity = mock(MouseReleasedListeningEntity.class);
+        var node = mock(Node.class);
+        when(mousePressedListeningEntity.getGameNode()).thenReturn(node);
+
+        var group = mock(Group.class);
+        var children = mock(ObservableList.class);
+        when(group.getChildren()).thenReturn(children);
+
+        var entitySupplier = new EntitySupplier();
+        entitySupplier.add(mousePressedListeningEntity);
+
+        // Test
+        entityCollection = new EntityCollection(group);
+        entityCollection.init(injector);
+        entityCollection.registerSupplier(entitySupplier);
+        entityCollection.update(0);
+
+        // Verify
+        verify(mousePressedListeningEntity).attachMouseReleasedListener();
     }
 }
 
@@ -205,7 +231,7 @@ class UpdatableEntity implements Entity, Updatable {
     }
 }
 
-class MousePressedListeningEntity implements Entity, MousePressedListener{
+class MousePressedListeningEntity implements Entity, MousePressedListener {
 
     @Override
     public Point getAnchorPoint() {
@@ -214,12 +240,10 @@ class MousePressedListeningEntity implements Entity, MousePressedListener{
 
     @Override
     public void init(Injector injector) {
-
     }
 
     @Override
     public void remove() {
-
     }
 
     @Override
@@ -229,6 +253,32 @@ class MousePressedListeningEntity implements Entity, MousePressedListener{
 
     @Override
     public void onMousePressed(MouseButton button) {
+
+    }
+}
+
+class MouseReleasedListeningEntity implements Entity, MouseReleasedListener {
+
+    @Override
+    public Point getAnchorPoint() {
+        return null;
+    }
+
+    @Override
+    public void init(Injector injector) {
+    }
+
+    @Override
+    public void remove() {
+    }
+
+    @Override
+    public Node getGameNode() {
+        return null;
+    }
+
+    @Override
+    public void onMouseReleased(MouseButton button) {
 
     }
 }

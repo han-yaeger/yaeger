@@ -10,11 +10,9 @@ import nl.meron.yaeger.engine.entities.EntitySupplier;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.meron.yaeger.engine.scenes.delegates.KeyListenerDelegate;
-import nl.meron.yaeger.engine.userinput.KeyListener;
+import nl.meron.yaeger.engine.entities.events.listeners.KeyListener;
 import nl.meron.yaeger.module.factories.EntityCollectionFactory;
 import nl.meron.yaeger.module.factories.SceneFactory;
-import nl.meron.yaeger.engine.debug.Debugger;
-import nl.meron.yaeger.engine.entities.EntityCollection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

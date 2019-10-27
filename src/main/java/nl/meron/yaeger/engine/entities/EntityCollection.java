@@ -12,9 +12,10 @@ import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Removeable;
 import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.entities.events.EventTypes;
+import nl.meron.yaeger.engine.entities.events.listeners.MouseReleasedListener;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
-import nl.meron.yaeger.engine.userinput.KeyListener;
-import nl.meron.yaeger.engine.userinput.MousePressedListener;
+import nl.meron.yaeger.engine.entities.events.listeners.KeyListener;
+import nl.meron.yaeger.engine.entities.events.listeners.MousePressedListener;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -197,6 +198,9 @@ public class EntityCollection implements Initializable {
     private void attachMouseEventListeners(Entity entity) {
         if (entity instanceof MousePressedListener) {
             ((MousePressedListener) entity).attachMousePressedListener();
+        }
+        if (entity instanceof MouseReleasedListener) {
+            ((MouseReleasedListener) entity).attachMouseReleasedListener();
         }
     }
 

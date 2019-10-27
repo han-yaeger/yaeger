@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.userinput;
+package nl.meron.yaeger.engine.entities.events.listeners;
 
 import javafx.scene.input.MouseButton;
 import nl.meron.yaeger.engine.entities.entity.Entity;
