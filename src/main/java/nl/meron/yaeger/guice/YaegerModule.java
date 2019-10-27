@@ -1,4 +1,4 @@
-package nl.meron.yaeger.module;
+package nl.meron.yaeger.guice;
 
 import com.google.inject.AbstractModule;
 

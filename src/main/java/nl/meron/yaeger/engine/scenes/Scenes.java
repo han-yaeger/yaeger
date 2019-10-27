@@ -4,9 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import javafx.stage.Stage;
 import nl.meron.yaeger.engine.exceptions.YaegerSceneNotAvailableException;
-import nl.meron.yaeger.module.YaegerModule;
-import nl.meron.yaeger.engine.exceptions.YaegerSceneNotAvailableException;
-import nl.meron.yaeger.module.YaegerModule;
+import nl.meron.yaeger.guice.YaegerModule;
 
 import java.util.LinkedHashMap;
 import java.util.Objects;

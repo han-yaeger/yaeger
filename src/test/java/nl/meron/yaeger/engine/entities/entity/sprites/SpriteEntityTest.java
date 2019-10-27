@@ -8,7 +8,7 @@ import nl.meron.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimationD
 import nl.meron.yaeger.engine.entities.events.system.RemoveEntityEvent;
 import nl.meron.yaeger.engine.media.repositories.ImageRepository;
 import nl.meron.yaeger.javafx.image.ImageViewFactory;
-import nl.meron.yaeger.module.factories.SpriteAnimationDelegateFactory;
+import nl.meron.yaeger.guice.factories.SpriteAnimationDelegateFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

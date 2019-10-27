@@ -1,4 +1,4 @@
-package nl.meron.yaeger.module.factories;
+package nl.meron.yaeger.guice.factories;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;

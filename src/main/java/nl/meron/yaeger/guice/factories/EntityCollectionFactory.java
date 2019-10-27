@@ -1,8 +1,6 @@
-package nl.meron.yaeger.module.factories;
+package nl.meron.yaeger.guice.factories;
 
 import javafx.scene.Group;
-import nl.meron.yaeger.engine.entities.EntityCollection;
-import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.EntityCollection;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 

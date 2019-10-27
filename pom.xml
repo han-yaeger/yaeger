@@ -20,7 +20,7 @@
         <sonar.exclusions>
             **/pong/**/*,
             **/waterworld/**/*,
-            **/yaeger/module/**/*,
+            **/yaeger/guice/**/*,
             **/yaeger/javafx/**/*.java
         </sonar.exclusions>
     </properties>
@@ -91,7 +91,7 @@
                     <excludes>
                         <exclude>nl/meron/pong/**/*</exclude>
                         <exclude>nl/meron/waterworld/**/*</exclude>
-                        <exclude>nl/meron/yaeger/module/**/*</exclude>
+                        <exclude>nl/meron/yaeger/guice/**/*</exclude>
                         <exclude>nl/meron/yaeger/javafx/debug/*</exclude>
                         <exclude>nl/meron/yaeger/javafx/image/*</exclude>
                         <exclude>nl/meron/yaeger/javafx/animationtimer/*</exclude>
@@ -127,7 +127,7 @@
                     <excludedClasses>
                         <param>nl/meron/pong/**/*</param>
                         <param>nl/meron/waterworld/**/*</param>
-                        <param>nl/meron/yaeger/module/**/*</param>
+                        <param>nl/meron/yaeger/guice/**/*</param>
                         <param>nl/meron/yaeger/javafx/**/*</param>
                     </excludedClasses>
                 </configuration>

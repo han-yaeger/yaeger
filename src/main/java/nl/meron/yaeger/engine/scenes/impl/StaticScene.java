@@ -15,8 +15,8 @@ import nl.meron.yaeger.engine.entities.EntitySpawner;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 import nl.meron.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.meron.yaeger.engine.scenes.delegates.KeyListenerDelegate;
-import nl.meron.yaeger.module.factories.EntityCollectionFactory;
-import nl.meron.yaeger.module.factories.SceneFactory;
+import nl.meron.yaeger.guice.factories.EntityCollectionFactory;
+import nl.meron.yaeger.guice.factories.SceneFactory;
 
 import java.util.Set;
 
