@@ -3,7 +3,6 @@ package nl.meron.yaeger.engine.entities.entity;
 /**
  * Implement this interface to be updated every cycle of the game loop.
  */
-@FunctionalInterface
 public interface Updatable {
 
     /**

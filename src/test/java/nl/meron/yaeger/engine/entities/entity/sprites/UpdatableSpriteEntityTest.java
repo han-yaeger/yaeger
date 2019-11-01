@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Updater;
 import nl.meron.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimationDelegate;
 import nl.meron.yaeger.engine.entities.entity.sprites.movement.MovementVector;
 import nl.meron.yaeger.engine.media.repositories.ImageRepository;
@@ -37,15 +38,31 @@ class UpdatableSpriteEntityTest {
     private SpriteAnimationDelegate spriteAnimationDelegate;
     private ImageRepository imageRepository;
     private Injector injector;
+    private Updater updater;
 
     @BeforeEach
     void setup() {
         imageViewFactory = mock(ImageViewFactory.class);
         spriteAnimationDelegate = mock(SpriteAnimationDelegate.class);
         spriteAnimationDelegateFactory = mock(SpriteAnimationDelegateFactory.class);
+        updater = mock(Updater.class);
 
         imageRepository = mock(ImageRepository.class);
         injector = mock(Injector.class);
+    }
+
+    @Test
+    void updateDelegatesToUpdater(){
+        // Setup
+        var timestamp = 0l;
+        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
+        updatableSpriteEntity.setUpdater(updater);
+
+        // Test
+        updatableSpriteEntity.update(timestamp);
+
+        // Verify
+        verify(updater).update(timestamp);
     }
 
     @Test
@@ -60,7 +77,7 @@ class UpdatableSpriteEntityTest {
     }
 
     @Test
-    void setAutocycleDoesNotBreakWhithOnlyOneFrame() {
+    void setAutocycleDoesNotBreakWithOnlyOneFrame() {
         // Setup
         var autocycleValue = 37;
         var image = mock(Image.class);
@@ -70,6 +87,7 @@ class UpdatableSpriteEntityTest {
         updatableSpriteEntity.setImageRepository(imageRepository);
         updatableSpriteEntity.setImageViewFactory(imageViewFactory);
         updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        updatableSpriteEntity.setUpdater(updater);
 
         when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
 
@@ -95,6 +113,7 @@ class UpdatableSpriteEntityTest {
         updatableSpriteEntity.setImageRepository(imageRepository);
         updatableSpriteEntity.setImageViewFactory(imageViewFactory);
         updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        updatableSpriteEntity.setUpdater(updater);
 
         when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * frames, HEIGHT, true)).thenReturn(image);
 
@@ -117,6 +136,7 @@ class UpdatableSpriteEntityTest {
         updatableSpriteEntity.setImageRepository(imageRepository);
         updatableSpriteEntity.setImageViewFactory(imageViewFactory);
         updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        updatableSpriteEntity.setUpdater(updater);
 
         var image = mock(Image.class);
         when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);

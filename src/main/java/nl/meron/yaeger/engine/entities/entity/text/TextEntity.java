@@ -8,7 +8,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
-import nl.meron.yaeger.engine.entities.events.userinput.MousePressedListener;
 import nl.meron.yaeger.engine.entities.entity.Point;
 
 /**
@@ -17,7 +16,7 @@ import nl.meron.yaeger.engine.entities.entity.Point;
 public class TextEntity implements Entity {
 
     private Text textDelegate;
-    private Point point;
+    private Point anchorPoint;
     private Color fill;
     private Font font;
     private String initialText;
@@ -33,20 +32,20 @@ public class TextEntity implements Entity {
     /**
      * Instantiate a new {@code TextEntity} for the given {@link Point}.
      *
-     * @param position the initial {@link Point} of this {@code TextEntity}
+     * @param anchorPoint the initial {@link Point} of this {@code TextEntity}
      */
-    public TextEntity(final Point position) {
-        this(position, "");
+    public TextEntity(final Point anchorPoint) {
+        this(anchorPoint, "");
     }
 
     /**
      * Instantiate a new {@code TextEntity} for the given {@link Point} and textDelegate.
      *
-     * @param point the initial {@link Point} of this {@code TextEntity}
-     * @param text  a {@link String} containing the initial textDelegate to be displayed
+     * @param anchorPoint the initial {@link Point} of this {@code TextEntity}
+     * @param text        a {@link String} containing the initial textDelegate to be displayed
      */
-    public TextEntity(final Point point, final String text) {
-        this.point = point;
+    public TextEntity(final Point anchorPoint, final String text) {
+        this.anchorPoint = anchorPoint;
         this.initialText = text;
     }
 
@@ -97,14 +96,14 @@ public class TextEntity implements Entity {
     /**
      * Set the position of this {@code TextEntity}.
      *
-     * @param point a {@link Point} encapsulating the x and y coordinate
+     * @param anchorPoint a {@link Point} encapsulating the x and y coordinate
      */
-    public void setPosition(Point point) {
-        this.point = point;
+    public void setAnchorPoint(Point anchorPoint) {
+        this.anchorPoint = anchorPoint;
 
         if (textDelegate != null) {
-            textDelegate.setX(point.getX());
-            textDelegate.setY(point.getY());
+            textDelegate.setX(anchorPoint.getX());
+            textDelegate.setY(anchorPoint.getY());
         }
     }
 
@@ -130,14 +129,14 @@ public class TextEntity implements Entity {
 
     @Override
     public Point getAnchorPoint() {
-        return point;
+        return anchorPoint;
     }
 
     @Override
     public void init(Injector injector) {
-        if (point != null) {
-            textDelegate.setX(point.getX());
-            textDelegate.setY(point.getY());
+        if (anchorPoint != null) {
+            textDelegate.setX(anchorPoint.getX());
+            textDelegate.setY(anchorPoint.getY());
         }
         if (font != null) {
             textDelegate.setFont(font);
@@ -149,10 +148,6 @@ public class TextEntity implements Entity {
             textDelegate.setText(initialText);
         }
         textDelegate.setVisible(visible);
-
-        if (this instanceof MousePressedListener) {
-            ((MousePressedListener) this).attachMousePressedListener();
-        }
     }
 
     @Inject

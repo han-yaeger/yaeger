@@ -52,7 +52,7 @@ class TextEntityTest {
         var textEntity = new TextEntity();
 
         // Test
-        textEntity.setPosition(POINT);
+        textEntity.setAnchorPoint(POINT);
         textEntity.setTextDelegate(text);
         textEntity.init(injector);
 
@@ -66,7 +66,7 @@ class TextEntityTest {
         var textEntity = new TextEntity();
 
         // Test
-        textEntity.setPosition(POINT);
+        textEntity.setAnchorPoint(POINT);
         textEntity.setTextDelegate(text);
         textEntity.init(injector);
 
@@ -182,7 +182,7 @@ class TextEntityTest {
         textEntity.init(injector);
 
         // Test
-        textEntity.setPosition(POINT);
+        textEntity.setAnchorPoint(POINT);
         textEntity.setText(YAEGER);
         textEntity.setVisible(false);
         textEntity.setFont(FONT);
@@ -195,33 +195,5 @@ class TextEntityTest {
         verify(text).setFont(FONT);
         verify(text).setX(POINT.getX());
         verify(text).setY(POINT.getY());
-    }
-
-    @Test
-    void initializingAMouseButtonListeningTextEntityAttachesMouseListener() {
-        // Setup
-        var textEntity = new MousePressedListeningTextEntity();
-        textEntity.setTextDelegate(text);
-
-        // Text
-        textEntity.init(injector);
-
-        // Verify
-        Assertions.assertTrue(textEntity.mouseListenerAttached);
-    }
-
-    private class MousePressedListeningTextEntity extends TextEntity implements MousePressedListener {
-
-        private boolean mouseListenerAttached = false;
-
-        @Override
-        public void attachMousePressedListener() {
-            mouseListenerAttached = true;
-        }
-
-        @Override
-        public void onMousePressed(MouseButton button) {
-
-        }
     }
 }

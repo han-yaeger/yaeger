@@ -1,8 +1,9 @@
 package nl.meron.yaeger.engine.entities.entity.sprites.movement;
 
+import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.entities.entity.sprites.UpdatableSpriteEntity;
 
-public class UpdatableSpriteEntityMover {
+public class UpdatableSpriteEntityMover implements Updatable {
 
     private MovementVector movementVector;
     private UpdatableSpriteEntity updatableSpriteEntity;
@@ -64,7 +65,7 @@ public class UpdatableSpriteEntityMover {
      *
      * @return a {@code double} representing the direction
      */
-    public double getDirection(){
+    public double getDirection() {
         return movementVector.getDirection();
     }
 
@@ -76,11 +77,12 @@ public class UpdatableSpriteEntityMover {
         return Double.compare(newSpeed, movementVector.getSpeed()) != 0;
     }
 
-    public void updateLocation() {
-        updatableSpriteEntity.setPoint(updatableSpriteEntity.getAnchorPoint().add(movementVector.getVector()));
-    }
-
     public void addMovement(MovementVector movementVector) {
         this.movementVector = movementVector;
+    }
+
+    @Override
+    public void update(long timestamp) {
+        updatableSpriteEntity.setPoint(updatableSpriteEntity.getAnchorPoint().add(movementVector.getVector()));
     }
 }

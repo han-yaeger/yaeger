@@ -2,6 +2,7 @@ package nl.meron.yaeger.engine.entities.collisions;
 
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
+import javafx.scene.Node;
 import nl.meron.yaeger.engine.entities.collisions.CollisionSide;
 import nl.meron.yaeger.engine.entities.collisions.Collidable;
 import nl.meron.yaeger.engine.entities.collisions.Collided;
@@ -57,7 +58,7 @@ public class CollidedTest {
     @Test
     void testTrivialCollisionGivesCollision() {
         // Setup
-        Collider trivialCollider = () -> TEST_COLLIDED_BOUNDINGBOX;
+        Collider trivialCollider = new CollidingCollider();
         Set<Collider> testColliders = Set.of(trivialCollider);
 
         // Test
@@ -70,7 +71,7 @@ public class CollidedTest {
     @Test
     void testNoCollisionReportNoCollision() {
         // Setup
-        Collider noCollisionCollider = () -> TEST_NOT_COLLIDING_BOUNDINGBOX;
+        Collider noCollisionCollider = new NotCollidingCollider();
         Set<Collider> testColliders = Set.of(noCollisionCollider);
 
         // Test
@@ -96,8 +97,8 @@ public class CollidedTest {
     @Test
     void testBottomCollisionReportsCorrectly() {
         // Setup
-        Collider noCollisionCollider = () -> TEST_NOT_COLLIDING_BOUNDINGBOX;
-        Collider bottomCollisionCollider = () -> TEST_COLLIDED_BOTTOM_BOUNDINGBOX;
+        Collider noCollisionCollider = new NotCollidingCollider();
+        Collider bottomCollisionCollider = new CollidingBottomCollider();
 
         Set<Collider> testColliders = Set.of(noCollisionCollider, bottomCollisionCollider);
 
@@ -112,8 +113,8 @@ public class CollidedTest {
     @Test
     void testTopCollisionReportsCorrectly() {
         // Setup
-        Collider noCollisionCollider = () -> TEST_NOT_COLLIDING_BOUNDINGBOX;
-        Collider topCollisionCollider = () -> TEST_COLLIDED_TOP_BOUNDINGBOX;
+        Collider noCollisionCollider = new NotCollidingCollider();
+        Collider topCollisionCollider = new CollidingTopCollider();
 
         Set<Collider> testColliders = Set.of(noCollisionCollider, topCollisionCollider);
 
@@ -128,8 +129,8 @@ public class CollidedTest {
     @Test
     void testLeftCollisionReportsCorrectly() {
         // Setup
-        Collider noCollisionCollider = () -> TEST_NOT_COLLIDING_BOUNDINGBOX;
-        Collider leftCollisionCollider = () -> TEST_COLLIDED_LEFT_BOUNDINGBOX;
+        Collider noCollisionCollider = new NotCollidingCollider();
+        Collider leftCollisionCollider = new CollidingLeftCollider();
 
         Set<Collider> testColliders = Set.of(noCollisionCollider, leftCollisionCollider);
 
@@ -144,8 +145,8 @@ public class CollidedTest {
     @Test
     void testRightCollisionReportsCorrectly() {
         // Setup
-        Collider noCollisionCollider = () -> TEST_NOT_COLLIDING_BOUNDINGBOX;
-        Collider rightCollisionCollider = () -> TEST_COLLIDED_RIGHT_BOUNDINGBOX;
+        Collider noCollisionCollider = new NotCollidingCollider();
+        Collider rightCollisionCollider = new CollidingRightCollider();
 
         Set<Collider> testColliders = Set.of(noCollisionCollider, rightCollisionCollider);
 
@@ -156,6 +157,85 @@ public class CollidedTest {
         assertEquals(collided.getLastCollider(), rightCollisionCollider);
         assertEquals(collided.getSide(), CollisionSide.RIGHT);
     }
+
+    private class CollidingCollider implements Collider {
+
+        @Override
+        public Bounds getBounds() {
+            return TEST_COLLIDED_BOUNDINGBOX;
+        }
+
+        @Override
+        public Node getGameNode() {
+            return null;
+        }
+    }
+
+    private class NotCollidingCollider implements Collider {
+
+        @Override
+        public Bounds getBounds() {
+            return TEST_NOT_COLLIDING_BOUNDINGBOX;
+        }
+
+        @Override
+        public Node getGameNode() {
+            return null;
+        }
+    }
+
+    private class CollidingRightCollider implements Collider {
+
+        @Override
+        public Bounds getBounds() {
+            return TEST_COLLIDED_RIGHT_BOUNDINGBOX;
+        }
+
+        @Override
+        public Node getGameNode() {
+            return null;
+        }
+    }
+
+    private class CollidingLeftCollider implements Collider {
+
+        @Override
+        public Bounds getBounds() {
+            return TEST_COLLIDED_LEFT_BOUNDINGBOX;
+        }
+
+        @Override
+        public Node getGameNode() {
+            return null;
+        }
+    }
+
+    private class CollidingTopCollider implements Collider {
+
+        @Override
+        public Bounds getBounds() {
+            return TEST_COLLIDED_TOP_BOUNDINGBOX;
+        }
+
+        @Override
+        public Node getGameNode() {
+            return null;
+        }
+    }
+
+    private class CollidingBottomCollider implements Collider {
+
+        @Override
+        public Bounds getBounds() {
+            return TEST_COLLIDED_BOTTOM_BOUNDINGBOX;
+        }
+
+        @Override
+        public Node getGameNode() {
+            return null;
+        }
+    }
+
 
     private class TestCollided implements Collided {
 
@@ -181,9 +261,18 @@ public class CollidedTest {
         public CollisionSide getSide() {
             return side;
         }
+
+        @Override
+        public Node getGameNode() {
+            return null;
+        }
     }
 
     private class TestCollidable extends TestCollided implements Collidable {
 
+        @Override
+        public Node getGameNode() {
+            return null;
+        }
     }
 }

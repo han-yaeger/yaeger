@@ -8,15 +8,16 @@ import nl.meron.yaeger.engine.debug.StatisticsObserver;
 import nl.meron.yaeger.engine.entities.collisions.Collided;
 import nl.meron.yaeger.engine.entities.collisions.Collider;
 import nl.meron.yaeger.engine.entities.collisions.CollisionDelegate;
-import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.entities.entity.Removeable;
-import nl.meron.yaeger.engine.entities.entity.Updatable;
+import nl.meron.yaeger.engine.entities.entity.*;
 import nl.meron.yaeger.engine.entities.events.EventTypes;
 import nl.meron.yaeger.engine.entities.events.userinput.MouseReleasedListener;
+import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 import nl.meron.yaeger.engine.entities.events.userinput.KeyListener;
 import nl.meron.yaeger.engine.entities.events.userinput.MousePressedListener;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -212,9 +213,28 @@ public class EntityCollection implements Initializable {
     private void addToUpdatablesOrStatics(Entity entity) {
         if (entity instanceof Updatable) {
             var updatable = (Updatable) entity;
+            configureUpdateDelegators(updatable);
             updatables.add(updatable);
         } else {
             statics.add(entity);
+        }
+    }
+
+    private void configureUpdateDelegators(Updatable updatable) {
+        if (updatable instanceof UpdateDelegator) {
+            var updateDelegator = (UpdateDelegator) updatable;
+            for (Method method : updatable.getClass().getMethods()) {
+                if (method.isAnnotationPresent(UpdatableProvider.class)) {
+                    try {
+                        Updatable delegatedUpdatable = (Updatable) method.invoke(updateDelegator);
+                        updateDelegator.getUpdater().addUpdatable(delegatedUpdatable);
+                    } catch (IllegalAccessException e) {
+                        throw new YaegerEngineException(e);
+                    } catch (InvocationTargetException e) {
+                        throw new YaegerEngineException(e);
+                    }
+                }
+            }
         }
     }
 

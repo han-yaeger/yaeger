@@ -6,13 +6,14 @@ import javafx.geometry.Bounds;
  * Implementing this interface exposes the {@code getBounds} method, which returns the bounds, aka
  * Bounding Box, of this Entity.
  */
-@FunctionalInterface
-public interface Bounded {
+public interface Bounded extends NodeProvider {
 
     /**
-     * Return the Bounds, aka Bounding Box, of this Entity.
+     * Return the {@link Bounds}, aka Bounding Box.
      *
-     * @return The Bounds of this Entity.
+     * @return the {@link Bounds}
      */
-    Bounds getBounds();
+    default Bounds getBounds() {
+        return getGameNode().getBoundsInParent();
+    }
 }
