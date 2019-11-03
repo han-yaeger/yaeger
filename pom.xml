@@ -63,7 +63,7 @@
                     <dependency>
                         <groupId>org.ow2.asm</groupId>
                         <artifactId>asm</artifactId>
-                        <version>7.1</version>
+                        <version>7.2</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -73,7 +73,7 @@
                 <version>2.19.1</version>
                 <configuration>
                     <forkCount>5</forkCount>
-                    <argLine>-Xmx1024m -XX:MaxPermSize=256m --illegal-access=permit</argLine>
+                    <argLine>@{argLine} -Xmx1024m --illegal-access=permit</argLine>
                     <reuseForks>true</reuseForks>
                     <useSystemClassLoader>false</useSystemClassLoader>
                 </configuration>
@@ -93,7 +93,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.3</version>
+                <version>0.8.5</version>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
