@@ -15,9 +15,8 @@ import java.util.Set;
  */
 public abstract class DynamicScene extends StaticScene {
 
-
-    private transient AnimationTimer animator;
-    private transient AnimationTimerFactory animationTimerFactory;
+    private AnimationTimer animator;
+    private AnimationTimerFactory animationTimerFactory;
 
     @Override
     public void configure() {

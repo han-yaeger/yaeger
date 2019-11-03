@@ -65,7 +65,7 @@ public class CollidedTest {
         collided.checkForCollisions(testColliders);
 
         // Verify
-        assertEquals(collided.getLastCollider(), trivialCollider);
+        assertEquals(trivialCollider, collided.getLastCollider());
     }
 
     @Test
@@ -106,8 +106,8 @@ public class CollidedTest {
         collided.checkForCollisions(testColliders);
 
         // Verify
-        assertEquals(collided.getLastCollider(), bottomCollisionCollider);
-        assertEquals(collided.getSide(), CollisionSide.BOTTOM);
+        assertEquals(bottomCollisionCollider, collided.getLastCollider());
+        assertEquals(CollisionSide.BOTTOM, collided.getSide());
     }
 
     @Test
@@ -123,7 +123,7 @@ public class CollidedTest {
 
         // Verify
         assertEquals(collided.getLastCollider(), topCollisionCollider);
-        assertEquals(collided.getSide(), CollisionSide.TOP);
+        assertEquals(CollisionSide.TOP, collided.getSide());
     }
 
     @Test
@@ -139,7 +139,7 @@ public class CollidedTest {
 
         // Verify
         assertEquals(collided.getLastCollider(), leftCollisionCollider);
-        assertEquals(collided.getSide(), CollisionSide.LEFT);
+        assertEquals(CollisionSide.LEFT, collided.getSide());
     }
 
     @Test
@@ -155,7 +155,7 @@ public class CollidedTest {
 
         // Verify
         assertEquals(collided.getLastCollider(), rightCollisionCollider);
-        assertEquals(collided.getSide(), CollisionSide.RIGHT);
+        assertEquals(CollisionSide.RIGHT, collided.getSide());
     }
 
     private class CollidingCollider implements Collider {

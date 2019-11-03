@@ -228,9 +228,7 @@ public class EntityCollection implements Initializable {
                     try {
                         Updatable delegatedUpdatable = (Updatable) method.invoke(updateDelegator);
                         updateDelegator.getUpdater().addUpdatable(delegatedUpdatable);
-                    } catch (IllegalAccessException e) {
-                        throw new YaegerEngineException(e);
-                    } catch (InvocationTargetException e) {
+                    } catch (IllegalAccessException | InvocationTargetException | ClassCastException e) {
                         throw new YaegerEngineException(e);
                     }
                 }
