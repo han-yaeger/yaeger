@@ -73,7 +73,6 @@
                 <version>2.19.1</version>
                 <configuration>
                     <forkCount>5</forkCount>
-                    <argLine>@{argLine} -Xmx1024m --illegal-access=permit</argLine>
                     <reuseForks>true</reuseForks>
                     <useSystemClassLoader>false</useSystemClassLoader>
                 </configuration>
