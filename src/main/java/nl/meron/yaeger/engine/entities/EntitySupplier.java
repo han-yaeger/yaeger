@@ -2,7 +2,6 @@ package nl.meron.yaeger.engine.entities;
 
 import nl.meron.yaeger.engine.Clearable;
 import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.Clearable;
 
 import java.util.HashSet;
 import java.util.Set;

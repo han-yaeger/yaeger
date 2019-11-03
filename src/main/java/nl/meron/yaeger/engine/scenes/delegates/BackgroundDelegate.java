@@ -9,11 +9,7 @@ import nl.meron.yaeger.engine.media.audio.SoundClip;
 import nl.meron.yaeger.engine.media.repositories.AudioRepository;
 import nl.meron.yaeger.engine.media.repositories.ImageRepository;
 import nl.meron.yaeger.javafx.image.ImagePatternFactory;
-import nl.meron.yaeger.engine.Destroyable;
-import nl.meron.yaeger.engine.media.ResourceConsumer;
-import nl.meron.yaeger.engine.media.audio.SoundClip;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
-import nl.meron.yaeger.javafx.image.ImagePatternFactory;
 
 /**
  * A {@link BackgroundDelegate} follows the Delegate pattern and embraces Composition over Inheritence.

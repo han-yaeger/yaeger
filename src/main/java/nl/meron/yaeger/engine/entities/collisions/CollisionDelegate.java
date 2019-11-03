@@ -2,7 +2,6 @@ package nl.meron.yaeger.engine.entities.collisions;
 
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Removeable;
-import nl.meron.yaeger.engine.entities.entity.Removeable;
 
 import java.util.HashSet;
 import java.util.Set;

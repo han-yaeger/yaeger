@@ -6,9 +6,6 @@ import javafx.scene.image.Image;
 import nl.meron.yaeger.engine.Destroyable;
 import nl.meron.yaeger.javafx.image.ImageFactory;
 import nl.meron.yaeger.engine.media.ResourceConsumer;
-import nl.meron.yaeger.engine.Destroyable;
-import nl.meron.yaeger.engine.media.ResourceConsumer;
-import nl.meron.yaeger.javafx.image.ImageFactory;
 
 import java.util.Map;
 import java.util.WeakHashMap;
