@@ -10,7 +10,7 @@ services:
   - xvfb
 
 after_success:
-  - mvn org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar jacoco:report coveralls:report
+  - mvn jacoco:prepare-agent install sonar:sonar jacoco:report coveralls:report
 #  - mvn org.pitest:pitest-maven:mutationCoverage
   - mvn javadoc:javadoc
   - mvn install:install-file -Dfile=target/yaeger-shadyjar.jar -DgroupId=nl.han.ica -DartifactId=yaeger-shadyjar -Dversion=1.0.0 -Dpackaging=jar -DgeneratePom=true
