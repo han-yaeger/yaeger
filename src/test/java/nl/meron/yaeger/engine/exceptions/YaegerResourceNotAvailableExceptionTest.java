@@ -1,21 +1,23 @@
 package nl.meron.yaeger.engine.exceptions;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class YaegerResourceNotAvailableExceptionTest {
 
     @Test
-    void correctMessageIsContructed() {
+    void correctMessageIsConstructed() {
         // Setup
         var resource = "testresource";
+
         // Test
-        var exception = new YaegerResourceNotAvailableException(resource);
+        var sut = new YaegerResourceNotAvailableException(resource);
 
         // Verify
-        String message = exception.getMessage();
+        var message = sut.getMessage();
 
-        Assertions.assertEquals("Resource " + resource + " can not be found. Ensure that it is placed in resource/ folder.", message);
+        assertEquals("Resource " + resource + " can not be found. Ensure that it is placed in resource/ folder.", message);
     }
 }

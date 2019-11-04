@@ -3,7 +3,6 @@ package nl.meron.yaeger.engine.exceptions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-
 class YaegerLifecycleExceptionTest {
 
     @Test
@@ -11,10 +10,10 @@ class YaegerLifecycleExceptionTest {
         // Setup
         var originalMessage = "Message related to the lifecycle exception.";
         // Test
-        var exception = new YaegerLifecycleException(originalMessage);
+        var sut = new YaegerLifecycleException(originalMessage);
 
         // Verify
-        String message = exception.getMessage();
+        var message = sut.getMessage();
 
         Assertions.assertEquals(originalMessage, message);
     }

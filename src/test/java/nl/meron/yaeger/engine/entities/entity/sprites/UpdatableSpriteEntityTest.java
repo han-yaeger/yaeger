@@ -52,7 +52,7 @@ class UpdatableSpriteEntityTest {
     }
 
     @Test
-    void updateDelegatesToUpdater(){
+    void updateDelegatesToUpdater() {
         // Setup
         var timestamp = 0l;
         var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
@@ -159,6 +159,21 @@ class UpdatableSpriteEntityTest {
 
         // Verify
         assertNotEquals(DEFAULT_POINT, updatableSpriteEntity.getAnchorPoint());
+    }
+
+    @Test
+    void addedUpdaterIsUsedAsUpdater() {
+        // Setup
+        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, 1, MOVEMENT_VECTOR);
+        var updater = mock(Updater.class);
+
+        updatableSpriteEntity.setUpdater(updater);
+
+        // Test
+        Updater updater1 = updatableSpriteEntity.getUpdater();
+
+        // Verify
+        Assertions.assertEquals(updater, updater1);
     }
 
     private class TestUpdatableSpriteEntity extends UpdatableSpriteEntity {

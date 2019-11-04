@@ -1,6 +1,5 @@
 package nl.meron.yaeger.engine.exceptions;
 
-
 import nl.meron.yaeger.engine.scenes.SceneType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,10 +11,10 @@ class YaegerSceneNotAvailableExceptionTest {
         // Setup
 
         // Test
-        var exception = new YaegerSceneNotAvailableException(SceneType.INTRO);
+        var sut = new YaegerSceneNotAvailableException(SceneType.INTRO);
 
         // Verify
-        String message = exception.getMessage();
+        var message = sut.getMessage();
 
         Assertions.assertEquals("Scene INTRO is not available. Ensure the scene is added to the game.", message);
     }
