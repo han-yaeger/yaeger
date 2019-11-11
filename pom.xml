@@ -134,34 +134,34 @@
                     <excludePackageNames>nl.meron.pong</excludePackageNames>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.pitest</groupId>
-                <artifactId>pitest-maven</artifactId>
-                <version>1.4.10</version>
-                <configuration>
-                    <excludedClasses>
-                        <param>nl/meron/pong/**/*</param>
-                        <param>nl/meron/waterworld/**/*</param>
-                        <param>nl/meron/yaeger/guice/**/*</param>
-                        <param>nl/meron/yaeger/javafx/**/*</param>
-                    </excludedClasses>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.pitest</groupId>
-                        <artifactId>pitest-junit5-plugin</artifactId>
-                        <version>0.9</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.pitest</groupId>-->
+<!--                <artifactId>pitest-maven</artifactId>-->
+<!--                <version>1.4.10</version>-->
+<!--                <configuration>-->
+<!--                    <excludedClasses>-->
+<!--                        <param>nl/meron/pong/**/*</param>-->
+<!--                        <param>nl/meron/waterworld/**/*</param>-->
+<!--                        <param>nl/meron/yaeger/guice/**/*</param>-->
+<!--                        <param>nl/meron/yaeger/javafx/**/*</param>-->
+<!--                    </excludedClasses>-->
+<!--                </configuration>-->
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>org.pitest</groupId>-->
+<!--                        <artifactId>pitest-junit5-plugin</artifactId>-->
+<!--                        <version>0.9</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+<!--            </plugin>-->
         </plugins>
     </build>
     <dependencies>
-        <dependency>
-            <groupId>org.pitest</groupId>
-            <artifactId>pitest-maven</artifactId>
-            <version>1.4.10</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.pitest</groupId>-->
+<!--            <artifactId>pitest-maven</artifactId>-->
+<!--            <version>1.4.10</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
@@ -188,9 +188,9 @@
             <version>3.3.0</version>
         </dependency>
         <dependency>
-            <groupId>com.google.inject</groupId>
+            <groupId>com.guicedee.services</groupId>
             <artifactId>guice</artifactId>
-            <version>4.2.2</version>
+            <version>0.70.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
