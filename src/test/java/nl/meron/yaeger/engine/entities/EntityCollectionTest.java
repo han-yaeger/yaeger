@@ -7,10 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import nl.meron.yaeger.engine.debug.Debugger;
+import nl.meron.yaeger.engine.entities.entity.*;
 import nl.meron.yaeger.engine.entities.events.userinput.KeyListener;
-import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.entities.events.userinput.MousePressedListener;
 import nl.meron.yaeger.engine.entities.events.userinput.MouseReleasedListener;
 import org.junit.jupiter.api.Assertions;
@@ -20,18 +18,18 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 class EntityCollectionTest {
 
-    private EntityCollection entityCollection;
+    private EntityCollection sut;
     private Injector injector;
 
     @BeforeEach
     void setup() {
         injector = mock(Injector.class);
     }
-
 
     @Test
     void newInstanceIsEmtpy() {
@@ -40,15 +38,15 @@ class EntityCollectionTest {
         var debugger = mock(Debugger.class);
 
         // Test
-        entityCollection = new EntityCollection(group);
-        entityCollection.addStatisticsObserver(debugger);
+        sut = new EntityCollection(group);
+        sut.addStatisticsObserver(debugger);
 
         // Verify
-        Assertions.assertEquals(0, entityCollection.getStatistics().getStatics());
-        Assertions.assertEquals(0, entityCollection.getStatistics().getUpdatables());
-        Assertions.assertEquals(0, entityCollection.getStatistics().getGarbage());
-        Assertions.assertEquals(0, entityCollection.getStatistics().getKeyListeners());
-        Assertions.assertEquals(0, entityCollection.getStatistics().getSuppliers());
+        Assertions.assertEquals(0, sut.getStatistics().getStatics());
+        Assertions.assertEquals(0, sut.getStatistics().getUpdatables());
+        Assertions.assertEquals(0, sut.getStatistics().getGarbage());
+        Assertions.assertEquals(0, sut.getStatistics().getKeyListeners());
+        Assertions.assertEquals(0, sut.getStatistics().getSuppliers());
     }
 
     @Test
@@ -56,11 +54,11 @@ class EntityCollectionTest {
         // Setup
         var supplier = mock(EntitySupplier.class);
         var group = mock(Group.class);
-        entityCollection = new EntityCollection(group);
-        entityCollection.registerSupplier(supplier);
+        sut = new EntityCollection(group);
+        sut.registerSupplier(supplier);
 
         // Test
-        entityCollection.clear();
+        sut.clear();
 
         // Verify
         verify(supplier).clear();
@@ -83,16 +81,46 @@ class EntityCollectionTest {
         var children = mock(ObservableList.class);
         when(group.getChildren()).thenReturn(children);
 
-        entityCollection = new EntityCollection(group);
-        entityCollection.init(injector);
+        sut = new EntityCollection(group);
+        sut.init(injector);
 
         // Test
-        entityCollection.registerSupplier(supplier);
-        entityCollection.initialUpdate();
+        sut.registerSupplier(supplier);
+        sut.initialUpdate();
 
         // Verify
         verify(supplier).get();
     }
+
+//    @Test
+//    void entityWithExtraUpdateGetsAddedToTheUpdaters() {
+//        var updateDelegatingEntity = new UpdateDelegatingEntity();
+//        var node = mock(Node.class);
+//
+//        updateDelegatingEntity.setNode(node);
+//
+//        Set<Entity> updatables = new HashSet<>();
+//        updatables.add(updateDelegatingEntity);
+//        var supplier = mock(EntitySupplier.class);
+//        when(supplier.get()).thenReturn(updatables);
+//        supplier.add(updateDelegatingEntity);
+//
+//        var group = mock(Group.class);
+//        var children = mock(ObservableList.class);
+//        when(group.getChildren()).thenReturn(children);
+//
+//        sut = new EntityCollection(group);
+//        sut.init(injector);
+//
+//        sut.registerSupplier(supplier);
+//        sut.initialUpdate();
+//
+//        // Test
+//        sut.update(0);
+//
+//        // Verify
+//        assertTrue(updateDelegatingEntity.extraUpdateCalled);
+//    }
 
     @Test
     void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsEmpty() {
@@ -111,11 +139,11 @@ class EntityCollectionTest {
         Set<KeyCode> keycodes = new HashSet<>();
 
         // Test
-        entityCollection = new EntityCollection(group);
-        entityCollection.init(injector);
-        entityCollection.registerSupplier(entitySupplier);
-        entityCollection.update(0);
-        entityCollection.notifyGameObjectsOfPressedKeys(keycodes);
+        sut = new EntityCollection(group);
+        sut.init(injector);
+        sut.registerSupplier(entitySupplier);
+        sut.update(0);
+        sut.notifyGameObjectsOfPressedKeys(keycodes);
 
         // Verify
         verify(keyListeningEntity).onPressedKeysChange(keycodes);
@@ -144,11 +172,11 @@ class EntityCollectionTest {
         keycodes.add(KeyCode.R);
 
         // Test
-        entityCollection = new EntityCollection(group);
-        entityCollection.init(injector);
-        entityCollection.registerSupplier(entitySupplier);
-        entityCollection.update(0);
-        entityCollection.notifyGameObjectsOfPressedKeys(keycodes);
+        sut = new EntityCollection(group);
+        sut.init(injector);
+        sut.registerSupplier(entitySupplier);
+        sut.update(0);
+        sut.notifyGameObjectsOfPressedKeys(keycodes);
 
         // Verify
         verify(keyListeningEntity).onPressedKeysChange(keycodes);
@@ -169,10 +197,10 @@ class EntityCollectionTest {
         entitySupplier.add(mousePressedListeningEntity);
 
         // Test
-        entityCollection = new EntityCollection(group);
-        entityCollection.init(injector);
-        entityCollection.registerSupplier(entitySupplier);
-        entityCollection.update(0);
+        sut = new EntityCollection(group);
+        sut.init(injector);
+        sut.registerSupplier(entitySupplier);
+        sut.update(0);
 
         // Verify
         verify(mousePressedListeningEntity).attachMousePressedListener();
@@ -193,13 +221,46 @@ class EntityCollectionTest {
         entitySupplier.add(mousePressedListeningEntity);
 
         // Test
-        entityCollection = new EntityCollection(group);
-        entityCollection.init(injector);
-        entityCollection.registerSupplier(entitySupplier);
-        entityCollection.update(0);
+        sut = new EntityCollection(group);
+        sut.init(injector);
+        sut.registerSupplier(entitySupplier);
+        sut.update(0);
 
         // Verify
         verify(mousePressedListeningEntity).attachMouseReleasedListener();
+    }
+}
+
+class UpdateDelegatingEntity extends UpdatableEntity implements UpdateDelegator {
+
+    boolean extraUpdateCalled = false;
+
+    private Updater updater = new Updater();
+    private Node node;
+
+    @UpdatableProvider
+    public Updatable provideUpdate() {
+        return timestamp -> {
+            setTrue();
+        };
+    }
+
+    void setTrue() {
+        this.extraUpdateCalled = true;
+    }
+
+    public void setNode(Node node) {
+        this.node = node;
+    }
+
+    @Override
+    public Node getGameNode() {
+        return this.node;
+    }
+
+    @Override
+    public Updater getUpdater() {
+        return updater;
     }
 }
 

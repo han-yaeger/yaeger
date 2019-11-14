@@ -134,53 +134,29 @@
                     <excludePackageNames>nl.meron.pong</excludePackageNames>
                 </configuration>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.pitest</groupId>-->
-<!--                <artifactId>pitest-maven</artifactId>-->
-<!--                <version>1.4.10</version>-->
-<!--                <configuration>-->
-<!--                    <excludedClasses>-->
-<!--                        <param>nl/meron/pong/**/*</param>-->
-<!--                        <param>nl/meron/waterworld/**/*</param>-->
-<!--                        <param>nl/meron/yaeger/guice/**/*</param>-->
-<!--                        <param>nl/meron/yaeger/javafx/**/*</param>-->
-<!--                    </excludedClasses>-->
-<!--                </configuration>-->
-<!--                <dependencies>-->
-<!--                    <dependency>-->
-<!--                        <groupId>org.pitest</groupId>-->
-<!--                        <artifactId>pitest-junit5-plugin</artifactId>-->
-<!--                        <version>0.9</version>-->
-<!--                    </dependency>-->
-<!--                </dependencies>-->
-<!--            </plugin>-->
         </plugins>
     </build>
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>org.pitest</groupId>-->
-<!--            <artifactId>pitest-maven</artifactId>-->
-<!--            <version>1.4.10</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
-            <version>13</version>
+            <version>14-ea+2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>13</version>
+            <version>14-ea+2</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>13</version>
+            <version>14-ea+2</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
-            <version>13</version>
+            <version>14-ea+2</version>
         </dependency>
         <dependency>
             <groupId>org.dyn4j</groupId>
@@ -201,13 +177,13 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>3.0.0</version>
+            <version>3.1.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>3.0.0</version>
+            <version>3.1.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
