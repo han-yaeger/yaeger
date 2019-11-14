@@ -4,6 +4,9 @@ import nl.meron.yaeger.engine.YaegerEngine;
 import nl.meron.yaeger.engine.entities.entity.sprites.Size;
 import nl.meron.yaeger.engine.scenes.SceneType;
 
+/**
+ * Elementary implementation of the PONG game.
+ */
 public class Pong extends YaegerEngine {
 
     private static final String GAME_TITLE = "Pong";

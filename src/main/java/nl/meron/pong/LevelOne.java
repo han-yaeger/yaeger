@@ -5,6 +5,9 @@ import nl.meron.yaeger.engine.entities.entity.sprites.movement.MovementVector;
 import nl.meron.yaeger.engine.entities.entity.sprites.Size;
 import nl.meron.yaeger.engine.scenes.impl.DynamicScene;
 
+/**
+ * Level one of the game
+ */
 public class LevelOne extends DynamicScene {
 
     @Override
