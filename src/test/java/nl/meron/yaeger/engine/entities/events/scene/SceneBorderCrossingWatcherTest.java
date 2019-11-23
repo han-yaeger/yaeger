@@ -9,8 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class SceneBorderCrossingWatcherTest {
 
@@ -28,7 +27,7 @@ class SceneBorderCrossingWatcherTest {
     @BeforeEach
     void setup() {
         watcher = new TestWatcher();
-        node = mock(Node.class);
+        node = mock(Node.class, withSettings().withoutAnnotations());
         scene = mock(Scene.class);
         watcher.setGameNode(node);
     }

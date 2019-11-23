@@ -2,6 +2,7 @@ module nl.meron.yaeger {
     requires javafx.controls;
     requires javafx.media;
     requires com.google.guice;
+    requires java.base;
 
     exports nl.meron.pong;
     exports nl.meron.waterworld;

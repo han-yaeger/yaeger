@@ -27,7 +27,7 @@ class EntityTest {
     @BeforeEach
     void setup() {
         testEntity = new TestEntity();
-        node = mock(Node.class);
+        node = mock(Node.class, withSettings().withoutAnnotations());
         scene = mock(Scene.class);
         ((TestEntity) testEntity).setNode(node);
     }

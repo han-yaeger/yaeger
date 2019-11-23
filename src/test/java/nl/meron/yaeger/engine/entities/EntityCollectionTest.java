@@ -68,7 +68,7 @@ class EntityCollectionTest {
     void suppliersEntitiesAreTransferredAtUpdate() {
         // Setup
         var updatableEntity = mock(UpdatableEntity.class);
-        var node = mock(Node.class);
+        var node = mock(Node.class, withSettings().withoutAnnotations());
         when(updatableEntity.getGameNode()).thenReturn(node);
 
         Set<Entity> updatables = new HashSet<>();
@@ -126,7 +126,7 @@ class EntityCollectionTest {
     void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsEmpty() {
         // Setup
         var keyListeningEntity = mock(KeyListeningEntity.class);
-        var node = mock(Node.class);
+        var node = mock(Node.class, withSettings().withoutAnnotations());
         when(keyListeningEntity.getGameNode()).thenReturn(node);
 
         var group = mock(Group.class);
@@ -153,7 +153,7 @@ class EntityCollectionTest {
     void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsFilled() {
         // Setup
         var keyListeningEntity = mock(KeyListeningEntity.class);
-        var node = mock(Node.class);
+        var node = mock(Node.class, withSettings().withoutAnnotations());
         when(keyListeningEntity.getGameNode()).thenReturn(node);
 
         var group = mock(Group.class);
@@ -186,7 +186,7 @@ class EntityCollectionTest {
     void mousePressedListeningEntityAttachesListenerOnMousePressedEvent() {
         // Setup
         var mousePressedListeningEntity = mock(MousePressedListeningEntity.class);
-        var node = mock(Node.class);
+        var node = mock(Node.class, withSettings().withoutAnnotations());
         when(mousePressedListeningEntity.getGameNode()).thenReturn(node);
 
         var group = mock(Group.class);
@@ -210,7 +210,7 @@ class EntityCollectionTest {
     void mouseReleasedListeningEntityAttachesListenerOnMouseReleasedEvent() {
         // Setup
         var mousePressedListeningEntity = mock(MouseReleasedListeningEntity.class);
-        var node = mock(Node.class);
+        var node = mock(Node.class, withSettings().withoutAnnotations());
         when(mousePressedListeningEntity.getGameNode()).thenReturn(node);
 
         var group = mock(Group.class);

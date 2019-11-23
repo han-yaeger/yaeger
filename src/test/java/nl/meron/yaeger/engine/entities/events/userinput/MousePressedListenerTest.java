@@ -11,7 +11,7 @@ class MousePressedListenerTest {
     @Test
     void attachMousePressedListenerAttachesMouseListener() {
         // Setup
-        var node = mock(Node.class);
+        var node = mock(Node.class, withSettings().withoutAnnotations());
         var mouseListeningEntity = new MousePressedListeningInstancee();
         mouseListeningEntity.setNode(node);
 

@@ -5,15 +5,14 @@ import javafx.scene.input.MouseButton;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class MouseReleasedListenerTest {
 
     @Test
     void attachMousePressedListenerAttachesMouseListener() {
         // Setup
-        var node = mock(Node.class);
+        var node = mock(Node.class, withSettings().withoutAnnotations());
         var mouseListeningEntity = new MouseReleasedListeningInstancee();
         mouseListeningEntity.setNode(node);
 
