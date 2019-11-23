@@ -41,7 +41,7 @@ class ImageRepositoryTest {
         when(imageFactory.create(anyString())).thenReturn(image);
 
         // Test
-        Image createdImage = imageRepository.get("images/bubble.png");
+        Image createdImage = imageRepository.get("waterworld/images/bubble.png");
 
         // Verify
         Assertions.assertEquals(image, createdImage);
@@ -56,8 +56,8 @@ class ImageRepositoryTest {
         when(imageFactory.create(anyString())).thenReturn(image);
 
         // Test
-        Image image1 = imageRepository.get("images/bubble.png");
-        Image image2 = imageRepository.get("images/bubble.png");
+        Image image1 = imageRepository.get("waterworld/images/bubble.png");
+        Image image2 = imageRepository.get("waterworld/images/bubble.png");
 
         // Verify
         Assertions.assertSame(image1, image2);
@@ -72,8 +72,8 @@ class ImageRepositoryTest {
         when(imageFactory.create(anyString())).thenReturn(image);
 
         // Test
-        Image image1 = imageRepository.get("images/bubble.png");
-        Image image2 = imageRepository.get("images/poison.png");
+        Image image1 = imageRepository.get("waterworld/images/bubble.png");
+        Image image2 = imageRepository.get("waterworld/images/poison.png");
 
         // Verify
         Assertions.assertEquals(2, imageRepository.size());
@@ -87,7 +87,7 @@ class ImageRepositoryTest {
         when(imageFactory.create(anyString(), anyDouble(), anyDouble(), anyBoolean())).thenReturn(image);
 
         // Test
-        Image createdImage = imageRepository.get("images/bubble.png", 20, 20, true);
+        Image createdImage = imageRepository.get("waterworld/images/bubble.png", 20, 20, true);
 
         // Verify
         Assertions.assertSame(image, createdImage);
@@ -102,8 +102,8 @@ class ImageRepositoryTest {
         when(imageFactory.create(anyString(), anyDouble(), anyDouble(), anyBoolean())).thenReturn(image);
 
         // Test
-        Image firstImage = imageRepository.get("images/bubble.png", 20, 20, true);
-        Image secondImage = imageRepository.get("images/bubble.png", 20, 20, true);
+        Image firstImage = imageRepository.get("waterworld/images/bubble.png", 20, 20, true);
+        Image secondImage = imageRepository.get("waterworld/images/bubble.png", 20, 20, true);
 
         // Verify
         Assertions.assertSame(image, firstImage);

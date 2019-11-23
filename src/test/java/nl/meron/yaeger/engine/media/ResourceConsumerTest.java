@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ResourceConsumerTest {
 
-    static final String RESOURCE_EXISTING = "images/sprite-with-two-frames.png";
+    static final String RESOURCE_EXISTING = "waterworld/images/sprite-with-two-frames.png";
     static final String RESOURCE_NOT_EXISTING = "unavailable.png";
 
     ResourceConsumer resourceConsumer;
