@@ -92,35 +92,35 @@ class EntityCollectionTest {
         verify(supplier).get();
     }
 
-//    @Test
-//    void entityWithExtraUpdateGetsAddedToTheUpdaters() {
-//        var updateDelegatingEntity = new UpdateDelegatingEntity();
-//        var node = mock(Node.class);
-//
-//        updateDelegatingEntity.setNode(node);
-//
-//        Set<Entity> updatables = new HashSet<>();
-//        updatables.add(updateDelegatingEntity);
-//        var supplier = mock(EntitySupplier.class);
-//        when(supplier.get()).thenReturn(updatables);
-//        supplier.add(updateDelegatingEntity);
-//
-//        var group = mock(Group.class);
-//        var children = mock(ObservableList.class);
-//        when(group.getChildren()).thenReturn(children);
-//
-//        sut = new EntityCollection(group);
-//        sut.init(injector);
-//
-//        sut.registerSupplier(supplier);
-//        sut.initialUpdate();
-//
-//        // Test
-//        sut.update(0);
-//
-//        // Verify
-//        assertTrue(updateDelegatingEntity.extraUpdateCalled);
-//    }
+    @Test
+    void entityWithExtraUpdateGetsAddedToTheUpdaters() {
+        var updateDelegatingEntity = new UpdateDelegatingEntity();
+        var node = mock(Node.class, withSettings().withoutAnnotations());
+
+        updateDelegatingEntity.setNode(node);
+
+        Set<Entity> updatables = new HashSet<>();
+        updatables.add(updateDelegatingEntity);
+        var supplier = mock(EntitySupplier.class);
+        when(supplier.get()).thenReturn(updatables);
+        supplier.add(updateDelegatingEntity);
+
+        var group = mock(Group.class);
+        var children = mock(ObservableList.class);
+        when(group.getChildren()).thenReturn(children);
+
+        sut = new EntityCollection(group);
+        sut.init(injector);
+
+        sut.registerSupplier(supplier);
+        sut.initialUpdate();
+
+        // Test
+        sut.update(0);
+
+        // Verify
+        assertTrue(updateDelegatingEntity.extraUpdateCalled);
+    }
 
     @Test
     void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsEmpty() {
@@ -261,6 +261,11 @@ class UpdateDelegatingEntity extends UpdatableEntity implements UpdateDelegator 
     @Override
     public Updater getUpdater() {
         return updater;
+    }
+
+    @Override
+    public void update(long timestamp) {
+        updater.update(timestamp);
     }
 }
 
