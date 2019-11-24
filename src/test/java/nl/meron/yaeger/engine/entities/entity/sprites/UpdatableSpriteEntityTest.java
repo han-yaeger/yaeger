@@ -70,10 +70,10 @@ class UpdatableSpriteEntityTest {
         // Setup
 
         // Test
-        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
+        var sut = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
 
         // Verify
-        Assertions.assertNotNull(updatableSpriteEntity);
+        Assertions.assertNotNull(sut);
     }
 
     @Test
@@ -82,24 +82,25 @@ class UpdatableSpriteEntityTest {
         var autocycleValue = 37;
         var image = mock(Image.class);
         var imageView = mock(ImageView.class);
-        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
-        updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        updatableSpriteEntity.setImageRepository(imageRepository);
-        updatableSpriteEntity.setImageViewFactory(imageViewFactory);
-        updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        updatableSpriteEntity.setUpdater(updater);
+        var sut = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
+        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        sut.setImageRepository(imageRepository);
+        sut.setImageViewFactory(imageViewFactory);
+        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        sut.setUpdater(updater);
 
         when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
 
         when(imageViewFactory.create(image)).thenReturn(imageView);
         when(spriteAnimationDelegateFactory.create(imageView, 1)).thenReturn(spriteAnimationDelegate);
 
-        updatableSpriteEntity.setAutoCycle(autocycleValue);
+        sut.setAutoCycle(autocycleValue);
 
         // Test
-        updatableSpriteEntity.init(injector);
+        sut.init(injector);
 
         // Verify
+        verifyNoInteractions(spriteAnimationDelegate);
     }
 
     @Test
@@ -108,12 +109,12 @@ class UpdatableSpriteEntityTest {
         var frames = 2;
         var image = mock(Image.class);
         var imageView = mock(ImageView.class);
-        var updatableSpriteEntity = new AutoCyclingUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, frames);
-        updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        updatableSpriteEntity.setImageRepository(imageRepository);
-        updatableSpriteEntity.setImageViewFactory(imageViewFactory);
-        updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        updatableSpriteEntity.setUpdater(updater);
+        var sut = new AutoCyclingUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, frames);
+        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        sut.setImageRepository(imageRepository);
+        sut.setImageViewFactory(imageViewFactory);
+        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        sut.setUpdater(updater);
 
         when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * frames, HEIGHT, true)).thenReturn(image);
 
@@ -121,7 +122,7 @@ class UpdatableSpriteEntityTest {
         when(spriteAnimationDelegateFactory.create(imageView, frames)).thenReturn(spriteAnimationDelegate);
 
         // Test
-        updatableSpriteEntity.init(injector);
+        sut.init(injector);
 
         // Verify
         verify(spriteAnimationDelegate).setAutoCycle(2);
@@ -130,13 +131,13 @@ class UpdatableSpriteEntityTest {
     @Test
     void updateUpdatesLocation() {
         // Setup
-        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, 1, MOVEMENT_VECTOR);
-        updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        var sut = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, 1, MOVEMENT_VECTOR);
+        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
 
-        updatableSpriteEntity.setImageRepository(imageRepository);
-        updatableSpriteEntity.setImageViewFactory(imageViewFactory);
-        updatableSpriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        updatableSpriteEntity.setUpdater(updater);
+        sut.setImageRepository(imageRepository);
+        sut.setImageViewFactory(imageViewFactory);
+        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        sut.setUpdater(updater);
 
         var image = mock(Image.class);
         when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
@@ -152,25 +153,25 @@ class UpdatableSpriteEntityTest {
         when(scene.getHeight()).thenReturn(100d);
 
         when(imageView.getScene()).thenReturn(scene);
-        updatableSpriteEntity.init(injector);
+        sut.init(injector);
 
         // Test
-        updatableSpriteEntity.update(1l);
+        sut.update(1l);
 
         // Verify
-        assertNotEquals(DEFAULT_POINT, updatableSpriteEntity.getAnchorPoint());
+        assertNotEquals(DEFAULT_POINT, sut.getAnchorPoint());
     }
 
     @Test
     void addedUpdaterIsUsedAsUpdater() {
         // Setup
-        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, 1, MOVEMENT_VECTOR);
+        var sut = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, 1, MOVEMENT_VECTOR);
         var updater = mock(Updater.class);
 
-        updatableSpriteEntity.setUpdater(updater);
+        sut.setUpdater(updater);
 
         // Test
-        Updater updater1 = updatableSpriteEntity.getUpdater();
+        Updater updater1 = sut.getUpdater();
 
         // Verify
         Assertions.assertEquals(updater, updater1);
