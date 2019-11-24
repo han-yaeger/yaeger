@@ -12,48 +12,48 @@ import static org.mockito.Mockito.*;
 class ScenesTest {
 
     private Stage stage;
-    private Scenes scenes;
+    private Scenes sut;
     private Injector injector;
 
     @BeforeEach
     void setup() {
         stage = mock(Stage.class);
-        scenes = new Scenes(stage);
+        sut = new Scenes(stage);
         injector = mock(Injector.class);
     }
 
     @Test
     void addingOneSceneSetActiveScene() {
         // Setup
-        YaegerScene yaegerScene = mock(YaegerScene.class);
+        YaegerScene scene = mock(YaegerScene.class);
         Scene javaFXScene = mock(Scene.class);
 
-        when(yaegerScene.getScene()).thenReturn(javaFXScene);
+        when(scene.getScene()).thenReturn(javaFXScene);
         doNothing().when(stage).setScene(javaFXScene);
 
         // Test
-        scenes.addScene(SceneType.INTRO, yaegerScene);
+        sut.addScene(SceneType.INTRO, scene);
 
         // Verify
-        Assertions.assertEquals(yaegerScene, scenes.getActiveScene());
+        Assertions.assertEquals(scene, sut.getActiveScene());
         verify(stage).setScene(javaFXScene);
-        verify(yaegerScene).init(any(Injector.class));
+        verify(scene).init(any(Injector.class));
     }
 
     @Test
     void addedScenesAreInitializedAfterAdding() {
         // Setup
-        YaegerScene yaegerScene = mock(YaegerScene.class);
+        YaegerScene scene = mock(YaegerScene.class);
         Scene javaFXScene = mock(Scene.class);
 
-        when(yaegerScene.getScene()).thenReturn(javaFXScene);
+        when(scene.getScene()).thenReturn(javaFXScene);
         doNothing().when(stage).setScene(javaFXScene);
 
         // Test
-        scenes.addScene(SceneType.INTRO, yaegerScene);
+        sut.addScene(SceneType.INTRO, scene);
 
         // Verify
-        verify(yaegerScene).init(any(Injector.class));
+        verify(scene).init(any(Injector.class));
     }
 
     @Test
@@ -72,13 +72,13 @@ class ScenesTest {
         when(yaegerScene4.getScene()).thenReturn(javaFXScene);
 
         // Test
-        scenes.addScene(SceneType.INTRO, yaegerScene1);
-        scenes.addScene(SceneType.LEVEL_ONE, yaegerScene2);
-        scenes.addScene(SceneType.LEVEL_TWO, yaegerScene3);
-        scenes.addScene(SceneType.LEVEL_THREE, yaegerScene4);
+        sut.addScene(SceneType.INTRO, yaegerScene1);
+        sut.addScene(SceneType.LEVEL_ONE, yaegerScene2);
+        sut.addScene(SceneType.LEVEL_TWO, yaegerScene3);
+        sut.addScene(SceneType.LEVEL_THREE, yaegerScene4);
 
         // Verify
-        Assertions.assertEquals(yaegerScene1, scenes.getActiveScene());
+        Assertions.assertEquals(yaegerScene1, sut.getActiveScene());
     }
 
     @Test
@@ -92,14 +92,14 @@ class ScenesTest {
         when(intro.getScene()).thenReturn(javaFXScene);
         when(level1.getScene()).thenReturn(javaFXScene);
 
-        scenes.addScene(SceneType.INTRO, intro);
-        scenes.addScene(SceneType.LEVEL_ONE, level1);
+        sut.addScene(SceneType.INTRO, intro);
+        sut.addScene(SceneType.LEVEL_ONE, level1);
 
         // Test
-        scenes.setActive(SceneType.LEVEL_ONE);
+        sut.setActive(SceneType.LEVEL_ONE);
 
         // Verify
-        Assertions.assertEquals(level1, scenes.getActiveScene());
+        Assertions.assertEquals(level1, sut.getActiveScene());
         verify(level1).init(any(Injector.class));
     }
 
@@ -114,13 +114,73 @@ class ScenesTest {
         when(intro.getScene()).thenReturn(javaFXScene);
         when(level1.getScene()).thenReturn(javaFXScene);
 
-        scenes.addScene(SceneType.INTRO, intro);
-        scenes.addScene(SceneType.LEVEL_ONE, level1);
+        sut.addScene(SceneType.INTRO, intro);
+        sut.addScene(SceneType.LEVEL_ONE, level1);
 
         // Test
-        scenes.setActive(SceneType.LEVEL_ONE);
+        sut.setActive(SceneType.LEVEL_ONE);
 
         // Verify
         verify(intro).destroy();
+    }
+
+    @Test
+    void equalsSucceedsWithSameInstance() {
+        // Setup
+
+        // Test
+        boolean equals = sut.equals(sut);
+
+        // Verify
+        Assertions.assertTrue(equals);
+    }
+
+    @Test
+    void equalsFailsWithDifferentInstance() {
+        // Setup
+        Stage stage2 = mock(Stage.class);
+        Scenes scenes2 = new Scenes(stage2);
+
+        // Test
+        boolean equals = sut.equals(scenes2);
+
+        // Verify
+        Assertions.assertFalse(equals);
+    }
+
+    @Test
+    void equalsFailsWithNull() {
+        // Setup
+
+        // Test
+        boolean equals = sut.equals(null);
+
+        // Verify
+        Assertions.assertFalse(equals);
+    }
+
+    @Test
+    void equalsFailsWithDifferentClass() {
+        // Setup
+
+        // Test
+        boolean equals = sut.equals(stage);
+
+        // Verify
+        Assertions.assertFalse(equals);
+    }
+
+    @Test
+    void differentInstancesHaveDifferentHashCodes() {
+        // Setup
+        Stage stage2 = mock(Stage.class);
+        Scenes scenes2 = new Scenes(stage2);
+
+        // Test
+        int hash1 = sut.hashCode();
+        int hash2 = scenes2.hashCode();
+
+        // Verify
+        Assertions.assertNotEquals(hash1, hash2);
     }
 }
