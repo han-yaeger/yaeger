@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.Updater;
 import nl.meron.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimationDelegate;
-import nl.meron.yaeger.engine.entities.entity.sprites.movement.MovementVector;
+import nl.meron.yaeger.engine.entities.entity.motion.MotionVector;
 import nl.meron.yaeger.engine.media.repositories.ImageRepository;
 import nl.meron.yaeger.javafx.image.ImageViewFactory;
 import nl.meron.yaeger.guice.factories.SpriteAnimationDelegateFactory;
@@ -28,10 +28,10 @@ class UpdatableSpriteEntityTest {
     private final static int WIDTH = 39;
     private final static int HEIGHT = 41;
     private final static Size DEFAULT_SIZE = new Size(WIDTH, HEIGHT);
-    private final static Double DIRECTION = MovementVector.Direction.UP;
+    private final static Double DIRECTION = MotionVector.Direction.UP;
     private final static int SPEED = 1;
 
-    private final static MovementVector MOVEMENT_VECTOR = new MovementVector(DIRECTION, SPEED);
+    private final static MotionVector MOVEMENT_VECTOR = new MotionVector(DIRECTION, SPEED);
 
     private SpriteAnimationDelegateFactory spriteAnimationDelegateFactory;
     private ImageViewFactory imageViewFactory;
@@ -183,8 +183,8 @@ class UpdatableSpriteEntityTest {
             super(resource, point, size);
         }
 
-        TestUpdatableSpriteEntity(String resource, Point point, Size size, int frames, MovementVector movementVector) {
-            super(resource, point, size, frames, movementVector);
+        TestUpdatableSpriteEntity(String resource, Point point, Size size, int frames, MotionVector motionVector) {
+            super(resource, point, size, frames, motionVector);
         }
     }
 

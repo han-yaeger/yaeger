@@ -6,8 +6,8 @@ import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.entities.entity.UpdateDelegator;
 import nl.meron.yaeger.engine.entities.entity.Updater;
-import nl.meron.yaeger.engine.entities.entity.sprites.movement.MovementVector;
-import nl.meron.yaeger.engine.entities.entity.sprites.movement.UpdatableSpriteEntityMover;
+import nl.meron.yaeger.engine.entities.entity.motion.MotionVector;
+import nl.meron.yaeger.engine.entities.entity.motion.UpdatableSpriteEntityMover;
 
 /**
  * An {@code UpdatableSpriteEntity} extends all behaviour of a {@link SpriteEntity}, but also implements the
@@ -39,7 +39,7 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
      * @param frames       The number of frames this Image contains. By default the first frame is loaded.
      */
     public UpdatableSpriteEntity(final String resource, final Point initialPoint, final Size size, int frames) {
-        this(resource, initialPoint, size, frames, new MovementVector(0, 0));
+        this(resource, initialPoint, size, frames, new MotionVector(0, 0));
     }
 
     /**
@@ -49,11 +49,11 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
      * @param initialPoint          the initial {@link Point} of this Entity
      * @param size                  The bounding box of this {@code SpriteEntity}.
      * @param frames                The number of frames this Image contains. By default the first frame is loaded.
-     * @param initialMovementVector The movement of this {@code UpdatableSpriteEntity}
+     * @param initialMotionVector The movement of this {@code UpdatableSpriteEntity}
      */
-    public UpdatableSpriteEntity(final String resource, final Point initialPoint, final Size size, int frames, final MovementVector initialMovementVector) {
+    public UpdatableSpriteEntity(final String resource, final Point initialPoint, final Size size, int frames, final MotionVector initialMotionVector) {
         super(resource, initialPoint, size, frames);
-        mover = new UpdatableSpriteEntityMover(this, initialMovementVector);
+        mover = new UpdatableSpriteEntityMover(this, initialMotionVector);
     }
 
 

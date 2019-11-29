@@ -1,15 +1,15 @@
 package nl.meron.yaeger.engine.entities.entity.sprites;
 
-import nl.meron.yaeger.engine.entities.entity.sprites.movement.MovementVector;
+import nl.meron.yaeger.engine.entities.entity.motion.MotionVector;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class MovementVectorTest {
+class MotionVectorTest {
 
     @Test
     void defaultMovemenHasZeroSpeed() {
         // Setup
-        var movement = new MovementVector();
+        var movement = new MotionVector();
 
         // Test
         double speed = movement.getSpeed();
@@ -21,7 +21,7 @@ class MovementVectorTest {
     @Test
     void defaultMovemenHasZeroDirection() {
         // Setup
-        var movement = new MovementVector();
+        var movement = new MotionVector();
 
         // Test
         double direction = movement.getDirection();
@@ -33,20 +33,20 @@ class MovementVectorTest {
     @Test
     void setDirectionChangesDirection() {
         // Setup
-        var movement = new MovementVector();
+        var movement = new MotionVector();
 
         // Test
-        movement.setDirection(MovementVector.Direction.UP);
+        movement.setDirection(MotionVector.Direction.UP);
 
         // Verify
-        Assertions.assertEquals(MovementVector.Direction.UP, movement.getDirection(), 0.00001d);
+        Assertions.assertEquals(MotionVector.Direction.UP, movement.getDirection(), 0.00001d);
     }
 
     @Test
     void setSpeedChangesDirection() {
         // Setup
         var speed = 37d;
-        var movement = new MovementVector();
+        var movement = new MotionVector();
 
         // Test
         movement.setSpeed(speed);
@@ -61,7 +61,7 @@ class MovementVectorTest {
         var speed = 37d;
 
         // Test
-        var movement = new MovementVector(MovementVector.Direction.DOWN, speed);
+        var movement = new MotionVector(MotionVector.Direction.DOWN, speed);
 
         // Verify
         Assertions.assertEquals(speed, movement.getSpeed(), 0.00001d);
@@ -73,19 +73,19 @@ class MovementVectorTest {
         var speed = 37d;
 
         // Test
-        var movement = new MovementVector(MovementVector.Direction.RIGHT, speed);
+        var movement = new MotionVector(MotionVector.Direction.RIGHT, speed);
 
         // Verify
-        Assertions.assertEquals(MovementVector.Direction.RIGHT, movement.getDirection(), 0.00001d);
+        Assertions.assertEquals(MotionVector.Direction.RIGHT, movement.getDirection(), 0.00001d);
     }
 
     @Test
     void directionRightGivesZeroAngleInRadians() {
         // Setup
-        var direction = MovementVector.Direction.RIGHT;
+        var direction = MotionVector.Direction.RIGHT;
 
         // Test
-        var movement = new MovementVector(direction, 0d);
+        var movement = new MotionVector(direction, 0d);
 
         // Verify
         Assertions.assertEquals(0d, movement.getAngleInRadians(), 0.00001d);
@@ -94,10 +94,10 @@ class MovementVectorTest {
     @Test
     void directionDownGivesHalfPiAngleInRadians() {
         // Setup
-        var direction = MovementVector.Direction.DOWN;
+        var direction = MotionVector.Direction.DOWN;
 
         // Test
-        var movement = new MovementVector(direction, 0d);
+        var movement = new MotionVector(direction, 0d);
 
         // Verify
         Assertions.assertEquals(Math.PI / 2, movement.getAngleInRadians(), 0.00001d);
@@ -106,10 +106,10 @@ class MovementVectorTest {
     @Test
     void directionLeftGivesHalfPiAngleInRadians() {
         // Setup
-        var direction = MovementVector.Direction.LEFT;
+        var direction = MotionVector.Direction.LEFT;
 
         // Test
-        var movement = new MovementVector(direction, 0d);
+        var movement = new MotionVector(direction, 0d);
 
         // Verify
         Assertions.assertEquals(Math.PI, movement.getAngleInRadians(), 0.00001d);
@@ -118,10 +118,10 @@ class MovementVectorTest {
     @Test
     void directionUpGivesHalfPiAngleInRadians() {
         // Setup
-        var direction = MovementVector.Direction.UP;
+        var direction = MotionVector.Direction.UP;
 
         // Test
-        var movement = new MovementVector(direction, 0d);
+        var movement = new MotionVector(direction, 0d);
 
         // Verify
         Assertions.assertEquals(-1 * (Math.PI / 2), movement.getAngleInRadians(), 0.00001d);
@@ -130,11 +130,11 @@ class MovementVectorTest {
     @Test
     void speedZeroResultsInZeroVector() {
         // Setup
-        var direction = MovementVector.Direction.RIGHT;
+        var direction = MotionVector.Direction.RIGHT;
         var speed = 0d;
 
         // Test
-        var movement = new MovementVector(direction, speed);
+        var movement = new MotionVector(direction, speed);
 
         // Verify
         Assertions.assertEquals(0, movement.getVector().getX(), 0.00001d);
@@ -144,11 +144,11 @@ class MovementVectorTest {
     @Test
     void speedOneDirectionRightResultsInCorrectVector() {
         // Setup
-        var direction = MovementVector.Direction.RIGHT;
+        var direction = MotionVector.Direction.RIGHT;
         var speed = 1d;
 
         // Test
-        var movement = new MovementVector(direction, speed);
+        var movement = new MotionVector(direction, speed);
 
         // Verify
         Assertions.assertEquals(1, movement.getVector().getX(), 0.00001d);

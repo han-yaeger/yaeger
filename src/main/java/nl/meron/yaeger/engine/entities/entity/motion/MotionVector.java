@@ -1,11 +1,12 @@
-package nl.meron.yaeger.engine.entities.entity.sprites.movement;
+package nl.meron.yaeger.engine.entities.entity.motion;
 
 import javafx.geometry.Point2D;
 
 /**
  * A {@code MovementVector} encapsulates both a {@code direction} and a {@code speed}.
  */
-public class MovementVector {
+@Deprecated
+public class MotionVector {
 
     private double direction;
     private double speed;
@@ -13,7 +14,7 @@ public class MovementVector {
     /**
      * Creates a new instance of {@code MovementVector}.
      */
-    public MovementVector() {
+    public MotionVector() {
         this(0, 0);
     }
 
@@ -23,7 +24,7 @@ public class MovementVector {
      * @param direction the direction of the {@code MovementVector}
      * @param speed     the speed of the {@code MovementVector}
      */
-    public MovementVector(final double direction, final double speed) {
+    public MotionVector(final double direction, final double speed) {
         this.direction = direction;
         this.speed = speed;
     }
@@ -82,7 +83,7 @@ public class MovementVector {
     }
 
     /**
-     * A {@code Direction} provides default values for the direction of a {@link MovementVector}.
+     * A {@code Direction} provides default values for the direction of a {@link MotionVector}.
      */
     public class Direction {
 

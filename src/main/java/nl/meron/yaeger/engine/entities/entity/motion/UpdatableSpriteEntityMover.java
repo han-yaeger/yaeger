@@ -1,20 +1,21 @@
-package nl.meron.yaeger.engine.entities.entity.sprites.movement;
+package nl.meron.yaeger.engine.entities.entity.motion;
 
 import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.entities.entity.sprites.UpdatableSpriteEntity;
 
+@Deprecated
 public class UpdatableSpriteEntityMover implements Updatable {
 
-    private MovementVector movementVector;
+    private MotionVector motionVector;
     private UpdatableSpriteEntity updatableSpriteEntity;
 
     public UpdatableSpriteEntityMover(UpdatableSpriteEntity updatableSpriteEntity) {
-        this(updatableSpriteEntity, new MovementVector(0, 0));
+        this(updatableSpriteEntity, new MotionVector(0, 0));
     }
 
-    public UpdatableSpriteEntityMover(UpdatableSpriteEntity updatableSpriteEntity, MovementVector movementVector) {
+    public UpdatableSpriteEntityMover(UpdatableSpriteEntity updatableSpriteEntity, MotionVector motionVector) {
         this.updatableSpriteEntity = updatableSpriteEntity;
-        this.movementVector = movementVector;
+        this.motionVector = motionVector;
     }
 
     /**
@@ -26,7 +27,7 @@ public class UpdatableSpriteEntityMover implements Updatable {
      *               decrement in speed.
      */
     public void changeSpeed(double change) {
-        movementVector.setSpeed(movementVector.getSpeed() * change);
+        motionVector.setSpeed(motionVector.getSpeed() * change);
     }
 
     /**
@@ -36,12 +37,12 @@ public class UpdatableSpriteEntityMover implements Updatable {
      */
     public void setSpeed(double newSpeed) {
         if (hasSpeedChanged(newSpeed)) {
-            movementVector.setSpeed(newSpeed);
+            motionVector.setSpeed(newSpeed);
         }
     }
 
     /**
-     * Set the {@link MovementVector.Direction} in which
+     * Set the {@link MotionVector.Direction} in which
      * this {@link UpdatableSpriteEntity} should move. This value is in degrees, where
      *
      * <ul>
@@ -56,7 +57,7 @@ public class UpdatableSpriteEntityMover implements Updatable {
      */
     public void setDirection(double newDirection) {
         if (hasDirectionChanged(newDirection)) {
-            movementVector.setDirection(newDirection);
+            motionVector.setDirection(newDirection);
         }
     }
 
@@ -66,23 +67,23 @@ public class UpdatableSpriteEntityMover implements Updatable {
      * @return a {@code double} representing the direction
      */
     public double getDirection() {
-        return movementVector.getDirection();
+        return motionVector.getDirection();
     }
 
     private boolean hasDirectionChanged(double newDirection) {
-        return Double.compare(newDirection, movementVector.getDirection()) != 0;
+        return Double.compare(newDirection, motionVector.getDirection()) != 0;
     }
 
     private boolean hasSpeedChanged(double newSpeed) {
-        return Double.compare(newSpeed, movementVector.getSpeed()) != 0;
+        return Double.compare(newSpeed, motionVector.getSpeed()) != 0;
     }
 
-    public void addMovement(MovementVector movementVector) {
-        this.movementVector = movementVector;
+    public void addMovement(MotionVector motionVector) {
+        this.motionVector = motionVector;
     }
 
     @Override
     public void update(long timestamp) {
-        updatableSpriteEntity.setPoint(updatableSpriteEntity.getAnchorPoint().add(movementVector.getVector()));
+        updatableSpriteEntity.setPoint(updatableSpriteEntity.getAnchorPoint().add(motionVector.getVector()));
     }
 }

@@ -4,7 +4,7 @@ import nl.meron.waterworld.scenes.levels.Level;
 import nl.meron.yaeger.engine.entities.collisions.Collider;
 import nl.meron.yaeger.engine.entities.collisions.CollisionSide;
 import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.entities.entity.sprites.movement.MovementVector;
+import nl.meron.yaeger.engine.entities.entity.motion.MotionVector;
 import nl.meron.yaeger.engine.entities.entity.sprites.Size;
 import nl.meron.yaeger.engine.entities.events.scene.SceneBorderCrossingWatcher;
 import nl.meron.yaeger.engine.media.audio.SoundClip;
@@ -18,7 +18,7 @@ public abstract class Bubble extends UpdatableSpriteEntity implements Collided, 
     private final Level level;
 
     Bubble(final Point point, final String resource, final double speed, final Level game) {
-        super(resource, point, new Size(20, 20), 0, new MovementVector(MovementVector.Direction.UP, speed));
+        super(resource, point, new Size(20, 20), 0, new MotionVector(MotionVector.Direction.UP, speed));
         this.level = game;
     }
 
