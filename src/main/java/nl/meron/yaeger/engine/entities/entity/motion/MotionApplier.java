@@ -1,9 +1,11 @@
 package nl.meron.yaeger.engine.entities.entity.motion;
 
+import javafx.geometry.Point2D;
+
 /**
  * Base interface of all Objects that apply a motion to a subclass of {@link nl.meron.yaeger.engine.entities.entity.Entity}.
  */
-public interface MotionApplier extends LocationUpdater{
+public interface MotionApplier extends LocationUpdater {
 
     /**
      * Alter the speed through multiplication. Using this method will increase or decrease the current speed. It will multiply the current
@@ -13,8 +15,9 @@ public interface MotionApplier extends LocationUpdater{
      *
      * @param multiplication A value greater than 1 will mean an increment in speed. A value between 0 and 1 will mean a
      *                       decrement in speed.
+     * @return This {@link MotionApplier} for easy chaining.
      */
-    void multiplySpeed(double multiplication);
+    MotionApplier multiplySpeed(double multiplication);
 
     /**
      * Alter the speed through addition.  Using this method will increase or decrease the current speed. It will add the provided value
@@ -23,15 +26,17 @@ public interface MotionApplier extends LocationUpdater{
      * @param increment A value greater than 1 will mean an increment in speed. A value between 0 and 1 will mean a
      *                  decrement in speed.
      * @param increment A {@code double} representing the increment in speed.
+     * @return This {@link MotionApplier} for easy chaining.
      */
-    void alterSpeed(double increment);
+    MotionApplier alterSpeed(double increment);
 
     /**
      * Set the speed.
      *
-     * @param newSpeed the speed as a double
+     * @param newSpeed the speed as a double.
+     * @return This {@link MotionApplier} for easy chaining.
      */
-    void setSpeed(double newSpeed);
+    MotionApplier setSpeed(double newSpeed);
 
     /**
      * Set the {@link MotionVector.Direction}. This value is in degrees, where
@@ -42,18 +47,26 @@ public interface MotionApplier extends LocationUpdater{
      * <li>180 means down</li>
      * <li>270 to the left</li>
      * </ul>
-     * <p>
      *
-     * @param newDirection the direction in degrees
+     * @param newDirection the direction in degrees.
+     * @return This {@link MotionApplier} for easy chaining.
      */
-    void setDirection(double newDirection);
+    MotionApplier setDirection(double newDirection);
 
     /**
      * Change the direction by adding a rotation in degrees. A positive value will be added and will result
      * in a clockwise rotation. A negative value will be subtracted and will result in a counter clockwise
      * rotation.
      *
-     * @param rotation the rotation as a double
+     * @param rotation the rotation as a double.
+     * @return This {@link MotionApplier} for easy chaining.
      */
-    void changeDirection(double rotation);
+    MotionApplier changeDirection(double rotation);
+
+    /**
+     * Return the current transformation.
+     *
+     * @return A {@link Point2D} representing the transformation applied on {@link LocationUpdater#updateLocation(Point2D)}
+     */
+    Point2D get();
 }

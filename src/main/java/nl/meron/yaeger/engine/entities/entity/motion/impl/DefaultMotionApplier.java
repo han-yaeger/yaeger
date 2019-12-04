@@ -22,32 +22,44 @@ public class DefaultMotionApplier implements MotionApplier {
     }
 
     @Override
-    public void alterSpeed(double increment) {
+    public MotionApplier alterSpeed(double increment) {
         transformation = transformation.add(transformation.normalize().multiply(increment));
+        return this;
     }
 
     @Override
-    public void multiplySpeed(double multiplication) {
+    public MotionApplier multiplySpeed(double multiplication) {
         transformation = transformation.multiply(multiplication);
+        return this;
     }
 
     @Override
-    public void setSpeed(double newSpeed) {
+    public MotionApplier setSpeed(double newSpeed) {
         transformation = transformation.normalize().multiply(newSpeed);
+        return this;
     }
 
     @Override
-    public void setDirection(double angle) {
+    public MotionApplier setDirection(double angle) {
         var angleInRadians = Math.toRadians(angle);
         var x = Math.sin(angleInRadians);
         var y = Math.cos(angleInRadians);
 
         transformation = new Point2D(x, y).multiply(transformation.magnitude());
+        return this;
     }
 
     @Override
-    public void changeDirection(double rotation) {
+    public MotionApplier changeDirection(double rotation) {
 
+        double currentAngle = transformation.angle(new Point2D(0, 1));
+
+        return setDirection(rotation + currentAngle);
+    }
+
+    @Override
+    public Point2D get() {
+        return transformation;
     }
 
     @Override
