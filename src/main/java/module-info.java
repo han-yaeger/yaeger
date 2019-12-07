@@ -17,7 +17,10 @@ module nl.meron.yaeger {
     exports nl.meron.yaeger.javafx.animationtimer;
     exports nl.meron.yaeger.engine.entities.entity.sprites;
     exports nl.meron.yaeger.engine.entities.entity;
+    exports nl.meron.yaeger.engine.entities.entity.text;
 
     opens pong;
     opens waterworld;
+    opens waterworld.audio;
+    opens waterworld.images;
 }
