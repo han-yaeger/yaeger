@@ -1,13 +1,11 @@
 package nl.meron.yaeger.engine.entities.entity.text;
 
 import com.google.inject.Injector;
-import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import nl.meron.waterworld.Waterworld;
-import nl.meron.yaeger.engine.entities.events.userinput.MousePressedListener;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.events.system.RemoveEntityEvent;
 import org.junit.jupiter.api.Assertions;
@@ -47,26 +45,12 @@ class TextEntityTest {
     }
 
     @Test
-    void getPositionReturnsTheSetPosition() {
-        // Setup
-        var textEntity = new TextEntity();
-
-        // Test
-        textEntity.setAnchorPoint(POINT);
-        textEntity.setTextDelegate(text);
-        textEntity.init(injector);
-
-        // Verify
-        Assertions.assertEquals(POINT, textEntity.getAnchorPoint());
-    }
-
-    @Test
     void settingDelegateSetsPositionOnDelegateForEmptyConstructor() {
         // Setup
         var textEntity = new TextEntity();
 
         // Test
-        textEntity.setAnchorPoint(POINT);
+        textEntity.placeOnPosition(POINT);
         textEntity.setTextDelegate(text);
         textEntity.init(injector);
 
@@ -182,7 +166,7 @@ class TextEntityTest {
         textEntity.init(injector);
 
         // Test
-        textEntity.setAnchorPoint(POINT);
+        textEntity.placeOnPosition(POINT);
         textEntity.setText(YAEGER);
         textEntity.setVisible(false);
         textEntity.setFont(FONT);

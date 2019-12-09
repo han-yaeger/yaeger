@@ -2,6 +2,7 @@ package nl.meron.yaeger.engine.entities;
 
 import com.google.inject.Injector;
 import javafx.collections.ObservableList;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
@@ -282,8 +283,13 @@ class UpdatableEntity implements Entity, Updatable {
     }
 
     @Override
-    public Point getAnchorPoint() {
+    public Point getPosition() {
         return null;
+    }
+
+    @Override
+    public void placeOnPosition(Point2D position) {
+        // Not required here.
     }
 
     @Override
@@ -300,16 +306,23 @@ class UpdatableEntity implements Entity, Updatable {
 class MousePressedListeningEntity implements Entity, MousePressedListener {
 
     @Override
-    public Point getAnchorPoint() {
+    public Point getPosition() {
         return null;
     }
 
     @Override
+    public void placeOnPosition(Point2D position) {
+        // Not required here.
+    }
+
+    @Override
     public void init(Injector injector) {
+        // Not required here.
     }
 
     @Override
     public void remove() {
+        // Not required here.
     }
 
     @Override
@@ -319,23 +332,30 @@ class MousePressedListeningEntity implements Entity, MousePressedListener {
 
     @Override
     public void onMousePressed(MouseButton button) {
-
+// Not required here.
     }
 }
 
 class MouseReleasedListeningEntity implements Entity, MouseReleasedListener {
 
     @Override
-    public Point getAnchorPoint() {
+    public Point getPosition() {
         return null;
     }
 
     @Override
+    public void placeOnPosition(Point2D position) {
+        // Not required here.
+    }
+
+    @Override
     public void init(Injector injector) {
+        // Not required here.
     }
 
     @Override
     public void remove() {
+        // Not required here.
     }
 
     @Override
@@ -345,7 +365,7 @@ class MouseReleasedListeningEntity implements Entity, MouseReleasedListener {
 
     @Override
     public void onMouseReleased(MouseButton button) {
-
+// Not required here.
     }
 }
 
@@ -362,8 +382,13 @@ class KeyListeningEntity implements Entity, KeyListener {
     }
 
     @Override
-    public Point getAnchorPoint() {
+    public Point getPosition() {
         return null;
+    }
+
+    @Override
+    public void placeOnPosition(Point2D position) {
+        // Not required here.
     }
 
     @Override

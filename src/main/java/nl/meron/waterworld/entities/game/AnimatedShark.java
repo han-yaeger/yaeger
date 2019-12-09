@@ -19,7 +19,7 @@ public class AnimatedShark extends UpdatableSpriteEntity implements Collider, Sc
     @Override
     public void notifyBoundaryCrossing(SceneBorder border) {
         if (border.equals(SceneBorder.LEFT)) {
-            setPoint(new Point(getSceneWidth(), getY()));
+            placeOnPosition(new Point(getSceneWidth(), getY()));
         }
     }
 }

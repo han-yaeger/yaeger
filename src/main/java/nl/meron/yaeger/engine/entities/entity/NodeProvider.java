@@ -5,7 +5,6 @@ import javafx.scene.Node;
 /**
  * Being a {@code NodeProvider} guarantees that a {@link Node} can be provided.
  */
-@FunctionalInterface
 public interface NodeProvider {
 
     /**

@@ -179,31 +179,6 @@ class SpriteEntityTest {
     }
 
     @Test
-    void getPositionReturnsCorrectPosition() {
-        // Setup
-        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
-        spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        spriteEntity.setImageRepository(imageRepository);
-        spriteEntity.setImageViewFactory(imageViewFactory);
-
-        var image = mock(Image.class);
-        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
-
-        var imageView = mock(ImageView.class);
-        when(imageViewFactory.create(image)).thenReturn(imageView);
-        spriteEntity.init(injector);
-
-        when(imageView.getX()).thenReturn(DEFAULT_POINT.getX());
-        when(imageView.getY()).thenReturn(DEFAULT_POINT.getY());
-
-        // Test
-        var position = spriteEntity.getAnchorPoint();
-
-        // Verify
-        Assertions.assertEquals(DEFAULT_POINT, position);
-    }
-
-    @Test
     void setPositionDelegatesToTheImageView() {
         // Setup
         var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
@@ -220,7 +195,7 @@ class SpriteEntityTest {
 
         // Test
         var position = new Point(42, 48);
-        spriteEntity.setPoint(position);
+        spriteEntity.placeOnPosition(position);
 
         // Verify
         verify(imageView).setX(position.getX());

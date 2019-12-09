@@ -84,6 +84,6 @@ public class UpdatableSpriteEntityMover implements Updatable {
 
     @Override
     public void update(long timestamp) {
-        updatableSpriteEntity.setPoint(updatableSpriteEntity.getAnchorPoint().add(motionVector.getVector()));
+        updatableSpriteEntity.placeOnPosition(updatableSpriteEntity.getPosition().add(motionVector.getVector()));
     }
 }

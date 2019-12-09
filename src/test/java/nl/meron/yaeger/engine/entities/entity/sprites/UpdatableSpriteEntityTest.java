@@ -1,8 +1,6 @@
 package nl.meron.yaeger.engine.entities.entity.sprites;
 
 import com.google.inject.Injector;
-import javafx.geometry.BoundingBox;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import nl.meron.yaeger.engine.entities.entity.Point;
@@ -16,7 +14,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class UpdatableSpriteEntityTest {
@@ -126,40 +123,6 @@ class UpdatableSpriteEntityTest {
 
         // Verify
         verify(spriteAnimationDelegate).setAutoCycle(2);
-    }
-
-    @Test
-    void updateUpdatesLocation() {
-        // Setup
-        var sut = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, 1, MOVEMENT_VECTOR);
-        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-
-        sut.setImageRepository(imageRepository);
-        sut.setImageViewFactory(imageViewFactory);
-        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        sut.setUpdater(updater);
-
-        var image = mock(Image.class);
-        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
-
-        var imageView = mock(ImageView.class);
-        when(imageViewFactory.create(image)).thenReturn(imageView);
-
-        var bounds = new BoundingBox(0d, 0d, 10d, 10d);
-        when(imageView.getLayoutBounds()).thenReturn(bounds);
-
-        var scene = mock(Scene.class);
-        when(scene.getWidth()).thenReturn(100d);
-        when(scene.getHeight()).thenReturn(100d);
-
-        when(imageView.getScene()).thenReturn(scene);
-        sut.init(injector);
-
-        // Test
-        sut.update(1l);
-
-        // Verify
-        assertNotEquals(DEFAULT_POINT, sut.getAnchorPoint());
     }
 
     @Test

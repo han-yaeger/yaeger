@@ -16,4 +16,32 @@ public interface Bounded extends NodeProvider {
     default Bounds getBounds() {
         return getGameNode().getBoundsInParent();
     }
+
+    /**
+     * @return a {@code double} of the right side x value
+     */
+    default double getRightSideX() {
+        return getBounds().getMaxX();
+    }
+
+    /**
+     * @return a {@code double} of the left side x value
+     */
+    default double getLeftSideX() {
+        return getBounds().getMinX();
+    }
+
+    /**
+     * @return a {@code double} of the bottom y value
+     */
+    default double getBottomY() {
+        return getBounds().getMaxY();
+    }
+
+    /**
+     * @return a {@code double} of the top y value
+     */
+    default double getTopY() {
+        return getBounds().getMinY();
+    }
 }

@@ -2,6 +2,7 @@ package nl.meron.yaeger.engine.entities.entity.sprites;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import nl.meron.yaeger.engine.entities.entity.Entity;
@@ -26,7 +27,7 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     private int frames;
     ImageView imageView;
 
-    Point point;
+    Point2D initialPosition;
     SpriteAnimationDelegate spriteAnimationDelegate;
 
     /**
@@ -49,7 +50,7 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
      * @param frames       The number of frames this Image contains. By default the first frame is loaded.
      */
     protected SpriteEntity(final String resource, final Point initialPoint, final Size size, final int frames) {
-        this.point = initialPoint;
+        this.initialPosition = initialPoint;
         this.frames = frames;
         this.resource = resource;
         this.size = size;
@@ -59,8 +60,7 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     public void init(Injector injector) {
         var requestedWidth = size.getWidth() * frames;
         imageView = createImageView(resource, requestedWidth, size.getHeight());
-        imageView.setX(point.getX());
-        imageView.setY(point.getY());
+        placeOnPosition(initialPosition);
 
         if (frames > 1) {
             spriteAnimationDelegate = spriteAnimationDelegateFactory.create(imageView, frames);
@@ -82,17 +82,6 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
         imageView.setRotate(angle);
     }
 
-    /**
-     * Set the position of this {@code SpriteEntity}
-     *
-     * @param point The new {@link Point}
-     */
-    public void setPoint(Point point) {
-        if (imageView != null) {
-            imageView.setX(point.getX());
-            imageView.setY(point.getY());
-        }
-    }
 
     /**
      * Set the current frame index of the Sprite image.
@@ -143,9 +132,17 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     }
 
     @Override
-    public Point getAnchorPoint() {
-        return new Point(imageView.getX(), imageView.getY());
+    public void placeOnPosition(Point2D position) {
+        if (imageView != null) {
+            imageView.setX(position.getX());
+            imageView.setY(position.getY());
+        }
     }
+
+//    @Override
+//    public Point2D getPosition() {
+//        return new Point2D(imageView.getX(), imageView.getY());
+//    }
 
     @Inject
     public void setSpriteAnimationDelegateFactory(SpriteAnimationDelegateFactory spriteAnimationDelegateFactory) {

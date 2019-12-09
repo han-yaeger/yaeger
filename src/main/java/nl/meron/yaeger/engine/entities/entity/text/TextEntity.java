@@ -2,13 +2,13 @@ package nl.meron.yaeger.engine.entities.entity.text;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
-import nl.meron.yaeger.engine.entities.entity.Point;
 
 /**
  * A {@code TextEntity} can be used to display a line of text on a {@link YaegerScene}.
@@ -16,7 +16,7 @@ import nl.meron.yaeger.engine.entities.entity.Point;
 public class TextEntity implements Entity {
 
     private Text textDelegate;
-    private Point anchorPoint;
+    private Point2D initialPosition;
     private Color fill;
     private Font font;
     private String initialText;
@@ -26,26 +26,26 @@ public class TextEntity implements Entity {
      * Instantiate a new {@code TextEntity}.
      */
     public TextEntity() {
-        this(new Point(0, 0));
+        this(new Point2D(0, 0));
     }
 
     /**
-     * Instantiate a new {@code TextEntity} for the given {@link Point}.
+     * Instantiate a new {@code TextEntity} for the given {@link Point2D}.
      *
-     * @param anchorPoint the initial {@link Point} of this {@code TextEntity}
+     * @param initialPosition the initial {@link Point2D} of this {@code TextEntity}
      */
-    public TextEntity(final Point anchorPoint) {
-        this(anchorPoint, "");
+    public TextEntity(final Point2D initialPosition) {
+        this(initialPosition, "");
     }
 
     /**
-     * Instantiate a new {@code TextEntity} for the given {@link Point} and textDelegate.
+     * Instantiate a new {@link TextEntity} for the given {@link Point2D} and textDelegate.
      *
-     * @param anchorPoint the initial {@link Point} of this {@code TextEntity}
-     * @param text        a {@link String} containing the initial textDelegate to be displayed
+     * @param initialPosition the initial {@link Point2D} of this {@code TextEntity}
+     * @param text            a {@link String} containing the initial textDelegate to be displayed
      */
-    public TextEntity(final Point anchorPoint, final String text) {
-        this.anchorPoint = anchorPoint;
+    public TextEntity(final Point2D initialPosition, final String text) {
+        this.initialPosition = initialPosition;
         this.initialText = text;
     }
 
@@ -93,17 +93,13 @@ public class TextEntity implements Entity {
         }
     }
 
-    /**
-     * Set the position of this {@code TextEntity}.
-     *
-     * @param anchorPoint a {@link Point} encapsulating the x and y coordinate
-     */
-    public void setAnchorPoint(Point anchorPoint) {
-        this.anchorPoint = anchorPoint;
+    @Override
+    public void placeOnPosition(Point2D position) {
+        this.initialPosition = position;
 
         if (textDelegate != null) {
-            textDelegate.setX(anchorPoint.getX());
-            textDelegate.setY(anchorPoint.getY());
+            textDelegate.setX(position.getX());
+            textDelegate.setY(position.getY());
         }
     }
 
@@ -128,15 +124,10 @@ public class TextEntity implements Entity {
     }
 
     @Override
-    public Point getAnchorPoint() {
-        return anchorPoint;
-    }
-
-    @Override
     public void init(Injector injector) {
-        if (anchorPoint != null) {
-            textDelegate.setX(anchorPoint.getX());
-            textDelegate.setY(anchorPoint.getY());
+        if (initialPosition != null) {
+            placeOnPosition(initialPosition);
+            initialPosition = null;
         }
         if (font != null) {
             textDelegate.setFont(font);

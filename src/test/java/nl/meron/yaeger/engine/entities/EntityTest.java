@@ -3,6 +3,7 @@ package nl.meron.yaeger.engine.entities;
 import com.google.inject.Injector;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import nl.meron.yaeger.engine.entities.entity.Entity;
@@ -145,8 +146,13 @@ class EntityTest {
         }
 
         @Override
-        public Point getAnchorPoint() {
+        public Point2D getPosition() {
             return ANCHORPOINT;
+        }
+
+        @Override
+        public void placeOnPosition(Point2D position) {
+            // Not required here.
         }
 
         void setNode(Node node) {
