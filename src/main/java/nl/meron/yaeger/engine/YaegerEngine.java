@@ -9,8 +9,7 @@ import nl.meron.yaeger.engine.scenes.SceneType;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 
 /**
- * {@code YaegerEngine} is de basis-superklasse die ge-extend moet worden. Na het extenden zal een aantal methodes
- * worden aangeboden die het mogelijk maken de inhoud van het game te initialiseren.
+ * {@code YaegerEngine} is the base class that must be extended to create a YAEGER game.
  */
 public abstract class YaegerEngine extends Application {
     public static final KeyCode TOGGLE_DEBUGGER_KEY = KeyCode.F1;
