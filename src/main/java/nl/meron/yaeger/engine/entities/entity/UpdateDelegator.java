@@ -11,4 +11,9 @@ public interface UpdateDelegator extends Updatable {
      * @return an instance of {@link Updater}
      */
     Updater getUpdater();
+
+    @Override
+    default void update(long timestamp) {
+        getUpdater().update(timestamp);
+    }
 }

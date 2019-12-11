@@ -1,5 +1,6 @@
 package nl.meron.pong;
 
+import nl.meron.yaeger.engine.entities.entity.Moveable;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.motion.MotionVector;
 import nl.meron.yaeger.engine.entities.entity.sprites.Size;

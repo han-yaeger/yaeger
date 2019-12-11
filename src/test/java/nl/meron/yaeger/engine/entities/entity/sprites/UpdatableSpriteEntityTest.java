@@ -49,20 +49,6 @@ class UpdatableSpriteEntityTest {
     }
 
     @Test
-    void updateDelegatesToUpdater() {
-        // Setup
-        var timestamp = 0l;
-        var updatableSpriteEntity = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
-        updatableSpriteEntity.setUpdater(updater);
-
-        // Test
-        updatableSpriteEntity.update(timestamp);
-
-        // Verify
-        verify(updater).update(timestamp);
-    }
-
-    @Test
     void instantiatingAnUpdatableSpriteEntityWithOneFrameGivesNoSideEffects() {
         // Setup
 

@@ -10,7 +10,7 @@ import nl.meron.yaeger.engine.entities.entity.motion.MotionVector;
 import nl.meron.yaeger.engine.entities.entity.motion.UpdatableSpriteEntityMover;
 
 /**
- * An {@code UpdatableSpriteEntity} extends all behaviour of a {@link SpriteEntity}, but also implements the
+ * An {@link UpdatableSpriteEntity} extends all behaviour of a {@link SpriteEntity}, but also implements the
  * {@link Updatable} Interface.
  */
 public abstract class UpdatableSpriteEntity extends SpriteEntity implements UpdateDelegator {
@@ -45,10 +45,10 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     /**
      * Create a new {@code UpdatableSpriteEntity}.
      *
-     * @param resource              The url of the image file. Relative to the resources folder.
-     * @param initialPoint          the initial {@link Point} of this Entity
-     * @param size                  The bounding box of this {@code SpriteEntity}.
-     * @param frames                The number of frames this Image contains. By default the first frame is loaded.
+     * @param resource            The url of the image file. Relative to the resources folder.
+     * @param initialPoint        the initial {@link Point} of this Entity
+     * @param size                The bounding box of this {@code SpriteEntity}.
+     * @param frames              The number of frames this Image contains. By default the first frame is loaded.
      * @param initialMotionVector The movement of this {@code UpdatableSpriteEntity}
      */
     public UpdatableSpriteEntity(final String resource, final Point initialPoint, final Size size, int frames, final MotionVector initialMotionVector) {
@@ -79,11 +79,6 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
     @Override
     public Updater getUpdater() {
         return updater;
-    }
-
-    @Override
-    public void update(long timestamp) {
-        updater.update(timestamp);
     }
 
     @Override
