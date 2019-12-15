@@ -1,7 +1,6 @@
-package nl.meron.yaeger.engine.entities.entity.motion.impl;
+package nl.meron.yaeger.engine.entities.entity.motion;
 
 import javafx.geometry.Point2D;
-import nl.meron.yaeger.engine.entities.entity.motion.MotionApplier;
 
 /**
  * A {@link DefaultMotionApplier} is an implementation of {@link MotionApplier} that does not abide
@@ -12,25 +11,16 @@ public class DefaultMotionApplier implements MotionApplier {
     private Point2D transformation;
 
     /**
-     * Create a new instance of {@link DefaultMotionApplier} for the given transformation.
-     *
-     * @param transformation a {@link Point2D} representing the transformation that should be applied
-     *                       each update.
+     * Create a new instance of {@link DefaultMotionApplier}.
      */
-    public DefaultMotionApplier(Point2D transformation) {
-        this.transformation = transformation;
+    public DefaultMotionApplier() {
+        transformation = new Point2D(0, 0);
     }
 
     @Override
-    public MotionApplier alterSpeed(double increment) {
-        transformation = transformation.add(transformation.normalize().multiply(increment));
-        return this;
-    }
-
-    @Override
-    public MotionApplier multiplySpeed(double multiplication) {
-        transformation = transformation.multiply(multiplication);
-        return this;
+    public MotionApplier setMotion(double speed, double direction) {
+        transformation = new Point2D(0, speed);
+        return setDirection(direction);
     }
 
     @Override
@@ -46,6 +36,18 @@ public class DefaultMotionApplier implements MotionApplier {
         var y = Math.cos(angleInRadians);
 
         transformation = new Point2D(x, y).multiply(transformation.magnitude());
+        return this;
+    }
+
+    @Override
+    public MotionApplier alterSpeed(double increment) {
+        transformation = transformation.add(transformation.normalize().multiply(increment));
+        return this;
+    }
+
+    @Override
+    public MotionApplier multiplySpeed(double multiplication) {
+        transformation = transformation.multiply(multiplication);
         return this;
     }
 

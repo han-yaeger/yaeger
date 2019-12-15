@@ -18,6 +18,7 @@ module nl.meron.yaeger {
     exports nl.meron.yaeger.engine.entities.entity.sprites;
     exports nl.meron.yaeger.engine.entities.entity;
     exports nl.meron.yaeger.engine.entities.entity.text;
+    exports nl.meron.yaeger.engine.entities.entity.motion;
 
     opens pong;
     opens waterworld;

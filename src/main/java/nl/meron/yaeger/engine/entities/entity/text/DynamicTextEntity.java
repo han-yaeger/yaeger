@@ -1,20 +1,44 @@
 package nl.meron.yaeger.engine.entities.entity.text;
 
 import com.google.inject.Inject;
-import nl.meron.yaeger.engine.entities.entity.Moveable;
+import javafx.geometry.Point2D;
+import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
+import nl.meron.yaeger.engine.entities.entity.motion.Moveable;
 import nl.meron.yaeger.engine.entities.entity.UpdateDelegator;
 import nl.meron.yaeger.engine.entities.entity.Updater;
 import nl.meron.yaeger.engine.entities.entity.motion.MotionApplier;
 
 public class DynamicTextEntity extends TextEntity implements UpdateDelegator, Moveable {
 
-    private MotionApplier motionApplier;
+    private DefaultMotionApplier motionApplier;
     private Updater updater;
 
-    @Override
-    public void setMotionApplier(MotionApplier motionApplier) {
-        this.motionApplier = motionApplier;
+    /**
+     * Instantiate a new {@link DynamicTextEntity}.
+     */
+    public DynamicTextEntity() {
+        this(new Point2D(0, 0));
     }
+
+    /**
+     * Instantiate a new {@code DynamicTextEntity} for the given {@link Point2D}.
+     *
+     * @param initialPosition the initial {@link Point2D} of this {@link DynamicTextEntity}
+     */
+    public DynamicTextEntity(final Point2D initialPosition) {
+        this(initialPosition, "");
+    }
+
+    /**
+     * Instantiate a new {@link DynamicTextEntity} for the given {@link Point2D} and textDelegate.
+     *
+     * @param initialPosition the initial {@link Point2D} of this {@link DynamicTextEntity}
+     * @param text            a {@link String} containing the initial textDelegate to be displayed
+     */
+    public DynamicTextEntity(final Point2D initialPosition, final String text) {
+        super(initialPosition, text);
+    }
+
 
     @Override
     public MotionApplier getMotionApplier() {
@@ -22,33 +46,14 @@ public class DynamicTextEntity extends TextEntity implements UpdateDelegator, Mo
     }
 
     @Override
-    public MotionApplier multiplySpeed(double multiplication) {
-        return null;
-    }
-
-    @Override
-    public MotionApplier alterSpeed(double increment) {
-        return null;
-    }
-
-    @Override
-    public MotionApplier setSpeed(double newSpeed) {
-        return null;
-    }
-
-    @Override
-    public MotionApplier setDirection(double newDirection) {
-        return null;
-    }
-
-    @Override
-    public MotionApplier changeDirection(double rotation) {
-        return null;
-    }
-
-    @Override
     public Updater getUpdater() {
         return updater;
+    }
+
+    @Inject
+    @Override
+    public void setMotionApplier(DefaultMotionApplier motionApplier) {
+        this.motionApplier = motionApplier;
     }
 
     @Inject

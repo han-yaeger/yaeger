@@ -9,11 +9,18 @@ import nl.meron.yaeger.engine.Initializable;
 public interface Entity extends Initializable, Bounded, Removeable, Placeable, SceneChild, NodeProvider {
 
     /**
-     * Set if this {@code Entity} should be visible.
+     * Set if this {@link Entity} should be visible.
      *
-     * @param visible a {@code boolean} stating whether this {@code Entity} should be visible
+     * @param visible a {@code boolean} stating whether this {@link Entity} should be visible
      */
     default void setVisible(boolean visible) {
         getGameNode().setVisible(visible);
+    }
+
+    /**
+     * Lifecycle method that should be used for initializing this {@link Entity}.
+     */
+    default void initialize() {
+
     }
 }

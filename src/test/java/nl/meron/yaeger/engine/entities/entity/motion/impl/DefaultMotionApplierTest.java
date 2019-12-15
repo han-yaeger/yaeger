@@ -1,6 +1,7 @@
 package nl.meron.yaeger.engine.entities.entity.motion.impl;
 
 import javafx.geometry.Point2D;
+import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
 import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ class DefaultMotionApplierTest {
     private static final Point2D DEFAULT_MOVEMENT_UP = new Point2D(0, 1);
     private static final Point2D FRACTIONAL_MOVEMENT_UP = new Point2D(0, 0.5);
 
+    private static final double SPEED_MULTIPLACTION_FRACTION = 0.5;
     private static final double ANGLE = 6;
     private static final double ANGLE_INVERSE_NEGATIVE = -6;
     private static final double FULL_ROTATION_MINUS_NEGATIVE_ANGLE = 323;
@@ -23,32 +25,33 @@ class DefaultMotionApplierTest {
 
     @BeforeEach
     void setup() {
-        sut = new DefaultMotionApplier(DEFAULT_MOVEMENT_UP);
+        sut = new DefaultMotionApplier();
     }
 
     @Test
-    void newInstanceAppliesMotionFromConstructor() {
+    void newInstanceHasNoMotion() {
         // Setup
 
         // Test
         var updatedLocation = sut.updateLocation(DEFAULT_START_LOCATION);
 
         // Verify
-        assertEquals(0, updatedLocation.getX(), DELTA);
-        assertEquals(1, updatedLocation.getY(), DELTA);
+        assertEquals(DEFAULT_START_LOCATION.getX(), updatedLocation.getX(), DELTA);
+        assertEquals(DEFAULT_START_LOCATION.getY(), updatedLocation.getY(), DELTA);
     }
 
     @Test
-    void updateAppliesMotion() {
+    void speedWithNoAngleDefaultsToDirectionOfZero() {
         // Setup
-        sut.multiplySpeed(0.5).get();
+        sut.setMotion(1, Direction.UP.getValue());
+        sut.multiplySpeed(SPEED_MULTIPLACTION_FRACTION).get();
 
         // Test
         var updatedLocation = sut.updateLocation(DEFAULT_START_LOCATION);
 
         // Verify
-        assertEquals(0, updatedLocation.getX(), DELTA);
-        assertEquals(0.5, updatedLocation.getY(), DELTA);
+        assertEquals(DEFAULT_START_LOCATION.getY(), updatedLocation.getX(), DELTA);
+        assertEquals(DEFAULT_START_LOCATION.getY() + SPEED_MULTIPLACTION_FRACTION, updatedLocation.getY(), DELTA);
     }
 
     @Test
@@ -76,6 +79,7 @@ class DefaultMotionApplierTest {
     @Test
     void multiplySpeedOfOneKeepsMotionFromConstructor() {
         // Setup
+        sut.setMotion(1, Direction.UP.getValue());
 
         // Test
         var updatedMotion = sut.multiplySpeed(1).get();
@@ -88,6 +92,7 @@ class DefaultMotionApplierTest {
     @Test
     void multiplySpeedOfMinusOneInvertsMotionFromConstructor() {
         // Setup
+        sut.setMotion(1, Direction.UP.getValue());
 
         // Test
         var updatedMotion = sut.multiplySpeed(-1).get();
@@ -100,7 +105,7 @@ class DefaultMotionApplierTest {
     @Test
     void multiplySpeedMultipliesSpeed() {
         // Setup
-        sut = new DefaultMotionApplier(FRACTIONAL_MOVEMENT_UP);
+        sut.setMotion(0.5, Direction.UP.getValue());
 
         // Test
         var updatedMotion = sut.multiplySpeed(2).get();
@@ -113,6 +118,7 @@ class DefaultMotionApplierTest {
     @Test
     void setSpeedToZeroFreezesMotion() {
         // Setup
+        sut.setMotion(1, Direction.UP.getValue());
 
         // Test
         var updatedMotion = sut.setSpeed(0).get();
@@ -125,7 +131,7 @@ class DefaultMotionApplierTest {
     @Test
     void setSpeedToOneSetsSpeedToOne() {
         // Setup
-        sut = new DefaultMotionApplier(FRACTIONAL_MOVEMENT_UP);
+        sut.setMotion(1, Direction.UP.getValue());
 
         // Test
         var updatedMotion = sut.setSpeed(1).get();
@@ -138,6 +144,7 @@ class DefaultMotionApplierTest {
     @Test
     void alterSpeedIncrementsSpeed() {
         // Setup
+        sut.setMotion(1, Direction.UP.getValue());
         var increment = 0.1d;
 
         // Test
@@ -150,6 +157,7 @@ class DefaultMotionApplierTest {
     @Test
     void alterSpeedWithNegativeValueDecrementsSpeed() {
         // Setup
+        sut.setMotion(1, Direction.UP.getValue());
         var increment = -0.1d;
 
         // Test
@@ -162,7 +170,7 @@ class DefaultMotionApplierTest {
     @Test
     void setDirectionTo90SetsDirectionRight() {
         // Setup
-        sut = new DefaultMotionApplier(DEFAULT_MOVEMENT_UP);
+        sut.setMotion(1, Direction.UP.getValue());
 
         // Test
         var updatedMotion = sut.setDirection(Direction.RIGHT.getValue()).get();
@@ -175,7 +183,7 @@ class DefaultMotionApplierTest {
     @Test
     void setDirectionTo180SetsDirectionDown() {
         // Setup
-        sut = new DefaultMotionApplier(DEFAULT_MOVEMENT_UP);
+        sut.setMotion(1, Direction.UP.getValue());
 
         // Test
         var updatedMotion = sut.setDirection(Direction.DOWN.getValue()).get();
@@ -188,7 +196,7 @@ class DefaultMotionApplierTest {
     @Test
     void setDirectionTo270SetsDirectionLeft() {
         // Setup
-        sut = new DefaultMotionApplier(DEFAULT_MOVEMENT_UP);
+        sut.setMotion(1, Direction.UP.getValue());
 
         // Test
         var updatedMotion = sut.setDirection(Direction.LEFT.getValue()).get();
@@ -201,6 +209,7 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirectionWithZeroDoesNotChangeAngle() {
         // Setup
+        sut.setMotion(1, Direction.UP.getValue());
 
         // Test
         var updatedMotion = sut.changeDirection(0).get();
@@ -212,6 +221,7 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirectionWithZeroDoesNotChangeSpeed() {
         // Setup
+        sut.setMotion(1, Direction.UP.getValue());
 
         // Test
         var updatedMotion = sut.changeDirection(0).get();
@@ -224,6 +234,7 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirectionChangesTheAngle() {
         // Setup
+        sut.setMotion(1, Direction.UP.getValue());
 
         // Test
         var updatedMotion = sut.changeDirection(ANGLE).get();
@@ -235,6 +246,7 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirectionWithNegativeChangesTheAngle() {
         // Setup
+        sut.setMotion(1, Direction.UP.getValue());
 
         // Test
         var updatedMotion = sut.changeDirection(ANGLE_INVERSE_NEGATIVE).get();
@@ -246,6 +258,7 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirectionWithClockwiseEqualsCounterClockwise() {
         // Setup
+        sut.setMotion(1, Direction.UP.getValue());
 
         // Test
         var updatedMotion = sut.changeDirection(FULL_ROTATION_MINUS_NEGATIVE_ANGLE).get();
@@ -257,6 +270,7 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirectionZeroDoesNotChangeAngle() {
         // Setup
+        sut.setMotion(1, Direction.UP.getValue());
 
         // Test
         var updatedMotion = sut.changeDirection(0).get();

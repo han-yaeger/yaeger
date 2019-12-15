@@ -65,6 +65,8 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
         if (frames > 1) {
             spriteAnimationDelegate = spriteAnimationDelegateFactory.create(imageView, frames);
         }
+
+        initialize();
     }
 
     private ImageView createImageView(final String resource, final int requestedWidth, final int requestedHeight) {
@@ -138,11 +140,6 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
             imageView.setY(position.getY());
         }
     }
-
-//    @Override
-//    public Point2D getPosition() {
-//        return new Point2D(imageView.getX(), imageView.getY());
-//    }
 
     @Inject
     public void setSpriteAnimationDelegateFactory(SpriteAnimationDelegateFactory spriteAnimationDelegateFactory) {

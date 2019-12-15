@@ -3,6 +3,7 @@ package nl.meron.yaeger.engine.entities.entity.text;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -11,7 +12,8 @@ import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 
 /**
- * A {@code TextEntity} can be used to display a line of text on a {@link YaegerScene}.
+ * A {@code TextEntity} can be used to display a line of text on a {@link YaegerScene}. The text will be placed, using
+ * the top left corner as its anchor point.
  */
 public class TextEntity implements Entity {
 
@@ -62,7 +64,7 @@ public class TextEntity implements Entity {
     }
 
     /**
-     * Set the color of the textDelegate.
+     * Set the color of the text.
      *
      * @param color an instance of {@link Color}
      */
@@ -125,9 +127,9 @@ public class TextEntity implements Entity {
 
     @Override
     public void init(Injector injector) {
+        textDelegate.setTextOrigin(VPos.TOP);
         if (initialPosition != null) {
             placeOnPosition(initialPosition);
-            initialPosition = null;
         }
         if (font != null) {
             textDelegate.setFont(font);
@@ -139,6 +141,8 @@ public class TextEntity implements Entity {
             textDelegate.setText(initialText);
         }
         textDelegate.setVisible(visible);
+
+        initialize();
     }
 
     @Inject
