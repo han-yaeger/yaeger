@@ -8,7 +8,7 @@ import nl.meron.yaeger.engine.entities.entity.UpdateDelegator;
 import nl.meron.yaeger.engine.entities.entity.Updater;
 import nl.meron.yaeger.engine.entities.entity.motion.MotionApplier;
 
-public class DynamicTextEntity extends TextEntity implements UpdateDelegator, Moveable {
+public abstract class DynamicTextEntity extends TextEntity implements UpdateDelegator, Moveable {
 
     private DefaultMotionApplier motionApplier;
     private Updater updater;

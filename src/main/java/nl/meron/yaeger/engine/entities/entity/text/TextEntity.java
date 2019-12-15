@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import nl.meron.yaeger.engine.Configurable;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 
@@ -142,7 +143,9 @@ public class TextEntity implements Entity {
         }
         textDelegate.setVisible(visible);
 
-        initialize();
+        if (this instanceof Configurable) {
+            ((Configurable) this).configure();
+        }
     }
 
     @Inject

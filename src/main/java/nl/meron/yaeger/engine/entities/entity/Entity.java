@@ -16,11 +16,4 @@ public interface Entity extends Initializable, Bounded, Removeable, Placeable, S
     default void setVisible(boolean visible) {
         getGameNode().setVisible(visible);
     }
-
-    /**
-     * Lifecycle method that should be used for initializing this {@link Entity}.
-     */
-    default void initialize() {
-
-    }
 }

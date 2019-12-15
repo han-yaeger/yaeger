@@ -1,10 +1,11 @@
 package nl.meron.yaeger.engine.entities.entity.motion;
 
+import nl.meron.yaeger.engine.Configurable;
 import nl.meron.yaeger.engine.entities.entity.Placeable;
 import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.entities.entity.UpdatableProvider;
 
-public interface Moveable extends Placeable, MotionModifier {
+public interface Moveable extends Placeable, MotionModifier, Configurable {
 
     /**
      * Set the {@link DefaultMotionApplier} that will be used.

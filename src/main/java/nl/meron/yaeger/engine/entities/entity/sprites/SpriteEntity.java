@@ -5,6 +5,7 @@ import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
+import nl.meron.yaeger.engine.Configurable;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimationDelegate;
@@ -66,7 +67,9 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
             spriteAnimationDelegate = spriteAnimationDelegateFactory.create(imageView, frames);
         }
 
-        initialize();
+        if (this instanceof Configurable) {
+            ((Configurable) this).configure();
+        }
     }
 
     private ImageView createImageView(final String resource, final int requestedWidth, final int requestedHeight) {

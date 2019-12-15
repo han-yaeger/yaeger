@@ -21,12 +21,12 @@ public class DynamicTextEntityTester extends DynamicTextEntity implements SceneB
     }
 
     @Override
-    public void initialize() {
-        setMotion(2, Direction.RIGHT.getValue());
+    public void notifyBoundaryCrossing(SceneBorder border) {
+        changeDirection(180);
     }
 
     @Override
-    public void notifyBoundaryCrossing(SceneBorder border) {
-        changeDirection(180);
+    public void configure() {
+        setMotion(6, Direction.RIGHT.getValue());
     }
 }
