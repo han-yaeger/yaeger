@@ -26,13 +26,13 @@ public abstract class Level extends DynamicScene {
 
     @Override
     public void setupEntities() {
-        bubblesPoppedText = new TextEntity(new Point(10, 40));
+        bubblesPoppedText = new TextEntity(new Point(10, 5));
         bubblesPoppedText.setFont(Font.font(Waterworld.FONT, 40));
         bubblesPoppedText.setFill(Color.VIOLET);
         addEntity(bubblesPoppedText);
         updateBubblesPoppedText();
 
-        healthText = new TextEntity(new Point(960, 40));
+        healthText = new TextEntity(new Point(960, 5));
         healthText.setFont(Font.font(Waterworld.FONT, 40));
         healthText.setFill(Color.DARKBLUE);
         addEntity(healthText);

@@ -59,14 +59,15 @@ public class Intro extends StaticScene {
 
     private void createWaterworldText() {
 
-        var twoText = new TextEntity(new Point(540, 370), WATERWORLD_VERSION);
+        var twoText = new TextEntity(new Point(540, 220), WATERWORLD_VERSION);
         twoText.setFill(Color.ORANGE);
-        twoText.setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 240));
+        twoText.setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 300));
         addEntity(twoText);
 
         var waterworldText = new TextEntity(new Point(380, 320), WATERWORLD_NAME);
         waterworldText.setFill(Color.DARKBLUE);
         waterworldText.setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 80));
         addEntity(waterworldText);
+
     }
 }
