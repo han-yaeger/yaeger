@@ -5,15 +5,15 @@ import nl.meron.waterworld.scenes.levels.Level;
 import nl.meron.yaeger.engine.entities.collisions.CollisionSide;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.motion.MotionVector;
-import nl.meron.yaeger.engine.entities.entity.sprites.Size;
+import nl.meron.yaeger.engine.entities.entity.sprite.Size;
 import nl.meron.yaeger.engine.entities.collisions.Collidable;
 import nl.meron.yaeger.engine.entities.collisions.Collider;
 import nl.meron.yaeger.engine.entities.events.userinput.KeyListener;
-import nl.meron.yaeger.engine.entities.entity.sprites.UpdatableSpriteEntity;
+import nl.meron.yaeger.engine.entities.entity.sprite.DynamicSpriteEntity;
 
 import java.util.Set;
 
-public class Player extends UpdatableSpriteEntity implements KeyListener, Collidable {
+public class Player extends DynamicSpriteEntity implements KeyListener, Collidable {
 
     private static final String IMAGES_PLAYER_PNG = "waterworld/images/player.png";
     private int health;

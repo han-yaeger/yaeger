@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.entities.entity.sprites;
+package nl.meron.yaeger.engine.entities.entity.sprite;
 
 /**
  * A 2D geometric box that represents a bounding box.

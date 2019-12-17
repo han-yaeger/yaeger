@@ -1,7 +1,7 @@
 package nl.meron.yaeger.guice.factories;
 
 import javafx.scene.image.ImageView;
-import nl.meron.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimationDelegate;
+import nl.meron.yaeger.engine.entities.entity.sprite.delegates.SpriteAnimationDelegate;
 
 public class SpriteAnimationDelegateFactory {
 

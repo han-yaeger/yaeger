@@ -1,11 +1,11 @@
-package nl.meron.yaeger.engine.entities.entity.sprites;
+package nl.meron.yaeger.engine.entities.entity.sprite;
 
 import com.google.inject.Injector;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.Updater;
-import nl.meron.yaeger.engine.entities.entity.sprites.delegates.SpriteAnimationDelegate;
+import nl.meron.yaeger.engine.entities.entity.sprite.delegates.SpriteAnimationDelegate;
 import nl.meron.yaeger.engine.entities.entity.motion.MotionVector;
 import nl.meron.yaeger.engine.media.repositories.ImageRepository;
 import nl.meron.yaeger.javafx.image.ImageViewFactory;
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
 
-class UpdatableSpriteEntityTest {
+class DynamicSpriteEntityTest {
 
     private final static String DEFAULT_RESOURCE = "images/bubble.png";
     private final static int X_POSITION = 37;
@@ -53,7 +53,7 @@ class UpdatableSpriteEntityTest {
         // Setup
 
         // Test
-        var sut = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
+        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
 
         // Verify
         Assertions.assertNotNull(sut);
@@ -65,7 +65,7 @@ class UpdatableSpriteEntityTest {
         var autocycleValue = 37;
         var image = mock(Image.class);
         var imageView = mock(ImageView.class);
-        var sut = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
+        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
         sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         sut.setImageRepository(imageRepository);
         sut.setImageViewFactory(imageViewFactory);
@@ -92,7 +92,7 @@ class UpdatableSpriteEntityTest {
         var frames = 2;
         var image = mock(Image.class);
         var imageView = mock(ImageView.class);
-        var sut = new AutoCyclingUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, frames);
+        var sut = new AutoCyclingDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, frames);
         sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         sut.setImageRepository(imageRepository);
         sut.setImageViewFactory(imageViewFactory);
@@ -114,7 +114,7 @@ class UpdatableSpriteEntityTest {
     @Test
     void addedUpdaterIsUsedAsUpdater() {
         // Setup
-        var sut = new TestUpdatableSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, 1, MOVEMENT_VECTOR);
+        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, 1, MOVEMENT_VECTOR);
         var updater = mock(Updater.class);
 
         sut.setUpdater(updater);
@@ -126,20 +126,20 @@ class UpdatableSpriteEntityTest {
         Assertions.assertEquals(updater, updater1);
     }
 
-    private class TestUpdatableSpriteEntity extends UpdatableSpriteEntity {
+    private class TestDynamicSpriteEntity extends DynamicSpriteEntity {
 
-        TestUpdatableSpriteEntity(String resource, Point point, Size size) {
+        TestDynamicSpriteEntity(String resource, Point point, Size size) {
             super(resource, point, size);
         }
 
-        TestUpdatableSpriteEntity(String resource, Point point, Size size, int frames, MotionVector motionVector) {
+        TestDynamicSpriteEntity(String resource, Point point, Size size, int frames, MotionVector motionVector) {
             super(resource, point, size, frames, motionVector);
         }
     }
 
-    private class AutoCyclingUpdatableSpriteEntity extends UpdatableSpriteEntity {
+    private class AutoCyclingDynamicSpriteEntity extends DynamicSpriteEntity {
 
-        AutoCyclingUpdatableSpriteEntity(String resource, Point point, Size size, int frames) {
+        AutoCyclingDynamicSpriteEntity(String resource, Point point, Size size, int frames) {
             super(resource, point, size, frames);
             setAutoCycle(2);
         }

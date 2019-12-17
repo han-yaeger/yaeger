@@ -1,20 +1,20 @@
 package nl.meron.yaeger.engine.entities.entity.motion;
 
 import nl.meron.yaeger.engine.entities.entity.Updatable;
-import nl.meron.yaeger.engine.entities.entity.sprites.UpdatableSpriteEntity;
+import nl.meron.yaeger.engine.entities.entity.sprite.DynamicSpriteEntity;
 
 @Deprecated
 public class UpdatableSpriteEntityMover implements Updatable {
 
     private MotionVector motionVector;
-    private UpdatableSpriteEntity updatableSpriteEntity;
+    private DynamicSpriteEntity dynamicSpriteEntity;
 
-    public UpdatableSpriteEntityMover(UpdatableSpriteEntity updatableSpriteEntity) {
-        this(updatableSpriteEntity, new MotionVector(0, 0));
+    public UpdatableSpriteEntityMover(DynamicSpriteEntity dynamicSpriteEntity) {
+        this(dynamicSpriteEntity, new MotionVector(0, 0));
     }
 
-    public UpdatableSpriteEntityMover(UpdatableSpriteEntity updatableSpriteEntity, MotionVector motionVector) {
-        this.updatableSpriteEntity = updatableSpriteEntity;
+    public UpdatableSpriteEntityMover(DynamicSpriteEntity dynamicSpriteEntity, MotionVector motionVector) {
+        this.dynamicSpriteEntity = dynamicSpriteEntity;
         this.motionVector = motionVector;
     }
 
@@ -31,7 +31,7 @@ public class UpdatableSpriteEntityMover implements Updatable {
     }
 
     /**
-     * Set the speed with which this {@link UpdatableSpriteEntity} moves.
+     * Set the speed with which this {@link DynamicSpriteEntity} moves.
      *
      * @param newSpeed the speed
      */
@@ -43,7 +43,7 @@ public class UpdatableSpriteEntityMover implements Updatable {
 
     /**
      * Set the {@link MotionVector.Direction} in which
-     * this {@link UpdatableSpriteEntity} should move. This value is in degrees, where
+     * this {@link DynamicSpriteEntity} should move. This value is in degrees, where
      *
      * <ul>
      * <li>0 means up</li>
@@ -84,6 +84,6 @@ public class UpdatableSpriteEntityMover implements Updatable {
 
     @Override
     public void update(long timestamp) {
-        updatableSpriteEntity.placeOnPosition(updatableSpriteEntity.getPosition().add(motionVector.getVector()));
+        dynamicSpriteEntity.placeOnPosition(dynamicSpriteEntity.getPosition().add(motionVector.getVector()));
     }
 }

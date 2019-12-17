@@ -5,14 +5,14 @@ import nl.meron.yaeger.engine.entities.collisions.Collider;
 import nl.meron.yaeger.engine.entities.collisions.CollisionSide;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.motion.MotionVector;
-import nl.meron.yaeger.engine.entities.entity.sprites.Size;
+import nl.meron.yaeger.engine.entities.entity.sprite.Size;
 import nl.meron.yaeger.engine.entities.events.scene.SceneBorderCrossingWatcher;
 import nl.meron.yaeger.engine.media.audio.SoundClip;
 import nl.meron.yaeger.engine.entities.collisions.Collided;
-import nl.meron.yaeger.engine.entities.entity.sprites.UpdatableSpriteEntity;
+import nl.meron.yaeger.engine.entities.entity.sprite.DynamicSpriteEntity;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 
-public abstract class Bubble extends UpdatableSpriteEntity implements Collided, SceneBorderCrossingWatcher {
+public abstract class Bubble extends DynamicSpriteEntity implements Collided, SceneBorderCrossingWatcher {
 
     private static final String AUDIO_POP_MP3 = "waterworld/audio/pop.mp3";
     private final Level level;

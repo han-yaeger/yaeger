@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.entities.entity.sprites;
+package nl.meron.yaeger.engine.entities.entity.sprite;
 
 import nl.meron.yaeger.engine.entities.entity.motion.MotionVector;
 import org.junit.jupiter.api.Assertions;

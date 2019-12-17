@@ -1,14 +1,14 @@
 package nl.meron.waterworld.entities.game;
 
 import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.entities.entity.sprites.Size;
+import nl.meron.yaeger.engine.entities.entity.sprite.Size;
 import nl.meron.yaeger.engine.entities.entity.motion.MotionVector;
 import nl.meron.yaeger.engine.entities.collisions.Collider;
-import nl.meron.yaeger.engine.entities.entity.sprites.UpdatableSpriteEntity;
+import nl.meron.yaeger.engine.entities.entity.sprite.DynamicSpriteEntity;
 import nl.meron.yaeger.engine.entities.events.scene.SceneBorderCrossingWatcher;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 
-public class Swordfish extends UpdatableSpriteEntity implements Collider, SceneBorderCrossingWatcher {
+public class Swordfish extends DynamicSpriteEntity implements Collider, SceneBorderCrossingWatcher {
 
     private static final String IMAGES_SWORDFISH_PNG = "waterworld/images/swordfish.png";
 

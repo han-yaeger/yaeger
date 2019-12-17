@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.entities.entity.sprites;
+package nl.meron.yaeger.engine.entities.entity.sprite;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -10,10 +10,10 @@ import nl.meron.yaeger.engine.entities.entity.motion.MotionVector;
 import nl.meron.yaeger.engine.entities.entity.motion.UpdatableSpriteEntityMover;
 
 /**
- * An {@link UpdatableSpriteEntity} extends all behaviour of a {@link SpriteEntity}, but also implements the
+ * An {@link DynamicSpriteEntity} extends all behaviour of a {@link SpriteEntity}, but also implements the
  * {@link Updatable} Interface.
  */
-public abstract class UpdatableSpriteEntity extends SpriteEntity implements UpdateDelegator {
+public abstract class DynamicSpriteEntity extends SpriteEntity implements UpdateDelegator {
 
     private long autoCycleInterval = 0;
     private UpdatableSpriteEntityMover mover;
@@ -26,7 +26,7 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
      * @param initialPoint the initial {@link Point} of this Entity
      * @param size         The bounding box of this {@code SpriteEntity}.
      */
-    public UpdatableSpriteEntity(final String resource, final Point initialPoint, final Size size) {
+    public DynamicSpriteEntity(final String resource, final Point initialPoint, final Size size) {
         this(resource, initialPoint, size, 1);
     }
 
@@ -38,7 +38,7 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
      * @param size         The bounding box of this {@code SpriteEntity}.
      * @param frames       The number of frames this Image contains. By default the first frame is loaded.
      */
-    public UpdatableSpriteEntity(final String resource, final Point initialPoint, final Size size, int frames) {
+    public DynamicSpriteEntity(final String resource, final Point initialPoint, final Size size, int frames) {
         this(resource, initialPoint, size, frames, new MotionVector(0, 0));
     }
 
@@ -51,7 +51,7 @@ public abstract class UpdatableSpriteEntity extends SpriteEntity implements Upda
      * @param frames              The number of frames this Image contains. By default the first frame is loaded.
      * @param initialMotionVector The movement of this {@code UpdatableSpriteEntity}
      */
-    public UpdatableSpriteEntity(final String resource, final Point initialPoint, final Size size, int frames, final MotionVector initialMotionVector) {
+    public DynamicSpriteEntity(final String resource, final Point initialPoint, final Size size, int frames, final MotionVector initialMotionVector) {
         super(resource, initialPoint, size, frames);
         mover = new UpdatableSpriteEntityMover(this, initialMotionVector);
     }

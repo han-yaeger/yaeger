@@ -15,7 +15,7 @@ module nl.meron.yaeger {
     exports nl.meron.yaeger.javafx.debug;
     exports nl.meron.yaeger.guice.factories;
     exports nl.meron.yaeger.javafx.animationtimer;
-    exports nl.meron.yaeger.engine.entities.entity.sprites;
+    exports nl.meron.yaeger.engine.entities.entity.sprite;
     exports nl.meron.yaeger.engine.entities.entity;
     exports nl.meron.yaeger.engine.entities.entity.text;
     exports nl.meron.yaeger.engine.entities.entity.motion;
