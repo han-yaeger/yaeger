@@ -2,7 +2,7 @@ package nl.meron.waterworld.entities.game;
 
 import nl.meron.yaeger.engine.entities.collisions.Collider;
 import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.entities.entity.motion.MotionVector;
+import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.entities.entity.sprite.Size;
 import nl.meron.yaeger.engine.entities.entity.sprite.DynamicSpriteEntity;
 import nl.meron.yaeger.engine.entities.events.scene.SceneBorderCrossingWatcher;
@@ -12,7 +12,7 @@ public class AnimatedShark extends DynamicSpriteEntity implements Collider, Scen
     private static final String IMAGES_ANIMATED_SHARK_PNG = "waterworld/images/shark.png";
 
     public AnimatedShark(Point point) {
-        super(IMAGES_ANIMATED_SHARK_PNG, point, new Size(200, 200), 19, new MotionVector(MotionVector.Direction.LEFT, 4));
+        super(IMAGES_ANIMATED_SHARK_PNG, point, new Size(200, 200), 19);
         setAutoCycle(25);
     }
 
@@ -21,5 +21,10 @@ public class AnimatedShark extends DynamicSpriteEntity implements Collider, Scen
         if (border.equals(SceneBorder.LEFT)) {
             placeOnPosition(new Point(getSceneWidth(), getY()));
         }
+    }
+
+    @Override
+    public void configure() {
+        setMotion(4, Direction.LEFT.getValue());
     }
 }

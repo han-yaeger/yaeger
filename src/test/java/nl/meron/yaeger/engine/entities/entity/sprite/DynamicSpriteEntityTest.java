@@ -6,7 +6,6 @@ import javafx.scene.image.ImageView;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.Updater;
 import nl.meron.yaeger.engine.entities.entity.sprite.delegates.SpriteAnimationDelegate;
-import nl.meron.yaeger.engine.entities.entity.motion.MotionVector;
 import nl.meron.yaeger.engine.media.repositories.ImageRepository;
 import nl.meron.yaeger.javafx.image.ImageViewFactory;
 import nl.meron.yaeger.guice.factories.SpriteAnimationDelegateFactory;
@@ -25,10 +24,6 @@ class DynamicSpriteEntityTest {
     private final static int WIDTH = 39;
     private final static int HEIGHT = 41;
     private final static Size DEFAULT_SIZE = new Size(WIDTH, HEIGHT);
-    private final static Double DIRECTION = MotionVector.Direction.UP;
-    private final static int SPEED = 1;
-
-    private final static MotionVector MOVEMENT_VECTOR = new MotionVector(DIRECTION, SPEED);
 
     private SpriteAnimationDelegateFactory spriteAnimationDelegateFactory;
     private ImageViewFactory imageViewFactory;
@@ -114,7 +109,7 @@ class DynamicSpriteEntityTest {
     @Test
     void addedUpdaterIsUsedAsUpdater() {
         // Setup
-        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, 1, MOVEMENT_VECTOR);
+        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, 1);
         var updater = mock(Updater.class);
 
         sut.setUpdater(updater);
@@ -132,8 +127,13 @@ class DynamicSpriteEntityTest {
             super(resource, point, size);
         }
 
-        TestDynamicSpriteEntity(String resource, Point point, Size size, int frames, MotionVector motionVector) {
-            super(resource, point, size, frames, motionVector);
+        TestDynamicSpriteEntity(String resource, Point point, Size size, int frames) {
+            super(resource, point, size, frames);
+        }
+
+        @Override
+        public void configure() {
+
         }
     }
 
@@ -142,6 +142,11 @@ class DynamicSpriteEntityTest {
         AutoCyclingDynamicSpriteEntity(String resource, Point point, Size size, int frames) {
             super(resource, point, size, frames);
             setAutoCycle(2);
+        }
+
+        @Override
+        public void configure() {
+
         }
     }
 }

@@ -6,17 +6,16 @@ import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.entities.entity.UpdateDelegator;
 import nl.meron.yaeger.engine.entities.entity.Updater;
-import nl.meron.yaeger.engine.entities.entity.motion.MotionVector;
-import nl.meron.yaeger.engine.entities.entity.motion.UpdatableSpriteEntityMover;
+import nl.meron.yaeger.engine.entities.entity.motion.*;
 
 /**
  * An {@link DynamicSpriteEntity} extends all behaviour of a {@link SpriteEntity}, but also implements the
  * {@link Updatable} Interface.
  */
-public abstract class DynamicSpriteEntity extends SpriteEntity implements UpdateDelegator {
+public abstract class DynamicSpriteEntity extends SpriteEntity implements UpdateDelegator, Moveable {
 
+    private DefaultMotionApplier motionApplier;
     private long autoCycleInterval = 0;
-    private UpdatableSpriteEntityMover mover;
     private Updater updater;
 
     /**
@@ -39,32 +38,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      * @param frames       The number of frames this Image contains. By default the first frame is loaded.
      */
     public DynamicSpriteEntity(final String resource, final Point initialPoint, final Size size, int frames) {
-        this(resource, initialPoint, size, frames, new MotionVector(0, 0));
-    }
-
-    /**
-     * Create a new {@code UpdatableSpriteEntity}.
-     *
-     * @param resource            The url of the image file. Relative to the resources folder.
-     * @param initialPoint        the initial {@link Point} of this Entity
-     * @param size                The bounding box of this {@code SpriteEntity}.
-     * @param frames              The number of frames this Image contains. By default the first frame is loaded.
-     * @param initialMotionVector The movement of this {@code UpdatableSpriteEntity}
-     */
-    public DynamicSpriteEntity(final String resource, final Point initialPoint, final Size size, int frames, final MotionVector initialMotionVector) {
         super(resource, initialPoint, size, frames);
-        mover = new UpdatableSpriteEntityMover(this, initialMotionVector);
-    }
-
-
-    /**
-     * Delegate work to {@link UpdatableSpriteEntityMover}.
-     *
-     * @param change A value large than 1 will mean an increment in speed. A value between 0 and 1 will mean a
-     *               decrement in speed.
-     */
-    protected void changeSpeed(double change) {
-        mover.changeSpeed(change);
     }
 
     /**
@@ -74,6 +48,11 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      */
     protected void setAutoCycle(long interval) {
         this.autoCycleInterval = interval;
+    }
+
+    @Override
+    public MotionApplier getMotionApplier() {
+        return motionApplier;
     }
 
     @Override
@@ -91,33 +70,12 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
         if (getFrames() > 1 && autoCycleInterval != 0) {
             spriteAnimationDelegate.setAutoCycle(autoCycleInterval);
         }
-
-        updater.addAsFirstUpdatable(mover);
     }
 
-    /**
-     * Delegate work to {@link UpdatableSpriteEntityMover}.
-     *
-     * @param newSpeed the speed
-     */
-    protected void setSpeed(double newSpeed) {
-        mover.setSpeed(newSpeed);
-    }
-
-    /**
-     * Delegate work to {@link UpdatableSpriteEntityMover}.
-     */
-    protected void setDirection(double newDirection) {
-        mover.setDirection(newDirection);
-    }
-
-    /**
-     * Get the direction in which this {@code Entity} is moving
-     *
-     * @return a {@code double} representing the direction
-     */
-    protected double getDirection() {
-        return mover.getDirection();
+    @Inject
+    @Override
+    public void setMotionApplier(DefaultMotionApplier motionApplier) {
+        this.motionApplier = motionApplier;
     }
 
     @Inject

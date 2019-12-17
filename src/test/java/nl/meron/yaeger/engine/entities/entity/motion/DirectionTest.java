@@ -9,7 +9,7 @@ class DirectionTest {
     @Test
     void valueOfForUp() {
         // Setup
-        var directionNumeric = 0d;
+        var directionNumeric = 180d;
 
         // Test
         var direction = Direction.valueOf(directionNumeric);
@@ -33,7 +33,7 @@ class DirectionTest {
     @Test
     void valueOfForDown() {
         // Setup
-        var directionNumeric = 180d;
+        var directionNumeric = 0d;
 
         // Test
         var direction = Direction.valueOf(directionNumeric);
@@ -63,7 +63,7 @@ class DirectionTest {
         var directionNumeric = direction.getValue();
 
         // Verify
-        assertEquals(0d, directionNumeric);
+        assertEquals(180d, directionNumeric);
     }
 
     @Test
@@ -87,7 +87,7 @@ class DirectionTest {
         var directionNumeric = direction.getValue();
 
         // Verify
-        assertEquals(180d, directionNumeric);
+        assertEquals(0d, directionNumeric);
     }
 
     @Test

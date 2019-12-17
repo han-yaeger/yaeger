@@ -4,7 +4,7 @@ import nl.meron.waterworld.scenes.levels.Level;
 import nl.meron.yaeger.engine.entities.collisions.Collider;
 import nl.meron.yaeger.engine.entities.collisions.CollisionSide;
 import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.entities.entity.motion.MotionVector;
+import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.entities.entity.sprite.Size;
 import nl.meron.yaeger.engine.entities.events.scene.SceneBorderCrossingWatcher;
 import nl.meron.yaeger.engine.media.audio.SoundClip;
@@ -16,10 +16,12 @@ public abstract class Bubble extends DynamicSpriteEntity implements Collided, Sc
 
     private static final String AUDIO_POP_MP3 = "waterworld/audio/pop.mp3";
     private final Level level;
+    private final double speed;
 
     Bubble(final Point point, final String resource, final double speed, final Level game) {
-        super(resource, point, new Size(20, 20), 0, new MotionVector(MotionVector.Direction.UP, speed));
+        super(resource, point, new Size(20, 20), 0);
         this.level = game;
+        this.speed = speed;
     }
 
     @Override
@@ -34,6 +36,11 @@ public abstract class Bubble extends DynamicSpriteEntity implements Collided, Sc
         if (border.equals(SceneBorder.TOP)) {
             remove();
         }
+    }
+
+    @Override
+    public void configure() {
+        setMotion(speed, Direction.UP.getValue());
     }
 
     void handleSharkCollision() {

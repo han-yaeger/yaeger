@@ -43,7 +43,7 @@ class DefaultMotionApplierTest {
     @Test
     void speedWithNoAngleDefaultsToDirectionOfZero() {
         // Setup
-        sut.setMotion(1, Direction.UP.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
         sut.multiplySpeed(SPEED_MULTIPLACTION_FRACTION).get();
 
         // Test
@@ -79,7 +79,7 @@ class DefaultMotionApplierTest {
     @Test
     void multiplySpeedOfOneKeepsMotionFromConstructor() {
         // Setup
-        sut.setMotion(1, Direction.UP.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Test
         var updatedMotion = sut.multiplySpeed(1).get();
@@ -92,7 +92,7 @@ class DefaultMotionApplierTest {
     @Test
     void multiplySpeedOfMinusOneInvertsMotionFromConstructor() {
         // Setup
-        sut.setMotion(1, Direction.UP.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Test
         var updatedMotion = sut.multiplySpeed(-1).get();
@@ -105,7 +105,7 @@ class DefaultMotionApplierTest {
     @Test
     void multiplySpeedMultipliesSpeed() {
         // Setup
-        sut.setMotion(0.5, Direction.UP.getValue());
+        sut.setMotion(0.5, Direction.DOWN.getValue());
 
         // Test
         var updatedMotion = sut.multiplySpeed(2).get();
@@ -131,7 +131,7 @@ class DefaultMotionApplierTest {
     @Test
     void setSpeedToOneSetsSpeedToOne() {
         // Setup
-        sut.setMotion(1, Direction.UP.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Test
         var updatedMotion = sut.setSpeed(1).get();
@@ -181,12 +181,12 @@ class DefaultMotionApplierTest {
     }
 
     @Test
-    void setDirectionTo180SetsDirectionDown() {
+    void setDirectionTo180SetsDirectionUp() {
         // Setup
-        sut.setMotion(1, Direction.UP.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Test
-        var updatedMotion = sut.setDirection(Direction.DOWN.getValue()).get();
+        var updatedMotion = sut.setDirection(Direction.UP.getValue()).get();
 
         // Verify
         assertEquals(0, updatedMotion.getX(), DELTA);
@@ -209,7 +209,7 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirectionWithZeroDoesNotChangeAngle() {
         // Setup
-        sut.setMotion(1, Direction.UP.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Test
         var updatedMotion = sut.changeDirection(0).get();
@@ -221,7 +221,7 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirectionWithZeroDoesNotChangeSpeed() {
         // Setup
-        sut.setMotion(1, Direction.UP.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Test
         var updatedMotion = sut.changeDirection(0).get();
@@ -234,7 +234,7 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirectionChangesTheAngle() {
         // Setup
-        sut.setMotion(1, Direction.UP.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Test
         var updatedMotion = sut.changeDirection(ANGLE).get();
@@ -246,7 +246,7 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirectionWithNegativeChangesTheAngle() {
         // Setup
-        sut.setMotion(1, Direction.UP.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Test
         var updatedMotion = sut.changeDirection(ANGLE_INVERSE_NEGATIVE).get();
@@ -258,7 +258,7 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirectionWithClockwiseEqualsCounterClockwise() {
         // Setup
-        sut.setMotion(1, Direction.UP.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Test
         var updatedMotion = sut.changeDirection(FULL_ROTATION_MINUS_NEGATIVE_ANGLE).get();
@@ -270,7 +270,7 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirectionZeroDoesNotChangeAngle() {
         // Setup
-        sut.setMotion(1, Direction.UP.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Test
         var updatedMotion = sut.changeDirection(0).get();

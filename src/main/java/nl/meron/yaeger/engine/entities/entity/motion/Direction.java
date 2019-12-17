@@ -8,9 +8,9 @@ import java.util.Map;
  */
 public enum Direction {
 
-    UP(0d),
+    DOWN(0d),
     RIGHT(90d),
-    DOWN(180d),
+    UP(180d),
     LEFT(270d);
 
     private double value;

@@ -4,7 +4,7 @@ import javafx.scene.input.KeyCode;
 import nl.meron.waterworld.scenes.levels.Level;
 import nl.meron.yaeger.engine.entities.collisions.CollisionSide;
 import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.entities.entity.motion.MotionVector;
+import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.entities.entity.sprite.Size;
 import nl.meron.yaeger.engine.entities.collisions.Collidable;
 import nl.meron.yaeger.engine.entities.collisions.Collider;
@@ -20,7 +20,7 @@ public class Player extends DynamicSpriteEntity implements KeyListener, Collidab
     private Level level;
 
     public Player(final Point point, final Level level, final int health) {
-        super(IMAGES_PLAYER_PNG, point, new Size(20, 40), 2, new MotionVector(0, 0));
+        super(IMAGES_PLAYER_PNG, point, new Size(20, 40), 2);
         this.level = level;
         this.health = health;
     }
@@ -38,18 +38,14 @@ public class Player extends DynamicSpriteEntity implements KeyListener, Collidab
     public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
         if (pressedKeys.contains(KeyCode.LEFT)) {
             setCurrentFrameIndex(0);
-            setSpeed(3);
-            setDirection(270);
+            setMotion(3, Direction.LEFT.getValue());
         } else if (pressedKeys.contains(KeyCode.RIGHT)) {
             setCurrentFrameIndex(1);
-            setSpeed(3);
-            setDirection(90);
+            setMotion(3, Direction.RIGHT.getValue());
         } else if (pressedKeys.contains(KeyCode.UP)) {
-            setSpeed(3);
-            setDirection(360);
+            setMotion(3, Direction.UP.getValue());
         } else if (pressedKeys.contains(KeyCode.DOWN)) {
-            setSpeed(3);
-            setDirection(180);
+            setMotion(3, Direction.DOWN.getValue());
         } else if (pressedKeys.isEmpty()) {
             setSpeed(0);
         }
@@ -60,5 +56,10 @@ public class Player extends DynamicSpriteEntity implements KeyListener, Collidab
         if (collidingObject instanceof Swordfish || collidingObject instanceof AnimatedShark) {
             doDamage();
         }
+    }
+
+    @Override
+    public void configure() {
+
     }
 }
