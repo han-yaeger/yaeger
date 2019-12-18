@@ -70,6 +70,8 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
         if (getFrames() > 1 && autoCycleInterval != 0) {
             spriteAnimationDelegate.setAutoCycle(autoCycleInterval);
         }
+
+        this.configure();
     }
 
     @Inject

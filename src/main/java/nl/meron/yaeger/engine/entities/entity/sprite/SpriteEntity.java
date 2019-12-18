@@ -66,10 +66,6 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
         if (frames > 1) {
             spriteAnimationDelegate = spriteAnimationDelegateFactory.create(imageView, frames);
         }
-
-        if (this instanceof Configurable) {
-            ((Configurable) this).configure();
-        }
     }
 
     private ImageView createImageView(final String resource, final int requestedWidth, final int requestedHeight) {

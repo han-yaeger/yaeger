@@ -142,10 +142,6 @@ public class TextEntity implements Entity {
             textDelegate.setText(initialText);
         }
         textDelegate.setVisible(visible);
-
-        if (this instanceof Configurable) {
-            ((Configurable) this).configure();
-        }
     }
 
     @Inject
