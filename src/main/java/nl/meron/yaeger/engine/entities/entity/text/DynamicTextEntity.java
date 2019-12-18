@@ -3,7 +3,6 @@ package nl.meron.yaeger.engine.entities.entity.text;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
-import nl.meron.yaeger.engine.Configurable;
 import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
 import nl.meron.yaeger.engine.entities.entity.motion.Moveable;
 import nl.meron.yaeger.engine.entities.entity.UpdateDelegator;
@@ -40,7 +39,6 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
     public DynamicTextEntity(final Point2D initialPosition, final String text) {
         super(initialPosition, text);
     }
-
 
     @Override
     public MotionApplier getMotionApplier() {

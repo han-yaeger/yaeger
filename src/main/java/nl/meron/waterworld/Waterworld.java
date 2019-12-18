@@ -5,7 +5,7 @@ import nl.meron.waterworld.scenes.GameOver;
 import nl.meron.waterworld.scenes.Intro;
 import nl.meron.waterworld.scenes.levels.LevelTwo;
 import nl.meron.yaeger.engine.YaegerEngine;
-import nl.meron.yaeger.engine.entities.entity.sprite.Size;
+import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.scenes.SceneType;
 
 public class Waterworld extends YaegerEngine {

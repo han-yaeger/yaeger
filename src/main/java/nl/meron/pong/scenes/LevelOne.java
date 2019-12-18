@@ -6,7 +6,7 @@ import nl.meron.pong.scenes.entities.PlayerOneBat;
 import nl.meron.pong.scenes.entities.PlayerTwoBat;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.motion.Direction;
-import nl.meron.yaeger.engine.entities.entity.sprite.Size;
+import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.scenes.impl.DynamicScene;
 
 /**

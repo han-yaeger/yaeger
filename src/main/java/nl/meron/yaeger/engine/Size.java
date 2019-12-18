@@ -1,7 +1,7 @@
-package nl.meron.yaeger.engine.entities.entity.sprite;
+package nl.meron.yaeger.engine;
 
 /**
- * A 2D geometric box that represents a bounding box.
+ * A {@link Size} encapsulates the {@code width} and {@code height}.
  */
 public class Size {
 

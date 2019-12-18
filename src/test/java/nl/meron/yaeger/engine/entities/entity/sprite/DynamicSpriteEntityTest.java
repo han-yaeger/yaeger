@@ -3,6 +3,7 @@ package nl.meron.yaeger.engine.entities.entity.sprite;
 import com.google.inject.Injector;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.Updater;
 import nl.meron.yaeger.engine.entities.entity.sprite.delegates.SpriteAnimationDelegate;
@@ -107,6 +108,31 @@ class DynamicSpriteEntityTest {
     }
 
     @Test
+    void configureIsCalledAtInitialization() {
+        // Setup
+        var frames = 1;
+        var image = mock(Image.class);
+        var imageView = mock(ImageView.class);
+        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
+        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        sut.setImageRepository(imageRepository);
+        sut.setImageViewFactory(imageViewFactory);
+        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        sut.setUpdater(updater);
+
+        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * frames, HEIGHT, true)).thenReturn(image);
+
+        when(imageViewFactory.create(image)).thenReturn(imageView);
+        when(spriteAnimationDelegateFactory.create(imageView, frames)).thenReturn(spriteAnimationDelegate);
+
+        // Test
+        sut.init(injector);
+
+        // Verify
+        Assertions.assertTrue(sut.configureCalled);
+    }
+
+    @Test
     void addedUpdaterIsUsedAsUpdater() {
         // Setup
         var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, 1);
@@ -123,6 +149,8 @@ class DynamicSpriteEntityTest {
 
     private class TestDynamicSpriteEntity extends DynamicSpriteEntity {
 
+        boolean configureCalled = false;
+
         TestDynamicSpriteEntity(String resource, Point point, Size size) {
             super(resource, point, size);
         }
@@ -133,7 +161,7 @@ class DynamicSpriteEntityTest {
 
         @Override
         public void configure() {
-
+            configureCalled = true;
         }
     }
 

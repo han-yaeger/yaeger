@@ -3,7 +3,7 @@ package nl.meron.pong.scenes.entities;
 import javafx.scene.input.KeyCode;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.motion.Direction;
-import nl.meron.yaeger.engine.entities.entity.sprite.Size;
+import nl.meron.yaeger.engine.Size;
 
 import java.util.Set;
 

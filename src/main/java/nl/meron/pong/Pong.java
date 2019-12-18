@@ -2,7 +2,7 @@ package nl.meron.pong;
 
 import nl.meron.pong.scenes.LevelOne;
 import nl.meron.yaeger.engine.YaegerEngine;
-import nl.meron.yaeger.engine.entities.entity.sprite.Size;
+import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.scenes.SceneType;
 
 /**

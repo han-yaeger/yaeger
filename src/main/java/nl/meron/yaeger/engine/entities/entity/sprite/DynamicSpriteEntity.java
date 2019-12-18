@@ -2,6 +2,7 @@ package nl.meron.yaeger.engine.entities.entity.sprite;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.entities.entity.UpdateDelegator;

@@ -5,7 +5,7 @@ import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
-import nl.meron.yaeger.engine.Configurable;
+import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.sprite.delegates.SpriteAnimationDelegate;
