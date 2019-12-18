@@ -18,4 +18,18 @@ class YaegerSceneNotAvailableExceptionTest {
 
         Assertions.assertEquals("Scene INTRO is not available. Ensure the scene is added to the game.", message);
     }
+
+    @Test
+    void typeIsStoredByTheException() {
+        // Setup
+        var sceneType = SceneType.INTRO;
+
+        // Test
+        var sut = new YaegerSceneNotAvailableException(sceneType);
+
+        // Verify
+        var returnedType = sut.getType();
+
+        Assertions.assertEquals(sceneType, returnedType);
+    }
 }

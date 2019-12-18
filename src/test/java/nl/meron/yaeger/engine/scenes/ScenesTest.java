@@ -3,6 +3,7 @@ package nl.meron.yaeger.engine.scenes;
 import com.google.inject.Injector;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import nl.meron.yaeger.engine.exceptions.YaegerSceneNotAvailableException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ class ScenesTest {
     }
 
     @Test
-    void addingOneSceneSetActiveScene() {
+    void addingOneSceneSetAsActiveScene() {
         // Setup
         YaegerScene scene = mock(YaegerScene.class);
         Scene javaFXScene = mock(Scene.class);
@@ -38,6 +39,18 @@ class ScenesTest {
         Assertions.assertEquals(scene, sut.getActiveScene());
         verify(stage).setScene(javaFXScene);
         verify(scene).init(any(Injector.class));
+    }
+
+    @Test
+    void requestingUnavailableSceneThrowsException() {
+        // Setup
+        var sceneType = SceneType.INTRO;
+
+        // Test
+        var yaegerSceneNotAvailableException = Assertions.assertThrows(YaegerSceneNotAvailableException.class, () -> sut.setActive(sceneType));
+
+        // Verify
+        Assertions.assertEquals(sceneType, yaegerSceneNotAvailableException.getType());
     }
 
     @Test
