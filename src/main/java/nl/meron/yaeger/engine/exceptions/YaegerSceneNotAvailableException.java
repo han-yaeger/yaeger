@@ -10,14 +10,14 @@ import nl.meron.yaeger.engine.scenes.impl.StaticScene;
  */
 public class YaegerSceneNotAvailableException extends RuntimeException {
 
-    private SceneType type;
+    private final SceneType type;
 
     /**
      * Instantiate a new {@code YaegerSceneNotAvailableException} with the given {@link SceneType}.
      *
      * @param type De type van de {@link StaticScene}
      */
-    public YaegerSceneNotAvailableException(SceneType type) {
+    public YaegerSceneNotAvailableException(final SceneType type) {
         super("Scene " + type + " is not available. Ensure the scene is added to the game.");
         this.type = type;
     }
