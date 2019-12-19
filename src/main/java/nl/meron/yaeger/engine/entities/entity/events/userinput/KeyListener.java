@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.entities.events.userinput;
+package nl.meron.yaeger.engine.entities.entity.events.userinput;
 
 import javafx.scene.input.KeyCode;
 

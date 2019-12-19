@@ -7,7 +7,7 @@ import nl.meron.waterworld.Waterworld;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.entities.entity.text.DynamicTextEntity;
-import nl.meron.yaeger.engine.entities.events.scene.SceneBorderCrossingWatcher;
+import nl.meron.yaeger.engine.entities.entity.SceneBorderCrossingWatcher;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 
 public class DynamicTextEntityTester extends DynamicTextEntity implements SceneBorderCrossingWatcher {

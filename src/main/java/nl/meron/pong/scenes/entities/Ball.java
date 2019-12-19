@@ -3,7 +3,7 @@ package nl.meron.pong.scenes.entities;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.sprite.DynamicSpriteEntity;
-import nl.meron.yaeger.engine.entities.events.scene.SceneBorderCrossingWatcher;
+import nl.meron.yaeger.engine.entities.entity.SceneBorderCrossingWatcher;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 
 public class Ball extends DynamicSpriteEntity implements SceneBorderCrossingWatcher {

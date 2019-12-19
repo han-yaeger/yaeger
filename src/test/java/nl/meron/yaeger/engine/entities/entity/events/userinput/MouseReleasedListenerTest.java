@@ -1,34 +1,31 @@
-package nl.meron.yaeger.engine.entities.events.userinput;
+package nl.meron.yaeger.engine.entities.entity.events.userinput;
 
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import org.junit.jupiter.api.Test;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class MousePressedListenerTest {
+class MouseReleasedListenerTest {
 
     @Test
     void attachMousePressedListenerAttachesMouseListener() {
         // Setup
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        var mouseListeningEntity = new MousePressedListeningInstancee();
+        var mouseListeningEntity = new MouseReleasedListeningInstancee();
         mouseListeningEntity.setNode(node);
 
         // Test
-        mouseListeningEntity.attachMousePressedListener();
+        mouseListeningEntity.attachMouseReleasedListener();
 
         // Verify
-        verify(node).setOnMousePressed(any());
+        verify(node).setOnMouseReleased(any());
     }
 
-    private class MousePressedListeningInstancee implements MousePressedListener {
+    private class MouseReleasedListeningInstancee implements MouseReleasedListener {
 
         private Node node;
-
-        @Override
-        public void onMousePressed(MouseButton button) {
-        }
 
         @Override
         public Node getGameNode() {
@@ -37,6 +34,11 @@ class MousePressedListenerTest {
 
         void setNode(Node node) {
             this.node = node;
+        }
+
+        @Override
+        public void onMouseReleased(MouseButton button) {
+
         }
     }
 }

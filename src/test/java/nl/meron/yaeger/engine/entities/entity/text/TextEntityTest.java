@@ -7,7 +7,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import nl.meron.waterworld.Waterworld;
 import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.entities.events.system.RemoveEntityEvent;
+import nl.meron.yaeger.engine.entities.entity.events.system.RemoveEntityEvent;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

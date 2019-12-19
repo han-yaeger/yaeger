@@ -1,9 +1,5 @@
-package nl.meron.yaeger.engine.entities.events.scene;
+package nl.meron.yaeger.engine.entities.entity;
 
-import nl.meron.yaeger.engine.entities.entity.Bounded;
-import nl.meron.yaeger.engine.entities.entity.UpdatableProvider;
-import nl.meron.yaeger.engine.entities.entity.SceneChild;
-import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 
 /**

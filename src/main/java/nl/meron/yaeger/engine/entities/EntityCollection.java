@@ -9,12 +9,12 @@ import nl.meron.yaeger.engine.entities.collisions.Collided;
 import nl.meron.yaeger.engine.entities.collisions.Collider;
 import nl.meron.yaeger.engine.entities.collisions.CollisionDelegate;
 import nl.meron.yaeger.engine.entities.entity.*;
-import nl.meron.yaeger.engine.entities.events.EventTypes;
-import nl.meron.yaeger.engine.entities.events.userinput.MouseReleasedListener;
+import nl.meron.yaeger.engine.entities.entity.events.EventTypes;
+import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseReleasedListener;
 import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
-import nl.meron.yaeger.engine.entities.events.userinput.KeyListener;
-import nl.meron.yaeger.engine.entities.events.userinput.MousePressedListener;
+import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;
+import nl.meron.yaeger.engine.entities.entity.events.userinput.MousePressedListener;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

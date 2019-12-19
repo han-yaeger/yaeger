@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import nl.meron.waterworld.Waterworld;
-import nl.meron.yaeger.engine.entities.events.userinput.MousePressedListener;
+import nl.meron.yaeger.engine.entities.entity.events.userinput.MousePressedListener;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.text.TextEntity;
 

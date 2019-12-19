@@ -6,7 +6,7 @@ import nl.meron.yaeger.engine.entities.collisions.CollisionSide;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.Size;
-import nl.meron.yaeger.engine.entities.events.scene.SceneBorderCrossingWatcher;
+import nl.meron.yaeger.engine.entities.entity.SceneBorderCrossingWatcher;
 import nl.meron.yaeger.engine.media.audio.SoundClip;
 import nl.meron.yaeger.engine.entities.collisions.Collided;
 import nl.meron.yaeger.engine.entities.entity.sprite.DynamicSpriteEntity;

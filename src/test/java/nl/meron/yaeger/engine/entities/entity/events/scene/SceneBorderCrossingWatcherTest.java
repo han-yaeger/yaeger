@@ -1,8 +1,9 @@
-package nl.meron.yaeger.engine.entities.events.scene;
+package nl.meron.yaeger.engine.entities.entity.events.scene;
 
 import javafx.geometry.BoundingBox;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import nl.meron.yaeger.engine.entities.entity.SceneBorderCrossingWatcher;
 import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 import org.junit.jupiter.api.BeforeEach;

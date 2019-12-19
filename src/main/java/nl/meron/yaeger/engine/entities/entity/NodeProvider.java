@@ -13,4 +13,11 @@ public interface NodeProvider {
      * @return Node the {@link Node} that is related to this {@link Entity}
      */
     Node getGameNode();
+
+    /**
+     * Bring the {@link Node} to the front of the stack.
+     */
+    default void toFront(){
+        getGameNode().toFront();
+    }
 }

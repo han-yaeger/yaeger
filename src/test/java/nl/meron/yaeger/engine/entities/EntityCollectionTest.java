@@ -9,9 +9,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.entity.*;
-import nl.meron.yaeger.engine.entities.events.userinput.KeyListener;
-import nl.meron.yaeger.engine.entities.events.userinput.MousePressedListener;
-import nl.meron.yaeger.engine.entities.events.userinput.MouseReleasedListener;
+import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;
+import nl.meron.yaeger.engine.entities.entity.events.userinput.MousePressedListener;
+import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseReleasedListener;
 import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.BeforeEach;
