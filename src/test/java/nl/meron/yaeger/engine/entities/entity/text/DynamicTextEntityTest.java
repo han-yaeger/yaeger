@@ -64,14 +64,16 @@ class DynamicTextEntityTest {
         // Verify
         Assertions.assertEquals(updater, u);
     }
-}
 
-class DynamicTextEntityImpl extends DynamicTextEntity {
+    private class DynamicTextEntityImpl extends DynamicTextEntity {
 
-    boolean configureCalled = false;
+        boolean configureCalled = false;
 
-    @Override
-    public void configure() {
-        configureCalled = true;
+        @Override
+        public void configure() {
+            configureCalled = true;
+        }
     }
 }
+
+

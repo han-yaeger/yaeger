@@ -6,6 +6,7 @@ import javafx.scene.image.ImageView;
 import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.Updater;
+import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
 import nl.meron.yaeger.engine.entities.entity.sprite.delegates.SpriteAnimationDelegate;
 import nl.meron.yaeger.engine.media.repositories.ImageRepository;
 import nl.meron.yaeger.javafx.image.ImageViewFactory;
@@ -163,6 +164,20 @@ class DynamicSpriteEntityTest {
         public void configure() {
             configureCalled = true;
         }
+    }
+
+    @Test
+    void setMotionApplierIsUsed() {
+        // Setup
+        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
+        var motionApplier = mock(DefaultMotionApplier.class);
+        sut.setMotionApplier(motionApplier);
+
+        // Test
+        var mA = sut.getMotionApplier();
+
+        // Verify
+        Assertions.assertEquals(motionApplier, mA);
     }
 
     private class AutoCyclingDynamicSpriteEntity extends DynamicSpriteEntity {
