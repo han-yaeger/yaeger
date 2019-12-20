@@ -2,6 +2,9 @@ package nl.meron.yaeger.engine.entities.entity.text;
 
 import com.google.inject.Injector;
 import javafx.scene.text.Text;
+import nl.meron.yaeger.engine.entities.entity.Updater;
+import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
+import nl.meron.yaeger.engine.entities.entity.motion.MotionApplier;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,6 +37,32 @@ class DynamicTextEntityTest {
 
         // Verify
         Assertions.assertTrue(sut.configureCalled);
+    }
+
+    @Test
+    void setMotionApplierIsUsed() {
+        // Setup
+        var motionApplier = mock(DefaultMotionApplier.class);
+        sut.setMotionApplier(motionApplier);
+
+        // Test
+        var mA = sut.getMotionApplier();
+
+        // Verify
+        Assertions.assertEquals(motionApplier, mA);
+    }
+
+    @Test
+    void setUpdaterIsUsed() {
+        // Setup
+        var updater = mock(Updater.class);
+        sut.setUpdater(updater);
+
+        // Test
+        var u = sut.getUpdater();
+
+        // Verify
+        Assertions.assertEquals(updater, u);
     }
 }
 
