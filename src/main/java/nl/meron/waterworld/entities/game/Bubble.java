@@ -4,6 +4,7 @@ import nl.meron.waterworld.scenes.levels.Level;
 import nl.meron.yaeger.engine.entities.collisions.Collider;
 import nl.meron.yaeger.engine.entities.collisions.CollisionSide;
 import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.SceneBorderTouchingWatcher;
 import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.SceneBorderCrossingWatcher;

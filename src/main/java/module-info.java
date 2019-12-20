@@ -5,6 +5,7 @@ module nl.meron.yaeger {
     requires java.base;
 
     exports nl.meron.pong;
+    exports nl.meron.showcase;
     exports nl.meron.waterworld;
     exports nl.meron.yaeger.engine.entities;
     exports nl.meron.yaeger.engine.scenes.impl;
@@ -21,6 +22,7 @@ module nl.meron.yaeger {
     exports nl.meron.yaeger.engine.entities.entity.motion;
 
     opens pong;
+    opens showcase.images;
     opens waterworld;
     opens waterworld.audio;
     opens waterworld.images;

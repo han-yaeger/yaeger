@@ -1,7 +1,6 @@
 package nl.meron.pong.scenes;
 
 import nl.meron.pong.scenes.entities.Ball;
-import nl.meron.pong.scenes.entities.DynamicTextEntityTester;
 import nl.meron.pong.scenes.entities.PlayerOneBat;
 import nl.meron.pong.scenes.entities.PlayerTwoBat;
 import nl.meron.yaeger.engine.entities.entity.Point;
@@ -34,8 +33,5 @@ public class LevelOne extends DynamicScene {
         addEntity(ball2);
         addEntity(bat1);
         addEntity(bat2);
-
-        var textTester = new DynamicTextEntityTester();
-        addEntity(textTester);
     }
 }
