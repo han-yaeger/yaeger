@@ -8,7 +8,7 @@ import javafx.geometry.Point2D;
  */
 public class DefaultMotionApplier implements MotionApplier {
 
-    private final static Point2D ZERO_ANGLE_IDENTITY_MOTION = new Point2D(0, 1);
+    private static final Point2D ZERO_ANGLE_IDENTITY_MOTION = new Point2D(0, 1);
     private Point2D transformation;
 
     /**
