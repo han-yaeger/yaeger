@@ -8,6 +8,7 @@ import javafx.geometry.Point2D;
  */
 public class DefaultMotionApplier implements MotionApplier {
 
+    private final static Point2D ZERO_ANGLE_IDENTITY_MOTION = new Point2D(0, 1);
     private Point2D transformation;
 
     /**
@@ -18,43 +19,48 @@ public class DefaultMotionApplier implements MotionApplier {
     }
 
     @Override
-    public MotionApplier setMotion(double speed, double direction) {
+    public MotionApplier setMotion(final double speed, final double direction) {
         transformation = new Point2D(0, speed);
         return setDirection(direction);
     }
 
     @Override
-    public MotionApplier setSpeed(double newSpeed) {
+    public MotionApplier setSpeed(final double newSpeed) {
         transformation = transformation.normalize().multiply(newSpeed);
         return this;
     }
 
     @Override
-    public MotionApplier setDirection(double angle) {
-        var angleInRadians = Math.toRadians(angle);
-        var x = Math.sin(angleInRadians);
-        var y = Math.cos(angleInRadians);
+    public MotionApplier alterSpeed(final double increment) {
+        transformation = transformation.add(transformation.normalize().multiply(increment));
+        return this;
+    }
+
+    @Override
+    public MotionApplier multiplySpeed(final double multiplication) {
+        transformation = transformation.multiply(multiplication);
+        return this;
+    }
+
+    @Override
+    public MotionApplier setDirection(final double angle) {
+        final var angleInRadians = Math.toRadians(angle);
+        final var x = Math.sin(angleInRadians);
+        final var y = Math.cos(angleInRadians);
 
         transformation = new Point2D(x, y).multiply(transformation.magnitude());
         return this;
     }
 
     @Override
-    public MotionApplier alterSpeed(double increment) {
-        transformation = transformation.add(transformation.normalize().multiply(increment));
-        return this;
-    }
+    public MotionApplier changeDirection(final double rotation) {
+        double currentAngle;
 
-    @Override
-    public MotionApplier multiplySpeed(double multiplication) {
-        transformation = transformation.multiply(multiplication);
-        return this;
-    }
+        currentAngle = +transformation.angle(ZERO_ANGLE_IDENTITY_MOTION);
 
-    @Override
-    public MotionApplier changeDirection(double rotation) {
-
-        double currentAngle = transformation.angle(new Point2D(0, 1));
+        if (transformation.getX() < 0) {
+            currentAngle += 180;
+        }
 
         return setDirection(rotation + currentAngle);
     }

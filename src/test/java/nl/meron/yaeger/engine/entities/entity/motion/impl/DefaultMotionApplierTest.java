@@ -13,13 +13,13 @@ class DefaultMotionApplierTest {
     private static final double DELTA = 0.00001d;
     private static final Point2D DEFAULT_START_LOCATION = new Point2D(0, 0);
     private static final Point2D DEFAULT_MOVEMENT_UP = new Point2D(0, 1);
-    private static final Point2D FRACTIONAL_MOVEMENT_UP = new Point2D(0, 0.5);
 
     private static final double SPEED_MULTIPLACTION_FRACTION = 0.5;
     private static final double ANGLE = 6;
     private static final double ANGLE_INVERSE_NEGATIVE = -6;
     private static final double FULL_ROTATION_MINUS_NEGATIVE_ANGLE = 323;
     private static final double FULL_ROTATION = 360;
+    private static final double HALF_ROTATION = 180;
 
     private DefaultMotionApplier sut;
 
@@ -139,6 +139,32 @@ class DefaultMotionApplierTest {
         // Verify
         assertEquals(0, updatedMotion.getX(), DELTA);
         assertEquals(1, updatedMotion.getY(), DELTA);
+    }
+
+    @Test
+    void changeDirection180WhenRightChangesToLeft() {
+        // Setup
+        sut.setMotion(1, Direction.RIGHT.getValue());
+
+        // Test
+        var updatedMotion = sut.changeDirection(HALF_ROTATION).get();
+
+        // Verify
+        assertEquals(-1, updatedMotion.getX(), DELTA);
+        assertEquals(0, updatedMotion.getY(), DELTA);
+    }
+
+    @Test
+    void changeDirection180WhenLeftChangesToRight() {
+        // Setup
+        sut.setMotion(1, Direction.LEFT.getValue());
+
+        // Test
+        var updatedMotion = sut.changeDirection(HALF_ROTATION).get();
+
+        // Verify
+        assertEquals(1, updatedMotion.getX(), DELTA);
+        assertEquals(0, updatedMotion.getY(), DELTA);
     }
 
     @Test

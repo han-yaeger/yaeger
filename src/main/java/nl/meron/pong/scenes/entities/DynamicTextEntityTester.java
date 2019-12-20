@@ -5,12 +5,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import nl.meron.waterworld.Waterworld;
 import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.SceneBorderTouchingWatcher;
 import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.entities.entity.text.DynamicTextEntity;
-import nl.meron.yaeger.engine.entities.entity.SceneBorderCrossingWatcher;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 
-public class DynamicTextEntityTester extends DynamicTextEntity implements SceneBorderCrossingWatcher {
+public class DynamicTextEntityTester extends DynamicTextEntity implements SceneBorderTouchingWatcher {
 
     public static final String TEST = "Test";
 
@@ -21,7 +21,8 @@ public class DynamicTextEntityTester extends DynamicTextEntity implements SceneB
     }
 
     @Override
-    public void notifyBoundaryCrossing(SceneBorder border) {
+    public void notifyBoundaryTouching(SceneBorder border) {
+        System.out.println(border.toString());
         changeDirection(180);
     }
 

@@ -1,10 +1,8 @@
-package nl.meron.yaeger.engine.entities.entity.events.scene;
+package nl.meron.yaeger.engine.entities.entity;
 
 import javafx.geometry.BoundingBox;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import nl.meron.yaeger.engine.entities.entity.SceneBorderCrossingWatcher;
-import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class SceneBorderCrossingWatcherTest {
+class SceneBorderTouchingWatcherTest {
 
     private final static double SCENE_HEIGHT = 100;
     private final static double SCENE_WIDTH = 100;
@@ -58,7 +56,7 @@ class SceneBorderCrossingWatcherTest {
         updatable.update(0);
 
         // Verify
-        assertNull(watcher.borderCrossed);
+        assertNull(watcher.borderTouched);
     }
 
     @Test
@@ -75,7 +73,7 @@ class SceneBorderCrossingWatcherTest {
         updatable.update(0);
 
         // Verify
-        assertEquals(SceneBorder.LEFT, watcher.borderCrossed);
+        assertEquals(SceneBorder.LEFT, watcher.borderTouched);
     }
 
     @Test
@@ -92,11 +90,11 @@ class SceneBorderCrossingWatcherTest {
         updatable.update(0);
 
         // Verify
-        assertEquals(SceneBorder.RIGHT, watcher.borderCrossed);
+        assertEquals(SceneBorder.RIGHT, watcher.borderTouched);
     }
 
     @Test
-    void testBoundaryBottomCrossed() {
+    void testBoundaryBottomTouched() {
         // Setup
         when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_BOTTOM);
         when(node.getScene()).thenReturn(scene);
@@ -109,11 +107,11 @@ class SceneBorderCrossingWatcherTest {
         updatable.update(0);
 
         // Verify
-        assertEquals(SceneBorder.BOTTOM, watcher.borderCrossed);
+        assertEquals(SceneBorder.BOTTOM, watcher.borderTouched);
     }
 
     @Test
-    void testBoundaryTopCrossed() {
+    void testBoundaryTopTouched() {
         // Setup
         when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_TOP);
         when(node.getScene()).thenReturn(scene);
@@ -126,17 +124,17 @@ class SceneBorderCrossingWatcherTest {
         updatable.update(0);
 
         // Verify
-        assertEquals(SceneBorder.TOP, watcher.borderCrossed);
+        assertEquals(SceneBorder.TOP, watcher.borderTouched);
     }
 
-    private class TestWatcher implements SceneBorderCrossingWatcher {
+    private class TestWatcher implements SceneBorderTouchingWatcher {
 
         private Node gameNode;
-        SceneBorder borderCrossed;
+        SceneBorder borderTouched;
 
         @Override
-        public void notifyBoundaryCrossing(SceneBorder border) {
-            borderCrossed = border;
+        public void notifyBoundaryTouching(SceneBorder border) {
+            borderTouched = border;
         }
 
         @Override
