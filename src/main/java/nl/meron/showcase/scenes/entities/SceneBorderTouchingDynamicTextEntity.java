@@ -3,6 +3,7 @@ package nl.meron.showcase.scenes.entities;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import nl.meron.showcase.scenes.LevelOne;
 import nl.meron.waterworld.Waterworld;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.SceneBorderTouchingWatcher;
@@ -17,11 +18,16 @@ public class SceneBorderTouchingDynamicTextEntity extends DynamicTextEntity impl
     public SceneBorderTouchingDynamicTextEntity(final Point position) {
         super(position, TEXT);
         setFill(Color.SILVER);
-        setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 30));
+        setFont(Font.font(LevelOne.FONT, FontWeight.BOLD, 30));
     }
 
     @Override
     public void notifyBoundaryTouching(SceneBorder border) {
+        if (border.equals(SceneBorder.LEFT)) {
+            setFill(Color.SILVER);
+        } else {
+            setFill(Color.TEAL);
+        }
         changeDirection(180);
     }
 
