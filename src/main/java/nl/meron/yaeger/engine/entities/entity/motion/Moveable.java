@@ -51,7 +51,7 @@ public interface Moveable extends Placeable, MotionModifier, Configurable {
         return getMotionApplier().changeDirection(rotation);
     }
 
-    @UpdatableProvider
+    @UpdatableProvider(asFirst = true)
     default Updatable updateLocation() {
         return timestamp -> {
             var currentPosition = getPosition();

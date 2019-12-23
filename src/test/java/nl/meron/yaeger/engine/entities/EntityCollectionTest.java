@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.*;
 
@@ -76,7 +77,6 @@ class EntityCollectionTest {
         updatables.add(updatableEntity);
         var supplier = mock(EntitySupplier.class);
         when(supplier.get()).thenReturn(updatables);
-        supplier.add(updatableEntity);
 
         var group = mock(Group.class);
         var children = mock(ObservableList.class);
@@ -104,7 +104,6 @@ class EntityCollectionTest {
         updatables.add(updateDelegatingEntity);
         var supplier = mock(EntitySupplier.class);
         when(supplier.get()).thenReturn(updatables);
-        supplier.add(updateDelegatingEntity);
 
         var group = mock(Group.class);
         var children = mock(ObservableList.class);
@@ -121,6 +120,35 @@ class EntityCollectionTest {
 
         // Verify
         assertTrue(updateDelegatingEntity.extraUpdateCalled);
+    }
+
+    @Test
+    void entityWithAsFirstUpdateGetsAddedToTheUpdatersAsFirst() {
+        var firstUpdateDelegatingEntity = new FirstUpdateDelegatingEntity();
+        var node = mock(Node.class, withSettings().withoutAnnotations());
+        var updater = mock(Updater.class);
+        firstUpdateDelegatingEntity.setUpdater(updater);
+        firstUpdateDelegatingEntity.setNode(node);
+
+        Set<Entity> updatables = new HashSet<>();
+        updatables.add(firstUpdateDelegatingEntity);
+        var supplier = mock(EntitySupplier.class);
+        when(supplier.get()).thenReturn(updatables);
+
+        var group = mock(Group.class);
+        var children = mock(ObservableList.class);
+        when(group.getChildren()).thenReturn(children);
+
+        sut = new EntityCollection(group);
+        sut.init(injector);
+
+        sut.registerSupplier(supplier);
+
+        // Test
+        sut.initialUpdate();
+
+        // Verify
+        verify(updater).addUpdatable(any(Updatable.class), eq(true));
     }
 
     @Test
@@ -230,174 +258,217 @@ class EntityCollectionTest {
         // Verify
         verify(mousePressedListeningEntity).attachMouseReleasedListener();
     }
-}
 
-class UpdateDelegatingEntity extends UpdatableEntity implements UpdateDelegator {
+    private class FirstUpdateDelegatingEntity extends UpdatableEntity implements UpdateDelegator {
 
-    boolean extraUpdateCalled = false;
+        boolean extraUpdateCalled = false;
 
-    private Updater updater = new Updater();
-    private Node node;
+        private Updater updater;
+        private Node node;
 
-    @UpdatableProvider
-    public Updatable provideUpdate() {
-        return timestamp -> {
-            setTrue();
-        };
+        @UpdatableProvider(asFirst = true)
+        public Updatable provideUpdate() {
+            return timestamp -> {
+                setTrue();
+            };
+        }
+
+        void setTrue() {
+            this.extraUpdateCalled = true;
+        }
+
+        public void setNode(Node node) {
+            this.node = node;
+        }
+
+        @Override
+        public Node getGameNode() {
+            return this.node;
+        }
+
+        @Override
+        public Updater getUpdater() {
+            return updater;
+        }
+
+        public void setUpdater(Updater updater) {
+            this.updater = updater;
+        }
+
+        @Override
+        public void update(long timestamp) {
+            updater.update(timestamp);
+        }
     }
 
-    void setTrue() {
-        this.extraUpdateCalled = true;
+    private class UpdateDelegatingEntity extends UpdatableEntity implements UpdateDelegator {
+
+        boolean extraUpdateCalled = false;
+
+        private Updater updater = new Updater();
+        private Node node;
+
+        @UpdatableProvider
+        public Updatable provideUpdate() {
+            return timestamp -> {
+                setTrue();
+            };
+        }
+
+        void setTrue() {
+            this.extraUpdateCalled = true;
+        }
+
+        public void setNode(Node node) {
+            this.node = node;
+        }
+
+        @Override
+        public Node getGameNode() {
+            return this.node;
+        }
+
+        @Override
+        public Updater getUpdater() {
+            return updater;
+        }
+
+        @Override
+        public void update(long timestamp) {
+            updater.update(timestamp);
+        }
     }
 
-    public void setNode(Node node) {
-        this.node = node;
+    private class UpdatableEntity implements Entity, Updatable {
+
+        @Override
+        public void remove() {
+            // Not required here.
+        }
+
+        @Override
+        public Node getGameNode() {
+            return null;
+        }
+
+        @Override
+        public Point getPosition() {
+            return null;
+        }
+
+        @Override
+        public void placeOnPosition(Point2D position) {
+            // Not required here.
+        }
+
+        @Override
+        public void update(long timestamp) {
+            // Not required here.
+        }
+
+        @Override
+        public void init(Injector injector) {
+            // Not required here.
+        }
     }
 
-    @Override
-    public Node getGameNode() {
-        return this.node;
+    private class MousePressedListeningEntity implements Entity, MousePressedListener {
+
+        @Override
+        public Point getPosition() {
+            return null;
+        }
+
+        @Override
+        public void placeOnPosition(Point2D position) {
+            // Not required here.
+        }
+
+        @Override
+        public void init(Injector injector) {
+            // Not required here.
+        }
+
+        @Override
+        public void remove() {
+            // Not required here.
+        }
+
+        @Override
+        public Node getGameNode() {
+            return null;
+        }
+
+        @Override
+        public void onMousePressed(MouseButton button) {
+            // Not required here.
+        }
     }
 
-    @Override
-    public Updater getUpdater() {
-        return updater;
+    private class MouseReleasedListeningEntity implements Entity, MouseReleasedListener {
+
+        @Override
+        public Point getPosition() {
+            return null;
+        }
+
+        @Override
+        public void placeOnPosition(Point2D position) {
+            // Not required here.
+        }
+
+        @Override
+        public void init(Injector injector) {
+            // Not required here.
+        }
+
+        @Override
+        public void remove() {
+            // Not required here.
+        }
+
+        @Override
+        public Node getGameNode() {
+            return null;
+        }
+
+        @Override
+        public void onMouseReleased(MouseButton button) {
+            // Not required here.
+        }
     }
 
-    @Override
-    public void update(long timestamp) {
-        updater.update(timestamp);
-    }
-}
+    private class KeyListeningEntity implements Entity, KeyListener {
 
-class UpdatableEntity implements Entity, Updatable {
+        @Override
+        public void remove() {
+            // Not required here.
+        }
 
-    @Override
-    public void remove() {
-        // Not required here.
-    }
+        @Override
+        public Node getGameNode() {
+            return null;
+        }
 
-    @Override
-    public Node getGameNode() {
-        return null;
-    }
+        @Override
+        public Point getPosition() {
+            return null;
+        }
 
-    @Override
-    public Point getPosition() {
-        return null;
-    }
+        @Override
+        public void placeOnPosition(Point2D position) {
+            // Not required here.
+        }
 
-    @Override
-    public void placeOnPosition(Point2D position) {
-        // Not required here.
-    }
+        @Override
+        public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
+            // Not required here.
+        }
 
-    @Override
-    public void update(long timestamp) {
-        // Not required here.
-    }
-
-    @Override
-    public void init(Injector injector) {
-        // Not required here.
-    }
-}
-
-class MousePressedListeningEntity implements Entity, MousePressedListener {
-
-    @Override
-    public Point getPosition() {
-        return null;
+        @Override
+        public void init(Injector injector) {
+            // Not required here.
+        }
     }
 
-    @Override
-    public void placeOnPosition(Point2D position) {
-        // Not required here.
-    }
-
-    @Override
-    public void init(Injector injector) {
-        // Not required here.
-    }
-
-    @Override
-    public void remove() {
-        // Not required here.
-    }
-
-    @Override
-    public Node getGameNode() {
-        return null;
-    }
-
-    @Override
-    public void onMousePressed(MouseButton button) {
-// Not required here.
-    }
-}
-
-class MouseReleasedListeningEntity implements Entity, MouseReleasedListener {
-
-    @Override
-    public Point getPosition() {
-        return null;
-    }
-
-    @Override
-    public void placeOnPosition(Point2D position) {
-        // Not required here.
-    }
-
-    @Override
-    public void init(Injector injector) {
-        // Not required here.
-    }
-
-    @Override
-    public void remove() {
-        // Not required here.
-    }
-
-    @Override
-    public Node getGameNode() {
-        return null;
-    }
-
-    @Override
-    public void onMouseReleased(MouseButton button) {
-// Not required here.
-    }
-}
-
-class KeyListeningEntity implements Entity, KeyListener {
-
-    @Override
-    public void remove() {
-        // Not required here.
-    }
-
-    @Override
-    public Node getGameNode() {
-        return null;
-    }
-
-    @Override
-    public Point getPosition() {
-        return null;
-    }
-
-    @Override
-    public void placeOnPosition(Point2D position) {
-        // Not required here.
-    }
-
-    @Override
-    public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
-        // Not required here.
-    }
-
-    @Override
-    public void init(Injector injector) {
-        // Not required here.
-    }
 }

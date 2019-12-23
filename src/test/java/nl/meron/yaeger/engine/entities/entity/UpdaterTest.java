@@ -19,11 +19,27 @@ class UpdaterTest {
     }
 
     @Test
-    void testFirstUpdatableIsCalledFirst() {
+    void asFirstUpdatableIsCalledFirstWhenAddedAsSecond() {
         // Setup
         var firstUpdatable = mock(Updatable.class);
         sut.addUpdatable(updatable);
-        sut.addAsFirstUpdatable(firstUpdatable);
+        sut.addUpdatable(firstUpdatable, true);
+
+        // Test
+        sut.update(TIMESTAMP);
+
+        // Verify
+        InOrder inOrder = inOrder(firstUpdatable, updatable);
+        inOrder.verify(firstUpdatable).update(TIMESTAMP);
+        inOrder.verify(updatable).update(TIMESTAMP);
+    }
+
+    @Test
+    void asFirstUpdatableIsCalledFirstWhenAddedAsFirst() {
+        // Setup
+        var firstUpdatable = mock(Updatable.class);
+        sut.addUpdatable(firstUpdatable, true);
+        sut.addUpdatable(updatable);
 
         // Test
         sut.update(TIMESTAMP);

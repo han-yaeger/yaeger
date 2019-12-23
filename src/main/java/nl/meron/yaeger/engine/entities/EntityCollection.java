@@ -225,9 +225,10 @@ public class EntityCollection implements Initializable {
             var updateDelegator = (UpdateDelegator) updatable;
             for (Method method : updatable.getClass().getMethods()) {
                 if (method.isAnnotationPresent(UpdatableProvider.class)) {
+                    UpdatableProvider annotation = method.getAnnotation(UpdatableProvider.class);
                     try {
                         Updatable delegatedUpdatable = (Updatable) method.invoke(updateDelegator);
-                        updateDelegator.getUpdater().addUpdatable(delegatedUpdatable);
+                        updateDelegator.getUpdater().addUpdatable(delegatedUpdatable, annotation.asFirst());
                     } catch (IllegalAccessException | InvocationTargetException | ClassCastException e) {
                         throw new YaegerEngineException(e);
                     }
