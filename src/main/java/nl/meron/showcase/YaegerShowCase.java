@@ -1,13 +1,13 @@
 package nl.meron.showcase;
 
-import nl.meron.showcase.scenes.LevelOne;
+import nl.meron.showcase.scenes.spriteentitiesscene.SpriteEntitiesScene;
+import nl.meron.showcase.scenes.textentitiesscene.TextEntitiesScene;
 import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.YaegerEngine;
 import nl.meron.yaeger.engine.scenes.SceneType;
 
 /**
  * ShowCase of all Yaeger Features.
- *
  */
 public class YaegerShowCase extends YaegerEngine {
 
@@ -27,7 +27,9 @@ public class YaegerShowCase extends YaegerEngine {
 
     @Override
     protected void setupScenes() {
-        var level1 = new LevelOne();
-        addScene(SceneType.LEVEL_ONE, level1);
+        var textEntitiesScene = new TextEntitiesScene();
+        addScene(SceneType.LEVEL_ONE, textEntitiesScene);
+        var spriteEntitiesScene = new SpriteEntitiesScene();
+        addScene(SceneType.LEVEL_TWO, spriteEntitiesScene);
     }
 }
