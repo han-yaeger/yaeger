@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import nl.meron.yaeger.engine.scenes.Scenes;
-import nl.meron.yaeger.engine.scenes.SceneType;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 
 /**
@@ -41,21 +40,21 @@ public abstract class YaegerEngine extends Application {
     /**
      * Set the current active {@link YaegerScene}.
      *
-     * @param type The {@link SceneType} that corresponds to the {@link YaegerScene}.
+     * @param number The {@link Integer} identifying the {@link YaegerScene}
      */
-    protected void setActiveScene(SceneType type) {
-        scenes.setActive(type);
+    protected void setActiveScene(int number) {
+        scenes.setActive(number);
     }
 
     /**
      * Add a {@link YaegerScene} to the Game.
      *
-     * @param type  A {@link SceneType} enumeration that represents the type of the {@link YaegerScene}
-     * @param scene The {@link YaegerScene} that should be added
+     * @param number The {@link Integer} identifying the {@link YaegerScene}
+     * @param scene  The {@link YaegerScene} that should be added
      */
-    protected void addScene(SceneType type, YaegerScene scene) {
+    protected void addScene(int number, YaegerScene scene) {
 
-        scenes.addScene(type, scene);
+        scenes.addScene(number, scene);
     }
 
     /**

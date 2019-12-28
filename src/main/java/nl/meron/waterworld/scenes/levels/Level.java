@@ -9,7 +9,6 @@ import nl.meron.waterworld.entities.game.spawners.BubbleSpawner;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.impl.DynamicScene;
-import nl.meron.yaeger.engine.scenes.SceneType;
 
 public abstract class Level extends DynamicScene {
 
@@ -77,7 +76,7 @@ public abstract class Level extends DynamicScene {
      * Deze methode wordt aangeroepen wanneer de speler sterft.
      */
     public void playerDied() {
-        waterworld.nextScene(SceneType.GAMEOVER);
+        waterworld.nextScene(Waterworld.SCENE_GAME_OVER);
     }
 
     private void updateBubblesPoppedText() {

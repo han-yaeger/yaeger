@@ -1,7 +1,6 @@
 package nl.meron.waterworld.scenes.levels;
 
 import nl.meron.waterworld.Waterworld;
-import nl.meron.yaeger.engine.scenes.SceneType;
 
 public class LevelOne extends Level {
 
@@ -22,7 +21,7 @@ public class LevelOne extends Level {
         super.increaseBubblesPopped();
 
         if (bubblesPopped > 2) {
-            waterworld.nextScene(SceneType.LEVEL_TWO);
+            waterworld.nextScene(Waterworld.SCENE_LEVEL_TWO);
         }
     }
 }

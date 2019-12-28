@@ -33,7 +33,7 @@ class ScenesTest {
         doNothing().when(stage).setScene(javaFXScene);
 
         // Test
-        sut.addScene(SceneType.INTRO, scene);
+        sut.addScene(0, scene);
 
         // Verify
         Assertions.assertEquals(scene, sut.getActiveScene());
@@ -44,7 +44,7 @@ class ScenesTest {
     @Test
     void requestingUnavailableSceneThrowsException() {
         // Setup
-        var sceneType = SceneType.INTRO;
+        var sceneType = 0;
 
         // Test
         var yaegerSceneNotAvailableException = Assertions.assertThrows(YaegerSceneNotAvailableException.class, () -> sut.setActive(sceneType));
@@ -63,7 +63,7 @@ class ScenesTest {
         doNothing().when(stage).setScene(javaFXScene);
 
         // Test
-        sut.addScene(SceneType.INTRO, scene);
+        sut.addScene(0, scene);
 
         // Verify
         verify(scene).init(any(Injector.class));
@@ -85,10 +85,10 @@ class ScenesTest {
         when(yaegerScene4.getScene()).thenReturn(javaFXScene);
 
         // Test
-        sut.addScene(SceneType.INTRO, yaegerScene1);
-        sut.addScene(SceneType.LEVEL_ONE, yaegerScene2);
-        sut.addScene(SceneType.LEVEL_TWO, yaegerScene3);
-        sut.addScene(SceneType.LEVEL_THREE, yaegerScene4);
+        sut.addScene(0, yaegerScene1);
+        sut.addScene(1, yaegerScene2);
+        sut.addScene(2, yaegerScene3);
+        sut.addScene(3, yaegerScene4);
 
         // Verify
         Assertions.assertEquals(yaegerScene1, sut.getActiveScene());
@@ -105,11 +105,11 @@ class ScenesTest {
         when(intro.getScene()).thenReturn(javaFXScene);
         when(level1.getScene()).thenReturn(javaFXScene);
 
-        sut.addScene(SceneType.INTRO, intro);
-        sut.addScene(SceneType.LEVEL_ONE, level1);
+        sut.addScene(0, intro);
+        sut.addScene(1, level1);
 
         // Test
-        sut.setActive(SceneType.LEVEL_ONE);
+        sut.setActive(1);
 
         // Verify
         Assertions.assertEquals(level1, sut.getActiveScene());
@@ -127,11 +127,11 @@ class ScenesTest {
         when(intro.getScene()).thenReturn(javaFXScene);
         when(level1.getScene()).thenReturn(javaFXScene);
 
-        sut.addScene(SceneType.INTRO, intro);
-        sut.addScene(SceneType.LEVEL_ONE, level1);
+        sut.addScene(0, intro);
+        sut.addScene(1, level1);
 
         // Test
-        sut.setActive(SceneType.LEVEL_ONE);
+        sut.setActive(1);
 
         // Verify
         verify(intro).destroy();

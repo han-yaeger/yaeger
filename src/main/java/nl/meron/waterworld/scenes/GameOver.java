@@ -7,7 +7,6 @@ import javafx.scene.text.FontWeight;
 import nl.meron.waterworld.Waterworld;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.text.TextEntity;
-import nl.meron.yaeger.engine.scenes.SceneType;
 import nl.meron.yaeger.engine.scenes.impl.StaticScene;
 
 import java.util.Set;
@@ -27,7 +26,7 @@ public class GameOver extends StaticScene {
     @Override
     public void onInputChanged(Set<KeyCode> input) {
         if (input.contains(KeyCode.ENTER)) {
-            waterworld.nextScene(SceneType.INTRO);
+            waterworld.nextScene(Waterworld.SCENE_INTRO);
         }
     }
 

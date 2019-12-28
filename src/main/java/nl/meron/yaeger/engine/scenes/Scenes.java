@@ -12,7 +12,7 @@ import java.util.Objects;
 /**
  * A {@link Scenes} contains all instances of {@link YaegerScene} that are part of the Game.
  */
-public class Scenes extends LinkedHashMap<SceneType, YaegerScene> {
+public class Scenes extends LinkedHashMap<Integer, YaegerScene> {
 
     private final transient Stage stage;
     private transient YaegerScene activeScene;
@@ -24,15 +24,14 @@ public class Scenes extends LinkedHashMap<SceneType, YaegerScene> {
     }
 
     /**
-     * Voeg een {@link YaegerScene} toe aan de lijst van {@link Scenes}. Een {@link YaegerScene} is altijd gekoppeld
-     * aan een {@link SceneType}. Van ieder {@link SceneType} kan er maar één worden toegevoegd aan de lijst van
-     * {@code scenes}.
+     * Add a {@link YaegerScene} to the collection of {@link Scenes}. A {@link YaegerScene} uses a number ({@link Integer})
+     * to be identified. Each number can be only used ones..
      *
-     * @param type  De {@link SceneType} van de {@link YaegerScene} die moet worden toegevoegd.
-     * @param scene De {@link YaegerScene} die moet worden toegevoegd.
+     * @param number The {@link Integer} identifying the {@link YaegerScene}
+     * @param scene  The {@link YaegerScene} to be added
      */
-    public void addScene(SceneType type, YaegerScene scene) {
-        put(type, scene);
+    public void addScene(int number, YaegerScene scene) {
+        put(number, scene);
 
         scene.init(injector);
 
@@ -54,14 +53,14 @@ public class Scenes extends LinkedHashMap<SceneType, YaegerScene> {
      * Set the {@link YaegerScene} of the given {@link SceneType}. Dit is de {@code scenes} die getoond wordt op het scherm en waarvan,
      * indien beschikbaar, de {@code Gameloop} en {@code Eventlisteners} hun werk doen.
      *
-     * @param type the {@link SceneType} of the {@link YaegerScene} to set as the active scene
+     * @param number The {@link Integer} identifying the {@link YaegerScene}
      */
-    public void setActive(SceneType type) {
+    public void setActive(int number) {
 
-        var requestedScene = get(type);
+        var requestedScene = get(number);
 
         if (requestedScene == null) {
-            throw new YaegerSceneNotAvailableException(type);
+            throw new YaegerSceneNotAvailableException(number);
         }
 
         if (activeScene != null) {

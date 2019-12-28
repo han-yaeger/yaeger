@@ -1,6 +1,5 @@
 package nl.meron.yaeger.engine.exceptions;
 
-import nl.meron.yaeger.engine.scenes.SceneType;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 import nl.meron.yaeger.engine.scenes.impl.StaticScene;
 
@@ -10,24 +9,24 @@ import nl.meron.yaeger.engine.scenes.impl.StaticScene;
  */
 public class YaegerSceneNotAvailableException extends RuntimeException {
 
-    private final SceneType type;
+    private final Integer number;
 
     /**
-     * Instantiate a new {@code YaegerSceneNotAvailableException} with the given {@link SceneType}.
+     * Instantiate a new {@code YaegerSceneNotAvailableException} with the given {@link Integer}.
      *
-     * @param type De type van de {@link StaticScene}
+     * @param number De type van de {@link StaticScene}
      */
-    public YaegerSceneNotAvailableException(final SceneType type) {
-        super("Scene " + type + " is not available. Ensure the scene is added to the game.");
-        this.type = type;
+    public YaegerSceneNotAvailableException(final Integer number) {
+        super("Scene " + number + " is not available. Ensure the scene is added to the game.");
+        this.number = number;
     }
 
     /**
-     * Return the {@link SceneType} that was requested, but not available.
+     * Return the {@link Integer} that was requested, but not available.
      *
-     * @return the {@link SceneType} that was requested, but not available
+     * @return the {@link Integer} that was requested, but not available
      */
-    public SceneType getType() {
-        return type;
+    public Integer getType() {
+        return number;
     }
 }

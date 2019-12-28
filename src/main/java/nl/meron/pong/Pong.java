@@ -3,7 +3,6 @@ package nl.meron.pong;
 import nl.meron.pong.scenes.LevelOne;
 import nl.meron.yaeger.engine.YaegerEngine;
 import nl.meron.yaeger.engine.Size;
-import nl.meron.yaeger.engine.scenes.SceneType;
 
 /**
  * Elementary implementation of the PONG game.
@@ -27,6 +26,6 @@ public class Pong extends YaegerEngine {
     @Override
     protected void setupScenes() {
         var level1 = new LevelOne();
-        addScene(SceneType.LEVEL_ONE, level1);
+        addScene(1, level1);
     }
 }

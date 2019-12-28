@@ -8,7 +8,6 @@ import nl.meron.waterworld.Waterworld;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MousePressedListener;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.text.TextEntity;
-import nl.meron.yaeger.engine.scenes.SceneType;
 
 public class StartPressed extends TextEntity implements MousePressedListener {
 
@@ -25,7 +24,7 @@ public class StartPressed extends TextEntity implements MousePressedListener {
     @Override
     public void onMousePressed(MouseButton button) {
         if (button.equals(MouseButton.PRIMARY)) {
-            waterworld.nextScene(SceneType.LEVEL_ONE);
+            waterworld.nextScene(Waterworld.SCENE_LEVEL_ONE);
         }
     }
 }

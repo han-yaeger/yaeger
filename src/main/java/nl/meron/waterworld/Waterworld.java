@@ -6,7 +6,6 @@ import nl.meron.waterworld.scenes.Intro;
 import nl.meron.waterworld.scenes.levels.LevelTwo;
 import nl.meron.yaeger.engine.YaegerEngine;
 import nl.meron.yaeger.engine.Size;
-import nl.meron.yaeger.engine.scenes.SceneType;
 
 public class Waterworld extends YaegerEngine {
 
@@ -15,6 +14,11 @@ public class Waterworld extends YaegerEngine {
     private static final String GAME_TITLE = "Waterworld 2";
     private static final int WATERWORLD_WIDTH = 1204;
     private static final int WATERWORLD_HEIGHT = 903;
+
+    public static final int SCENE_INTRO = 0;
+    public static final int SCENE_GAME_OVER = 3;
+    public static final int SCENE_LEVEL_ONE = 1;
+    public static final int SCENE_LEVEL_TWO = 2;
 
     public static void main(String[] args) {
         launch(args);
@@ -33,15 +37,15 @@ public class Waterworld extends YaegerEngine {
         var levelTwo = new LevelTwo(this);
         var gameOverScene = new GameOver(this);
 
-        addScene(SceneType.INTRO, introScene);
-        addScene(SceneType.LEVEL_ONE, levelOne);
-        addScene(SceneType.LEVEL_TWO, levelTwo);
-        addScene(SceneType.GAMEOVER, gameOverScene);
+        addScene(SCENE_INTRO, introScene);
+        addScene(SCENE_LEVEL_ONE, levelOne);
+        addScene(SCENE_LEVEL_TWO, levelTwo);
+        addScene(SCENE_GAME_OVER, gameOverScene);
 
-        setActiveScene(SceneType.INTRO);
+        setActiveScene(SCENE_INTRO);
     }
 
-    public void nextScene(SceneType scene) {
+    public void nextScene(int scene) {
         setActiveScene(scene);
     }
 }
