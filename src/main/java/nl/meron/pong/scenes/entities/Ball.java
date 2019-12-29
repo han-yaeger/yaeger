@@ -1,12 +1,18 @@
 package nl.meron.pong.scenes.entities;
 
+import nl.meron.yaeger.engine.entities.collisions.Collided;
+import nl.meron.yaeger.engine.entities.collisions.Collider;
+import nl.meron.yaeger.engine.entities.collisions.CollisionSide;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.Size;
+import nl.meron.yaeger.engine.entities.entity.SceneBorderTouchingWatcher;
 import nl.meron.yaeger.engine.entities.entity.sprite.DynamicSpriteEntity;
 import nl.meron.yaeger.engine.entities.entity.SceneBorderCrossingWatcher;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 
-public class Ball extends DynamicSpriteEntity implements SceneBorderCrossingWatcher {
+import java.util.Set;
+
+public class Ball extends DynamicSpriteEntity implements  SceneBorderCrossingWatcher, Collided {
 
     private double direction;
 
@@ -25,5 +31,10 @@ public class Ball extends DynamicSpriteEntity implements SceneBorderCrossingWatc
     @Override
     public void configure() {
         setMotion(1, direction);
+    }
+
+    @Override
+    public void onCollision(Collider collidingObject, CollisionSide collisionSide) {
+        changeDirection(180);
     }
 }

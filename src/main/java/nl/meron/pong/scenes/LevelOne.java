@@ -25,12 +25,10 @@ public class LevelOne extends DynamicScene {
 
     @Override
     public void setupEntities() {
-        var ball1 = new Ball(new Point(200, 200), Direction.RIGHT.getValue());
-        var ball2 = new Ball(new Point(200, 400), Direction.LEFT.getValue());
+        var ball1 = new Ball(new Point(200, 200), 75);
         var bat1 = new PlayerOneBat(new Point(20, 280), new Size(300, 75));
         var bat2 = new PlayerTwoBat(new Point(925, 280), new Size(300, 75));
         addEntity(ball1);
-        addEntity(ball2);
         addEntity(bat1);
         addEntity(bat2);
     }

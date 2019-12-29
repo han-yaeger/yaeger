@@ -194,6 +194,19 @@ class DefaultMotionApplierTest {
     }
 
     @Test
+    void getSpeedReturnsCorrectValue() {
+        // Setup
+        var SPEED = 3.7;
+        sut.setMotion(SPEED, Direction.UP.getValue());
+
+        // Test
+        var speed = sut.getSpeed();
+
+        // Verify
+        assertEquals(SPEED, speed, DELTA);
+    }
+
+    @Test
     void setDirectionTo90SetsDirectionRight() {
         // Setup
         sut.setMotion(1, Direction.UP.getValue());
@@ -230,6 +243,32 @@ class DefaultMotionApplierTest {
         // Verify
         assertEquals(-1, updatedMotion.getX(), DELTA);
         assertEquals(0, updatedMotion.getY(), DELTA);
+    }
+
+    @Test
+    void getDirectionForDirectionBelow180() {
+        // Setup
+        final double DIRECTION = 42;
+        sut.setMotion(1, DIRECTION);
+
+        // Test
+        var direction = sut.getDirection();
+
+        // Verify
+        assertEquals(DIRECTION, direction, DELTA);
+    }
+
+    @Test
+    void getDirectionForDirectionAbove180() {
+        // Setup
+        final double DIRECTION = 189;
+        sut.setMotion(1, DIRECTION);
+
+        // Test
+        var direction = sut.getDirection();
+
+        // Verify
+        assertEquals(DIRECTION, direction, DELTA);
     }
 
     @Test

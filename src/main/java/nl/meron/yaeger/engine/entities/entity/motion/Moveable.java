@@ -37,8 +37,18 @@ public interface Moveable extends Placeable, MotionModifier, Configurable {
     }
 
     @Override
+    default double getSpeed() {
+        return getMotionApplier().getSpeed();
+    }
+
+    @Override
     default MotionApplier setDirection(double newDirection) {
         return getMotionApplier().setDirection(newDirection);
+    }
+
+    @Override
+    default double getDirection() {
+        return getMotionApplier().getDirection();
     }
 
     @Override

@@ -46,6 +46,13 @@ public interface MotionModifier {
     MotionApplier setSpeed(double speed);
 
     /**
+     * Return the current speed as a {@code double}.
+     *
+     * @return The speed as a  {@code double}
+     */
+    double getSpeed();
+
+    /**
      * Set the {@link Direction}. This value is in degrees, where
      *
      * <ul>
@@ -69,4 +76,11 @@ public interface MotionModifier {
      * @return This {@link MotionApplier} for easy chaining
      */
     MotionApplier changeDirection(double rotation);
+
+    /**
+     * Get the direction in degrees.
+     *
+     * @return The direction in degrees as a {@code double}
+     */
+    double getDirection();
 }

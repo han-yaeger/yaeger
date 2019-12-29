@@ -31,6 +31,11 @@ public class DefaultMotionApplier implements MotionApplier {
     }
 
     @Override
+    public double getSpeed() {
+        return transformation.magnitude();
+    }
+
+    @Override
     public MotionApplier alterSpeed(final double increment) {
         transformation = transformation.add(transformation.normalize().multiply(increment));
         return this;
@@ -54,15 +59,20 @@ public class DefaultMotionApplier implements MotionApplier {
 
     @Override
     public MotionApplier changeDirection(final double rotation) {
-        double currentAngle;
-
-        currentAngle = +transformation.angle(ZERO_ANGLE_IDENTITY_MOTION);
-
-        if (transformation.getX() < 0) {
-            currentAngle += 180;
-        }
+        double currentAngle = getDirection();
 
         return setDirection(rotation + currentAngle);
+    }
+
+    @Override
+    public double getDirection() {
+        double currentAngle = transformation.angle(ZERO_ANGLE_IDENTITY_MOTION);
+
+        if (transformation.getX() < 0) {
+            currentAngle = 360 - currentAngle;
+        }
+
+        return currentAngle;
     }
 
     @Override

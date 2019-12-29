@@ -64,6 +64,17 @@ class MoveableTest {
     }
 
     @Test
+    void getSpeedDelegatesToMotionApplier() {
+        // Setup
+
+        // Test
+        sut.getSpeed();
+
+        // Verify
+        verify(motionApplier).getSpeed();
+    }
+
+    @Test
     void setDirectionDelegatesToMotionApplier() {
         // Setup
 
@@ -97,6 +108,17 @@ class MoveableTest {
     }
 
     @Test
+    void getDirectionDelegatesToMotionApplier() {
+        // Setup
+
+        // Test
+        sut.getDirection();
+
+        // Verify
+        verify(motionApplier).getDirection();
+    }
+
+    @Test
     void updateLocationReturnsAnUpdatable() {
         // Setup
 
@@ -112,7 +134,7 @@ class MoveableTest {
         // Setup
         Updatable updatable = sut.updateLocation();
         Node node = mock(Node.class, withSettings().withoutAnnotations());
-        Bounds bounds = new BoundingBox(0,0,10,10);
+        Bounds bounds = new BoundingBox(0, 0, 10, 10);
         when(node.getBoundsInParent()).thenReturn(bounds);
 
         ((MoveableImpl) sut).setGameNode(node);
@@ -122,39 +144,40 @@ class MoveableTest {
         // Verify
         verify(motionApplier).updateLocation(any(Point2D.class));
     }
+
+    private class MoveableImpl implements Moveable {
+
+        DefaultMotionApplier motionApplier;
+        Node node;
+
+        @Override
+        public void setMotionApplier(DefaultMotionApplier motionApplier) {
+            this.motionApplier = motionApplier;
+        }
+
+        @Override
+        public MotionApplier getMotionApplier() {
+            return motionApplier;
+        }
+
+        @Override
+        public void configure() {
+            // Not required here
+        }
+
+        @Override
+        public void placeOnPosition(Point2D position) {
+            // Not required here
+        }
+
+        @Override
+        public Node getGameNode() {
+            return node;
+        }
+
+        public void setGameNode(Node node) {
+            this.node = node;
+        }
+    }
 }
 
-class MoveableImpl implements Moveable {
-
-    DefaultMotionApplier motionApplier;
-    Node node;
-
-    @Override
-    public void setMotionApplier(DefaultMotionApplier motionApplier) {
-        this.motionApplier = motionApplier;
-    }
-
-    @Override
-    public MotionApplier getMotionApplier() {
-        return motionApplier;
-    }
-
-    @Override
-    public void configure() {
-        // Not required here
-    }
-
-    @Override
-    public void placeOnPosition(Point2D position) {
-        // Not required here
-    }
-
-    @Override
-    public Node getGameNode() {
-        return node;
-    }
-
-    public void setGameNode(Node node) {
-        this.node = node;
-    }
-}
