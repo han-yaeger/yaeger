@@ -16,7 +16,7 @@ public interface SceneBorderTouchingWatcher extends Bounded, SceneChild {
     void notifyBoundaryTouching(SceneBorder border);
 
     @UpdatableProvider
-    default Updatable watchForBoundaryCrossing() {
+    default Updatable watchForBoundaryTouching() {
         return timestamp -> {
             var bounds = getBounds();
             if (bounds.getMinX() <= 0) {
