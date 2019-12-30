@@ -19,6 +19,7 @@ class MoveableTest {
     private DefaultMotionApplier motionApplier;
     private Moveable sut;
 
+    private static final double DELTA = 0.00001d;
     private static final long TIMESTAMP = 0;
     private static final double SPEED = 3.7;
     private static final double DIRECTION = 42;
@@ -66,12 +67,13 @@ class MoveableTest {
     @Test
     void getSpeedDelegatesToMotionApplier() {
         // Setup
+        when(motionApplier.getSpeed()).thenReturn(SPEED);
 
         // Test
-        sut.getSpeed();
+        double speed = sut.getSpeed();
 
         // Verify
-        verify(motionApplier).getSpeed();
+        Assertions.assertEquals(SPEED, speed, DELTA);
     }
 
     @Test
@@ -110,12 +112,13 @@ class MoveableTest {
     @Test
     void getDirectionDelegatesToMotionApplier() {
         // Setup
+        when(motionApplier.getDirection()).thenReturn(DIRECTION);
 
         // Test
-        sut.getDirection();
+        double direction = sut.getDirection();
 
         // Verify
-        verify(motionApplier).getDirection();
+        Assertions.assertEquals(DIRECTION, direction, DELTA);
     }
 
     @Test
