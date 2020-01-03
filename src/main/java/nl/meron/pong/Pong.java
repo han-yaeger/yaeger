@@ -10,6 +10,7 @@ import nl.meron.yaeger.engine.Size;
 public class Pong extends YaegerEngine {
 
     private static final String GAME_TITLE = "Pong";
+    public static final String FONT = "arial";
     private static final int WIDTH = 960;
     private static final int HEIGHT = 600;
 

@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.entities.collisions;
+package nl.meron.yaeger.engine.entities.entity.collisions;
 
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Removeable;

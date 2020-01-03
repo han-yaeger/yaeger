@@ -27,11 +27,11 @@ public class SceneBorderTouchingDynamicTextEntity extends DynamicTextEntity impl
         } else {
             setFill(Color.TEAL);
         }
-        changeDirection(180);
+        changeDirectionBy(180);
     }
 
     @Override
     public void configure() {
-        setMotion(6, Direction.RIGHT.getValue());
+        setMotionTo(6, Direction.RIGHT.getValue());
     }
 }

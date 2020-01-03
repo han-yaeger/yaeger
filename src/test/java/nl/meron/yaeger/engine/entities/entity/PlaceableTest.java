@@ -39,8 +39,8 @@ class PlaceableImpl implements Placeable {
     private Node node;
 
     @Override
-    public void placeOnPosition(Point2D position) {
-
+    public void placeOnPosition(double x, double y) {
+        // Not required here.
     }
 
     @Override

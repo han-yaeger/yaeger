@@ -32,25 +32,25 @@ class SceneBorderTouchingWatcherTest {
     }
 
     @Test
-    void testWatchForBoundaryCrossingReturnsAnUpdatable() {
+    void testWatchForBoundaryTouchingReturnsAnUpdatable() {
         // Setup
 
         // Test
-        var updatable = watcher.watchForBoundaryCrossing();
+        var updatable = watcher.watchForBoundaryTouching();
 
         // Verify
         assertTrue(updatable instanceof Updatable);
     }
 
     @Test
-    void testBoundaryNotCrossed() {
+    void testBoundaryNotTouched() {
         // Setup
         when(node.getBoundsInParent()).thenReturn(BOUNDS_IN_SCENE);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
 
-        var updatable = watcher.watchForBoundaryCrossing();
+        var updatable = watcher.watchForBoundaryTouching();
 
         // Test
         updatable.update(0);
@@ -67,7 +67,7 @@ class SceneBorderTouchingWatcherTest {
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
 
-        var updatable = watcher.watchForBoundaryCrossing();
+        var updatable = watcher.watchForBoundaryTouching();
 
         // Test
         updatable.update(0);
@@ -84,7 +84,7 @@ class SceneBorderTouchingWatcherTest {
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
 
-        var updatable = watcher.watchForBoundaryCrossing();
+        var updatable = watcher.watchForBoundaryTouching();
 
         // Test
         updatable.update(0);
@@ -101,7 +101,7 @@ class SceneBorderTouchingWatcherTest {
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
 
-        var updatable = watcher.watchForBoundaryCrossing();
+        var updatable = watcher.watchForBoundaryTouching();
 
         // Test
         updatable.update(0);
@@ -118,7 +118,7 @@ class SceneBorderTouchingWatcherTest {
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
 
-        var updatable = watcher.watchForBoundaryCrossing();
+        var updatable = watcher.watchForBoundaryTouching();
 
         // Test
         updatable.update(0);

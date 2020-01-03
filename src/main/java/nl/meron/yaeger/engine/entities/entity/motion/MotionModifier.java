@@ -3,7 +3,7 @@ package nl.meron.yaeger.engine.entities.entity.motion;
 /**
  * A {@link MotionModifier} is capable of modifying a motion.
  */
-public interface MotionModifier {
+public interface MotionModifier extends SpeedProvider, DirectionProvider {
 
     /**
      * Set the motion.
@@ -12,19 +12,19 @@ public interface MotionModifier {
      * @param direction the direction in degrees as a {@code double}
      * @return This {@link MotionApplier} for easy chaining
      */
-    MotionApplier setMotion(double speed, double direction);
+    MotionApplier setMotionTo(double speed, double direction);
 
     /**
      * Alter the speed through multiplication. Using this method will increase or decrease the current speed. It will multiply the current
      * speed by the provided value.
      * <p>
-     * If it is required to set the speed to a specific value, use the method {@link #setSpeed(double)}}.
+     * If it is required to set the speed to a specific value, use the method {@link #setSpeedTo(double)}}.
      *
      * @param multiplication A value greater than 1 will mean an increment in speed. A value between 0 and 1 will mean a
      *                       decrement in speed
      * @return This {@link MotionApplier} for easy chaining
      */
-    MotionApplier multiplySpeed(double multiplication);
+    MotionApplier multiplySpeedWith(double multiplication);
 
     /**
      * Alter the speed through addition.  Using this method will increase or decrease the current speed. It will add the provided value
@@ -35,7 +35,7 @@ public interface MotionModifier {
      * @param increment A {@code double} representing the increment in speed
      * @return This {@link MotionApplier} for easy chaining
      */
-    MotionApplier alterSpeed(double increment);
+    MotionApplier alterSpeedBy(double increment);
 
     /**
      * Set the speed.
@@ -43,14 +43,7 @@ public interface MotionModifier {
      * @param speed the speed as a {@code double}
      * @return This {@link MotionApplier} for easy chaining
      */
-    MotionApplier setSpeed(double speed);
-
-    /**
-     * Return the current speed as a {@code double}.
-     *
-     * @return The speed as a  {@code double}
-     */
-    double getSpeed();
+    MotionApplier setSpeedTo(double speed);
 
     /**
      * Set the {@link Direction}. This value is in degrees, where
@@ -65,7 +58,7 @@ public interface MotionModifier {
      * @param direction the direction in degrees as a {@code double}
      * @return This {@link MotionApplier} for easy chaining
      */
-    MotionApplier setDirection(double direction);
+    MotionApplier setDirectionTo(double direction);
 
     /**
      * Change the direction by adding a rotation in degrees. A positive value will be added and will result
@@ -75,12 +68,5 @@ public interface MotionModifier {
      * @param rotation the rotation as a double
      * @return This {@link MotionApplier} for easy chaining
      */
-    MotionApplier changeDirection(double rotation);
-
-    /**
-     * Get the direction in degrees.
-     *
-     * @return The direction in degrees as a {@code double}
-     */
-    double getDirection();
+    MotionApplier changeDirectionBy(double rotation);
 }

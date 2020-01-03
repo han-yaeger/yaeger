@@ -182,6 +182,8 @@ class SpriteEntityTest {
     @Test
     void setPositionDelegatesToTheImageView() {
         // Setup
+        final var X = 42;
+        final var Y = 48;
         var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
         spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         spriteEntity.setImageRepository(imageRepository);
@@ -195,12 +197,11 @@ class SpriteEntityTest {
         spriteEntity.init(injector);
 
         // Test
-        var position = new Point(42, 48);
-        spriteEntity.placeOnPosition(position);
+        spriteEntity.placeOnPosition(X, Y);
 
         // Verify
-        verify(imageView).setX(position.getX());
-        verify(imageView).setY(position.getY());
+        verify(imageView).setX(X);
+        verify(imageView).setY(Y);
     }
 
     @Test

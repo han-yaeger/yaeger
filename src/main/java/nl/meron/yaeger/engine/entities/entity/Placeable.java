@@ -15,9 +15,10 @@ public interface Placeable extends Bounded {
     }
 
     /**
-     * Set the position of this {@code TextEntity}.
+     * Set the position tot he given x and y-coordinate.
      *
-     * @param position a {@link Point2D} encapsulating the x and y coordinate
+     * @param x a {@code double} representing the x coordinate
+     * @param y a {@code double} representing the y coordinate
      */
-    void placeOnPosition(Point2D position);
+    void placeOnPosition(double x, double y);
 }

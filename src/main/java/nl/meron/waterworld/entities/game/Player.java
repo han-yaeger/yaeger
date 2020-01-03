@@ -2,12 +2,12 @@ package nl.meron.waterworld.entities.game;
 
 import javafx.scene.input.KeyCode;
 import nl.meron.waterworld.scenes.levels.Level;
-import nl.meron.yaeger.engine.entities.collisions.CollisionSide;
+import nl.meron.yaeger.engine.entities.entity.collisions.CollisionSide;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.Size;
-import nl.meron.yaeger.engine.entities.collisions.Collidable;
-import nl.meron.yaeger.engine.entities.collisions.Collider;
+import nl.meron.yaeger.engine.entities.entity.collisions.Collidable;
+import nl.meron.yaeger.engine.entities.entity.collisions.Collider;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;
 import nl.meron.yaeger.engine.entities.entity.sprite.DynamicSpriteEntity;
 
@@ -38,16 +38,16 @@ public class Player extends DynamicSpriteEntity implements KeyListener, Collidab
     public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
         if (pressedKeys.contains(KeyCode.LEFT)) {
             setCurrentFrameIndex(0);
-            setMotion(3, Direction.LEFT.getValue());
+            setMotionTo(3, Direction.LEFT.getValue());
         } else if (pressedKeys.contains(KeyCode.RIGHT)) {
             setCurrentFrameIndex(1);
-            setMotion(3, Direction.RIGHT.getValue());
+            setMotionTo(3, Direction.RIGHT.getValue());
         } else if (pressedKeys.contains(KeyCode.UP)) {
-            setMotion(3, Direction.UP.getValue());
+            setMotionTo(3, Direction.UP.getValue());
         } else if (pressedKeys.contains(KeyCode.DOWN)) {
-            setMotion(3, Direction.DOWN.getValue());
+            setMotionTo(3, Direction.DOWN.getValue());
         } else if (pressedKeys.isEmpty()) {
-            setSpeed(0);
+            setSpeedTo(0);
         }
     }
 

@@ -96,12 +96,12 @@ public class TextEntity implements Entity {
     }
 
     @Override
-    public void placeOnPosition(Point2D position) {
-        this.initialPosition = position;
+    public void placeOnPosition(double x, double y) {
+        this.initialPosition = new Point2D(x, y);
 
         if (textDelegate != null) {
-            textDelegate.setX(position.getX());
-            textDelegate.setY(position.getY());
+            textDelegate.setX(x);
+            textDelegate.setY(y);
         }
     }
 
@@ -129,7 +129,7 @@ public class TextEntity implements Entity {
     public void init(Injector injector) {
         textDelegate.setTextOrigin(VPos.TOP);
         if (initialPosition != null) {
-            placeOnPosition(initialPosition);
+            placeOnPosition(initialPosition.getX(), initialPosition.getY());
         }
         if (font != null) {
             textDelegate.setFont(font);

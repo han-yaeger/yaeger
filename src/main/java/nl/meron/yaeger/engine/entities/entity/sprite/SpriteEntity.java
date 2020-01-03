@@ -61,7 +61,7 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     public void init(Injector injector) {
         var requestedWidth = size.getWidth() * frames;
         imageView = createImageView(resource, requestedWidth, size.getHeight());
-        placeOnPosition(initialPosition);
+        placeOnPosition(initialPosition.getX(), initialPosition.getY());
 
         if (frames > 1) {
             spriteAnimationDelegate = spriteAnimationDelegateFactory.create(imageView, frames);
@@ -133,10 +133,10 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     }
 
     @Override
-    public void placeOnPosition(Point2D position) {
+    public void placeOnPosition(double x, double y) {
         if (imageView != null) {
-            imageView.setX(position.getX());
-            imageView.setY(position.getY());
+            imageView.setX(x);
+            imageView.setY(y);
         }
     }
 

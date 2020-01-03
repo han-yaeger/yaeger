@@ -1,15 +1,14 @@
 package nl.meron.waterworld.entities.game;
 
 import nl.meron.waterworld.scenes.levels.Level;
-import nl.meron.yaeger.engine.entities.collisions.Collider;
-import nl.meron.yaeger.engine.entities.collisions.CollisionSide;
+import nl.meron.yaeger.engine.entities.entity.collisions.Collider;
+import nl.meron.yaeger.engine.entities.entity.collisions.CollisionSide;
 import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.entities.entity.SceneBorderTouchingWatcher;
 import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.SceneBorderCrossingWatcher;
 import nl.meron.yaeger.engine.media.audio.SoundClip;
-import nl.meron.yaeger.engine.entities.collisions.Collided;
+import nl.meron.yaeger.engine.entities.entity.collisions.Collided;
 import nl.meron.yaeger.engine.entities.entity.sprite.DynamicSpriteEntity;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 
@@ -41,7 +40,7 @@ public abstract class Bubble extends DynamicSpriteEntity implements Collided, Sc
 
     @Override
     public void configure() {
-        setMotion(speed, Direction.UP.getValue());
+        setMotionTo(speed, Direction.UP.getValue());
     }
 
     void handleSharkCollision() {

@@ -1,8 +1,8 @@
 package nl.meron.waterworld.entities.game;
 
 import nl.meron.waterworld.scenes.levels.Level;
-import nl.meron.yaeger.engine.entities.collisions.CollisionSide;
-import nl.meron.yaeger.engine.entities.collisions.Collider;
+import nl.meron.yaeger.engine.entities.entity.collisions.CollisionSide;
+import nl.meron.yaeger.engine.entities.entity.collisions.Collider;
 import nl.meron.yaeger.engine.entities.entity.Point;
 
 public class Air extends Bubble {

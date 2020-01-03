@@ -76,7 +76,7 @@ class EntitySupplierTest {
         }
 
         @Override
-        public void placeOnPosition(Point2D position) {
+        public void placeOnPosition(double x, double y) {
             // Not required here.
         }
 

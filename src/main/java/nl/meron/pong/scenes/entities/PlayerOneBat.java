@@ -16,11 +16,11 @@ public class PlayerOneBat extends PongBat {
     @Override
     public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
         if (pressedKeys.contains(KeyCode.A)) {
-            setMotion(SPEED, Direction.UP.getValue());
+            setMotionTo(SPEED, Direction.UP.getValue());
         } else if (pressedKeys.contains(KeyCode.Z)) {
-            setMotion(SPEED, Direction.DOWN.getValue());
+            setMotionTo(SPEED, Direction.DOWN.getValue());
         } else {
-            setSpeed(0);
+            setSpeedTo(0);
         }
     }
 }

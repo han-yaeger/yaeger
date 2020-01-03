@@ -8,7 +8,6 @@ import nl.meron.yaeger.engine.entities.entity.Updatable;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockSettings;
 import org.mockito.Mockito;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -36,10 +35,10 @@ class MoveableTest {
         // Setup
 
         // Test
-        sut.setMotion(SPEED, DIRECTION);
+        sut.setMotionTo(SPEED, DIRECTION);
 
         // Verify
-        verify(motionApplier).setMotion(SPEED, DIRECTION);
+        verify(motionApplier).setMotionTo(SPEED, DIRECTION);
     }
 
     @Test
@@ -47,10 +46,10 @@ class MoveableTest {
         // Setup
 
         // Test
-        sut.multiplySpeed(SPEED);
+        sut.multiplySpeedWith(SPEED);
 
         // Verify
-        verify(motionApplier).multiplySpeed(SPEED);
+        verify(motionApplier).multiplySpeedWith(SPEED);
     }
 
     @Test
@@ -58,10 +57,10 @@ class MoveableTest {
         // Setup
 
         // Test
-        sut.setSpeed(SPEED);
+        sut.setSpeedTo(SPEED);
 
         // Verify
-        verify(motionApplier).setSpeed(SPEED);
+        verify(motionApplier).setSpeedTo(SPEED);
     }
 
     @Test
@@ -81,10 +80,10 @@ class MoveableTest {
         // Setup
 
         // Test
-        sut.setDirection(DIRECTION);
+        sut.setDirectionTo(DIRECTION);
 
         // Verify
-        verify(motionApplier).setDirection(DIRECTION);
+        verify(motionApplier).setDirectionTo(DIRECTION);
     }
 
     @Test
@@ -92,10 +91,10 @@ class MoveableTest {
         // Setup
 
         // Test
-        sut.alterSpeed(SPEED);
+        sut.alterSpeedBy(SPEED);
 
         // Verify
-        verify(motionApplier).alterSpeed(SPEED);
+        verify(motionApplier).alterSpeedBy(SPEED);
     }
 
     @Test
@@ -103,10 +102,10 @@ class MoveableTest {
         // Setup
 
         // Test
-        sut.changeDirection(DIRECTION);
+        sut.changeDirectionBy(DIRECTION);
 
         // Verify
-        verify(motionApplier).changeDirection(DIRECTION);
+        verify(motionApplier).changeDirectionBy(DIRECTION);
     }
 
     @Test
@@ -135,10 +134,12 @@ class MoveableTest {
     @Test
     void callingTheUpdatableModifiesPosition() {
         // Setup
+        var UPDATED_LOCATION = new Point2D(37,42);
         Updatable updatable = sut.updateLocation();
         Node node = mock(Node.class, withSettings().withoutAnnotations());
         Bounds bounds = new BoundingBox(0, 0, 10, 10);
         when(node.getBoundsInParent()).thenReturn(bounds);
+        when(motionApplier.updateLocation(any(Point2D.class))).thenReturn(UPDATED_LOCATION);
 
         ((MoveableImpl) sut).setGameNode(node);
         // Test
@@ -169,8 +170,8 @@ class MoveableTest {
         }
 
         @Override
-        public void placeOnPosition(Point2D position) {
-            // Not required here
+        public void placeOnPosition(double x, double y) {
+            // Not required here.
         }
 
         @Override

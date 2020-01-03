@@ -15,11 +15,11 @@ public class Ball extends DynamicSpriteEntity implements SceneBorderTouchingWatc
 
     @Override
     public void notifyBoundaryTouching(SceneBorder border) {
-        changeDirection(180);
+        changeDirectionBy(180);
     }
 
     @Override
     public void configure() {
-        setMotion(4, Direction.RIGHT.getValue());
+        setMotionTo(4, Direction.RIGHT.getValue());
     }
 }

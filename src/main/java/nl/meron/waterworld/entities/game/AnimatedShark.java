@@ -1,6 +1,6 @@
 package nl.meron.waterworld.entities.game;
 
-import nl.meron.yaeger.engine.entities.collisions.Collider;
+import nl.meron.yaeger.engine.entities.entity.collisions.Collider;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.Size;
@@ -19,12 +19,12 @@ public class AnimatedShark extends DynamicSpriteEntity implements Collider, Scen
     @Override
     public void notifyBoundaryCrossing(SceneBorder border) {
         if (border.equals(SceneBorder.LEFT)) {
-            placeOnPosition(new Point(getSceneWidth(), getY()));
+            placeOnPosition(getSceneWidth(), getY());
         }
     }
 
     @Override
     public void configure() {
-        setMotion(4, Direction.LEFT.getValue());
+        setMotionTo(4, Direction.LEFT.getValue());
     }
 }

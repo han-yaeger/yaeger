@@ -22,18 +22,18 @@ public interface Moveable extends Placeable, MotionModifier, Configurable {
     MotionApplier getMotionApplier();
 
     @Override
-    default MotionApplier setMotion(double speed, double direction) {
-        return getMotionApplier().setMotion(speed, direction);
+    default MotionApplier setMotionTo(double speed, double direction) {
+        return getMotionApplier().setMotionTo(speed, direction);
     }
 
     @Override
-    default MotionApplier multiplySpeed(double multiplication) {
-        return getMotionApplier().multiplySpeed(multiplication);
+    default MotionApplier multiplySpeedWith(double multiplication) {
+        return getMotionApplier().multiplySpeedWith(multiplication);
     }
 
     @Override
-    default MotionApplier setSpeed(double newSpeed) {
-        return getMotionApplier().setSpeed(newSpeed);
+    default MotionApplier setSpeedTo(double newSpeed) {
+        return getMotionApplier().setSpeedTo(newSpeed);
     }
 
     @Override
@@ -42,8 +42,8 @@ public interface Moveable extends Placeable, MotionModifier, Configurable {
     }
 
     @Override
-    default MotionApplier setDirection(double newDirection) {
-        return getMotionApplier().setDirection(newDirection);
+    default MotionApplier setDirectionTo(double newDirection) {
+        return getMotionApplier().setDirectionTo(newDirection);
     }
 
     @Override
@@ -52,13 +52,13 @@ public interface Moveable extends Placeable, MotionModifier, Configurable {
     }
 
     @Override
-    default MotionApplier alterSpeed(double increment) {
-        return getMotionApplier().alterSpeed(increment);
+    default MotionApplier alterSpeedBy(double increment) {
+        return getMotionApplier().alterSpeedBy(increment);
     }
 
     @Override
-    default MotionApplier changeDirection(double rotation) {
-        return getMotionApplier().changeDirection(rotation);
+    default MotionApplier changeDirectionBy(double rotation) {
+        return getMotionApplier().changeDirectionBy(rotation);
     }
 
     @UpdatableProvider(asFirst = true)
@@ -66,7 +66,7 @@ public interface Moveable extends Placeable, MotionModifier, Configurable {
         return timestamp -> {
             var currentPosition = getPosition();
             var updatedPosition = getMotionApplier().updateLocation(currentPosition);
-            placeOnPosition(updatedPosition);
+            placeOnPosition(updatedPosition.getX(), updatedPosition.getY());
         };
     }
 }

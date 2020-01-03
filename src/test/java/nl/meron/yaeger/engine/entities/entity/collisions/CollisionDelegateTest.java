@@ -1,7 +1,6 @@
-package nl.meron.yaeger.engine.entities.collisions;
+package nl.meron.yaeger.engine.entities.entity.collisions;
 
 import com.google.inject.Injector;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Point;
@@ -140,7 +139,7 @@ class CollisionDelegateTest {
         }
 
         @Override
-        public void placeOnPosition(Point2D position) {
+        public void placeOnPosition(double x, double y) {
             // Not required here.
         }
 
@@ -188,7 +187,7 @@ class CollisionDelegateTest {
         }
 
         @Override
-        public void placeOnPosition(Point2D position) {
+        public void placeOnPosition(double x, double y) {
             // Not required here.
         }
 
@@ -215,6 +214,16 @@ class CollisionDelegateTest {
         @Override
         public void init(Injector injector) {
             // Not required here.
+        }
+
+        @Override
+        public double getDirection() {
+            return 0;
+        }
+
+        @Override
+        public double getSpeed() {
+            return 0;
         }
     }
 }

@@ -50,7 +50,7 @@ class TextEntityTest {
         var textEntity = new TextEntity();
 
         // Test
-        textEntity.placeOnPosition(POINT);
+        textEntity.placeOnPosition(POINT.getX(), POINT.getY());
         textEntity.setTextDelegate(text);
         textEntity.init(injector);
 
@@ -166,7 +166,7 @@ class TextEntityTest {
         textEntity.init(injector);
 
         // Test
-        textEntity.placeOnPosition(POINT);
+        textEntity.placeOnPosition(POINT.getX(), POINT.getY());
         textEntity.setText(YAEGER);
         textEntity.setVisible(false);
         textEntity.setFont(FONT);

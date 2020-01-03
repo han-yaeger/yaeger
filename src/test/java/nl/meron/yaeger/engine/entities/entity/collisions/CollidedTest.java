@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.entities.collisions;
+package nl.meron.yaeger.engine.entities.entity.collisions;
 
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
@@ -199,6 +199,16 @@ public class CollidedTest {
         public void setBounds(Bounds bounds) {
             this.bounds = bounds;
         }
+
+        @Override
+        public double getDirection() {
+            return 0;
+        }
+
+        @Override
+        public double getSpeed() {
+            return 0;
+        }
     }
 
     private class TestCollided implements Collided {
@@ -237,6 +247,16 @@ public class CollidedTest {
         @Override
         public Node getGameNode() {
             return null;
+        }
+
+        @Override
+        public double getDirection() {
+            return 0;
+        }
+
+        @Override
+        public double getSpeed() {
+            return 0;
         }
     }
 }

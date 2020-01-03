@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.entities.collisions;
+package nl.meron.yaeger.engine.entities.entity.collisions;
 
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
@@ -7,15 +7,15 @@ import nl.meron.yaeger.engine.entities.entity.Bounded;
 import java.util.Set;
 
 /**
- * A {@code Collided} represents a Entity that can be collided with by a {@code Collider}
+ * A {@link Collided} represents a Entity that can be collided with by a {@link Collider}
  */
 public interface Collided extends Bounded {
 
     /**
-     * Perform collision detection with a {@code Set} of {@code Collider}s. Only the first collision
+     * Perform collision detection with a {@link Set} of {@link Collider}s. Only the first collision
      * is detected.
      *
-     * @param colliders A {@code Set} of colliders that should be checked for collisions.
+     * @param colliders A {@link Set} of colliders that should be checked for collisions.
      */
     default void checkForCollisions(Set<Collider> colliders) {
         if (colliders == null || colliders.isEmpty()) {
@@ -35,7 +35,7 @@ public interface Collided extends Bounded {
      * This method is called if a collision has occurred.
      *
      * @param collidingObject The EntityCollection you are colliding with.
-     * @param collisionSide     The side of the collision.
+     * @param collisionSide   The side of the collision.
      */
     void onCollision(Collider collidingObject, CollisionSide collisionSide);
 

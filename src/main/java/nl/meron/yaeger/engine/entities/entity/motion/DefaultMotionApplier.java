@@ -19,13 +19,13 @@ public class DefaultMotionApplier implements MotionApplier {
     }
 
     @Override
-    public MotionApplier setMotion(final double speed, final double direction) {
+    public MotionApplier setMotionTo(final double speed, final double direction) {
         transformation = new Point2D(0, speed);
-        return setDirection(direction);
+        return setDirectionTo(direction);
     }
 
     @Override
-    public MotionApplier setSpeed(final double newSpeed) {
+    public MotionApplier setSpeedTo(final double newSpeed) {
         transformation = transformation.normalize().multiply(newSpeed);
         return this;
     }
@@ -36,19 +36,19 @@ public class DefaultMotionApplier implements MotionApplier {
     }
 
     @Override
-    public MotionApplier alterSpeed(final double increment) {
+    public MotionApplier alterSpeedBy(final double increment) {
         transformation = transformation.add(transformation.normalize().multiply(increment));
         return this;
     }
 
     @Override
-    public MotionApplier multiplySpeed(final double multiplication) {
+    public MotionApplier multiplySpeedWith(final double multiplication) {
         transformation = transformation.multiply(multiplication);
         return this;
     }
 
     @Override
-    public MotionApplier setDirection(final double angle) {
+    public MotionApplier setDirectionTo(final double angle) {
         final var angleInRadians = Math.toRadians(angle);
         final var x = Math.sin(angleInRadians);
         final var y = Math.cos(angleInRadians);
@@ -58,10 +58,10 @@ public class DefaultMotionApplier implements MotionApplier {
     }
 
     @Override
-    public MotionApplier changeDirection(final double rotation) {
+    public MotionApplier changeDirectionBy(final double rotation) {
         double currentAngle = getDirection();
 
-        return setDirection(rotation + currentAngle);
+        return setDirectionTo(rotation + currentAngle);
     }
 
     @Override
