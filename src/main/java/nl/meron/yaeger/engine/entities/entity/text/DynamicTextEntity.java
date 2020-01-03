@@ -3,6 +3,7 @@ package nl.meron.yaeger.engine.entities.entity.text;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
+import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
 import nl.meron.yaeger.engine.entities.entity.motion.Moveable;
 import nl.meron.yaeger.engine.entities.entity.UpdateDelegator;
@@ -18,25 +19,25 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
      * Instantiate a new {@link DynamicTextEntity}.
      */
     public DynamicTextEntity() {
-        this(new Point2D(0, 0));
+        this(new Point(0, 0));
     }
 
     /**
-     * Instantiate a new {@code DynamicTextEntity} for the given {@link Point2D}.
+     * Instantiate a new {@link DynamicTextEntity} for the given {@link Point}.
      *
-     * @param initialPosition the initial {@link Point2D} of this {@link DynamicTextEntity}
+     * @param initialPosition the initial {@link Point} of this {@link DynamicTextEntity}
      */
-    public DynamicTextEntity(final Point2D initialPosition) {
+    public DynamicTextEntity(final Point initialPosition) {
         this(initialPosition, "");
     }
 
     /**
      * Instantiate a new {@link DynamicTextEntity} for the given {@link Point2D} and textDelegate.
      *
-     * @param initialPosition the initial {@link Point2D} of this {@link DynamicTextEntity}
+     * @param initialPosition the initial {@link Point} of this {@link DynamicTextEntity}
      * @param text            a {@link String} containing the initial textDelegate to be displayed
      */
-    public DynamicTextEntity(final Point2D initialPosition, final String text) {
+    public DynamicTextEntity(final Point initialPosition, final String text) {
         super(initialPosition, text);
     }
 
@@ -46,7 +47,7 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
     }
 
     @Override
-    public void init(Injector injector) {
+    public void init(final Injector injector) {
         super.init(injector);
 
         this.configure();
@@ -59,12 +60,12 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
 
     @Inject
     @Override
-    public void setMotionApplier(DefaultMotionApplier motionApplier) {
+    public void setMotionApplier(final DefaultMotionApplier motionApplier) {
         this.motionApplier = motionApplier;
     }
 
     @Inject
-    public void setUpdater(Updater updater) {
+    public void setUpdater(final Updater updater) {
         this.updater = updater;
     }
 }

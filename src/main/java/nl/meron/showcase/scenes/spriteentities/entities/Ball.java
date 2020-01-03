@@ -1,4 +1,4 @@
-package nl.meron.showcase.scenes.spriteentitiesscene.entities;
+package nl.meron.showcase.scenes.spriteentities.entities;
 
 import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.Point;

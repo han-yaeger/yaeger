@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import nl.meron.yaeger.engine.entities.entity.Entity;
+import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 
 /**
@@ -28,15 +29,15 @@ public class TextEntity implements Entity {
      * Instantiate a new {@code TextEntity}.
      */
     public TextEntity() {
-        this(new Point2D(0, 0));
+        this(new Point(0, 0));
     }
 
     /**
      * Instantiate a new {@code TextEntity} for the given {@link Point2D}.
      *
-     * @param initialPosition the initial {@link Point2D} of this {@code TextEntity}
+     * @param initialPosition the initial {@link Point} of this {@code TextEntity}
      */
-    public TextEntity(final Point2D initialPosition) {
+    public TextEntity(final Point initialPosition) {
         this(initialPosition, "");
     }
 
@@ -46,7 +47,7 @@ public class TextEntity implements Entity {
      * @param initialPosition the initial {@link Point2D} of this {@code TextEntity}
      * @param text            a {@link String} containing the initial textDelegate to be displayed
      */
-    public TextEntity(final Point2D initialPosition, final String text) {
+    public TextEntity(final Point initialPosition, final String text) {
         this.initialPosition = initialPosition;
         this.initialText = text;
     }
@@ -68,7 +69,7 @@ public class TextEntity implements Entity {
      *
      * @param color an instance of {@link Color}
      */
-    public void setFill(Color color) {
+    public void setFill(final Color color) {
         this.fill = color;
         if (textDelegate != null) {
             textDelegate.setFill(color);
@@ -87,7 +88,7 @@ public class TextEntity implements Entity {
      *
      * @param font the {@link Font} to be used
      */
-    public void setFont(Font font) {
+    public void setFont(final Font font) {
         this.font = font;
 
         if (textDelegate != null) {
@@ -96,7 +97,7 @@ public class TextEntity implements Entity {
     }
 
     @Override
-    public void placeOnPosition(double x, double y) {
+    public void placeOnPosition(final double x, final double y) {
         this.initialPosition = new Point2D(x, y);
 
         if (textDelegate != null) {
@@ -118,7 +119,7 @@ public class TextEntity implements Entity {
     }
 
     @Override
-    public void setVisible(boolean visible) {
+    public void setVisible(final boolean visible) {
         this.visible = visible;
         if (textDelegate != null) {
             textDelegate.setVisible(visible);
@@ -126,7 +127,7 @@ public class TextEntity implements Entity {
     }
 
     @Override
-    public void init(Injector injector) {
+    public void init(final Injector injector) {
         textDelegate.setTextOrigin(VPos.TOP);
         if (initialPosition != null) {
             placeOnPosition(initialPosition.getX(), initialPosition.getY());
@@ -144,7 +145,7 @@ public class TextEntity implements Entity {
     }
 
     @Inject
-    public void setTextDelegate(Text text) {
+    public void setTextDelegate(final Text text) {
         this.textDelegate = text;
     }
 }
