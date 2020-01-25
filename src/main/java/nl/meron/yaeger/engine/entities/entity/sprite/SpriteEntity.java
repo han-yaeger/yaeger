@@ -15,7 +15,7 @@ import nl.meron.yaeger.javafx.image.ImageViewFactory;
 import nl.meron.yaeger.guice.factories.SpriteAnimationDelegateFactory;
 
 /**
- * A {@code SpriteEntity} is a {@code Entity} that is represented by an Image.
+ * A {@link SpriteEntity} is a {@link Entity} that is represented by an Image.
  */
 public abstract class SpriteEntity implements Entity, ResourceConsumer {
 
@@ -26,6 +26,15 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     private ImageViewFactory imageViewFactory;
 
     private int frames;
+
+    /**
+     * TODO delete this method
+     *
+     */
+    public ImageView getImageView() {
+        return imageView;
+    }
+
     ImageView imageView;
 
     Point2D initialPosition;

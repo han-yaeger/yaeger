@@ -22,7 +22,8 @@ module nl.meron.yaeger {
     exports nl.meron.yaeger.engine.entities.entity.motion;
 
     opens pong;
-    opens showcase.images;
+    opens showcase.backgrounds;
+    opens showcase.entities;
     opens waterworld;
     opens waterworld.audio;
     opens waterworld.images;

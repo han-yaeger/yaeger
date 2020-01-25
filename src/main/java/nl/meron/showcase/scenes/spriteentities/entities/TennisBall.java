@@ -7,10 +7,10 @@ import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.entities.entity.sprite.DynamicSpriteEntity;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 
-public class Ball extends DynamicSpriteEntity implements SceneBorderTouchingWatcher {
+public class TennisBall extends DynamicSpriteEntity implements SceneBorderTouchingWatcher {
 
-    public Ball(Point point) {
-        super("showcase/images/tennisbal.png", point, new Size(30, 30), 0);
+    public TennisBall(Point point) {
+        super("showcase/entities/tennisball.png", point, new Size(30, 30), 0);
     }
 
     @Override

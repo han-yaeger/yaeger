@@ -5,13 +5,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import nl.meron.showcase.YaegerShowCase;
 import nl.meron.showcase.buttons.Back;
+import nl.meron.showcase.scenes.ShowCaseScene;
 import nl.meron.showcase.scenes.textentities.entities.SceneBorderCrossingDynamicTextEntity;
 import nl.meron.showcase.scenes.textentities.entities.SceneBorderTouchingDynamicTextEntity;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.impl.DynamicScene;
 
-public class TextEntitiesScene extends DynamicScene {
+public class TextEntitiesScene extends ShowCaseScene {
 
     private YaegerShowCase showCase;
 
@@ -26,7 +27,7 @@ public class TextEntitiesScene extends DynamicScene {
 
     @Override
     public void setupScene() {
-        setBackgroundImage("showcase/images/milky-way.jpg");
+        setBackgroundImage("showcase/backgrounds/milky-way.jpg");
     }
 
     @Override
@@ -45,7 +46,10 @@ public class TextEntitiesScene extends DynamicScene {
 
         addEntity(borderTouchingDynamicTextEntity);
         addEntity(borderCrossingDynamicTextEntity);
+    }
 
-
+    @Override
+    public YaegerShowCase getShowCase() {
+        return showCase;
     }
 }
