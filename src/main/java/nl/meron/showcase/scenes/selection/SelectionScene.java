@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import nl.meron.showcase.YaegerShowCase;
+import nl.meron.showcase.scenes.selection.entities.ClickableTextEntity;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.impl.StaticScene;
@@ -32,11 +33,11 @@ public class SelectionScene extends StaticScene {
         styleText(select);
         addEntity(select);
 
-        var textEntities = new TextEntity(new Point(20, 70), "1) Text Entities");
+        var textEntities = new ClickableTextEntity(new Point(20, 70), "1) Text Entities", showCase, YaegerShowCase.SCENE_TEXT_ENTITIES);
         styleText(textEntities);
         addEntity(textEntities);
 
-        var spriteEntities = new TextEntity(new Point(20, 100), "2) Sprite Entities");
+        var spriteEntities = new ClickableTextEntity(new Point(20, 100), "2) Sprite Entities", showCase, YaegerShowCase.SCENE_SPRITE_ENTITIES);
         styleText(spriteEntities);
         addEntity(spriteEntities);
     }
