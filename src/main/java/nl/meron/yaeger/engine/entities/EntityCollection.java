@@ -10,11 +10,9 @@ import nl.meron.yaeger.engine.entities.entity.collisions.Collider;
 import nl.meron.yaeger.engine.entities.entity.collisions.CollisionDelegate;
 import nl.meron.yaeger.engine.entities.entity.*;
 import nl.meron.yaeger.engine.entities.entity.events.EventTypes;
-import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseReleasedListener;
+import nl.meron.yaeger.engine.entities.entity.events.userinput.*;
 import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
-import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;
-import nl.meron.yaeger.engine.entities.entity.events.userinput.MousePressedListener;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -202,6 +200,12 @@ public class EntityCollection implements Initializable {
         }
         if (entity instanceof MouseReleasedListener) {
             ((MouseReleasedListener) entity).attachMouseReleasedListener();
+        }
+        if (entity instanceof MouseEnterListener) {
+            ((MouseEnterListener) entity).attachMouseEnterListener();
+        }
+        if (entity instanceof MouseEnterListener) {
+            ((MouseExitListener) entity).attachMouseExitListener();
         }
     }
 
