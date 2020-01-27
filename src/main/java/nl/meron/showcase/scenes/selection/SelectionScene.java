@@ -14,8 +14,9 @@ import java.util.Set;
 
 public class SelectionScene extends StaticScene {
 
-    private Color TEXT_COLOR = Color.YELLOW;
-    private Font TEXT_FONT = Font.font("American Typewriter", FontWeight.BOLD, 30);
+    public static final Color TEXT_COLOR = Color.YELLOW;
+    public static final Color TEXT_COLOR_HIGHLIGHT = Color.LIGHTYELLOW;
+    private static final Font TEXT_FONT = Font.font("American Typewriter", FontWeight.BOLD, 30);
     private YaegerShowCase showCase;
 
     public SelectionScene(final YaegerShowCase showCase) {

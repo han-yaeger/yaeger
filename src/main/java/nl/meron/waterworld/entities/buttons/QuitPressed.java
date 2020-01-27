@@ -5,11 +5,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import nl.meron.waterworld.Waterworld;
+import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseEnterListener;
+import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseExitListener;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MousePressedListener;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.text.TextEntity;
 
-public class QuitPressed extends TextEntity implements MousePressedListener {
+public class QuitPressed extends TextEntity implements MousePressedListener, MouseEnterListener, MouseExitListener {
+
+    private static final Color TEXT_COLOR = Color.YELLOWGREEN;
+    private static final Color TEXT_COLOR_HIGHLIGHT = Color.GREENYELLOW;
 
     public static final String EXIT_GAME = "Exit game";
     private Waterworld waterworld;
@@ -17,7 +22,7 @@ public class QuitPressed extends TextEntity implements MousePressedListener {
     public QuitPressed(Waterworld waterworld) {
         super(new Point(680, 400), EXIT_GAME);
         this.waterworld = waterworld;
-        setFill(Color.YELLOWGREEN);
+        setFill(TEXT_COLOR);
         setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 30));
     }
 
@@ -26,5 +31,15 @@ public class QuitPressed extends TextEntity implements MousePressedListener {
         if (button.equals(MouseButton.PRIMARY)) {
             waterworld.quitGame();
         }
+    }
+
+    @Override
+    public void onMouseEntered() {
+        setFill(TEXT_COLOR_HIGHLIGHT);
+    }
+
+    @Override
+    public void onMouseExited() {
+        setFill(TEXT_COLOR);
     }
 }
