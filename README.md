@@ -18,9 +18,11 @@ to the run configuration:
 --add-opens java.base/java.lang=com.google.guice
 ```
 
-## API
+## Documentation
 
-The full java API of yaeger is available at: [https://meronbrouwer.github.io/yaeger/](https://meronbrouwer.github.io/yaeger/)
+* API: [https://meronbrouwer.github.io/yaeger/](https://meronbrouwer.github.io/yaeger/)
+* Tutorial: [Yaeger tutorial](docs/tutorial.md)
+* Architecture: [Yaeger's architecture](docs/architecture.md)
 
 ## Disclaimer
 
