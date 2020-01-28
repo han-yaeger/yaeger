@@ -1,5 +1,6 @@
 package nl.meron.waterworld.entities.buttons;
 
+import javafx.scene.Cursor;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -36,10 +37,12 @@ public class StartPressed extends TextEntity implements MousePressedListener, Mo
     @Override
     public void onMouseEntered() {
         setFill(TEXT_COLOR_HIGHLIGHT);
+        setCursor(Cursor.HAND);
     }
 
     @Override
     public void onMouseExited() {
         setFill(TEXT_COLOR);
+        setCursor(Cursor.DEFAULT);
     }
 }

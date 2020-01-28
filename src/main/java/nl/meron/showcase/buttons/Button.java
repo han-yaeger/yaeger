@@ -1,4 +1,4 @@
-package nl.meron.showcase.scenes.selection.entities;
+package nl.meron.showcase.buttons;
 
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseButton;
@@ -11,12 +11,12 @@ import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseExitListener
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MousePressedListener;
 import nl.meron.yaeger.engine.entities.entity.text.TextEntity;
 
-public class ClickableTextEntity extends TextEntity implements MousePressedListener, MouseEnterListener, MouseExitListener {
+public class Button extends TextEntity implements MousePressedListener, MouseEnterListener, MouseExitListener {
 
     private YaegerShowCase showCase;
     private int scene;
 
-    public ClickableTextEntity(final Point initialPosition, final String text, YaegerShowCase showCase, int scene) {
+    public Button(final Point initialPosition, final String text, YaegerShowCase showCase, int scene) {
         super(initialPosition, text);
         this.showCase = showCase;
         this.scene = scene;
