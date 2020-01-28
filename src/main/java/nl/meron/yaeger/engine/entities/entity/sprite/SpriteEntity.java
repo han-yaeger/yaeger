@@ -27,14 +27,6 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
 
     private int frames;
 
-    /**
-     * TODO delete this method
-     *
-     */
-    public ImageView getImageView() {
-        return imageView;
-    }
-
     ImageView imageView;
 
     Point2D initialPosition;
