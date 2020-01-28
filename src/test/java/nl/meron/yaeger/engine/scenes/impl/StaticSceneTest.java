@@ -13,6 +13,7 @@ import nl.meron.yaeger.engine.scenes.delegates.KeyListenerDelegate;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;
 import nl.meron.yaeger.guice.factories.EntityCollectionFactory;
 import nl.meron.yaeger.guice.factories.SceneFactory;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -166,6 +167,56 @@ class StaticSceneTest {
 
         // Verify
         verify(debugger).toggle();
+    }
+
+    @Test
+    void setBackgroundAudioDelegatesToBackgroundDelegate() {
+        // Setup
+        final var AUDIO_STRING = "Hello World";
+
+        // Test
+        testStaticScene.setBackgroundAudio(AUDIO_STRING);
+
+        // Verify
+        verify(backgroundDelegate).setBackgroundAudio(AUDIO_STRING);
+    }
+
+    @Test
+    void setBackgroundImageDelegatesToBackgroundDelegate() {
+        // Setup
+        final var IMAGE_STRING = "Hello World";
+
+        // Test
+        testStaticScene.setBackgroundImage(IMAGE_STRING);
+
+        // Verify
+        verify(backgroundDelegate).setBackgroundImage(IMAGE_STRING);
+    }
+
+    @Test
+    void getSceneReturnsExpectedScene() {
+        // Setup
+        testStaticScene.configure();
+
+        // Test
+        var returnedScene = testStaticScene.getScene();
+
+        // Verify
+        Assertions.assertEquals(scene, returnedScene);
+    }
+
+    @Test
+    void postActivationMakeRequiredCalls() {
+        // Setup
+        testStaticScene.configure();
+
+        // Test
+        testStaticScene.postActivation();
+
+        // Verify
+        verify(entityCollection).registerSupplier(any());
+        verify(entityCollection).initialUpdate();
+        verify(debugger).toFront();
     }
 
     private class TestStaticScene extends StaticScene {
