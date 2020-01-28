@@ -1,5 +1,6 @@
 package nl.meron.showcase.scenes.selection.entities;
 
+import javafx.scene.Cursor;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import nl.meron.showcase.YaegerShowCase;
@@ -29,10 +30,12 @@ public class ClickableTextEntity extends TextEntity implements MousePressedListe
     @Override
     public void onMouseEntered() {
         setFill(SelectionScene.TEXT_COLOR_HIGHLIGHT);
+        setCursor(Cursor.HAND);
     }
 
     @Override
     public void onMouseExited() {
         setFill(SelectionScene.TEXT_COLOR);
+        setCursor(Cursor.DEFAULT);
     }
 }

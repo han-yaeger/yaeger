@@ -1,5 +1,6 @@
 package nl.meron.yaeger.engine.scenes;
 
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import nl.meron.yaeger.engine.Clearable;
 import nl.meron.yaeger.engine.Configurable;
@@ -54,4 +55,8 @@ public interface YaegerScene extends Destroyable, Initializable, Configurable, C
      * @return The {@link Scene} that is encapsulated bu this {@link YaegerScene}
      */
     Scene getScene();
+
+    default void setCursor(Cursor cursor){
+        getScene().setCursor(cursor);
+    }
 }

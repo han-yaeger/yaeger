@@ -4,6 +4,7 @@ import com.google.inject.Injector;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import nl.meron.yaeger.engine.entities.entity.Entity;
@@ -71,6 +72,18 @@ class EntityTest {
     }
 
     @Test
+    void setCursorDelegatesToScene() {
+        // Setup
+        when(node.getScene()).thenReturn(scene);
+
+        // Test
+        testEntity.setCursor(Cursor.DEFAULT);
+
+        // Verify
+        verify(scene).setCursor(Cursor.DEFAULT);
+    }
+
+    @Test
     void getBoundsDelegatesToNode() {
         // Setup
         when(node.getBoundsInParent()).thenReturn(BOUNDING_BOX);
@@ -103,7 +116,7 @@ class EntityTest {
         double leftSideX = testEntity.getLeftSideX();
 
         // Assert
-        assertEquals(ANCHORPOINT.getX() , leftSideX);
+        assertEquals(ANCHORPOINT.getX(), leftSideX);
     }
 
     @Test
