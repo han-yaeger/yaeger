@@ -2,10 +2,11 @@ package nl.meron.yaeger.engine.entities.entity.events.userinput;
 
 import javafx.scene.input.MouseButton;
 import nl.meron.yaeger.engine.entities.entity.Entity;
+import nl.meron.yaeger.engine.entities.entity.Initializer;
 import nl.meron.yaeger.engine.entities.entity.NodeProvider;
 
 /**
- * Being a {@code MouseButtonListener} enables the {@link Entity} to be notified if a {@link MouseButton} has been clicked
+ * Being a {@link MousePressedListener} enables the {@link Entity} to be notified if a {@link MouseButton} has been clicked
  * while the mouse pointer is on the {@link Entity}.
  */
 public interface MousePressedListener extends NodeProvider {
@@ -20,6 +21,7 @@ public interface MousePressedListener extends NodeProvider {
     /**
      * Attach a mousePressedListener to this entity.
      */
+    @Initializer
     default void attachMousePressedListener() {
         getGameNode().setOnMousePressed(event -> onMousePressed(event.getButton()));
     }

@@ -1,6 +1,7 @@
 package nl.meron.yaeger.engine.entities.entity.events.userinput;
 
 import nl.meron.yaeger.engine.entities.entity.Entity;
+import nl.meron.yaeger.engine.entities.entity.Initializer;
 import nl.meron.yaeger.engine.entities.entity.NodeProvider;
 
 /**
@@ -17,6 +18,7 @@ public interface MouseExitListener extends NodeProvider {
     /**
      * Attach a mousePressedListener to this entity.
      */
+    @Initializer
     default void attachMouseExitListener() {
         getGameNode().setOnMouseExited(mouseEvent -> onMouseExited());
     }

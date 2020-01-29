@@ -123,6 +123,33 @@ class EntityCollectionTest {
     }
 
     @Test
+    void methodWithInitializerAnnotationGetsCalledInInit() {
+        var entityWithInitializer = new EntityWithInitializer();
+        var node = mock(Node.class, withSettings().withoutAnnotations());
+        entityWithInitializer.setNode(node);
+
+        Set<Entity> statics = new HashSet<>();
+        statics.add(entityWithInitializer);
+        var supplier = mock(EntitySupplier.class);
+        when(supplier.get()).thenReturn(statics);
+
+        var group = mock(Group.class);
+        var children = mock(ObservableList.class);
+        when(group.getChildren()).thenReturn(children);
+
+        sut = new EntityCollection(group);
+        sut.init(injector);
+
+        sut.registerSupplier(supplier);
+
+        // Test
+        sut.initialUpdate();
+
+        // Verify
+        Assertions.assertTrue(entityWithInitializer.isInitialized());
+    }
+
+    @Test
     void entityWithAsFirstUpdateGetsAddedToTheUpdatersAsFirst() {
         var firstUpdateDelegatingEntity = new FirstUpdateDelegatingEntity();
         var node = mock(Node.class, withSettings().withoutAnnotations());
@@ -209,54 +236,6 @@ class EntityCollectionTest {
 
         // Verify
         verify(keyListeningEntity).onPressedKeysChange(keycodes);
-    }
-
-    @Test
-    void mousePressedListeningEntityAttachesListenerOnMousePressedEvent() {
-        // Setup
-        var mousePressedListeningEntity = mock(MousePressedListeningEntity.class);
-        var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(mousePressedListeningEntity.getGameNode()).thenReturn(node);
-
-        var group = mock(Group.class);
-        var children = mock(ObservableList.class);
-        when(group.getChildren()).thenReturn(children);
-
-        var entitySupplier = new EntitySupplier();
-        entitySupplier.add(mousePressedListeningEntity);
-
-        // Test
-        sut = new EntityCollection(group);
-        sut.init(injector);
-        sut.registerSupplier(entitySupplier);
-        sut.update(0);
-
-        // Verify
-        verify(mousePressedListeningEntity).attachMousePressedListener();
-    }
-
-    @Test
-    void mouseReleasedListeningEntityAttachesListenerOnMouseReleasedEvent() {
-        // Setup
-        var mousePressedListeningEntity = mock(MouseReleasedListeningEntity.class);
-        var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(mousePressedListeningEntity.getGameNode()).thenReturn(node);
-
-        var group = mock(Group.class);
-        var children = mock(ObservableList.class);
-        when(group.getChildren()).thenReturn(children);
-
-        var entitySupplier = new EntitySupplier();
-        entitySupplier.add(mousePressedListeningEntity);
-
-        // Test
-        sut = new EntityCollection(group);
-        sut.init(injector);
-        sut.registerSupplier(entitySupplier);
-        sut.update(0);
-
-        // Verify
-        verify(mousePressedListeningEntity).attachMouseReleasedListener();
     }
 
     private class FirstUpdateDelegatingEntity extends UpdatableEntity implements UpdateDelegator {
@@ -372,72 +351,6 @@ class EntityCollectionTest {
         }
     }
 
-    private class MousePressedListeningEntity implements Entity, MousePressedListener {
-
-        @Override
-        public Point getPosition() {
-            return null;
-        }
-
-        @Override
-        public void placeOnPosition(double x, double y) {
-            // Not required here.
-        }
-
-        @Override
-        public void init(Injector injector) {
-            // Not required here.
-        }
-
-        @Override
-        public void remove() {
-            // Not required here.
-        }
-
-        @Override
-        public Node getGameNode() {
-            return null;
-        }
-
-        @Override
-        public void onMousePressed(MouseButton button) {
-            // Not required here.
-        }
-    }
-
-    private class MouseReleasedListeningEntity implements Entity, MouseReleasedListener {
-
-        @Override
-        public Point getPosition() {
-            return null;
-        }
-
-        @Override
-        public void placeOnPosition(double x, double y) {
-            // Not required here.
-        }
-
-        @Override
-        public void init(Injector injector) {
-            // Not required here.
-        }
-
-        @Override
-        public void remove() {
-            // Not required here.
-        }
-
-        @Override
-        public Node getGameNode() {
-            return null;
-        }
-
-        @Override
-        public void onMouseReleased(MouseButton button) {
-            // Not required here.
-        }
-    }
-
     private class KeyListeningEntity implements Entity, KeyListener {
 
         @Override
@@ -468,6 +381,45 @@ class EntityCollectionTest {
         @Override
         public void init(Injector injector) {
             // Not required here.
+        }
+    }
+
+    private class EntityWithInitializer implements Entity {
+
+        private boolean initialized = false;
+        private Node node;
+
+        public void setNode(Node node) {
+            this.node = node;
+        }
+
+        @Override
+        public void init(Injector injector) {
+            // Not required here.
+        }
+
+        @Override
+        public void placeOnPosition(double x, double y) {
+            // Not required here.
+        }
+
+        @Override
+        public void remove() {
+            // Not required here.
+        }
+
+        @Override
+        public Node getGameNode() {
+            return node;  // Not required here.
+        }
+
+        @Initializer
+        public void initializerMethod() {
+            this.initialized = true;
+        }
+
+        public boolean isInitialized() {
+            return initialized;
         }
     }
 

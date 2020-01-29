@@ -187,31 +187,28 @@ public class EntityCollection implements Initializable {
     private void addToGameLoop(Entity entity) {
         initialize(entity);
         addToKeylisteners(entity);
-        attachMouseEventListeners(entity);
         attachGameEventListeners(entity);
         addToUpdatablesOrStatics(entity);
         collisionDelegate.register(entity);
         addToScene(entity);
     }
 
-    private void attachMouseEventListeners(Entity entity) {
-        if (entity instanceof MousePressedListener) {
-            ((MousePressedListener) entity).attachMousePressedListener();
-        }
-        if (entity instanceof MouseReleasedListener) {
-            ((MouseReleasedListener) entity).attachMouseReleasedListener();
-        }
-        if (entity instanceof MouseEnterListener) {
-            ((MouseEnterListener) entity).attachMouseEnterListener();
-        }
-        if (entity instanceof MouseEnterListener) {
-            ((MouseExitListener) entity).attachMouseExitListener();
-        }
-    }
-
     private void initialize(Entity entity) {
         injector.injectMembers(entity);
         entity.init(injector);
+        invokeInitializers(entity);
+    }
+
+    private void invokeInitializers(Entity entity) {
+        for (Method method : entity.getClass().getMethods()) {
+            if (method.isAnnotationPresent(Initializer.class)) {
+                try {
+                    method.invoke(entity);
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    throw new YaegerEngineException(e);
+                }
+            }
+        }
     }
 
     private void addToUpdatablesOrStatics(Entity entity) {
