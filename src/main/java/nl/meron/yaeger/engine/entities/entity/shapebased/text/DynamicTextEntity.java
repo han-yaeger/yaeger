@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.entities.entity.text;
+package nl.meron.yaeger.engine.entities.entity.shapebased.text;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;

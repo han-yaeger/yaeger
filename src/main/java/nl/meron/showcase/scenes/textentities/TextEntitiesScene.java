@@ -9,8 +9,7 @@ import nl.meron.showcase.scenes.ShowCaseScene;
 import nl.meron.showcase.scenes.textentities.entities.SceneBorderCrossingDynamicTextEntity;
 import nl.meron.showcase.scenes.textentities.entities.SceneBorderTouchingDynamicTextEntity;
 import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.entities.entity.text.TextEntity;
-import nl.meron.yaeger.engine.scenes.impl.DynamicScene;
+import nl.meron.yaeger.engine.entities.entity.shapebased.text.TextEntity;
 
 public class TextEntitiesScene extends ShowCaseScene {
 

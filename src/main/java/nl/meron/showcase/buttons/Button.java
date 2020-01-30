@@ -2,14 +2,13 @@ package nl.meron.showcase.buttons;
 
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseButton;
-import javafx.scene.paint.Color;
 import nl.meron.showcase.YaegerShowCase;
 import nl.meron.showcase.scenes.selection.SelectionScene;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseEnterListener;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseExitListener;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MousePressedListener;
-import nl.meron.yaeger.engine.entities.entity.text.TextEntity;
+import nl.meron.yaeger.engine.entities.entity.shapebased.text.TextEntity;
 
 public class Button extends TextEntity implements MousePressedListener, MouseEnterListener, MouseExitListener {
 

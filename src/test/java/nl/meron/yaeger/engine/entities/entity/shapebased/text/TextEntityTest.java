@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.entities.entity.text;
+package nl.meron.yaeger.engine.entities.entity.shapebased.text;
 
 import com.google.inject.Injector;
 import javafx.scene.paint.Color;
@@ -25,49 +25,34 @@ class TextEntityTest {
 
     @BeforeEach
     void setup() {
-
         text = mock(Text.class);
         injector = mock(Injector.class);
     }
 
     @Test
-    void settingTheDelegateSetsPositionOnDelegate() {
-        // Setup
-        var textEntity = new TextEntity(POINT);
-
-        // Test
-        textEntity.setTextDelegate(text);
-        textEntity.init(injector);
-
-        // Verify
-        verify(text).setX(POINT.getX());
-        verify(text).setY(POINT.getY());
-    }
-
-    @Test
     void settingDelegateSetsPositionOnDelegateForEmptyConstructor() {
         // Setup
-        var textEntity = new TextEntity();
+        var sut = new TextEntity();
 
         // Test
-        textEntity.placeOnPosition(POINT.getX(), POINT.getY());
-        textEntity.setTextDelegate(text);
-        textEntity.init(injector);
+        sut.placeOnPosition(POINT.getX(), POINT.getY());
+        sut.setTextDelegate(text);
+        sut.init(injector);
 
         // Verify
-        verify(text).setX(POINT.getX());
-        verify(text).setY(POINT.getY());
+        verify(text).setLayoutX(POINT.getX());
+        verify(text).setLayoutY(POINT.getY());
     }
 
     @Test
     void settingDelegateSetsTextOnDelegate() {
         // Setup
-        var textEntity = new TextEntity(POINT);
+        var sut = new TextEntity(POINT);
 
         // Test
-        textEntity.setText(YAEGER);
-        textEntity.setTextDelegate(text);
-        textEntity.init(injector);
+        sut.setText(YAEGER);
+        sut.setTextDelegate(text);
+        sut.init(injector);
 
         // Verify
         verify(text).setText(YAEGER);
@@ -76,12 +61,12 @@ class TextEntityTest {
     @Test
     void settingDelegateSetsFillOnDelegate() {
         // Setup
-        var textEntity = new TextEntity(POINT);
+        var sut = new TextEntity(POINT);
 
         // Test
-        textEntity.setFill(COLOR);
-        textEntity.setTextDelegate(text);
-        textEntity.init(injector);
+        sut.setFill(COLOR);
+        sut.setTextDelegate(text);
+        sut.init(injector);
 
         // Verify
         verify(text).setFill(COLOR);
@@ -90,72 +75,43 @@ class TextEntityTest {
     @Test
     void settingDelegateSetsFontOnDelegate() {
         // Setup
-        var textEntity = new TextEntity(POINT);
-
+        var sut = new TextEntity(POINT);
 
         // Test
-        textEntity.setFont(FONT);
-        textEntity.setTextDelegate(text);
-        textEntity.init(injector);
+        sut.setFont(FONT);
+        sut.setTextDelegate(text);
+        sut.init(injector);
 
         // Verify
         verify(text).setFont(FONT);
     }
 
-    @Test
-    void settingDelegateSetsVisibleOnDelegate() {
-        // Setup
-        var textEntity = new TextEntity(POINT);
 
-        // Test
-        textEntity.setVisible(false);
-        textEntity.setTextDelegate(text);
-        textEntity.init(injector);
-
-        // Verify
-        verify(text).setVisible(false);
-    }
 
     @Test
     void settingDelegateWithContentDelegatesContent() {
         // Setup
-        var textEntity = new TextEntity(POINT, YAEGER);
+        var sut = new TextEntity(POINT, YAEGER);
 
         // Test
-        textEntity.setTextDelegate(text);
-        textEntity.init(injector);
+        sut.setTextDelegate(text);
+        sut.init(injector);
 
         // Verify
         verify(text).setText(YAEGER);
     }
 
     @Test
-    void callingRemoveCleansUpTheEntity() {
-        // Setup
-        var textEntity = new TextEntity(POINT, YAEGER);
-        textEntity.setTextDelegate(text);
-        textEntity.init(injector);
-
-        // Test
-        textEntity.remove();
-
-        // Verify
-        verify(text, times(1)).setVisible(false);
-        verify(text).setText(null);
-        verify(text).fireEvent(any(RemoveEntityEvent.class));
-    }
-
-    @Test
     void getGameNodeReturnsTheTextDelegate() {
         // Setup
-        var textEntity = new TextEntity(POINT, YAEGER);
+        var sut = new TextEntity(POINT, YAEGER);
 
         // Test
-        textEntity.setTextDelegate(text);
-        textEntity.init(injector);
+        sut.setTextDelegate(text);
+        sut.init(injector);
 
         // Verify
-        Assertions.assertEquals(text, textEntity.getGameNode());
+        Assertions.assertEquals(text, sut.getGameNode());
     }
 
     @Test
@@ -177,7 +133,7 @@ class TextEntityTest {
         verify(text).setFill(COLOR);
         verify(text).setText(YAEGER);
         verify(text).setFont(FONT);
-        verify(text).setX(POINT.getX());
-        verify(text).setY(POINT.getY());
+        verify(text).setLayoutX(POINT.getX());
+        verify(text).setLayoutY(POINT.getY());
     }
 }

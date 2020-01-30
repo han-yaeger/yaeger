@@ -1,29 +1,25 @@
-package nl.meron.yaeger.engine.entities.entity.text;
+package nl.meron.yaeger.engine.entities.entity.shapebased.text;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import javafx.geometry.VPos;
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.shapebased.ShapeBasedEntity;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 
 /**
  * A {@code TextEntity} can be used to display a line of text on a {@link YaegerScene}. The text will be placed, using
  * the top left corner as its anchor point.
  */
-public class TextEntity implements Entity {
+public class TextEntity extends ShapeBasedEntity {
 
-    private Text textDelegate;
-    private Point2D initialPosition;
     private Color fill;
     private Font font;
     private String initialText;
-    private boolean visible = true;
 
     /**
      * Instantiate a new {@code TextEntity}.
@@ -48,7 +44,7 @@ public class TextEntity implements Entity {
      * @param text            a {@link String} containing the initial textDelegate to be displayed
      */
     public TextEntity(final Point initialPosition, final String text) {
-        this.initialPosition = initialPosition;
+        super(initialPosition);
         this.initialText = text;
     }
 
@@ -59,8 +55,8 @@ public class TextEntity implements Entity {
      */
     public void setText(final String text) {
         this.initialText = text;
-        if (this.textDelegate != null) {
-            this.textDelegate.setText(text);
+        if (this.getGameNode() != null) {
+            ((Text) getGameNode()).setText(text);
         }
     }
 
@@ -71,8 +67,8 @@ public class TextEntity implements Entity {
      */
     public void setFill(final Color color) {
         this.fill = color;
-        if (textDelegate != null) {
-            textDelegate.setFill(color);
+        if (getGameNode() != null) {
+            ((Text) getGameNode()).setFill(color);
         }
     }
 
@@ -90,62 +86,31 @@ public class TextEntity implements Entity {
      */
     public void setFont(final Font font) {
         this.font = font;
-
-        if (textDelegate != null) {
-            textDelegate.setFont(font);
-        }
-    }
-
-    @Override
-    public void placeOnPosition(final double x, final double y) {
-        this.initialPosition = new Point2D(x, y);
-
-        if (textDelegate != null) {
-            textDelegate.setX(x);
-            textDelegate.setY(y);
-        }
-    }
-
-    @Override
-    public void remove() {
-        textDelegate.setVisible(false);
-        textDelegate.setText(null);
-        notifyRemove();
-    }
-
-    @Override
-    public Node getGameNode() {
-        return textDelegate;
-    }
-
-    @Override
-    public void setVisible(final boolean visible) {
-        this.visible = visible;
-        if (textDelegate != null) {
-            textDelegate.setVisible(visible);
+        if (getGameNode() != null) {
+            ((Text) getGameNode()).setFont(font);
         }
     }
 
     @Override
     public void init(final Injector injector) {
-        textDelegate.setTextOrigin(VPos.TOP);
-        if (initialPosition != null) {
-            placeOnPosition(initialPosition.getX(), initialPosition.getY());
-        }
+        super.init(injector);
+
+        var textGameNode = (Text) getGameNode();
+        textGameNode.setTextOrigin(VPos.TOP);
+
         if (font != null) {
-            textDelegate.setFont(font);
+            textGameNode.setFont(font);
         }
         if (fill != null) {
-            textDelegate.setFill(fill);
+            textGameNode.setFill(fill);
         }
         if (initialText != null && !initialText.isEmpty()) {
-            textDelegate.setText(initialText);
+            textGameNode.setText(initialText);
         }
-        textDelegate.setVisible(visible);
     }
 
     @Inject
     public void setTextDelegate(final Text text) {
-        this.textDelegate = text;
+        this.shape = text;
     }
 }

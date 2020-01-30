@@ -8,7 +8,7 @@ import nl.meron.pong.scenes.entities.PlayerOneBat;
 import nl.meron.pong.scenes.entities.PlayerTwoBat;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.Size;
-import nl.meron.yaeger.engine.entities.entity.text.TextEntity;
+import nl.meron.yaeger.engine.entities.entity.shapebased.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 import nl.meron.yaeger.engine.scenes.impl.DynamicScene;
 

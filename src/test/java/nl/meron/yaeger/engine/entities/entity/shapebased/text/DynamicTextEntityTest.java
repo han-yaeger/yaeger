@@ -1,10 +1,9 @@
-package nl.meron.yaeger.engine.entities.entity.text;
+package nl.meron.yaeger.engine.entities.entity.shapebased.text;
 
 import com.google.inject.Injector;
 import javafx.scene.text.Text;
 import nl.meron.yaeger.engine.entities.entity.Updater;
 import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
-import nl.meron.yaeger.engine.entities.entity.motion.MotionApplier;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

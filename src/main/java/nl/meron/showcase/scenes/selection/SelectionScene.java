@@ -7,7 +7,7 @@ import javafx.scene.text.FontWeight;
 import nl.meron.showcase.YaegerShowCase;
 import nl.meron.showcase.buttons.Button;
 import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.entities.entity.text.TextEntity;
+import nl.meron.yaeger.engine.entities.entity.shapebased.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.impl.StaticScene;
 
 import java.util.Set;

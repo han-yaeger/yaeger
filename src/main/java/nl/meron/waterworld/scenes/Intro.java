@@ -8,7 +8,7 @@ import nl.meron.waterworld.Waterworld;
 import nl.meron.waterworld.entities.buttons.QuitPressed;
 import nl.meron.waterworld.entities.buttons.StartPressed;
 import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.entities.entity.text.TextEntity;
+import nl.meron.yaeger.engine.entities.entity.shapebased.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.impl.StaticScene;
 
 import java.util.Set;
