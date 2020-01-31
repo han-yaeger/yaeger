@@ -1,6 +1,7 @@
 package nl.meron.showcase;
 
 import nl.meron.showcase.scenes.selection.SelectionScene;
+import nl.meron.showcase.scenes.shapeentities.ShapeEntitiesScene;
 import nl.meron.showcase.scenes.spriteentities.SpriteEntitiesScene;
 import nl.meron.showcase.scenes.textentities.TextEntitiesScene;
 import nl.meron.yaeger.engine.Size;
@@ -17,6 +18,7 @@ public class YaegerShowCase extends YaegerEngine {
     public static final int SCENE_SELECTION = 0;
     public static final int SCENE_TEXT_ENTITIES = 1;
     public static final int SCENE_SPRITE_ENTITIES = 2;
+    public static final int SCENE_SHAPE_ENTITIES = 3;
 
     public static void main(String[] args) {
         launch(args);
@@ -36,6 +38,8 @@ public class YaegerShowCase extends YaegerEngine {
         addScene(SCENE_TEXT_ENTITIES, textEntitiesScene);
         var spriteEntitiesScene = new SpriteEntitiesScene(this);
         addScene(SCENE_SPRITE_ENTITIES, spriteEntitiesScene);
+        var shapeEntitiesScene = new ShapeEntitiesScene(this);
+        addScene(SCENE_SHAPE_ENTITIES, shapeEntitiesScene);
     }
 
     public void setActiveScene(int scene) {

@@ -41,6 +41,10 @@ public class SelectionScene extends StaticScene {
         var spriteEntities = new Button(new Point(20, 100), "2) Sprite Entities", showCase, YaegerShowCase.SCENE_SPRITE_ENTITIES);
         styleText(spriteEntities);
         addEntity(spriteEntities);
+
+        var shapeEntities = new Button(new Point(20, 130), "3) Shape Entities", showCase, YaegerShowCase.SCENE_SHAPE_ENTITIES);
+        styleText(shapeEntities);
+        addEntity(shapeEntities);
     }
 
     @Override
@@ -49,6 +53,8 @@ public class SelectionScene extends StaticScene {
             showCase.setActiveScene(YaegerShowCase.SCENE_TEXT_ENTITIES);
         } else if (input.contains(KeyCode.DIGIT2)) {
             showCase.setActiveScene(YaegerShowCase.SCENE_SPRITE_ENTITIES);
+        } else if (input.contains(KeyCode.DIGIT3)) {
+            showCase.setActiveScene(YaegerShowCase.SCENE_SHAPE_ENTITIES);
         }
     }
 
