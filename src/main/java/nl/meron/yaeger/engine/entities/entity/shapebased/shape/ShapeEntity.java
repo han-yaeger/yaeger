@@ -34,5 +34,6 @@ public abstract class ShapeEntity extends ShapeBasedEntity {
      *
      * @return The {@link Shape} that should be used bij this {@link ShapeEntity}.
      */
-    abstract protected Shape provideShape();
+    protected abstract Shape provideShape();
+
 }
