@@ -16,11 +16,6 @@ public class BasketBall extends DynamicSpriteEntity implements KeyListener {
     }
 
     @Override
-    public void configure() {
-
-    }
-
-    @Override
     public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
 
         if (pressedKeys.contains(KeyCode.T)) {

@@ -14,6 +14,7 @@ public class AnimatedShark extends DynamicSpriteEntity implements Collider, Scen
     public AnimatedShark(Point point) {
         super(IMAGES_ANIMATED_SHARK_PNG, point, new Size(200, 200), 19);
         setAutoCycle(25);
+        setMotionTo(4, Direction.LEFT.getValue());
     }
 
     @Override
@@ -21,10 +22,5 @@ public class AnimatedShark extends DynamicSpriteEntity implements Collider, Scen
         if (border.equals(SceneBorder.LEFT)) {
             placeOnPosition(getSceneWidth(), getY());
         }
-    }
-
-    @Override
-    public void configure() {
-        setMotionTo(4, Direction.LEFT.getValue());
     }
 }

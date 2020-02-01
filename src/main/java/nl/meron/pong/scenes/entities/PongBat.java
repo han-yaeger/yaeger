@@ -12,9 +12,4 @@ abstract class PongBat extends DynamicSpriteEntity implements KeyListener, Colli
     PongBat(Point initialPoint, Size size) {
         super("pong/bat.png", initialPoint, size);
     }
-
-    @Override
-    public void configure() {
-
-    }
 }

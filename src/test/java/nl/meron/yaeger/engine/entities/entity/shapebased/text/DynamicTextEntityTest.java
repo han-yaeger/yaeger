@@ -28,17 +28,6 @@ class DynamicTextEntityTest {
     }
 
     @Test
-    void configureIsCalledOnInitialization() {
-        // Setup
-
-        // Test
-        sut.init(injector);
-
-        // Verify
-        Assertions.assertTrue(sut.configureCalled);
-    }
-
-    @Test
     void setMotionApplierIsUsed() {
         // Setup
         var motionApplier = mock(DefaultMotionApplier.class);
@@ -66,12 +55,6 @@ class DynamicTextEntityTest {
 
     private class DynamicTextEntityImpl extends DynamicTextEntity {
 
-        boolean configureCalled = false;
-
-        @Override
-        public void configure() {
-            configureCalled = true;
-        }
     }
 }
 

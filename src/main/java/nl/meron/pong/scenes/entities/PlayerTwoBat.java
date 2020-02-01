@@ -22,6 +22,4 @@ public class PlayerTwoBat extends PongBat {
             setSpeedTo(0);
         }
     }
-
-
 }

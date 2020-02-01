@@ -11,15 +11,11 @@ public class TennisBall extends DynamicSpriteEntity implements SceneBorderTouchi
 
     public TennisBall(Point point) {
         super("showcase/entities/tennisball.png", point, new Size(30, 30), 0);
+        setMotionTo(4, Direction.RIGHT.getValue());
     }
 
     @Override
     public void notifyBoundaryTouching(SceneBorder border) {
         changeDirectionBy(180);
-    }
-
-    @Override
-    public void configure() {
-        setMotionTo(4, Direction.RIGHT.getValue());
     }
 }

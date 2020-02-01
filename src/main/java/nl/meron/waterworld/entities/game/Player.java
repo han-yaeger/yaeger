@@ -57,9 +57,4 @@ public class Player extends DynamicSpriteEntity implements KeyListener, Collidab
             doDamage();
         }
     }
-
-    @Override
-    public void configure() {
-
-    }
 }

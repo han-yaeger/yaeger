@@ -165,11 +165,6 @@ class MoveableTest {
         }
 
         @Override
-        public void configure() {
-            // Not required here
-        }
-
-        @Override
         public void placeOnPosition(double x, double y) {
             // Not required here.
         }

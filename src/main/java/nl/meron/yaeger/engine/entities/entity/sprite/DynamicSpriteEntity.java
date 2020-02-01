@@ -18,6 +18,8 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     private DefaultMotionApplier motionApplier;
     private long autoCycleInterval = 0;
     private Updater updater;
+    private double speed;
+    private double direction;
 
     /**
      * Create a new SpriteEntity.
@@ -71,8 +73,21 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
         if (getFrames() > 1 && autoCycleInterval != 0) {
             spriteAnimationDelegate.setAutoCycle(autoCycleInterval);
         }
+        if (motionApplier != null && speed != 0 && direction != 0) {
+            motionApplier.setMotionTo(speed, direction);
+        }
+    }
 
-        this.configure();
+    @Override
+    public MotionApplier setMotionTo(double speed, double direction) {
+        this.speed = speed;
+        this.direction = direction;
+
+        if (motionApplier != null) {
+            return motionApplier.setMotionTo(speed, direction);
+        } else {
+            return null;
+        }
     }
 
     @Inject

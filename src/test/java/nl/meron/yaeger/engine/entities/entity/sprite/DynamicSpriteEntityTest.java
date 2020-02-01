@@ -109,31 +109,6 @@ class DynamicSpriteEntityTest {
     }
 
     @Test
-    void configureIsCalledAtInitialization() {
-        // Setup
-        var frames = 1;
-        var image = mock(Image.class);
-        var imageView = mock(ImageView.class);
-        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
-        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        sut.setImageRepository(imageRepository);
-        sut.setImageViewFactory(imageViewFactory);
-        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        sut.setUpdater(updater);
-
-        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * frames, HEIGHT, true)).thenReturn(image);
-
-        when(imageViewFactory.create(image)).thenReturn(imageView);
-        when(spriteAnimationDelegateFactory.create(imageView, frames)).thenReturn(spriteAnimationDelegate);
-
-        // Test
-        sut.init(injector);
-
-        // Verify
-        Assertions.assertTrue(sut.configureCalled);
-    }
-
-    @Test
     void addedUpdaterIsUsedAsUpdater() {
         // Setup
         var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, 1);
@@ -146,24 +121,6 @@ class DynamicSpriteEntityTest {
 
         // Verify
         Assertions.assertEquals(updater, updater1);
-    }
-
-    private class TestDynamicSpriteEntity extends DynamicSpriteEntity {
-
-        boolean configureCalled = false;
-
-        TestDynamicSpriteEntity(String resource, Point point, Size size) {
-            super(resource, point, size);
-        }
-
-        TestDynamicSpriteEntity(String resource, Point point, Size size, int frames) {
-            super(resource, point, size, frames);
-        }
-
-        @Override
-        public void configure() {
-            configureCalled = true;
-        }
     }
 
     @Test
@@ -180,16 +137,22 @@ class DynamicSpriteEntityTest {
         Assertions.assertEquals(motionApplier, mA);
     }
 
+    private class TestDynamicSpriteEntity extends DynamicSpriteEntity {
+
+        TestDynamicSpriteEntity(String resource, Point point, Size size) {
+            super(resource, point, size);
+        }
+
+        TestDynamicSpriteEntity(String resource, Point point, Size size, int frames) {
+            super(resource, point, size, frames);
+        }
+    }
+
     private class AutoCyclingDynamicSpriteEntity extends DynamicSpriteEntity {
 
         AutoCyclingDynamicSpriteEntity(String resource, Point point, Size size, int frames) {
             super(resource, point, size, frames);
             setAutoCycle(2);
-        }
-
-        @Override
-        public void configure() {
-
         }
     }
 }

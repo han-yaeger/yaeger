@@ -14,6 +14,8 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
 
     private DefaultMotionApplier motionApplier;
     private Updater updater;
+    private double speed;
+    private double direction;
 
     /**
      * Instantiate a new {@link DynamicTextEntity}.
@@ -50,12 +52,26 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
     public void init(final Injector injector) {
         super.init(injector);
 
-        this.configure();
+        if (motionApplier != null && speed != 0 && direction != 0) {
+            motionApplier.setMotionTo(speed, direction);
+        }
     }
 
     @Override
     public Updater getUpdater() {
         return updater;
+    }
+
+    @Override
+    public MotionApplier setMotionTo(double speed, double direction) {
+        this.speed = speed;
+        this.direction = direction;
+
+        if (motionApplier != null) {
+            return motionApplier.setMotionTo(speed, direction);
+        } else {
+            return null;
+        }
     }
 
     @Inject

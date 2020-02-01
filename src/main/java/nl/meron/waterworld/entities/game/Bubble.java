@@ -22,6 +22,7 @@ public abstract class Bubble extends DynamicSpriteEntity implements Collided, Sc
         super(resource, point, new Size(20, 20), 0);
         this.level = game;
         this.speed = speed;
+        setMotionTo(speed, Direction.UP.getValue());
     }
 
     @Override
@@ -36,11 +37,6 @@ public abstract class Bubble extends DynamicSpriteEntity implements Collided, Sc
         if (border.equals(SceneBorder.TOP)) {
             remove();
         }
-    }
-
-    @Override
-    public void configure() {
-        setMotionTo(speed, Direction.UP.getValue());
     }
 
     void handleSharkCollision() {

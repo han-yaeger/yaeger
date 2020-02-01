@@ -14,6 +14,7 @@ public class Swordfish extends DynamicSpriteEntity implements Collider, SceneBor
 
     public Swordfish(final Point point) {
         super(IMAGES_SWORDFISH_PNG, point, new Size(300, 108), 1);
+        setMotionTo(2, Direction.LEFT.getValue());
     }
 
     @Override
@@ -21,10 +22,5 @@ public class Swordfish extends DynamicSpriteEntity implements Collider, SceneBor
         if (border.equals(SceneBorder.LEFT)) {
             placeOnPosition(getSceneWidth(), getY());
         }
-    }
-
-    @Override
-    public void configure() {
-        setMotionTo(2, Direction.LEFT.getValue());
     }
 }
