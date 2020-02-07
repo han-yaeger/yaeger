@@ -3,9 +3,10 @@ package nl.meron.showcase.scenes.shapeentities;
 import nl.meron.showcase.YaegerShowCase;
 import nl.meron.showcase.buttons.Back;
 import nl.meron.showcase.scenes.ShowCaseScene;
-import nl.meron.showcase.scenes.shapeentities.entities.CircleEntity;
-import nl.meron.showcase.scenes.shapeentities.entities.EllipseEntity;
-import nl.meron.showcase.scenes.shapeentities.entities.RectangleEntity;
+import nl.meron.showcase.scenes.shapeentities.entities.DynamicRectangle;
+import nl.meron.showcase.scenes.shapeentities.entities.SceneBorderTouchingDynamicTestEntity;
+import nl.meron.showcase.scenes.shapeentities.entities.StaticRectangle;
+import nl.meron.showcase.scenes.textentities.entities.SceneBorderTouchingDynamicTextEntity;
 import nl.meron.yaeger.engine.entities.entity.Point;
 
 public class ShapeEntitiesScene extends ShowCaseScene {
@@ -31,14 +32,14 @@ public class ShapeEntitiesScene extends ShowCaseScene {
         var backButton = new Back(showCase);
         addEntity(backButton);
 
-        var rect = new RectangleEntity(new Point(100, 100));
+        var rect = new StaticRectangle(new Point(40, 60));
         addEntity(rect);
 
-        var circle = new CircleEntity(new Point(400, 100));
-        addEntity(circle);
+        var dynamicRectangle = new DynamicRectangle(new Point(40, 580));
+        addEntity(dynamicRectangle);
 
-        var ellipse = new EllipseEntity(new Point(600, 100));
-        addEntity(ellipse);
+        var borderTouchingDynamicTextEntity = new SceneBorderTouchingDynamicTestEntity(new Point(400, 200));
+        addEntity(borderTouchingDynamicTextEntity);
     }
 
     @Override

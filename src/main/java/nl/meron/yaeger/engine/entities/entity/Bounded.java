@@ -14,7 +14,7 @@ public interface Bounded extends NodeProvider {
      * @return the {@link Bounds}
      */
     default Bounds getBounds() {
-        return getGameNode().getBoundsInParent();
+        return getGameNode().getBoundsInLocal();
     }
 
     /**

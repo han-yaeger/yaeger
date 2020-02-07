@@ -20,7 +20,7 @@ class PlaceableTest {
         var bounds = mock(Bounds.class);
 
         sut.setNode(node);
-        when(node.getBoundsInParent()).thenReturn(bounds);
+        when(node.getBoundsInLocal()).thenReturn(bounds);
         when(bounds.getMinX()).thenReturn(x);
         when(bounds.getMinY()).thenReturn(y);
 

@@ -1,16 +1,17 @@
-package nl.meron.yaeger.engine.entities.entity.shapebased.text;
+package nl.meron.yaeger.engine.entities.entity.shapebased.test;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
-import nl.meron.yaeger.engine.entities.entity.motion.Moveable;
 import nl.meron.yaeger.engine.entities.entity.UpdateDelegator;
 import nl.meron.yaeger.engine.entities.entity.Updater;
+import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
 import nl.meron.yaeger.engine.entities.entity.motion.MotionApplier;
+import nl.meron.yaeger.engine.entities.entity.motion.Moveable;
+import nl.meron.yaeger.engine.entities.entity.shapebased.text.TextEntity;
 
-public abstract class DynamicTextEntity extends TextEntity implements UpdateDelegator, Moveable {
+public abstract class DynamicTestEntity extends TestEntity implements UpdateDelegator, Moveable {
 
     private DefaultMotionApplier motionApplier;
     private Updater updater;
@@ -18,28 +19,21 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
     private double direction;
 
     /**
-     * Instantiate a new {@link DynamicTextEntity}.
-     */
-    public DynamicTextEntity() {
-        this(new Point(0, 0));
-    }
-
-    /**
-     * Instantiate a new {@link DynamicTextEntity} for the given {@link Point}.
+     * Instantiate a new {@link DynamicTestEntity} for the given {@link Point}.
      *
-     * @param initialPosition the initial {@link Point} of this {@link DynamicTextEntity}
+     * @param initialPosition the initial {@link Point} of this {@link DynamicTestEntity}
      */
-    public DynamicTextEntity(final Point initialPosition) {
+    public DynamicTestEntity(final Point initialPosition) {
         this(initialPosition, "");
     }
 
     /**
-     * Instantiate a new {@link DynamicTextEntity} for the given {@link Point2D} and textDelegate.
+     * Instantiate a new {@link DynamicTestEntity} for the given {@link Point2D} and textDelegate.
      *
-     * @param initialPosition the initial {@link Point} of this {@link DynamicTextEntity}
+     * @param initialPosition the initial {@link Point} of this {@link DynamicTestEntity}
      * @param text            a {@link String} containing the initial textDelegate to be displayed
      */
-    public DynamicTextEntity(final Point initialPosition, final String text) {
+    public DynamicTestEntity(final Point initialPosition, final String text) {
         super(initialPosition, text);
     }
 

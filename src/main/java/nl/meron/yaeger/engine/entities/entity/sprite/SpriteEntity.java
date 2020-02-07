@@ -135,7 +135,9 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
 
     @Override
     public void placeOnPosition(double x, double y) {
-        if (imageView != null) {
+        if (imageView == null) {
+            initialPosition = new Point(x, y);
+        } else {
             imageView.setX(x);
             imageView.setY(y);
         }

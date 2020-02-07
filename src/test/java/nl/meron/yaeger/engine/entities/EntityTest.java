@@ -86,7 +86,7 @@ class EntityTest {
     @Test
     void getBoundsDelegatesToNode() {
         // Setup
-        when(node.getBoundsInParent()).thenReturn(BOUNDING_BOX);
+        when(node.getBoundsInLocal()).thenReturn(BOUNDING_BOX);
 
         // Test
         Bounds entityBounds = testEntity.getBounds();
@@ -98,7 +98,7 @@ class EntityTest {
     @Test
     void getRightSideXDelegatesWork() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDING_BOX);
+        when(node.getBoundsInLocal()).thenReturn(BOUNDING_BOX);
 
         // Act
         double rightSideX = testEntity.getRightSideX();
@@ -110,7 +110,7 @@ class EntityTest {
     @Test
     void getLeftSideXDelegatesWork() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDING_BOX);
+        when(node.getBoundsInLocal()).thenReturn(BOUNDING_BOX);
 
         // Act
         double leftSideX = testEntity.getLeftSideX();
@@ -122,7 +122,7 @@ class EntityTest {
     @Test
     void getBottomSideYDelegatesWork() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDING_BOX);
+        when(node.getBoundsInLocal()).thenReturn(BOUNDING_BOX);
 
         // Act
         double bottomY = testEntity.getBottomY();
@@ -134,7 +134,7 @@ class EntityTest {
     @Test
     void getTopSideYDelegatesWork() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDING_BOX);
+        when(node.getBoundsInLocal()).thenReturn(BOUNDING_BOX);
 
         // Act
         double topY = testEntity.getTopY();

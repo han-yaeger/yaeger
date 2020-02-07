@@ -134,12 +134,13 @@ class MoveableTest {
     @Test
     void callingTheUpdatableModifiesPosition() {
         // Setup
-        var UPDATED_LOCATION = new Point2D(37,42);
+        var UPDATED_LOCATION = new Point2D(37, 42);
         Updatable updatable = sut.updateLocation();
         Node node = mock(Node.class, withSettings().withoutAnnotations());
         Bounds bounds = new BoundingBox(0, 0, 10, 10);
-        when(node.getBoundsInParent()).thenReturn(bounds);
+        when(node.getBoundsInLocal()).thenReturn(bounds);
         when(motionApplier.updateLocation(any(Point2D.class))).thenReturn(UPDATED_LOCATION);
+        when(motionApplier.getSpeed()).thenReturn(1d);
 
         ((MoveableImpl) sut).setGameNode(node);
         // Test
@@ -147,6 +148,24 @@ class MoveableTest {
 
         // Verify
         verify(motionApplier).updateLocation(any(Point2D.class));
+    }
+
+    @Test
+    void callingTheUpdatableWithZeroSpeedDoesNotDoAnything() {
+        // Setup
+        Updatable updatable = sut.updateLocation();
+        Node node = mock(Node.class, withSettings().withoutAnnotations());
+        Bounds bounds = new BoundingBox(0, 0, 10, 10);
+        when(node.getBoundsInParent()).thenReturn(bounds);
+        when(motionApplier.getSpeed()).thenReturn(0d);
+
+        ((MoveableImpl) sut).setGameNode(node);
+
+        // Test
+        updatable.update(TIMESTAMP);
+
+        // Verify
+        verify(motionApplier, never()).updateLocation(any(Point2D.class));
     }
 
     private class MoveableImpl implements Moveable {

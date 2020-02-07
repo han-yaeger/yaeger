@@ -19,7 +19,6 @@ class EntitySpawnerTest {
     private AnimationTimer animationTimer;
     private AnimationTimerFactory animationTimerFactory;
 
-
     private boolean tickHasBeenCalled;
 
     @BeforeEach
@@ -47,7 +46,7 @@ class EntitySpawnerTest {
     }
 
     @Test
-    void intervalIsDelegatedToSpawner(){
+    void intervalIsDelegatedToSpawner() {
         // Setup
         entitySpawner.init(null);
 

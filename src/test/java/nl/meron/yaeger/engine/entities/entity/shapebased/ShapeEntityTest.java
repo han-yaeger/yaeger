@@ -1,6 +1,7 @@
 package nl.meron.yaeger.engine.entities.entity.shapebased;
 
 import com.google.inject.Injector;
+import javafx.scene.Node;
 import javafx.scene.shape.Shape;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.events.system.RemoveEntityEvent;
@@ -10,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class ShapeBasedEntityTest {
+class ShapeEntityTest {
 
     private static final Point POINT = new Point(37, 37);
 
@@ -25,24 +26,10 @@ class ShapeBasedEntityTest {
     }
 
     @Test
-    void settingTheDelegateSetsPositionOnDelegate() {
-        // Setup
-        var sut = new ShapeBasedEntityImpl(POINT);
-
-        // Test
-        sut.shape = shape;
-        sut.init(injector);
-
-        // Verify
-        verify(shape).setLayoutX(POINT.getX());
-        verify(shape).setLayoutY(POINT.getY());
-    }
-
-    @Test
     void callingRemoveCleansUpTheEntity() {
         // Setup
-        var sut = new ShapeBasedEntityImpl(POINT);
-        sut.shape = shape;
+        var sut = new ShapeEntityImpl(POINT);
+        sut.setShape(shape);
         sut.init(injector);
 
         // Test
@@ -56,10 +43,10 @@ class ShapeBasedEntityTest {
     @Test
     void settingDelegateSetsVisibleOnDelegate() {
         // Setup
-        var sut = new ShapeBasedEntityImpl(POINT);
+        var sut = new ShapeEntityImpl(POINT);
+        sut.setShape(shape);
 
         // Test
-        sut.shape = shape;
         sut.init(injector);
 
         // Verify
@@ -69,9 +56,9 @@ class ShapeBasedEntityTest {
     @Test
     void settingVisibillityDelagatesToShape() {
         // Setup
-        var sut = new ShapeBasedEntityImpl(POINT);
-        sut.shape = shape;
+        var sut = new ShapeEntityImpl(POINT);
         sut.init(injector);
+        sut.setShape(shape);
 
         // Test
         sut.setVisible(false);
@@ -80,27 +67,30 @@ class ShapeBasedEntityTest {
         verify(shape).setVisible(false);
     }
 
-    @Test
-    void creatngANewEntityWithAShapeSetsTheShape(){
-        // Setup
-        var sut = new ShapeBasedEntityImpl(POINT, shape);
+    private class ShapeEntityImpl extends ShapeEntity {
 
-        // Test
-        sut.init(injector);
+        private Shape shape;
 
-        // Verify
-        verify(shape).setLayoutX(POINT.getX());
-        verify(shape).setLayoutY(POINT.getY());
-    }
-
-    private class ShapeBasedEntityImpl extends ShapeBasedEntity {
-
-        public ShapeBasedEntityImpl(Point initialPosition) {
+        public ShapeEntityImpl(Point initialPosition) {
             super(initialPosition);
         }
 
-        public ShapeBasedEntityImpl(final Point initialPosition, final Shape shape) {
-            super(initialPosition, shape);
+        @Override
+        public void placeOnPosition(double x, double y) {
+
+        }
+
+        public ShapeEntityImpl(final Point initialPosition, final Shape shape) {
+            super(initialPosition);
+        }
+
+        @Override
+        public Node getGameNode() {
+            return shape;
+        }
+
+        public void setShape(Shape shape) {
+            this.shape = shape;
         }
     }
 }

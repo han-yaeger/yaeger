@@ -4,29 +4,24 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.entities.entity.shapebased.ShapeBasedEntity;
+import nl.meron.yaeger.engine.entities.entity.shapebased.ShapeEntity;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 
 /**
  * A {@code TextEntity} can be used to display a line of text on a {@link YaegerScene}. The text will be placed, using
  * the top left corner as its anchor point.
  */
-public class TextEntity extends ShapeBasedEntity {
+public class TextEntity extends ShapeEntity {
 
     private Color fill;
     private Font font;
     private String initialText;
-
-    /**
-     * Instantiate a new {@code TextEntity}.
-     */
-    public TextEntity() {
-        this(new Point(0, 0));
-    }
+    private Text text;
 
     /**
      * Instantiate a new {@code TextEntity} for the given {@link Point2D}.
@@ -51,12 +46,12 @@ public class TextEntity extends ShapeBasedEntity {
     /**
      * Set the {@link String} that should be shown.
      *
-     * @param text the {@link String} that should be shown
+     * @param displayText the {@link String} that should be shown
      */
-    public void setText(final String text) {
-        this.initialText = text;
-        if (this.getGameNode() != null) {
-            ((Text) getGameNode()).setText(text);
+    public void setText(final String displayText) {
+        this.initialText = displayText;
+        if (text != null) {
+            text.setText(displayText);
         }
     }
 
@@ -67,8 +62,8 @@ public class TextEntity extends ShapeBasedEntity {
      */
     public void setFill(final Color color) {
         this.fill = color;
-        if (getGameNode() != null) {
-            ((Text) getGameNode()).setFill(color);
+        if (text != null) {
+            text.setFill(color);
         }
     }
 
@@ -86,8 +81,8 @@ public class TextEntity extends ShapeBasedEntity {
      */
     public void setFont(final Font font) {
         this.font = font;
-        if (getGameNode() != null) {
-            ((Text) getGameNode()).setFont(font);
+        if (text != null) {
+            text.setFont(font);
         }
     }
 
@@ -95,22 +90,36 @@ public class TextEntity extends ShapeBasedEntity {
     public void init(final Injector injector) {
         super.init(injector);
 
-        var textGameNode = (Text) getGameNode();
-        textGameNode.setTextOrigin(VPos.TOP);
+        text.setTextOrigin(VPos.TOP);
 
         if (font != null) {
-            textGameNode.setFont(font);
+            text.setFont(font);
         }
         if (fill != null) {
-            textGameNode.setFill(fill);
+            text.setFill(fill);
         }
         if (initialText != null && !initialText.isEmpty()) {
-            textGameNode.setText(initialText);
+            text.setText(initialText);
+        }
+    }
+
+    @Override
+    public void placeOnPosition(double x, double y) {
+        if (text == null) {
+            initialPosition = new Point(x, y);
+        } else {
+            text.setX(x);
+            text.setY(y);
         }
     }
 
     @Inject
     public void setTextDelegate(final Text text) {
-        this.shape = text;
+        this.text = text;
+    }
+
+    @Override
+    public Node getGameNode() {
+        return text;
     }
 }

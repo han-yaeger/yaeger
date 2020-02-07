@@ -1,6 +1,5 @@
 package nl.meron.yaeger.engine.entities.entity.motion;
 
-import nl.meron.yaeger.engine.Configurable;
 import nl.meron.yaeger.engine.entities.entity.Placeable;
 import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.entities.entity.UpdatableProvider;
@@ -64,6 +63,9 @@ public interface Moveable extends Placeable, MotionModifier {
     @UpdatableProvider(asFirst = true)
     default Updatable updateLocation() {
         return timestamp -> {
+            if (Double.compare(getSpeed(), 0d) == 0) {
+                return;
+            }
             var currentPosition = getPosition();
             var updatedPosition = getMotionApplier().updateLocation(currentPosition);
             placeOnPosition(updatedPosition.getX(), updatedPosition.getY());

@@ -21,7 +21,7 @@ class BoundedTest {
 
         sut = new BoundedImpl();
         sut.setNode(node);
-        when(node.getBoundsInParent()).thenReturn(bounds);
+        when(node.getBoundsInLocal()).thenReturn(bounds);
     }
 
     @Test

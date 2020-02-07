@@ -1,51 +1,36 @@
-package nl.meron.yaeger.engine.entities.entity.shapebased.text;
+package nl.meron.yaeger.engine.entities.entity.shapebased.rectangle;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
-import nl.meron.yaeger.engine.entities.entity.motion.Moveable;
+import nl.meron.yaeger.engine.entities.entity.SceneBorderTouchingWatcher;
 import nl.meron.yaeger.engine.entities.entity.UpdateDelegator;
 import nl.meron.yaeger.engine.entities.entity.Updater;
+import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
 import nl.meron.yaeger.engine.entities.entity.motion.MotionApplier;
+import nl.meron.yaeger.engine.entities.entity.motion.Moveable;
+import nl.meron.yaeger.engine.scenes.SceneBorder;
 
-public abstract class DynamicTextEntity extends TextEntity implements UpdateDelegator, Moveable {
+public class DynamicRectangleEntity extends RectangleEntity implements UpdateDelegator, Moveable {
 
     private DefaultMotionApplier motionApplier;
     private Updater updater;
     private double speed;
     private double direction;
 
-    /**
-     * Instantiate a new {@link DynamicTextEntity}.
-     */
-    public DynamicTextEntity() {
-        this(new Point(0, 0));
-    }
-
-    /**
-     * Instantiate a new {@link DynamicTextEntity} for the given {@link Point}.
-     *
-     * @param initialPosition the initial {@link Point} of this {@link DynamicTextEntity}
-     */
-    public DynamicTextEntity(final Point initialPosition) {
-        this(initialPosition, "");
-    }
-
-    /**
-     * Instantiate a new {@link DynamicTextEntity} for the given {@link Point2D} and textDelegate.
-     *
-     * @param initialPosition the initial {@link Point} of this {@link DynamicTextEntity}
-     * @param text            a {@link String} containing the initial textDelegate to be displayed
-     */
-    public DynamicTextEntity(final Point initialPosition, final String text) {
-        super(initialPosition, text);
+    public DynamicRectangleEntity(Point initialPosition) {
+        super(initialPosition);
     }
 
     @Override
     public MotionApplier getMotionApplier() {
         return motionApplier;
+    }
+
+    @Override
+    public Updater getUpdater() {
+        return updater;
     }
 
     @Override
@@ -55,11 +40,6 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
         if (speed != 0) {
             setMotionTo(speed, direction);
         }
-    }
-
-    @Override
-    public Updater getUpdater() {
-        return updater;
     }
 
     @Override

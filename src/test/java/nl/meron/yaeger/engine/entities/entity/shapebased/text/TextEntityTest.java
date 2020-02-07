@@ -1,13 +1,13 @@
 package nl.meron.yaeger.engine.entities.entity.shapebased.text;
 
 import com.google.inject.Injector;
+import javafx.geometry.VPos;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import nl.meron.waterworld.Waterworld;
 import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.entities.entity.events.system.RemoveEntityEvent;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,18 +30,18 @@ class TextEntityTest {
     }
 
     @Test
-    void settingDelegateSetsPositionOnDelegateForEmptyConstructor() {
+    void settingDelegateSetsPositionOnDelegateForNonEmptyConstructor() {
         // Setup
-        var sut = new TextEntity();
+        var sut = new TextEntity(POINT);
 
         // Test
-        sut.placeOnPosition(POINT.getX(), POINT.getY());
         sut.setTextDelegate(text);
         sut.init(injector);
 
         // Verify
-        verify(text).setLayoutX(POINT.getX());
-        verify(text).setLayoutY(POINT.getY());
+        verify(text).setTextOrigin(VPos.TOP);
+        verify(text).setX(POINT.getX());
+        verify(text).setY(POINT.getY());
     }
 
     @Test
@@ -55,6 +55,7 @@ class TextEntityTest {
         sut.init(injector);
 
         // Verify
+        verify(text).setTextOrigin(VPos.TOP);
         verify(text).setText(YAEGER);
     }
 
@@ -86,8 +87,6 @@ class TextEntityTest {
         verify(text).setFont(FONT);
     }
 
-
-
     @Test
     void settingDelegateWithContentDelegatesContent() {
         // Setup
@@ -117,12 +116,11 @@ class TextEntityTest {
     @Test
     void settingValuesAfterDelegateIsSetDelegatesTheValues() {
         // Setup
-        var textEntity = new TextEntity();
+        var textEntity = new TextEntity(POINT);
         textEntity.setTextDelegate(text);
         textEntity.init(injector);
 
         // Test
-        textEntity.placeOnPosition(POINT.getX(), POINT.getY());
         textEntity.setText(YAEGER);
         textEntity.setVisible(false);
         textEntity.setFont(FONT);
@@ -133,7 +131,7 @@ class TextEntityTest {
         verify(text).setFill(COLOR);
         verify(text).setText(YAEGER);
         verify(text).setFont(FONT);
-        verify(text).setLayoutX(POINT.getX());
-        verify(text).setLayoutY(POINT.getY());
+        verify(text).setX(POINT.getX());
+        verify(text).setY(POINT.getY());
     }
 }
