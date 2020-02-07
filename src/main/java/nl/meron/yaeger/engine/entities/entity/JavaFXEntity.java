@@ -1,26 +1,22 @@
-package nl.meron.yaeger.engine.entities.entity.shapebased;
+package nl.meron.yaeger.engine.entities.entity;
 
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
-import javafx.scene.shape.Shape;
-import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.entities.entity.Point;
 
 /**
- * A {@link ShapeEntity} can be used to display a {@link Shape} and is the abstract superclass
- * for all {@link Entity} that are based on a {@link Shape}
+ * A {@link JavaFXEntity} can be used to display anything that is a child of a {@link javafx.scene.Node}.
  */
-public abstract class ShapeEntity implements Entity {
+public abstract class JavaFXEntity implements Entity {
 
     protected Point2D initialPosition;
     private boolean visible = true;
 
     /**
-     * Instantiate a new {@link ShapeEntity} for the given {@link Point} and textDelegate.
+     * Instantiate a new {@link JavaFXEntity} for the given {@link Point} and textDelegate.
      *
-     * @param initialPosition the initial {@link Point} of this {@link ShapeEntity}
+     * @param initialPosition the initial {@link Point} of this {@link JavaFXEntity}
      */
-    public ShapeEntity(final Point initialPosition) {
+    public JavaFXEntity(final Point initialPosition) {
         this.initialPosition = initialPosition;
     }
 

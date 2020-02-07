@@ -205,29 +205,6 @@ class SpriteEntityTest {
     }
 
     @Test
-    void setRotationDelegatesToTheImageView() {
-        // Setup
-        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
-        spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        spriteEntity.setImageRepository(imageRepository);
-        spriteEntity.setImageViewFactory(imageViewFactory);
-
-        var image = mock(Image.class);
-        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
-
-        var imageView = mock(ImageView.class);
-        when(imageViewFactory.create(image)).thenReturn(imageView);
-        spriteEntity.init(injector);
-
-        // Test
-        var rotation = 45d;
-        spriteEntity.rotate(rotation);
-
-        // Verify
-        verify(imageView).setRotate(rotation);
-    }
-
-    @Test
     void setFrameIndexDelegatesToSpriteAnimationDelegate() {
         // Setup
         var spriteEntity = new TestSpriteEntityWithTwoFrames(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, 2);

@@ -26,24 +26,4 @@ public interface Entity extends Initializable, Bounded, Removeable, Placeable, S
     default void setCursor(Cursor cursor) {
         getGameNode().getScene().setCursor(cursor);
     }
-
-//    /**
-//     * Set the initial position at which this {@link Entity} should be placed.
-//     *
-//     * @param initialPosition The {@link Point} at which this {@link Entity} should be placed
-//     */
-//    void setInitialPosition(Point initialPosition);
-//
-//    @Override
-//    default void placeOnPosition(double x, double y) {
-//
-//        if (getGameNode() == null) {
-//            setInitialPosition(new Point(x, y));
-//        } else {
-//            getGameNode().setLayoutX(x);
-//            getGameNode().setLayoutY(y);
-//        }
-//    }
-
-
 }

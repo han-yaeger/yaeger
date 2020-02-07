@@ -1,15 +1,20 @@
-package nl.meron.yaeger.engine.entities.entity.shapebased.text;
+package nl.meron.yaeger.engine.entities.entity.shape.text;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
 import nl.meron.yaeger.engine.entities.entity.motion.Moveable;
 import nl.meron.yaeger.engine.entities.entity.UpdateDelegator;
 import nl.meron.yaeger.engine.entities.entity.Updater;
 import nl.meron.yaeger.engine.entities.entity.motion.MotionApplier;
 
+/**
+ * An {@link DynamicTextEntity} extends all behaviour of a {@link TextEntity}, but also implements the
+ * {@link Updatable} Interface.
+ */
 public abstract class DynamicTextEntity extends TextEntity implements UpdateDelegator, Moveable {
 
     private DefaultMotionApplier motionApplier;

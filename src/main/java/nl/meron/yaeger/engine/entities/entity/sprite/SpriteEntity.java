@@ -2,12 +2,12 @@ package nl.meron.yaeger.engine.entities.entity.sprite;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.JavaFXEntity;
 import nl.meron.yaeger.engine.entities.entity.sprite.delegates.SpriteAnimationDelegate;
 import nl.meron.yaeger.engine.media.repositories.ImageRepository;
 import nl.meron.yaeger.engine.media.ResourceConsumer;
@@ -17,7 +17,7 @@ import nl.meron.yaeger.guice.factories.SpriteAnimationDelegateFactory;
 /**
  * A {@link SpriteEntity} is a {@link Entity} that is represented by an Image.
  */
-public abstract class SpriteEntity implements Entity, ResourceConsumer {
+public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsumer {
 
     private final String resource;
     private final Size size;
@@ -29,7 +29,6 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
 
     ImageView imageView;
 
-    Point2D initialPosition;
     SpriteAnimationDelegate spriteAnimationDelegate;
 
     /**
@@ -52,7 +51,7 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
      * @param frames       The number of frames this Image contains. By default the first frame is loaded.
      */
     protected SpriteEntity(final String resource, final Point initialPoint, final Size size, final int frames) {
-        this.initialPosition = initialPoint;
+        super(initialPoint);
         this.frames = frames;
         this.resource = resource;
         this.size = size;
@@ -62,11 +61,12 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     public void init(Injector injector) {
         var requestedWidth = size.getWidth() * frames;
         imageView = createImageView(resource, requestedWidth, size.getHeight());
-        placeOnPosition(initialPosition.getX(), initialPosition.getY());
 
         if (frames > 1) {
             spriteAnimationDelegate = spriteAnimationDelegateFactory.create(imageView, frames);
         }
+
+        super.init(injector);
     }
 
     private ImageView createImageView(final String resource, final int requestedWidth, final int requestedHeight) {
@@ -74,16 +74,6 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
 
         return imageViewFactory.create(image);
     }
-
-    /**
-     * Rotate this {@code SpriteEntity} by the given angles.
-     *
-     * @param angle the rotation angle as a {@code double}
-     */
-    public void rotate(double angle) {
-        imageView.setRotate(angle);
-    }
-
 
     /**
      * Set the current frame index of the Sprite image.
@@ -95,7 +85,7 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     }
 
     /**
-     * Return the x-coordinate of this {@code SpriteEntity}.
+     * Return the x-coordinate of this {@link SpriteEntity}.
      *
      * @return the x-coordinate
      */
@@ -104,7 +94,7 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     }
 
     /**
-     * Return the y-coordinate of this {@code SpriteEntity}.
+     * Return the y-coordinate of this {@link SpriteEntity}.
      *
      * @return the y-coordinate
      */
@@ -113,7 +103,7 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     }
 
     /**
-     * Return the number of frames comprising this {@code SpriteEntity}.
+     * Return the number of frames comprising this {@link SpriteEntity}.
      *
      * @return the number of frames as an {@code int}
      */
@@ -129,8 +119,7 @@ public abstract class SpriteEntity implements Entity, ResourceConsumer {
     @Override
     public void remove() {
         imageView.setImage(null);
-        imageView.setVisible(false);
-        notifyRemove();
+        super.remove();
     }
 
     @Override

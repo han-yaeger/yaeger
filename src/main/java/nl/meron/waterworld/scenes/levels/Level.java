@@ -7,7 +7,7 @@ import nl.meron.waterworld.entities.game.Player;
 import nl.meron.waterworld.entities.game.Swordfish;
 import nl.meron.waterworld.entities.game.spawners.BubbleSpawner;
 import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.entities.entity.shapebased.text.TextEntity;
+import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.impl.DynamicScene;
 
 public abstract class Level extends DynamicScene {

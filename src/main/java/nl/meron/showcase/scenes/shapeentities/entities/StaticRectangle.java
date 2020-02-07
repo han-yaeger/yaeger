@@ -2,7 +2,7 @@ package nl.meron.showcase.scenes.shapeentities.entities;
 
 import javafx.scene.paint.Color;
 import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.entities.entity.shapebased.rectangle.RectangleEntity;
+import nl.meron.yaeger.engine.entities.entity.shape.rectangle.RectangleEntity;
 
 public class StaticRectangle extends RectangleEntity {
 

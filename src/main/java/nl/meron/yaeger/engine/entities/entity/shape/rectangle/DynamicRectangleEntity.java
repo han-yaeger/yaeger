@@ -1,18 +1,16 @@
-package nl.meron.yaeger.engine.entities.entity.shapebased.rectangle;
+package nl.meron.yaeger.engine.entities.entity.shape.rectangle;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import javafx.geometry.Bounds;
-import javafx.scene.paint.Color;
-import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.entities.entity.SceneBorderTouchingWatcher;
-import nl.meron.yaeger.engine.entities.entity.UpdateDelegator;
-import nl.meron.yaeger.engine.entities.entity.Updater;
+import nl.meron.yaeger.engine.entities.entity.*;
 import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
 import nl.meron.yaeger.engine.entities.entity.motion.MotionApplier;
 import nl.meron.yaeger.engine.entities.entity.motion.Moveable;
-import nl.meron.yaeger.engine.scenes.SceneBorder;
 
+/**
+ * An {@link DynamicRectangleEntity} extends all behaviour of a {@link RectangleEntity}, but also implements the
+ * {@link Updatable} Interface.
+ */
 public class DynamicRectangleEntity extends RectangleEntity implements UpdateDelegator, Moveable {
 
     private DefaultMotionApplier motionApplier;
@@ -20,6 +18,11 @@ public class DynamicRectangleEntity extends RectangleEntity implements UpdateDel
     private double speed;
     private double direction;
 
+    /**
+     * Create a new {@link DynamicRectangleEntity} on the given {@code initialPosition}.
+     *
+     * @param initialPosition The initial position at which this {@link DynamicRectangleEntity} should be placed
+     */
     public DynamicRectangleEntity(Point initialPosition) {
         super(initialPosition);
     }

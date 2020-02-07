@@ -8,7 +8,7 @@ import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseEnterListener;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseExitListener;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MousePressedListener;
-import nl.meron.yaeger.engine.entities.entity.shapebased.text.TextEntity;
+import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 
 public class Button extends TextEntity implements MousePressedListener, MouseEnterListener, MouseExitListener {
 

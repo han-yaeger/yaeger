@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.SceneBorderTouchingWatcher;
 import nl.meron.yaeger.engine.entities.entity.motion.Direction;
-import nl.meron.yaeger.engine.entities.entity.shapebased.rectangle.DynamicRectangleEntity;
+import nl.meron.yaeger.engine.entities.entity.shape.rectangle.DynamicRectangleEntity;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 
 public class DynamicRectangle extends DynamicRectangleEntity implements SceneBorderTouchingWatcher {

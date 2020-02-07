@@ -7,8 +7,7 @@ import nl.meron.pong.scenes.entities.Ball;
 import nl.meron.pong.scenes.entities.PlayerOneBat;
 import nl.meron.pong.scenes.entities.PlayerTwoBat;
 import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.Size;
-import nl.meron.yaeger.engine.entities.entity.shapebased.text.TextEntity;
+import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 import nl.meron.yaeger.engine.scenes.impl.DynamicScene;
 
@@ -17,6 +16,7 @@ import nl.meron.yaeger.engine.scenes.impl.DynamicScene;
  */
 public class LevelOne extends DynamicScene implements ScoreKeeper {
 
+    public static final Color GREEN_COLOR = Color.GREENYELLOW;
     int playerOnePoints;
     int playerTwoPoints;
 
@@ -43,26 +43,27 @@ public class LevelOne extends DynamicScene implements ScoreKeeper {
         setupPlayerOne();
         setupPlayerTwo();
 
+
         updateScore();
     }
 
     private void setupPlayerOne() {
-        var bat1 = new PlayerOneBat(new Point(20, 280), new Size(300, 75));
-        addEntity(bat1);
+        var rectBat = new PlayerOneBat(new Point(20, 280));
+        addEntity(rectBat);
 
         playerOne = new TextEntity(new Point(300, 5));
         playerOne.setFont(Font.font(Pong.FONT, 11));
-        playerOne.setFill(Color.LIGHTGREEN);
+        playerOne.setFill(GREEN_COLOR);
         addEntity(playerOne);
     }
 
     private void setupPlayerTwo() {
-        var bat2 = new PlayerTwoBat(new Point(925, 280), new Size(300, 75));
+        var bat2 = new PlayerTwoBat(new Point(925, 280));
         addEntity(bat2);
 
         playerTwo = new TextEntity(new Point(600, 5));
         playerTwo.setFont(Font.font(Pong.FONT, 11));
-        playerTwo.setFill(Color.LIGHTGREEN);
+        playerTwo.setFill(GREEN_COLOR);
         addEntity(playerTwo);
     }
 

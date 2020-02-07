@@ -6,7 +6,7 @@ import javafx.scene.text.FontWeight;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.SceneBorderCrossingWatcher;
 import nl.meron.yaeger.engine.entities.entity.motion.Direction;
-import nl.meron.yaeger.engine.entities.entity.shapebased.text.DynamicTextEntity;
+import nl.meron.yaeger.engine.entities.entity.shape.text.DynamicTextEntity;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 
 public class SceneBorderCrossingDynamicTextEntity extends DynamicTextEntity implements SceneBorderCrossingWatcher {

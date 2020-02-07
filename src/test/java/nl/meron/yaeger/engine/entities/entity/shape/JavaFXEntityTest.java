@@ -1,8 +1,9 @@
-package nl.meron.yaeger.engine.entities.entity.shapebased;
+package nl.meron.yaeger.engine.entities.entity.shape;
 
 import com.google.inject.Injector;
 import javafx.scene.Node;
 import javafx.scene.shape.Shape;
+import nl.meron.yaeger.engine.entities.entity.JavaFXEntity;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.events.system.RemoveEntityEvent;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class ShapeEntityTest {
+class JavaFXEntityTest {
 
     private static final Point POINT = new Point(37, 37);
 
@@ -28,7 +29,7 @@ class ShapeEntityTest {
     @Test
     void callingRemoveCleansUpTheEntity() {
         // Setup
-        var sut = new ShapeEntityImpl(POINT);
+        var sut = new JavaFXEntityImpl(POINT);
         sut.setShape(shape);
         sut.init(injector);
 
@@ -43,7 +44,7 @@ class ShapeEntityTest {
     @Test
     void settingDelegateSetsVisibleOnDelegate() {
         // Setup
-        var sut = new ShapeEntityImpl(POINT);
+        var sut = new JavaFXEntityImpl(POINT);
         sut.setShape(shape);
 
         // Test
@@ -56,7 +57,7 @@ class ShapeEntityTest {
     @Test
     void settingVisibillityDelagatesToShape() {
         // Setup
-        var sut = new ShapeEntityImpl(POINT);
+        var sut = new JavaFXEntityImpl(POINT);
         sut.init(injector);
         sut.setShape(shape);
 
@@ -67,11 +68,11 @@ class ShapeEntityTest {
         verify(shape).setVisible(false);
     }
 
-    private class ShapeEntityImpl extends ShapeEntity {
+    private class JavaFXEntityImpl extends JavaFXEntity {
 
         private Shape shape;
 
-        public ShapeEntityImpl(Point initialPosition) {
+        public JavaFXEntityImpl(Point initialPosition) {
             super(initialPosition);
         }
 
@@ -80,7 +81,7 @@ class ShapeEntityTest {
 
         }
 
-        public ShapeEntityImpl(final Point initialPosition, final Shape shape) {
+        public JavaFXEntityImpl(final Point initialPosition, final Shape shape) {
             super(initialPosition);
         }
 

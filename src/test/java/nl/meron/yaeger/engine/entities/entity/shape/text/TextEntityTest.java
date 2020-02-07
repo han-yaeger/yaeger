@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.entities.entity.shapebased.text;
+package nl.meron.yaeger.engine.entities.entity.shape.text;
 
 import com.google.inject.Injector;
 import javafx.geometry.VPos;

@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.entities.entity.shapebased.text;
+package nl.meron.yaeger.engine.entities.entity.shape.text;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -9,14 +9,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import nl.meron.yaeger.engine.entities.entity.Point;
-import nl.meron.yaeger.engine.entities.entity.shapebased.ShapeEntity;
+import nl.meron.yaeger.engine.entities.entity.JavaFXEntity;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 
 /**
  * A {@code TextEntity} can be used to display a line of text on a {@link YaegerScene}. The text will be placed, using
  * the top left corner as its anchor point.
  */
-public class TextEntity extends ShapeEntity {
+public class TextEntity extends JavaFXEntity {
 
     private Color fill;
     private Font font;
