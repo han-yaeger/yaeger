@@ -2,6 +2,7 @@ package nl.meron.yaeger.engine.entities.entity.shapebased.rectangle;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import javafx.geometry.Bounds;
 import javafx.scene.paint.Color;
 import nl.meron.yaeger.engine.entities.entity.Point;
 import nl.meron.yaeger.engine.entities.entity.SceneBorderTouchingWatcher;

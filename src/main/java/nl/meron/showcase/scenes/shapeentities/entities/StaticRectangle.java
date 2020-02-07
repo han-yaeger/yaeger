@@ -12,6 +12,6 @@ public class StaticRectangle extends RectangleEntity {
         setHeight(80);
         setFill(Color.DARKBLUE);
         setStrokeColor(Color.LIGHTCORAL);
-        setStrokeWidth(5);
+        setStrokeWidth(6);
     }
 }

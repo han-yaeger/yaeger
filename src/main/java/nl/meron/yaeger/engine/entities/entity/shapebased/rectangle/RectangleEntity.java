@@ -34,21 +34,11 @@ public abstract class RectangleEntity extends ShapeEntity {
         if (fill != null) {
             rectangle.setFill(fill);
         }
-        if (strokeWidth != 0) {
-            rectangle.setStrokeWidth(strokeWidth);
-        }
-        if (height != 0) {
-            rectangle.setHeight(height);
-        }
-        if (width != 0) {
-            rectangle.setWidth(width);
-        }
-        if (arcHeight != 0) {
-            rectangle.setArcHeight(arcHeight);
-        }
-        if (arcWidth != 0) {
-            rectangle.setArcWidth(arcWidth);
-        }
+        rectangle.setStrokeWidth(strokeWidth);
+        rectangle.setHeight(height);
+        rectangle.setWidth(width);
+        rectangle.setArcHeight(arcHeight);
+        rectangle.setArcWidth(arcWidth);
     }
 
     public void setStrokeColor(Color strokeColor) {
@@ -92,6 +82,18 @@ public abstract class RectangleEntity extends ShapeEntity {
             rectangle.setX(x);
             rectangle.setY(y);
         }
+    }
+
+    @Override
+    public double getTopY() {
+        double topY = super.getTopY() + (0.5 * rectangle.getStrokeWidth());
+        return topY;
+    }
+
+    @Override
+    public double getLeftSideX() {
+        double leftSideX = super.getLeftSideX() + (0.5 * rectangle.getStrokeWidth());
+        return leftSideX;
     }
 
     @Inject
