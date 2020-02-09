@@ -3,7 +3,7 @@ package nl.meron.showcase.scenes.textentities.entities;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.SceneBorderCrossingWatcher;
 import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.entities.entity.shape.text.DynamicTextEntity;
@@ -13,7 +13,7 @@ public class SceneBorderCrossingDynamicTextEntity extends DynamicTextEntity impl
 
     public static final String TEXT = "SceneBorderCrossing";
 
-    public SceneBorderCrossingDynamicTextEntity(final Point position) {
+    public SceneBorderCrossingDynamicTextEntity(final Location position) {
         super(position, TEXT);
         setFill(Color.TURQUOISE);
         setFont(Font.font("palatino", FontWeight.BOLD, 30));

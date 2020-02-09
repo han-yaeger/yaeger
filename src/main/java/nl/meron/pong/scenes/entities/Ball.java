@@ -4,7 +4,7 @@ import nl.meron.pong.scenes.ScoreKeeper;
 import nl.meron.yaeger.engine.entities.entity.collisions.Collided;
 import nl.meron.yaeger.engine.entities.entity.collisions.Collider;
 import nl.meron.yaeger.engine.entities.entity.collisions.CollisionSide;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.SceneBorderTouchingWatcher;
 import nl.meron.yaeger.engine.entities.entity.sprite.DynamicSpriteEntity;
@@ -17,7 +17,7 @@ public class Ball extends DynamicSpriteEntity implements SceneBorderTouchingWatc
     private ScoreKeeper scoreKeeper;
 
     public Ball(ScoreKeeper scoreKeeper) {
-        super("pong/ball.png", new Point(200, 200), new Size(20, 20));
+        super("pong/ball.png", new Location(200, 200), new Size(20, 20));
         this.scoreKeeper = scoreKeeper;
         setMotionTo(INITIAL_SPEED, 80);
     }

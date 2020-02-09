@@ -6,7 +6,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import nl.meron.showcase.YaegerShowCase;
 import nl.meron.showcase.buttons.Button;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.impl.StaticScene;
 
@@ -30,19 +30,19 @@ public class SelectionScene extends StaticScene {
 
     @Override
     public void setupEntities() {
-        var select = new TextEntity(new Point(20, 30), "Please select a scene...");
+        var select = new TextEntity(new Location(20, 30), "Please select a scene...");
         styleText(select);
         addEntity(select);
 
-        var textEntities = new Button(new Point(20, 70), "1) Text Entities", showCase, YaegerShowCase.SCENE_TEXT_ENTITIES);
+        var textEntities = new Button(new Location(20, 70), "1) Text Entities", showCase, YaegerShowCase.SCENE_TEXT_ENTITIES);
         styleText(textEntities);
         addEntity(textEntities);
 
-        var spriteEntities = new Button(new Point(20, 100), "2) Sprite Entities", showCase, YaegerShowCase.SCENE_SPRITE_ENTITIES);
+        var spriteEntities = new Button(new Location(20, 100), "2) Sprite Entities", showCase, YaegerShowCase.SCENE_SPRITE_ENTITIES);
         styleText(spriteEntities);
         addEntity(spriteEntities);
 
-        var shapeEntities = new Button(new Point(20, 130), "3) Shape Entities", showCase, YaegerShowCase.SCENE_SHAPE_ENTITIES);
+        var shapeEntities = new Button(new Location(20, 130), "3) Shape Entities", showCase, YaegerShowCase.SCENE_SHAPE_ENTITIES);
         styleText(shapeEntities);
         addEntity(shapeEntities);
     }

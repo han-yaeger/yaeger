@@ -23,7 +23,7 @@ public class DynamicRectangleEntity extends RectangleEntity implements UpdateDel
      *
      * @param initialPosition The initial position at which this {@link DynamicRectangleEntity} should be placed
      */
-    public DynamicRectangleEntity(Point initialPosition) {
+    public DynamicRectangleEntity(Location initialPosition) {
         super(initialPosition);
     }
 

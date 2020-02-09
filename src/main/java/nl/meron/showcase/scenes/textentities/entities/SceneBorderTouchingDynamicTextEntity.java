@@ -3,7 +3,7 @@ package nl.meron.showcase.scenes.textentities.entities;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.SceneBorderTouchingWatcher;
 import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.entities.entity.shape.text.DynamicTextEntity;
@@ -13,7 +13,7 @@ public class SceneBorderTouchingDynamicTextEntity extends DynamicTextEntity impl
 
     public static final String TEXT = "SceneBorderTouching";
 
-    public SceneBorderTouchingDynamicTextEntity(final Point position) {
+    public SceneBorderTouchingDynamicTextEntity(final Location position) {
         super(position, TEXT);
         setFill(Color.SILVER);
         setFont(Font.font("arial", FontWeight.BOLD, 30));

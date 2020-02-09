@@ -1,7 +1,7 @@
 package nl.meron.pong.scenes.entities;
 
 import javafx.scene.input.KeyCode;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.entities.entity.shape.rectangle.DynamicRectangleEntity;
 
@@ -15,7 +15,7 @@ public class PlayerTwoBat extends Bat {
      *
      * @param initialPosition The initial position at which this {@link DynamicRectangleEntity} should be placed
      */
-    public PlayerTwoBat(Point initialPosition) {
+    public PlayerTwoBat(Location initialPosition) {
         super(initialPosition);
     }
 

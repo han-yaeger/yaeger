@@ -6,7 +6,7 @@ import nl.meron.waterworld.Waterworld;
 import nl.meron.waterworld.entities.game.Player;
 import nl.meron.waterworld.entities.game.Swordfish;
 import nl.meron.waterworld.entities.game.spawners.BubbleSpawner;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.impl.DynamicScene;
 
@@ -25,22 +25,22 @@ public abstract class Level extends DynamicScene {
 
     @Override
     public void setupEntities() {
-        bubblesPoppedText = new TextEntity(new Point(10, 5));
+        bubblesPoppedText = new TextEntity(new Location(10, 5));
         bubblesPoppedText.setFont(Font.font(Waterworld.FONT, 40));
         bubblesPoppedText.setFill(Color.VIOLET);
         addEntity(bubblesPoppedText);
         updateBubblesPoppedText();
 
-        healthText = new TextEntity(new Point(960, 5));
+        healthText = new TextEntity(new Location(960, 5));
         healthText.setFont(Font.font(Waterworld.FONT, 40));
         healthText.setFill(Color.DARKBLUE);
         addEntity(healthText);
         setHealthText(10);
 
-        var swordFish = new Swordfish(new Point(200, 200));
+        var swordFish = new Swordfish(new Location(200, 200));
         addEntity(swordFish);
 
-        var player = new Player(new Point(100, 100), this, 10);
+        var player = new Player(new Location(100, 100), this, 10);
         addEntity(player);
     }
 

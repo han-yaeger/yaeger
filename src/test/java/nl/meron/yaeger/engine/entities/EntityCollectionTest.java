@@ -2,21 +2,16 @@ package nl.meron.yaeger.engine.entities;
 
 import com.google.inject.Injector;
 import javafx.collections.ObservableList;
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
 import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.entity.*;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;
-import nl.meron.yaeger.engine.entities.entity.events.userinput.MousePressedListener;
-import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseReleasedListener;
 import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.*;
 
@@ -331,7 +326,7 @@ class EntityCollectionTest {
         }
 
         @Override
-        public Point getPosition() {
+        public Location getPosition() {
             return null;
         }
 
@@ -364,7 +359,7 @@ class EntityCollectionTest {
         }
 
         @Override
-        public Point getPosition() {
+        public Location getPosition() {
             return null;
         }
 

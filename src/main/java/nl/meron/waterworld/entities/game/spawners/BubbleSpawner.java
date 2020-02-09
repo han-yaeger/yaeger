@@ -3,7 +3,7 @@ package nl.meron.waterworld.entities.game.spawners;
 import nl.meron.waterworld.entities.game.Air;
 import nl.meron.waterworld.entities.game.Poison;
 import nl.meron.waterworld.scenes.levels.Level;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.EntitySpawner;
 
 import java.util.Random;
@@ -47,10 +47,10 @@ public class BubbleSpawner extends EntitySpawner {
         return new Random().nextInt(5);
     }
 
-    private Point generateRandomPosition() {
+    private Location generateRandomPosition() {
         int x = new Random().nextInt((int) Math.round(worldWidth));
         int y = (int) Math.round(worldHeight) - 30;
 
-        return new Point(x, y);
+        return new Location(x, y);
     }
 }

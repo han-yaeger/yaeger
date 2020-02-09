@@ -3,7 +3,7 @@ package nl.meron.yaeger.engine.entities.entity.shape.text;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
 import nl.meron.yaeger.engine.entities.entity.motion.Moveable;
@@ -26,25 +26,25 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
      * Instantiate a new {@link DynamicTextEntity}.
      */
     public DynamicTextEntity() {
-        this(new Point(0, 0));
+        this(new Location(0, 0));
     }
 
     /**
-     * Instantiate a new {@link DynamicTextEntity} for the given {@link Point}.
+     * Instantiate a new {@link DynamicTextEntity} for the given {@link Location}.
      *
-     * @param initialPosition the initial {@link Point} of this {@link DynamicTextEntity}
+     * @param initialPosition the initial {@link Location} of this {@link DynamicTextEntity}
      */
-    public DynamicTextEntity(final Point initialPosition) {
+    public DynamicTextEntity(final Location initialPosition) {
         this(initialPosition, "");
     }
 
     /**
      * Instantiate a new {@link DynamicTextEntity} for the given {@link Point2D} and textDelegate.
      *
-     * @param initialPosition the initial {@link Point} of this {@link DynamicTextEntity}
+     * @param initialPosition the initial {@link Location} of this {@link DynamicTextEntity}
      * @param text            a {@link String} containing the initial textDelegate to be displayed
      */
-    public DynamicTextEntity(final Point initialPosition, final String text) {
+    public DynamicTextEntity(final Location initialPosition, final String text) {
         super(initialPosition, text);
     }
 

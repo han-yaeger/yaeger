@@ -5,7 +5,7 @@ import com.google.inject.Injector;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.JavaFXEntity;
 
 /**
@@ -28,7 +28,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
      *
      * @param initialPosition The initial position at which this {@link RectangleEntity} should be placed
      */
-    public RectangleEntity(Point initialPosition) {
+    public RectangleEntity(Location initialPosition) {
         super(initialPosition);
     }
 
@@ -141,7 +141,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
     @Override
     public void placeOnPosition(double x, double y) {
         if (rectangle == null) {
-            initialPosition = new Point(x, y);
+            initialPosition = new Location(x, y);
         } else {
             rectangle.setX(x);
             rectangle.setY(y);

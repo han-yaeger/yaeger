@@ -7,7 +7,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import nl.meron.waterworld.Waterworld;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
 class TextEntityTest {
 
     private static final String YAEGER = "Yaeger";
-    private static final Point POINT = new Point(37, 37);
+    private static final Location LOCATION = new Location(37, 37);
     private static final Font FONT = Font.font(Waterworld.FONT, FontWeight.BOLD, 240);
     private static final Color COLOR = Color.DARKBLUE;
     private Text text;
@@ -32,7 +32,7 @@ class TextEntityTest {
     @Test
     void settingDelegateSetsPositionOnDelegateForNonEmptyConstructor() {
         // Setup
-        var sut = new TextEntity(POINT);
+        var sut = new TextEntity(LOCATION);
 
         // Test
         sut.setTextDelegate(text);
@@ -40,14 +40,14 @@ class TextEntityTest {
 
         // Verify
         verify(text).setTextOrigin(VPos.TOP);
-        verify(text).setX(POINT.getX());
-        verify(text).setY(POINT.getY());
+        verify(text).setX(LOCATION.getX());
+        verify(text).setY(LOCATION.getY());
     }
 
     @Test
     void settingDelegateSetsTextOnDelegate() {
         // Setup
-        var sut = new TextEntity(POINT);
+        var sut = new TextEntity(LOCATION);
 
         // Test
         sut.setText(YAEGER);
@@ -62,7 +62,7 @@ class TextEntityTest {
     @Test
     void settingDelegateSetsFillOnDelegate() {
         // Setup
-        var sut = new TextEntity(POINT);
+        var sut = new TextEntity(LOCATION);
 
         // Test
         sut.setFill(COLOR);
@@ -76,7 +76,7 @@ class TextEntityTest {
     @Test
     void settingDelegateSetsFontOnDelegate() {
         // Setup
-        var sut = new TextEntity(POINT);
+        var sut = new TextEntity(LOCATION);
 
         // Test
         sut.setFont(FONT);
@@ -90,7 +90,7 @@ class TextEntityTest {
     @Test
     void settingDelegateWithContentDelegatesContent() {
         // Setup
-        var sut = new TextEntity(POINT, YAEGER);
+        var sut = new TextEntity(LOCATION, YAEGER);
 
         // Test
         sut.setTextDelegate(text);
@@ -103,7 +103,7 @@ class TextEntityTest {
     @Test
     void getGameNodeReturnsTheTextDelegate() {
         // Setup
-        var sut = new TextEntity(POINT, YAEGER);
+        var sut = new TextEntity(LOCATION, YAEGER);
 
         // Test
         sut.setTextDelegate(text);
@@ -116,7 +116,7 @@ class TextEntityTest {
     @Test
     void settingValuesAfterDelegateIsSetDelegatesTheValues() {
         // Setup
-        var textEntity = new TextEntity(POINT);
+        var textEntity = new TextEntity(LOCATION);
         textEntity.setTextDelegate(text);
         textEntity.init(injector);
 
@@ -131,7 +131,7 @@ class TextEntityTest {
         verify(text).setFill(COLOR);
         verify(text).setText(YAEGER);
         verify(text).setFont(FONT);
-        verify(text).setX(POINT.getX());
-        verify(text).setY(POINT.getY());
+        verify(text).setX(LOCATION.getX());
+        verify(text).setY(LOCATION.getY());
     }
 }

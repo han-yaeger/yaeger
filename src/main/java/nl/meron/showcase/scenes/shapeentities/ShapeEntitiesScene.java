@@ -5,7 +5,7 @@ import nl.meron.showcase.buttons.Back;
 import nl.meron.showcase.scenes.ShowCaseScene;
 import nl.meron.showcase.scenes.shapeentities.entities.DynamicRectangle;
 import nl.meron.showcase.scenes.shapeentities.entities.StaticRectangle;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 
 public class ShapeEntitiesScene extends ShowCaseScene {
 
@@ -30,10 +30,10 @@ public class ShapeEntitiesScene extends ShowCaseScene {
         var backButton = new Back(showCase);
         addEntity(backButton);
 
-        var rect = new StaticRectangle(new Point(40, 60));
+        var rect = new StaticRectangle(new Location(40, 60));
         addEntity(rect);
 
-        var dynamicRectangle = new DynamicRectangle(new Point(40, 160));
+        var dynamicRectangle = new DynamicRectangle(new Location(40, 160));
         addEntity(dynamicRectangle);
     }
 

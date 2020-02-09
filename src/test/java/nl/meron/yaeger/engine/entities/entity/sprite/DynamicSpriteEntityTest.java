@@ -4,7 +4,7 @@ import com.google.inject.Injector;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import nl.meron.yaeger.engine.Size;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.Updater;
 import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
 import nl.meron.yaeger.engine.entities.entity.sprite.delegates.SpriteAnimationDelegate;
@@ -22,7 +22,7 @@ class DynamicSpriteEntityTest {
     private final static String DEFAULT_RESOURCE = "images/bubble.png";
     private final static int X_POSITION = 37;
     private final static int Y_POSITION = 37;
-    private final static Point DEFAULT_POINT = new Point(X_POSITION, Y_POSITION);
+    private final static Location DEFAULT_LOCATION = new Location(X_POSITION, Y_POSITION);
     private final static int WIDTH = 39;
     private final static int HEIGHT = 41;
     private final static Size DEFAULT_SIZE = new Size(WIDTH, HEIGHT);
@@ -50,7 +50,7 @@ class DynamicSpriteEntityTest {
         // Setup
 
         // Test
-        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
+        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
 
         // Verify
         Assertions.assertNotNull(sut);
@@ -62,7 +62,7 @@ class DynamicSpriteEntityTest {
         var autocycleValue = 37;
         var image = mock(Image.class);
         var imageView = mock(ImageView.class);
-        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
+        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
         sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         sut.setImageRepository(imageRepository);
         sut.setImageViewFactory(imageViewFactory);
@@ -89,7 +89,7 @@ class DynamicSpriteEntityTest {
         var frames = 2;
         var image = mock(Image.class);
         var imageView = mock(ImageView.class);
-        var sut = new AutoCyclingDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, frames);
+        var sut = new AutoCyclingDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, frames);
         sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         sut.setImageRepository(imageRepository);
         sut.setImageViewFactory(imageViewFactory);
@@ -111,7 +111,7 @@ class DynamicSpriteEntityTest {
     @Test
     void addedUpdaterIsUsedAsUpdater() {
         // Setup
-        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE, 1);
+        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 1);
         var updater = mock(Updater.class);
 
         sut.setUpdater(updater);
@@ -126,7 +126,7 @@ class DynamicSpriteEntityTest {
     @Test
     void setMotionApplierIsUsed() {
         // Setup
-        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_POINT, DEFAULT_SIZE);
+        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
         var motionApplier = mock(DefaultMotionApplier.class);
         sut.setMotionApplier(motionApplier);
 
@@ -139,19 +139,19 @@ class DynamicSpriteEntityTest {
 
     private class TestDynamicSpriteEntity extends DynamicSpriteEntity {
 
-        TestDynamicSpriteEntity(String resource, Point point, Size size) {
-            super(resource, point, size);
+        TestDynamicSpriteEntity(String resource, Location location, Size size) {
+            super(resource, location, size);
         }
 
-        TestDynamicSpriteEntity(String resource, Point point, Size size, int frames) {
-            super(resource, point, size, frames);
+        TestDynamicSpriteEntity(String resource, Location location, Size size, int frames) {
+            super(resource, location, size, frames);
         }
     }
 
     private class AutoCyclingDynamicSpriteEntity extends DynamicSpriteEntity {
 
-        AutoCyclingDynamicSpriteEntity(String resource, Point point, Size size, int frames) {
-            super(resource, point, size, frames);
+        AutoCyclingDynamicSpriteEntity(String resource, Location location, Size size, int frames) {
+            super(resource, location, size, frames);
             setAutoCycle(2);
         }
     }

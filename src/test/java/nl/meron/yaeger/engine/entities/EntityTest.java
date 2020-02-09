@@ -8,7 +8,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +20,7 @@ class EntityTest {
     private static final double SCENE_WIDTH = 37d;
     private static final double SCENE_HEIGHT = 42d;
     private static final BoundingBox BOUNDING_BOX = new BoundingBox(0, 0, 10, 10);
-    private static final Point ANCHORPOINT = new Point(0, 0);
+    private static final Location ANCHORPOINT = new Location(0, 0);
 
     private Entity testEntity;
     private Node node;

@@ -8,7 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.JavaFXEntity;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 
@@ -26,9 +26,9 @@ public class TextEntity extends JavaFXEntity {
     /**
      * Instantiate a new {@code TextEntity} for the given {@link Point2D}.
      *
-     * @param initialPosition the initial {@link Point} of this {@code TextEntity}
+     * @param initialPosition the initial {@link Location} of this {@code TextEntity}
      */
-    public TextEntity(final Point initialPosition) {
+    public TextEntity(final Location initialPosition) {
         this(initialPosition, "");
     }
 
@@ -38,7 +38,7 @@ public class TextEntity extends JavaFXEntity {
      * @param initialPosition the initial {@link Point2D} of this {@code TextEntity}
      * @param text            a {@link String} containing the initial textDelegate to be displayed
      */
-    public TextEntity(final Point initialPosition, final String text) {
+    public TextEntity(final Location initialPosition, final String text) {
         super(initialPosition);
         this.initialText = text;
     }
@@ -106,7 +106,7 @@ public class TextEntity extends JavaFXEntity {
     @Override
     public void placeOnPosition(double x, double y) {
         if (text == null) {
-            initialPosition = new Point(x, y);
+            initialPosition = new Location(x, y);
         } else {
             text.setX(x);
             text.setY(y);

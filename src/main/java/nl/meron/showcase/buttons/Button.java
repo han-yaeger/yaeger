@@ -4,7 +4,7 @@ import javafx.scene.Cursor;
 import javafx.scene.input.MouseButton;
 import nl.meron.showcase.YaegerShowCase;
 import nl.meron.showcase.scenes.selection.SelectionScene;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseEnterListener;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseExitListener;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MousePressedListener;
@@ -15,7 +15,7 @@ public class Button extends TextEntity implements MousePressedListener, MouseEnt
     private YaegerShowCase showCase;
     private int scene;
 
-    public Button(final Point initialPosition, final String text, YaegerShowCase showCase, int scene) {
+    public Button(final Location initialPosition, final String text, YaegerShowCase showCase, int scene) {
         super(initialPosition, text);
         this.showCase = showCase;
         this.scene = scene;

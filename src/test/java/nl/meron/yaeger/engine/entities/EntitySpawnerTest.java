@@ -2,10 +2,9 @@ package nl.meron.yaeger.engine.entities;
 
 import com.google.inject.Injector;
 import javafx.animation.AnimationTimer;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.javafx.animationtimer.AnimationTimerFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -163,7 +162,7 @@ class EntitySpawnerTest {
         }
 
         @Override
-        public Point getPosition() {
+        public Location getPosition() {
             return null;
         }
 

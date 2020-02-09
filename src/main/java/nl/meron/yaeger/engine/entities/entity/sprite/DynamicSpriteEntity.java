@@ -3,7 +3,7 @@ package nl.meron.yaeger.engine.entities.entity.sprite;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import nl.meron.yaeger.engine.Size;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.entities.entity.UpdateDelegator;
 import nl.meron.yaeger.engine.entities.entity.Updater;
@@ -25,23 +25,23 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      * Create a new SpriteEntity.
      *
      * @param resource     The url of the image file. Relative to the resources folder.
-     * @param initialPoint the initial {@link Point} of this Entity
+     * @param initialLocation the initial {@link Location} of this Entity
      * @param size         The bounding box of this {@code SpriteEntity}.
      */
-    public DynamicSpriteEntity(final String resource, final Point initialPoint, final Size size) {
-        this(resource, initialPoint, size, 1);
+    public DynamicSpriteEntity(final String resource, final Location initialLocation, final Size size) {
+        this(resource, initialLocation, size, 1);
     }
 
     /**
      * Create a new SpriteEntity.
      *
      * @param resource     The url of the image file. Relative to the resources folder.
-     * @param initialPoint the initial {@link Point} of this Entity
+     * @param initialLocation the initial {@link Location} of this Entity
      * @param size         The bounding box of this {@code SpriteEntity}.
      * @param frames       The number of frames this Image contains. By default the first frame is loaded.
      */
-    public DynamicSpriteEntity(final String resource, final Point initialPoint, final Size size, int frames) {
-        super(resource, initialPoint, size, frames);
+    public DynamicSpriteEntity(final String resource, final Location initialLocation, final Size size, int frames) {
+        super(resource, initialLocation, size, frames);
     }
 
     /**

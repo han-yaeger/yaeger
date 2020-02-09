@@ -6,7 +6,7 @@ import nl.meron.pong.Pong;
 import nl.meron.pong.scenes.entities.Ball;
 import nl.meron.pong.scenes.entities.PlayerOneBat;
 import nl.meron.pong.scenes.entities.PlayerTwoBat;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 import nl.meron.yaeger.engine.scenes.impl.DynamicScene;
@@ -48,20 +48,20 @@ public class LevelOne extends DynamicScene implements ScoreKeeper {
     }
 
     private void setupPlayerOne() {
-        var rectBat = new PlayerOneBat(new Point(20, 280));
+        var rectBat = new PlayerOneBat(new Location(20, 280));
         addEntity(rectBat);
 
-        playerOne = new TextEntity(new Point(300, 5));
+        playerOne = new TextEntity(new Location(300, 5));
         playerOne.setFont(Font.font(Pong.FONT, 11));
         playerOne.setFill(GREEN_COLOR);
         addEntity(playerOne);
     }
 
     private void setupPlayerTwo() {
-        var bat2 = new PlayerTwoBat(new Point(925, 280));
+        var bat2 = new PlayerTwoBat(new Location(925, 280));
         addEntity(bat2);
 
-        playerTwo = new TextEntity(new Point(600, 5));
+        playerTwo = new TextEntity(new Location(600, 5));
         playerTwo.setFont(Font.font(Pong.FONT, 11));
         playerTwo.setFill(GREEN_COLOR);
         addEntity(playerTwo);

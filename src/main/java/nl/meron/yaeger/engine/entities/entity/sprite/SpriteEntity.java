@@ -6,7 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.JavaFXEntity;
 import nl.meron.yaeger.engine.entities.entity.sprite.delegates.SpriteAnimationDelegate;
 import nl.meron.yaeger.engine.media.repositories.ImageRepository;
@@ -35,23 +35,23 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
      * Instantiate a new {@code SpriteEntity} for a given Image.
      *
      * @param resource     The url of the image file. Relative to the resources folder.
-     * @param initialPoint the initial {@link Point} of this Entity
+     * @param initialLocation the initial {@link Location} of this Entity
      * @param size         The bounding box of this SpriteEntity.
      */
-    protected SpriteEntity(final String resource, final Point initialPoint, final Size size) {
-        this(resource, initialPoint, size, 1);
+    protected SpriteEntity(final String resource, final Location initialLocation, final Size size) {
+        this(resource, initialLocation, size, 1);
     }
 
     /**
      * Instantiate a new {@code SpriteEntity} for a given Image.
      *
      * @param resource     The url of the image file. Relative to the resources folder.
-     * @param initialPoint the initial {@link Point} of this Entity
+     * @param initialLocation the initial {@link Location} of this Entity
      * @param size         The bounding box of this SpriteEntity.
      * @param frames       The number of frames this Image contains. By default the first frame is loaded.
      */
-    protected SpriteEntity(final String resource, final Point initialPoint, final Size size, final int frames) {
-        super(initialPoint);
+    protected SpriteEntity(final String resource, final Location initialLocation, final Size size, final int frames) {
+        super(initialLocation);
         this.frames = frames;
         this.resource = resource;
         this.size = size;
@@ -125,7 +125,7 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
     @Override
     public void placeOnPosition(double x, double y) {
         if (imageView == null) {
-            initialPosition = new Point(x, y);
+            initialPosition = new Location(x, y);
         } else {
             imageView.setX(x);
             imageView.setY(y);

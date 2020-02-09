@@ -3,7 +3,7 @@ package nl.meron.waterworld.entities.game;
 import nl.meron.waterworld.scenes.levels.Level;
 import nl.meron.yaeger.engine.entities.entity.collisions.Collider;
 import nl.meron.yaeger.engine.entities.entity.collisions.CollisionSide;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.SceneBorderCrossingWatcher;
@@ -18,8 +18,8 @@ public abstract class Bubble extends DynamicSpriteEntity implements Collided, Sc
     private final Level level;
     private final double speed;
 
-    Bubble(final Point point, final String resource, final double speed, final Level game) {
-        super(resource, point, new Size(20, 20), 0);
+    Bubble(final Location location, final String resource, final double speed, final Level game) {
+        super(resource, location, new Size(20, 20), 0);
         this.level = game;
         this.speed = speed;
         setMotionTo(speed, Direction.UP.getValue());

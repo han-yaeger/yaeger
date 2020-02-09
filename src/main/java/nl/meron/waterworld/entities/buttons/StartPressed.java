@@ -9,7 +9,7 @@ import nl.meron.waterworld.Waterworld;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseEnterListener;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseExitListener;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MousePressedListener;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 
 public class StartPressed extends TextEntity implements MousePressedListener, MouseEnterListener, MouseExitListener {
@@ -21,7 +21,7 @@ public class StartPressed extends TextEntity implements MousePressedListener, Mo
     private Waterworld waterworld;
 
     public StartPressed(Waterworld waterworld) {
-        super(new Point(380, 400), PLAY_GAME);
+        super(new Location(380, 400), PLAY_GAME);
         this.waterworld = waterworld;
         setFill(TEXT_COLOR);
         setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 30));

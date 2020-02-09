@@ -4,7 +4,7 @@ import com.google.inject.Injector;
 import javafx.scene.Node;
 import javafx.scene.shape.Shape;
 import nl.meron.yaeger.engine.entities.entity.JavaFXEntity;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.events.system.RemoveEntityEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 
 class JavaFXEntityTest {
 
-    private static final Point POINT = new Point(37, 37);
+    private static final Location LOCATION = new Location(37, 37);
 
     private Shape shape;
     private Injector injector;
@@ -29,7 +29,7 @@ class JavaFXEntityTest {
     @Test
     void callingRemoveCleansUpTheEntity() {
         // Setup
-        var sut = new JavaFXEntityImpl(POINT);
+        var sut = new JavaFXEntityImpl(LOCATION);
         sut.setShape(shape);
         sut.init(injector);
 
@@ -44,7 +44,7 @@ class JavaFXEntityTest {
     @Test
     void settingDelegateSetsVisibleOnDelegate() {
         // Setup
-        var sut = new JavaFXEntityImpl(POINT);
+        var sut = new JavaFXEntityImpl(LOCATION);
         sut.setShape(shape);
 
         // Test
@@ -57,7 +57,7 @@ class JavaFXEntityTest {
     @Test
     void settingVisibillityDelagatesToShape() {
         // Setup
-        var sut = new JavaFXEntityImpl(POINT);
+        var sut = new JavaFXEntityImpl(LOCATION);
         sut.init(injector);
         sut.setShape(shape);
 
@@ -72,7 +72,7 @@ class JavaFXEntityTest {
 
         private Shape shape;
 
-        public JavaFXEntityImpl(Point initialPosition) {
+        public JavaFXEntityImpl(Location initialPosition) {
             super(initialPosition);
         }
 
@@ -81,7 +81,7 @@ class JavaFXEntityTest {
 
         }
 
-        public JavaFXEntityImpl(final Point initialPosition, final Shape shape) {
+        public JavaFXEntityImpl(final Location initialPosition, final Shape shape) {
             super(initialPosition);
         }
 

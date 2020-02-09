@@ -1,6 +1,6 @@
 package nl.meron.waterworld.entities.game;
 
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.collisions.Collider;
@@ -12,8 +12,8 @@ public class Swordfish extends DynamicSpriteEntity implements Collider, SceneBor
 
     private static final String IMAGES_SWORDFISH_PNG = "waterworld/images/swordfish.png";
 
-    public Swordfish(final Point point) {
-        super(IMAGES_SWORDFISH_PNG, point, new Size(300, 108), 1);
+    public Swordfish(final Location location) {
+        super(IMAGES_SWORDFISH_PNG, location, new Size(300, 108), 1);
         setMotionTo(2, Direction.LEFT.getValue());
     }
 

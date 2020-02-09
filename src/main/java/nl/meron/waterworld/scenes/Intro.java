@@ -7,7 +7,7 @@ import javafx.scene.text.FontWeight;
 import nl.meron.waterworld.Waterworld;
 import nl.meron.waterworld.entities.buttons.QuitPressed;
 import nl.meron.waterworld.entities.buttons.StartPressed;
-import nl.meron.yaeger.engine.entities.entity.Point;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.impl.StaticScene;
 
@@ -58,12 +58,12 @@ public class Intro extends StaticScene {
 
     private void createWaterworldText() {
 
-        var twoText = new TextEntity(new Point(540, 220), WATERWORLD_VERSION);
+        var twoText = new TextEntity(new Location(540, 220), WATERWORLD_VERSION);
         twoText.setFill(Color.ORANGE);
         twoText.setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 300));
         addEntity(twoText);
 
-        var waterworldText = new TextEntity(new Point(380, 320), WATERWORLD_NAME);
+        var waterworldText = new TextEntity(new Location(380, 320), WATERWORLD_NAME);
         waterworldText.setFill(Color.DARKBLUE);
         waterworldText.setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 80));
         addEntity(waterworldText);

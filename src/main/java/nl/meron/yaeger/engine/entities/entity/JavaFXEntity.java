@@ -12,11 +12,11 @@ public abstract class JavaFXEntity implements Entity {
     private boolean visible = true;
 
     /**
-     * Instantiate a new {@link JavaFXEntity} for the given {@link Point} and textDelegate.
+     * Instantiate a new {@link JavaFXEntity} for the given {@link Location} and textDelegate.
      *
-     * @param initialPosition the initial {@link Point} of this {@link JavaFXEntity}
+     * @param initialPosition the initial {@link Location} of this {@link JavaFXEntity}
      */
-    public JavaFXEntity(final Point initialPosition) {
+    public JavaFXEntity(final Location initialPosition) {
         this.initialPosition = initialPosition;
     }
 
