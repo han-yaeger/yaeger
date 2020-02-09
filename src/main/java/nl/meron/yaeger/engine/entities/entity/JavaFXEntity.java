@@ -40,6 +40,6 @@ public abstract class JavaFXEntity implements Entity {
     @Override
     public void init(Injector injector) {
         setVisible(visible);
-        placeOnPosition(initialPosition.getX(), initialPosition.getY());
+        placeOnLocation(initialPosition.getX(), initialPosition.getY());
     }
 }

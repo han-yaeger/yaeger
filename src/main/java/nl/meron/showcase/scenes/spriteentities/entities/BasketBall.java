@@ -20,8 +20,8 @@ public class BasketBall extends DynamicSpriteEntity implements KeyListener {
 
         if (pressedKeys.contains(KeyCode.T)) {
 
-            var leftX = getLeftSideX();
-            var rightX = getRightSideX();
+            var leftX = getLeftX();
+            var rightX = getRightX();
             var pivotX = leftX + ((rightX - leftX) / 2);
 
             var topY = getTopY();

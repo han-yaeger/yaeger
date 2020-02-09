@@ -162,12 +162,12 @@ class EntitySpawnerTest {
         }
 
         @Override
-        public Location getPosition() {
+        public Location getLocation() {
             return null;
         }
 
         @Override
-        public void placeOnPosition(double x, double y) {
+        public void placeOnLocation(double x, double y) {
             // Not required here.
         }
 

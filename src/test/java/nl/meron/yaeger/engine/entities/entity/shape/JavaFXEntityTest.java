@@ -77,7 +77,7 @@ class JavaFXEntityTest {
         }
 
         @Override
-        public void placeOnPosition(double x, double y) {
+        public void placeOnLocation(double x, double y) {
 
         }
 

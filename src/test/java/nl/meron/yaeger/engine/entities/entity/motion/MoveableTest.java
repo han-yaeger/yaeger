@@ -184,7 +184,7 @@ class MoveableTest {
         }
 
         @Override
-        public void placeOnPosition(double x, double y) {
+        public void placeOnLocation(double x, double y) {
             // Not required here.
         }
 

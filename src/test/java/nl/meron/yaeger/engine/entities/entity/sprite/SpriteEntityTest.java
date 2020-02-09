@@ -197,7 +197,7 @@ class SpriteEntityTest {
         spriteEntity.init(injector);
 
         // Test
-        spriteEntity.placeOnPosition(X, Y);
+        spriteEntity.placeOnLocation(X, Y);
 
         // Verify
         verify(imageView).setX(X);

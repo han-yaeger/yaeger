@@ -3,7 +3,7 @@ package nl.meron.yaeger.engine.entities.entity;
 import javafx.geometry.Bounds;
 
 /**
- * Implementing this interface exposes the {@code getBounds} method, which returns the bounds, aka
+ * Implementing this interface exposes the {@link Bounded#getBounds()} method, which returns the bounds, aka
  * Bounding Box, of this Entity.
  */
 public interface Bounded extends NodeProvider {
@@ -20,14 +20,14 @@ public interface Bounded extends NodeProvider {
     /**
      * @return a {@code double} of the right side x value
      */
-    default double getRightSideX() {
+    default double getRightX() {
         return getBounds().getMaxX();
     }
 
     /**
-     * @return a {@code double} of the left side x value
+     * @return a {@code double} of the left x value
      */
-    default double getLeftSideX() {
+    default double getLeftX() {
         return getBounds().getMinX();
     }
 

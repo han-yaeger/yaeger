@@ -139,7 +139,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
     }
 
     @Override
-    public void placeOnPosition(double x, double y) {
+    public void placeOnLocation(double x, double y) {
         if (rectangle == null) {
             initialPosition = new Location(x, y);
         } else {
@@ -155,8 +155,8 @@ public abstract class RectangleEntity extends JavaFXEntity {
     }
 
     @Override
-    public double getLeftSideX() {
-        double leftSideX = super.getLeftSideX() + (0.5 * rectangle.getStrokeWidth());
+    public double getLeftX() {
+        double leftSideX = super.getLeftX() + (0.5 * rectangle.getStrokeWidth());
         return leftSideX;
     }
 

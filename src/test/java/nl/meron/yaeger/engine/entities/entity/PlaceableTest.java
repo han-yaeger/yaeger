@@ -25,7 +25,7 @@ class PlaceableTest {
         when(bounds.getMinY()).thenReturn(y);
 
         // Test
-        Point2D position = sut.getPosition();
+        Point2D position = sut.getLocation();
 
         // Verify
         assertEquals(x, position.getX());
@@ -39,7 +39,7 @@ class PlaceableImpl implements Placeable {
     private Node node;
 
     @Override
-    public void placeOnPosition(double x, double y) {
+    public void placeOnLocation(double x, double y) {
         // Not required here.
     }
 

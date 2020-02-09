@@ -123,7 +123,7 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
     }
 
     @Override
-    public void placeOnPosition(double x, double y) {
+    public void placeOnLocation(double x, double y) {
         if (imageView == null) {
             initialPosition = new Location(x, y);
         } else {

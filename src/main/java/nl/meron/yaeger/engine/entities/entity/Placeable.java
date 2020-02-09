@@ -10,15 +10,15 @@ public interface Placeable extends Bounded {
     /**
      * @return the position as a {@link Point2D}.
      */
-    default Point2D getPosition() {
-        return new Point2D(getLeftSideX(), getTopY());
+    default Point2D getLocation() {
+        return new Point2D(getLeftX(), getTopY());
     }
 
     /**
-     * Set the position tot he given x and y-coordinate.
+     * Set the Location to the given x and y-coordinate.
      *
      * @param x a {@code double} representing the x coordinate
      * @param y a {@code double} representing the y coordinate
      */
-    void placeOnPosition(double x, double y);
+    void placeOnLocation(double x, double y);
 }

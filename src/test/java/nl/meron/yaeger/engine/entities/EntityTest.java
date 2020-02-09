@@ -101,7 +101,7 @@ class EntityTest {
         when(node.getBoundsInLocal()).thenReturn(BOUNDING_BOX);
 
         // Act
-        double rightSideX = testEntity.getRightSideX();
+        double rightSideX = testEntity.getRightX();
 
         // Assert
         assertEquals(ANCHORPOINT.getX() + BOUNDING_BOX.getWidth(), rightSideX);
@@ -113,7 +113,7 @@ class EntityTest {
         when(node.getBoundsInLocal()).thenReturn(BOUNDING_BOX);
 
         // Act
-        double leftSideX = testEntity.getLeftSideX();
+        double leftSideX = testEntity.getLeftX();
 
         // Assert
         assertEquals(ANCHORPOINT.getX(), leftSideX);
@@ -159,12 +159,12 @@ class EntityTest {
         }
 
         @Override
-        public Point2D getPosition() {
+        public Point2D getLocation() {
             return ANCHORPOINT;
         }
 
         @Override
-        public void placeOnPosition(double x, double y) {
+        public void placeOnLocation(double x, double y) {
             // Not required here.
         }
 

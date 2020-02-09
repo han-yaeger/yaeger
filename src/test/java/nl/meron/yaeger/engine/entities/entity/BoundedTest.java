@@ -31,7 +31,7 @@ class BoundedTest {
         when(bounds.getMinX()).thenReturn(minX);
 
         // Test
-        double leftSideX = sut.getLeftSideX();
+        double leftSideX = sut.getLeftX();
 
         // Verify
         Assertions.assertEquals(minX, leftSideX);
@@ -44,7 +44,7 @@ class BoundedTest {
         when(bounds.getMaxX()).thenReturn(maxX);
 
         // Test
-        double rightSideX = sut.getRightSideX();
+        double rightSideX = sut.getRightX();
 
         // Verify
         Assertions.assertEquals(maxX, rightSideX);
