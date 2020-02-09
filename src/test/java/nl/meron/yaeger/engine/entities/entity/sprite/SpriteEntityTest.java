@@ -108,54 +108,6 @@ class SpriteEntityTest {
     }
 
     @Test
-    void getXReturnsTheExpectedXCoordinate() {
-        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
-        spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        spriteEntity.setImageRepository(imageRepository);
-        spriteEntity.setImageViewFactory(imageViewFactory);
-
-        var image = mock(Image.class);
-        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
-
-        var imageView = mock(ImageView.class);
-        when(imageViewFactory.create(image)).thenReturn(imageView);
-        spriteEntity.init(injector);
-
-        when(imageView.getX()).thenReturn(DEFAULT_LOCATION.getX());
-        when(imageView.getY()).thenReturn(DEFAULT_LOCATION.getY());
-
-        // Test
-        var x = spriteEntity.getXPosition();
-
-        // Verify
-        Assertions.assertEquals(X_POSITION, x);
-    }
-
-    @Test
-    void getYReturnsTheExpectedXCoordinate() {
-        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
-        spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        spriteEntity.setImageRepository(imageRepository);
-        spriteEntity.setImageViewFactory(imageViewFactory);
-
-        var image = mock(Image.class);
-        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
-
-        var imageView = mock(ImageView.class);
-        when(imageViewFactory.create(image)).thenReturn(imageView);
-        spriteEntity.init(injector);
-
-        when(imageView.getX()).thenReturn(DEFAULT_LOCATION.getX());
-        when(imageView.getY()).thenReturn(DEFAULT_LOCATION.getY());
-
-        // Test
-        var y = spriteEntity.getYPosition();
-
-        // Verify
-        Assertions.assertEquals(Y_POSITION, y);
-    }
-
-    @Test
     void removingAnEntitySetsImageViewCorrectly() {
         // Setup
         var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
@@ -236,14 +188,6 @@ class SpriteEntityTest {
 
         TestSpriteEntityWithDefaultFrames(String resource, Location location, Size size) {
             super(resource, location, size);
-        }
-
-        double getXPosition() {
-            return getX();
-        }
-
-        double getYPosition() {
-            return getY();
         }
     }
 

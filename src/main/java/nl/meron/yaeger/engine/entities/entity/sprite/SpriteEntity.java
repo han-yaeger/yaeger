@@ -34,9 +34,9 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
     /**
      * Instantiate a new {@code SpriteEntity} for a given Image.
      *
-     * @param resource     The url of the image file. Relative to the resources folder.
+     * @param resource        The url of the image file. Relative to the resources folder.
      * @param initialLocation the initial {@link Location} of this Entity
-     * @param size         The bounding box of this SpriteEntity.
+     * @param size            The bounding box of this SpriteEntity.
      */
     protected SpriteEntity(final String resource, final Location initialLocation, final Size size) {
         this(resource, initialLocation, size, 1);
@@ -45,10 +45,10 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
     /**
      * Instantiate a new {@code SpriteEntity} for a given Image.
      *
-     * @param resource     The url of the image file. Relative to the resources folder.
+     * @param resource        The url of the image file. Relative to the resources folder.
      * @param initialLocation the initial {@link Location} of this Entity
-     * @param size         The bounding box of this SpriteEntity.
-     * @param frames       The number of frames this Image contains. By default the first frame is loaded.
+     * @param size            The bounding box of this SpriteEntity.
+     * @param frames          The number of frames this Image contains. By default the first frame is loaded.
      */
     protected SpriteEntity(final String resource, final Location initialLocation, final Size size, final int frames) {
         super(initialLocation);
@@ -82,24 +82,6 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
      */
     public void setCurrentFrameIndex(int index) {
         spriteAnimationDelegate.setSpriteIndex(index);
-    }
-
-    /**
-     * Return the x-coordinate of this {@link SpriteEntity}.
-     *
-     * @return the x-coordinate
-     */
-    protected double getX() {
-        return imageView.getX();
-    }
-
-    /**
-     * Return the y-coordinate of this {@link SpriteEntity}.
-     *
-     * @return the y-coordinate
-     */
-    protected double getY() {
-        return imageView.getY();
     }
 
     /**
