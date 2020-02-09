@@ -13,6 +13,7 @@ public class BasketBall extends DynamicSpriteEntity implements KeyListener {
 
     public BasketBall(Location location) {
         super("showcase/entities/basketball.png", location, new Size(60, 60), 0);
+        setRotationSpeed(1);
     }
 
     @Override

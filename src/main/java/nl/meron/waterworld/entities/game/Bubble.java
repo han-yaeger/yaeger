@@ -23,6 +23,7 @@ public abstract class Bubble extends DynamicSpriteEntity implements Collided, Sc
         this.level = game;
         this.speed = speed;
         setMotionTo(speed, Direction.UP.getValue());
+        setRotationSpeed(Math.random() * 5);
     }
 
     @Override

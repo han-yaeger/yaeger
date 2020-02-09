@@ -3,30 +3,28 @@ package nl.meron.yaeger.engine.entities.entity.sprite;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import nl.meron.yaeger.engine.Size;
-import nl.meron.yaeger.engine.entities.entity.Location;
-import nl.meron.yaeger.engine.entities.entity.Updatable;
-import nl.meron.yaeger.engine.entities.entity.UpdateDelegator;
-import nl.meron.yaeger.engine.entities.entity.Updater;
+import nl.meron.yaeger.engine.entities.entity.*;
 import nl.meron.yaeger.engine.entities.entity.motion.*;
 
 /**
  * An {@link DynamicSpriteEntity} extends all behaviour of a {@link SpriteEntity}, but also implements the
  * {@link Updatable} Interface.
  */
-public abstract class DynamicSpriteEntity extends SpriteEntity implements UpdateDelegator, Moveable {
+public abstract class DynamicSpriteEntity extends SpriteEntity implements UpdateDelegator, Moveable, ContinuousRotatable {
 
     private DefaultMotionApplier motionApplier;
     private long autoCycleInterval = 0;
     private Updater updater;
     private double speed;
     private double direction;
+    private double rotationAngle;
 
     /**
      * Create a new SpriteEntity.
      *
-     * @param resource     The url of the image file. Relative to the resources folder.
+     * @param resource        The url of the image file. Relative to the resources folder.
      * @param initialLocation the initial {@link Location} of this Entity
-     * @param size         The bounding box of this {@code SpriteEntity}.
+     * @param size            The bounding box of this {@code SpriteEntity}.
      */
     public DynamicSpriteEntity(final String resource, final Location initialLocation, final Size size) {
         this(resource, initialLocation, size, 1);
@@ -35,10 +33,10 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     /**
      * Create a new SpriteEntity.
      *
-     * @param resource     The url of the image file. Relative to the resources folder.
+     * @param resource        The url of the image file. Relative to the resources folder.
      * @param initialLocation the initial {@link Location} of this Entity
-     * @param size         The bounding box of this {@code SpriteEntity}.
-     * @param frames       The number of frames this Image contains. By default the first frame is loaded.
+     * @param size            The bounding box of this {@code SpriteEntity}.
+     * @param frames          The number of frames this Image contains. By default the first frame is loaded.
      */
     public DynamicSpriteEntity(final String resource, final Location initialLocation, final Size size, int frames) {
         super(resource, initialLocation, size, frames);
@@ -90,6 +88,11 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
         }
     }
 
+    @Override
+    public void setRotationSpeed(double rotationAngle) {
+        this.rotationAngle = rotationAngle;
+    }
+
     @Inject
     @Override
     public void setMotionApplier(DefaultMotionApplier motionApplier) {
@@ -100,4 +103,11 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     public void setUpdater(Updater updater) {
         this.updater = updater;
     }
+
+    @Override
+    public double getRotationSpeed() {
+        return rotationAngle;
+    }
+
+
 }

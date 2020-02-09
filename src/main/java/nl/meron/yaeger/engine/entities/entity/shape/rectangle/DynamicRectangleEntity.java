@@ -11,12 +11,13 @@ import nl.meron.yaeger.engine.entities.entity.motion.Moveable;
  * An {@link DynamicRectangleEntity} extends all behaviour of a {@link RectangleEntity}, but also implements the
  * {@link Updatable} Interface.
  */
-public class DynamicRectangleEntity extends RectangleEntity implements UpdateDelegator, Moveable {
+public class DynamicRectangleEntity extends RectangleEntity implements UpdateDelegator, Moveable, ContinuousRotatable {
 
     private DefaultMotionApplier motionApplier;
     private Updater updater;
     private double speed;
     private double direction;
+    private double rotationAngle;
 
     /**
      * Create a new {@link DynamicRectangleEntity} on the given {@code initialPosition}.
@@ -26,6 +27,7 @@ public class DynamicRectangleEntity extends RectangleEntity implements UpdateDel
     public DynamicRectangleEntity(Location initialPosition) {
         super(initialPosition);
     }
+
 
     @Override
     public MotionApplier getMotionApplier() {
@@ -44,6 +46,11 @@ public class DynamicRectangleEntity extends RectangleEntity implements UpdateDel
         if (speed != 0) {
             setMotionTo(speed, direction);
         }
+    }
+
+    @Override
+    public void setRotationSpeed(double rotationAngle) {
+        this.rotationAngle = rotationAngle;
     }
 
     @Override
@@ -76,6 +83,11 @@ public class DynamicRectangleEntity extends RectangleEntity implements UpdateDel
         } else {
             return null;
         }
+    }
+
+    @Override
+    public double getRotationSpeed() {
+        return rotationAngle;
     }
 
     @Inject

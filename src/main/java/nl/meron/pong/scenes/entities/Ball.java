@@ -7,6 +7,7 @@ import nl.meron.yaeger.engine.entities.entity.collisions.CollisionSide;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.SceneBorderTouchingWatcher;
+import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.entities.entity.sprite.DynamicSpriteEntity;
 import nl.meron.yaeger.engine.entities.entity.SceneBorderCrossingWatcher;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
@@ -28,6 +29,11 @@ public class Ball extends DynamicSpriteEntity implements SceneBorderTouchingWatc
 
     @Override
     public void onCollision(Collider collidingObject, CollisionSide collisionSide) {
+        applyNewDirection();
+        applyNewRotation(collidingObject);
+    }
+
+    private void applyNewDirection() {
         var direction = getDirection();
 
         if (direction > 0 && direction < 180) {
@@ -37,6 +43,14 @@ public class Ball extends DynamicSpriteEntity implements SceneBorderTouchingWatc
         } else {
             setDirectionTo(direction + 180);
         }
+    }
+
+    private void applyNewRotation(Collider collidingObject) {
+        var rotation = collidingObject.getSpeed() * 2;
+        if (collidingObject.getDirection() == Direction.UP.getValue()) {
+            rotation *= -1;
+        }
+        setRotationSpeed(rotation);
     }
 
     @Override

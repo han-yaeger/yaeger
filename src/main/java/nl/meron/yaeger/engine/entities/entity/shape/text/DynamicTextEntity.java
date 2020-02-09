@@ -3,24 +3,22 @@ package nl.meron.yaeger.engine.entities.entity.shape.text;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
-import nl.meron.yaeger.engine.entities.entity.Location;
-import nl.meron.yaeger.engine.entities.entity.Updatable;
+import nl.meron.yaeger.engine.entities.entity.*;
 import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
 import nl.meron.yaeger.engine.entities.entity.motion.Moveable;
-import nl.meron.yaeger.engine.entities.entity.UpdateDelegator;
-import nl.meron.yaeger.engine.entities.entity.Updater;
 import nl.meron.yaeger.engine.entities.entity.motion.MotionApplier;
 
 /**
  * An {@link DynamicTextEntity} extends all behaviour of a {@link TextEntity}, but also implements the
  * {@link Updatable} Interface.
  */
-public abstract class DynamicTextEntity extends TextEntity implements UpdateDelegator, Moveable {
+public abstract class DynamicTextEntity extends TextEntity implements UpdateDelegator, Moveable, ContinuousRotatable {
 
     private DefaultMotionApplier motionApplier;
     private Updater updater;
     private double speed;
     private double direction;
+    private double rotationAngle;
 
     /**
      * Instantiate a new {@link DynamicTextEntity}.
@@ -60,6 +58,16 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
         if (speed != 0) {
             setMotionTo(speed, direction);
         }
+    }
+
+    @Override
+    public void setRotationSpeed(double rotationAngle) {
+        this.rotationAngle = rotationAngle;
+    }
+
+    @Override
+    public double getRotationSpeed() {
+        return rotationAngle;
     }
 
     @Override

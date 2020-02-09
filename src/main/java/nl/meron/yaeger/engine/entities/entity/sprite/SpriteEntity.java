@@ -8,6 +8,7 @@ import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.JavaFXEntity;
+import nl.meron.yaeger.engine.entities.entity.Rotatable;
 import nl.meron.yaeger.engine.entities.entity.sprite.delegates.SpriteAnimationDelegate;
 import nl.meron.yaeger.engine.media.repositories.ImageRepository;
 import nl.meron.yaeger.engine.media.ResourceConsumer;
@@ -17,7 +18,7 @@ import nl.meron.yaeger.guice.factories.SpriteAnimationDelegateFactory;
 /**
  * A {@link SpriteEntity} is a {@link Entity} that is represented by an Image.
  */
-public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsumer {
+public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsumer{
 
     private final String resource;
     private final Size size;
