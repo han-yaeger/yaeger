@@ -45,7 +45,7 @@ public class EntityCollection implements Initializable {
      *
      * @param group The {@link Group} to which all instances of {@link Entity}s should be added.
      */
-    public EntityCollection(Group group) {
+    public EntityCollection(final Group group) {
         this.group = group;
         this.collisionDelegate = new CollisionDelegate();
         this.statistics = new EntityCollectionStatistics();
@@ -56,7 +56,7 @@ public class EntityCollection implements Initializable {
      *
      * @param observer the {@link StatisticsObserver} to be added
      */
-    public void addStatisticsObserver(StatisticsObserver observer) {
+    public void addStatisticsObserver(final StatisticsObserver observer) {
         statisticsObservers.add(observer);
     }
 
@@ -65,7 +65,7 @@ public class EntityCollection implements Initializable {
      *
      * @param supplier The {@link EntitySupplier} to be registered.
      */
-    public void registerSupplier(EntitySupplier supplier) {
+    public void registerSupplier(final EntitySupplier supplier) {
         this.suppliers.add(supplier);
     }
 
@@ -75,7 +75,7 @@ public class EntityCollection implements Initializable {
      *
      * @param entity The {@link Removeable} to be removed.
      */
-    private void markAsGarbage(Removeable entity) {
+    private void markAsGarbage(final Removeable entity) {
 
         this.garbage.add(entity);
     }
@@ -85,7 +85,7 @@ public class EntityCollection implements Initializable {
      *
      * @param input A {@link Set<KeyCode>} containing als keys currently pressed.
      */
-    public void notifyGameObjectsOfPressedKeys(Set<KeyCode> input) {
+    public void notifyGameObjectsOfPressedKeys(final Set<KeyCode> input) {
         keyListeners.forEach(gameObject -> gameObject.onPressedKeysChange(input));
     }
 
@@ -128,7 +128,7 @@ public class EntityCollection implements Initializable {
      *
      * @param timestamp the timestamp of the update
      */
-    public void update(long timestamp) {
+    public void update(final long timestamp) {
         collectGarbage();
         notifyUpdatables(timestamp);
         addSuppliedEntities();
@@ -173,7 +173,7 @@ public class EntityCollection implements Initializable {
         garbage.clear();
     }
 
-    private void removeGameObject(Removeable entity) {
+    private void removeGameObject(final Removeable entity) {
         this.group.getChildren().remove(entity.getGameNode());
         this.collisionDelegate.remove(entity);
     }
@@ -184,7 +184,7 @@ public class EntityCollection implements Initializable {
         }
     }
 
-    private void addToGameLoop(Entity entity) {
+    private void addToGameLoop(final Entity entity) {
         initialize(entity);
         addToKeylisteners(entity);
         attachGameEventListeners(entity);
@@ -193,13 +193,13 @@ public class EntityCollection implements Initializable {
         addToScene(entity);
     }
 
-    private void initialize(Entity entity) {
+    private void initialize(final Entity entity) {
         injector.injectMembers(entity);
         entity.init(injector);
         invokeInitializers(entity);
     }
 
-    private void invokeInitializers(Entity entity) {
+    private void invokeInitializers(final Entity entity) {
         for (Method method : entity.getClass().getMethods()) {
             if (method.isAnnotationPresent(Initializer.class)) {
                 try {
@@ -211,7 +211,7 @@ public class EntityCollection implements Initializable {
         }
     }
 
-    private void addToUpdatablesOrStatics(Entity entity) {
+    private void addToUpdatablesOrStatics(final Entity entity) {
         if (entity instanceof Updatable) {
             var updatable = (Updatable) entity;
             configureUpdateDelegators(updatable);
@@ -221,7 +221,7 @@ public class EntityCollection implements Initializable {
         }
     }
 
-    private void configureUpdateDelegators(Updatable updatable) {
+    private void configureUpdateDelegators(final Updatable updatable) {
         if (updatable instanceof UpdateDelegator) {
             var updateDelegator = (UpdateDelegator) updatable;
             for (Method method : updatable.getClass().getMethods()) {
@@ -238,21 +238,21 @@ public class EntityCollection implements Initializable {
         }
     }
 
-    private void addToKeylisteners(Entity entity) {
+    private void addToKeylisteners(final Entity entity) {
         if (entity instanceof KeyListener) {
             keyListeners.add((KeyListener) entity);
         }
     }
 
-    private void addToScene(Entity entity) {
+    private void addToScene(final Entity entity) {
         this.group.getChildren().add(entity.getGameNode());
     }
 
-    private void attachGameEventListeners(Entity entity) {
+    private void attachGameEventListeners(final Entity entity) {
         entity.getGameNode().addEventHandler(EventTypes.REMOVE, event -> markAsGarbage(event.getSource()));
     }
 
-    private void notifyUpdatables(long timestamp) {
+    private void notifyUpdatables(final long timestamp) {
         updatables.forEach(updatable -> updatable.update(timestamp));
     }
 
@@ -265,7 +265,7 @@ public class EntityCollection implements Initializable {
     }
 
     @Override
-    public void init(Injector injector) {
+    public void init(final Injector injector) {
         this.injector = injector;
     }
 }

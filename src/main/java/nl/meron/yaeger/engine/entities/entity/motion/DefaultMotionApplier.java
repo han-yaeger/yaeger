@@ -81,7 +81,7 @@ public class DefaultMotionApplier implements MotionApplier {
     }
 
     @Override
-    public Point2D updateLocation(Point2D currentLocation) {
+    public Point2D updateLocation(final Point2D currentLocation) {
         return currentLocation.add(transformation);
     }
 }

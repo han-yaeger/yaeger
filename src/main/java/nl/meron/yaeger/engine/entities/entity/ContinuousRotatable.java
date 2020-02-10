@@ -15,7 +15,7 @@ public interface ContinuousRotatable extends Rotatable {
      *
      * @param angle the angle as a {@code double}
      */
-    void setRotationSpeed(double angle);
+    void setRotationSpeed(final double angle);
 
     @UpdatableProvider
     default Updatable applyRotation() {

@@ -29,7 +29,7 @@ public class DebugLabelFactory {
      *
      * @param string the {@link String} to be shown
      */
-    public Label createValue(String string) {
+    public Label createValue(final String string) {
         var label = new Label(string);
 
         label.setTextFill(Color.GREEN);
@@ -42,7 +42,7 @@ public class DebugLabelFactory {
     /**
      * Instantiate a new {@code DebugLabelFactory} without any text value shown.
      */
-    public Label createLabel(String string) {
+    public Label createLabel(final String string) {
         var label = new Label(string);
 
         label.setTextFill(Color.GREEN);

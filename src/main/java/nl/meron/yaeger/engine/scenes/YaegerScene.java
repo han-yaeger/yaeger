@@ -47,7 +47,7 @@ public interface YaegerScene extends Destroyable, Initializable, Configurable, C
      *
      * @param url The name of the audio file, including extention.
      */
-    void setBackgroundAudio(String url);
+    void setBackgroundAudio(final String url);
 
     /**
      * Return the {@link Scene} that is encapsulated by this {@link YaegerScene}
@@ -56,7 +56,12 @@ public interface YaegerScene extends Destroyable, Initializable, Configurable, C
      */
     Scene getScene();
 
-    default void setCursor(Cursor cursor){
+    /**
+     * Set the Cursor.
+     *
+     * @param cursor the {@link Cursor} that should be used
+     */
+    default void setCursor(final Cursor cursor) {
         getScene().setCursor(cursor);
     }
 }

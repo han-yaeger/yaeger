@@ -18,7 +18,7 @@ public class Scenes extends LinkedHashMap<Integer, YaegerScene> {
     private transient YaegerScene activeScene;
     private transient Injector injector;
 
-    public Scenes(Stage stage) {
+    public Scenes(final Stage stage) {
         this.injector = Guice.createInjector(new YaegerModule());
         this.stage = stage;
     }
@@ -30,7 +30,7 @@ public class Scenes extends LinkedHashMap<Integer, YaegerScene> {
      * @param number The {@link Integer} identifying the {@link YaegerScene}
      * @param scene  The {@link YaegerScene} to be added
      */
-    public void addScene(int number, YaegerScene scene) {
+    public void addScene(final int number, final YaegerScene scene) {
         put(number, scene);
 
         scene.init(injector);
@@ -50,12 +50,12 @@ public class Scenes extends LinkedHashMap<Integer, YaegerScene> {
     }
 
     /**
-     * Set the {@link YaegerScene} of the given {@link SceneType}. Dit is de {@code scenes} die getoond wordt op het scherm en waarvan,
-     * indien beschikbaar, de {@code Gameloop} en {@code Eventlisteners} hun werk doen.
+     * Set the {@link YaegerScene} of the given {@code int}. The set {@link YaegerScene} will be shown and if available
+     * its {@code GameLoop} and {@code EventListeners} will be active.
      *
      * @param number The {@link Integer} identifying the {@link YaegerScene}
      */
-    public void setActive(int number) {
+    public void setActive(final int number) {
 
         var requestedScene = get(number);
 
@@ -70,7 +70,7 @@ public class Scenes extends LinkedHashMap<Integer, YaegerScene> {
         activate(requestedScene);
     }
 
-    private void activate(YaegerScene scene) {
+    private void activate(final YaegerScene scene) {
         injector.injectMembers(scene);
         scene.configure();
         scene.setupScene();
@@ -85,7 +85,7 @@ public class Scenes extends LinkedHashMap<Integer, YaegerScene> {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;

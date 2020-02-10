@@ -2,11 +2,11 @@ package nl.meron.yaeger.engine.exceptions;
 
 public class YaegerEngineException extends RuntimeException {
 
-    public YaegerEngineException(String message) {
+    public YaegerEngineException(final String message) {
         super(message);
     }
 
-    public YaegerEngineException(Exception e) {
+    public YaegerEngineException(final Exception e) {
         super(e);
     }
 }

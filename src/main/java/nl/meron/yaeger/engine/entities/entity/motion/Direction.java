@@ -32,7 +32,7 @@ public enum Direction {
      * @param direction the {@code double} value of the {@link Direction}
      * @return The {@link Direction} that represents the numeric value
      */
-    public static Direction valueOf(double direction) {
+    public static Direction valueOf(final double direction) {
         return map.get(direction);
     }
 

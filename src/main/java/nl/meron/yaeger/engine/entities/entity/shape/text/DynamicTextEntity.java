@@ -61,7 +61,7 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
     }
 
     @Override
-    public void setRotationSpeed(double rotationAngle) {
+    public void setRotationSpeed(final double rotationAngle) {
         this.rotationAngle = rotationAngle;
     }
 
@@ -76,7 +76,7 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
     }
 
     @Override
-    public MotionApplier setSpeedTo(double newSpeed) {
+    public MotionApplier setSpeedTo(final double newSpeed) {
         if (motionApplier != null) {
             return motionApplier.setSpeedTo(newSpeed);
         } else {
@@ -86,7 +86,7 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
     }
 
     @Override
-    public MotionApplier setDirectionTo(double newDirection) {
+    public MotionApplier setDirectionTo(final double newDirection) {
         if (motionApplier != null) {
             return motionApplier.setDirectionTo(newDirection);
         } else {
@@ -96,7 +96,7 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
     }
 
     @Override
-    public MotionApplier setMotionTo(double speed, double direction) {
+    public MotionApplier setMotionTo(final double speed, final double direction) {
         this.speed = speed;
         this.direction = direction;
 

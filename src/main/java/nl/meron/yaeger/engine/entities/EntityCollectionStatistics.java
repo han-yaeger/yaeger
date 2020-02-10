@@ -12,23 +12,23 @@ public class EntityCollectionStatistics {
     private int garbage;
     private int statics;
 
-    public void setSuppliers(int spawners) {
+    public void setSuppliers(final int spawners) {
         this.spawners = spawners;
     }
 
-    public void setStatics(int statics) {
+    public void setStatics(final int statics) {
         this.statics = statics;
     }
 
-    public void setUpdatables(int updatables) {
+    public void setUpdatables(final int updatables) {
         this.updatables = updatables;
     }
 
-    public void setKeyListeners(int keyListeners) {
+    public void setKeyListeners(final int keyListeners) {
         this.keyListeners = keyListeners;
     }
 
-    public void setGarbage(int garbage) {
+    public void setGarbage(final int garbage) {
         this.garbage = garbage;
     }
 

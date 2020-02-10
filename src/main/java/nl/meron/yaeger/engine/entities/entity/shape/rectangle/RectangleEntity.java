@@ -28,7 +28,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
      *
      * @param initialPosition The initial position at which this {@link RectangleEntity} should be placed
      */
-    public RectangleEntity(Location initialPosition) {
+    public RectangleEntity(final Location initialPosition) {
         super(initialPosition);
     }
 
@@ -37,7 +37,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
      *
      * @param strokeColor The {@link Color} of the stroke
      */
-    public void setStrokeColor(Color strokeColor) {
+    public void setStrokeColor(final Color strokeColor) {
         this.strokeColor = strokeColor;
     }
 
@@ -46,7 +46,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
      *
      * @param strokeWidth The with of the stroke as a {@code double}
      */
-    public void setStrokeWidth(double strokeWidth) {
+    public void setStrokeWidth(final double strokeWidth) {
         this.strokeWidth = strokeWidth;
     }
 
@@ -55,7 +55,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
      *
      * @param height The {@code height} of the rectangle as a {@code double}
      */
-    public void setHeight(double height) {
+    public void setHeight(final double height) {
         if (rectangle == null) {
             this.height = height;
         } else {
@@ -68,7 +68,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
      *
      * @param width The {@code width} of the rectangle as a {@code double}
      */
-    public void setWidth(double width) {
+    public void setWidth(final double width) {
         if (rectangle == null) {
 
             this.width = width;
@@ -82,7 +82,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
      *
      * @param fill The {@link Color} of the fill
      */
-    public void setFill(Color fill) {
+    public void setFill(final Color fill) {
         if (rectangle == null) {
             this.fill = fill;
         } else {
@@ -95,7 +95,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
      *
      * @param arcHeight The {@code height} of the arc corner of the rectangle as a {@code double}
      */
-    public void setArcHeight(double arcHeight) {
+    public void setArcHeight(final double arcHeight) {
         if (rectangle == null) {
             this.arcHeight = arcHeight;
         } else {
@@ -108,7 +108,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
      *
      * @param arcWidth The {@code width} of the arc corner of the rectangle as a {@code double}
      */
-    public void setArcWidth(double arcWidth) {
+    public void setArcWidth(final double arcWidth) {
         if (rectangle == null) {
             this.arcWidth = arcWidth;
         } else {
@@ -117,7 +117,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
     }
 
     @Override
-    public void init(Injector injector) {
+    public void init(final Injector injector) {
         super.init(injector);
 
         if (strokeColor != null) {
@@ -139,7 +139,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
     }
 
     @Override
-    public void placeOnLocation(double x, double y) {
+    public void placeOnLocation(final double x, final double y) {
         if (rectangle == null) {
             initialPosition = new Location(x, y);
         } else {
@@ -150,14 +150,12 @@ public abstract class RectangleEntity extends JavaFXEntity {
 
     @Override
     public double getTopY() {
-        double topY = super.getTopY() + (0.5 * rectangle.getStrokeWidth());
-        return topY;
+        return super.getTopY() + (0.5 * rectangle.getStrokeWidth());
     }
 
     @Override
     public double getLeftX() {
-        double leftSideX = super.getLeftX() + (0.5 * rectangle.getStrokeWidth());
-        return leftSideX;
+        return super.getLeftX() + (0.5 * rectangle.getStrokeWidth());
     }
 
     @Inject

@@ -10,5 +10,5 @@ public interface Initializable {
     /**
      * @param injector the {@link Injector} used for Dependency Injection
      */
-    void init(Injector injector);
+    void init(final Injector injector);
 }

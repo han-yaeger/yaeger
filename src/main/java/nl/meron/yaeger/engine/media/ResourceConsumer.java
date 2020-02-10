@@ -16,7 +16,7 @@ public interface ResourceConsumer {
      * @throws YaegerResourceNotAvailableException an {@link YaegerResourceNotAvailableException} is thrown if the
      *                                             resource can not be found on the class path
      */
-    default String createPathForResource(String resource) {
+    default String createPathForResource(final String resource) {
 
         if (resource == null || resource.isEmpty()) {
             return "";

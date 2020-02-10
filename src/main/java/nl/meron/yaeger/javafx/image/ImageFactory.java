@@ -36,7 +36,7 @@ public class ImageFactory {
      * @throws NullPointerException     if URL is null
      * @throws IllegalArgumentException if URL is invalid or unsupported
      */
-    public Image create(String url, double requestedWidth, double requestedHeight,
+    public Image create(final String url, final double requestedWidth, final double requestedHeight,
                         boolean preserveRatio) {
         return new Image(url, requestedWidth, requestedHeight, preserveRatio, true);
     }

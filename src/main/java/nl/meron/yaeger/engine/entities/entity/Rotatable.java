@@ -11,7 +11,7 @@ public interface Rotatable extends NodeProvider {
      *
      * @param degrees the rotation in degrees as a {@code double}
      */
-    default void setRotate(double degrees) {
+    default void setRotate(final double degrees) {
         getGameNode().setRotate(degrees);
     }
 }

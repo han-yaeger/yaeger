@@ -11,7 +11,7 @@ public interface Moveable extends Placeable, MotionModifier {
      *
      * @param motionApplier an instance of {@link DefaultMotionApplier}
      */
-    void setMotionApplier(DefaultMotionApplier motionApplier);
+    void setMotionApplier(final DefaultMotionApplier motionApplier);
 
     /**
      * Return the {@link MotionApplier} that should be used.
@@ -21,17 +21,17 @@ public interface Moveable extends Placeable, MotionModifier {
     MotionApplier getMotionApplier();
 
     @Override
-    default MotionApplier setMotionTo(double speed, double direction) {
+    default MotionApplier setMotionTo(final double speed, final double direction) {
         return getMotionApplier().setMotionTo(speed, direction);
     }
 
     @Override
-    default MotionApplier multiplySpeedWith(double multiplication) {
+    default MotionApplier multiplySpeedWith(final double multiplication) {
         return getMotionApplier().multiplySpeedWith(multiplication);
     }
 
     @Override
-    default MotionApplier setSpeedTo(double newSpeed) {
+    default MotionApplier setSpeedTo(final double newSpeed) {
         return getMotionApplier().setSpeedTo(newSpeed);
     }
 
@@ -41,7 +41,7 @@ public interface Moveable extends Placeable, MotionModifier {
     }
 
     @Override
-    default MotionApplier setDirectionTo(double newDirection) {
+    default MotionApplier setDirectionTo(final double newDirection) {
         return getMotionApplier().setDirectionTo(newDirection);
     }
 
@@ -51,12 +51,12 @@ public interface Moveable extends Placeable, MotionModifier {
     }
 
     @Override
-    default MotionApplier alterSpeedBy(double increment) {
+    default MotionApplier alterSpeedBy(final double increment) {
         return getMotionApplier().alterSpeedBy(increment);
     }
 
     @Override
-    default MotionApplier changeDirectionBy(double rotation) {
+    default MotionApplier changeDirectionBy(final double rotation) {
         return getMotionApplier().changeDirectionBy(rotation);
     }
 

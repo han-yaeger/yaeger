@@ -24,7 +24,7 @@ public class SoundClip {
      *
      * @param fileName De bestandsnaam van het mp3-bestand. Het bestand moet beschikbaar staan op het klasse-pad.
      */
-    public SoundClip(String fileName) {
+    public SoundClip(final String fileName) {
         this(fileName, 1);
     }
 
@@ -35,7 +35,7 @@ public class SoundClip {
      * @param cycleCount Het aantal keren dat het bestand moet worden afgespeeld.
      */
 
-    public SoundClip(String fileName, int cycleCount) {
+    public SoundClip(final String fileName, final int cycleCount) {
         this.fileName = fileName;
         this.cycleCount = cycleCount;
 

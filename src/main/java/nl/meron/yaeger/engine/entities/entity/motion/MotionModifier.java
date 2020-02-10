@@ -12,7 +12,7 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      * @param direction the direction in degrees as a {@code double}
      * @return This {@link MotionApplier} for easy chaining
      */
-    MotionApplier setMotionTo(double speed, double direction);
+    MotionApplier setMotionTo(final double speed, final double direction);
 
     /**
      * Alter the speed through multiplication. Using this method will increase or decrease the current speed. It will multiply the current
@@ -24,7 +24,7 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      *                       decrement in speed
      * @return This {@link MotionApplier} for easy chaining
      */
-    MotionApplier multiplySpeedWith(double multiplication);
+    MotionApplier multiplySpeedWith(final double multiplication);
 
     /**
      * Alter the speed through addition.  Using this method will increase or decrease the current speed. It will add the provided value
@@ -35,7 +35,7 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      * @param increment A {@code double} representing the increment in speed
      * @return This {@link MotionApplier} for easy chaining
      */
-    MotionApplier alterSpeedBy(double increment);
+    MotionApplier alterSpeedBy(final double increment);
 
     /**
      * Set the speed.
@@ -43,7 +43,7 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      * @param speed the speed as a {@code double}
      * @return This {@link MotionApplier} for easy chaining
      */
-    MotionApplier setSpeedTo(double speed);
+    MotionApplier setSpeedTo(final double speed);
 
     /**
      * Set the {@link Direction}. This value is in degrees, where
@@ -58,7 +58,7 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      * @param direction the direction in degrees as a {@code double}
      * @return This {@link MotionApplier} for easy chaining
      */
-    MotionApplier setDirectionTo(double direction);
+    MotionApplier setDirectionTo(final double direction);
 
     /**
      * Change the direction by adding a rotation in degrees. A positive value will be added and will result
@@ -68,5 +68,5 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      * @param rotation the rotation as a double
      * @return This {@link MotionApplier} for easy chaining
      */
-    MotionApplier changeDirectionBy(double rotation);
+    MotionApplier changeDirectionBy(final double rotation);
 }

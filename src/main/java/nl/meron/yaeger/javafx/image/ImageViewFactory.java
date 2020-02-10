@@ -16,7 +16,7 @@ public class ImageViewFactory {
      * @param image the {@link Image} for which an {@link ImageView should be created
      * @return An instance of {@link ImageView}
      */
-    public ImageView create(Image image) {
+    public ImageView create(final Image image) {
         return new ImageView(image);
     }
 }

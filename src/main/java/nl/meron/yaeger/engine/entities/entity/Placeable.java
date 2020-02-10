@@ -20,5 +20,5 @@ public interface Placeable extends Bounded {
      * @param x a {@code double} representing the x coordinate
      * @param y a {@code double} representing the y coordinate
      */
-    void placeOnLocation(double x, double y);
+    void placeOnLocation(final double x, final double y);
 }

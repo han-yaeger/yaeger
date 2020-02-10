@@ -17,7 +17,7 @@ public class Updater implements Updatable {
      *
      * @param updatable the {@link Updatable} to be added
      */
-    public void addUpdatable(Updatable updatable) {
+    public void addUpdatable(final Updatable updatable) {
         this.addUpdatable(updatable, false);
     }
 
@@ -29,7 +29,7 @@ public class Updater implements Updatable {
      * @param asFirst   Add an {@link Updatable} to this {@link Updater} as the first element and thus
      *                  be execute first during an {@code update}
      */
-    public void addUpdatable(Updatable updatable, boolean asFirst) {
+    public void addUpdatable(final Updatable updatable, boolean asFirst) {
         if (asFirst) {
             updatables.add(0, updatable);
         } else {
@@ -38,7 +38,7 @@ public class Updater implements Updatable {
     }
 
     @Override
-    public void update(long timestamp) {
+    public void update(final long timestamp) {
         updatables.forEach(updatable -> updatable.update(timestamp));
     }
 }

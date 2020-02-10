@@ -17,7 +17,7 @@ public class ImagePatternFactory {
      * @param image the {@link Image} for which an {@link javafx.scene.paint.ImagePattern} should be created.
      * @return An instance of {@link javafx.scene.paint.ImagePattern}
      */
-    public ImagePattern create(Image image) {
+    public ImagePattern create(final Image image) {
         return new ImagePattern(image);
     }
 }

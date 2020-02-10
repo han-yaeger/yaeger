@@ -13,7 +13,7 @@ public class SceneFactory {
      * @param group The {@link Group} for which a {@link Scene} must be created.
      * @return an instance of {@link Scene}
      */
-    public Scene create(Group group) {
+    public Scene create(final Group group) {
         return new Scene(group);
     }
 }

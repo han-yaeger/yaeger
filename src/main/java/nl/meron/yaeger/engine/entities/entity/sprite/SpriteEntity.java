@@ -18,7 +18,7 @@ import nl.meron.yaeger.guice.factories.SpriteAnimationDelegateFactory;
 /**
  * A {@link SpriteEntity} is a {@link Entity} that is represented by an Image.
  */
-public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsumer{
+public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsumer {
 
     private final String resource;
     private final Size size;
@@ -59,7 +59,7 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
     }
 
     @Override
-    public void init(Injector injector) {
+    public void init(final Injector injector) {
         var requestedWidth = size.getWidth() * frames;
         imageView = createImageView(resource, requestedWidth, size.getHeight());
 
@@ -81,7 +81,7 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
      *
      * @param index The index that should be shown. The index is zero based and the frame modulo index will be shown.
      */
-    public void setCurrentFrameIndex(int index) {
+    public void setCurrentFrameIndex(final int index) {
         spriteAnimationDelegate.setSpriteIndex(index);
     }
 
@@ -106,7 +106,7 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
     }
 
     @Override
-    public void placeOnLocation(double x, double y) {
+    public void placeOnLocation(final double x, final double y) {
         if (imageView == null) {
             initialPosition = new Location(x, y);
         } else {
@@ -116,17 +116,17 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
     }
 
     @Inject
-    public void setSpriteAnimationDelegateFactory(SpriteAnimationDelegateFactory spriteAnimationDelegateFactory) {
+    public void setSpriteAnimationDelegateFactory(final SpriteAnimationDelegateFactory spriteAnimationDelegateFactory) {
         this.spriteAnimationDelegateFactory = spriteAnimationDelegateFactory;
     }
 
     @Inject
-    public void setImageRepository(ImageRepository imageRepository) {
+    public void setImageRepository(final ImageRepository imageRepository) {
         this.imageRepository = imageRepository;
     }
 
     @Inject
-    public void setImageViewFactory(ImageViewFactory imageViewFactory) {
+    public void setImageViewFactory(final ImageViewFactory imageViewFactory) {
         this.imageViewFactory = imageViewFactory;
     }
 }

@@ -13,7 +13,7 @@ public interface SceneBorderTouchingWatcher extends Bounded, SceneChild {
      *
      * @param border The border the {@link javafx.scene.Scene} is touching
      */
-    void notifyBoundaryTouching(SceneBorder border);
+    void notifyBoundaryTouching(final SceneBorder border);
 
     @UpdatableProvider
     default Updatable watchForBoundaryTouching() {

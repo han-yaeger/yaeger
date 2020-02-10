@@ -35,7 +35,7 @@ public class AnimationTimerFactory {
      * @param interval the given interval in milliseconds
      * @return An instance of {@link AnimationTimer}
      */
-    public AnimationTimer createTimeableAnimationTimer(final TimeableAnimationTimerHandler handler, long interval) {
+    public AnimationTimer createTimeableAnimationTimer(final TimeableAnimationTimerHandler handler, final long interval) {
         return new TimeableAnimationTimer(interval) {
 
             @Override

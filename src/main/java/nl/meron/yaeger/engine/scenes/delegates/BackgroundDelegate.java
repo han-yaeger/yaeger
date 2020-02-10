@@ -30,7 +30,7 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
      *
      * @param scene The {@link Scene} that should be used when setup.
      */
-    public void setup(Scene scene) {
+    public void setup(final Scene scene) {
         this.scene = scene;
     }
 
@@ -39,7 +39,7 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
      *
      * @param backgroundAudioUrl the url of the audio file
      */
-    public void setBackgroundAudio(String backgroundAudioUrl) {
+    public void setBackgroundAudio(final String backgroundAudioUrl) {
         if (backgroundAudioUrl != null) {
 
             backgroundAudio = audioRepository.get(backgroundAudioUrl, SoundClip.INDEFINITE);
@@ -53,7 +53,7 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
      *
      * @param backgroundImageUrl the url of the image file
      */
-    public void setBackgroundImage(String backgroundImageUrl) {
+    public void setBackgroundImage(final String backgroundImageUrl) {
         if (backgroundImageUrl != null && scene != null) {
             var image = imageRepository.get(backgroundImageUrl);
             var pattern = imagePatternFactory.create(image);
@@ -76,17 +76,17 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
     }
 
     @Inject
-    public void setImageRepository(ImageRepository imageRepository) {
+    public void setImageRepository(final ImageRepository imageRepository) {
         this.imageRepository = imageRepository;
     }
 
     @Inject
-    public void setAudioRepository(AudioRepository audioRepository) {
+    public void setAudioRepository(final AudioRepository audioRepository) {
         this.audioRepository = audioRepository;
     }
 
     @Inject
-    public void setImagePatternFactory(ImagePatternFactory imagePatternFactory) {
+    public void setImagePatternFactory(final ImagePatternFactory imagePatternFactory) {
         this.imagePatternFactory = imagePatternFactory;
     }
 }

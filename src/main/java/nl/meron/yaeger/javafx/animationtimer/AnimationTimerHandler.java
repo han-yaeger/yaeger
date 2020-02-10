@@ -11,5 +11,5 @@ public interface AnimationTimerHandler {
      * @param interval  the interval in milliseconds at which the {@link javafx.animation.AnimationTimer} should
      *                  call its internal {@code handle()}
      */
-    void handle(long interval);
+    void handle(final long interval);
 }

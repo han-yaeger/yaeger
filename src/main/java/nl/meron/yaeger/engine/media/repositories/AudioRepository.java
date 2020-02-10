@@ -32,7 +32,7 @@ public class AudioRepository implements ResourceConsumer, Destroyable {
      * @param audiofile the filename of the {@link AudioClip}
      * @return the {@link AudioClip} that was requested
      */
-    public AudioClip get(String audiofile) {
+    public AudioClip get(final String audiofile) {
         return get(audiofile, 0);
     }
 
@@ -44,7 +44,7 @@ public class AudioRepository implements ResourceConsumer, Destroyable {
      *                   set this value to Indefinite, use {@code SoundClip.INDEFINITE}
      * @return the {@link AudioClip} that was requested
      */
-    public AudioClip get(String audiofile, int cycleCount) {
+    public AudioClip get(final String audiofile, int cycleCount) {
         var key = audiofile;
         if (cycleCount != 0) {
             key = audiofile + CYCLECOUNT + cycleCount;

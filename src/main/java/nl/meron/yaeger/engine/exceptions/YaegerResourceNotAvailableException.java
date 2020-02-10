@@ -11,7 +11,7 @@ public class YaegerResourceNotAvailableException extends RuntimeException {
      *
      * @param resource the resource that is requested.
      */
-    public YaegerResourceNotAvailableException(String resource) {
+    public YaegerResourceNotAvailableException(final String resource) {
 
         super("Resource " + resource + " can not be found. Ensure that it is placed in resource/ folder.");
     }

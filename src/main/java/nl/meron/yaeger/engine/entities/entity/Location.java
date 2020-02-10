@@ -13,7 +13,7 @@ public class Location extends Point2D {
      * @param x the x coordinate of the {@link Location}
      * @param y the y coordinate of the {@link Location}it
      */
-    public Location(double x, double y) {
+    public Location(final double x, final double y) {
         super(x, y);
     }
 
@@ -22,16 +22,16 @@ public class Location extends Point2D {
      *
      * @param point a {@link Point2D representation of this {@link Location}
      */
-    public Location(Point2D point) {
+    public Location(final Point2D point) {
         super(point.getX(), point.getY());
     }
 
     @Override
-    public Location add(Point2D point2D) {
+    public Location add(final Point2D point2D) {
         return new Location(super.add(point2D));
     }
 
-    public Location add(Location location) {
+    public Location add(final Location location) {
         return new Location(super.add(location));
     }
 }

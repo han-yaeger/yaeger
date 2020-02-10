@@ -32,7 +32,7 @@ public abstract class DynamicScene extends StaticScene {
     protected abstract void setupSpawners();
 
     @Override
-    public void onInputChanged(Set<KeyCode> input) {
+    public void onInputChanged(final Set<KeyCode> input) {
         entityCollection.notifyGameObjectsOfPressedKeys(input);
     }
 
@@ -42,7 +42,7 @@ public abstract class DynamicScene extends StaticScene {
      *
      * @param spawner the {@link EntitySpawner} to be registered
      */
-    protected void registerSpawner(EntitySpawner spawner) {
+    protected void registerSpawner(final EntitySpawner spawner) {
         injector.injectMembers(spawner);
         spawner.init(injector);
 
@@ -72,7 +72,7 @@ public abstract class DynamicScene extends StaticScene {
     }
 
     @Inject
-    public void setAnimationTimerFactory(AnimationTimerFactory animationTimerFactory) {
+    public void setAnimationTimerFactory(final AnimationTimerFactory animationTimerFactory) {
         this.animationTimerFactory = animationTimerFactory;
     }
 }

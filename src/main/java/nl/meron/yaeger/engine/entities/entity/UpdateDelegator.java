@@ -13,7 +13,7 @@ public interface UpdateDelegator extends Updatable {
     Updater getUpdater();
 
     @Override
-    default void update(long timestamp) {
+    default void update(final long timestamp) {
         getUpdater().update(timestamp);
     }
 }

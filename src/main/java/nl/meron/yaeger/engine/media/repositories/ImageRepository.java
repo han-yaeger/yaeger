@@ -27,7 +27,7 @@ public class ImageRepository implements ResourceConsumer, Destroyable {
      *            data
      * @return an {@link Image} with content loaded from the specified url
      */
-    public Image get(String url) {
+    public Image get(final String url) {
 
         if (imageMap.containsKey(url)) {
             return imageMap.get(url);
@@ -50,7 +50,7 @@ public class ImageRepository implements ResourceConsumer, Destroyable {
      *                        specified bounding box
      * @return an {@link Image} with content loaded from the specified url
      */
-    public Image get(String url, int requestedWidth, int requestedHeight, boolean preserveRatio) {
+    public Image get(final String url, final int requestedWidth, final int requestedHeight, final boolean preserveRatio) {
 
         String imageKey = constructKey(url, requestedWidth, requestedHeight, preserveRatio);
 
@@ -64,11 +64,11 @@ public class ImageRepository implements ResourceConsumer, Destroyable {
     }
 
     @Inject
-    public void setFactory(ImageFactory factory) {
+    public void setFactory(final ImageFactory factory) {
         this.factory = factory;
     }
 
-    private String constructKey(String url, int requestedWidth, int requestedHeight, boolean preserveRatio) {
+    private String constructKey(final String url, final int requestedWidth, final int requestedHeight, final boolean preserveRatio) {
         return requestedWidth + "-" + requestedHeight + "-" + preserveRatio + "-" + url;
     }
 

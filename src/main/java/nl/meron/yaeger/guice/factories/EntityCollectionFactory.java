@@ -15,7 +15,7 @@ public class EntityCollectionFactory {
      * @param group The {@link Group} to which all instances of {@link Entity}s should be added.
      * @return An instance of {@link EntityCollection}
      */
-    public EntityCollection create(Group group) {
+    public EntityCollection create(final Group group) {
         return new EntityCollection(group);
     }
 }

@@ -13,7 +13,7 @@ public interface SceneBorderCrossingWatcher extends Bounded, SceneChild {
      *
      * @param border The border at which the {@link javafx.scene.Scene} is being crossed
      */
-    void notifyBoundaryCrossing(SceneBorder border);
+    void notifyBoundaryCrossing(final SceneBorder border);
 
     @UpdatableProvider
     default Updatable watchForBoundaryCrossing() {

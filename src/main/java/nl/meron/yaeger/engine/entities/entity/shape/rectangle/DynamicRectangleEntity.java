@@ -24,7 +24,7 @@ public class DynamicRectangleEntity extends RectangleEntity implements UpdateDel
      *
      * @param initialPosition The initial position at which this {@link DynamicRectangleEntity} should be placed
      */
-    public DynamicRectangleEntity(Location initialPosition) {
+    public DynamicRectangleEntity(final Location initialPosition) {
         super(initialPosition);
     }
 
@@ -49,12 +49,12 @@ public class DynamicRectangleEntity extends RectangleEntity implements UpdateDel
     }
 
     @Override
-    public void setRotationSpeed(double rotationAngle) {
+    public void setRotationSpeed(final double rotationAngle) {
         this.rotationAngle = rotationAngle;
     }
 
     @Override
-    public MotionApplier setSpeedTo(double newSpeed) {
+    public MotionApplier setSpeedTo(final double newSpeed) {
         if (motionApplier != null) {
             return motionApplier.setSpeedTo(newSpeed);
         } else {
@@ -64,7 +64,7 @@ public class DynamicRectangleEntity extends RectangleEntity implements UpdateDel
     }
 
     @Override
-    public MotionApplier setDirectionTo(double newDirection) {
+    public MotionApplier setDirectionTo(final double newDirection) {
         if (motionApplier != null) {
             return motionApplier.setDirectionTo(newDirection);
         } else {
@@ -74,7 +74,7 @@ public class DynamicRectangleEntity extends RectangleEntity implements UpdateDel
     }
 
     @Override
-    public MotionApplier setMotionTo(double speed, double direction) {
+    public MotionApplier setMotionTo(final double speed, final double direction) {
         this.speed = speed;
         this.direction = direction;
 

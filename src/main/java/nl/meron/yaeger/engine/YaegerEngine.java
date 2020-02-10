@@ -24,7 +24,7 @@ public abstract class YaegerEngine extends Application {
      *
      * @param size A {@link Size} object that encapsulates the {@code width} and {@code height} of the game
      */
-    protected void setSize(Size size) {
+    protected void setSize(final Size size) {
         this.size = size;
     }
 
@@ -33,7 +33,7 @@ public abstract class YaegerEngine extends Application {
      *
      * @param title A {@link String} containing the title of the Game
      */
-    protected void setGameTitle(String title) {
+    protected void setGameTitle(final String title) {
         yaegerStage.setTitle(title);
     }
 
@@ -42,7 +42,7 @@ public abstract class YaegerEngine extends Application {
      *
      * @param number The {@link Integer} identifying the {@link YaegerScene}
      */
-    protected void setActiveScene(int number) {
+    protected void setActiveScene(final int number) {
         scenes.setActive(number);
     }
 
@@ -52,7 +52,7 @@ public abstract class YaegerEngine extends Application {
      * @param number The {@link Integer} identifying the {@link YaegerScene}
      * @param scene  The {@link YaegerScene} that should be added
      */
-    protected void addScene(int number, YaegerScene scene) {
+    protected void addScene(final int number, final YaegerScene scene) {
 
         scenes.addScene(number, scene);
     }
@@ -76,7 +76,7 @@ public abstract class YaegerEngine extends Application {
     protected abstract void setupScenes();
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(final Stage primaryStage) {
         yaegerStage = primaryStage;
 
         scenes = new Scenes(primaryStage);

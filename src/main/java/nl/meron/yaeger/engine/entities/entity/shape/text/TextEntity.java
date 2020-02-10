@@ -104,7 +104,7 @@ public class TextEntity extends JavaFXEntity {
     }
 
     @Override
-    public void placeOnLocation(double x, double y) {
+    public void placeOnLocation(final double x, final double y) {
         if (text == null) {
             initialPosition = new Location(x, y);
         } else {

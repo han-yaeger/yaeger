@@ -17,12 +17,12 @@ public abstract class TimeableAnimationTimer extends AnimationTimer {
      *
      * @param interval the interval time in milliseconds
      */
-    public TimeableAnimationTimer(long interval) {
+    public TimeableAnimationTimer(final long interval) {
         this.interval = interval * 1_000_000;
     }
 
     @Override
-    public void handle(long now) {
+    public void handle(final long now) {
 
         // some delay
         if ((now - prevTime) < interval) {

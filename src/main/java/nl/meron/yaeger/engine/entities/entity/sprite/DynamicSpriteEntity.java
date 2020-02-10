@@ -38,7 +38,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      * @param size            The bounding box of this {@code SpriteEntity}.
      * @param frames          The number of frames this Image contains. By default the first frame is loaded.
      */
-    public DynamicSpriteEntity(final String resource, final Location initialLocation, final Size size, int frames) {
+    public DynamicSpriteEntity(final String resource, final Location initialLocation, final Size size, final int frames) {
         super(resource, initialLocation, size, frames);
     }
 
@@ -47,7 +47,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      *
      * @param interval the interval milli-seconds
      */
-    protected void setAutoCycle(long interval) {
+    protected void setAutoCycle(final long interval) {
         this.autoCycleInterval = interval;
     }
 
@@ -62,7 +62,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     }
 
     @Override
-    public void init(Injector injector) {
+    public void init(final Injector injector) {
         super.init(injector);
 
         if (spriteAnimationDelegate != null) {
@@ -77,7 +77,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     }
 
     @Override
-    public MotionApplier setMotionTo(double speed, double direction) {
+    public MotionApplier setMotionTo(final double speed, final double direction) {
         this.speed = speed;
         this.direction = direction;
 
@@ -89,18 +89,18 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     }
 
     @Override
-    public void setRotationSpeed(double rotationAngle) {
+    public void setRotationSpeed(final double rotationAngle) {
         this.rotationAngle = rotationAngle;
     }
 
     @Inject
     @Override
-    public void setMotionApplier(DefaultMotionApplier motionApplier) {
+    public void setMotionApplier(final DefaultMotionApplier motionApplier) {
         this.motionApplier = motionApplier;
     }
 
     @Inject
-    public void setUpdater(Updater updater) {
+    public void setUpdater(final Updater updater) {
         this.updater = updater;
     }
 

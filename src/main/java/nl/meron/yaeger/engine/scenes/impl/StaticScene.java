@@ -37,7 +37,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
     Debugger debugger;
 
     @Override
-    public void init(Injector injector) {
+    public void init(final Injector injector) {
         this.injector = injector;
     }
 
@@ -70,17 +70,17 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
      *
      * @param entity the {@link Entity} to be added
      */
-    protected void addEntity(Entity entity) {
+    protected void addEntity(final Entity entity) {
         entitySupplier.add(entity);
     }
 
     @Override
-    public void setBackgroundImage(String url) {
+    public void setBackgroundImage(final String url) {
         backgroundDelegate.setBackgroundImage(url);
     }
 
     @Override
-    public void setBackgroundAudio(String url) {
+    public void setBackgroundAudio(final String url) {
         backgroundDelegate.setBackgroundAudio(url);
     }
 
@@ -89,7 +89,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
      *
      * @param input A {@link Set} containing all keys currently pressed.
      */
-    public abstract void onInputChanged(Set<KeyCode> input);
+    public abstract void onInputChanged(final Set<KeyCode> input);
 
     @Override
     public Scene getScene() {
@@ -105,7 +105,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
     }
 
     @Override
-    public void onPressedKeysChange(Set<KeyCode> input) {
+    public void onPressedKeysChange(final Set<KeyCode> input) {
         if (input.contains(YaegerEngine.TOGGLE_DEBUGGER_KEY)) {
             debugger.toggle();
         }
@@ -127,7 +127,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
      * @param root the {@link Group} to be used
      */
     @Inject
-    public void setRoot(Group root) {
+    public void setRoot(final Group root) {
         this.root = root;
     }
 
@@ -138,7 +138,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
      * @param keyListenerDelegate the {@link KeyListener} to be used
      */
     @Inject
-    public void setKeyListenerDelegate(KeyListenerDelegate keyListenerDelegate) {
+    public void setKeyListenerDelegate(final KeyListenerDelegate keyListenerDelegate) {
         this.keyListenerDelegate = keyListenerDelegate;
     }
 
@@ -148,7 +148,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
      * @param sceneFactory the {@link SceneFactory} to be used
      */
     @Inject
-    public void setSceneFactory(SceneFactory sceneFactory) {
+    public void setSceneFactory(final SceneFactory sceneFactory) {
         this.sceneFactory = sceneFactory;
     }
 
@@ -158,22 +158,22 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
      * @param debugger the {@link Debugger} to be used
      */
     @Inject
-    public void setDebugger(Debugger debugger) {
+    public void setDebugger(final Debugger debugger) {
         this.debugger = debugger;
     }
 
     @Inject
-    public void setBackgroundDelegate(BackgroundDelegate backgroundDelegate) {
+    public void setBackgroundDelegate(final BackgroundDelegate backgroundDelegate) {
         this.backgroundDelegate = backgroundDelegate;
     }
 
     @Inject
-    public void setEntityCollectionFactory(EntityCollectionFactory entityCollectionFactory) {
+    public void setEntityCollectionFactory(final EntityCollectionFactory entityCollectionFactory) {
         this.entityCollectionFactory = entityCollectionFactory;
     }
 
     @Inject
-    public void setEntitySupplier(EntitySupplier entitySupplier) {
+    public void setEntitySupplier(final EntitySupplier entitySupplier) {
         this.entitySupplier = entitySupplier;
     }
 }

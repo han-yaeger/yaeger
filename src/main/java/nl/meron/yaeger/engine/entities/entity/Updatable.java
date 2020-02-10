@@ -15,5 +15,5 @@ public interface Updatable {
      *
      * @param timestamp the timestamp of the update
      */
-    void update(long timestamp);
+    void update(final long timestamp);
 }

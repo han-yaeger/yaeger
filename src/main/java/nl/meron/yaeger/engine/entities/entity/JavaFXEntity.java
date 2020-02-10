@@ -30,7 +30,7 @@ public abstract class JavaFXEntity implements Entity {
 
 
     @Override
-    public void setVisible(boolean visible) {
+    public void setVisible(final boolean visible) {
         this.visible = visible;
         if (getGameNode() != null) {
             getGameNode().setVisible(visible);
@@ -38,7 +38,7 @@ public abstract class JavaFXEntity implements Entity {
     }
 
     @Override
-    public void init(Injector injector) {
+    public void init(final Injector injector) {
         setVisible(visible);
         placeOnLocation(initialPosition.getX(), initialPosition.getY());
     }

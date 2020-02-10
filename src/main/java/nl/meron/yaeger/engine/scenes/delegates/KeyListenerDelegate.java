@@ -34,13 +34,13 @@ public class KeyListenerDelegate {
                 });
     }
 
-    public void tearDown(Scene scene) {
+    public void tearDown(final Scene scene) {
         keyListener = null;
         scene.setOnKeyPressed(null);
         scene.setOnKeyReleased(null);
     }
 
-    private void inputChanged(Set<KeyCode> input) {
+    private void inputChanged(final Set<KeyCode> input) {
         keyListener.onPressedKeysChange(input);
     }
 }

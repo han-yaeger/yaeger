@@ -11,7 +11,7 @@ public class YaegerLifecycleException extends RuntimeException {
      *
      * @param message The message that should be shown when the exception is thrown.
      */
-    public YaegerLifecycleException(String message) {
+    public YaegerLifecycleException(final String message) {
         super(message);
     }
 }

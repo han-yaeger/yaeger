@@ -14,5 +14,5 @@ public interface LocationUpdater {
      * @param currentLocation The current location as a {@link Point2D}
      * @return A {@link Location} representing the new location
      */
-    Point2D updateLocation(Point2D currentLocation);
+    Point2D updateLocation(final Point2D currentLocation);
 }

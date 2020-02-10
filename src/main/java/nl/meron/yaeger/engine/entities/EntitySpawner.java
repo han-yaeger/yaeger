@@ -26,12 +26,12 @@ public abstract class EntitySpawner extends EntitySupplier implements Destroyabl
      *
      * @param interval the interval at which instances of {@link Entity} should ne spawned, in milli-seconds
      */
-    public EntitySpawner(long interval) {
+    public EntitySpawner(final long interval) {
         this.interval = interval;
     }
 
     @Override
-    public void init(Injector injector) {
+    public void init(final Injector injector) {
         initTimer();
     }
 
@@ -40,7 +40,7 @@ public abstract class EntitySpawner extends EntitySupplier implements Destroyabl
      *
      * @param entity the {@link Entity} to be spawned
      */
-    protected void spawn(Entity entity) {
+    protected void spawn(final Entity entity) {
         add(entity);
     }
 
@@ -66,7 +66,7 @@ public abstract class EntitySpawner extends EntitySupplier implements Destroyabl
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
@@ -80,7 +80,7 @@ public abstract class EntitySpawner extends EntitySupplier implements Destroyabl
     }
 
     @Inject
-    public void setAnimationTimerFactory(AnimationTimerFactory animationTimerFactory) {
+    public void setAnimationTimerFactory(final AnimationTimerFactory animationTimerFactory) {
         this.animationTimerFactory = animationTimerFactory;
     }
 }
