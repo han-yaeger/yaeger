@@ -138,6 +138,104 @@ class RectangleEntityTest {
         Assertions.assertEquals(MIN_Y + (STROKE_WIDTH / 2), topY);
     }
 
+    @Test
+    void ifRectangleNotYetSetWidthIsStoredAndSetAtInit() {
+        // Setup
+        var sut = new RectangleEntityImpl(LOCATION);
+
+        // Test
+        sut.setWidth(WIDTH);
+        sut.setRectangle(rectangle);
+        sut.init(injector);
+
+        // Verify
+        verify(rectangle).setWidth(WIDTH);
+    }
+
+    @Test
+    void ifRectangleNotYetSetStrokeHeightIsStoredAndSetAtInit() {
+        // Setup
+        var sut = new RectangleEntityImpl(LOCATION);
+
+        // Test
+        sut.setHeight(HEIGHT);
+        sut.setRectangle(rectangle);
+        sut.init(injector);
+
+        // Verify
+        verify(rectangle).setHeight(HEIGHT);
+    }
+
+    @Test
+    void ifRectangleNotYetSetArcWidthIsStoredAndSetAtInit() {
+        // Setup
+        var sut = new RectangleEntityImpl(LOCATION);
+
+        // Test
+        sut.setArcWidth(ARC_WIDTH);
+        sut.setRectangle(rectangle);
+        sut.init(injector);
+
+        // Verify
+        verify(rectangle).setArcWidth(ARC_WIDTH);
+    }
+
+    @Test
+    void ifRectangleNotYetSetArcHeightIsStoredAndSetAtInit() {
+        // Setup
+        var sut = new RectangleEntityImpl(LOCATION);
+
+        // Test
+        sut.setArcHeight(ARC_HEIGHT);
+        sut.setRectangle(rectangle);
+        sut.init(injector);
+
+        // Verify
+        verify(rectangle).setArcHeight(ARC_HEIGHT);
+    }
+
+    @Test
+    void ifRectangleNotYetSetStrokeColorIsStoredAndSetAtInit() {
+        // Setup
+        var sut = new RectangleEntityImpl(LOCATION);
+
+        // Test
+        sut.setStrokeColor(COLOR_STROKE);
+        sut.setRectangle(rectangle);
+        sut.init(injector);
+
+        // Verify
+        verify(rectangle).setStroke(COLOR_STROKE);
+    }
+
+    @Test
+    void ifRectangleNotYetSetStrokeWidthIsStoredAndSetAtInit() {
+        // Setup
+        var sut = new RectangleEntityImpl(LOCATION);
+
+        // Test
+        sut.setStrokeWidth(STROKE_WIDTH);
+        sut.setRectangle(rectangle);
+        sut.init(injector);
+
+        // Verify
+        verify(rectangle).setStrokeWidth(STROKE_WIDTH);
+    }
+
+    @Test
+    void ifRectangleNotYetSetFillIsStoredAndSetAtInit() {
+        // Setup
+        var sut = new RectangleEntityImpl(LOCATION);
+
+        // Test
+        sut.setFill(COLOR_FILL);
+        sut.setRectangle(rectangle);
+        sut.init(injector);
+
+        // Verify
+        verify(rectangle).setFill(COLOR_FILL);
+    }
+
     private class RectangleEntityImpl extends RectangleEntity {
 
         /**
