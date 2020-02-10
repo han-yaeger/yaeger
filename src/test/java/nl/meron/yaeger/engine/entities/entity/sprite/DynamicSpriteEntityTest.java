@@ -26,6 +26,7 @@ class DynamicSpriteEntityTest {
     private final static int WIDTH = 39;
     private final static int HEIGHT = 41;
     private final static Size DEFAULT_SIZE = new Size(WIDTH, HEIGHT);
+    public static final int ROTATION_SPEED = 37;
 
     private SpriteAnimationDelegateFactory spriteAnimationDelegateFactory;
     private ImageViewFactory imageViewFactory;
@@ -135,6 +136,19 @@ class DynamicSpriteEntityTest {
 
         // Verify
         Assertions.assertEquals(motionApplier, mA);
+    }
+
+    @Test
+    void setRotationAngleIsUsed() {
+        // Setup
+        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        sut.setRotationSpeed(ROTATION_SPEED);
+
+        // Test
+        var rS = sut.getRotationSpeed();
+
+        // Verify
+        Assertions.assertEquals(ROTATION_SPEED, rS);
     }
 
     private class TestDynamicSpriteEntity extends DynamicSpriteEntity {

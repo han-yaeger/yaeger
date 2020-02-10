@@ -21,13 +21,6 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
     private double rotationAngle;
 
     /**
-     * Instantiate a new {@link DynamicTextEntity}.
-     */
-    public DynamicTextEntity() {
-        this(new Location(0, 0));
-    }
-
-    /**
      * Instantiate a new {@link DynamicTextEntity} for the given {@link Location}.
      *
      * @param initialPosition the initial {@link Location} of this {@link DynamicTextEntity}

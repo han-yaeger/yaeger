@@ -38,7 +38,11 @@ public abstract class RectangleEntity extends JavaFXEntity {
      * @param strokeColor The {@link Color} of the stroke
      */
     public void setStrokeColor(final Color strokeColor) {
-        this.strokeColor = strokeColor;
+        if (rectangle == null) {
+            this.strokeColor = strokeColor;
+        } else {
+            rectangle.setStroke(strokeColor);
+        }
     }
 
     /**
@@ -47,7 +51,11 @@ public abstract class RectangleEntity extends JavaFXEntity {
      * @param strokeWidth The with of the stroke as a {@code double}
      */
     public void setStrokeWidth(final double strokeWidth) {
-        this.strokeWidth = strokeWidth;
+        if (rectangle == null) {
+            this.strokeWidth = strokeWidth;
+        } else {
+            rectangle.setStrokeWidth(strokeWidth);
+        }
     }
 
     /**

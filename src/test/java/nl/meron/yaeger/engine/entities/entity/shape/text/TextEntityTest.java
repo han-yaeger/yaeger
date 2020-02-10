@@ -30,7 +30,7 @@ class TextEntityTest {
     }
 
     @Test
-    void settingDelegateSetsPositionOnDelegateForNonEmptyConstructor() {
+    void settingDelegateSetsPositionOnDelegate() {
         // Setup
         var sut = new TextEntity(LOCATION);
 
@@ -116,15 +116,15 @@ class TextEntityTest {
     @Test
     void settingValuesAfterDelegateIsSetDelegatesTheValues() {
         // Setup
-        var textEntity = new TextEntity(LOCATION);
-        textEntity.setTextDelegate(text);
-        textEntity.init(injector);
+        var sut = new TextEntity(LOCATION);
+        sut.setTextDelegate(text);
+        sut.init(injector);
 
         // Test
-        textEntity.setText(YAEGER);
-        textEntity.setVisible(false);
-        textEntity.setFont(FONT);
-        textEntity.setFill(COLOR);
+        sut.setText(YAEGER);
+        sut.setVisible(false);
+        sut.setFont(FONT);
+        sut.setFill(COLOR);
 
         // Verify
         verify(text).setVisible(false);
