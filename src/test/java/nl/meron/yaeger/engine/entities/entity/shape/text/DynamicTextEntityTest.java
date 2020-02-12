@@ -5,9 +5,12 @@ import javafx.scene.text.Text;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.Updater;
 import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
+import nl.meron.yaeger.engine.entities.entity.motion.EntityMotionInitBuffer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -20,6 +23,7 @@ class DynamicTextEntityTest {
     private final static Location DEFAULT_LOCATION = new Location(X_POSITION, Y_POSITION);
     public static final int ROTATION_SPEED = 37;
     public static final double SPEED = 37d;
+    public static final double DIRECTION = 42d;
 
     private DynamicTextEntityImpl sut;
     private Injector injector;
@@ -35,7 +39,45 @@ class DynamicTextEntityTest {
     }
 
     @Test
-    void initSetsMotionToDesiredSpeed(){
+    void bufferIsSetInConstructor() {
+        // Setup
+
+        // Test
+        Optional<EntityMotionInitBuffer> buffer = sut.getBuffer();
+
+        // Verify
+        Assertions.assertTrue(buffer.isPresent());
+    }
+
+    @Test
+    void bufferTransfersMotionOnInit(){
+        // Setup
+        var motionApplier = mock(DefaultMotionApplier.class);
+        sut.setMotionApplier(motionApplier);
+        sut.setMotionTo(SPEED, DIRECTION);
+
+        // Test
+        sut.init(injector);
+
+        // Verify
+        verify(motionApplier).setMotionTo(SPEED, DIRECTION);
+    }
+
+    @Test
+    void bufferIsEmptiedAfterInitIsCalled() {
+        // Setup
+        var motionApplier = mock(DefaultMotionApplier.class);
+        sut.setMotionApplier(motionApplier);
+
+        // Test
+        sut.init(injector);
+
+        // Verify
+        Assertions.assertFalse(sut.getBuffer().isPresent());
+    }
+
+    @Test
+    void initSetsMotionToDesiredSpeed() {
         // Setup
         sut.setSpeedTo(SPEED);
         var motionApplier = mock(DefaultMotionApplier.class);

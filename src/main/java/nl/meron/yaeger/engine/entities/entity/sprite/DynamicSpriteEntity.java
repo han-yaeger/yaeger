@@ -6,17 +6,18 @@ import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.*;
 import nl.meron.yaeger.engine.entities.entity.motion.*;
 
+import java.util.Optional;
+
 /**
  * An {@link DynamicSpriteEntity} extends all behaviour of a {@link SpriteEntity}, but also implements the
  * {@link Updatable} Interface.
  */
-public abstract class DynamicSpriteEntity extends SpriteEntity implements UpdateDelegator, Moveable, ContinuousRotatable {
+public abstract class DynamicSpriteEntity extends SpriteEntity implements UpdateDelegator, BufferedMoveable, ContinuousRotatable {
 
     private DefaultMotionApplier motionApplier;
     private long autoCycleInterval = 0;
     private Updater updater;
-    private double speed;
-    private double direction;
+    private Optional<EntityMotionInitBuffer> buffer;
     private double rotationAngle;
 
     /**
@@ -40,6 +41,8 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      */
     public DynamicSpriteEntity(final String resource, final Location initialLocation, final Size size, final int frames) {
         super(resource, initialLocation, size, frames);
+
+        buffer = Optional.of(new EntityMotionInitBuffer());
     }
 
     /**
@@ -71,50 +74,21 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
         if (getFrames() > 1 && autoCycleInterval != 0) {
             spriteAnimationDelegate.setAutoCycle(autoCycleInterval);
         }
-        if (motionApplier != null && speed != 0 && direction != 0) {
-            motionApplier.setMotionTo(speed, direction);
-        }
+        buffer.ifPresent(entityMotionInitBuffer -> {
+            entityMotionInitBuffer.setMotionApplier(motionApplier);
+            entityMotionInitBuffer.init(injector);
+        });
+        buffer = Optional.empty();
     }
 
     @Override
-    public void setSpeedTo(final double newSpeed) {
-        var directionToSet = direction;
-
-        if (motionApplier != null) {
-            directionToSet = getDirection();
-        }
-        setMotionTo(newSpeed, directionToSet);
-    }
-
-    @Override
-    public void setDirectionTo(final double newDirection) {
-        var speedToSet = speed;
-
-        if (motionApplier != null) {
-            speedToSet = getSpeed();
-        }
-        setMotionTo(speedToSet, newDirection);
-    }
-
-    @Override
-    public void setMotionTo(final double speed, final double direction) {
-        if (motionApplier != null) {
-            motionApplier.setMotionTo(speed, direction);
-        } else {
-            this.speed = speed;
-            this.direction = direction;
-        }
+    public Optional<EntityMotionInitBuffer> getBuffer() {
+        return buffer;
     }
 
     @Override
     public void setRotationSpeed(final double rotationAngle) {
         this.rotationAngle = rotationAngle;
-    }
-
-    @Inject
-    @Override
-    public void setMotionApplier(final DefaultMotionApplier motionApplier) {
-        this.motionApplier = motionApplier;
     }
 
     @Inject
@@ -127,5 +101,10 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
         return rotationAngle;
     }
 
+    @Inject
+    @Override
+    public void setMotionApplier(final DefaultMotionApplier motionApplier) {
+        this.motionApplier = motionApplier;
+    }
 
 }

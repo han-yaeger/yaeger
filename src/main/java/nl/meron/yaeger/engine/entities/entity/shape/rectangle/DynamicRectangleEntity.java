@@ -3,20 +3,19 @@ package nl.meron.yaeger.engine.entities.entity.shape.rectangle;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import nl.meron.yaeger.engine.entities.entity.*;
-import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
-import nl.meron.yaeger.engine.entities.entity.motion.MotionApplier;
-import nl.meron.yaeger.engine.entities.entity.motion.Moveable;
+import nl.meron.yaeger.engine.entities.entity.motion.*;
+
+import java.util.Optional;
 
 /**
  * An {@link DynamicRectangleEntity} extends all behaviour of a {@link RectangleEntity}, but also implements the
  * {@link Updatable} Interface.
  */
-public class DynamicRectangleEntity extends RectangleEntity implements UpdateDelegator, Moveable, ContinuousRotatable {
+public class DynamicRectangleEntity extends RectangleEntity implements UpdateDelegator, BufferedMoveable, ContinuousRotatable {
 
     private DefaultMotionApplier motionApplier;
     private Updater updater;
-    private double speed;
-    private double direction;
+    private Optional<EntityMotionInitBuffer> buffer;
     private double rotationAngle;
 
     /**
@@ -26,6 +25,8 @@ public class DynamicRectangleEntity extends RectangleEntity implements UpdateDel
      */
     public DynamicRectangleEntity(final Location initialPosition) {
         super(initialPosition);
+
+        buffer = Optional.of(new EntityMotionInitBuffer());
     }
 
 
@@ -43,9 +44,11 @@ public class DynamicRectangleEntity extends RectangleEntity implements UpdateDel
     public void init(final Injector injector) {
         super.init(injector);
 
-        if (speed != 0) {
-            setMotionTo(speed, direction);
-        }
+        buffer.ifPresent(entityMotionInitBuffer -> {
+            entityMotionInitBuffer.setMotionApplier(motionApplier);
+            entityMotionInitBuffer.init(injector);
+        });
+        buffer = Optional.empty();
     }
 
     @Override
@@ -54,38 +57,13 @@ public class DynamicRectangleEntity extends RectangleEntity implements UpdateDel
     }
 
     @Override
-    public void setSpeedTo(final double newSpeed) {
-        var directionToSet = direction;
-
-        if (motionApplier != null) {
-            directionToSet = getDirection();
-        }
-        setMotionTo(newSpeed, directionToSet);
-    }
-
-    @Override
-    public void setDirectionTo(final double newDirection) {
-        var speedToSet = speed;
-
-        if (motionApplier != null) {
-            speedToSet = getSpeed();
-        }
-        setMotionTo(speedToSet, newDirection);
-    }
-
-    @Override
-    public void setMotionTo(final double speed, final double direction) {
-        if (motionApplier != null) {
-            motionApplier.setMotionTo(speed, direction);
-        } else {
-            this.speed = speed;
-            this.direction = direction;
-        }
-    }
-
-    @Override
     public double getRotationSpeed() {
         return rotationAngle;
+    }
+
+    @Override
+    public Optional<EntityMotionInitBuffer> getBuffer() {
+        return buffer;
     }
 
     @Inject

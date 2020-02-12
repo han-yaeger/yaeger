@@ -4,10 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import nl.meron.yaeger.engine.entities.entity.*;
-import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
-import nl.meron.yaeger.engine.entities.entity.motion.EntityMotionInitBuffer;
-import nl.meron.yaeger.engine.entities.entity.motion.Moveable;
-import nl.meron.yaeger.engine.entities.entity.motion.MotionApplier;
+import nl.meron.yaeger.engine.entities.entity.motion.*;
 
 import java.util.Optional;
 
@@ -15,7 +12,7 @@ import java.util.Optional;
  * An {@link DynamicTextEntity} extends all behaviour of a {@link TextEntity}, but also implements the
  * {@link Updatable} Interface.
  */
-public abstract class DynamicTextEntity extends TextEntity implements UpdateDelegator, Moveable, ContinuousRotatable {
+public abstract class DynamicTextEntity extends TextEntity implements UpdateDelegator, BufferedMoveable, ContinuousRotatable {
 
     private DefaultMotionApplier motionApplier;
     private Updater updater;
@@ -38,8 +35,8 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
      * @param text            a {@link String} containing the initial textDelegate to be displayed
      */
     public DynamicTextEntity(final Location initialPosition, final String text) {
-
         super(initialPosition, text);
+
         buffer = Optional.of(new EntityMotionInitBuffer());
     }
 
@@ -75,18 +72,8 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
     }
 
     @Override
-    public void setSpeedTo(final double newSpeed) {
-        buffer.ifPresentOrElse(eMBuffer -> eMBuffer.setSpeedTo(newSpeed), () -> motionApplier.setSpeedTo(newSpeed));
-    }
-
-    @Override
-    public void setDirectionTo(final double newDirection) {
-        buffer.ifPresentOrElse(eMBuffer -> eMBuffer.setDirectionTo(newDirection), () -> motionApplier.setDirectionTo(newDirection));
-    }
-
-    @Override
-    public void setMotionTo(final double speed, final double direction) {
-        buffer.ifPresentOrElse(eMBuffer -> eMBuffer.setMotionTo(speed, direction), () -> motionApplier.setMotionTo(speed, direction));
+    public Optional<EntityMotionInitBuffer> getBuffer() {
+        return buffer;
     }
 
     @Inject

@@ -7,6 +7,7 @@ import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.Updater;
 import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
+import nl.meron.yaeger.engine.entities.entity.motion.EntityMotionInitBuffer;
 import nl.meron.yaeger.engine.entities.entity.sprite.delegates.SpriteAnimationDelegate;
 import nl.meron.yaeger.engine.media.repositories.ImageRepository;
 import nl.meron.yaeger.javafx.image.ImageViewFactory;
@@ -14,6 +15,8 @@ import nl.meron.yaeger.guice.factories.SpriteAnimationDelegateFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -27,6 +30,8 @@ class DynamicSpriteEntityTest {
     private final static int HEIGHT = 41;
     private final static Size DEFAULT_SIZE = new Size(WIDTH, HEIGHT);
     public static final int ROTATION_SPEED = 37;
+    public static final double SPEED = 37d;
+    public static final double DIRECTION = 42d;
 
     private SpriteAnimationDelegateFactory spriteAnimationDelegateFactory;
     private ImageViewFactory imageViewFactory;
@@ -34,6 +39,7 @@ class DynamicSpriteEntityTest {
     private ImageRepository imageRepository;
     private Injector injector;
     private Updater updater;
+    private DynamicSpriteEntityImpl sut;
 
     @BeforeEach
     void setup() {
@@ -44,14 +50,83 @@ class DynamicSpriteEntityTest {
 
         imageRepository = mock(ImageRepository.class);
         injector = mock(Injector.class);
+
+        sut = new DynamicSpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+
+    }
+
+    @Test
+    void bufferIsSetInConstructor() {
+        // Setup
+
+        // Test
+        Optional<EntityMotionInitBuffer> buffer = sut.getBuffer();
+
+        // Verify
+        Assertions.assertTrue(buffer.isPresent());
+    }
+
+    @Test
+    void bufferIsEmptiedAfterInitIsCalled() {
+        // Setup
+        var motionApplier = mock(DefaultMotionApplier.class);
+        var image = mock(Image.class);
+        var imageView = mock(ImageView.class);
+        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        sut.setImageRepository(imageRepository);
+        sut.setImageViewFactory(imageViewFactory);
+        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        sut.setUpdater(updater);
+
+        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
+
+        when(imageViewFactory.create(image)).thenReturn(imageView);
+        when(spriteAnimationDelegateFactory.create(imageView, 1)).thenReturn(spriteAnimationDelegate);
+
+        sut.setMotionApplier(motionApplier);
+
+        // Test
+        sut.init(injector);
+
+        // Verify
+        Assertions.assertFalse(sut.getBuffer().isPresent());
+    }
+
+    @Test
+    void bufferTransfersMotionOnInit() {
+        // Setup
+        var motionApplier = mock(DefaultMotionApplier.class);
+        var image = mock(Image.class);
+        var imageView = mock(ImageView.class);
+        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        sut.setImageRepository(imageRepository);
+        sut.setImageViewFactory(imageViewFactory);
+        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        sut.setUpdater(updater);
+
+        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
+
+        when(imageViewFactory.create(image)).thenReturn(imageView);
+        when(spriteAnimationDelegateFactory.create(imageView, 1)).thenReturn(spriteAnimationDelegate);
+
+        sut.setMotionApplier(motionApplier);
+        sut.setMotionTo(SPEED, DIRECTION);
+
+        // Test
+        sut.init(injector);
+
+        // Verify
+        verify(motionApplier).setMotionTo(SPEED, DIRECTION);
     }
 
     @Test
     void instantiatingAnUpdatableSpriteEntityWithOneFrameGivesNoSideEffects() {
         // Setup
+        var motionApplier = mock(DefaultMotionApplier.class);
+        sut.setMotionApplier(motionApplier);
 
         // Test
-        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        var sut = new DynamicSpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
 
         // Verify
         Assertions.assertNotNull(sut);
@@ -63,7 +138,9 @@ class DynamicSpriteEntityTest {
         var autocycleValue = 37;
         var image = mock(Image.class);
         var imageView = mock(ImageView.class);
-        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        var sut = new DynamicSpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        var motionApplier = mock(DefaultMotionApplier.class);
+        sut.setMotionApplier(motionApplier);
         sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         sut.setImageRepository(imageRepository);
         sut.setImageViewFactory(imageViewFactory);
@@ -91,6 +168,8 @@ class DynamicSpriteEntityTest {
         var image = mock(Image.class);
         var imageView = mock(ImageView.class);
         var sut = new AutoCyclingDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, frames);
+        var motionApplier = mock(DefaultMotionApplier.class);
+        sut.setMotionApplier(motionApplier);
         sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         sut.setImageRepository(imageRepository);
         sut.setImageViewFactory(imageViewFactory);
@@ -112,7 +191,9 @@ class DynamicSpriteEntityTest {
     @Test
     void addedUpdaterIsUsedAsUpdater() {
         // Setup
-        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 1);
+        var sut = new DynamicSpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 1);
+        var motionApplier = mock(DefaultMotionApplier.class);
+        sut.setMotionApplier(motionApplier);
         var updater = mock(Updater.class);
 
         sut.setUpdater(updater);
@@ -127,7 +208,7 @@ class DynamicSpriteEntityTest {
     @Test
     void setMotionApplierIsUsed() {
         // Setup
-        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        var sut = new DynamicSpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
         var motionApplier = mock(DefaultMotionApplier.class);
         sut.setMotionApplier(motionApplier);
 
@@ -141,7 +222,9 @@ class DynamicSpriteEntityTest {
     @Test
     void setRotationAngleIsUsed() {
         // Setup
-        var sut = new TestDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        var sut = new DynamicSpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        var motionApplier = mock(DefaultMotionApplier.class);
+        sut.setMotionApplier(motionApplier);
         sut.setRotationSpeed(ROTATION_SPEED);
 
         // Test
@@ -151,13 +234,13 @@ class DynamicSpriteEntityTest {
         Assertions.assertEquals(ROTATION_SPEED, rS);
     }
 
-    private class TestDynamicSpriteEntity extends DynamicSpriteEntity {
+    private class DynamicSpriteEntityImpl extends DynamicSpriteEntity {
 
-        TestDynamicSpriteEntity(String resource, Location location, Size size) {
+        DynamicSpriteEntityImpl(String resource, Location location, Size size) {
             super(resource, location, size);
         }
 
-        TestDynamicSpriteEntity(String resource, Location location, Size size, int frames) {
+        DynamicSpriteEntityImpl(String resource, Location location, Size size, int frames) {
             super(resource, location, size, frames);
         }
     }
