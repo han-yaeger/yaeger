@@ -54,34 +54,32 @@ public class DynamicRectangleEntity extends RectangleEntity implements UpdateDel
     }
 
     @Override
-    public MotionApplier setSpeedTo(final double newSpeed) {
+    public void setSpeedTo(final double newSpeed) {
+        var directionToSet = direction;
+
         if (motionApplier != null) {
-            return motionApplier.setSpeedTo(newSpeed);
-        } else {
-            this.speed = newSpeed;
-            return null;
+            directionToSet = getDirection();
         }
+        setMotionTo(newSpeed, directionToSet);
     }
 
     @Override
-    public MotionApplier setDirectionTo(final double newDirection) {
+    public void setDirectionTo(final double newDirection) {
+        var speedToSet = speed;
+
         if (motionApplier != null) {
-            return motionApplier.setDirectionTo(newDirection);
-        } else {
-            this.direction = newDirection;
-            return null;
+            speedToSet = getSpeed();
         }
+        setMotionTo(speedToSet, newDirection);
     }
 
     @Override
-    public MotionApplier setMotionTo(final double speed, final double direction) {
-        this.speed = speed;
-        this.direction = direction;
-
+    public void setMotionTo(final double speed, final double direction) {
         if (motionApplier != null) {
-            return motionApplier.setMotionTo(speed, direction);
+            motionApplier.setMotionTo(speed, direction);
         } else {
-            return null;
+            this.speed = speed;
+            this.direction = direction;
         }
     }
 

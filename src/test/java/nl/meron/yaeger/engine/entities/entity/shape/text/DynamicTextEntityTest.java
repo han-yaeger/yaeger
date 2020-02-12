@@ -35,7 +35,7 @@ class DynamicTextEntityTest {
     }
 
     @Test
-    void init(){
+    void initSetsMotionToDesiredSpeed(){
         // Setup
         sut.setSpeedTo(SPEED);
         var motionApplier = mock(DefaultMotionApplier.class);

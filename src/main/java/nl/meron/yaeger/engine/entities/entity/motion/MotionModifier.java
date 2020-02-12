@@ -10,9 +10,8 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      *
      * @param speed     the speed as a {@code double}
      * @param direction the direction in degrees as a {@code double}
-     * @return This {@link MotionApplier} for easy chaining
      */
-    MotionApplier setMotionTo(final double speed, final double direction);
+    void setMotionTo(final double speed, final double direction);
 
     /**
      * Alter the speed through multiplication. Using this method will increase or decrease the current speed. It will multiply the current
@@ -22,9 +21,8 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      *
      * @param multiplication A value greater than 1 will mean an increment in speed. A value between 0 and 1 will mean a
      *                       decrement in speed
-     * @return This {@link MotionApplier} for easy chaining
      */
-    MotionApplier multiplySpeedWith(final double multiplication);
+    void multiplySpeedWith(final double multiplication);
 
     /**
      * Alter the speed through addition.  Using this method will increase or decrease the current speed. It will add the provided value
@@ -33,17 +31,15 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      * @param increment A value greater than 1 will mean an increment in speed. A value between 0 and 1 will mean a
      *                  decrement in speed.
      * @param increment A {@code double} representing the increment in speed
-     * @return This {@link MotionApplier} for easy chaining
      */
-    MotionApplier alterSpeedBy(final double increment);
+    void alterSpeedBy(final double increment);
 
     /**
      * Set the speed.
      *
      * @param speed the speed as a {@code double}
-     * @return This {@link MotionApplier} for easy chaining
      */
-    MotionApplier setSpeedTo(final double speed);
+    void setSpeedTo(final double speed);
 
     /**
      * Set the {@link Direction}. This value is in degrees, where
@@ -56,9 +52,8 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      * </ul>
      *
      * @param direction the direction in degrees as a {@code double}
-     * @return This {@link MotionApplier} for easy chaining
      */
-    MotionApplier setDirectionTo(final double direction);
+    void setDirectionTo(final double direction);
 
     /**
      * Change the direction by adding a rotation in degrees. A positive value will be added and will result
@@ -66,7 +61,6 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      * rotation.
      *
      * @param rotation the rotation as a double
-     * @return This {@link MotionApplier} for easy chaining
      */
-    MotionApplier changeDirectionBy(final double rotation);
+    void changeDirectionBy(final double rotation);
 }

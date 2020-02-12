@@ -77,14 +77,32 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     }
 
     @Override
-    public MotionApplier setMotionTo(final double speed, final double direction) {
-        this.speed = speed;
-        this.direction = direction;
+    public void setSpeedTo(final double newSpeed) {
+        var directionToSet = direction;
 
         if (motionApplier != null) {
-            return motionApplier.setMotionTo(speed, direction);
+            directionToSet = getDirection();
+        }
+        setMotionTo(newSpeed, directionToSet);
+    }
+
+    @Override
+    public void setDirectionTo(final double newDirection) {
+        var speedToSet = speed;
+
+        if (motionApplier != null) {
+            speedToSet = getSpeed();
+        }
+        setMotionTo(speedToSet, newDirection);
+    }
+
+    @Override
+    public void setMotionTo(final double speed, final double direction) {
+        if (motionApplier != null) {
+            motionApplier.setMotionTo(speed, direction);
         } else {
-            return null;
+            this.speed = speed;
+            this.direction = direction;
         }
     }
 
