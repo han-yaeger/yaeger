@@ -1,6 +1,7 @@
 package nl.meron.yaeger.engine.entities.entity.shape.text;
 
 import com.google.inject.Injector;
+import javafx.geometry.Point2D;
 import javafx.geometry.VPos;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -8,6 +9,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import nl.meron.waterworld.Waterworld;
 import nl.meron.yaeger.engine.entities.entity.Location;
+import nl.meron.yaeger.engine.entities.entity.shape.rectangle.RectangleEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +29,19 @@ class TextEntityTest {
     void setup() {
         text = mock(Text.class);
         injector = mock(Injector.class);
+    }
+
+    @Test
+    void settingPositionWithoutDelegateStoresPositionAsInitialPosition() {
+        // Setup
+        var sut = new TextEntityImpl(new Location(0, 0));
+
+        // Test
+        sut.placeOnLocation(LOCATION.getX(), LOCATION.getY());
+
+        // Verify
+        Assertions.assertEquals(0, Double.compare(sut.getInitialLocation().getX(), LOCATION.getX()));
+        Assertions.assertEquals(0, Double.compare(sut.getInitialLocation().getY(), LOCATION.getY()));
     }
 
     @Test
@@ -133,5 +148,21 @@ class TextEntityTest {
         verify(text).setFont(FONT);
         verify(text).setX(LOCATION.getX());
         verify(text).setY(LOCATION.getY());
+    }
+
+    private class TextEntityImpl extends RectangleEntity {
+
+        /**
+         * Create a new {@link TextEntityImpl} on the given {@code initialPosition}.
+         *
+         * @param initialPosition The initial position at which this {@link TextEntityImpl} should be placed
+         */
+        public TextEntityImpl(Location initialPosition) {
+            super(initialPosition);
+        }
+
+        public Point2D getInitialLocation() {
+            return this.initialPosition;
+        }
     }
 }

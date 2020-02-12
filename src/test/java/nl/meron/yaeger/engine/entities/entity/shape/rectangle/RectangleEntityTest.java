@@ -2,6 +2,7 @@ package nl.meron.yaeger.engine.entities.entity.shape.rectangle;
 
 import com.google.inject.Injector;
 import javafx.geometry.BoundingBox;
+import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import nl.meron.yaeger.engine.entities.entity.Location;
@@ -32,6 +33,19 @@ class RectangleEntityTest {
     void setup() {
         rectangle = mock(Rectangle.class);
         injector = mock(Injector.class);
+    }
+
+    @Test
+    void settingPositionWithoutDelegateStoresPositionAsInitialPosition() {
+        // Setup
+        var sut = new RectangleEntityImpl(new Location(0, 0));
+
+        // Test
+        sut.placeOnLocation(LOCATION.getX(), LOCATION.getY());
+
+        // Verify
+        Assertions.assertEquals(0, Double.compare(sut.getInitialLocation().getX(), LOCATION.getX()));
+        Assertions.assertEquals(0, Double.compare(sut.getInitialLocation().getY(), LOCATION.getY()));
     }
 
     @Test
@@ -245,6 +259,10 @@ class RectangleEntityTest {
          */
         public RectangleEntityImpl(Location initialPosition) {
             super(initialPosition);
+        }
+
+        public Point2D getInitialLocation() {
+            return this.initialPosition;
         }
     }
 }
