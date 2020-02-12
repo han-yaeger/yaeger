@@ -50,7 +50,7 @@ class DynamicTextEntityTest {
     }
 
     @Test
-    void bufferTransfersMotionOnInit(){
+    void bufferTransfersMotionOnInit() {
         // Setup
         var motionApplier = mock(DefaultMotionApplier.class);
         sut.setMotionApplier(motionApplier);
@@ -117,7 +117,7 @@ class DynamicTextEntityTest {
     }
 
     @Test
-    void setRotationAngleIsUsed() {
+    void setRotationSpeedIsUsed() {
         // Setup
         sut.setRotationSpeed(ROTATION_SPEED);
 

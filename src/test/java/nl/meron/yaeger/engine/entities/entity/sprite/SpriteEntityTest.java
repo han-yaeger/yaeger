@@ -1,6 +1,7 @@
 package nl.meron.yaeger.engine.entities.entity.sprite;
 
 import com.google.inject.Injector;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import nl.meron.yaeger.engine.Size;
@@ -44,14 +45,27 @@ class SpriteEntityTest {
     }
 
     @Test
+    void settingPositionWithoutDelegateStoresPositionAsInitialPosition() {
+        // Setup
+        var sut = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+
+        // Test
+        sut.placeOnLocation(DEFAULT_LOCATION.getX(), DEFAULT_LOCATION.getY());
+
+        // Verify
+        Assertions.assertEquals(0, Double.compare(sut.getInitialLocation().getX(), DEFAULT_LOCATION.getX()));
+        Assertions.assertEquals(0, Double.compare(sut.getInitialLocation().getY(), DEFAULT_LOCATION.getY()));
+    }
+
+    @Test
     void instantiatingASpriteEntityWithOneFrameGivesNoSideEffects() {
         // Setup
 
         // Test
-        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        var sut = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
 
         // Verify
-        Assertions.assertNotNull(spriteEntity);
+        Assertions.assertNotNull(sut);
     }
 
     @Test
@@ -59,19 +73,19 @@ class SpriteEntityTest {
         // Setup
 
         // Test
-        var spriteEntity = new TestSpriteEntityWithTwoFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 2);
+        var sut = new TestSpriteEntityWithTwoFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 2);
 
         // Verify
-        Assertions.assertNotNull(spriteEntity);
+        Assertions.assertNotNull(sut);
     }
 
     @Test
     void callingInitAfterInstantiatingWithSingleFrameImageWiresDelegates() {
         // Setup
-        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
-        spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        spriteEntity.setImageRepository(imageRepository);
-        spriteEntity.setImageViewFactory(imageViewFactory);
+        var sut = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        sut.setImageRepository(imageRepository);
+        sut.setImageViewFactory(imageViewFactory);
 
         var image = mock(Image.class);
         when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
@@ -80,7 +94,7 @@ class SpriteEntityTest {
         when(imageViewFactory.create(image)).thenReturn(imageView);
 
         // Test
-        spriteEntity.init(injector);
+        sut.init(injector);
 
         // Verify
         verifyNoMoreInteractions(spriteAnimationDelegateFactory);
@@ -188,6 +202,10 @@ class SpriteEntityTest {
 
         TestSpriteEntityWithDefaultFrames(String resource, Location location, Size size) {
             super(resource, location, size);
+        }
+
+        public Point2D getInitialLocation() {
+            return this.initialPosition;
         }
     }
 
