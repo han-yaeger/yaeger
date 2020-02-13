@@ -8,6 +8,7 @@ import nl.meron.showcase.buttons.Back;
 import nl.meron.showcase.scenes.ShowCaseScene;
 import nl.meron.showcase.scenes.textentities.entities.SceneBorderCrossingDynamicTextEntity;
 import nl.meron.showcase.scenes.textentities.entities.SceneBorderTouchingDynamicTextEntity;
+import nl.meron.showcase.scenes.textentities.entities.TimedDynamicTextEntity;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 
@@ -37,14 +38,16 @@ public class TextEntitiesScene extends ShowCaseScene {
         var staticTextEntity = new TextEntity(new Location(400, 30), "I'm a TextEntity and remain static on the Scene");
         staticTextEntity.setFill(Color.ORANGE);
         staticTextEntity.setFont(Font.font("American Typewriter", FontWeight.BOLD, 30));
-
         addEntity(staticTextEntity);
 
         var borderTouchingDynamicTextEntity = new SceneBorderTouchingDynamicTextEntity(new Location(400, 60));
-        var borderCrossingDynamicTextEntity = new SceneBorderCrossingDynamicTextEntity(new Location(600, 90));
-
         addEntity(borderTouchingDynamicTextEntity);
+
+        var borderCrossingDynamicTextEntity = new SceneBorderCrossingDynamicTextEntity(new Location(600, 90));
         addEntity(borderCrossingDynamicTextEntity);
+
+        var timedDynamicTextEntity = new TimedDynamicTextEntity(new Location(400, 120));
+        addEntity(timedDynamicTextEntity);
     }
 
     @Override
