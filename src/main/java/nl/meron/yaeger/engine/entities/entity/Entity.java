@@ -2,12 +2,13 @@ package nl.meron.yaeger.engine.entities.entity;
 
 import javafx.scene.Cursor;
 import nl.meron.yaeger.engine.Initializable;
+import nl.meron.yaeger.engine.Timeable;
 
 /**
  * An {@code Entity} will serve as the {@code Root Interface} for all objects that are part of a
  * {@link nl.meron.yaeger.engine.scenes.YaegerScene}.
  */
-public interface Entity extends Initializable, Bounded, Removeable, Placeable, SceneChild, NodeProvider, Rotatable {
+public interface Entity extends Initializable, Timeable, Bounded, Removeable, Placeable, SceneChild, NodeProvider, Rotatable {
 
     /**
      * Set if this {@link Entity} should be visible.

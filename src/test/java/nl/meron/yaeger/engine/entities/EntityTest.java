@@ -7,10 +7,13 @@ import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import nl.meron.yaeger.engine.Timer;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -174,6 +177,12 @@ class EntityTest {
 
         @Override
         public void init(Injector injector) {
+            // Not required here.
+        }
+
+        @Override
+        public List<Timer> getTimers() {
+            return null;
             // Not required here.
         }
     }

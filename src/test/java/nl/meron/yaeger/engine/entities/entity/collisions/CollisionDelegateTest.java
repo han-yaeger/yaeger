@@ -2,6 +2,7 @@ package nl.meron.yaeger.engine.entities.entity.collisions;
 
 import com.google.inject.Injector;
 import javafx.scene.Node;
+import nl.meron.yaeger.engine.Timer;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import org.junit.jupiter.api.Assertions;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.mockito.Mockito.mock;
@@ -167,6 +169,12 @@ class CollisionDelegateTest {
         public void init(Injector injector) {
             // Not required here.
         }
+
+        @Override
+        public List<Timer> getTimers() {
+            return null;
+            // Not required here.
+        }
     }
 
     private class ColliderTestEntity implements Entity, Collider {
@@ -224,6 +232,12 @@ class CollisionDelegateTest {
         @Override
         public double getSpeed() {
             return 0;
+        }
+
+        @Override
+        public List<Timer> getTimers() {
+            return null;
+            // Not required here.
         }
     }
 }

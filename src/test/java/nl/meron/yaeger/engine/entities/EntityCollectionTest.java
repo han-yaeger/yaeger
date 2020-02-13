@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
+import nl.meron.yaeger.engine.Timer;
 import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.entity.*;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;
@@ -273,6 +274,12 @@ class EntityCollectionTest {
         public void update(long timestamp) {
             updater.update(timestamp);
         }
+
+        @Override
+        public List<Timer> getTimers() {
+            return null;
+            // Not required here.
+        }
     }
 
     private class UpdateDelegatingEntity extends UpdatableEntity implements UpdateDelegator {
@@ -311,6 +318,12 @@ class EntityCollectionTest {
         public void update(long timestamp) {
             updater.update(timestamp);
         }
+
+        @Override
+        public List<Timer> getTimers() {
+            return null;
+            // Not required here.
+        }
     }
 
     private class UpdatableEntity implements Entity, Updatable {
@@ -344,6 +357,12 @@ class EntityCollectionTest {
         public void init(Injector injector) {
             // Not required here.
         }
+
+        @Override
+        public List<Timer> getTimers() {
+            return null;
+            // Not required here.
+        }
     }
 
     private class KeyListeningEntity implements Entity, KeyListener {
@@ -375,6 +394,12 @@ class EntityCollectionTest {
 
         @Override
         public void init(Injector injector) {
+            // Not required here.
+        }
+
+        @Override
+        public List<Timer> getTimers() {
+            return null;
             // Not required here.
         }
     }
@@ -415,6 +440,12 @@ class EntityCollectionTest {
 
         public boolean isInitialized() {
             return initialized;
+        }
+
+        @Override
+        public List<Timer> getTimers() {
+            return null;
+            // Not required here.
         }
     }
 

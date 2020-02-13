@@ -3,11 +3,14 @@ package nl.meron.yaeger.engine.entities;
 import com.google.inject.Injector;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Node;
+import nl.meron.yaeger.engine.Timer;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.javafx.animationtimer.AnimationTimerFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -173,6 +176,12 @@ class EntitySpawnerTest {
 
         @Override
         public void init(Injector injector) {
+            // Not required here.
+        }
+
+        @Override
+        public List<Timer> getTimers() {
+            return null;
             // Not required here.
         }
     }

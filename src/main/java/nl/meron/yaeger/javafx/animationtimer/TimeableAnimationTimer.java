@@ -9,13 +9,12 @@ import javafx.animation.AnimationTimer;
 public abstract class TimeableAnimationTimer extends AnimationTimer {
 
     private long interval = 0;
-
-    long prevTime = 0;
+    private long prevTime = 0;
 
     /**
      * Creat a new {@code TimeableAnimationTimer} for the given interval time in milliseconds.
      *
-     * @param interval the interval time in milliseconds
+     * @param interval The interval time in milliseconds.
      */
     public TimeableAnimationTimer(final long interval) {
         this.interval = interval * 1_000_000;
