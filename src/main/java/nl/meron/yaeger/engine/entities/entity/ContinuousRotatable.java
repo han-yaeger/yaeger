@@ -1,5 +1,7 @@
 package nl.meron.yaeger.engine.entities.entity;
 
+import nl.meron.yaeger.engine.annotations.UpdatableProvider;
+
 public interface ContinuousRotatable extends Rotatable {
 
     /**

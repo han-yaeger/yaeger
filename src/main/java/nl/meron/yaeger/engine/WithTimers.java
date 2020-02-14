@@ -1,8 +1,8 @@
 package nl.meron.yaeger.engine;
 
-import nl.meron.yaeger.engine.entities.entity.Initializer;
+import nl.meron.yaeger.engine.annotations.Initializer;
 import nl.meron.yaeger.engine.entities.entity.Updatable;
-import nl.meron.yaeger.engine.entities.entity.UpdatableProvider;
+import nl.meron.yaeger.engine.annotations.UpdatableProvider;
 
 /**
  * Implementing this interface exposes the {@link #registerTimer(Timer)} method. A {@link Timer} that is

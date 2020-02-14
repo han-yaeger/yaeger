@@ -38,6 +38,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
 
     @Override
     public void init(final Injector injector) {
+
         this.injector = injector;
     }
 
@@ -46,6 +47,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
         scene = sceneFactory.create(root);
 
         entityCollection = entityCollectionFactory.create(root);
+        injector.injectMembers(entityCollection);
         entityCollection.init(injector);
         entityCollection.addStatisticsObserver(debugger);
 

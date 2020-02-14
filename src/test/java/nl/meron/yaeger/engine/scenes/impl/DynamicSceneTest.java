@@ -18,6 +18,7 @@ import nl.meron.yaeger.guice.factories.SceneFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.HashSet;
 
@@ -25,12 +26,13 @@ import static org.mockito.Mockito.*;
 
 class DynamicSceneTest {
 
-    private TestDynamicScene testScene;
+    private TestDynamicScene sut;
     private SceneFactory sceneFactory;
     private Debugger debugger;
     private EntityCollectionFactory entityCollectionFactory;
     private AnimationTimer animationTimer;
     private AnimationTimerFactory animationTimerFactory;
+    private Injector injector;
 
     private KeyListenerDelegate keyListenerDelegate;
     private BackgroundDelegate backgroundDelegate;
@@ -42,7 +44,7 @@ class DynamicSceneTest {
 
     @BeforeEach
     void setup() {
-        testScene = new TestDynamicScene();
+        sut = new TestDynamicScene();
 
         root = mock(Group.class);
         backgroundDelegate = mock(BackgroundDelegate.class);
@@ -53,15 +55,16 @@ class DynamicSceneTest {
         animationTimer = mock(AnimationTimer.class);
         entityCollectionFactory = mock(EntityCollectionFactory.class);
         animationTimerFactory = mock(AnimationTimerFactory.class);
+        injector = Mockito.mock(Injector.class);
 
-        testScene.setDebugger(debugger);
-        testScene.setSceneFactory(sceneFactory);
-        testScene.setEntityCollectionFactory(entityCollectionFactory);
-        testScene.setRoot(root);
-        testScene.setBackgroundDelegate(backgroundDelegate);
-        testScene.setKeyListenerDelegate(keyListenerDelegate);
-        testScene.setEntitySupplier(entitySupplier);
-        testScene.setAnimationTimerFactory(animationTimerFactory);
+        sut.setDebugger(debugger);
+        sut.setSceneFactory(sceneFactory);
+        sut.setEntityCollectionFactory(entityCollectionFactory);
+        sut.setRoot(root);
+        sut.setBackgroundDelegate(backgroundDelegate);
+        sut.setKeyListenerDelegate(keyListenerDelegate);
+        sut.setEntitySupplier(entitySupplier);
+        sut.setAnimationTimerFactory(animationTimerFactory);
 
         scene = mock(Scene.class);
         entityCollection = mock(EntityCollection.class);
@@ -69,6 +72,8 @@ class DynamicSceneTest {
         when(sceneFactory.create(root)).thenReturn(scene);
         when(entityCollectionFactory.create(root)).thenReturn(entityCollection);
         when(animationTimerFactory.create(any())).thenReturn(animationTimer);
+
+        sut.init(injector);
     }
 
     @Test
@@ -76,17 +81,17 @@ class DynamicSceneTest {
         // Setup
 
         // Test
-        testScene.configure();
+        sut.configure();
 
         // Verify
-        Assertions.assertTrue(testScene.setupSpawnersCalled);
+        Assertions.assertTrue(sut.setupSpawnersCalled);
     }
 
     @Test
     void registerSpawnerDelegatesToTheEntityCollection() {
         // Setup
         var injector = mock(Injector.class);
-        testScene.init(injector);
+        sut.init(injector);
 
         var animationTimer = mock(AnimationTimer.class);
         var animationTimerFactory = mock(AnimationTimerFactory.class);
@@ -96,10 +101,10 @@ class DynamicSceneTest {
 
         when(animationTimerFactory.createTimeableAnimationTimer(any(), anyLong())).thenReturn(animationTimer);
 
-        testScene.configure();
+        sut.configure();
 
         // Test
-        testScene.registerSpawner(spawner);
+        sut.registerSpawner(spawner);
 
         // Verify
         verify(entityCollection).registerSupplier(spawner);
@@ -110,10 +115,10 @@ class DynamicSceneTest {
         // Setup
         var children = mock(ObservableList.class);
         when(root.getChildren()).thenReturn(children);
-        testScene.configure();
+        sut.configure();
 
         // Test
-        testScene.destroy();
+        sut.destroy();
 
         // Verify
         verify(entityCollection).clear();
@@ -124,10 +129,10 @@ class DynamicSceneTest {
         // Setup
         var input = new HashSet<KeyCode>();
         input.add(KeyCode.F1);
-        testScene.configure();
+        sut.configure();
 
         // Test
-        testScene.onInputChanged(input);
+        sut.onInputChanged(input);
 
         // Verify
         verify(entityCollection).notifyGameObjectsOfPressedKeys(input);

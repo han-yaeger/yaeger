@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.entities.entity;
+package nl.meron.yaeger.engine.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

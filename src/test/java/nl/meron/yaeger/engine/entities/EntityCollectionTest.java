@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import nl.meron.yaeger.engine.Timer;
+import nl.meron.yaeger.engine.annotations.AnnotationProcessor;
 import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.entity.*;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;
@@ -16,21 +17,22 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 class EntityCollectionTest {
 
     private EntityCollection sut;
     private Injector injector;
+    private AnnotationProcessor annotationProcessor;
 
     @BeforeEach
     void setup() {
         injector = mock(Injector.class);
+        annotationProcessor = mock(AnnotationProcessor.class);
     }
 
     @Test
-    void newInstanceIsEmtpy() {
+    void newInstanceIsEmpty() {
         // Setup
         var group = mock(Group.class);
         var debugger = mock(Debugger.class);
@@ -38,6 +40,7 @@ class EntityCollectionTest {
         // Test
         sut = new EntityCollection(group);
         sut.addStatisticsObserver(debugger);
+        sut.setAnnotationProcessor(annotationProcessor);
 
         // Verify
         Assertions.assertEquals(0, sut.getStatistics().getStatics());
@@ -53,6 +56,7 @@ class EntityCollectionTest {
         var supplier = mock(EntitySupplier.class);
         var group = mock(Group.class);
         sut = new EntityCollection(group);
+        sut.setAnnotationProcessor(annotationProcessor);
         sut.registerSupplier(supplier);
 
         // Test
@@ -79,6 +83,7 @@ class EntityCollectionTest {
         when(group.getChildren()).thenReturn(children);
 
         sut = new EntityCollection(group);
+        sut.setAnnotationProcessor(annotationProcessor);
         sut.init(injector);
 
         // Test
@@ -87,91 +92,6 @@ class EntityCollectionTest {
 
         // Verify
         verify(supplier).get();
-    }
-
-    @Test
-    void entityWithExtraUpdateGetsAddedToTheUpdaters() {
-        var updateDelegatingEntity = new UpdateDelegatingEntity();
-        var node = mock(Node.class, withSettings().withoutAnnotations());
-
-        updateDelegatingEntity.setNode(node);
-
-        Set<Entity> updatables = new HashSet<>();
-        updatables.add(updateDelegatingEntity);
-        var supplier = mock(EntitySupplier.class);
-        when(supplier.get()).thenReturn(updatables);
-
-        var group = mock(Group.class);
-        var children = mock(ObservableList.class);
-        when(group.getChildren()).thenReturn(children);
-
-        sut = new EntityCollection(group);
-        sut.init(injector);
-
-        sut.registerSupplier(supplier);
-        sut.initialUpdate();
-
-        // Test
-        sut.update(0);
-
-        // Verify
-        assertTrue(updateDelegatingEntity.extraUpdateCalled);
-    }
-
-    @Test
-    void methodWithInitializerAnnotationGetsCalledInInit() {
-        var entityWithInitializer = new EntityWithInitializer();
-        var node = mock(Node.class, withSettings().withoutAnnotations());
-        entityWithInitializer.setNode(node);
-
-        Set<Entity> statics = new HashSet<>();
-        statics.add(entityWithInitializer);
-        var supplier = mock(EntitySupplier.class);
-        when(supplier.get()).thenReturn(statics);
-
-        var group = mock(Group.class);
-        var children = mock(ObservableList.class);
-        when(group.getChildren()).thenReturn(children);
-
-        sut = new EntityCollection(group);
-        sut.init(injector);
-
-        sut.registerSupplier(supplier);
-
-        // Test
-        sut.initialUpdate();
-
-        // Verify
-        Assertions.assertTrue(entityWithInitializer.isInitialized());
-    }
-
-    @Test
-    void entityWithAsFirstUpdateGetsAddedToTheUpdatersAsFirst() {
-        var firstUpdateDelegatingEntity = new FirstUpdateDelegatingEntity();
-        var node = mock(Node.class, withSettings().withoutAnnotations());
-        var updater = mock(Updater.class);
-        firstUpdateDelegatingEntity.setUpdater(updater);
-        firstUpdateDelegatingEntity.setNode(node);
-
-        Set<Entity> updatables = new HashSet<>();
-        updatables.add(firstUpdateDelegatingEntity);
-        var supplier = mock(EntitySupplier.class);
-        when(supplier.get()).thenReturn(updatables);
-
-        var group = mock(Group.class);
-        var children = mock(ObservableList.class);
-        when(group.getChildren()).thenReturn(children);
-
-        sut = new EntityCollection(group);
-        sut.init(injector);
-
-        sut.registerSupplier(supplier);
-
-        // Test
-        sut.initialUpdate();
-
-        // Verify
-        verify(updater).addUpdatable(any(Updatable.class), eq(true));
     }
 
     @Test
@@ -192,6 +112,7 @@ class EntityCollectionTest {
 
         // Test
         sut = new EntityCollection(group);
+        sut.setAnnotationProcessor(annotationProcessor);
         sut.init(injector);
         sut.registerSupplier(entitySupplier);
         sut.update(0);
@@ -225,6 +146,7 @@ class EntityCollectionTest {
 
         // Test
         sut = new EntityCollection(group);
+        sut.setAnnotationProcessor(annotationProcessor);
         sut.init(injector);
         sut.registerSupplier(entitySupplier);
         sut.update(0);
@@ -234,97 +156,35 @@ class EntityCollectionTest {
         verify(keyListeningEntity).onPressedKeysChange(keycodes);
     }
 
-    private class FirstUpdateDelegatingEntity extends UpdatableEntity implements UpdateDelegator {
+    @Test
+    void annotationProcessorIsCalledForEachEntity() {
+        // Setup
+        var updatableEntity = mock(UpdatableEntity.class);
+        var node = mock(Node.class, withSettings().withoutAnnotations());
+        when(updatableEntity.getGameNode()).thenReturn(node);
 
-        boolean extraUpdateCalled = false;
+        Set<Entity> updatables = new HashSet<>();
+        updatables.add(updatableEntity);
+        var supplier = mock(EntitySupplier.class);
+        when(supplier.get()).thenReturn(updatables);
 
-        private Updater updater;
-        private Node node;
+        var group = mock(Group.class);
+        var children = mock(ObservableList.class);
+        when(group.getChildren()).thenReturn(children);
 
-        @UpdatableProvider(asFirst = true)
-        public Updatable provideUpdate() {
-            return timestamp -> {
-                setTrue();
-            };
-        }
+        sut = new EntityCollection(group);
+        sut.setAnnotationProcessor(annotationProcessor);
+        sut.init(injector);
 
-        void setTrue() {
-            this.extraUpdateCalled = true;
-        }
+        // Test
+        sut.registerSupplier(supplier);
+        sut.initialUpdate();
 
-        public void setNode(Node node) {
-            this.node = node;
-        }
-
-        @Override
-        public Node getGameNode() {
-            return this.node;
-        }
-
-        @Override
-        public Updater getUpdater() {
-            return updater;
-        }
-
-        public void setUpdater(Updater updater) {
-            this.updater = updater;
-        }
-
-        @Override
-        public void update(long timestamp) {
-            updater.update(timestamp);
-        }
-
-        @Override
-        public List<Timer> getTimers() {
-            return null;
-            // Not required here.
-        }
+        // Verify
+        verify(annotationProcessor).invokeInitializers(updatableEntity);
+        verify(annotationProcessor).configureUpdateDelegators(updatableEntity);
     }
 
-    private class UpdateDelegatingEntity extends UpdatableEntity implements UpdateDelegator {
-
-        boolean extraUpdateCalled = false;
-
-        private Updater updater = new Updater();
-        private Node node;
-
-        @UpdatableProvider
-        public Updatable provideUpdate() {
-            return timestamp -> {
-                setTrue();
-            };
-        }
-
-        void setTrue() {
-            this.extraUpdateCalled = true;
-        }
-
-        public void setNode(Node node) {
-            this.node = node;
-        }
-
-        @Override
-        public Node getGameNode() {
-            return this.node;
-        }
-
-        @Override
-        public Updater getUpdater() {
-            return updater;
-        }
-
-        @Override
-        public void update(long timestamp) {
-            updater.update(timestamp);
-        }
-
-        @Override
-        public List<Timer> getTimers() {
-            return null;
-            // Not required here.
-        }
-    }
 
     private class UpdatableEntity implements Entity, Updatable {
 
@@ -403,50 +263,4 @@ class EntityCollectionTest {
             // Not required here.
         }
     }
-
-    private class EntityWithInitializer implements Entity {
-
-        private boolean initialized = false;
-        private Node node;
-
-        public void setNode(Node node) {
-            this.node = node;
-        }
-
-        @Override
-        public void init(Injector injector) {
-            // Not required here.
-        }
-
-        @Override
-        public void placeOnLocation(double x, double y) {
-            // Not required here.
-        }
-
-        @Override
-        public void remove() {
-            // Not required here.
-        }
-
-        @Override
-        public Node getGameNode() {
-            return node;  // Not required here.
-        }
-
-        @Initializer
-        public void initializerMethod() {
-            this.initialized = true;
-        }
-
-        public boolean isInitialized() {
-            return initialized;
-        }
-
-        @Override
-        public List<Timer> getTimers() {
-            return null;
-            // Not required here.
-        }
-    }
-
 }

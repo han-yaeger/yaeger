@@ -1,5 +1,6 @@
 package nl.meron.yaeger.engine.scenes.impl;
 
+import com.google.inject.Injector;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -16,6 +17,7 @@ import nl.meron.yaeger.guice.factories.SceneFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,13 +25,14 @@ import java.util.Set;
 import static org.mockito.Mockito.*;
 
 class StaticSceneTest {
-    private TestStaticScene testStaticScene;
+    private TestStaticScene sut;
     private SceneFactory sceneFactory;
     private EntityCollectionFactory entityCollectionFactory;
 
     private KeyListenerDelegate keyListenerDelegate;
     private BackgroundDelegate backgroundDelegate;
     private Debugger debugger;
+    private Injector injector;
 
     private EntityCollection entityCollection;
     private EntitySupplier entitySupplier;
@@ -38,7 +41,7 @@ class StaticSceneTest {
 
     @BeforeEach
     void setup() {
-        testStaticScene = new TestStaticScene();
+        sut = new TestStaticScene();
 
         root = mock(Group.class);
         backgroundDelegate = mock(BackgroundDelegate.class);
@@ -47,28 +50,32 @@ class StaticSceneTest {
         entitySupplier = mock(EntitySupplier.class);
         sceneFactory = mock(SceneFactory.class);
         entityCollectionFactory = mock(EntityCollectionFactory.class);
+        injector = Mockito.mock(Injector.class);
 
-        testStaticScene.setDebugger(debugger);
-        testStaticScene.setSceneFactory(sceneFactory);
-        testStaticScene.setEntityCollectionFactory(entityCollectionFactory);
-        testStaticScene.setRoot(root);
-        testStaticScene.setBackgroundDelegate(backgroundDelegate);
-        testStaticScene.setKeyListenerDelegate(keyListenerDelegate);
-        testStaticScene.setEntitySupplier(entitySupplier);
+        sut.setDebugger(debugger);
+        sut.setSceneFactory(sceneFactory);
+        sut.setEntityCollectionFactory(entityCollectionFactory);
+        sut.setRoot(root);
+        sut.setBackgroundDelegate(backgroundDelegate);
+        sut.setKeyListenerDelegate(keyListenerDelegate);
+        sut.setEntitySupplier(entitySupplier);
 
         scene = mock(Scene.class);
         entityCollection = mock(EntityCollection.class);
 
         when(sceneFactory.create(root)).thenReturn(scene);
         when(entityCollectionFactory.create(root)).thenReturn(entityCollection);
+
+        sut.init(injector);
     }
 
     @Test
     void configureCreatesAScene() {
         // Setup
 
+
         // Test
-        testStaticScene.configure();
+        sut.configure();
 
         // Verify
         verify(sceneFactory).create(root);
@@ -80,7 +87,7 @@ class StaticSceneTest {
         // Setup
 
         // Test
-        testStaticScene.configure();
+        sut.configure();
 
         // Verify
         verify(debugger).setup(root);
@@ -92,10 +99,21 @@ class StaticSceneTest {
         // Setup
 
         // Test
-        testStaticScene.configure();
+        sut.configure();
 
         // Verify
         verify(entityCollectionFactory).create(root);
+    }
+
+    @Test
+    void configureInjectDependenciesIntoEntityCollection() {
+        // Setup
+
+        // Test
+        sut.configure();
+
+        // Verify
+        verify(injector).injectMembers(any());
     }
 
     @Test
@@ -103,7 +121,7 @@ class StaticSceneTest {
         // Setup
 
         // Test
-        testStaticScene.configure();
+        sut.configure();
 
         // Verify
         verify(keyListenerDelegate).setup(any(Scene.class), any(KeyListener.class));
@@ -117,7 +135,7 @@ class StaticSceneTest {
         when(entityCollectionFactory.create(root)).thenReturn(entityCollection);
 
         // Test
-        testStaticScene.configure();
+        sut.configure();
 
         // Verify
         verify(entityCollection).addStatisticsObserver(debugger);
@@ -129,10 +147,10 @@ class StaticSceneTest {
         var children = mock(ObservableList.class);
         when(root.getChildren()).thenReturn(children);
 
-        testStaticScene.configure();
+        sut.configure();
 
         // Test
-        testStaticScene.destroy();
+        sut.destroy();
 
         // Verify
         verify(keyListenerDelegate).tearDown(scene);
@@ -143,12 +161,12 @@ class StaticSceneTest {
     @Test
     void addEntityAddsTheEntitySupplier() {
         // Setup
-        testStaticScene.configure();
+        sut.configure();
 
         var testEntity = mock(Entity.class);
 
         // Test
-        testStaticScene.addEntity(testEntity);
+        sut.addEntity(testEntity);
 
         // Verify
         verify(entitySupplier).add(testEntity);
@@ -159,11 +177,10 @@ class StaticSceneTest {
         // Setup
         var input = new HashSet<KeyCode>();
         input.add(KeyCode.F1);
-
-        testStaticScene.configure();
+        sut.configure();
 
         // Test
-        testStaticScene.onPressedKeysChange(input);
+        sut.onPressedKeysChange(input);
 
         // Verify
         verify(debugger).toggle();
@@ -175,7 +192,7 @@ class StaticSceneTest {
         final var AUDIO_STRING = "Hello World";
 
         // Test
-        testStaticScene.setBackgroundAudio(AUDIO_STRING);
+        sut.setBackgroundAudio(AUDIO_STRING);
 
         // Verify
         verify(backgroundDelegate).setBackgroundAudio(AUDIO_STRING);
@@ -187,7 +204,7 @@ class StaticSceneTest {
         final var IMAGE_STRING = "Hello World";
 
         // Test
-        testStaticScene.setBackgroundImage(IMAGE_STRING);
+        sut.setBackgroundImage(IMAGE_STRING);
 
         // Verify
         verify(backgroundDelegate).setBackgroundImage(IMAGE_STRING);
@@ -196,10 +213,10 @@ class StaticSceneTest {
     @Test
     void getSceneReturnsExpectedScene() {
         // Setup
-        testStaticScene.configure();
+        sut.configure();
 
         // Test
-        var returnedScene = testStaticScene.getScene();
+        var returnedScene = sut.getScene();
 
         // Verify
         Assertions.assertEquals(scene, returnedScene);
@@ -208,10 +225,10 @@ class StaticSceneTest {
     @Test
     void postActivationMakeRequiredCalls() {
         // Setup
-        testStaticScene.configure();
+        sut.configure();
 
         // Test
-        testStaticScene.postActivation();
+        sut.postActivation();
 
         // Verify
         verify(entityCollection).registerSupplier(any());

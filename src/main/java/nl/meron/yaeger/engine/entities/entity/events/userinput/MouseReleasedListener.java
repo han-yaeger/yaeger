@@ -2,7 +2,7 @@ package nl.meron.yaeger.engine.entities.entity.events.userinput;
 
 import javafx.scene.input.MouseButton;
 import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.entities.entity.Initializer;
+import nl.meron.yaeger.engine.annotations.Initializer;
 import nl.meron.yaeger.engine.entities.entity.NodeProvider;
 
 /**

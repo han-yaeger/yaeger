@@ -1,8 +1,10 @@
 package nl.meron.yaeger.engine.entities;
 
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
+import nl.meron.yaeger.engine.annotations.AnnotationProcessor;
 import nl.meron.yaeger.engine.Initializable;
 import nl.meron.yaeger.engine.debug.StatisticsObserver;
 import nl.meron.yaeger.engine.entities.entity.collisions.Collided;
@@ -11,11 +13,8 @@ import nl.meron.yaeger.engine.entities.entity.collisions.CollisionDelegate;
 import nl.meron.yaeger.engine.entities.entity.*;
 import nl.meron.yaeger.engine.entities.entity.events.EventTypes;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.*;
-import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -39,6 +38,7 @@ public class EntityCollection implements Initializable {
     private final List<StatisticsObserver> statisticsObservers = new ArrayList<>();
 
     private CollisionDelegate collisionDelegate;
+    private AnnotationProcessor annotationProcessor;
 
     /**
      * Instantiate an {@link EntityCollection} for a given {@link Group} and a {@link Set} of {@link Entity} instances.
@@ -196,45 +196,16 @@ public class EntityCollection implements Initializable {
     private void initialize(final Entity entity) {
         injector.injectMembers(entity);
         entity.init(injector);
-        invokeInitializers(entity);
-    }
-
-    private void invokeInitializers(final Entity entity) {
-        for (Method method : entity.getClass().getMethods()) {
-            if (method.isAnnotationPresent(Initializer.class)) {
-                try {
-                    method.invoke(entity);
-                } catch (IllegalAccessException | InvocationTargetException e) {
-                    throw new YaegerEngineException(e);
-                }
-            }
-        }
+        annotationProcessor.invokeInitializers(entity);
     }
 
     private void addToUpdatablesOrStatics(final Entity entity) {
         if (entity instanceof Updatable) {
             var updatable = (Updatable) entity;
-            configureUpdateDelegators(updatable);
+            annotationProcessor.configureUpdateDelegators(updatable);
             updatables.add(updatable);
         } else {
             statics.add(entity);
-        }
-    }
-
-    private void configureUpdateDelegators(final Updatable updatable) {
-        if (updatable instanceof UpdateDelegator) {
-            var updateDelegator = (UpdateDelegator) updatable;
-            for (Method method : updatable.getClass().getMethods()) {
-                if (method.isAnnotationPresent(UpdatableProvider.class)) {
-                    UpdatableProvider annotation = method.getAnnotation(UpdatableProvider.class);
-                    try {
-                        Updatable delegatedUpdatable = (Updatable) method.invoke(updateDelegator);
-                        updateDelegator.getUpdater().addUpdatable(delegatedUpdatable, annotation.asFirst());
-                    } catch (IllegalAccessException | InvocationTargetException | ClassCastException e) {
-                        throw new YaegerEngineException(e);
-                    }
-                }
-            }
         }
     }
 
@@ -267,5 +238,10 @@ public class EntityCollection implements Initializable {
     @Override
     public void init(final Injector injector) {
         this.injector = injector;
+    }
+
+    @Inject
+    public void setAnnotationProcessor(AnnotationProcessor annotationProcessor) {
+        this.annotationProcessor = annotationProcessor;
     }
 }
