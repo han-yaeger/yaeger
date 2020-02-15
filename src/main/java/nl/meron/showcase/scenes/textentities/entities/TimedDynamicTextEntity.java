@@ -47,7 +47,6 @@ public class TimedDynamicTextEntity extends DynamicTextEntity implements WithTim
     }
 
     public void nextLine() {
-        System.out.println(currentLine);
         setText(theRoadGoesEverOn.get(currentLine % theRoadGoesEverOn.size()));
         currentLine++;
     }

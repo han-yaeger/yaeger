@@ -7,6 +7,7 @@ import nl.meron.yaeger.engine.Configurable;
 import nl.meron.yaeger.engine.Destroyable;
 import nl.meron.yaeger.engine.Initializable;
 import nl.meron.yaeger.engine.entities.entity.Entity;
+import nl.meron.yaeger.engine.entities.entity.UpdateDelegator;
 
 /**
  * A {@code YaegerScene} encapsulates a scene or level from a {@code Yaeger Game}.

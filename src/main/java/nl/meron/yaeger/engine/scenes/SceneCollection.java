@@ -1,30 +1,32 @@
 package nl.meron.yaeger.engine.scenes;
 
-import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.stage.Stage;
+import nl.meron.yaeger.engine.annotations.AnnotationProcessor;
 import nl.meron.yaeger.engine.exceptions.YaegerSceneNotAvailableException;
-import nl.meron.yaeger.guice.YaegerModule;
 
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
 /**
- * A {@link Scenes} contains all instances of {@link YaegerScene} that are part of the Game.
+ * A {@link SceneCollection} contains all instances of {@link YaegerScene} that are part of a Game. It is
+ * responsible for initializing all the scenes and setting the current {@link YaegerScene}.
  */
-public class Scenes extends LinkedHashMap<Integer, YaegerScene> {
+public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> {
 
     private final transient Stage stage;
+    private AnnotationProcessor annotationProcessor;
     private transient YaegerScene activeScene;
     private transient Injector injector;
 
-    public Scenes(final Stage stage) {
-        this.injector = Guice.createInjector(new YaegerModule());
+    public SceneCollection(final Stage stage, final Injector injector) {
         this.stage = stage;
+        this.injector = injector;
     }
 
     /**
-     * Add a {@link YaegerScene} to the collection of {@link Scenes}. A {@link YaegerScene} uses a number ({@link Integer})
+     * Add a {@link YaegerScene} to the collection of {@link SceneCollection}. A {@link YaegerScene} uses a number ({@link Integer})
      * to be identified. Each number can be only used ones..
      *
      * @param number The {@link Integer} identifying the {@link YaegerScene}
@@ -32,7 +34,6 @@ public class Scenes extends LinkedHashMap<Integer, YaegerScene> {
      */
     public void addScene(final int number, final YaegerScene scene) {
         put(number, scene);
-
         scene.init(injector);
 
         if (size() == 1) {
@@ -72,6 +73,8 @@ public class Scenes extends LinkedHashMap<Integer, YaegerScene> {
 
     private void activate(final YaegerScene scene) {
         injector.injectMembers(scene);
+        annotationProcessor.configureUpdateDelegators(scene);
+        annotationProcessor.invokeInitializers(scene);
         scene.configure();
         scene.setupScene();
         scene.setupEntities();
@@ -89,12 +92,17 @@ public class Scenes extends LinkedHashMap<Integer, YaegerScene> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        Scenes scenes = (Scenes) o;
-        return Objects.equals(stage, scenes.stage);
+        SceneCollection sceneCollection = (SceneCollection) o;
+        return Objects.equals(stage, sceneCollection.stage);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), stage);
+    }
+
+    @Inject
+    public void setAnnotationProcessor(AnnotationProcessor annotationProcessor) {
+        this.annotationProcessor = annotationProcessor;
     }
 }

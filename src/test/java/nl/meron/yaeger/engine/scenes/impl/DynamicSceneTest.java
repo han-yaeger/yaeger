@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import nl.meron.yaeger.engine.Timer;
 import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.EntityCollection;
 import nl.meron.yaeger.engine.entities.EntitySpawner;
@@ -21,7 +22,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.HashSet;
+import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 class DynamicSceneTest {
@@ -74,6 +78,18 @@ class DynamicSceneTest {
         when(animationTimerFactory.create(any())).thenReturn(animationTimer);
 
         sut.init(injector);
+    }
+
+    @Test
+    void getTimersReturnsAnEmptyCollection() {
+        // Setup
+
+        // Test
+        List<Timer> timers = sut.getTimers();
+
+        // Verify
+        assertNotNull(timers);
+        assertTrue(timers.isEmpty());
     }
 
     @Test

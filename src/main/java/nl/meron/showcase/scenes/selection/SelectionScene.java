@@ -45,6 +45,10 @@ public class SelectionScene extends StaticScene {
         var shapeEntities = new Button(new Location(20, 130), "3) Shape Entities", showCase, YaegerShowCase.SCENE_SHAPE_ENTITIES);
         styleText(shapeEntities);
         addEntity(shapeEntities);
+
+        var dynamicSceneWithTimers = new Button(new Location(20, 160), "4) Dynamic Scene with a Timer", showCase, YaegerShowCase.SCENE_WITH_TIMERS);
+        styleText(dynamicSceneWithTimers);
+        addEntity(dynamicSceneWithTimers);
     }
 
     @Override
@@ -55,6 +59,8 @@ public class SelectionScene extends StaticScene {
             showCase.setActiveScene(YaegerShowCase.SCENE_SPRITE_ENTITIES);
         } else if (input.contains(KeyCode.DIGIT3)) {
             showCase.setActiveScene(YaegerShowCase.SCENE_SHAPE_ENTITIES);
+        } else if (input.contains(KeyCode.DIGIT4)) {
+            showCase.setActiveScene(YaegerShowCase.SCENE_WITH_TIMERS);
         }
     }
 

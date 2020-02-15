@@ -1,10 +1,9 @@
 package nl.meron.yaeger.engine;
 
 import nl.meron.yaeger.engine.entities.entity.Updatable;
-import org.junit.jupiter.api.Assertions;
+import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +35,7 @@ class WithTimersTest {
     @Test
     void registerTimerAddTheTimerToTheTimers() {
         // Setup
+        sut.setTimers(new ArrayList<>());
         var timer = mock(Timer.class);
 
         // Test
@@ -46,7 +46,7 @@ class WithTimersTest {
     }
 
     @Test
-    void callTimersReturnsAnUpdatable() {
+    void callTimersDoesNotBreakIfTimersIsNull() {
         // Setup
 
         // Test
@@ -57,8 +57,20 @@ class WithTimersTest {
     }
 
     @Test
+    void registerTimerThrowsExceptionIfGetTimersReturnNull() {
+        // Setup
+        var timer1 = mock(Timer.class);
+
+        // Test
+
+        // Verify
+        assertThrows(YaegerEngineException.class, ()-> sut.registerTimer(timer1));
+    }
+
+    @Test
     void invokingTheUpdatableCallsHandleOnEachTimer() {
         // Setup
+        sut.setTimers(new ArrayList<>());
         var timer1 = mock(Timer.class);
         var timer2 = mock(Timer.class);
         sut.registerTimer(timer1);
@@ -75,7 +87,7 @@ class WithTimersTest {
 
     private class WithTimersImpl implements WithTimers {
 
-        private List<Timer> timers = new ArrayList<>();
+        private List<Timer> timers;
         private boolean registerTimersCalled = false;
 
         @Override
@@ -90,6 +102,10 @@ class WithTimersTest {
 
         public boolean isRegisterTimersCalled() {
             return registerTimersCalled;
+        }
+
+        public void setTimers(List<Timer> timers) {
+            this.timers = timers;
         }
     }
 }

@@ -3,6 +3,7 @@ package nl.meron.yaeger.engine.scenes;
 import com.google.inject.Injector;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import nl.meron.yaeger.engine.annotations.AnnotationProcessor;
 import nl.meron.yaeger.engine.exceptions.YaegerSceneNotAvailableException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,17 +11,20 @@ import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
 
-class ScenesTest {
+class SceneCollectionTest {
 
     private Stage stage;
-    private Scenes sut;
+    private SceneCollection sut;
     private Injector injector;
+    private AnnotationProcessor annotationProcessor;
 
     @BeforeEach
     void setup() {
         stage = mock(Stage.class);
-        sut = new Scenes(stage);
         injector = mock(Injector.class);
+        annotationProcessor = mock(AnnotationProcessor.class);
+        sut = new SceneCollection(stage, injector);
+        sut.setAnnotationProcessor(annotationProcessor);
     }
 
     @Test
@@ -95,6 +99,23 @@ class ScenesTest {
     }
 
     @Test
+    void activatingASceneCallsTheAnnotationProcessor() {
+        // Setup
+        YaegerScene intro = mock(YaegerScene.class);
+
+        Scene javaFXScene = mock(Scene.class);
+
+        when(intro.getScene()).thenReturn(javaFXScene);
+
+        // Test
+        sut.addScene(0, intro);
+
+        // Verify
+        verify(annotationProcessor).invokeInitializers(intro);
+        verify(annotationProcessor).configureUpdateDelegators(intro);
+    }
+
+    @Test
     void selectingADifferentSceneChangesTheActiveScene() {
         // Setup
         YaegerScene intro = mock(YaegerScene.class);
@@ -152,10 +173,10 @@ class ScenesTest {
     void equalsFailsWithDifferentInstance() {
         // Setup
         Stage stage2 = mock(Stage.class);
-        Scenes scenes2 = new Scenes(stage2);
+        SceneCollection sceneCollection2 = new SceneCollection(stage2, injector);
 
         // Test
-        boolean equals = sut.equals(scenes2);
+        boolean equals = sut.equals(sceneCollection2);
 
         // Verify
         Assertions.assertFalse(equals);
@@ -187,11 +208,11 @@ class ScenesTest {
     void differentInstancesHaveDifferentHashCodes() {
         // Setup
         Stage stage2 = mock(Stage.class);
-        Scenes scenes2 = new Scenes(stage2);
+        SceneCollection sceneCollection2 = new SceneCollection(stage2, injector);
 
         // Test
         int hash1 = sut.hashCode();
-        int hash2 = scenes2.hashCode();
+        int hash2 = sceneCollection2.hashCode();
 
         // Verify
         Assertions.assertNotEquals(hash1, hash2);

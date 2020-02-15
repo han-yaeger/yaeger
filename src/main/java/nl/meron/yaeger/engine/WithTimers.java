@@ -3,6 +3,7 @@ package nl.meron.yaeger.engine;
 import nl.meron.yaeger.engine.annotations.Initializer;
 import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.annotations.UpdatableProvider;
+import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
 
 /**
  * Implementing this interface exposes the {@link #registerTimer(Timer)} method. A {@link Timer} that is
@@ -15,7 +16,11 @@ public interface WithTimers extends Timeable {
      * or {@link nl.meron.yaeger.engine.entities.entity.Entity} in which it is instantiated.
      */
     default void registerTimer(Timer timer) {
-        getTimers().add(timer);
+        if (getTimers() != null) {
+            getTimers().add(timer);
+        } else {
+            throw new YaegerEngineException("getTimers() returns null, please return an instance of ArrayList<>");
+        }
     }
 
     @Initializer
@@ -32,7 +37,9 @@ public interface WithTimers extends Timeable {
     @UpdatableProvider
     default Updatable callTimers() {
         return timestamp -> {
-            getTimers().forEach(timer -> timer.handle(timestamp));
+            if (getTimers() != null && !getTimers().isEmpty()) {
+                getTimers().forEach(timer -> timer.handle(timestamp));
+            }
         };
     }
 }

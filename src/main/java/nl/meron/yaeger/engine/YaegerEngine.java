@@ -1,10 +1,13 @@
 package nl.meron.yaeger.engine;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import nl.meron.yaeger.engine.scenes.Scenes;
+import nl.meron.yaeger.engine.scenes.SceneCollection;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
+import nl.meron.yaeger.guice.YaegerModule;
 
 /**
  * {@code YaegerEngine} is the base class that must be extended to create a YAEGER game.
@@ -17,7 +20,8 @@ public abstract class YaegerEngine extends Application {
     private Size size = DEFAULT_GAME_DIMENSIONS;
 
     private Stage yaegerStage;
-    private Scenes scenes;
+    private SceneCollection sceneCollection;
+    private transient Injector injector;
 
     /**
      * Set the {@link Size}, being the {@code width} and {@code height} of the game.
@@ -43,7 +47,7 @@ public abstract class YaegerEngine extends Application {
      * @param number The {@link Integer} identifying the {@link YaegerScene}
      */
     protected void setActiveScene(final int number) {
-        scenes.setActive(number);
+        sceneCollection.setActive(number);
     }
 
     /**
@@ -54,7 +58,7 @@ public abstract class YaegerEngine extends Application {
      */
     protected void addScene(final int number, final YaegerScene scene) {
 
-        scenes.addScene(number, scene);
+        sceneCollection.addScene(number, scene);
     }
 
     /**
@@ -77,9 +81,11 @@ public abstract class YaegerEngine extends Application {
 
     @Override
     public void start(final Stage primaryStage) {
+        injector = Guice.createInjector(new YaegerModule());
         yaegerStage = primaryStage;
 
-        scenes = new Scenes(primaryStage);
+        sceneCollection = new SceneCollection(primaryStage, injector);
+        injector.injectMembers(sceneCollection);
 
         initializeGame();
 

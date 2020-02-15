@@ -38,7 +38,6 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
 
     @Override
     public void init(final Injector injector) {
-
         this.injector = injector;
     }
 

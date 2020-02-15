@@ -20,10 +20,10 @@ public class AnnotationProcessor {
         }
     }
 
-    public void configureUpdateDelegators(final Updatable updatable) {
-        if (updatable instanceof UpdateDelegator) {
-            var updateDelegator = (UpdateDelegator) updatable;
-            for (Method method : updatable.getClass().getMethods()) {
+    public void configureUpdateDelegators(final Object gameObject) {
+        if (gameObject instanceof UpdateDelegator) {
+            var updateDelegator = (UpdateDelegator) gameObject;
+            for (Method method : gameObject.getClass().getMethods()) {
                 if (method.isAnnotationPresent(UpdatableProvider.class)) {
                     UpdatableProvider annotation = method.getAnnotation(UpdatableProvider.class);
                     try {
