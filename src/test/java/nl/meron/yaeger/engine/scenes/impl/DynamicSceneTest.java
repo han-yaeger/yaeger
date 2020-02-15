@@ -11,6 +11,8 @@ import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.EntityCollection;
 import nl.meron.yaeger.engine.entities.EntitySpawner;
 import nl.meron.yaeger.engine.entities.EntitySupplier;
+import nl.meron.yaeger.engine.entities.entity.Updatable;
+import nl.meron.yaeger.engine.entities.entity.Updater;
 import nl.meron.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.meron.yaeger.engine.scenes.delegates.KeyListenerDelegate;
 import nl.meron.yaeger.javafx.animationtimer.AnimationTimerFactory;
@@ -152,6 +154,44 @@ class DynamicSceneTest {
 
         // Verify
         verify(entityCollection).notifyGameObjectsOfPressedKeys(input);
+    }
+
+    @Test
+    void setEntityCollectionUpdatableReturnsUpdatable() {
+        // Setup
+        sut.configure();
+
+        // Test
+        var updatable = sut.entityCollectionUpdatable();
+
+        // Verify
+        assertTrue(updatable instanceof Updatable);
+    }
+
+    @Test
+    void updatingEntityCollectionUpdatesEntityCollection() {
+        // Setup
+        sut.configure();
+        var updatable = sut.entityCollectionUpdatable();
+
+        // Test
+        updatable.update(0l);
+
+        // Verify
+        verify(entityCollection).update(0l);
+    }
+
+    @Test
+    void setUpdaterIsUsed() {
+        // Setup
+        var updater = mock(Updater.class);
+        sut.setUpdater(updater);
+
+        // Test
+        var u = sut.getUpdater();
+
+        // Verify
+        Assertions.assertEquals(updater, u);
     }
 
     private class TestDynamicScene extends DynamicScene {
