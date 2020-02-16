@@ -1,13 +1,23 @@
 package nl.meron.showcase.scenes.dynamicscenewithtimer;
 
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import nl.meron.showcase.YaegerShowCase;
 import nl.meron.showcase.buttons.Back;
 import nl.meron.showcase.scenes.ShowCaseScene;
+import nl.meron.showcase.scenes.dynamicscenewithtimer.timers.SceneMinuteTimer;
+import nl.meron.waterworld.Waterworld;
 import nl.meron.yaeger.engine.WithTimers;
+import nl.meron.yaeger.engine.entities.entity.Location;
+import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 
 public class DynamicSceneWithTimer extends ShowCaseScene implements WithTimers {
 
+    public static final int COUNTDOWN_NUMBER = 5;
     private YaegerShowCase showCase;
+    private TextEntity displayNumberText;
+    private int displayNumber;
 
     public DynamicSceneWithTimer(YaegerShowCase showCase) {
         this.showCase = showCase;
@@ -15,7 +25,8 @@ public class DynamicSceneWithTimer extends ShowCaseScene implements WithTimers {
 
     @Override
     public void registerTimers() {
-        System.out.println("Register Timers called on the DynamicSceneWithTimer");
+        displayNumber = COUNTDOWN_NUMBER;
+        registerTimer(new SceneMinuteTimer(this));
     }
 
     @Override
@@ -33,10 +44,28 @@ public class DynamicSceneWithTimer extends ShowCaseScene implements WithTimers {
         var backButton = new Back(showCase);
         addEntity(backButton);
 
+        var explanationText = new TextEntity(new Location(130, 150), "This scene will automatically switch back to the selection scene in: ");
+        explanationText.setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 30));
+        explanationText.setFill(Color.YELLOW);
+        addEntity(explanationText);
+
+        displayNumberText = new TextEntity(new Location(520, 230), Integer.toString(displayNumber));
+        displayNumberText.setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 300));
+        displayNumberText.setFill(Color.YELLOW);
+        addEntity(displayNumberText);
     }
 
     @Override
     public YaegerShowCase getShowCase() {
         return showCase;
+    }
+
+    public void update() {
+        if (displayNumber == 0) {
+            displayNumber = COUNTDOWN_NUMBER;
+            showCase.setActiveScene(YaegerShowCase.SCENE_SELECTION);
+        } else {
+            displayNumberText.setText(Integer.toString(displayNumber--));
+        }
     }
 }

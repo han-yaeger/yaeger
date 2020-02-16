@@ -1,5 +1,7 @@
 package nl.meron.yaeger.engine.entities.entity;
 
+import nl.meron.yaeger.engine.Clearable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +9,7 @@ import java.util.List;
  * An {@link Updater} contains a {@link List} of {@link Updatable} to which the {@code update} method
  * will be delegated.
  */
-public class Updater implements Updatable {
+public class Updater implements Updatable, Clearable {
 
     private List<Updatable> updatables = new ArrayList<>();
 
@@ -40,5 +42,10 @@ public class Updater implements Updatable {
     @Override
     public void update(final long timestamp) {
         updatables.forEach(updatable -> updatable.update(timestamp));
+    }
+
+    @Override
+    public void clear() {
+        updatables.clear();
     }
 }

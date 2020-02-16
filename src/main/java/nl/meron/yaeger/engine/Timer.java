@@ -8,7 +8,7 @@ package nl.meron.yaeger.engine;
  */
 public abstract class Timer {
 
-    private int interval;
+    private long interval;
     private long prevTime = 0;
 
     /**

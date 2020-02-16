@@ -1,5 +1,6 @@
 package nl.meron.yaeger.engine.entities.entity;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
@@ -48,6 +49,20 @@ class UpdaterTest {
         InOrder inOrder = inOrder(firstUpdatable, updatable);
         inOrder.verify(firstUpdatable).update(TIMESTAMP);
         inOrder.verify(updatable).update(TIMESTAMP);
+    }
+
+    @Test
+    void clearEmptiesUpdatables(){
+        // Setup
+        sut.addUpdatable(updatable);
+
+        // Test
+        sut.clear();
+        sut.update(TIMESTAMP);
+
+        // Verify
+        verify(updatable, never()).update(TIMESTAMP);
+
     }
 
     @Test

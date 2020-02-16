@@ -26,6 +26,7 @@ import org.mockito.Mockito;
 import java.util.HashSet;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
@@ -47,6 +48,7 @@ class DynamicSceneTest {
     private EntitySupplier entitySupplier;
     private Group root;
     private Scene scene;
+    private Updater updater;
 
     @BeforeEach
     void setup() {
@@ -61,7 +63,8 @@ class DynamicSceneTest {
         animationTimer = mock(AnimationTimer.class);
         entityCollectionFactory = mock(EntityCollectionFactory.class);
         animationTimerFactory = mock(AnimationTimerFactory.class);
-        injector = Mockito.mock(Injector.class);
+        injector = mock(Injector.class);
+        updater = mock(Updater.class);
 
         sut.setDebugger(debugger);
         sut.setSceneFactory(sceneFactory);
@@ -71,6 +74,7 @@ class DynamicSceneTest {
         sut.setKeyListenerDelegate(keyListenerDelegate);
         sut.setEntitySupplier(entitySupplier);
         sut.setAnimationTimerFactory(animationTimerFactory);
+        sut.setUpdater(updater);
 
         scene = mock(Scene.class);
         entityCollection = mock(EntityCollection.class);
@@ -102,7 +106,7 @@ class DynamicSceneTest {
         sut.configure();
 
         // Verify
-        Assertions.assertTrue(sut.setupSpawnersCalled);
+        assertTrue(sut.setupSpawnersCalled);
     }
 
     @Test
@@ -140,6 +144,38 @@ class DynamicSceneTest {
 
         // Verify
         verify(entityCollection).clear();
+    }
+
+    @Test
+    void destroyClearsUpdaters() {
+        // Setup
+        var children = mock(ObservableList.class);
+        when(root.getChildren()).thenReturn(children);
+
+        sut.configure();
+
+        // Test
+        sut.destroy();
+
+        // Verify
+        verify(updater).clear();
+    }
+
+    @Test
+    void destroyClearsTimers() {
+        // Setup
+        var children = mock(ObservableList.class);
+        when(root.getChildren()).thenReturn(children);
+        var timer = mock(Timer.class);
+        sut.getTimers().add(timer);
+
+        sut.configure();
+
+        // Test
+        sut.destroy();
+
+        // Verify
+        assertTrue(sut.getTimers().isEmpty());
     }
 
     @Test
@@ -184,14 +220,12 @@ class DynamicSceneTest {
     @Test
     void setUpdaterIsUsed() {
         // Setup
-        var updater = mock(Updater.class);
-        sut.setUpdater(updater);
 
         // Test
         var u = sut.getUpdater();
 
         // Verify
-        Assertions.assertEquals(updater, u);
+        assertEquals(updater, u);
     }
 
     private class TestDynamicScene extends DynamicScene {

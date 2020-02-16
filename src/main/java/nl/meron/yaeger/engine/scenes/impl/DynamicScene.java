@@ -65,6 +65,8 @@ public abstract class DynamicScene extends StaticScene implements UpdateDelegato
         stopGameLoop();
         entitySupplier.clear();
         entityCollection.clear();
+        timers.clear();
+        updater.clear();
 
         super.destroy();
     }
