@@ -6,6 +6,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import nl.meron.showcase.YaegerShowCase;
 import nl.meron.showcase.buttons.Button;
+import nl.meron.showcase.buttons.Quit;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.StaticScene;
@@ -30,6 +31,9 @@ public class SelectionScene extends StaticScene {
 
     @Override
     public void setupEntities() {
+        var quitButton = new Quit(showCase);
+        addEntity(quitButton);
+
         var select = new TextEntity(new Location(20, 30), "Please select a scene...");
         styleText(select);
         addEntity(select);

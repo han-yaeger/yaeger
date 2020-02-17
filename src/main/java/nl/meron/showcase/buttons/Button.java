@@ -12,7 +12,7 @@ import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 
 public class Button extends TextEntity implements MousePressedListener, MouseEnterListener, MouseExitListener {
 
-    private YaegerShowCase showCase;
+    protected YaegerShowCase showCase;
     private int scene;
 
     public Button(final Location initialPosition, final String text, YaegerShowCase showCase, int scene) {
