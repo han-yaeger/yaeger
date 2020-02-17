@@ -4,7 +4,7 @@
 
     <groupId>nl.meron</groupId>
     <artifactId>yaeger</artifactId>
-    <version>1.0-beta-SNAPSHOT</version>
+    <version>2019.2020-beta1</version>
     <packaging>jar</packaging>
 
     <name>yaeger</name>
