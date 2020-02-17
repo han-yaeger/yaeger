@@ -59,8 +59,8 @@ class JavaFXEntityTest {
         sut.init(injector);
 
         // Verify
-        Assertions.assertEquals(Double.compare(LOCATION.getX(), sut.getX()), 0);
-        Assertions.assertEquals(Double.compare(LOCATION.getY(), sut.getY()), 0);
+        Assertions.assertEquals(0, Double.compare(LOCATION.getX(), sut.getX()));
+        Assertions.assertEquals(0, Double.compare(LOCATION.getY(), sut.getY()));
     }
 
     @Test

@@ -1,7 +1,6 @@
 package nl.meron.yaeger.engine;
 
 import com.google.inject.Guice;
-import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -10,7 +9,7 @@ import nl.meron.yaeger.engine.scenes.YaegerScene;
 import nl.meron.yaeger.guice.YaegerModule;
 
 /**
- * {@code YaegerEngine} is the base class that must be extended to create a YAEGER game.
+ * {@link YaegerEngine} is the base class that must be extended to create a Yaeger game.
  */
 public abstract class YaegerEngine extends Application {
     public static final KeyCode TOGGLE_DEBUGGER_KEY = KeyCode.F1;
@@ -21,7 +20,6 @@ public abstract class YaegerEngine extends Application {
 
     private Stage yaegerStage;
     private SceneCollection sceneCollection;
-    private transient Injector injector;
 
     /**
      * Set the {@link Size}, being the {@code width} and {@code height} of the game.
@@ -81,7 +79,7 @@ public abstract class YaegerEngine extends Application {
 
     @Override
     public void start(final Stage primaryStage) {
-        injector = Guice.createInjector(new YaegerModule());
+        var injector = Guice.createInjector(new YaegerModule());
         yaegerStage = primaryStage;
 
         sceneCollection = new SceneCollection(primaryStage, injector);

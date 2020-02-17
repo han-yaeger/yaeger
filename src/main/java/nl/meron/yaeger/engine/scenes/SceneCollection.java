@@ -16,11 +16,9 @@ import java.util.Objects;
 public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> {
 
     private final transient Stage stage;
-    private AnnotationProcessor annotationProcessor;
+    private final transient Injector injector;
+    private transient AnnotationProcessor annotationProcessor;
     private transient YaegerScene activeScene;
-    private transient Injector injector;
-
-
 
     public SceneCollection(final Stage stage, final Injector injector) {
         this.stage = stage;
