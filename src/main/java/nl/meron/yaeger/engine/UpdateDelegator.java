@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.entities.entity;
+package nl.meron.yaeger.engine;
 
 /**
  * An {@link Updatable} that delegates the {@code update} to an {@link Updater}.

@@ -7,10 +7,10 @@ module nl.meron.yaeger {
     exports nl.meron.pong;
     exports nl.meron.showcase;
     exports nl.meron.waterworld;
+    exports nl.meron.yaeger.engine;
     exports nl.meron.yaeger.engine.annotations;
     exports nl.meron.yaeger.engine.entities;
     exports nl.meron.yaeger.engine.scenes;
-    exports nl.meron.yaeger.engine.scenes.impl;
     exports nl.meron.yaeger.engine.scenes.delegates;
     exports nl.meron.yaeger.engine.media.repositories;
     exports nl.meron.yaeger.javafx.image;

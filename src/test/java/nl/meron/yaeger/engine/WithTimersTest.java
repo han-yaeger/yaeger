@@ -1,9 +1,9 @@
 package nl.meron.yaeger.engine;
 
-import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +15,25 @@ class WithTimersTest {
 
     public static final long TIMESTAMP = 0l;
     private WithTimersImpl sut;
+    private List<Timer> timers;
 
     @BeforeEach
     void setup() {
         sut = new WithTimersImpl();
+        timers = Mockito.mock(ArrayList.class);
+        sut.setTimers(timers);
+    }
+
+    @Test
+    void initFirstClearsListOfTimers() {
+        // Setup
+
+
+        // Test
+        sut.init();
+
+        // Verify
+        verify(timers).clear();
     }
 
     @Test
@@ -60,11 +75,12 @@ class WithTimersTest {
     void registerTimerThrowsExceptionIfGetTimersReturnNull() {
         // Setup
         var timer1 = mock(Timer.class);
+        sut.setTimers(null);
 
         // Test
 
         // Verify
-        assertThrows(YaegerEngineException.class, ()-> sut.registerTimer(timer1));
+        assertThrows(YaegerEngineException.class, () -> sut.registerTimer(timer1));
     }
 
     @Test

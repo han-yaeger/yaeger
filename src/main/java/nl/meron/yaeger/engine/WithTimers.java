@@ -1,7 +1,6 @@
 package nl.meron.yaeger.engine;
 
 import nl.meron.yaeger.engine.annotations.Initializer;
-import nl.meron.yaeger.engine.entities.entity.Updatable;
 import nl.meron.yaeger.engine.annotations.UpdatableProvider;
 import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
 
@@ -25,6 +24,7 @@ public interface WithTimers extends Timeable {
 
     @Initializer
     default void init() {
+        getTimers().clear();
         registerTimers();
     }
 

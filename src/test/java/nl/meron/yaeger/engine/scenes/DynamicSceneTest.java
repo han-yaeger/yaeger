@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.scenes.impl;
+package nl.meron.yaeger.engine.scenes;
 
 import com.google.inject.Injector;
 import javafx.animation.AnimationTimer;
@@ -11,17 +11,15 @@ import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.EntityCollection;
 import nl.meron.yaeger.engine.entities.EntitySpawner;
 import nl.meron.yaeger.engine.entities.EntitySupplier;
-import nl.meron.yaeger.engine.entities.entity.Updatable;
-import nl.meron.yaeger.engine.entities.entity.Updater;
+import nl.meron.yaeger.engine.Updatable;
+import nl.meron.yaeger.engine.Updater;
 import nl.meron.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.meron.yaeger.engine.scenes.delegates.KeyListenerDelegate;
 import nl.meron.yaeger.javafx.animationtimer.AnimationTimerFactory;
 import nl.meron.yaeger.guice.factories.EntityCollectionFactory;
 import nl.meron.yaeger.guice.factories.SceneFactory;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.HashSet;
 import java.util.List;
@@ -159,23 +157,6 @@ class DynamicSceneTest {
 
         // Verify
         verify(updater).clear();
-    }
-
-    @Test
-    void destroyClearsTimers() {
-        // Setup
-        var children = mock(ObservableList.class);
-        when(root.getChildren()).thenReturn(children);
-        var timer = mock(Timer.class);
-        sut.getTimers().add(timer);
-
-        sut.configure();
-
-        // Test
-        sut.destroy();
-
-        // Verify
-        assertTrue(sut.getTimers().isEmpty());
     }
 
     @Test

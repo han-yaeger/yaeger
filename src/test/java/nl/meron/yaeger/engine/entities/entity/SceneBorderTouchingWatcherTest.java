@@ -3,6 +3,7 @@ package nl.meron.yaeger.engine.entities.entity;
 import javafx.geometry.BoundingBox;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import nl.meron.yaeger.engine.Updatable;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

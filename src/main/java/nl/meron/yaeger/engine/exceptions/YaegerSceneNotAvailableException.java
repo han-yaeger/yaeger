@@ -1,7 +1,7 @@
 package nl.meron.yaeger.engine.exceptions;
 
 import nl.meron.yaeger.engine.scenes.YaegerScene;
-import nl.meron.yaeger.engine.scenes.impl.StaticScene;
+import nl.meron.yaeger.engine.scenes.StaticScene;
 
 /**
  * A {@code YaegerSceneNotAvailableException} is thrown when a  {@link YaegerScene} is

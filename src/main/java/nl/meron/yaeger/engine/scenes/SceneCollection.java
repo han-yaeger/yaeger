@@ -20,6 +20,8 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> {
     private transient YaegerScene activeScene;
     private transient Injector injector;
 
+
+
     public SceneCollection(final Stage stage, final Injector injector) {
         this.stage = stage;
         this.injector = injector;

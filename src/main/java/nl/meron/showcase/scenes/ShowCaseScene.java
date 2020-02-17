@@ -2,7 +2,7 @@ package nl.meron.showcase.scenes;
 
 import javafx.scene.input.KeyCode;
 import nl.meron.showcase.YaegerShowCase;
-import nl.meron.yaeger.engine.scenes.impl.DynamicScene;
+import nl.meron.yaeger.engine.scenes.DynamicScene;
 
 import java.util.Set;
 

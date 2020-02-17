@@ -1,5 +1,6 @@
 package nl.meron.yaeger.engine.entities.entity;
 
+import nl.meron.yaeger.engine.Updatable;
 import nl.meron.yaeger.engine.annotations.UpdatableProvider;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 

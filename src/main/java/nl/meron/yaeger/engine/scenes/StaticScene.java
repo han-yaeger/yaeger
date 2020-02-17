@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.scenes.impl;
+package nl.meron.yaeger.engine.scenes;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;

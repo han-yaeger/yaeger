@@ -9,7 +9,7 @@ import nl.meron.pong.scenes.entities.PlayerTwoBat;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
-import nl.meron.yaeger.engine.scenes.impl.DynamicScene;
+import nl.meron.yaeger.engine.scenes.DynamicScene;
 
 /**
  * Level one of the game

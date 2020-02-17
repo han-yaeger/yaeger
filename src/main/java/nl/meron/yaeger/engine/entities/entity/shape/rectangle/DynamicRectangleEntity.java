@@ -2,6 +2,9 @@ package nl.meron.yaeger.engine.entities.entity.shape.rectangle;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import nl.meron.yaeger.engine.Updatable;
+import nl.meron.yaeger.engine.UpdateDelegator;
+import nl.meron.yaeger.engine.Updater;
 import nl.meron.yaeger.engine.entities.entity.*;
 import nl.meron.yaeger.engine.entities.entity.motion.*;
 

@@ -2,7 +2,7 @@ package nl.meron.yaeger.engine.entities.entity.sprite.delegates;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
-import nl.meron.yaeger.engine.entities.entity.Updatable;
+import nl.meron.yaeger.engine.Updatable;
 
 import java.util.ArrayList;
 import java.util.List;

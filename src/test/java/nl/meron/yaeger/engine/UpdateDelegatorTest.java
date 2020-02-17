@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.entities.entity;
+package nl.meron.yaeger.engine;
 
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;

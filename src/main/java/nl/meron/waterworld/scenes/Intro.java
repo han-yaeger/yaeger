@@ -9,7 +9,7 @@ import nl.meron.waterworld.entities.buttons.QuitPressed;
 import nl.meron.waterworld.entities.buttons.StartPressed;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
-import nl.meron.yaeger.engine.scenes.impl.StaticScene;
+import nl.meron.yaeger.engine.scenes.StaticScene;
 
 import java.util.Set;
 

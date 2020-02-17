@@ -1,6 +1,4 @@
-package nl.meron.yaeger.engine.entities.entity;
-
-import nl.meron.yaeger.engine.Clearable;
+package nl.meron.yaeger.engine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +10,7 @@ import java.util.List;
 public class Updater implements Updatable, Clearable {
 
     private List<Updatable> updatables = new ArrayList<>();
+    private boolean clearUpdatables = false;
 
     /**
      * Add an {@link Updatable} to this {@link Updater}. The {@link Updatable} will
@@ -41,11 +40,15 @@ public class Updater implements Updatable, Clearable {
 
     @Override
     public void update(final long timestamp) {
-        updatables.forEach(updatable -> updatable.update(timestamp));
+        if (!clearUpdatables) {
+            updatables.forEach(updatable -> updatable.update(timestamp));
+        } else {
+            updatables.clear();
+        }
     }
 
     @Override
     public void clear() {
-        updatables.clear();
+        clearUpdatables = true;
     }
 }

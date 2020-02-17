@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
+import nl.meron.yaeger.engine.Updatable;
 import nl.meron.yaeger.engine.annotations.AnnotationProcessor;
 import nl.meron.yaeger.engine.Initializable;
 import nl.meron.yaeger.engine.debug.StatisticsObserver;

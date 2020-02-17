@@ -61,7 +61,7 @@ public class DynamicSceneWithTimer extends ShowCaseScene implements WithTimers {
     }
 
     public void update() {
-        if (displayNumber == 0) {
+        if (displayNumber <= 0) {
             displayNumber = COUNTDOWN_NUMBER;
             showCase.setActiveScene(YaegerShowCase.SCENE_SELECTION);
         } else {

@@ -1,6 +1,7 @@
-package nl.meron.yaeger.engine.entities.entity;
+package nl.meron.yaeger.engine;
 
-import org.junit.jupiter.api.Assertions;
+import nl.meron.yaeger.engine.Updatable;
+import nl.meron.yaeger.engine.Updater;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
@@ -52,7 +53,7 @@ class UpdaterTest {
     }
 
     @Test
-    void clearEmptiesUpdatables(){
+    void clearEmptiesUpdatables() {
         // Setup
         sut.addUpdatable(updatable);
 

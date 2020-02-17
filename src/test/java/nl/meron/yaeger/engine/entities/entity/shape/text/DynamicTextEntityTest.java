@@ -3,7 +3,7 @@ package nl.meron.yaeger.engine.entities.entity.shape.text;
 import com.google.inject.Injector;
 import javafx.scene.text.Text;
 import nl.meron.yaeger.engine.entities.entity.Location;
-import nl.meron.yaeger.engine.entities.entity.Updater;
+import nl.meron.yaeger.engine.Updater;
 import nl.meron.yaeger.engine.entities.entity.motion.DefaultMotionApplier;
 import nl.meron.yaeger.engine.entities.entity.motion.EntityMotionInitBuffer;
 import org.junit.jupiter.api.Assertions;

@@ -1,17 +1,16 @@
-package nl.meron.yaeger.engine.scenes.impl;
+package nl.meron.yaeger.engine.scenes;
 
 import com.google.inject.Inject;
 import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
 import nl.meron.yaeger.engine.Timeable;
 import nl.meron.yaeger.engine.Timer;
-import nl.meron.yaeger.engine.WithTimers;
 import nl.meron.yaeger.engine.annotations.UpdatableProvider;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.EntitySpawner;
-import nl.meron.yaeger.engine.entities.entity.Updatable;
-import nl.meron.yaeger.engine.entities.entity.UpdateDelegator;
-import nl.meron.yaeger.engine.entities.entity.Updater;
+import nl.meron.yaeger.engine.Updatable;
+import nl.meron.yaeger.engine.UpdateDelegator;
+import nl.meron.yaeger.engine.Updater;
 import nl.meron.yaeger.javafx.animationtimer.AnimationTimerFactory;
 
 import java.util.ArrayList;
@@ -63,11 +62,11 @@ public abstract class DynamicScene extends StaticScene implements UpdateDelegato
     @Override
     public void destroy() {
         stopGameLoop();
+        updater.clear();
         entitySupplier.clear();
         entityCollection.clear();
-        timers.clear();
-        updater.clear();
-
+        setAnimationTimerFactory(null);
+        setUpdater(null);
         super.destroy();
     }
 

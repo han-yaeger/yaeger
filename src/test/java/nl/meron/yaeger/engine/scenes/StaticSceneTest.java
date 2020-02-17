@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.scenes.impl;
+package nl.meron.yaeger.engine.scenes;
 
 import com.google.inject.Injector;
 import javafx.collections.ObservableList;
@@ -9,6 +9,7 @@ import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.EntityCollection;
 import nl.meron.yaeger.engine.entities.EntitySupplier;
 import nl.meron.yaeger.engine.entities.entity.Entity;
+import nl.meron.yaeger.engine.scenes.StaticScene;
 import nl.meron.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.meron.yaeger.engine.scenes.delegates.KeyListenerDelegate;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;

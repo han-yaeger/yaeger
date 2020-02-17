@@ -1,6 +1,7 @@
 package nl.meron.yaeger.engine.annotations;
 
-import nl.meron.yaeger.engine.entities.entity.*;
+import nl.meron.yaeger.engine.Updatable;
+import nl.meron.yaeger.engine.UpdateDelegator;
 import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
 
 import java.lang.reflect.InvocationTargetException;

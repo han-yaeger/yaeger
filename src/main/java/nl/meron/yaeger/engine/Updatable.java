@@ -1,4 +1,4 @@
-package nl.meron.yaeger.engine.entities.entity;
+package nl.meron.yaeger.engine;
 
 /**
  * Implement this interface to be updated every cycle of the game loop.

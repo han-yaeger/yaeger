@@ -7,7 +7,7 @@ import javafx.scene.text.FontWeight;
 import nl.meron.waterworld.Waterworld;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
-import nl.meron.yaeger.engine.scenes.impl.StaticScene;
+import nl.meron.yaeger.engine.scenes.StaticScene;
 
 import java.util.Set;
 
