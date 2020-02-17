@@ -136,22 +136,22 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
-            <version>14-ea+6</version>
+            <version>14-ea+8</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>14-ea+6</version>
+            <version>14-ea+8</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>14-ea+6</version>
+            <version>14-ea+8</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
-            <version>14-ea+6</version>
+            <version>14-ea+8</version>
         </dependency>
         <dependency>
             <groupId>org.dyn4j</groupId>
