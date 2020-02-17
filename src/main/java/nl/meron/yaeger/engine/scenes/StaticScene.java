@@ -12,7 +12,6 @@ import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;
 import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.EntitySpawner;
-import nl.meron.yaeger.engine.scenes.YaegerScene;
 import nl.meron.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.meron.yaeger.engine.scenes.delegates.KeyListenerDelegate;
 import nl.meron.yaeger.guice.factories.EntityCollectionFactory;
