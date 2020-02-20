@@ -6,7 +6,6 @@ import nl.meron.yaeger.engine.Timer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.List;
 
@@ -96,12 +95,6 @@ class JavaFXEntityTest {
         }
 
         @Override
-        public void placeOnLocation(double x, double y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        @Override
         public Node getGameNode() {
             return node;
         }
@@ -116,6 +109,16 @@ class JavaFXEntityTest {
 
         public double getY() {
             return y;
+        }
+
+        @Override
+        public void setX(double x) {
+            this.x = x;
+        }
+
+        @Override
+        public void setY(double y) {
+            this.y = y;
         }
     }
 }

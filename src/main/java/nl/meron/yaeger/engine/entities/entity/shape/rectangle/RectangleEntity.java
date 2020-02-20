@@ -147,11 +147,19 @@ public abstract class RectangleEntity extends JavaFXEntity {
     }
 
     @Override
-    public void placeOnLocation(final double x, final double y) {
+    public void setX(double x) {
         if (rectangle == null) {
-            initialPosition = new Location(x, y);
+            initialX = x;
         } else {
             rectangle.setX(x);
+        }
+    }
+
+    @Override
+    public void setY(double y) {
+        if (rectangle == null) {
+            initialY = y;
+        } else {
             rectangle.setY(y);
         }
     }

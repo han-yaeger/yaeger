@@ -136,12 +136,12 @@ class CollisionDelegateTest {
         }
 
         @Override
-        public Location getLocation() {
-            return null;
+        public void setX(double x) {
+            // Not required here.
         }
 
         @Override
-        public void placeOnLocation(double x, double y) {
+        public void setY(double y) {
             // Not required here.
         }
 
@@ -190,12 +190,12 @@ class CollisionDelegateTest {
         }
 
         @Override
-        public Location getLocation() {
-            return null;
+        public void setX(double x) {
+            // Not required here.
         }
 
         @Override
-        public void placeOnLocation(double x, double y) {
+        public void setY(double y) {
             // Not required here.
         }
 

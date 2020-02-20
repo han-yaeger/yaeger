@@ -76,11 +76,6 @@ class JavaFXEntityTest {
             super(initialPosition);
         }
 
-        @Override
-        public void placeOnLocation(double x, double y) {
-
-        }
-
         public JavaFXEntityImpl(final Location initialPosition, final Shape shape) {
             super(initialPosition);
         }
@@ -92,6 +87,16 @@ class JavaFXEntityTest {
 
         public void setShape(Shape shape) {
             this.shape = shape;
+        }
+
+        @Override
+        public void setX(double x) {
+            // Not required here
+        }
+
+        @Override
+        public void setY(double y) {
+            // Not required here
         }
     }
 }

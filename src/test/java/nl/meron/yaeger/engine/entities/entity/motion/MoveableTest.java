@@ -184,17 +184,22 @@ class MoveableTest {
         }
 
         @Override
-        public void placeOnLocation(double x, double y) {
-            // Not required here.
-        }
-
-        @Override
         public Node getGameNode() {
             return node;
         }
 
         public void setGameNode(Node node) {
             this.node = node;
+        }
+
+        @Override
+        public void setX(double x) {
+            // Not required here.
+        }
+
+        @Override
+        public void setY(double y) {
+            // Not required here.
         }
     }
 }

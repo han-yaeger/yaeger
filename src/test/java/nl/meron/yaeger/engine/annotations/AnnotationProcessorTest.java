@@ -105,7 +105,12 @@ class AnnotationProcessorTest {
         }
 
         @Override
-        public void placeOnLocation(double x, double y) {
+        public void setX(double x) {
+            // Not required here.
+        }
+
+        @Override
+        public void setY(double y) {
             // Not required here.
         }
     }
@@ -151,7 +156,12 @@ class AnnotationProcessorTest {
         }
 
         @Override
-        public void placeOnLocation(double x, double y) {
+        public void setX(double x) {
+            // Not required here.
+        }
+
+        @Override
+        public void setY(double y) {
             // Not required here.
         }
     }
@@ -171,11 +181,6 @@ class AnnotationProcessorTest {
 
         @Override
         public void init(Injector injector) {
-            // Not required here.
-        }
-
-        @Override
-        public void placeOnLocation(double x, double y) {
             // Not required here.
         }
 
@@ -201,6 +206,16 @@ class AnnotationProcessorTest {
         @Override
         public List<Timer> getTimers() {
             return null;
+            // Not required here.
+        }
+
+        @Override
+        public void setX(double x) {
+            // Not required here.
+        }
+
+        @Override
+        public void setY(double y) {
             // Not required here.
         }
     }

@@ -1,5 +1,6 @@
 package nl.meron.yaeger.engine.entities.entity.motion;
 
+import javafx.geometry.Point2D;
 import nl.meron.yaeger.engine.entities.entity.Placeable;
 import nl.meron.yaeger.engine.Updatable;
 import nl.meron.yaeger.engine.annotations.UpdatableProvider;
@@ -66,9 +67,10 @@ public interface Moveable extends Placeable, MotionModifier {
             if (Double.compare(getSpeed(), 0d) == 0) {
                 return;
             }
-            var currentPosition = getLocation();
+            var currentPosition = new Point2D(getX(), getY());
             var updatedPosition = getMotionApplier().updateLocation(currentPosition);
-            placeOnLocation(updatedPosition.getX(), updatedPosition.getY());
+            setX(updatedPosition.getX());
+            setY(updatedPosition.getY());
         };
     }
 }

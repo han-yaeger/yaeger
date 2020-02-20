@@ -162,12 +162,12 @@ class EntityTest {
         }
 
         @Override
-        public Point2D getLocation() {
-            return ANCHORPOINT;
+        public void setX(double x) {
+            // Not required here.
         }
 
         @Override
-        public void placeOnLocation(double x, double y) {
+        public void setY(double y) {
             // Not required here.
         }
 

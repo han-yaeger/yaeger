@@ -14,7 +14,7 @@ import java.util.Optional;
  * An {@link DynamicRectangleEntity} extends all behaviour of a {@link RectangleEntity}, but also implements the
  * {@link Updatable} Interface.
  */
-public class DynamicRectangleEntity extends RectangleEntity implements UpdateDelegator, BufferedMoveable, ContinuousRotatable {
+public abstract class DynamicRectangleEntity extends RectangleEntity implements UpdateDelegator, BufferedMoveable, ContinuousRotatable {
 
     private DefaultMotionApplier motionApplier;
     private Updater updater;

@@ -1,7 +1,6 @@
 package nl.meron.yaeger.engine.entities.entity;
 
 import com.google.inject.Injector;
-import javafx.geometry.Point2D;
 import nl.meron.yaeger.engine.Timer;
 
 import java.util.ArrayList;
@@ -12,7 +11,8 @@ import java.util.List;
  */
 public abstract class JavaFXEntity implements Entity {
 
-    protected Point2D initialPosition;
+    protected double initialX;
+    protected double initialY;
     private boolean visible = true;
     private List<Timer> timers = new ArrayList<>();
 
@@ -23,7 +23,18 @@ public abstract class JavaFXEntity implements Entity {
      */
     public JavaFXEntity(final Location initialPosition) {
 
-        this.initialPosition = initialPosition;
+        this.initialX = initialPosition.getX();
+        this.initialY = initialPosition.getY();
+    }
+
+    private void placeOnLocation(final double x, final double y) {
+        if (getGameNode() == null) {
+            initialX = x;
+            initialY = y;
+        } else {
+            setX(x);
+            setY(y);
+        }
     }
 
     @Override
@@ -42,10 +53,11 @@ public abstract class JavaFXEntity implements Entity {
         }
     }
 
+
     @Override
     public void init(final Injector injector) {
         setVisible(visible);
-        placeOnLocation(initialPosition.getX(), initialPosition.getY());
+        placeOnLocation(initialX, initialY);
     }
 
     @Override

@@ -25,23 +25,16 @@ class PlaceableTest {
         when(bounds.getMinY()).thenReturn(y);
 
         // Test
-        Point2D position = sut.getLocation();
 
         // Verify
-        assertEquals(x, position.getX());
-        assertEquals(y, position.getY());
+        assertEquals(x, sut.getX());
+        assertEquals(y, sut.getY());
     }
-
 }
 
 class PlaceableImpl implements Placeable {
 
     private Node node;
-
-    @Override
-    public void placeOnLocation(double x, double y) {
-        // Not required here.
-    }
 
     @Override
     public Node getGameNode() {
@@ -50,5 +43,15 @@ class PlaceableImpl implements Placeable {
 
     public void setNode(Node node) {
         this.node = node;
+    }
+
+    @Override
+    public void setX(double x) {
+        // Not required here.
+    }
+
+    @Override
+    public void setY(double y) {
+        // Not required here.
     }
 }

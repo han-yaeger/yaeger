@@ -3,22 +3,53 @@ package nl.meron.yaeger.engine.entities.entity;
 import javafx.geometry.Point2D;
 
 /**
- * A {@link Placeable} has a {@code Position} and can be placed at a different {@code Position}.
+ * A {@link Placeable} has a methods that can be used to place it at a different x,y-coordinates
+ * on the {@link nl.meron.yaeger.engine.scenes.YaegerScene}.
  */
 public interface Placeable extends Bounded {
 
     /**
-     * @return the position as a {@link Point2D}.
+     * @return the x-coordinate of the top-left corner as a {@code double}.
      */
-    default Point2D getLocation() {
-        return new Point2D(getLeftX(), getTopY());
+    default double getX() {
+        return getLeftX();
     }
 
     /**
-     * Set the Location to the given x and y-coordinate.
-     *
-     * @param x a {@code double} representing the x coordinate
-     * @param y a {@code double} representing the y coordinate
+     * @return the y-coordinate of the top-left corner as a {@code double}.
      */
-    void placeOnLocation(final double x, final double y);
+    default double getY() {
+        return getTopY();
+    }
+
+    /**
+     * Set the new x-coordinate of this {@link Entity}. The x-coordinate will be of the top-left
+     * corner of the {@link javafx.geometry.BoundingBox} that is being used by this {@link Entity}.
+     *
+     * @param x the x-coordinate as a {@code double}.
+     */
+    void setX(final double x);
+
+    /**
+     * Set the new y-coordinate of this {@link Entity}.The y-coordinate will be of the top-left
+     * corner of the {@link javafx.geometry.BoundingBox} that is being used by this {@link Entity}.
+     *
+     * @param y the y-coordinate as a {@code double}.
+     */
+    void setY(final double y);
+
+//    /**
+//     * Set the new x-coordinate of horizontal center of this {@link Entity}.
+//     *
+//     * @param x the x-coordinate of the horizontal center as a {@code double}.
+//     */
+//    void setCenterX(final double x);
+//
+//    /**
+//     * Set the new y-coordinate of vertical center of this {@link Entity}.
+//     *
+//     * @param y the y-coordinate of the vertical center as a {@code double}.
+//     */
+//    void setCenterY(final double y);
+
 }

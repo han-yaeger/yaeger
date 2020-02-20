@@ -117,17 +117,22 @@ class BufferedMoveableTest {
         }
 
         @Override
-        public void placeOnLocation(double x, double y) {
-            // Not required here
-        }
-
-        @Override
         public Node getGameNode() {
             return null;
         }
 
         public void setBuffer(Optional<EntityMotionInitBuffer> buffer) {
             this.buffer = buffer;
+        }
+
+        @Override
+        public void setX(double x) {
+            // Not required here
+        }
+
+        @Override
+        public void setY(double y) {
+            // Not required here
         }
     }
 }

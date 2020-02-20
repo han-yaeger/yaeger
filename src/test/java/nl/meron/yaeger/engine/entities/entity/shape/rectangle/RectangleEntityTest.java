@@ -41,7 +41,8 @@ class RectangleEntityTest {
         var sut = new RectangleEntityImpl(new Location(0, 0));
 
         // Test
-        sut.placeOnLocation(LOCATION.getX(), LOCATION.getY());
+        sut.setX(LOCATION.getX());
+        sut.setY(LOCATION.getY());
 
         // Verify
         Assertions.assertEquals(0, Double.compare(sut.getInitialLocation().getX(), LOCATION.getX()));
@@ -262,7 +263,7 @@ class RectangleEntityTest {
         }
 
         public Point2D getInitialLocation() {
-            return this.initialPosition;
+            return new Point2D(initialX, initialY);
         }
     }
 }
