@@ -16,7 +16,7 @@ import java.util.Optional;
  */
 public abstract class RectangleEntity extends JavaFXEntity {
 
-    private Rectangle rectangle;
+    private Optional<Rectangle> rectangle;
     private Color strokeColor;
     private Color fill;
     private double strokeWidth;
@@ -32,6 +32,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
      */
     public RectangleEntity(final Location initialPosition) {
         super(initialPosition);
+        this.rectangle = Optional.empty();
     }
 
     /**
@@ -40,11 +41,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
      * @param strokeColor The {@link Color} of the stroke
      */
     public void setStrokeColor(final Color strokeColor) {
-        if (rectangle == null) {
-            this.strokeColor = strokeColor;
-        } else {
-            rectangle.setStroke(strokeColor);
-        }
+        rectangle.ifPresentOrElse(rectangle -> rectangle.setStroke(strokeColor), () -> this.strokeColor = strokeColor);
     }
 
     /**
@@ -53,11 +50,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
      * @param strokeWidth The with of the stroke as a {@code double}
      */
     public void setStrokeWidth(final double strokeWidth) {
-        if (rectangle == null) {
-            this.strokeWidth = strokeWidth;
-        } else {
-            rectangle.setStrokeWidth(strokeWidth);
-        }
+        rectangle.ifPresentOrElse(rectangle -> rectangle.setStrokeWidth(strokeWidth), () -> this.strokeWidth = strokeWidth);
     }
 
     /**
@@ -66,11 +59,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
      * @param height The {@code height} of the rectangle as a {@code double}
      */
     public void setHeight(final double height) {
-        if (rectangle == null) {
-            this.height = height;
-        } else {
-            rectangle.setHeight(height);
-        }
+        rectangle.ifPresentOrElse(rectangle -> rectangle.setHeight(height), () -> this.height = height);
     }
 
     /**
@@ -79,12 +68,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
      * @param width The {@code width} of the rectangle as a {@code double}
      */
     public void setWidth(final double width) {
-        if (rectangle == null) {
-
-            this.width = width;
-        } else {
-            rectangle.setWidth(width);
-        }
+        rectangle.ifPresentOrElse(rectangle -> rectangle.setWidth(width), () -> this.width = width);
     }
 
     /**
@@ -93,11 +77,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
      * @param fill The {@link Color} of the fill
      */
     public void setFill(final Color fill) {
-        if (rectangle == null) {
-            this.fill = fill;
-        } else {
-            rectangle.setFill(fill);
-        }
+        rectangle.ifPresentOrElse(rectangle -> rectangle.setFill(fill), () -> this.fill = fill);
     }
 
     /**
@@ -106,11 +86,7 @@ public abstract class RectangleEntity extends JavaFXEntity {
      * @param arcHeight The {@code height} of the arc corner of the rectangle as a {@code double}
      */
     public void setArcHeight(final double arcHeight) {
-        if (rectangle == null) {
-            this.arcHeight = arcHeight;
-        } else {
-            rectangle.setArcHeight(arcHeight);
-        }
+        rectangle.ifPresentOrElse(rectangle -> rectangle.setArcHeight(arcHeight), () -> this.arcHeight = arcHeight);
     }
 
     /**
@@ -119,11 +95,22 @@ public abstract class RectangleEntity extends JavaFXEntity {
      * @param arcWidth The {@code width} of the arc corner of the rectangle as a {@code double}
      */
     public void setArcWidth(final double arcWidth) {
-        if (rectangle == null) {
-            this.arcWidth = arcWidth;
-        } else {
-            rectangle.setArcWidth(arcWidth);
-        }
+        rectangle.ifPresentOrElse(rectangle -> rectangle.setArcWidth(arcWidth), () -> this.arcWidth = arcWidth);
+    }
+
+    @Override
+    public void setX(double x) {
+        rectangle.ifPresentOrElse(rectangle -> rectangle.setX(x), () -> this.initialX = x);
+    }
+
+    @Override
+    public void setY(double y) {
+        rectangle.ifPresentOrElse(rectangle -> rectangle.setY(y), () -> this.initialY = y);
+    }
+
+    @Override
+    public Optional<Node> getGameNode() {
+        return Optional.of(rectangle.get());
     }
 
     @Override
@@ -131,53 +118,30 @@ public abstract class RectangleEntity extends JavaFXEntity {
         super.init(injector);
 
         if (strokeColor != null) {
-            rectangle.setStroke(strokeColor);
+            rectangle.get().setStroke(strokeColor);
         }
         if (fill != null) {
-            rectangle.setFill(fill);
+            rectangle.get().setFill(fill);
         }
-        rectangle.setStrokeWidth(strokeWidth);
-        rectangle.setHeight(height);
-        rectangle.setWidth(width);
-        rectangle.setArcHeight(arcHeight);
-        rectangle.setArcWidth(arcWidth);
-    }
-
-    @Override
-    public Optional<Node> getGameNode() {
-        return Optional.of(rectangle);
-    }
-
-    @Override
-    public void setX(double x) {
-        if (rectangle == null) {
-            initialX = x;
-        } else {
-            rectangle.setX(x);
-        }
-    }
-
-    @Override
-    public void setY(double y) {
-        if (rectangle == null) {
-            initialY = y;
-        } else {
-            rectangle.setY(y);
-        }
+        rectangle.get().setStrokeWidth(strokeWidth);
+        rectangle.get().setHeight(height);
+        rectangle.get().setWidth(width);
+        rectangle.get().setArcHeight(arcHeight);
+        rectangle.get().setArcWidth(arcWidth);
     }
 
     @Override
     public double getTopY() {
-        return super.getTopY() + (0.5 * rectangle.getStrokeWidth());
+        return super.getTopY() + (0.5 * rectangle.get().getStrokeWidth());
     }
 
     @Override
     public double getLeftX() {
-        return super.getLeftX() + (0.5 * rectangle.getStrokeWidth());
+        return super.getLeftX() + (0.5 * rectangle.get().getStrokeWidth());
     }
 
     @Inject
     public void setRectangle(final Rectangle rectangle) {
-        this.rectangle = rectangle;
+        this.rectangle = Optional.of(rectangle);
     }
 }

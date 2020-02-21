@@ -23,7 +23,7 @@ public class TextEntity extends JavaFXEntity {
     private Color fill;
     private Font font;
     private String initialText;
-    private Text text;
+    private Optional<Text> text;
 
     /**
      * Instantiate a new {@code TextEntity} for the given {@link Point2D}.
@@ -42,6 +42,7 @@ public class TextEntity extends JavaFXEntity {
      */
     public TextEntity(final Location initialPosition, final String text) {
         super(initialPosition);
+        this.text = Optional.empty();
         this.initialText = text;
     }
 
@@ -51,10 +52,7 @@ public class TextEntity extends JavaFXEntity {
      * @param displayText the {@link String} that should be shown
      */
     public void setText(final String displayText) {
-        this.initialText = displayText;
-        if (text != null) {
-            text.setText(displayText);
-        }
+        text.ifPresentOrElse(text -> text.setText(displayText), () -> this.initialText = displayText);
     }
 
     /**
@@ -63,10 +61,7 @@ public class TextEntity extends JavaFXEntity {
      * @param color an instance of {@link Color}
      */
     public void setFill(final Color color) {
-        this.fill = color;
-        if (text != null) {
-            text.setFill(color);
-        }
+        text.ifPresentOrElse(text -> text.setFill(color), () -> this.fill = color);
     }
 
     /**
@@ -82,54 +77,43 @@ public class TextEntity extends JavaFXEntity {
      * @param font the {@link Font} to be used
      */
     public void setFont(final Font font) {
-        this.font = font;
-        if (text != null) {
-            text.setFont(font);
-        }
+        text.ifPresentOrElse(text -> text.setFont(font), () -> this.font = font);
+    }
+
+    @Override
+    public void setX(double x) {
+        text.ifPresentOrElse(text -> text.setX(x), () -> initialX = x);
+    }
+
+    @Override
+    public void setY(double y) {
+        text.ifPresentOrElse(text -> text.setY(y), () -> initialY = y);
     }
 
     @Override
     public void init(final Injector injector) {
         super.init(injector);
 
-        text.setTextOrigin(VPos.TOP);
+        text.get().setTextOrigin(VPos.TOP);
 
         if (font != null) {
-            text.setFont(font);
+            text.get().setFont(font);
         }
         if (fill != null) {
-            text.setFill(fill);
+            text.get().setFill(fill);
         }
         if (initialText != null && !initialText.isEmpty()) {
-            text.setText(initialText);
-        }
-    }
-
-    @Override
-    public void setX(double x) {
-        if (text == null) {
-            initialX = x;
-        } else {
-            text.setX(x);
-        }
-    }
-
-    @Override
-    public void setY(double y) {
-        if (text == null) {
-            initialY = y;
-        } else {
-            text.setY(y);
+            text.get().setText(initialText);
         }
     }
 
     @Inject
     public void setTextDelegate(final Text text) {
-        this.text = text;
+        this.text = Optional.of(text);
     }
 
     @Override
     public Optional<Node> getGameNode() {
-        return Optional.of(text);
+        return Optional.of(text.get());
     }
 }

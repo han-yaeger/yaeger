@@ -64,4 +64,22 @@ public interface YaegerScene extends Destroyable, Initializable, Configurable, C
     default void setCursor(final Cursor cursor) {
         getScene().setCursor(cursor);
     }
+
+    /**
+     * Return the width of this {@link YaegerScene}.
+     *
+     * @return The width of this {@link YaegerScene}.
+     */
+    default double getWidth() {
+        return getScene().getWidth();
+    }
+
+    /**
+     * Return the height of this {@link YaegerScene}.
+     *
+     * @return The height of this {@link YaegerScene}.
+     */
+    default double getHeight() {
+        return getScene().getHeight();
+    }
 }

@@ -3,6 +3,7 @@ package nl.meron.yaeger.engine.scenes;
 import com.google.inject.Injector;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,14 +12,14 @@ import static org.mockito.Mockito.verify;
 
 class YaegerSceneTest {
 
-    private YaegerScene testScene;
+    private YaegerScene sut;
     private Scene scene;
 
     @BeforeEach
     void setup() {
-        testScene = new YaegerSceneImpl();
+        sut = new YaegerSceneImpl();
         scene = mock(Scene.class);
-        ((YaegerSceneImpl) testScene).setScene(scene);
+        ((YaegerSceneImpl) sut).setScene(scene);
     }
 
     @Test
@@ -26,10 +27,36 @@ class YaegerSceneTest {
         // Setup
 
         // Test
-        testScene.setCursor(Cursor.DEFAULT);
+        sut.setCursor(Cursor.DEFAULT);
 
         // Verify
         verify(scene).setCursor(Cursor.DEFAULT);
+    }
+
+    @Test
+    void getWidthReturnValueFromScene() {
+        // Setup
+        var width = 37d;
+        when(scene.getWidth()).thenReturn(width);
+
+        // Test
+        double returnedWidth = sut.getWidth();
+
+        // Verify
+        Assertions.assertEquals(width, returnedWidth);
+    }
+
+    @Test
+    void getHeightReturnValueFromScene() {
+        // Setup
+        var height = 0.42;
+        when(scene.getHeight()).thenReturn(height);
+
+        // Test
+        double returnedHeight = sut.getHeight();
+
+        // Verify
+        Assertions.assertEquals(height, returnedHeight);
     }
 
     private class YaegerSceneImpl implements YaegerScene {

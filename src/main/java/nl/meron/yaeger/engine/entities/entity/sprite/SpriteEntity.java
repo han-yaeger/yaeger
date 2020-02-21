@@ -29,9 +29,8 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
 
     private int frames;
 
-    ImageView imageView;
-
-    SpriteAnimationDelegate spriteAnimationDelegate;
+    protected Optional<ImageView> imageView;
+    protected SpriteAnimationDelegate spriteAnimationDelegate;
 
     /**
      * Instantiate a new {@code SpriteEntity} for a given Image.
@@ -57,15 +56,16 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
         this.frames = frames;
         this.resource = resource;
         this.size = size;
+        this.imageView = Optional.empty();
     }
 
     @Override
     public void init(final Injector injector) {
         var requestedWidth = size.getWidth() * frames;
-        imageView = createImageView(resource, requestedWidth, size.getHeight());
+        imageView = Optional.of(createImageView(resource, requestedWidth, size.getHeight()));
 
         if (frames > 1) {
-            spriteAnimationDelegate = spriteAnimationDelegateFactory.create(imageView, frames);
+            spriteAnimationDelegate = spriteAnimationDelegateFactory.create(imageView.get(), frames);
         }
 
         super.init(injector);
@@ -97,31 +97,23 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
 
     @Override
     public Optional<Node> getGameNode() {
-        return Optional.of(imageView);
+        return Optional.of(imageView.get());
     }
 
     @Override
     public void remove() {
-        imageView.setImage(null);
+        imageView.get().setImage(null);
         super.remove();
     }
 
     @Override
     public void setX(double x) {
-        if (imageView == null) {
-            initialX = x;
-        } else {
-            imageView.setX(x);
-        }
+        imageView.ifPresentOrElse(imageView -> imageView.setX(x), () -> initialX = x);
     }
 
     @Override
     public void setY(double y) {
-        if (imageView == null) {
-            initialY = y;
-        } else {
-            imageView.setY(y);
-        }
+        imageView.ifPresentOrElse(imageView -> imageView.setY(y), () -> initialY = y);
     }
 
     @Inject
