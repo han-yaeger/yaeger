@@ -27,7 +27,7 @@ class BoundedTest {
     }
 
     @Test
-    void getLeftSideXReturnValueFromBounds() {
+    void getLeftXReturnValueFromBounds() {
         // Setup
         var minX = 0.37;
         when(bounds.getMinX()).thenReturn(minX);
@@ -40,7 +40,7 @@ class BoundedTest {
     }
 
     @Test
-    void getRightSideXReturnValueFromBounds() {
+    void getRightXReturnValueFromBounds() {
         // Setup
         var maxX = 0.42;
         when(bounds.getMaxX()).thenReturn(maxX);
@@ -53,7 +53,20 @@ class BoundedTest {
     }
 
     @Test
-    void getTopSideYReturnValueFromBounds() {
+    void getCenterXReturnValueFromBounds() {
+        // Setup
+        var centerX = 0.24;
+        when(bounds.getCenterX()).thenReturn(centerX);
+
+        // Test
+        double returnedCenterX = sut.getCenterX();
+
+        // Verify
+        Assertions.assertEquals(centerX, returnedCenterX);
+    }
+
+    @Test
+    void getTopYReturnValueFromBounds() {
         // Setup
         var minY = 0.37;
         when(bounds.getMinY()).thenReturn(minY);
@@ -66,7 +79,7 @@ class BoundedTest {
     }
 
     @Test
-    void getBottomSideYReturnValueFromBounds() {
+    void getBottomYReturnValueFromBounds() {
         // Setup
         var minY = 0.42;
         when(bounds.getMaxY()).thenReturn(minY);
@@ -76,6 +89,45 @@ class BoundedTest {
 
         // Verify
         Assertions.assertEquals(minY, bottomY);
+    }
+
+    @Test
+    void getCenterYReturnValueFromBounds() {
+        // Setup
+        var centerY = 0.23;
+        when(bounds.getCenterY()).thenReturn(centerY);
+
+        // Test
+        double returnedCenterY = sut.getCenterY();
+
+        // Verify
+        Assertions.assertEquals(centerY, returnedCenterY);
+    }
+
+    @Test
+    void getWidthReturnValueFromBounds() {
+        // Setup
+        var width = 37d;
+        when(bounds.getWidth()).thenReturn(width);
+
+        // Test
+        double returnedWidth = sut.getWidth();
+
+        // Verify
+        Assertions.assertEquals(width, returnedWidth);
+    }
+
+    @Test
+    void getHeightReturnValueFromBounds() {
+        // Setup
+        var height = 0.42;
+        when(bounds.getHeight()).thenReturn(height);
+
+        // Test
+        double returnedHeight = sut.getHeight();
+
+        // Verify
+        Assertions.assertEquals(height, returnedHeight);
     }
 }
 

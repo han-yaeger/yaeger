@@ -23,7 +23,7 @@ public interface WithTimers extends Timeable {
     }
 
     @Initializer
-    default void init() {
+    default void initTimers() {
         getTimers().clear();
         registerTimers();
     }

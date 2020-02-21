@@ -30,7 +30,7 @@ class WithTimersTest {
 
 
         // Test
-        sut.init();
+        sut.initTimers();
 
         // Verify
         verify(timers).clear();
@@ -41,7 +41,7 @@ class WithTimersTest {
         // Setup
 
         // Test
-        sut.init();
+        sut.initTimers();
 
         // Verify
         assertTrue(sut.isRegisterTimersCalled());

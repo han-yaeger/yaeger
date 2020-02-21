@@ -12,7 +12,7 @@ public interface Bounded extends NodeProvider {
     /**
      * Return the {@link Bounds}, aka Bounding Box.
      *
-     * @return the {@link Bounds}
+     * @return The {@link Bounds}.
      */
     default Bounds getBounds() {
         if (getGameNode().isPresent()) {
@@ -23,30 +23,58 @@ public interface Bounded extends NodeProvider {
     }
 
     /**
-     * @return a {@code double} of the right side x value
+     * @return The width as a {@code double}.
+     */
+    default double getWidth() {
+        return getBounds().getWidth();
+    }
+
+    /**
+     * @return The height as a {@code double}.
+     */
+    default double getHeight() {
+        return getBounds().getHeight();
+    }
+
+    /**
+     * @return A {@code double} of the right side x value.
      */
     default double getRightX() {
         return getBounds().getMaxX();
     }
 
     /**
-     * @return a {@code double} of the left x value
+     * @return A {@code double} of the left x value.
      */
     default double getLeftX() {
         return getBounds().getMinX();
     }
 
     /**
-     * @return a {@code double} of the bottom y value
+     * @return A {@code double} of the center x value.
+     */
+    default double getCenterX() {
+        return getBounds().getCenterX();
+    }
+
+    /**
+     * @return A {@code double} of the bottom y value.
      */
     default double getBottomY() {
         return getBounds().getMaxY();
     }
 
     /**
-     * @return a {@code double} of the top y value
+     * @return A {@code double} of the top y value.
      */
     default double getTopY() {
         return getBounds().getMinY();
+    }
+
+    /**
+     * @return A {@code double} of the center y value.
+     */
+    default double getCenterY() {
+        return getBounds().getCenterY();
     }
 }
