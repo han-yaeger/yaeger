@@ -11,8 +11,8 @@ services:
 
 after_success:
   - mvn jacoco:prepare-agent install jacoco:report sonar:sonar coveralls:report
-  - mvn javadoc:javadoc
-  - mvn install:install-file -Dfile=target/yaeger-shadyjar.jar -DgroupId=nl.han.ica -DartifactId=yaeger-shadyjar -Dversion=1.0.0 -Dpackaging=jar -DgeneratePom=true
+#  - mvn javadoc:javadoc
+#  - mvn install:install-file -Dfile=target/yaeger-shadyjar.jar -DgroupId=nl.han.ica -DartifactId=yaeger-shadyjar -Dversion=1.0.0 -Dpackaging=jar -DgeneratePom=true
 
 deploy:
     provider: pages
