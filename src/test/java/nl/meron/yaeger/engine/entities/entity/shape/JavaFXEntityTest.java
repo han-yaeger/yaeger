@@ -8,6 +8,9 @@ import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.events.system.RemoveEntityEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -16,77 +19,69 @@ class JavaFXEntityTest {
 
     private static final Location LOCATION = new Location(37, 37);
 
-    private Shape shape;
+    private Node node;
     private Injector injector;
+    private JavaFXEntityImpl sut;
 
     @BeforeEach
     void setup() {
-
-        shape = mock(Shape.class, withSettings().withoutAnnotations());
+        node = mock(Node.class, withSettings().withoutAnnotations());
         injector = mock(Injector.class);
+
+        sut = new JavaFXEntityImpl(LOCATION);
+        sut.setNode(node);
     }
 
     @Test
     void callingRemoveCleansUpTheEntity() {
         // Setup
-        var sut = new JavaFXEntityImpl(LOCATION);
-        sut.setShape(shape);
-        sut.init(injector);
 
         // Test
         sut.remove();
 
         // Verify
-        verify(shape, times(1)).setVisible(false);
-        verify(shape).fireEvent(any(RemoveEntityEvent.class));
+        verify(node, times(1)).setVisible(false);
+        verify(node).fireEvent(any(RemoveEntityEvent.class));
     }
 
     @Test
     void settingDelegateSetsVisibleOnDelegate() {
         // Setup
-        var sut = new JavaFXEntityImpl(LOCATION);
-        sut.setShape(shape);
 
         // Test
         sut.init(injector);
 
         // Verify
-        verify(shape).setVisible(true);
+        verify(node).setVisible(true);
     }
 
     @Test
     void settingVisibillityDelagatesToShape() {
         // Setup
-        var sut = new JavaFXEntityImpl(LOCATION);
         sut.init(injector);
-        sut.setShape(shape);
 
         // Test
         sut.setVisible(false);
 
         // Verify
-        verify(shape).setVisible(false);
+        verify(node).setVisible(false);
     }
 
     private class JavaFXEntityImpl extends JavaFXEntity {
 
-        private Shape shape;
+        private Node node;
 
         public JavaFXEntityImpl(Location initialPosition) {
             super(initialPosition);
         }
 
-        public JavaFXEntityImpl(final Location initialPosition, final Shape shape) {
-            super(initialPosition);
-        }
-
         @Override
-        public Node getGameNode() {
-            return shape;
+        public Optional<Node> getGameNode() {
+            return Optional.of(node);
         }
 
-        public void setShape(Shape shape) {
-            this.shape = shape;
+        public void setNode(Node node) {
+            this.node = node;
         }
 
         @Override

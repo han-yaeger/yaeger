@@ -14,6 +14,8 @@ import nl.meron.yaeger.engine.media.ResourceConsumer;
 import nl.meron.yaeger.javafx.image.ImageViewFactory;
 import nl.meron.yaeger.guice.factories.SpriteAnimationDelegateFactory;
 
+import java.util.Optional;
+
 /**
  * A {@link SpriteEntity} is a {@link Entity} that is represented by an Image.
  */
@@ -94,8 +96,8 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
     }
 
     @Override
-    public Node getGameNode() {
-        return imageView;
+    public Optional<Node> getGameNode() {
+        return Optional.of(imageView);
     }
 
     @Override

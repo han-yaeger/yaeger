@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -80,7 +81,7 @@ class AnnotationProcessorTest {
         }
 
         @Override
-        public Node getGameNode() {
+        public Optional<Node> getGameNode() {
             return null;
         }
 
@@ -131,7 +132,7 @@ class AnnotationProcessorTest {
         }
 
         @Override
-        public Node getGameNode() {
+        public Optional<Node> getGameNode() {
             return null;
         }
 
@@ -190,8 +191,8 @@ class AnnotationProcessorTest {
         }
 
         @Override
-        public Node getGameNode() {
-            return node;  // Not required here.
+        public Optional<Node> getGameNode() {
+            return Optional.of(node);  // Not required here.
         }
 
         @Initializer

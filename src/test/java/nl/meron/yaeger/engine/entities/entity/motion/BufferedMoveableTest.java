@@ -117,7 +117,7 @@ class BufferedMoveableTest {
         }
 
         @Override
-        public Node getGameNode() {
+        public Optional<Node> getGameNode() {
             return null;
         }
 

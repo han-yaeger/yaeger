@@ -23,6 +23,6 @@ public interface MousePressedListener extends NodeProvider {
      */
     @Initializer
     default void attachMousePressedListener() {
-        getGameNode().setOnMousePressed(event -> onMousePressed(event.getButton()));
+        getGameNode().get().setOnMousePressed(event -> onMousePressed(event.getButton()));
     }
 }

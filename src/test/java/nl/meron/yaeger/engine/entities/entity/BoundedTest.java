@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.mockito.Mockito.*;
 
 class BoundedTest {
@@ -82,8 +84,8 @@ class BoundedImpl implements Bounded {
     private Node node;
 
     @Override
-    public Node getGameNode() {
-        return node;
+    public Optional<Node> getGameNode() {
+        return Optional.of(node);
     }
 
     public void setNode(Node node) {

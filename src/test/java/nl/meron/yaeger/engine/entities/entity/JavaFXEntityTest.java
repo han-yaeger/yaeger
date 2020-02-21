@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -65,7 +66,7 @@ class JavaFXEntityTest {
     @Test
     void setVisibleDelegatesToNode() {
         // Setup
-
+        sut.setNode(node);
         // Test
         sut.setVisible(false);
 
@@ -95,8 +96,8 @@ class JavaFXEntityTest {
         }
 
         @Override
-        public Node getGameNode() {
-            return node;
+        public Optional<Node> getGameNode() {
+            return Optional.of(node);
         }
 
         public void setNode(Node node) {

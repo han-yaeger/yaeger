@@ -5,6 +5,8 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -37,8 +39,8 @@ class PlaceableImpl implements Placeable {
     private Node node;
 
     @Override
-    public Node getGameNode() {
-        return this.node;
+    public Optional<Node> getGameNode() {
+        return Optional.of(this.node);
     }
 
     public void setNode(Node node) {

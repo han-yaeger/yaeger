@@ -23,6 +23,6 @@ public interface MouseReleasedListener extends NodeProvider {
      */
     @Initializer
     default void attachMouseReleasedListener() {
-        getGameNode().setOnMouseReleased(event -> onMouseReleased(event.getButton()));
+        getGameNode().get().setOnMouseReleased(event -> onMouseReleased(event.getButton()));
     }
 }

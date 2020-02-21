@@ -72,7 +72,7 @@ class EntityCollectionTest {
         // Setup
         var updatableEntity = mock(UpdatableEntity.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(updatableEntity.getGameNode()).thenReturn(node);
+        when(updatableEntity.getGameNode()).thenReturn(Optional.of(node));
 
         Set<Entity> updatables = new HashSet<>();
         updatables.add(updatableEntity);
@@ -100,7 +100,7 @@ class EntityCollectionTest {
         // Setup
         var keyListeningEntity = mock(KeyListeningEntity.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(keyListeningEntity.getGameNode()).thenReturn(node);
+        when(keyListeningEntity.getGameNode()).thenReturn(Optional.of(node));
 
         var group = mock(Group.class);
         var children = mock(ObservableList.class);
@@ -128,7 +128,7 @@ class EntityCollectionTest {
         // Setup
         var keyListeningEntity = mock(KeyListeningEntity.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(keyListeningEntity.getGameNode()).thenReturn(node);
+        when(keyListeningEntity.getGameNode()).thenReturn(Optional.of(node));
 
         var group = mock(Group.class);
         var children = mock(ObservableList.class);
@@ -162,7 +162,7 @@ class EntityCollectionTest {
         // Setup
         var updatableEntity = mock(UpdatableEntity.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(updatableEntity.getGameNode()).thenReturn(node);
+        when(updatableEntity.getGameNode()).thenReturn(Optional.of(node));
 
         Set<Entity> updatables = new HashSet<>();
         updatables.add(updatableEntity);
@@ -195,7 +195,7 @@ class EntityCollectionTest {
         }
 
         @Override
-        public Node getGameNode() {
+        public Optional<Node> getGameNode() {
             return null;
         }
 
@@ -234,7 +234,7 @@ class EntityCollectionTest {
         }
 
         @Override
-        public Node getGameNode() {
+        public Optional<Node> getGameNode() {
             return null;
         }
 

@@ -3,6 +3,8 @@ package nl.meron.yaeger.engine.entities.entity.events.userinput;
 import javafx.scene.Node;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.mockito.Mockito.*;
 
 class MouseEnterListenerTest {
@@ -30,8 +32,8 @@ class MouseEnterListenerTest {
         }
 
         @Override
-        public Node getGameNode() {
-            return node;
+        public Optional<Node> getGameNode() {
+            return Optional.of(node);
         }
 
         void setNode(Node node) {

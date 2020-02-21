@@ -12,6 +12,8 @@ import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.JavaFXEntity;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 
+import java.util.Optional;
+
 /**
  * A {@code TextEntity} can be used to display a line of text on a {@link YaegerScene}. The text will be placed, using
  * the top left corner as its anchor point.
@@ -127,7 +129,7 @@ public class TextEntity extends JavaFXEntity {
     }
 
     @Override
-    public Node getGameNode() {
-        return text;
+    public Optional<Node> getGameNode() {
+        return Optional.of(text);
     }
 }

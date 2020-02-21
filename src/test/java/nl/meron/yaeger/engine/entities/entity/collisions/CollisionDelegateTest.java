@@ -12,6 +12,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.mockito.Mockito.mock;
@@ -131,7 +132,7 @@ class CollisionDelegateTest {
         }
 
         @Override
-        public Node getGameNode() {
+        public Optional<Node> getGameNode() {
             return null;
         }
 
@@ -185,7 +186,7 @@ class CollisionDelegateTest {
         }
 
         @Override
-        public Node getGameNode() {
+        public Optional<Node> getGameNode() {
             return null;
         }
 

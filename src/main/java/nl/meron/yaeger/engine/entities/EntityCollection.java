@@ -217,11 +217,11 @@ public class EntityCollection implements Initializable {
     }
 
     private void addToScene(final Entity entity) {
-        this.group.getChildren().add(entity.getGameNode());
+        this.group.getChildren().add(entity.getGameNode().get());
     }
 
     private void attachGameEventListeners(final Entity entity) {
-        entity.getGameNode().addEventHandler(EventTypes.REMOVE, event -> markAsGarbage(event.getSource()));
+        entity.getGameNode().ifPresent(node -> node.addEventHandler(EventTypes.REMOVE, event -> markAsGarbage(event.getSource())));
     }
 
     private void notifyUpdatables(final long timestamp) {

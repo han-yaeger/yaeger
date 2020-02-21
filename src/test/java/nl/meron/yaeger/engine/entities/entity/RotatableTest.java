@@ -4,6 +4,8 @@ import javafx.scene.Node;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -31,8 +33,8 @@ class RotatableTest {
         private Node node;
 
         @Override
-        public Node getGameNode() {
-            return node;
+        public Optional<Node> getGameNode() {
+            return Optional.of(node);
         }
 
         public void setNode(Node node) {

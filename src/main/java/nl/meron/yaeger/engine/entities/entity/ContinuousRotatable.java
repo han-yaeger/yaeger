@@ -24,10 +24,11 @@ public interface ContinuousRotatable extends Rotatable {
     default Updatable applyRotation() {
         return timestamp -> {
             if (Double.compare(getRotationSpeed(), 0d) != 0) {
-                setRotate(getGameNode().getRotate() + getRotationSpeed());
+                if (getGameNode().isPresent()) {
+                    setRotate(getGameNode().get().getRotate() + getRotationSpeed());
+                }
             }
 
         };
     }
-
 }

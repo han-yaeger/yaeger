@@ -20,6 +20,6 @@ public interface MouseEnterListener extends NodeProvider {
      */
     @Initializer
     default void attachMouseEnterListener() {
-        getGameNode().setOnMouseEntered(mouseEvent -> onMouseEntered());
+        getGameNode().get().setOnMouseEntered(mouseEvent -> onMouseEntered());
     }
 }

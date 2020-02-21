@@ -8,6 +8,8 @@ import nl.meron.yaeger.engine.scenes.SceneBorder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -139,8 +141,8 @@ class SceneBorderTouchingWatcherTest {
         }
 
         @Override
-        public Node getGameNode() {
-            return gameNode;
+        public Optional<Node> getGameNode() {
+            return Optional.of(gameNode);
         }
 
         public void setGameNode(Node node) {

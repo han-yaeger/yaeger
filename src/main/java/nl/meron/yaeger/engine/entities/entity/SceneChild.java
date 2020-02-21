@@ -14,7 +14,11 @@ public interface SceneChild extends NodeProvider {
      * @return the width of this {@code Scene} as a {@code double}
      */
     default double getSceneWidth() {
-        return getGameNode().getScene().getWidth();
+        if (getGameNode().isPresent()) {
+            return getGameNode().get().getScene().getWidth();
+        } else {
+            return 0;
+        }
     }
 
     /**
@@ -24,6 +28,10 @@ public interface SceneChild extends NodeProvider {
      * @return the height of this {@code Scene} as a {@code double}
      */
     default double getSceneHeight() {
-        return getGameNode().getScene().getHeight();
+        if (getGameNode().isPresent()) {
+            return getGameNode().get().getScene().getHeight();
+        } else {
+            return 0;
+        }
     }
 }

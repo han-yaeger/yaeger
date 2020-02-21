@@ -16,7 +16,7 @@ public interface Entity extends Initializable, Timeable, Bounded, Removeable, Pl
      * @param visible A {@code boolean} stating whether this {@link Entity} should be visible
      */
     default void setVisible(final boolean visible) {
-        getGameNode().setVisible(visible);
+        getGameNode().ifPresent(node -> node.setVisible(visible));
     }
 
     /**
@@ -25,6 +25,6 @@ public interface Entity extends Initializable, Timeable, Bounded, Removeable, Pl
      * @param cursor The {@link Cursor} that should be used
      */
     default void setCursor(final Cursor cursor) {
-        getGameNode().getScene().setCursor(cursor);
+        getGameNode().ifPresent(node -> node.getScene().setCursor(cursor));
     }
 }

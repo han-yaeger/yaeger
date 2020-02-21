@@ -4,6 +4,8 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -28,8 +30,8 @@ class MouseReleasedListenerTest {
         private Node node;
 
         @Override
-        public Node getGameNode() {
-            return node;
+        public Optional<Node> getGameNode() {
+            return Optional.of(node);
         }
 
         void setNode(Node node) {

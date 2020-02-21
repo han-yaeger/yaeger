@@ -1,7 +1,5 @@
 package nl.meron.yaeger.engine.entities.entity;
 
-import javafx.geometry.Point2D;
-
 /**
  * A {@link Placeable} has a methods that can be used to place it at a different x,y-coordinates
  * on the {@link nl.meron.yaeger.engine.scenes.YaegerScene}.
@@ -37,19 +35,4 @@ public interface Placeable extends Bounded {
      * @param y the y-coordinate as a {@code double}.
      */
     void setY(final double y);
-
-//    /**
-//     * Set the new x-coordinate of horizontal center of this {@link Entity}.
-//     *
-//     * @param x the x-coordinate of the horizontal center as a {@code double}.
-//     */
-//    void setCenterX(final double x);
-//
-//    /**
-//     * Set the new y-coordinate of vertical center of this {@link Entity}.
-//     *
-//     * @param y the y-coordinate of the vertical center as a {@code double}.
-//     */
-//    void setCenterY(final double y);
-
 }

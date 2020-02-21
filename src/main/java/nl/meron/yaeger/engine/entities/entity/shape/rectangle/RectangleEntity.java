@@ -8,6 +8,8 @@ import javafx.scene.shape.Rectangle;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.JavaFXEntity;
 
+import java.util.Optional;
+
 /**
  * A {@link RectangleEntity} provides the option to use a drawable Rectangle as an
  * {@link nl.meron.yaeger.engine.entities.entity.Entity}.
@@ -142,8 +144,8 @@ public abstract class RectangleEntity extends JavaFXEntity {
     }
 
     @Override
-    public Node getGameNode() {
-        return rectangle;
+    public Optional<Node> getGameNode() {
+        return Optional.of(rectangle);
     }
 
     @Override

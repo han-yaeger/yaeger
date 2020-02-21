@@ -126,7 +126,7 @@ class TextEntityTest {
         sut.init(injector);
 
         // Verify
-        Assertions.assertEquals(text, sut.getGameNode());
+        Assertions.assertEquals(text, sut.getGameNode().get());
     }
 
     @Test

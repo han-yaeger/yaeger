@@ -73,7 +73,7 @@ class RectangleEntityTest {
         sut.init(injector);
 
         // Verify
-        Assertions.assertEquals(rectangle, sut.getGameNode());
+        Assertions.assertEquals(rectangle, sut.getGameNode().get());
     }
 
     @Test

@@ -39,20 +39,19 @@ public abstract class JavaFXEntity implements Entity {
 
     @Override
     public void remove() {
-        if (getGameNode() != null) {
-            getGameNode().setVisible(false);
+        getGameNode().ifPresent(node -> {
+            node.setVisible(false);
             notifyRemove();
-        }
+        });
     }
 
     @Override
     public void setVisible(final boolean visible) {
         this.visible = visible;
-        if (getGameNode() != null) {
-            getGameNode().setVisible(visible);
-        }
+        getGameNode().ifPresent(node -> {
+            node.setVisible(visible);
+        });
     }
-
 
     @Override
     public void init(final Injector injector) {

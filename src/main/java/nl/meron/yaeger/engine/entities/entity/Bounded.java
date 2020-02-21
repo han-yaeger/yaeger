@@ -1,5 +1,6 @@
 package nl.meron.yaeger.engine.entities.entity;
 
+import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 
 /**
@@ -14,7 +15,11 @@ public interface Bounded extends NodeProvider {
      * @return the {@link Bounds}
      */
     default Bounds getBounds() {
-        return getGameNode().getBoundsInLocal();
+        if (getGameNode().isPresent()) {
+            return getGameNode().get().getBoundsInLocal();
+        } else {
+            return new BoundingBox(0, 0, 0, 0);
+        }
     }
 
     /**
