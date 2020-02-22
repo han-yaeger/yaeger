@@ -2,11 +2,8 @@ package nl.meron.yaeger.engine.entities.entity;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 
 import java.util.Optional;
 
@@ -15,6 +12,8 @@ import static org.mockito.Mockito.*;
 
 class SceneChildTest {
 
+    public static final double WIDTH = 37d;
+    public static final double HEIGHT = 42d;
     private SceneChildImpl sut;
     private Node node;
     private Scene scene;
@@ -27,6 +26,8 @@ class SceneChildTest {
         sut.setNode(Optional.of(node));
 
         when(node.getScene()).thenReturn(scene);
+        when(scene.getWidth()).thenReturn(WIDTH);
+        when(scene.getHeight()).thenReturn(HEIGHT);
 
     }
 
@@ -35,10 +36,11 @@ class SceneChildTest {
         // Setup
 
         // Test
-        sut.getSceneWidth();
+        double sceneWidth = sut.getSceneWidth();
 
         // Verify
         verify(scene).getWidth();
+        assertEquals(WIDTH, sceneWidth);
     }
 
     @Test
@@ -46,33 +48,36 @@ class SceneChildTest {
         // Setup
 
         // Test
-        sut.getSceneHeight();
+        double sceneHeight = sut.getSceneHeight();
 
         // Verify
         verify(scene).getHeight();
+        assertEquals(HEIGHT, sceneHeight);
     }
 
     @Test
     void getWidthReturnsZeroIfNodeNotPresent() {
         // Setup
+        sut.setNode(Optional.empty());
 
         // Test
         double sceneWidth = sut.getSceneWidth();
 
         // Verify
-        Assertions.assertEquals(0, sceneWidth);
+        assertEquals(0, sceneWidth);
     }
 
 
     @Test
     void getHeightReturnsZeroIfNodeNotPresent() {
         // Setup
+        sut.setNode(Optional.empty());
 
         // Test
         double sceneHeight = sut.getSceneHeight();
 
         // Verify
-        Assertions.assertEquals(0, sceneHeight);
+        assertEquals(0, sceneHeight);
     }
 
     private class SceneChildImpl implements SceneChild {
