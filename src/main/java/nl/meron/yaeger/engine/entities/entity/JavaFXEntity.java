@@ -27,16 +27,6 @@ public abstract class JavaFXEntity implements Entity {
         this.initialY = initialPosition.getY();
     }
 
-    private void placeOnLocation(final double x, final double y) {
-        if (getGameNode() == null) {
-            initialX = x;
-            initialY = y;
-        } else {
-            setX(x);
-            setY(y);
-        }
-    }
-
     @Override
     public void remove() {
         getGameNode().ifPresent(node -> {
@@ -56,7 +46,10 @@ public abstract class JavaFXEntity implements Entity {
     @Override
     public void init(final Injector injector) {
         setVisible(visible);
-        placeOnLocation(initialX, initialY);
+        getGameNode().ifPresent(node -> {
+            setX(initialX);
+            setY(initialY);
+        });
     }
 
     @Override

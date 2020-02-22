@@ -25,7 +25,7 @@ class JavaFXEntityTest {
         sut = new JavaFXEntityImpl(LOCATION);
         injector = mock(Injector.class);
         node = mock(Node.class, withSettings().withoutAnnotations());
-        sut.setNode(node);
+        sut.setNode(Optional.of(node));
     }
 
     @Test
@@ -66,7 +66,7 @@ class JavaFXEntityTest {
     @Test
     void setVisibleDelegatesToNode() {
         // Setup
-        sut.setNode(node);
+
         // Test
         sut.setVisible(false);
 
@@ -87,7 +87,7 @@ class JavaFXEntityTest {
 
     private class JavaFXEntityImpl extends JavaFXEntity {
 
-        private Node node;
+        private Optional<Node> node;
         private double x;
         private double y;
 
@@ -97,10 +97,10 @@ class JavaFXEntityTest {
 
         @Override
         public Optional<Node> getGameNode() {
-            return Optional.of(node);
+            return node;
         }
 
-        public void setNode(Node node) {
+        public void setNode(Optional<Node> node) {
             this.node = node;
         }
 
