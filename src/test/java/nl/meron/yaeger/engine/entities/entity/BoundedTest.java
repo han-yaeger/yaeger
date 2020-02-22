@@ -27,6 +27,20 @@ class BoundedTest {
     }
 
     @Test
+    void geBoundsReturnsZeroBoundingBoxIfGameNodeIsNotPresent() {
+        // Setup
+        var sut = new EmptyNodeBoundedImpl();
+
+
+        // Test
+        var boundingBox = sut.getBounds();
+
+        // Verify
+        Assertions.assertEquals(0, boundingBox.getWidth());
+        Assertions.assertEquals(0, boundingBox.getHeight());
+    }
+
+    @Test
     void getLeftXReturnValueFromBounds() {
         // Setup
         var minX = 0.37;
@@ -142,5 +156,13 @@ class BoundedImpl implements Bounded {
 
     public void setNode(Node node) {
         this.node = node;
+    }
+}
+
+class EmptyNodeBoundedImpl implements Bounded {
+
+    @Override
+    public Optional<Node> getGameNode() {
+        return Optional.empty();
     }
 }
