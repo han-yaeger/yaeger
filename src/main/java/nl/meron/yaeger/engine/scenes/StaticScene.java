@@ -5,6 +5,7 @@ import com.google.inject.Injector;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 import nl.meron.yaeger.engine.YaegerEngine;
 import nl.meron.yaeger.engine.entities.EntityCollection;
 import nl.meron.yaeger.engine.entities.EntitySupplier;
@@ -31,6 +32,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
     private KeyListenerDelegate keyListenerDelegate;
     private BackgroundDelegate backgroundDelegate;
 
+    private Stage stage;
     private Scene scene;
     private Group root;
     Debugger debugger;
@@ -175,5 +177,15 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
     @Inject
     public void setEntitySupplier(final EntitySupplier entitySupplier) {
         this.entitySupplier = entitySupplier;
+    }
+
+    @Override
+    public Stage getStage() {
+        return stage;
+    }
+
+    @Override
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }

@@ -46,21 +46,6 @@ class TextEntityTest {
     }
 
     @Test
-    void settingDelegateSetsPositionOnDelegate() {
-        // Setup
-        var sut = new TextEntity(LOCATION);
-
-        // Test
-        sut.setTextDelegate(text);
-        sut.init(injector);
-
-        // Verify
-        verify(text).setTextOrigin(VPos.TOP);
-        verify(text).setX(LOCATION.getX());
-        verify(text).setY(LOCATION.getY());
-    }
-
-    @Test
     void settingDelegateSetsTextOnDelegate() {
         // Setup
         var sut = new TextEntity(LOCATION);
@@ -147,8 +132,6 @@ class TextEntityTest {
         verify(text).setFill(COLOR);
         verify(text).setText(YAEGER);
         verify(text).setFont(FONT);
-        verify(text).setX(LOCATION.getX());
-        verify(text).setY(LOCATION.getY());
     }
 
     private class TextEntityImpl extends RectangleEntity {

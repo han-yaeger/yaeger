@@ -1,6 +1,7 @@
 package nl.meron.yaeger.engine.entities.entity.motion;
 
 import javafx.scene.Node;
+import nl.meron.yaeger.engine.entities.entity.AnchorPoint;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -126,6 +127,11 @@ class BufferedMoveableTest {
         }
 
         @Override
+        public AnchorPoint getAnchorPoint() {
+            return null;
+        }
+
+        @Override
         public void setX(double x) {
             // Not required here
         }
@@ -133,6 +139,11 @@ class BufferedMoveableTest {
         @Override
         public void setY(double y) {
             // Not required here
+        }
+
+        @Override
+        public void placeOnScene() {
+
         }
     }
 }

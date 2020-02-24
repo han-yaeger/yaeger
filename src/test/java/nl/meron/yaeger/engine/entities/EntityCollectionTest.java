@@ -200,6 +200,11 @@ class EntityCollectionTest {
         }
 
         @Override
+        public AnchorPoint getAnchorPoint() {
+            return null;
+        }
+
+        @Override
         public void setX(double x) {
             // Not required here.
         }
@@ -207,6 +212,11 @@ class EntityCollectionTest {
         @Override
         public void setY(double y) {
             // Not required here.
+        }
+
+        @Override
+        public void placeOnScene() {
+
         }
 
         @Override
@@ -239,6 +249,11 @@ class EntityCollectionTest {
         }
 
         @Override
+        public AnchorPoint getAnchorPoint() {
+            return null;
+        }
+
+        @Override
         public void setX(double x) {
             // Not required here.
         }
@@ -246,6 +261,11 @@ class EntityCollectionTest {
         @Override
         public void setY(double y) {
             // Not required here.
+        }
+
+        @Override
+        public void placeOnScene() {
+
         }
 
         @Override

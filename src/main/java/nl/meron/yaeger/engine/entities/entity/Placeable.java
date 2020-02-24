@@ -7,6 +7,13 @@ package nl.meron.yaeger.engine.entities.entity;
 public interface Placeable extends Bounded {
 
     /**
+     * Return the {@link AnchorPoint} of this {@link Placeable}.
+     *
+     * @return The {@link AnchorPoint} of this {@link Placeable}.
+     */
+    AnchorPoint getAnchorPoint();
+
+    /**
      * @return the x-coordinate of the top-left corner as a {@code double}.
      */
     default double getX() {
@@ -35,4 +42,9 @@ public interface Placeable extends Bounded {
      * @param y the y-coordinate as a {@code double}.
      */
     void setY(final double y);
+
+    /**
+     * Place the {@link Entity} on the scene at its x,y-coordinate.
+     */
+    void placeOnScene();
 }

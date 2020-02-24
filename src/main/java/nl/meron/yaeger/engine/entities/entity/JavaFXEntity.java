@@ -15,6 +15,7 @@ public abstract class JavaFXEntity implements Entity {
     protected double initialY;
     private boolean visible = true;
     private List<Timer> timers = new ArrayList<>();
+    private AnchorPoint anchorPoint;
 
     /**
      * Instantiate a new {@link JavaFXEntity} for the given {@link Location} and textDelegate.
@@ -22,9 +23,38 @@ public abstract class JavaFXEntity implements Entity {
      * @param initialPosition the initial {@link Location} of this {@link JavaFXEntity}
      */
     public JavaFXEntity(final Location initialPosition) {
-
         this.initialX = initialPosition.getX();
         this.initialY = initialPosition.getY();
+        this.anchorPoint = AnchorPoint.TOP_LEFT;
+    }
+
+    /**
+     * Set the {@link AnchorPoint} of this {@link Entity}. The {@link AnchorPoint} will be used
+     * to set the given x, y-coordinate. By default an {@link Entity} will use the top-left as
+     * its anchorpoint.
+     *
+     * @param anchorPoint The {@link AnchorPoint} of this {@link Entity}.
+     */
+    public void setAnchorPoint(AnchorPoint anchorPoint) {
+        this.anchorPoint = anchorPoint;
+    }
+
+    protected double calculateX(double x) {
+        switch (anchorPoint) {
+            case CENTER_CENTER:
+                return x - (getWidth() / 2);
+            default:
+                return x;
+        }
+    }
+
+    protected double calculateY(double y) {
+        switch (anchorPoint) {
+            case CENTER_CENTER:
+                return y - (getHeight() / 2);
+            default:
+                return y;
+        }
     }
 
     @Override
@@ -46,14 +76,23 @@ public abstract class JavaFXEntity implements Entity {
     @Override
     public void init(final Injector injector) {
         setVisible(visible);
-        getGameNode().ifPresent(node -> {
-            setX(initialX);
-            setY(initialY);
-        });
     }
 
     @Override
     public List<Timer> getTimers() {
         return timers;
+    }
+
+    @Override
+    public AnchorPoint getAnchorPoint() {
+        return anchorPoint;
+    }
+
+    @Override
+    public void placeOnScene() {
+        getGameNode().ifPresent(node -> {
+            setX(initialX);
+            setY(initialY);
+        });
     }
 }

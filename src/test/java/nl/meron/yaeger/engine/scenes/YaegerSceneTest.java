@@ -3,6 +3,7 @@ package nl.meron.yaeger.engine.scenes;
 import com.google.inject.Injector;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,14 +13,17 @@ import static org.mockito.Mockito.verify;
 
 class YaegerSceneTest {
 
-    private YaegerScene sut;
+    private YaegerSceneImpl sut;
     private Scene scene;
+    private Stage stage;
 
     @BeforeEach
     void setup() {
         sut = new YaegerSceneImpl();
         scene = mock(Scene.class);
-        ((YaegerSceneImpl) sut).setScene(scene);
+        stage = mock(Stage.class);
+        sut.setScene(scene);
+        sut.setStage(stage);
     }
 
     @Test
@@ -34,10 +38,10 @@ class YaegerSceneTest {
     }
 
     @Test
-    void getWidthReturnValueFromScene() {
+    void getWidthReturnValueFromStage() {
         // Setup
         var width = 37d;
-        when(scene.getWidth()).thenReturn(width);
+        when(stage.getWidth()).thenReturn(width);
 
         // Test
         double returnedWidth = sut.getWidth();
@@ -47,10 +51,10 @@ class YaegerSceneTest {
     }
 
     @Test
-    void getHeightReturnValueFromScene() {
+    void getHeightReturnValueFromStage() {
         // Setup
         var height = 0.42;
-        when(scene.getHeight()).thenReturn(height);
+        when(stage.getHeight()).thenReturn(height);
 
         // Test
         double returnedHeight = sut.getHeight();
@@ -62,6 +66,7 @@ class YaegerSceneTest {
     private class YaegerSceneImpl implements YaegerScene {
 
         private Scene scene;
+        private Stage stage;
 
         public void setScene(Scene scene) {
             this.scene = scene;
@@ -95,6 +100,16 @@ class YaegerSceneTest {
         @Override
         public Scene getScene() {
             return scene;
+        }
+
+        @Override
+        public Stage getStage() {
+            return stage;
+        }
+
+        @Override
+        public void setStage(Stage stage) {
+            this.stage = stage;
         }
 
         @Override

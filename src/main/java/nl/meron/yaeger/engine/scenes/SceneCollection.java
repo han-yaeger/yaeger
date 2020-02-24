@@ -35,6 +35,7 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> {
     public void addScene(final int number, final YaegerScene scene) {
         put(number, scene);
         scene.init(injector);
+        scene.setStage(stage);
 
         if (size() == 1) {
             activate(scene);

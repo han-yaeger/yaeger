@@ -2,6 +2,7 @@ package nl.meron.yaeger.engine.entities.entity;
 
 import com.google.inject.Injector;
 import javafx.scene.Node;
+import javafx.stage.Stage;
 import nl.meron.yaeger.engine.Timer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +19,7 @@ class JavaFXEntityTest {
     private static final Location LOCATION = new Location(37, 37);
     private JavaFXEntityImpl sut;
     private Node node;
+    private Stage stage;
     private Injector injector;
 
     @BeforeEach
@@ -25,6 +27,7 @@ class JavaFXEntityTest {
         sut = new JavaFXEntityImpl(LOCATION);
         injector = mock(Injector.class);
         node = mock(Node.class, withSettings().withoutAnnotations());
+        stage = mock(Stage.class);
         sut.setNode(Optional.of(node));
     }
 
@@ -52,15 +55,27 @@ class JavaFXEntityTest {
     }
 
     @Test
-    void initCallsPlaceOnLocation() {
+    void placeOnSceneCallsSetXWithInitialLocation() {
         // Setup
-
-        // Test
         sut.init(injector);
 
+        // Test
+        sut.placeOnScene();
+
         // Verify
-        Assertions.assertEquals(0, Double.compare(LOCATION.getX(), sut.getX()));
-        Assertions.assertEquals(0, Double.compare(LOCATION.getY(), sut.getY()));
+        Assertions.assertEquals(LOCATION.getX(), sut.getX());
+    }
+
+    @Test
+    void placeOnSceneCallsSetYWithInitialLocation() {
+        // Setup
+        sut.init(injector);
+
+        // Test
+        sut.placeOnScene();
+
+        // Verify
+        Assertions.assertEquals(LOCATION.getY(), sut.getY());
     }
 
     @Test

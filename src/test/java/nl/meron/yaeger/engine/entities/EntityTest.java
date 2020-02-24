@@ -8,6 +8,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import nl.meron.yaeger.engine.Timer;
+import nl.meron.yaeger.engine.entities.entity.AnchorPoint;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import org.junit.jupiter.api.BeforeEach;
@@ -163,6 +164,11 @@ class EntityTest {
         }
 
         @Override
+        public AnchorPoint getAnchorPoint() {
+            return null;
+        }
+
+        @Override
         public void setX(double x) {
             // Not required here.
         }
@@ -170,6 +176,11 @@ class EntityTest {
         @Override
         public void setY(double y) {
             // Not required here.
+        }
+
+        @Override
+        public void placeOnScene() {
+
         }
 
         void setNode(Node node) {

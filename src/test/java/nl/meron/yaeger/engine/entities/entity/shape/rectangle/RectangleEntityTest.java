@@ -50,20 +50,6 @@ class RectangleEntityTest {
     }
 
     @Test
-    void settingDelegateSetsPositionOnDelegate() {
-        // Setup
-        var sut = new RectangleEntityImpl(LOCATION);
-
-        // Test
-        sut.setRectangle(rectangle);
-        sut.init(injector);
-
-        // Verify
-        verify(rectangle).setX(LOCATION.getX());
-        verify(rectangle).setY(LOCATION.getY());
-    }
-
-    @Test
     void getGameNodeReturnsTheRectangle() {
         // Setup
         var sut = new RectangleEntityImpl(LOCATION);
@@ -101,8 +87,6 @@ class RectangleEntityTest {
         verify(rectangle).setStrokeWidth(STROKE_WIDTH);
         verify(rectangle).setStroke(COLOR_STROKE);
         verify(rectangle).setFill(COLOR_FILL);
-        verify(rectangle).setX(LOCATION.getX());
-        verify(rectangle).setY(LOCATION.getY());
     }
 
     @Test
@@ -151,20 +135,6 @@ class RectangleEntityTest {
 
         // Verify
         Assertions.assertEquals(MIN_Y + (STROKE_WIDTH / 2), topY);
-    }
-
-    @Test
-    void ifRectangleNotYetSetWidthIsStoredAndSetAtInit() {
-        // Setup
-        var sut = new RectangleEntityImpl(LOCATION);
-
-        // Test
-        sut.setWidth(WIDTH);
-        sut.setRectangle(rectangle);
-        sut.init(injector);
-
-        // Verify
-        verify(rectangle).setWidth(WIDTH);
     }
 
     @Test

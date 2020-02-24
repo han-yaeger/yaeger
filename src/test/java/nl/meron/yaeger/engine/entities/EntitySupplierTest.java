@@ -3,6 +3,7 @@ package nl.meron.yaeger.engine.entities;
 import com.google.inject.Injector;
 import javafx.scene.Node;
 import nl.meron.yaeger.engine.Timer;
+import nl.meron.yaeger.engine.entities.entity.AnchorPoint;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import org.junit.jupiter.api.Assertions;
@@ -73,6 +74,11 @@ class EntitySupplierTest {
         }
 
         @Override
+        public AnchorPoint getAnchorPoint() {
+            return null;
+        }
+
+        @Override
         public void setX(double x) {
             // Not required here.
         }
@@ -80,6 +86,11 @@ class EntitySupplierTest {
         @Override
         public void setY(double y) {
             // Not required here.
+        }
+
+        @Override
+        public void placeOnScene() {
+
         }
 
         @Override

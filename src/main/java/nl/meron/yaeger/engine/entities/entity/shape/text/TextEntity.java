@@ -82,12 +82,13 @@ public class TextEntity extends JavaFXEntity {
 
     @Override
     public void setX(double x) {
-        text.ifPresentOrElse(text -> text.setX(x), () -> initialX = x);
+
+        text.ifPresentOrElse(text -> text.setX(calculateX(x)), () -> initialX = x);
     }
 
     @Override
     public void setY(double y) {
-        text.ifPresentOrElse(text -> text.setY(y), () -> initialY = y);
+        text.ifPresentOrElse(text -> text.setY(calculateY(y)), () -> initialY = y);
     }
 
     @Override

@@ -2,6 +2,7 @@ package nl.meron.yaeger.engine.scenes;
 
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 import nl.meron.yaeger.engine.Clearable;
 import nl.meron.yaeger.engine.Configurable;
 import nl.meron.yaeger.engine.Destroyable;
@@ -57,6 +58,24 @@ public interface YaegerScene extends Destroyable, Initializable, Configurable, C
     Scene getScene();
 
     /**
+     * Return the {@link Stage} to which this {@link YaegerScene} will be added.
+     *
+     * @return The {@link Stage} to which this {@link YaegerScene} will be added.
+     */
+    Stage getStage();
+
+    /**
+     * Set the {@link Stage} on this {@link YaegerScene}. A {@link YaegerScene} will only be added to
+     * the {@link Stage} when the {@link YaegerScene} is the one that is being shown. Only when a {@link YaegerScene}
+     * is added, its {@code width} and {@code height} are available. Thus, to make it possible to request the
+     * {@code width} and {@code height} during the {@link YaegerScene#setupEntities()} methods, we need the {@link Stage}
+     * at an earlier stage. That is why we actively set the {@link Stage} on each {@link YaegerScene} that is created.
+     *
+     * @param stage The current {@link Stage}.
+     */
+    void setStage(Stage stage);
+
+    /**
      * Set the Cursor.
      *
      * @param cursor the {@link Cursor} that should be used
@@ -71,7 +90,7 @@ public interface YaegerScene extends Destroyable, Initializable, Configurable, C
      * @return The width of this {@link YaegerScene}.
      */
     default double getWidth() {
-        return getScene().getWidth();
+        return getStage().getWidth();
     }
 
     /**
@@ -80,6 +99,6 @@ public interface YaegerScene extends Destroyable, Initializable, Configurable, C
      * @return The height of this {@link YaegerScene}.
      */
     default double getHeight() {
-        return getScene().getHeight();
+        return getStage().getHeight();
     }
 }

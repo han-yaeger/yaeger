@@ -5,6 +5,7 @@ import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import nl.meron.yaeger.engine.Updatable;
+import nl.meron.yaeger.engine.entities.entity.AnchorPoint;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -195,6 +196,11 @@ class MoveableTest {
         }
 
         @Override
+        public AnchorPoint getAnchorPoint() {
+            return null;
+        }
+
+        @Override
         public void setX(double x) {
             // Not required here.
         }
@@ -202,6 +208,11 @@ class MoveableTest {
         @Override
         public void setY(double y) {
             // Not required here.
+        }
+
+        @Override
+        public void placeOnScene() {
+
         }
     }
 }

@@ -141,6 +141,9 @@ public class EntityCollection implements Initializable {
 
     public void initialUpdate() {
         addSuppliedEntities();
+
+        statics.forEach(entity -> entity.placeOnScene());
+        updatables.forEach(entity -> ((Placeable) entity).placeOnScene());
     }
 
     /**
@@ -245,4 +248,5 @@ public class EntityCollection implements Initializable {
     public void setAnnotationProcessor(AnnotationProcessor annotationProcessor) {
         this.annotationProcessor = annotationProcessor;
     }
+
 }

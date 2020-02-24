@@ -4,6 +4,7 @@ import com.google.inject.Injector;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Node;
 import nl.meron.yaeger.engine.Timer;
+import nl.meron.yaeger.engine.entities.entity.AnchorPoint;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.javafx.animationtimer.AnimationTimerFactory;
@@ -166,6 +167,11 @@ class EntitySpawnerTest {
         }
 
         @Override
+        public AnchorPoint getAnchorPoint() {
+            return null;
+        }
+
+        @Override
         public void setX(double x) {
             // Not required here.
         }
@@ -173,6 +179,11 @@ class EntitySpawnerTest {
         @Override
         public void setY(double y) {
             // Not required here.
+        }
+
+        @Override
+        public void placeOnScene() {
+
         }
 
         @Override

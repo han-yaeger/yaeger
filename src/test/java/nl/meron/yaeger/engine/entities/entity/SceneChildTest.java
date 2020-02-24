@@ -28,7 +28,6 @@ class SceneChildTest {
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(WIDTH);
         when(scene.getHeight()).thenReturn(HEIGHT);
-
     }
 
     @Test
@@ -93,5 +92,4 @@ class SceneChildTest {
             this.node = node;
         }
     }
-
 }
