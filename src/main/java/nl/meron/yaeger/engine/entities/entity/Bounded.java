@@ -4,17 +4,31 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 
 /**
- * Implementing this interface exposes the {@link Bounded#getBounds()} method, which returns the bounds, aka
+ * Implementing this interface exposes the {@link Bounded#getNonTransformedBounds()} method, which returns the bounds, aka
  * Bounding Box, of this Entity.
  */
 public interface Bounded extends NodeProvider {
 
     /**
-     * Return the {@link Bounds}, aka Bounding Box.
+     * Return the {@link Bounds}, aka Bounding Box after all transformations have been
+     * applied.
      *
      * @return The {@link Bounds}.
      */
-    default Bounds getBounds() {
+    default Bounds getTransformedBounds() {
+        if (getGameNode().isPresent()) {
+            return getGameNode().get().getBoundsInParent();
+        } else {
+            return new BoundingBox(0, 0, 0, 0);
+        }
+    }
+
+    /**
+     * Return the {@link Bounds}, aka Bounding Box before all transformations have been applied.
+     *
+     * @return The {@link Bounds}.
+     */
+    default Bounds getNonTransformedBounds() {
         if (getGameNode().isPresent()) {
             return getGameNode().get().getBoundsInLocal();
         } else {
@@ -26,55 +40,55 @@ public interface Bounded extends NodeProvider {
      * @return The width as a {@code double}.
      */
     default double getWidth() {
-        return getBounds().getWidth();
+        return getNonTransformedBounds().getWidth();
     }
 
     /**
      * @return The height as a {@code double}.
      */
     default double getHeight() {
-        return getBounds().getHeight();
+        return getNonTransformedBounds().getHeight();
     }
 
     /**
      * @return A {@code double} of the right side x value.
      */
     default double getRightX() {
-        return getBounds().getMaxX();
+        return getNonTransformedBounds().getMaxX();
     }
 
     /**
      * @return A {@code double} of the left x value.
      */
     default double getLeftX() {
-        return getBounds().getMinX();
+        return getNonTransformedBounds().getMinX();
     }
 
     /**
      * @return A {@code double} of the center x value.
      */
     default double getCenterX() {
-        return getBounds().getCenterX();
+        return getNonTransformedBounds().getCenterX();
     }
 
     /**
      * @return A {@code double} of the bottom y value.
      */
     default double getBottomY() {
-        return getBounds().getMaxY();
+        return getNonTransformedBounds().getMaxY();
     }
 
     /**
      * @return A {@code double} of the top y value.
      */
     default double getTopY() {
-        return getBounds().getMinY();
+        return getNonTransformedBounds().getMinY();
     }
 
     /**
      * @return A {@code double} of the center y value.
      */
     default double getCenterY() {
-        return getBounds().getCenterY();
+        return getNonTransformedBounds().getCenterY();
     }
 }

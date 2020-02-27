@@ -188,7 +188,7 @@ public class CollidedTest {
         private Bounds bounds;
 
         @Override
-        public Bounds getBounds() {
+        public Bounds getNonTransformedBounds() {
             return bounds;
         }
 
@@ -224,7 +224,7 @@ public class CollidedTest {
         }
 
         @Override
-        public Bounds getBounds() {
+        public Bounds getNonTransformedBounds() {
             return TEST_COLLIDED_BOUNDINGBOX;
         }
 

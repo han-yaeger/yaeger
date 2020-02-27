@@ -24,8 +24,8 @@ public class Ball extends DynamicSpriteEntity implements SceneBorderTouchingWatc
     }
 
     private void start() {
-        setX(getSceneWidth() / 2);
-        setY(getSceneHeight() / 2);
+        setOriginX(getSceneWidth() / 2);
+        setOriginY(getSceneHeight() / 2);
     }
 
     @Override

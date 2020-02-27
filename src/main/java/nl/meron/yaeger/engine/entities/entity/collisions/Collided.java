@@ -40,18 +40,18 @@ public interface Collided extends Bounded {
     void onCollision(Collider collidingObject, CollisionSide collisionSide);
 
     private boolean collisionHasOccured(Collider collider) {
-        return getBounds().intersects(collider.getBounds()) && !this.equals(collider);
+        return getNonTransformedBounds().intersects(collider.getNonTransformedBounds()) && !this.equals(collider);
     }
 
     private CollisionSide findCollisionSide(Collider collider) {
 
-        if (collider.getBounds().intersects(createTopCollisionBoundingBox())) {
+        if (collider.getNonTransformedBounds().intersects(createTopCollisionBoundingBox())) {
             return CollisionSide.TOP;
-        } else if (collider.getBounds().intersects(createBottomCollisionBoundingBox())) {
+        } else if (collider.getNonTransformedBounds().intersects(createBottomCollisionBoundingBox())) {
             return CollisionSide.BOTTOM;
-        } else if (collider.getBounds().intersects(createLeftCollisionBoundingBox())) {
+        } else if (collider.getNonTransformedBounds().intersects(createLeftCollisionBoundingBox())) {
             return CollisionSide.LEFT;
-        } else if (collider.getBounds().intersects(createRightCollisionBoundingBox())) {
+        } else if (collider.getNonTransformedBounds().intersects(createRightCollisionBoundingBox())) {
             return CollisionSide.RIGHT;
         } else {
             return CollisionSide.NONE;
@@ -59,45 +59,45 @@ public interface Collided extends Bounded {
     }
 
     private Bounds createTopCollisionBoundingBox() {
-        double minX = getBounds().getMinX();
-        double minY = getBounds().getMaxY() - 1;
-        double minZ = getBounds().getMinZ();
-        double width = getBounds().getWidth();
+        double minX = getNonTransformedBounds().getMinX();
+        double minY = getNonTransformedBounds().getMaxY() - 1;
+        double minZ = getNonTransformedBounds().getMinZ();
+        double width = getNonTransformedBounds().getWidth();
         double height = 1;
-        double depth = getBounds().getDepth();
+        double depth = getNonTransformedBounds().getDepth();
 
         return new BoundingBox(minX, minY, minZ, width, height, depth);
     }
 
     private Bounds createBottomCollisionBoundingBox() {
-        double minX = getBounds().getMinX();
-        double minY = getBounds().getMinY();
-        double minZ = getBounds().getMinZ();
-        double width = getBounds().getWidth();
+        double minX = getNonTransformedBounds().getMinX();
+        double minY = getNonTransformedBounds().getMinY();
+        double minZ = getNonTransformedBounds().getMinZ();
+        double width = getNonTransformedBounds().getWidth();
         double height = 1;
-        double depth = getBounds().getDepth();
+        double depth = getNonTransformedBounds().getDepth();
 
         return new BoundingBox(minX, minY, minZ, width, height, depth);
     }
 
     private Bounds createLeftCollisionBoundingBox() {
-        double minX = getBounds().getMinX();
-        double minY = getBounds().getMinY();
-        double minZ = getBounds().getMinZ();
+        double minX = getNonTransformedBounds().getMinX();
+        double minY = getNonTransformedBounds().getMinY();
+        double minZ = getNonTransformedBounds().getMinZ();
         double width = 1;
-        double height = getBounds().getHeight();
-        double depth = getBounds().getDepth();
+        double height = getNonTransformedBounds().getHeight();
+        double depth = getNonTransformedBounds().getDepth();
 
         return new BoundingBox(minX, minY, minZ, width, height, depth);
     }
 
     private Bounds createRightCollisionBoundingBox() {
-        double minX = getBounds().getMaxX() - 1;
-        double minY = getBounds().getMinY();
-        double minZ = getBounds().getMinZ();
+        double minX = getNonTransformedBounds().getMaxX() - 1;
+        double minY = getNonTransformedBounds().getMinY();
+        double minZ = getNonTransformedBounds().getMinZ();
         double width = 1;
-        double height = getBounds().getHeight();
-        double depth = getBounds().getDepth();
+        double height = getNonTransformedBounds().getHeight();
+        double depth = getNonTransformedBounds().getDepth();
 
         return new BoundingBox(minX, minY, minZ, width, height, depth);
     }

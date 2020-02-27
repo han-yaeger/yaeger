@@ -107,12 +107,12 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
     }
 
     @Override
-    public void setX(double x) {
+    public void setOriginX(double x) {
         imageView.ifPresentOrElse(imageView -> imageView.setX(x), () -> initialX = x);
     }
 
     @Override
-    public void setY(double y) {
+    public void setOriginY(double y) {
         imageView.ifPresentOrElse(imageView -> imageView.setY(y), () -> initialY = y);
     }
 

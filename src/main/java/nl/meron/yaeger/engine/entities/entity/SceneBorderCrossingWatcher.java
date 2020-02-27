@@ -5,28 +5,29 @@ import nl.meron.yaeger.engine.annotations.UpdatableProvider;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 
 /**
- * Implement this interface to be notified if the {@link nl.meron.yaeger.engine.entities.entity.Entity} completely crosses
- * the boundary of the scene.
+ * Implement this interface to be notified if the {@link Entity} crosses the boundary of the {@link nl.meron.yaeger.engine.scenes.YaegerScene}.
+ * In that case, the method {@link SceneBorderCrossingWatcher#notifyBoundaryCrossing(SceneBorder)}
+ * will be called.
  */
 public interface SceneBorderCrossingWatcher extends Bounded, SceneChild {
 
     /**
-     * This method is being called when this {@link SceneBorderCrossingWatcher} crosses a border of the {@link javafx.scene.Scene}.
+     * This method is being called when this {@link SceneBorderCrossingWatcher} crosses a border of the {@link nl.meron.yaeger.engine.scenes.YaegerScene}.
      *
-     * @param border The border at which the {@link javafx.scene.Scene} is being crossed
+     * @param border The border of the {@link nl.meron.yaeger.engine.scenes.YaegerScene} the {@link Entity} is crossing.
      */
     void notifyBoundaryCrossing(final SceneBorder border);
 
     @UpdatableProvider
     default Updatable watchForBoundaryCrossing() {
         return timestamp -> {
-            if (getBounds().getMaxX() <= 0) {
+            if (getTransformedBounds().getMaxX() <= 0) {
                 notifyBoundaryCrossing(SceneBorder.LEFT);
-            } else if (getBounds().getMaxY() <= 0) {
+            } else if (getTransformedBounds().getMaxY() <= 0) {
                 notifyBoundaryCrossing(SceneBorder.TOP);
-            } else if (getBounds().getMinY() >= getSceneHeight()) {
+            } else if (getTransformedBounds().getMinY() >= getSceneHeight()) {
                 notifyBoundaryCrossing(SceneBorder.BOTTOM);
-            } else if (getBounds().getMinX() >= getSceneWidth()) {
+            } else if (getTransformedBounds().getMinX() >= getSceneWidth()) {
                 notifyBoundaryCrossing(SceneBorder.RIGHT);
             }
         };

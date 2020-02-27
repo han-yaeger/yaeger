@@ -67,10 +67,10 @@ public interface Moveable extends Placeable, MotionModifier {
             if (Double.compare(getSpeed(), 0d) == 0) {
                 return;
             }
-            var currentPosition = new Point2D(getX(), getY());
+            var currentPosition = new Point2D(getOriginX(), getOriginY());
             var updatedPosition = getMotionApplier().updateLocation(currentPosition);
-            setX(updatedPosition.getX());
-            setY(updatedPosition.getY());
+            setOriginX(updatedPosition.getX());
+            setOriginY(updatedPosition.getY());
         };
     }
 }

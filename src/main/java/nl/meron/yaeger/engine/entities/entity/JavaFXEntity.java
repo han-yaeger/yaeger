@@ -1,6 +1,7 @@
 package nl.meron.yaeger.engine.entities.entity;
 
 import com.google.inject.Injector;
+import javafx.scene.Node;
 import nl.meron.yaeger.engine.Timer;
 
 import java.util.ArrayList;
@@ -39,23 +40,23 @@ public abstract class JavaFXEntity implements Entity {
         this.anchorPoint = anchorPoint;
     }
 
-    protected double calculateX(double x) {
-        switch (anchorPoint) {
-            case CENTER_CENTER:
-                return x - (getWidth() / 2);
-            default:
-                return x;
-        }
-    }
+//    protected double convertXToAnchorPointX(double x) {
+//        switch (anchorPoint) {
+//            case CENTER_CENTER:
+//                return x - (getWidth() / 2);
+//            default:
+//                return x;
+//        }
+//    }
 
-    protected double calculateY(double y) {
-        switch (anchorPoint) {
-            case CENTER_CENTER:
-                return y - (getHeight() / 2);
-            default:
-                return y;
-        }
-    }
+//    protected double convertYToAnchorPointY(double y) {
+//        switch (anchorPoint) {
+//            case CENTER_CENTER:
+//                return y - (getHeight() / 2);
+//            default:
+//                return y;
+//        }
+//    }
 
     @Override
     public void remove() {
@@ -91,8 +92,20 @@ public abstract class JavaFXEntity implements Entity {
     @Override
     public void placeOnScene() {
         getGameNode().ifPresent(node -> {
-            setX(initialX);
-            setY(initialY);
+            setOriginX(initialX);
+            setOriginY(initialY);
+            applyTranslationsForAnchorPoint(node, anchorPoint);
         });
+    }
+
+    protected void applyTranslationsForAnchorPoint(Node node, AnchorPoint anchorPoint) {
+        switch (anchorPoint) {
+            case CENTER_CENTER:
+                node.setTranslateX(-getTransformedBounds().getWidth() / 2);
+                node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
+                break;
+            default:
+                return;
+        }
     }
 }

@@ -48,7 +48,7 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryNotTouched() {
         // Setup
-        when(node.getBoundsInLocal()).thenReturn(BOUNDS_IN_SCENE);
+        when(node.getBoundsInParent()).thenReturn(BOUNDS_IN_SCENE);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
@@ -65,7 +65,7 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryLeftCrossed() {
         // Setup
-        when(node.getBoundsInLocal()).thenReturn(BOUNDS_CROSSED_LEFT);
+        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_LEFT);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
@@ -82,7 +82,7 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryRightCrossed() {
         // Setup
-        when(node.getBoundsInLocal()).thenReturn(BOUNDS_CROSSED_RIGHT);
+        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_RIGHT);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
@@ -99,7 +99,7 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryBottomTouched() {
         // Setup
-        when(node.getBoundsInLocal()).thenReturn(BOUNDS_CROSSED_BOTTOM);
+        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_BOTTOM);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
@@ -116,7 +116,7 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryTopTouched() {
         // Setup
-        when(node.getBoundsInLocal()).thenReturn(BOUNDS_CROSSED_TOP);
+        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_TOP);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);

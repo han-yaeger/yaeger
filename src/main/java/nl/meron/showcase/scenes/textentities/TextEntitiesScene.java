@@ -9,6 +9,7 @@ import nl.meron.showcase.scenes.ShowCaseScene;
 import nl.meron.showcase.scenes.textentities.entities.SceneBorderCrossingDynamicTextEntity;
 import nl.meron.showcase.scenes.textentities.entities.SceneBorderTouchingDynamicTextEntity;
 import nl.meron.showcase.scenes.textentities.entities.TimedDynamicTextEntity;
+import nl.meron.yaeger.engine.entities.entity.AnchorPoint;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 
@@ -35,15 +36,18 @@ public class TextEntitiesScene extends ShowCaseScene {
         var backButton = new Back(showCase);
         addEntity(backButton);
 
-        var staticTextEntity = new TextEntity(new Location(400, 30), "I'm a TextEntity and remain static on the Scene");
+        var staticTextEntity = new TextEntity(new Location(getWidth() / 2, 30), "I'm a TextEntity and remain static on the Scene");
         staticTextEntity.setFill(Color.ORANGE);
+        staticTextEntity.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         staticTextEntity.setFont(Font.font("American Typewriter", FontWeight.BOLD, 30));
         addEntity(staticTextEntity);
 
-        var borderTouchingDynamicTextEntity = new SceneBorderTouchingDynamicTextEntity(new Location(400, 60));
+        var borderTouchingDynamicTextEntity = new SceneBorderTouchingDynamicTextEntity(new Location(getWidth() / 2, 60));
+        borderTouchingDynamicTextEntity.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(borderTouchingDynamicTextEntity);
 
-        var borderCrossingDynamicTextEntity = new SceneBorderCrossingDynamicTextEntity(new Location(600, 90));
+        var borderCrossingDynamicTextEntity = new SceneBorderCrossingDynamicTextEntity(new Location(getWidth() / 2, 90));
+        borderCrossingDynamicTextEntity.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(borderCrossingDynamicTextEntity);
 
         var timedDynamicTextEntity = new TimedDynamicTextEntity(new Location(400, 120));

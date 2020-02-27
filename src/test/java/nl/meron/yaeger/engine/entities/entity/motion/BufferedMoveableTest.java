@@ -132,12 +132,12 @@ class BufferedMoveableTest {
         }
 
         @Override
-        public void setX(double x) {
+        public void setOriginX(double x) {
             // Not required here
         }
 
         @Override
-        public void setY(double y) {
+        public void setOriginY(double y) {
             // Not required here
         }
 

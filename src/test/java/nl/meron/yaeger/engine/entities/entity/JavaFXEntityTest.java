@@ -63,7 +63,7 @@ class JavaFXEntityTest {
         sut.placeOnScene();
 
         // Verify
-        Assertions.assertEquals(LOCATION.getX(), sut.getX());
+        Assertions.assertEquals(LOCATION.getX(), sut.getOriginX());
     }
 
     @Test
@@ -75,7 +75,7 @@ class JavaFXEntityTest {
         sut.placeOnScene();
 
         // Verify
-        Assertions.assertEquals(LOCATION.getY(), sut.getY());
+        Assertions.assertEquals(LOCATION.getY(), sut.getOriginY());
     }
 
     @Test
@@ -119,21 +119,21 @@ class JavaFXEntityTest {
             this.node = node;
         }
 
-        public double getX() {
+        public double getOriginX() {
             return x;
         }
 
-        public double getY() {
+        public double getOriginY() {
             return y;
         }
 
         @Override
-        public void setX(double x) {
+        public void setOriginX(double x) {
             this.x = x;
         }
 
         @Override
-        public void setY(double y) {
+        public void setOriginY(double y) {
             this.y = y;
         }
     }

@@ -3,7 +3,6 @@ package nl.meron.yaeger.engine.entities;
 import com.google.inject.Injector;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -94,7 +93,7 @@ class EntityTest {
         when(node.getBoundsInLocal()).thenReturn(BOUNDING_BOX);
 
         // Test
-        Bounds entityBounds = testEntity.getBounds();
+        Bounds entityBounds = testEntity.getNonTransformedBounds();
 
         // Verify
         assertEquals(BOUNDING_BOX, entityBounds);
@@ -169,12 +168,12 @@ class EntityTest {
         }
 
         @Override
-        public void setX(double x) {
+        public void setOriginX(double x) {
             // Not required here.
         }
 
         @Override
-        public void setY(double y) {
+        public void setOriginY(double y) {
             // Not required here.
         }
 

@@ -186,102 +186,37 @@ class EntityCollectionTest {
         verify(annotationProcessor).configureUpdateDelegators(updatableEntity);
     }
 
+    @Test
+    void entityIsPlacedOnScene() {
+        // Setup
+        var updatableEntity = mock(UpdatableEntity.class);
+        var node = mock(Node.class, withSettings().withoutAnnotations());
+        when(updatableEntity.getGameNode()).thenReturn(Optional.of(node));
 
-    private class UpdatableEntity implements Entity, Updatable {
+        Set<Entity> updatables = new HashSet<>();
+        updatables.add(updatableEntity);
+        var supplier = mock(EntitySupplier.class);
+        when(supplier.get()).thenReturn(updatables);
 
-        @Override
-        public void remove() {
-            // Not required here.
-        }
+        var group = mock(Group.class);
+        var children = mock(ObservableList.class);
+        when(group.getChildren()).thenReturn(children);
 
-        @Override
-        public Optional<Node> getGameNode() {
-            return null;
-        }
+        sut = new EntityCollection(group);
+        sut.setAnnotationProcessor(annotationProcessor);
+        sut.init(injector);
 
-        @Override
-        public AnchorPoint getAnchorPoint() {
-            return null;
-        }
+        // Test
+        sut.registerSupplier(supplier);
+        sut.initialUpdate();
 
-        @Override
-        public void setX(double x) {
-            // Not required here.
-        }
-
-        @Override
-        public void setY(double y) {
-            // Not required here.
-        }
-
-        @Override
-        public void placeOnScene() {
-
-        }
-
-        @Override
-        public void update(long timestamp) {
-            // Not required here.
-        }
-
-        @Override
-        public void init(Injector injector) {
-            // Not required here.
-        }
-
-        @Override
-        public List<Timer> getTimers() {
-            return null;
-            // Not required here.
-        }
+        // Verify
+        verify(updatableEntity).placeOnScene();
     }
 
-    private class KeyListeningEntity implements Entity, KeyListener {
+    private abstract class UpdatableEntity implements Entity, Updatable {
+    }
 
-        @Override
-        public void remove() {
-            // Not required here.
-        }
-
-        @Override
-        public Optional<Node> getGameNode() {
-            return null;
-        }
-
-        @Override
-        public AnchorPoint getAnchorPoint() {
-            return null;
-        }
-
-        @Override
-        public void setX(double x) {
-            // Not required here.
-        }
-
-        @Override
-        public void setY(double y) {
-            // Not required here.
-        }
-
-        @Override
-        public void placeOnScene() {
-
-        }
-
-        @Override
-        public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
-            // Not required here.
-        }
-
-        @Override
-        public void init(Injector injector) {
-            // Not required here.
-        }
-
-        @Override
-        public List<Timer> getTimers() {
-            return null;
-            // Not required here.
-        }
+    private abstract class KeyListeningEntity implements Entity, KeyListener {
     }
 }

@@ -20,7 +20,7 @@ public class AnimatedShark extends DynamicSpriteEntity implements Collider, Scen
     @Override
     public void notifyBoundaryCrossing(SceneBorder border) {
         if (border.equals(SceneBorder.LEFT)) {
-            setX(getSceneWidth());
+            setOriginX(getSceneWidth());
         }
     }
 }

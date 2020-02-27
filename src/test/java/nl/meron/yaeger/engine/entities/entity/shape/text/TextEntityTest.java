@@ -37,8 +37,8 @@ class TextEntityTest {
         var sut = new TextEntityImpl(new Location(0, 0));
 
         // Test
-        sut.setX(LOCATION.getX());
-        sut.setY(LOCATION.getY());
+        sut.setOriginX(LOCATION.getX());
+        sut.setOriginY(LOCATION.getY());
 
         // Verify
         Assertions.assertEquals(0, Double.compare(sut.getInitialLocation().getX(), LOCATION.getX()));

@@ -141,9 +141,6 @@ public class EntityCollection implements Initializable {
 
     public void initialUpdate() {
         addSuppliedEntities();
-
-        statics.forEach(entity -> entity.placeOnScene());
-        updatables.forEach(entity -> ((Placeable) entity).placeOnScene());
     }
 
     /**
@@ -192,9 +189,14 @@ public class EntityCollection implements Initializable {
         initialize(entity);
         addToKeylisteners(entity);
         attachGameEventListeners(entity);
+        placeEntityOnScene(entity);
         addToUpdatablesOrStatics(entity);
         collisionDelegate.register(entity);
         addToScene(entity);
+    }
+
+    private void placeEntityOnScene(Entity entity) {
+        entity.placeOnScene();
     }
 
     private void initialize(final Entity entity) {
@@ -204,6 +206,7 @@ public class EntityCollection implements Initializable {
     }
 
     private void addToUpdatablesOrStatics(final Entity entity) {
+
         if (entity instanceof Updatable) {
             var updatable = (Updatable) entity;
             annotationProcessor.configureUpdateDelegators(updatable);

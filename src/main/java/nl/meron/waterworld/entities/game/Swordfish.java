@@ -20,7 +20,7 @@ public class Swordfish extends DynamicSpriteEntity implements Collider, SceneBor
     @Override
     public void notifyBoundaryCrossing(SceneBorder border) {
         if (border.equals(SceneBorder.LEFT)) {
-            setX(getSceneWidth());
+            setOriginX(getSceneWidth());
         }
     }
 }

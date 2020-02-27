@@ -99,12 +99,12 @@ public abstract class RectangleEntity extends JavaFXEntity {
     }
 
     @Override
-    public void setX(double x) {
+    public void setOriginX(double x) {
         rectangle.ifPresentOrElse(rectangle -> rectangle.setX(x), () -> this.initialX = x);
     }
 
     @Override
-    public void setY(double y) {
+    public void setOriginY(double y) {
         rectangle.ifPresentOrElse(rectangle -> rectangle.setY(y), () -> this.initialY = y);
     }
 

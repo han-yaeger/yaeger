@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.Optional;
 
@@ -27,17 +28,55 @@ class BoundedTest {
     }
 
     @Test
-    void geBoundsReturnsZeroBoundingBoxIfGameNodeIsNotPresent() {
+    void getNonTransformedBoundsReturnsZeroBoundingBoxIfGameNodeIsNotPresent() {
         // Setup
         var sut = new EmptyNodeBoundedImpl();
 
-
         // Test
-        var boundingBox = sut.getBounds();
+        var boundingBox = sut.getNonTransformedBounds();
 
         // Verify
         Assertions.assertEquals(0, boundingBox.getWidth());
         Assertions.assertEquals(0, boundingBox.getHeight());
+    }
+
+    @Test
+    void getNonTransformedBoundsDelegatesToGameNodeIfPresent() {
+        // Setup
+        var sut = new BoundedImpl();
+        sut.setNode(node);
+
+        // Test
+        sut.getNonTransformedBounds();
+
+        // Verify
+        Mockito.verify(node).getBoundsInLocal();
+    }
+
+    @Test
+    void getTransformedBoundsReturnsZeroBoundingBoxIfGameNodeIsNotPresent() {
+        // Setup
+        var sut = new EmptyNodeBoundedImpl();
+
+        // Test
+        var boundingBox = sut.getTransformedBounds();
+
+        // Verify
+        Assertions.assertEquals(0, boundingBox.getWidth());
+        Assertions.assertEquals(0, boundingBox.getHeight());
+    }
+
+    @Test
+    void getTransformedBoundsDelegatesToGameNodeIfPresent() {
+        // Setup
+        var sut = new BoundedImpl();
+        sut.setNode(node);
+
+        // Test
+        sut.getTransformedBounds();
+
+        // Verify
+        Mockito.verify(node).getBoundsInParent();
     }
 
     @Test

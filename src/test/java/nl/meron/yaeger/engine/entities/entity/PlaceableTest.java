@@ -1,7 +1,6 @@
 package nl.meron.yaeger.engine.entities.entity;
 
 import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import org.junit.jupiter.api.Test;
 
@@ -29,8 +28,8 @@ class PlaceableTest {
         // Test
 
         // Verify
-        assertEquals(x, sut.getX());
-        assertEquals(y, sut.getY());
+        assertEquals(x, sut.getOriginX());
+        assertEquals(y, sut.getOriginY());
     }
 }
 
@@ -53,12 +52,12 @@ class PlaceableImpl implements Placeable {
     }
 
     @Override
-    public void setX(double x) {
+    public void setOriginX(double x) {
         // Not required here.
     }
 
     @Override
-    public void setY(double y) {
+    public void setOriginY(double y) {
         // Not required here.
     }
 

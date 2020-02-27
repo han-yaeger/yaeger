@@ -14,16 +14,18 @@ public interface Placeable extends Bounded {
     AnchorPoint getAnchorPoint();
 
     /**
-     * @return the x-coordinate of the top-left corner as a {@code double}.
+     * @return The x-coordinate of the top-left corner of the Bounding Box without any transformations
+     * (e.g. translations, rotations) as a {@code double}.
      */
-    default double getX() {
+    default double getOriginX() {
         return getLeftX();
     }
 
     /**
-     * @return the y-coordinate of the top-left corner as a {@code double}.
+     * @return The y-coordinate of the top-left corner of the Bounding Box without any transformations
+     * (e.g. translations, rotations) as a {@code double}.
      */
-    default double getY() {
+    default double getOriginY() {
         return getTopY();
     }
 
@@ -33,7 +35,7 @@ public interface Placeable extends Bounded {
      *
      * @param x the x-coordinate as a {@code double}.
      */
-    void setX(final double x);
+    void setOriginX(final double x);
 
     /**
      * Set the new y-coordinate of this {@link Entity}.The y-coordinate will be of the top-left
@@ -41,7 +43,7 @@ public interface Placeable extends Bounded {
      *
      * @param y the y-coordinate as a {@code double}.
      */
-    void setY(final double y);
+    void setOriginY(final double y);
 
     /**
      * Place the {@link Entity} on the scene at its x,y-coordinate.
