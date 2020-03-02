@@ -122,11 +122,11 @@ class JavaFXEntityTest {
         // Arrange
 
         // Act
-        sut.setAnchorPoint(AnchorPoint.TOP_CENTER);
+        sut.setAnchorPoint(AnchorPoint.TOP_LEFT);
 
         // Assert
-        node.setTranslateX(0);
-        node.setTranslateY(0);
+        verify(node).setTranslateX(0);
+        verify(node).setTranslateY(0);
     }
 
     @Test
@@ -137,7 +137,7 @@ class JavaFXEntityTest {
         sut.setAnchorPoint(AnchorPoint.TOP_CENTER);
 
         // Assert
-        node.setTranslateX(ENTITY_WIDTH / 2);
+        verify(node).setTranslateX(-(ENTITY_WIDTH / 2));
     }
 
     @Test
@@ -148,7 +148,7 @@ class JavaFXEntityTest {
         sut.setAnchorPoint(AnchorPoint.TOP_RIGHT);
 
         // Assert
-        node.setTranslateX(ENTITY_WIDTH);
+        verify(node).setTranslateX(-(ENTITY_WIDTH));
     }
 
     @Test
@@ -159,7 +159,7 @@ class JavaFXEntityTest {
         sut.setAnchorPoint(AnchorPoint.LEFT_CENTER);
 
         // Assert
-        node.setTranslateX(ENTITY_WIDTH);
+        verify(node).setTranslateY(-(ENTITY_HEIGHT / 2));
     }
 
     @Test
@@ -170,8 +170,8 @@ class JavaFXEntityTest {
         sut.setAnchorPoint(AnchorPoint.CENTER_CENTER);
 
         // Assert
-        node.setTranslateX(ENTITY_WIDTH / 2);
-        node.setTranslateY(ENTITY_HEIGHT / 2);
+        verify(node).setTranslateX(-(ENTITY_WIDTH / 2));
+        verify(node).setTranslateY(-(ENTITY_HEIGHT / 2));
     }
 
     @Test
@@ -182,8 +182,8 @@ class JavaFXEntityTest {
         sut.setAnchorPoint(AnchorPoint.RIGHT_CENTER);
 
         // Assert
-        node.setTranslateX(ENTITY_WIDTH);
-        node.setTranslateY(ENTITY_HEIGHT / 2);
+        verify(node).setTranslateX(-(ENTITY_WIDTH));
+        verify(node).setTranslateY(-(ENTITY_HEIGHT / 2));
     }
 
     @Test
@@ -194,8 +194,8 @@ class JavaFXEntityTest {
         sut.setAnchorPoint(AnchorPoint.BOTTOM_CENTER);
 
         // Assert
-        node.setTranslateX(ENTITY_WIDTH / 2);
-        node.setTranslateY(ENTITY_HEIGHT);
+        verify(node).setTranslateX(-(ENTITY_WIDTH / 2));
+        verify(node).setTranslateY(-(ENTITY_HEIGHT));
     }
 
     @Test
@@ -206,8 +206,8 @@ class JavaFXEntityTest {
         sut.setAnchorPoint(AnchorPoint.BOTTOM_RIGHT);
 
         // Assert
-        node.setTranslateX(ENTITY_WIDTH);
-        node.setTranslateY(ENTITY_HEIGHT);
+        verify(node).setTranslateX(-(ENTITY_WIDTH));
+        verify(node).setTranslateY(-(ENTITY_HEIGHT));
     }
 
     @Test
@@ -218,7 +218,7 @@ class JavaFXEntityTest {
         sut.setAnchorPoint(AnchorPoint.BOTTOM_LEFT);
 
         // Assert
-        node.setTranslateY(ENTITY_HEIGHT);
+        verify(node).setTranslateY(-(ENTITY_HEIGHT));
     }
 
     private class JavaFXEntityImpl extends JavaFXEntity {
