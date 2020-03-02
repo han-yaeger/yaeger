@@ -73,7 +73,14 @@ public abstract class YaegerEngine extends Application {
     protected abstract void initializeGame();
 
     /**
-     * Use this method to create and add the different instances of {@link YaegerScene} that comprise the Game.
+     * Use this method to add the instances of {@link YaegerScene} that make up the Game. A {@link YaegerScene} will
+     * usually either be a level, a welcome-screen, an intro-screen or a game-over screen, for instance.
+     *
+     * <p>To create a {@link YaegerScene} extend either a {@link nl.meron.yaeger.engine.scenes.StaticScene} or a
+     * {@link nl.meron.yaeger.engine.scenes.DynamicScene}. A {@link nl.meron.yaeger.engine.scenes.StaticScene} should
+     * be used for simple screens that do not need the Game world Update cycle. If such an cycle is required, extend
+     * a {@link nl.meron.yaeger.engine.scenes.DynamicScene}.
+     * </p>
      */
     protected abstract void setupScenes();
 
@@ -81,6 +88,7 @@ public abstract class YaegerEngine extends Application {
     public void start(final Stage primaryStage) {
         var injector = Guice.createInjector(new YaegerModule());
         yaegerStage = primaryStage;
+        yaegerStage.setResizable(false);
 
         sceneCollection = new SceneCollection(primaryStage, injector);
         injector.injectMembers(sceneCollection);
@@ -93,24 +101,6 @@ public abstract class YaegerEngine extends Application {
         setupScenes();
 
         showGame();
-    }
-
-    /**
-     * Returns the height of the Game.
-     *
-     * @return The height of the Game.
-     */
-    public double getGameHeight() {
-        return this.size.getHeight();
-    }
-
-    /**
-     * Returns the width of the Game.
-     *
-     * @return The width of the Game.
-     */
-    public double getGameWidth() {
-        return this.size.getWidth();
     }
 
     /**

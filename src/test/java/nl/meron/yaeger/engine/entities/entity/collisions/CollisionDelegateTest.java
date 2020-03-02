@@ -123,7 +123,7 @@ class CollisionDelegateTest {
     private class CollidedTestEntity implements Entity, Collided {
 
         @Override
-        public void onCollision(Collider collidingObject, CollisionSide collisionSide) {
+        public void onCollision(Collider collidingObject) {
             // Not required here.
         }
 

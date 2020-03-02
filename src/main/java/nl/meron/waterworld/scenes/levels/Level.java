@@ -68,7 +68,7 @@ public abstract class Level extends DynamicScene {
 
     @Override
     protected void setupSpawners() {
-        var spawner = new BubbleSpawner(waterworld.getGameWidth(), waterworld.getGameHeight(), this);
+        var spawner = new BubbleSpawner(getWidth(), getHeight(), this);
         registerSpawner(spawner);
     }
 

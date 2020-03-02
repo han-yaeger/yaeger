@@ -34,8 +34,7 @@ public interface Collided extends Bounded {
 
         for (Collider collider : colliders) {
             if (collisionHasOccured(collider)) {
-                var collisionSide = findCollisionSide(collider);
-                onCollision(collider, collisionSide);
+                onCollision(collider);
                 break;
             }
         }
@@ -45,70 +44,10 @@ public interface Collided extends Bounded {
      * This method is called if a collision has occurred.
      *
      * @param collidingObject The EntityCollection you are colliding with.
-     * @param collisionSide   The side of the collision.
      */
-    void onCollision(Collider collidingObject, CollisionSide collisionSide);
+    void onCollision(Collider collidingObject);
 
     private boolean collisionHasOccured(Collider collider) {
         return !this.equals(collider) && getTransformedBounds().intersects(collider.getTransformedBounds());
-    }
-
-    private CollisionSide findCollisionSide(Collider collider) {
-
-        if (collider.getTransformedBounds().intersects(createTopCollisionBoundingBox())) {
-            return CollisionSide.TOP;
-        } else if (collider.getTransformedBounds().intersects(createBottomCollisionBoundingBox())) {
-            return CollisionSide.BOTTOM;
-        } else if (collider.getTransformedBounds().intersects(createLeftCollisionBoundingBox())) {
-            return CollisionSide.LEFT;
-        } else if (collider.getTransformedBounds().intersects(createRightCollisionBoundingBox())) {
-            return CollisionSide.RIGHT;
-        } else {
-            return CollisionSide.NONE;
-        }
-    }
-
-    private Bounds createTopCollisionBoundingBox() {
-        var minX = getTransformedBounds().getMinX();
-        var minY = getTransformedBounds().getMaxY() - 1;
-        var minZ = getTransformedBounds().getMinZ();
-        var width = getTransformedBounds().getWidth();
-        var height = 1;
-        var depth = getTransformedBounds().getDepth();
-
-        return new BoundingBox(minX, minY, minZ, width, height, depth);
-    }
-
-    private Bounds createBottomCollisionBoundingBox() {
-        var minX = getTransformedBounds().getMinX();
-        var minY = getTransformedBounds().getMinY();
-        var minZ = getTransformedBounds().getMinZ();
-        var width = getTransformedBounds().getWidth();
-        var height = 1;
-        var depth = getTransformedBounds().getDepth();
-
-        return new BoundingBox(minX, minY, minZ, width, height, depth);
-    }
-
-    private Bounds createLeftCollisionBoundingBox() {
-        var minX = getTransformedBounds().getMinX();
-        var minY = getTransformedBounds().getMinY();
-        var minZ = getTransformedBounds().getMinZ();
-        var width = 1;
-        var height = getTransformedBounds().getHeight();
-        var depth = getTransformedBounds().getDepth();
-
-        return new BoundingBox(minX, minY, minZ, width, height, depth);
-    }
-
-    private Bounds createRightCollisionBoundingBox() {
-        var minX = getTransformedBounds().getMaxX() - 1;
-        var minY = getTransformedBounds().getMinY();
-        var minZ = getTransformedBounds().getMinZ();
-        var width = 1;
-        var height = getTransformedBounds().getHeight();
-        var depth = getTransformedBounds().getDepth();
-
-        return new BoundingBox(minX, minY, minZ, width, height, depth);
     }
 }

@@ -14,8 +14,8 @@ public class Air extends Bubble {
     }
 
     @Override
-    public void onCollision(final Collider collidingObject, final CollisionSide collisionSide) {
-        super.onCollision(collidingObject, collisionSide);
+    public void onCollision(final Collider collidingObject) {
+        super.onCollision(collidingObject);
 
         if (collidingObject instanceof Player) {
             handlePlayerCollision();

@@ -27,7 +27,7 @@ public abstract class Bubble extends DynamicSpriteEntity implements Collided, Sc
     }
 
     @Override
-    public void onCollision(Collider collidingObject, CollisionSide collisionSide) {
+    public void onCollision(Collider collidingObject) {
         if (collidingObject instanceof AnimatedShark) {
             handleSharkCollision();
         }

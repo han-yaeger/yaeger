@@ -37,26 +37,12 @@ public abstract class JavaFXEntity implements Entity {
      * @param anchorPoint The {@link AnchorPoint} of this {@link Entity}.
      */
     public void setAnchorPoint(AnchorPoint anchorPoint) {
-        this.anchorPoint = anchorPoint;
+        getGameNode().ifPresentOrElse(node -> {
+                    applyTranslationsForAnchorPoint(node, anchorPoint);
+                }, () ->
+                        this.anchorPoint = anchorPoint
+        );
     }
-
-//    protected double convertXToAnchorPointX(double x) {
-//        switch (anchorPoint) {
-//            case CENTER_CENTER:
-//                return x - (getWidth() / 2);
-//            default:
-//                return x;
-//        }
-//    }
-
-//    protected double convertYToAnchorPointY(double y) {
-//        switch (anchorPoint) {
-//            case CENTER_CENTER:
-//                return y - (getHeight() / 2);
-//            default:
-//                return y;
-//        }
-//    }
 
     @Override
     public void remove() {
@@ -68,10 +54,10 @@ public abstract class JavaFXEntity implements Entity {
 
     @Override
     public void setVisible(final boolean visible) {
-        this.visible = visible;
-        getGameNode().ifPresent(node -> {
+
+        getGameNode().ifPresentOrElse(node -> {
             node.setVisible(visible);
-        });
+        }, () -> this.visible = visible);
     }
 
     @Override
@@ -98,14 +84,39 @@ public abstract class JavaFXEntity implements Entity {
         });
     }
 
-    protected void applyTranslationsForAnchorPoint(Node node, AnchorPoint anchorPoint) {
+    private void applyTranslationsForAnchorPoint(Node node, AnchorPoint anchorPoint) {
         switch (anchorPoint) {
-            case CENTER_CENTER:
-                node.setTranslateX(-getTransformedBounds().getWidth() / 2);
+            case TOP_CENTER:
+                node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
+                break;
+            case TOP_RIGHT:
+                node.setTranslateX(-getNonTransformedBounds().getWidth());
+                break;
+            case LEFT_CENTER:
                 node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
                 break;
+            case CENTER_CENTER:
+                node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
+                node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
+                break;
+            case RIGHT_CENTER:
+                node.setTranslateX(-getNonTransformedBounds().getWidth());
+                node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
+                break;
+            case BOTTOM_LEFT:
+                node.setTranslateY(-getNonTransformedBounds().getHeight());
+                break;
+            case BOTTOM_CENTER:
+                node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
+                node.setTranslateY(-getNonTransformedBounds().getHeight());
+                break;
+            case BOTTOM_RIGHT:
+                node.setTranslateX(-getNonTransformedBounds().getWidth());
+                node.setTranslateY(-getNonTransformedBounds().getHeight());
+                break;
+            case TOP_LEFT:
             default:
-                return;
+                break;
         }
     }
 }

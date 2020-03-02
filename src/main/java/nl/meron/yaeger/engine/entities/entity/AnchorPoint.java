@@ -6,5 +6,12 @@ package nl.meron.yaeger.engine.entities.entity;
  */
 public enum AnchorPoint {
     TOP_LEFT,
-    CENTER_CENTER;
+    TOP_CENTER,
+    TOP_RIGHT,
+    LEFT_CENTER,
+    CENTER_CENTER,
+    RIGHT_CENTER,
+    BOTTOM_LEFT,
+    BOTTOM_CENTER,
+    BOTTOM_RIGHT;
 }

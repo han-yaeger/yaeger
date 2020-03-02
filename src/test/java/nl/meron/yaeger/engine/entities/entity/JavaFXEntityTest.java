@@ -1,8 +1,8 @@
 package nl.meron.yaeger.engine.entities.entity;
 
 import com.google.inject.Injector;
+import javafx.geometry.BoundingBox;
 import javafx.scene.Node;
-import javafx.stage.Stage;
 import nl.meron.yaeger.engine.Timer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalLong;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -17,18 +18,23 @@ import static org.mockito.Mockito.*;
 class JavaFXEntityTest {
 
     private static final Location LOCATION = new Location(37, 37);
+    private static final double ENTITY_WIDTH = 200d;
+    private static final double ENTITY_HEIGHT = 100d;
     private JavaFXEntityImpl sut;
     private Node node;
-    private Stage stage;
     private Injector injector;
+    private BoundingBox boundingBox;
 
     @BeforeEach
     void setup() {
         sut = new JavaFXEntityImpl(LOCATION);
         injector = mock(Injector.class);
         node = mock(Node.class, withSettings().withoutAnnotations());
-        stage = mock(Stage.class);
         sut.setNode(Optional.of(node));
+        boundingBox = mock(BoundingBox.class);
+        when(node.getBoundsInLocal()).thenReturn(boundingBox);
+        when(boundingBox.getWidth()).thenReturn(ENTITY_WIDTH);
+        when(boundingBox.getHeight()).thenReturn(ENTITY_HEIGHT);
     }
 
     @Test
@@ -98,6 +104,99 @@ class JavaFXEntityTest {
 
         // Verify
         verify(node).setVisible(false);
+    }
+
+    @Test
+    void setAnchorPointBedoreNodeIsSetStoresAnchorPoint() {
+        // Arrange
+        sut.setNode(Optional.empty());
+
+        // Act
+        sut.setAnchorPoint(AnchorPoint.RIGHT_CENTER);
+
+        // Assert
+        Assertions.assertEquals(AnchorPoint.RIGHT_CENTER, sut.getAnchorPoint());
+    }
+
+    @Test
+    void setAnchorPointOnNodeAppliesTranslationsForTOP_CENTER() {
+        // Arrange
+
+        // Act
+        sut.setAnchorPoint(AnchorPoint.TOP_CENTER);
+
+        // Assert
+        node.setTranslateX(ENTITY_WIDTH / 2);
+    }
+
+    @Test
+    void setAnchorPointOnNodeAppliesTranslationsForLEFT_CENTER() {
+        // Arrange
+
+        // Act
+        sut.setAnchorPoint(AnchorPoint.LEFT_CENTER);
+
+        // Assert
+        node.setTranslateX(ENTITY_WIDTH);
+    }
+
+    @Test
+    void setAnchorPointOnNodeAppliesTranslationsForCENTER_CENTER() {
+        // Arrange
+
+        // Act
+        sut.setAnchorPoint(AnchorPoint.CENTER_CENTER);
+
+        // Assert
+        node.setTranslateX(ENTITY_WIDTH / 2);
+        node.setTranslateY(ENTITY_HEIGHT / 2);
+    }
+
+    @Test
+    void setAnchorPointOnNodeAppliesTranslationsForRIGHT_CENTER() {
+        // Arrange
+
+        // Act
+        sut.setAnchorPoint(AnchorPoint.RIGHT_CENTER);
+
+        // Assert
+        node.setTranslateX(ENTITY_WIDTH);
+        node.setTranslateY(ENTITY_HEIGHT / 2);
+    }
+
+    @Test
+    void setAnchorPointOnNodeAppliesTranslationsForBOTTOM_CENTER() {
+        // Arrange
+
+        // Act
+        sut.setAnchorPoint(AnchorPoint.BOTTOM_CENTER);
+
+        // Assert
+        node.setTranslateX(ENTITY_WIDTH / 2);
+        node.setTranslateY(ENTITY_HEIGHT);
+    }
+
+    @Test
+    void setAnchorPointOnNodeAppliesTranslationsForBOTTOM_RIGHT() {
+        // Arrange
+
+        // Act
+        sut.setAnchorPoint(AnchorPoint.BOTTOM_RIGHT);
+
+        // Assert
+        node.setTranslateX(ENTITY_WIDTH);
+        node.setTranslateY(ENTITY_HEIGHT);
+    }
+
+    @Test
+    void setAnchorPointOnNodeAppliesTranslationsForBOTTOM_LEFT() {
+        // Arrange
+
+        // Act
+        sut.setAnchorPoint(AnchorPoint.BOTTOM_LEFT);
+
+        // Assert
+        node.setTranslateY(ENTITY_HEIGHT);
     }
 
     private class JavaFXEntityImpl extends JavaFXEntity {

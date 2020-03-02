@@ -5,5 +5,5 @@ public enum CollisionSide {
     BOTTOM,
     RIGHT,
     LEFT,
-    NONE
+    UNKNOWN
 }

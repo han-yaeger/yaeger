@@ -52,7 +52,7 @@ public class Player extends DynamicSpriteEntity implements KeyListener, Collidab
     }
 
     @Override
-    public void onCollision(Collider collidingObject, CollisionSide collisionSide) {
+    public void onCollision(Collider collidingObject) {
         if (collidingObject instanceof Swordfish || collidingObject instanceof AnimatedShark) {
             doDamage();
         }
