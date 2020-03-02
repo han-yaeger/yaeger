@@ -3,6 +3,7 @@ package nl.meron.yaeger.engine.entities.entity.shape.text;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -13,6 +14,8 @@ import nl.meron.yaeger.engine.entities.entity.shape.rectangle.RectangleEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -29,6 +32,18 @@ class TextEntityTest {
     void setup() {
         text = mock(Text.class);
         injector = mock(Injector.class);
+    }
+
+    @Test
+    void getNodeReturnsEmptyNodeIfTextNotSet() {
+        // Arrange
+        var sut = new TextEntityImpl(new Location(0, 0));
+
+        // Act
+        Optional<Node> gameNode = sut.getGameNode();
+
+        // Assert
+        Assertions.assertTrue(gameNode.isEmpty());
     }
 
     @Test
@@ -134,7 +149,7 @@ class TextEntityTest {
         verify(text).setFont(FONT);
     }
 
-    private class TextEntityImpl extends RectangleEntity {
+    private class TextEntityImpl extends TextEntity {
 
         /**
          * Create a new {@link TextEntityImpl} on the given {@code initialPosition}.

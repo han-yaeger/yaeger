@@ -6,6 +6,7 @@ import nl.meron.pong.Pong;
 import nl.meron.pong.scenes.entities.Ball;
 import nl.meron.pong.scenes.entities.PlayerOneBat;
 import nl.meron.pong.scenes.entities.PlayerTwoBat;
+import nl.meron.yaeger.engine.entities.entity.AnchorPoint;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
@@ -37,7 +38,8 @@ public class LevelOne extends DynamicScene implements ScoreKeeper {
 
     @Override
     public void setupEntities() {
-        var ball = new Ball(this);
+        var ball = new Ball(new Location(getWidth() / 2, getHeight() / 2), this);
+        ball.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(ball);
 
         setupPlayerOne();
@@ -73,7 +75,6 @@ public class LevelOne extends DynamicScene implements ScoreKeeper {
     }
 
     public void playerScores(SceneBorder screenBorder) {
-        System.out.println("Player scores!");
         if (screenBorder.equals(SceneBorder.LEFT)) {
             playerTwoPoints++;
         } else if (screenBorder.equals(SceneBorder.RIGHT)) {

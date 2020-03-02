@@ -18,8 +18,8 @@ public class Ball extends DynamicSpriteEntity implements SceneBorderTouchingWatc
     private static final double INITIAL_SPEED = 4;
     private ScoreKeeper scoreKeeper;
 
-    public Ball(ScoreKeeper scoreKeeper) {
-        super("pong/ball.png", new Location(200, 200), new Size(20, 20));
+    public Ball(final Location location, final ScoreKeeper scoreKeeper) {
+        super("pong/ball.png", location, new Size(20, 20));
         this.scoreKeeper = scoreKeeper;
         setMotionTo(INITIAL_SPEED, 80);
     }

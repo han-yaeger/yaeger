@@ -3,12 +3,15 @@ package nl.meron.yaeger.engine.entities.entity.shape.rectangle;
 import com.google.inject.Injector;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -33,6 +36,18 @@ class RectangleEntityTest {
     void setup() {
         rectangle = mock(Rectangle.class);
         injector = mock(Injector.class);
+    }
+
+    @Test
+    void getNodeReturnsEmptyNodeIfTextNotSet() {
+        // Arrange
+        var sut = new RectangleEntityImpl(new Location(0, 0));
+
+        // Act
+        Optional<Node> gameNode = sut.getGameNode();
+
+        // Assert
+        Assertions.assertTrue(gameNode.isEmpty());
     }
 
     @Test

@@ -2,6 +2,7 @@ package nl.meron.yaeger.engine.entities.entity.sprite;
 
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import nl.meron.yaeger.engine.Size;
@@ -14,6 +15,8 @@ import nl.meron.yaeger.guice.factories.SpriteAnimationDelegateFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -42,6 +45,18 @@ class SpriteEntityTest {
 
         imageRepository = mock(ImageRepository.class);
         injector = mock(Injector.class);
+    }
+
+    @Test
+    void getNodeReturnsEmptyNodeIfTextNotSet() {
+        // Arrange
+        var sut = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+
+        // Act
+        Optional<Node> gameNode = sut.getGameNode();
+
+        // Assert
+        Assertions.assertTrue(gameNode.isEmpty());
     }
 
     @Test

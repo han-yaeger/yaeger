@@ -110,7 +110,11 @@ public abstract class RectangleEntity extends JavaFXEntity {
 
     @Override
     public Optional<Node> getGameNode() {
-        return Optional.of(rectangle.get());
+        if (rectangle.isPresent()) {
+            return Optional.of(rectangle.get());
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override

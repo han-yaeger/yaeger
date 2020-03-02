@@ -97,7 +97,11 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
 
     @Override
     public Optional<Node> getGameNode() {
-        return Optional.of(imageView.get());
+        if (imageView.isPresent()) {
+            return Optional.of(imageView.get());
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override

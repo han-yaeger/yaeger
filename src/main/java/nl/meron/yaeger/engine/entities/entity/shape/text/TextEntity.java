@@ -115,6 +115,10 @@ public class TextEntity extends JavaFXEntity {
 
     @Override
     public Optional<Node> getGameNode() {
-        return Optional.of(text.get());
+        if (text.isPresent()) {
+            return Optional.of(text.get());
+        } else {
+            return Optional.empty();
+        }
     }
 }
