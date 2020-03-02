@@ -3,6 +3,21 @@ package nl.meron.yaeger.engine.entities.entity.collisions;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 
+/**
+ * A {@link SideCollided} represents an {@link nl.meron.yaeger.engine.entities.entity.Entity} that can be collided with by a
+ * {@link Collider} and that is aware of which of its side the {@link Collider} had collided with. In such a case,
+ * the {@link SideCollided} is the {@link nl.meron.yaeger.engine.entities.entity.Entity} thatgets notified of the collision and of the side.
+ *
+ * <p>Each Game world Update a {@link SideCollided} is checked against all instances of{@link Collider}. If many instances
+ * of {@link Collider} are part of the {@link nl.meron.yaeger.engine.scenes.YaegerScene}, this
+ * could lead to many calculations, which could slow down the game and framerate. Thus ensure only those instances of
+ * {@link nl.meron.yaeger.engine.entities.entity.Entity} that really need to be part of the collision detection implement
+ * the {@link SideCollided} or {@link Collider} interfaces.
+ * <p>
+ * If it is not required to know the side of the collision, implement the {@link Collided} interface, which will save you valuable
+ * processortime.</p>
+ */
+
 public interface SideCollided extends Collided {
 
     /**

@@ -14,14 +14,14 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class CollidedTest {
 
-    private TestCollided collided;
-
     private static final Bounds TEST_COLLIDED_BOUNDINGBOX = new BoundingBox(50, 50, 0, 25, 25, 0);
     private static final Bounds TEST_NOT_COLLIDING_BOUNDINGBOX = new BoundingBox(0, 0, 0, 1, 1, 0);
 
+    private TestCollided sut;
+
     @BeforeEach
     void setup() {
-        collided = new TestCollided();
+        sut = new TestCollided();
     }
 
     @Test
@@ -29,10 +29,10 @@ public class CollidedTest {
         // Setup
 
         // Test
-        collided.checkForCollisions(null);
+        sut.checkForCollisions(null);
 
         //Verify
-        assertNull(collided.getLastCollider());
+        assertNull(sut.getLastCollider());
     }
 
     @Test
@@ -41,10 +41,10 @@ public class CollidedTest {
         Set<Collider> emptySet = Set.of();
 
         // Test
-        collided.checkForCollisions(emptySet);
+        sut.checkForCollisions(emptySet);
 
         //Verify
-        assertNull(collided.getLastCollider());
+        assertNull(sut.getLastCollider());
     }
 
     @Test
@@ -56,10 +56,10 @@ public class CollidedTest {
         Set<Collider> testColliders = Set.of(trivialCollider);
 
         // Test
-        collided.checkForCollisions(testColliders);
+        sut.checkForCollisions(testColliders);
 
         // Verify
-        assertEquals(trivialCollider, collided.getLastCollider());
+        assertEquals(trivialCollider, sut.getLastCollider());
     }
 
     @Test
@@ -71,10 +71,10 @@ public class CollidedTest {
         Set<Collider> testColliders = Set.of(noCollisionCollider);
 
         // Test
-        collided.checkForCollisions(testColliders);
+        sut.checkForCollisions(testColliders);
 
         // Verify
-        assertNull(collided.getLastCollider());
+        assertNull(sut.getLastCollider());
     }
 
     @Test
@@ -89,8 +89,6 @@ public class CollidedTest {
         // Verify
         assertNull(collidable.getLastCollider());
     }
-
-
 
     private class CollidingCollider implements Collider {
 

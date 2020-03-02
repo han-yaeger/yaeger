@@ -1,7 +1,5 @@
 package nl.meron.yaeger.engine.entities.entity.collisions;
 
-import javafx.geometry.BoundingBox;
-import javafx.geometry.Bounds;
 import nl.meron.yaeger.engine.entities.entity.Bounded;
 
 import java.util.Set;
@@ -15,11 +13,18 @@ import java.util.Set;
  * of {@link Collider} are part of the {@link nl.meron.yaeger.engine.scenes.YaegerScene}, this
  * could lead to many calculations, which could slow down the game and framerate. Thus ensure only those instances of
  * {@link nl.meron.yaeger.engine.entities.entity.Entity} that really need to be part of the collision detection implement
- * the {@link Collided} of {@link Collider} interfaces. If an {@link nl.meron.yaeger.engine.entities.entity.Entity} is both
+ * the {@link Collided} or {@link Collider} interfaces. If an {@link nl.meron.yaeger.engine.entities.entity.Entity} is both
  * a {@link Collider} and {@link Collided}, implement the interface {@link Collidable}.
  * </p>
  */
 public interface Collided extends Bounded {
+
+    /**
+     * This method is called if a collision has occurred.
+     *
+     * @param collidingObject The EntityCollection you are colliding with.
+     */
+    void onCollision(Collider collidingObject);
 
     /**
      * Perform collision detection with a {@link Set} of {@link Collider} instances. Only the first collision
@@ -39,13 +44,6 @@ public interface Collided extends Bounded {
             }
         }
     }
-
-    /**
-     * This method is called if a collision has occurred.
-     *
-     * @param collidingObject The EntityCollection you are colliding with.
-     */
-    void onCollision(Collider collidingObject);
 
     private boolean collisionHasOccured(Collider collider) {
         return !this.equals(collider) && getTransformedBounds().intersects(collider.getTransformedBounds());
