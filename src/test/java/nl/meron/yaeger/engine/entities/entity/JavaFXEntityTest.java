@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalLong;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -119,6 +118,18 @@ class JavaFXEntityTest {
     }
 
     @Test
+    void setAnchorPointOnNodeAppliesTranslationsForTOP_LEFT() {
+        // Arrange
+
+        // Act
+        sut.setAnchorPoint(AnchorPoint.TOP_CENTER);
+
+        // Assert
+        node.setTranslateX(0);
+        node.setTranslateY(0);
+    }
+
+    @Test
     void setAnchorPointOnNodeAppliesTranslationsForTOP_CENTER() {
         // Arrange
 
@@ -127,6 +138,17 @@ class JavaFXEntityTest {
 
         // Assert
         node.setTranslateX(ENTITY_WIDTH / 2);
+    }
+
+    @Test
+    void setAnchorPointOnNodeAppliesTranslationsForTOP_RIGHT() {
+        // Arrange
+
+        // Act
+        sut.setAnchorPoint(AnchorPoint.TOP_RIGHT);
+
+        // Assert
+        node.setTranslateX(ENTITY_WIDTH);
     }
 
     @Test

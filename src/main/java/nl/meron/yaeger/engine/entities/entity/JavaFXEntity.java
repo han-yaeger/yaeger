@@ -86,6 +86,10 @@ public abstract class JavaFXEntity implements Entity {
 
     private void applyTranslationsForAnchorPoint(Node node, AnchorPoint anchorPoint) {
         switch (anchorPoint) {
+            case TOP_LEFT:
+                node.setTranslateX(0);
+                node.setTranslateY(0);
+                break;
             case TOP_CENTER:
                 node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
                 break;
@@ -114,7 +118,7 @@ public abstract class JavaFXEntity implements Entity {
                 node.setTranslateX(-getNonTransformedBounds().getWidth());
                 node.setTranslateY(-getNonTransformedBounds().getHeight());
                 break;
-            case TOP_LEFT:
+
             default:
                 break;
         }
