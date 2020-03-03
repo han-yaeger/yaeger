@@ -30,317 +30,317 @@ class DefaultMotionApplierTest {
 
     @Test
     void newInstanceHasNoMotion() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         var updatedLocation = sut.updateLocation(DEFAULT_START_LOCATION);
 
-        // Verify
+        // Assert
         assertEquals(DEFAULT_START_LOCATION.getX(), updatedLocation.getX(), DELTA);
         assertEquals(DEFAULT_START_LOCATION.getY(), updatedLocation.getY(), DELTA);
     }
 
     @Test
     void speedWithNoAngleDefaultsToDirectionOfZero() {
-        // Setup
+        // Arrange
         sut.setMotionTo(1, Direction.DOWN.getValue());
         sut.multiplySpeedWith(SPEED_MULTIPLACTION_FRACTION);
 
-        // Test
+        // Act
         var updatedLocation = sut.updateLocation(DEFAULT_START_LOCATION);
 
-        // Verify
+        // Assert
         assertEquals(DEFAULT_START_LOCATION.getY(), updatedLocation.getX(), DELTA);
         assertEquals(DEFAULT_START_LOCATION.getY() + SPEED_MULTIPLACTION_FRACTION, updatedLocation.getY(), DELTA);
     }
 
     @Test
     void multiplySpeedOfZeroFreezesMotion() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.multiplySpeedWith(0);
 
-        // Verify
+        // Assert
         assertEquals(0, sut.get().magnitude());
     }
 
     @Test
     void motionIsImmutable() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.multiplySpeedWith(0);
 
-        // Verify
+        // Assert
         assertNotSame(DEFAULT_MOVEMENT_UP, sut.get());
     }
 
     @Test
     void multiplySpeedOfOneKeepsMotionFromConstructor() {
-        // Setup
+        // Arrange
         sut.setMotionTo(1, Direction.DOWN.getValue());
 
-        // Test
+        // Act
         sut.multiplySpeedWith(1);
 
-        // Verify
+        // Assert
         assertEquals(0, sut.get().getX(), DELTA);
         assertEquals(1, sut.get().getY(), DELTA);
     }
 
     @Test
     void multiplySpeedOfMinusOneInvertsMotionFromConstructor() {
-        // Setup
+        // Arrange
         sut.setMotionTo(1, Direction.DOWN.getValue());
 
-        // Test
+        // Act
         sut.multiplySpeedWith(-1);
 
-        // Verify
+        // Assert
         assertEquals(0, sut.get().getX(), DELTA);
         assertEquals(-1, sut.get().getY(), DELTA);
     }
 
     @Test
     void multiplySpeedMultipliesSpeed() {
-        // Setup
+        // Arrange
         sut.setMotionTo(0.5, Direction.DOWN.getValue());
 
-        // Test
+        // Act
         sut.multiplySpeedWith(2);
 
-        // Verify
+        // Assert
         assertEquals(0, sut.get().getX(), DELTA);
         assertEquals(1, sut.get().getY(), DELTA);
     }
 
     @Test
     void setSpeedToZeroFreezesMotion() {
-        // Setup
+        // Arrange
         sut.setMotionTo(1, Direction.UP.getValue());
 
-        // Test
+        // Act
         sut.setSpeedTo(0);
 
-        // Verify
+        // Assert
         assertEquals(DEFAULT_START_LOCATION.getX(), sut.get().getX(), DELTA);
         assertEquals(DEFAULT_START_LOCATION.getY(), sut.get().getY(), DELTA);
     }
 
     @Test
     void setSpeedToOneSetsSpeedToOne() {
-        // Setup
+        // Arrange
         sut.setMotionTo(1, Direction.DOWN.getValue());
 
-        // Test
+        // Act
         sut.setSpeedTo(1);
 
-        // Verify
+        // Assert
         assertEquals(0, sut.get().getX(), DELTA);
         assertEquals(1, sut.get().getY(), DELTA);
     }
 
     @Test
     void changeDirection180WhenRightChangesToLeft() {
-        // Setup
+        // Arrange
         sut.setMotionTo(1, Direction.RIGHT.getValue());
 
-        // Test
+        // Act
         sut.changeDirectionBy(HALF_ROTATION);
 
-        // Verify
+        // Assert
         assertEquals(-1, sut.get().getX(), DELTA);
         assertEquals(0, sut.get().getY(), DELTA);
     }
 
     @Test
     void changeDirection180WhenLeftChangesToRight() {
-        // Setup
+        // Arrange
         sut.setMotionTo(1, Direction.LEFT.getValue());
 
-        // Test
+        // Act
         sut.changeDirectionBy(HALF_ROTATION);
 
-        // Verify
+        // Assert
         assertEquals(1, sut.get().getX(), DELTA);
         assertEquals(0, sut.get().getY(), DELTA);
     }
 
     @Test
     void alterSpeedIncrementsSpeed() {
-        // Setup
+        // Arrange
         sut.setMotionTo(1, Direction.UP.getValue());
         var increment = 0.1d;
 
-        // Test
+        // Act
         sut.alterSpeedBy(increment);
 
-        // Verify
+        // Assert
         assertEquals(DEFAULT_START_LOCATION.magnitude() + DEFAULT_MOVEMENT_UP.magnitude() + increment, sut.get().magnitude(), DELTA);
     }
 
     @Test
     void alterSpeedWithNegativeValueDecrementsSpeed() {
-        // Setup
+        // Arrange
         sut.setMotionTo(1, Direction.UP.getValue());
         var increment = -0.1d;
 
-        // Test
+        // Act
         sut.alterSpeedBy(increment);
 
-        // Verify
+        // Assert
         assertEquals(DEFAULT_START_LOCATION.magnitude() + DEFAULT_MOVEMENT_UP.magnitude() + increment, sut.get().magnitude(), DELTA);
     }
 
     @Test
     void getSpeedReturnsCorrectValue() {
-        // Setup
+        // Arrange
         var SPEED = 3.7;
         sut.setMotionTo(SPEED, Direction.UP.getValue());
 
-        // Test
+        // Act
         var speed = sut.getSpeed();
 
-        // Verify
+        // Assert
         assertEquals(SPEED, speed, DELTA);
     }
 
     @Test
     void setDirectionTo90SetsDirectionRight() {
-        // Setup
+        // Arrange
         sut.setMotionTo(1, Direction.UP.getValue());
 
-        // Test
+        // Act
         sut.setDirectionTo(Direction.RIGHT.getValue());
 
-        // Verify
+        // Assert
         assertEquals(1, sut.get().getX(), DELTA);
         assertEquals(0, sut.get().getY(), DELTA);
     }
 
     @Test
     void setDirectionTo180SetsDirectionUp() {
-        // Setup
+        // Arrange
         sut.setMotionTo(1, Direction.DOWN.getValue());
 
-        // Test
+        // Act
         sut.setDirectionTo(Direction.UP.getValue());
 
-        // Verify
+        // Assert
         assertEquals(0, sut.get().getX(), DELTA);
         assertEquals(-1, sut.get().getY(), DELTA);
     }
 
     @Test
     void setDirectionTo270SetsDirectionLeft() {
-        // Setup
+        // Arrange
         sut.setMotionTo(1, Direction.UP.getValue());
 
-        // Test
+        // Act
         sut.setDirectionTo(Direction.LEFT.getValue());
 
-        // Verify
+        // Assert
         assertEquals(-1, sut.get().getX(), DELTA);
         assertEquals(0, sut.get().getY(), DELTA);
     }
 
     @Test
     void getDirectionForDirectionBelow180() {
-        // Setup
+        // Arrange
         final double DIRECTION = 42;
         sut.setMotionTo(1, DIRECTION);
 
-        // Test
+        // Act
         var direction = sut.getDirection();
 
-        // Verify
+        // Assert
         assertEquals(DIRECTION, direction, DELTA);
     }
 
     @Test
     void getDirectionForDirectionAbove180() {
-        // Setup
+        // Arrange
         final double DIRECTION = 189;
         sut.setMotionTo(1, DIRECTION);
 
-        // Test
+        // Act
         var direction = sut.getDirection();
 
-        // Verify
+        // Assert
         assertEquals(DIRECTION, direction, DELTA);
     }
 
     @Test
     void changeDirectionWithZeroDoesNotChangeAngle() {
-        // Setup
+        // Arrange
         sut.setMotionTo(1, Direction.DOWN.getValue());
 
-        // Test
+        // Act
         sut.changeDirectionBy(0);
 
-        // Verify
+        // Assert
         assertEquals(0d, DEFAULT_MOVEMENT_UP.angle(sut.get()), DELTA);
     }
 
     @Test
     void changeDirectionWithZeroDoesNotChangeSpeed() {
-        // Setup
+        // Arrange
         sut.setMotionTo(1, Direction.DOWN.getValue());
 
-        // Test
+        // Act
         sut.changeDirectionBy(0);
 
-        // Verify
+        // Assert
         assertEquals(DEFAULT_MOVEMENT_UP.getX(), sut.get().getX(), DELTA);
         assertEquals(DEFAULT_MOVEMENT_UP.getY(), sut.get().getY(), DELTA);
     }
 
     @Test
     void changeDirectionChangesTheAngle() {
-        // Setup
+        // Arrange
         sut.setMotionTo(1, Direction.DOWN.getValue());
 
-        // Test
+        // Act
         sut.changeDirectionBy(ANGLE);
 
-        // Verify
+        // Assert
         assertEquals(ANGLE, DEFAULT_MOVEMENT_UP.angle(sut.get()), DELTA);
     }
 
     @Test
     void changeDirectionWithNegativeChangesTheAngle() {
-        // Setup
+        // Arrange
         sut.setMotionTo(1, Direction.DOWN.getValue());
 
-        // Test
+        // Act
         sut.changeDirectionBy(ANGLE_INVERSE_NEGATIVE);
 
-        // Verify
+        // Assert
         assertEquals(Math.abs(ANGLE), DEFAULT_MOVEMENT_UP.angle(sut.get()), DELTA);
     }
 
     @Test
     void changeDirectionWithClockwiseEqualsCounterClockwise() {
-        // Setup
+        // Arrange
         sut.setMotionTo(1, Direction.DOWN.getValue());
 
-        // Test
+        // Act
         sut.changeDirectionBy(FULL_ROTATION_MINUS_NEGATIVE_ANGLE);
 
-        // Verify
+        // Assert
         assertEquals(Math.abs(FULL_ROTATION - FULL_ROTATION_MINUS_NEGATIVE_ANGLE), DEFAULT_MOVEMENT_UP.angle(sut.get()), DELTA);
     }
 
     @Test
     void changeDirectionZeroDoesNotChangeAngle() {
-        // Setup
+        // Arrange
         sut.setMotionTo(1, Direction.DOWN.getValue());
 
-        // Test
+        // Act
         sut.changeDirectionBy(0);
 
-        // Verify
+        // Assert
         assertEquals(0d, DEFAULT_MOVEMENT_UP.angle(sut.get()), DELTA);
     }
 }

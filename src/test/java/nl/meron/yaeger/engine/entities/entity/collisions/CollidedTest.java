@@ -26,9 +26,9 @@ public class CollidedTest {
 
     @Test
     void testNullCollidersGivesNoCollisions() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.checkForCollisions(null);
 
         //Verify
@@ -37,10 +37,10 @@ public class CollidedTest {
 
     @Test
     void testNoCollidersGivesNoCollisions() {
-        // Setup
+        // Arrange
         Set<Collider> emptySet = Set.of();
 
-        // Test
+        // Act
         sut.checkForCollisions(emptySet);
 
         //Verify
@@ -49,44 +49,44 @@ public class CollidedTest {
 
     @Test
     void testTrivialCollisionGivesCollision() {
-        // Setup
+        // Arrange
         var trivialCollider = new CollidingCollider();
         trivialCollider.setBounds(TEST_COLLIDED_BOUNDINGBOX);
 
         Set<Collider> testColliders = Set.of(trivialCollider);
 
-        // Test
+        // Act
         sut.checkForCollisions(testColliders);
 
-        // Verify
+        // Assert
         assertEquals(trivialCollider, sut.getLastCollider());
     }
 
     @Test
     void testNoCollisionReportNoCollision() {
-        // Setup
+        // Arrange
         var noCollisionCollider = new CollidingCollider();
         noCollisionCollider.setBounds(TEST_NOT_COLLIDING_BOUNDINGBOX);
 
         Set<Collider> testColliders = Set.of(noCollisionCollider);
 
-        // Test
+        // Act
         sut.checkForCollisions(testColliders);
 
-        // Verify
+        // Assert
         assertNull(sut.getLastCollider());
     }
 
     @Test
     void tesCollisionWithSelfReportsNoCollision() {
-        // Setup
+        // Arrange
         TestCollidable collidable = new TestCollidable();
         Set<Collider> testColliders = Set.of(collidable);
 
-        // Test
+        // Act
         collidable.checkForCollisions(testColliders);
 
-        // Verify
+        // Assert
         assertNull(collidable.getLastCollider());
     }
 

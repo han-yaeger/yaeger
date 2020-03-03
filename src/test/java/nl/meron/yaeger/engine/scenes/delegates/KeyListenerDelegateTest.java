@@ -19,10 +19,10 @@ class KeyListenerDelegateTest {
 
     @Test
     void setupAttachesListenersToTheScene() {
-        // Setup
+        // Arrange
         Scene scene = mock(Scene.class);
 
-        // Test
+        // Act
         keyListenerDelegate.setup(scene, null);
 
         // Verify
@@ -31,11 +31,11 @@ class KeyListenerDelegateTest {
 
     @Test
     void tearDownRemovesListenersToTheScene() {
-        // Setup
+        // Arrange
         Scene scene = mock(Scene.class);
         keyListenerDelegate.setup(scene, null);
 
-        // Test
+        // Act
         keyListenerDelegate.tearDown(scene);
 
         // Verify

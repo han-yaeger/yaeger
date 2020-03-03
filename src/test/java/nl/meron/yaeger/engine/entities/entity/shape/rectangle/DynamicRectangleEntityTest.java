@@ -38,91 +38,91 @@ class DynamicRectangleEntityTest {
 
     @Test
     void bufferIsSetInConstructor() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         Optional<EntityMotionInitBuffer> buffer = sut.getBuffer();
 
-        // Verify
+        // Assert
         Assertions.assertTrue(buffer.isPresent());
     }
 
     @Test
     void bufferIsEmptiedAfterInitIsCalled() {
-        // Setup
+        // Arrange
         var motionApplier = mock(DefaultMotionApplier.class);
         sut.setMotionApplier(motionApplier);
 
-        // Test
+        // Act
         sut.init(injector);
 
-        // Verify
+        // Assert
         Assertions.assertFalse(sut.getBuffer().isPresent());
     }
 
     @Test
     void bufferTransfersMotionOnInit(){
-        // Setup
+        // Arrange
         var motionApplier = mock(DefaultMotionApplier.class);
         sut.setMotionApplier(motionApplier);
         sut.setMotionTo(SPEED, DIRECTION);
 
-        // Test
+        // Act
         sut.init(injector);
 
-        // Verify
+        // Assert
         verify(motionApplier).setMotionTo(SPEED, DIRECTION);
     }
 
     @Test
     void initSetsMotionToDesiredSpeed() {
-        // Setup
+        // Arrange
         sut.setSpeedTo(SPEED);
         var motionApplier = mock(DefaultMotionApplier.class);
         sut.setMotionApplier(motionApplier);
 
-        // Test
+        // Act
         sut.init(injector);
 
-        // Verify
+        // Assert
         verify(motionApplier).setMotionTo(SPEED, 0d);
     }
 
     @Test
     void setMotionApplierIsUsed() {
-        // Setup
+        // Arrange
         var motionApplier = mock(DefaultMotionApplier.class);
         sut.setMotionApplier(motionApplier);
 
-        // Test
+        // Act
         var mA = sut.getMotionApplier();
 
-        // Verify
+        // Assert
         Assertions.assertEquals(motionApplier, mA);
     }
 
     @Test
     void setUpdaterIsUsed() {
-        // Setup
+        // Arrange
         var updater = mock(Updater.class);
         sut.setUpdater(updater);
 
-        // Test
+        // Act
         var u = sut.getUpdater();
 
-        // Verify
+        // Assert
         Assertions.assertEquals(updater, u);
     }
 
     @Test
     void setRotationSpeedIsUsed() {
-        // Setup
+        // Arrange
         sut.setRotationSpeed(ROTATION_SPEED);
 
-        // Test
+        // Act
         var rS = sut.getRotationSpeed();
 
-        // Verify
+        // Assert
         Assertions.assertEquals(ROTATION_SPEED, rS);
     }
 

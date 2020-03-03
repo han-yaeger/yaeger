@@ -27,73 +27,73 @@ class BufferedMoveableTest {
 
     @Test
     void ifMotionApplierIsNotSetBufferIsUsedForSpeed() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.setSpeedTo(SPEED);
 
-        // Verify
+        // Assert
         verify(buffer).setSpeedTo(SPEED);
     }
 
     @Test
     void ifMotionApplierIsNotSetBufferIsUsedForDirection() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.setDirectionTo(DIRECTION);
 
-        // Verify
+        // Assert
         verify(buffer).setDirectionTo(DIRECTION);
     }
 
     @Test
     void ifMotionApplierIsNotSetBufferIsUsedForMotion() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.setMotionTo(SPEED, DIRECTION);
 
-        // Verify
+        // Assert
         verify(buffer).setMotionTo(SPEED, DIRECTION);
     }
 
     @Test
     void ifMotionApplierIsSetMotionApplierIsUsedForSpeed() {
-        // Setup
+        // Arrange
         sut.setBuffer(Optional.empty());
         sut.setMotionApplier(motionApplier);
 
-        // Test
+        // Act
         sut.setSpeedTo(SPEED);
 
-        // Verify
+        // Assert
         verify(motionApplier).setSpeedTo(SPEED);
     }
 
     @Test
     void ifMotionApplierIsSetMotionApplierIsUsedForDirection() {
-        // Setup
+        // Arrange
         sut.setBuffer(Optional.empty());
         sut.setMotionApplier(motionApplier);
 
-        // Test
+        // Act
         sut.setDirectionTo(DIRECTION);
 
-        // Verify
+        // Assert
         verify(motionApplier).setDirectionTo(DIRECTION);
     }
 
     @Test
     void ifMotionApplierIsSetMotionApplierIsUsedForMotion() {
-        // Setup
+        // Arrange
         sut.setBuffer(Optional.empty());
         sut.setMotionApplier(motionApplier);
 
-        // Test
+        // Act
         sut.setMotionTo(SPEED, DIRECTION);
 
-        // Verify
+        // Assert
         verify(motionApplier).setMotionTo(SPEED, DIRECTION);
     }
 

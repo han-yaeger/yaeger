@@ -35,108 +35,108 @@ class MoveableTest {
 
     @Test
     void setMotionDelegatesToMotionApplier() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.setMotionTo(SPEED, DIRECTION);
 
-        // Verify
+        // Assert
         verify(motionApplier).setMotionTo(SPEED, DIRECTION);
     }
 
     @Test
     void multiplySpeedDelegatesToMotionApplier() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.multiplySpeedWith(SPEED);
 
-        // Verify
+        // Assert
         verify(motionApplier).multiplySpeedWith(SPEED);
     }
 
     @Test
     void setSpeedDelegatesToMotionApplier() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.setSpeedTo(SPEED);
 
-        // Verify
+        // Assert
         verify(motionApplier).setSpeedTo(SPEED);
     }
 
     @Test
     void getSpeedDelegatesToMotionApplier() {
-        // Setup
+        // Arrange
         when(motionApplier.getSpeed()).thenReturn(SPEED);
 
-        // Test
+        // Act
         double speed = sut.getSpeed();
 
-        // Verify
+        // Assert
         Assertions.assertEquals(SPEED, speed, DELTA);
     }
 
     @Test
     void setDirectionDelegatesToMotionApplier() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.setDirectionTo(DIRECTION);
 
-        // Verify
+        // Assert
         verify(motionApplier).setDirectionTo(DIRECTION);
     }
 
     @Test
     void alterSpeedDelegatesToMotionApplier() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.alterSpeedBy(SPEED);
 
-        // Verify
+        // Assert
         verify(motionApplier).alterSpeedBy(SPEED);
     }
 
     @Test
     void changeDirectionDelegatesToMotionApplier() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.changeDirectionBy(DIRECTION);
 
-        // Verify
+        // Assert
         verify(motionApplier).changeDirectionBy(DIRECTION);
     }
 
     @Test
     void getDirectionDelegatesToMotionApplier() {
-        // Setup
+        // Arrange
         when(motionApplier.getDirection()).thenReturn(DIRECTION);
 
-        // Test
+        // Act
         double direction = sut.getDirection();
 
-        // Verify
+        // Assert
         Assertions.assertEquals(DIRECTION, direction, DELTA);
     }
 
     @Test
     void updateLocationReturnsAnUpdatable() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         Updatable updatable = sut.updateLocation();
 
-        // Verify
+        // Assert
         Assertions.assertNotNull(updatable);
     }
 
     @Test
     void callingTheUpdatableModifiesPosition() {
-        // Setup
+        // Arrange
         var UPDATED_LOCATION = new Point2D(37, 42);
         Updatable updatable = sut.updateLocation();
         Node node = mock(Node.class, withSettings().withoutAnnotations());
@@ -146,16 +146,16 @@ class MoveableTest {
         when(motionApplier.getSpeed()).thenReturn(1d);
 
         ((MoveableImpl) sut).setGameNode(node);
-        // Test
+        // Act
         updatable.update(TIMESTAMP);
 
-        // Verify
+        // Assert
         verify(motionApplier).updateLocation(any(Point2D.class));
     }
 
     @Test
     void callingTheUpdatableWithZeroSpeedDoesNotDoAnything() {
-        // Setup
+        // Arrange
         Updatable updatable = sut.updateLocation();
         Node node = mock(Node.class, withSettings().withoutAnnotations());
         Bounds bounds = new BoundingBox(0, 0, 10, 10);
@@ -164,10 +164,10 @@ class MoveableTest {
 
         ((MoveableImpl) sut).setGameNode(node);
 
-        // Test
+        // Act
         updatable.update(TIMESTAMP);
 
-        // Verify
+        // Assert
         verify(motionApplier, never()).updateLocation(any(Point2D.class));
     }
 

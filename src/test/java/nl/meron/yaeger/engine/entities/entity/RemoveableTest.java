@@ -12,15 +12,15 @@ class RemoveableTest {
 
     @Test
     void notifyRemoveCallsFireEventOnNode() {
-        // Setup
+        // Arrange
         var sut = new RemoveableImpl();
         var node = mock(Node.class, withSettings().withoutAnnotations());
         sut.setNode(node);
 
-        // Test
+        // Act
         sut.notifyRemove();
 
-        // Verify
+        // Assert
         verify(node).fireEvent(any(RemoveEntityEvent.class));
     }
 

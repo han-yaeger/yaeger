@@ -23,89 +23,89 @@ class ImageRepositoryTest {
 
     @Test
     void afterDestroyRepositoryIsEmpty() {
-        // Setup
+        // Arrange
         imageRepository.destroy();
 
-        // Test
+        // Act
         int size = imageRepository.size();
 
-        // Verify
+        // Assert
         Assertions.assertEquals(0, size);
     }
 
     @Test
     void getCreatesAndReturnsAnImage() {
-        // Setup
+        // Arrange
         imageRepository.destroy();
         Image image = mock(Image.class);
         when(imageFactory.create(anyString())).thenReturn(image);
 
-        // Test
+        // Act
         Image createdImage = imageRepository.get("waterworld/images/bubble.png");
 
-        // Verify
+        // Assert
         Assertions.assertEquals(image, createdImage);
         Assertions.assertEquals(1, imageRepository.size());
     }
 
     @Test
     void callingGetTwiceCreatesCreatesOnlyOneImage() {
-        // Setup
+        // Arrange
         imageRepository.destroy();
         Image image = mock(Image.class);
         when(imageFactory.create(anyString())).thenReturn(image);
 
-        // Test
+        // Act
         Image image1 = imageRepository.get("waterworld/images/bubble.png");
         Image image2 = imageRepository.get("waterworld/images/bubble.png");
 
-        // Verify
+        // Assert
         Assertions.assertSame(image1, image2);
         Assertions.assertEquals(1, imageRepository.size());
     }
 
     @Test
     void callingGetForDifferentImagesCreatesDifferentImages() {
-        // Setup
+        // Arrange
         imageRepository.destroy();
         Image image = mock(Image.class);
         when(imageFactory.create(anyString())).thenReturn(image);
 
-        // Test
+        // Act
         Image image1 = imageRepository.get("waterworld/images/bubble.png");
         Image image2 = imageRepository.get("waterworld/images/poison.png");
 
-        // Verify
+        // Assert
         Assertions.assertEquals(2, imageRepository.size());
     }
 
     @Test
     void callingGetWithSpecifiedWidthAndHeightReturnsAnImage() {
-        // Setup
+        // Arrange
         imageRepository.destroy();
         Image image = mock(Image.class);
         when(imageFactory.create(anyString(), anyDouble(), anyDouble(), anyBoolean())).thenReturn(image);
 
-        // Test
+        // Act
         Image createdImage = imageRepository.get("waterworld/images/bubble.png", 20, 20, true);
 
-        // Verify
+        // Assert
         Assertions.assertSame(image, createdImage);
         Assertions.assertEquals(1, imageRepository.size());
     }
 
     @Test
     void callingTwiceGetWithSpecifiedWidthAndHeightReturnsSameImage() {
-        // Setup
+        // Arrange
         imageRepository.destroy();
         Image image = mock(Image.class);
         when(imageFactory.create(anyString(), anyDouble(), anyDouble(), anyBoolean())).thenReturn(image);
 
-        // Test
+        // Act
         Image firstImage = imageRepository.get("waterworld/images/bubble.png", 20, 20, true);
         Image secondImage = imageRepository.get("waterworld/images/bubble.png", 20, 20, true);
 
-        // Verify
+        // Assert
         Assertions.assertSame(image, firstImage);
         Assertions.assertSame(firstImage, secondImage);
         Assertions.assertEquals(1, imageRepository.size());

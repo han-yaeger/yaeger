@@ -57,18 +57,18 @@ class DynamicSpriteEntityTest {
 
     @Test
     void bufferIsSetInConstructor() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         Optional<EntityMotionInitBuffer> buffer = sut.getBuffer();
 
-        // Verify
+        // Assert
         Assertions.assertTrue(buffer.isPresent());
     }
 
     @Test
     void bufferIsEmptiedAfterInitIsCalled() {
-        // Setup
+        // Arrange
         var motionApplier = mock(DefaultMotionApplier.class);
         var image = mock(Image.class);
         var imageView = mock(ImageView.class);
@@ -85,16 +85,16 @@ class DynamicSpriteEntityTest {
 
         sut.setMotionApplier(motionApplier);
 
-        // Test
+        // Act
         sut.init(injector);
 
-        // Verify
+        // Assert
         Assertions.assertFalse(sut.getBuffer().isPresent());
     }
 
     @Test
     void bufferTransfersMotionOnInit() {
-        // Setup
+        // Arrange
         var motionApplier = mock(DefaultMotionApplier.class);
         var image = mock(Image.class);
         var imageView = mock(ImageView.class);
@@ -112,29 +112,29 @@ class DynamicSpriteEntityTest {
         sut.setMotionApplier(motionApplier);
         sut.setMotionTo(SPEED, DIRECTION);
 
-        // Test
+        // Act
         sut.init(injector);
 
-        // Verify
+        // Assert
         verify(motionApplier).setMotionTo(SPEED, DIRECTION);
     }
 
     @Test
     void instantiatingAnUpdatableSpriteEntityWithOneFrameGivesNoSideEffects() {
-        // Setup
+        // Arrange
         var motionApplier = mock(DefaultMotionApplier.class);
         sut.setMotionApplier(motionApplier);
 
-        // Test
+        // Act
         var sut = new DynamicSpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
 
-        // Verify
+        // Assert
         Assertions.assertNotNull(sut);
     }
 
     @Test
     void setAutocycleDoesNotBreakWithOnlyOneFrame() {
-        // Setup
+        // Arrange
         var autocycleValue = 37;
         var image = mock(Image.class);
         var imageView = mock(ImageView.class);
@@ -154,16 +154,16 @@ class DynamicSpriteEntityTest {
 
         sut.setAutoCycle(autocycleValue);
 
-        // Test
+        // Act
         sut.init(injector);
 
-        // Verify
+        // Assert
         verifyNoInteractions(spriteAnimationDelegate);
     }
 
     @Test
     void autocycleGetsDelegatedToSpriteAnimationDelegate() {
-        // Setup
+        // Arrange
         var frames = 2;
         var image = mock(Image.class);
         var imageView = mock(ImageView.class);
@@ -181,16 +181,16 @@ class DynamicSpriteEntityTest {
         when(imageViewFactory.create(image)).thenReturn(imageView);
         when(spriteAnimationDelegateFactory.create(imageView, frames)).thenReturn(spriteAnimationDelegate);
 
-        // Test
+        // Act
         sut.init(injector);
 
-        // Verify
+        // Assert
         verify(spriteAnimationDelegate).setAutoCycle(2);
     }
 
     @Test
     void addedUpdaterIsUsedAsUpdater() {
-        // Setup
+        // Arrange
         var sut = new DynamicSpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 1);
         var motionApplier = mock(DefaultMotionApplier.class);
         sut.setMotionApplier(motionApplier);
@@ -198,39 +198,39 @@ class DynamicSpriteEntityTest {
 
         sut.setUpdater(updater);
 
-        // Test
+        // Act
         Updater updater1 = sut.getUpdater();
 
-        // Verify
+        // Assert
         Assertions.assertEquals(updater, updater1);
     }
 
     @Test
     void setMotionApplierIsUsed() {
-        // Setup
+        // Arrange
         var sut = new DynamicSpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
         var motionApplier = mock(DefaultMotionApplier.class);
         sut.setMotionApplier(motionApplier);
 
-        // Test
+        // Act
         var mA = sut.getMotionApplier();
 
-        // Verify
+        // Assert
         Assertions.assertEquals(motionApplier, mA);
     }
 
     @Test
     void setRotationAngleIsUsed() {
-        // Setup
+        // Arrange
         var sut = new DynamicSpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
         var motionApplier = mock(DefaultMotionApplier.class);
         sut.setMotionApplier(motionApplier);
         sut.setRotationSpeed(ROTATION_SPEED);
 
-        // Test
+        // Act
         var rS = sut.getRotationSpeed();
 
-        // Verify
+        // Assert
         Assertions.assertEquals(ROTATION_SPEED, rS);
     }
 

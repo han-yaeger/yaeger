@@ -11,15 +11,15 @@ class MouseEnterListenerTest {
 
     @Test
     void attachMouseEnterListenerAttachesMouseListener() {
-        // Setup
+        // Arrange
         var node = mock(Node.class, withSettings().withoutAnnotations());
         var mouseListeningEntity = new MouseEnterListeningInstancee();
         mouseListeningEntity.setNode(node);
 
-        // Test
+        // Act
         mouseListeningEntity.attachMouseEnterListener();
 
-        // Verify
+        // Assert
         verify(node).setOnMouseEntered(any());
     }
 

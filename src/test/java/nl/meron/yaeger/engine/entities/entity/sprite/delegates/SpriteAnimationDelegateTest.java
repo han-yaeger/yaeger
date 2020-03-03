@@ -23,7 +23,7 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
 
     @BeforeEach
     void setup() {
-        // Setup
+        // Arrange
         imageView = mock(ImageView.class);
         image = mock(Image.class);
 
@@ -33,26 +33,26 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
 
     @Test
     void viewPortIsSetOnCreation() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         var spriteAnimationDelegate = new SpriteAnimationDelegate(imageView, FRAMES);
 
-        // Verify
+        // Assert
         verify(imageView).setViewport(any(Rectangle2D.class));
     }
 
     @Test
     void viewPortRectangleIsCalculatedCorrectly() {
-        // Setup
+        // Arrange
         when(image.getHeight()).thenReturn(IMAGE_HEIGHT);
 
         var argument = ArgumentCaptor.forClass(Rectangle2D.class);
 
-        // Test
+        // Act
         var spriteAnimationDelegate = new SpriteAnimationDelegate(imageView, FRAMES);
 
-        // Verify
+        // Assert
         verify(imageView).setViewport(argument.capture());
         Assertions.assertEquals(IMAGE_HEIGHT, argument.getValue().getHeight(), DELTA);
         Assertions.assertEquals(IMAGE_WIDTH / FRAMES, argument.getValue().getWidth(), DELTA);
@@ -60,14 +60,14 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
 
     @Test
     void nextSetsNextSpriteIndex() {
-        // Setup
+        // Arrange
         when(image.getHeight()).thenReturn(IMAGE_HEIGHT);
 
-        // Test
+        // Act
         var spriteAnimationDelegate = new SpriteAnimationDelegate(imageView, FRAMES);
         spriteAnimationDelegate.next();
 
-        // Verify
+        // Assert
         var argument = ArgumentCaptor.forClass(Rectangle2D.class);
 
         verify(imageView, atLeastOnce()).setViewport(argument.capture());
@@ -80,31 +80,31 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
 
     @Test
     void autoCycleNotCalledIfUpdateTimeDoesNotExceedCycleTime() {
-        // Setup
+        // Arrange
         when(image.getHeight()).thenReturn(IMAGE_HEIGHT);
 
-        // Test
+        // Act
         var spriteAnimationDelegate = new SpriteAnimationDelegate(imageView, FRAMES);
         spriteAnimationDelegate.setAutoCycle(10);
         spriteAnimationDelegate.update(11);
         spriteAnimationDelegate.update(2002);
 
-        // Verify
+        // Assert
         verify(imageView).setViewport(any());
     }
 
     @Test
     void autoCycleCalledIfUpdateTimeExceedsCycleTimeCorrectly() {
-        // Setup
+        // Arrange
         when(image.getHeight()).thenReturn(IMAGE_HEIGHT);
 
-        // Test
+        // Act
         var spriteAnimationDelegate = new SpriteAnimationDelegate(imageView, FRAMES);
         spriteAnimationDelegate.setAutoCycle(10);
         spriteAnimationDelegate.update(10000001);
         spriteAnimationDelegate.update(20000002);
 
-        // Verify
+        // Assert
         verify(imageView, atLeast(3)).setViewport(any());
     }
 }

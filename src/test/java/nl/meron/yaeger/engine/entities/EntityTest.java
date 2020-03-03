@@ -40,62 +40,62 @@ class EntityTest {
 
     @Test
     void getSceneWidthReturnsSceneWidthFromNode() {
-        // Setup
+        // Arrange
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
 
-        // Test
+        // Act
         double sceneWidth = testEntity.getSceneWidth();
 
-        // Verify
+        // Assert
         assertEquals(SCENE_WIDTH, sceneWidth);
     }
 
     @Test
     void getSceneHeightReturnsSceneHeightFromNode() {
-        // Setup
+        // Arrange
         when(node.getScene()).thenReturn(scene);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
 
-        // Test
+        // Act
         double sceneHeight = testEntity.getSceneHeight();
 
-        // Verify
+        // Assert
         assertEquals(SCENE_HEIGHT, sceneHeight);
     }
 
     @Test
     void setVisibleDelegatesToNode() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         testEntity.setVisible(true);
 
-        // Verify
+        // Assert
         verify(node).setVisible(true);
     }
 
     @Test
     void setCursorDelegatesToScene() {
-        // Setup
+        // Arrange
         when(node.getScene()).thenReturn(scene);
 
-        // Test
+        // Act
         testEntity.setCursor(Cursor.DEFAULT);
 
-        // Verify
+        // Assert
         verify(scene).setCursor(Cursor.DEFAULT);
     }
 
     @Test
     void getBoundsDelegatesToNode() {
-        // Setup
+        // Arrange
         when(node.getBoundsInLocal()).thenReturn(BOUNDING_BOX);
 
-        // Test
+        // Act
         Bounds entityBounds = testEntity.getNonTransformedBounds();
 
-        // Verify
+        // Assert
         assertEquals(BOUNDING_BOX, entityBounds);
     }
 

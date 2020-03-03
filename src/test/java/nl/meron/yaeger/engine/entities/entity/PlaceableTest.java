@@ -13,7 +13,7 @@ class PlaceableTest {
 
     @Test
     void nodeIsUsedForPosition() {
-        // Setup
+        // Arrange
         var x = 37d;
         var y = 42d;
         var sut = new PlaceableImpl();
@@ -25,9 +25,9 @@ class PlaceableTest {
         when(bounds.getMinX()).thenReturn(x);
         when(bounds.getMinY()).thenReturn(y);
 
-        // Test
+        // Act
 
-        // Verify
+        // Assert
         assertEquals(x, sut.getOriginX());
         assertEquals(y, sut.getOriginY());
     }

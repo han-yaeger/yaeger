@@ -34,16 +34,16 @@ class EntityCollectionTest {
 
     @Test
     void newInstanceIsEmpty() {
-        // Setup
+        // Arrange
         var group = mock(Group.class);
         var debugger = mock(Debugger.class);
 
-        // Test
+        // Act
         sut = new EntityCollection(group);
         sut.addStatisticsObserver(debugger);
         sut.setAnnotationProcessor(annotationProcessor);
 
-        // Verify
+        // Assert
         Assertions.assertEquals(0, sut.getStatistics().getStatics());
         Assertions.assertEquals(0, sut.getStatistics().getUpdatables());
         Assertions.assertEquals(0, sut.getStatistics().getGarbage());
@@ -53,23 +53,23 @@ class EntityCollectionTest {
 
     @Test
     void clearClearsSupplier() {
-        // Setup
+        // Arrange
         var supplier = mock(EntitySupplier.class);
         var group = mock(Group.class);
         sut = new EntityCollection(group);
         sut.setAnnotationProcessor(annotationProcessor);
         sut.registerSupplier(supplier);
 
-        // Test
+        // Act
         sut.clear();
 
-        // Verify
+        // Assert
         verify(supplier).clear();
     }
 
     @Test
     void suppliersEntitiesAreTransferredAtUpdate() {
-        // Setup
+        // Arrange
         var updatableEntity = mock(UpdatableEntity.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
         when(updatableEntity.getGameNode()).thenReturn(Optional.of(node));
@@ -87,17 +87,17 @@ class EntityCollectionTest {
         sut.setAnnotationProcessor(annotationProcessor);
         sut.init(injector);
 
-        // Test
+        // Act
         sut.registerSupplier(supplier);
         sut.initialUpdate();
 
-        // Verify
+        // Assert
         verify(supplier).get();
     }
 
     @Test
     void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsEmpty() {
-        // Setup
+        // Arrange
         var keyListeningEntity = mock(KeyListeningEntity.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
         when(keyListeningEntity.getGameNode()).thenReturn(Optional.of(node));
@@ -111,7 +111,7 @@ class EntityCollectionTest {
 
         Set<KeyCode> keycodes = new HashSet<>();
 
-        // Test
+        // Act
         sut = new EntityCollection(group);
         sut.setAnnotationProcessor(annotationProcessor);
         sut.init(injector);
@@ -119,13 +119,13 @@ class EntityCollectionTest {
         sut.update(0);
         sut.notifyGameObjectsOfPressedKeys(keycodes);
 
-        // Verify
+        // Assert
         verify(keyListeningEntity).onPressedKeysChange(keycodes);
     }
 
     @Test
     void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsFilled() {
-        // Setup
+        // Arrange
         var keyListeningEntity = mock(KeyListeningEntity.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
         when(keyListeningEntity.getGameNode()).thenReturn(Optional.of(node));
@@ -145,7 +145,7 @@ class EntityCollectionTest {
         keycodes.add(KeyCode.E);
         keycodes.add(KeyCode.R);
 
-        // Test
+        // Act
         sut = new EntityCollection(group);
         sut.setAnnotationProcessor(annotationProcessor);
         sut.init(injector);
@@ -153,13 +153,13 @@ class EntityCollectionTest {
         sut.update(0);
         sut.notifyGameObjectsOfPressedKeys(keycodes);
 
-        // Verify
+        // Assert
         verify(keyListeningEntity).onPressedKeysChange(keycodes);
     }
 
     @Test
     void annotationProcessorIsCalledForEachEntity() {
-        // Setup
+        // Arrange
         var updatableEntity = mock(UpdatableEntity.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
         when(updatableEntity.getGameNode()).thenReturn(Optional.of(node));
@@ -177,18 +177,18 @@ class EntityCollectionTest {
         sut.setAnnotationProcessor(annotationProcessor);
         sut.init(injector);
 
-        // Test
+        // Act
         sut.registerSupplier(supplier);
         sut.initialUpdate();
 
-        // Verify
+        // Assert
         verify(annotationProcessor).invokeInitializers(updatableEntity);
         verify(annotationProcessor).configureUpdateDelegators(updatableEntity);
     }
 
     @Test
     void entityIsPlacedOnScene() {
-        // Setup
+        // Arrange
         var updatableEntity = mock(UpdatableEntity.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
         when(updatableEntity.getGameNode()).thenReturn(Optional.of(node));
@@ -206,11 +206,11 @@ class EntityCollectionTest {
         sut.setAnnotationProcessor(annotationProcessor);
         sut.init(injector);
 
-        // Test
+        // Act
         sut.registerSupplier(supplier);
         sut.initialUpdate();
 
-        // Verify
+        // Assert
         verify(updatableEntity).placeOnScene();
     }
 

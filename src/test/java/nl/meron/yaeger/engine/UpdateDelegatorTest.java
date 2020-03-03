@@ -9,15 +9,15 @@ class UpdateDelegatorTest {
 
     @Test
     void updateGetsDelegated() {
-        // Setup
+        // Arrange
         var updateDelegator = new UpdateDelegatorImpl();
         var updater = mock(Updater.class);
         updateDelegator.setUpdater(updater);
 
-        // Test
+        // Act
         updateDelegator.update(TIMESTAMP);
 
-        // Verify
+        // Assert
         verify(updater).update(TIMESTAMP);
     }
 }

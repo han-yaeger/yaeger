@@ -30,22 +30,22 @@ class SideCollidedTest {
 
     @Test
     void testNoSideCollisionReportsCorrectly() {
-        // Setup
+        // Arrange
         var noCollisionCollider = new CollidingCollider();
         noCollisionCollider.setBounds(TEST_COLLIDED_BODY_BOUNDINGBOX);
 
         Set<Collider> testColliders = Set.of(noCollisionCollider);
 
-        // Test
+        // Act
         sut.checkForCollisions(testColliders);
 
-        // Verify
+        // Assert
         assertEquals(CollisionSide.UNKNOWN, sut.getCollisionSide());
     }
 
     @Test
     void testBottomCollisionReportsCorrectly() {
-        // Setup
+        // Arrange
         var noCollisionCollider = new CollidingCollider();
         noCollisionCollider.setBounds(TEST_NOT_COLLIDING_BOUNDINGBOX);
         var bottomCollisionCollider = new CollidingCollider();
@@ -53,17 +53,17 @@ class SideCollidedTest {
 
         Set<Collider> testColliders = Set.of(noCollisionCollider, bottomCollisionCollider);
 
-        // Test
+        // Act
         sut.checkForCollisions(testColliders);
 
-        // Verify
+        // Assert
         assertEquals(bottomCollisionCollider, sut.getLastCollider());
         assertEquals(CollisionSide.BOTTOM, sut.getCollisionSide());
     }
 
     @Test
     void testTopCollisionReportsCorrectly() {
-        // Setup
+        // Arrange
         var noCollisionCollider = new CollidingCollider();
         noCollisionCollider.setBounds(TEST_NOT_COLLIDING_BOUNDINGBOX);
         var topCollisionCollider = new CollidingCollider();
@@ -71,17 +71,17 @@ class SideCollidedTest {
 
         Set<Collider> testColliders = Set.of(noCollisionCollider, topCollisionCollider);
 
-        // Test
+        // Act
         sut.checkForCollisions(testColliders);
 
-        // Verify
+        // Assert
         assertEquals(sut.getLastCollider(), topCollisionCollider);
         assertEquals(CollisionSide.TOP, sut.getCollisionSide());
     }
 
     @Test
     void testLeftCollisionReportsCorrectly() {
-        // Setup
+        // Arrange
         var noCollisionCollider = new CollidingCollider();
         noCollisionCollider.setBounds(TEST_NOT_COLLIDING_BOUNDINGBOX);
         var leftCollisionCollider = new CollidingCollider();
@@ -89,17 +89,17 @@ class SideCollidedTest {
 
         Set<Collider> testColliders = Set.of(noCollisionCollider, leftCollisionCollider);
 
-        // Test
+        // Act
         sut.checkForCollisions(testColliders);
 
-        // Verify
+        // Assert
         assertEquals(sut.getLastCollider(), leftCollisionCollider);
         assertEquals(CollisionSide.LEFT, sut.getCollisionSide());
     }
 
     @Test
     void testRightCollisionReportsCorrectly() {
-        // Setup
+        // Arrange
         var noCollisionCollider = new CollidingCollider();
         noCollisionCollider.setBounds(TEST_NOT_COLLIDING_BOUNDINGBOX);
         var rightCollisionCollider = new CollidingCollider();
@@ -107,10 +107,10 @@ class SideCollidedTest {
 
         Set<Collider> testColliders = Set.of(noCollisionCollider, rightCollisionCollider);
 
-        // Test
+        // Act
         sut.checkForCollisions(testColliders);
 
-        // Verify
+        // Assert
         assertEquals(sut.getLastCollider(), rightCollisionCollider);
         assertEquals(CollisionSide.RIGHT, sut.getCollisionSide());
     }

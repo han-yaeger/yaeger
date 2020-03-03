@@ -7,12 +7,12 @@ class YaegerSceneNotAvailableExceptionTest {
 
     @Test
     void correctMessageIsContructed() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         var sut = new YaegerSceneNotAvailableException(0);
 
-        // Verify
+        // Assert
         var message = sut.getMessage();
 
         Assertions.assertEquals("Scene 0 is not available. Ensure the scene is added to the game.", message);
@@ -20,13 +20,13 @@ class YaegerSceneNotAvailableExceptionTest {
 
     @Test
     void typeIsStoredByTheException() {
-        // Setup
+        // Arrange
         var sceneType = 1;
 
-        // Test
+        // Act
         var sut = new YaegerSceneNotAvailableException(sceneType);
 
-        // Verify
+        // Assert
         var returnedType = sut.getType();
 
         Assertions.assertEquals(sceneType, returnedType);

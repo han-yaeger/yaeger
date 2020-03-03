@@ -55,7 +55,7 @@ class TextEntityTest {
         sut.setOriginX(LOCATION.getX());
         sut.setOriginY(LOCATION.getY());
 
-        // Verify
+        // Assert
         Assertions.assertEquals(0, Double.compare(sut.getInitialLocation().getX(), LOCATION.getX()));
         Assertions.assertEquals(0, Double.compare(sut.getInitialLocation().getY(), LOCATION.getY()));
     }
@@ -70,7 +70,7 @@ class TextEntityTest {
         sut.setTextDelegate(text);
         sut.init(injector);
 
-        // Verify
+        // Assert
         verify(text).setTextOrigin(VPos.TOP);
         verify(text).setText(YAEGER);
     }
@@ -85,7 +85,7 @@ class TextEntityTest {
         sut.setTextDelegate(text);
         sut.init(injector);
 
-        // Verify
+        // Assert
         verify(text).setFill(COLOR);
     }
 
@@ -99,7 +99,7 @@ class TextEntityTest {
         sut.setTextDelegate(text);
         sut.init(injector);
 
-        // Verify
+        // Assert
         verify(text).setFont(FONT);
     }
 
@@ -112,7 +112,7 @@ class TextEntityTest {
         sut.setTextDelegate(text);
         sut.init(injector);
 
-        // Verify
+        // Assert
         verify(text).setText(YAEGER);
     }
 
@@ -125,7 +125,7 @@ class TextEntityTest {
         sut.setTextDelegate(text);
         sut.init(injector);
 
-        // Verify
+        // Assert
         Assertions.assertEquals(text, sut.getGameNode().get());
     }
 
@@ -142,7 +142,7 @@ class TextEntityTest {
         sut.setFont(FONT);
         sut.setFill(COLOR);
 
-        // Verify
+        // Assert
         verify(text).setVisible(false);
         verify(text).setFill(COLOR);
         verify(text).setText(YAEGER);

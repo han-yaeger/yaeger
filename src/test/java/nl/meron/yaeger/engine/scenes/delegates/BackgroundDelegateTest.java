@@ -35,9 +35,9 @@ class BackgroundDelegateTest {
 
     @Test
     void destroyClearsBackgroundFill() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         backgroundDelegate.destroy();
         // Verify
         verify(scene).setFill(null);
@@ -45,14 +45,14 @@ class BackgroundDelegateTest {
 
     @Test
     void setBackgroundAudioPlaysAudioFile() {
-        // Setup
+        // Arrange
         var audioClip = mock(AudioClip.class);
 
         var audioRepository = mock(AudioRepository.class);
         backgroundDelegate.setAudioRepository(audioRepository);
         when(audioRepository.get(audioFile, SoundClip.INDEFINITE)).thenReturn(audioClip);
 
-        // Test
+        // Act
         backgroundDelegate.setBackgroundAudio(audioFile);
 
         // Verify
@@ -61,7 +61,7 @@ class BackgroundDelegateTest {
 
     @Test
     void setBackgroundImageSetImageOnScene() {
-        // Setup
+        // Arrange
         var image = mock(Image.class);
         var imagePattern = mock(ImagePattern.class);
 
@@ -70,7 +70,7 @@ class BackgroundDelegateTest {
         when(imageRepository.get(imageFile)).thenReturn(image);
         when(imagePatternFactory.create(image)).thenReturn(imagePattern);
 
-        // Test
+        // Act
         backgroundDelegate.setBackgroundImage(imageFile);
 
         // Verify
@@ -79,7 +79,7 @@ class BackgroundDelegateTest {
 
     @Test
     void destroyStopsAudioFile() {
-        // Setup
+        // Arrange
         var audioClip = mock(AudioClip.class);
 
         var audioRepository = mock(AudioRepository.class);
@@ -87,7 +87,7 @@ class BackgroundDelegateTest {
         when(audioRepository.get(audioFile, SoundClip.INDEFINITE)).thenReturn(audioClip);
         backgroundDelegate.setBackgroundAudio(audioFile);
 
-        // Test
+        // Act
         backgroundDelegate.destroy();
 
         // Verify

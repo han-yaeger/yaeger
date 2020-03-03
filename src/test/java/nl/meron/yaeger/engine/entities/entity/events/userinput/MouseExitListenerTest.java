@@ -11,15 +11,15 @@ class MouseExitListenerTest {
 
     @Test
     void attachMouseExitListenerAttachesMouseListener() {
-        // Setup
+        // Arrange
         var node = mock(Node.class, withSettings().withoutAnnotations());
         var mouseListeningEntity = new MouseExitListeningInstancee();
         mouseListeningEntity.setNode(node);
 
-        // Test
+        // Act
         mouseListeningEntity.attachMouseExitListener();
 
-        // Verify
+        // Assert
         verify(node).setOnMouseExited(any());
     }
 

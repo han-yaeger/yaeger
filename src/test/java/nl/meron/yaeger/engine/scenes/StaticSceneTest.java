@@ -72,10 +72,9 @@ class StaticSceneTest {
 
     @Test
     void configureCreatesAScene() {
-        // Setup
+        // Arrange
 
-
-        // Test
+        // Act
         sut.configure();
 
         // Verify
@@ -85,9 +84,9 @@ class StaticSceneTest {
 
     @Test
     void configureSetsUpADebugger() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.configure();
 
         // Verify
@@ -97,9 +96,9 @@ class StaticSceneTest {
 
     @Test
     void configureCreatesAnEntityCollection() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.configure();
 
         // Verify
@@ -108,9 +107,9 @@ class StaticSceneTest {
 
     @Test
     void configureInjectDependenciesIntoEntityCollection() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.configure();
 
         // Verify
@@ -119,9 +118,9 @@ class StaticSceneTest {
 
     @Test
     void configureSetsUpAKeyListenerDelegate() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.configure();
 
         // Verify
@@ -131,11 +130,11 @@ class StaticSceneTest {
 
     @Test
     void configureAddsTheDebuggerAsAStatisticsObserverToTheEntityCollection() {
-        // Setup
+        // Arrange
         var entityCollection = mock(EntityCollection.class);
         when(entityCollectionFactory.create(root)).thenReturn(entityCollection);
 
-        // Test
+        // Act
         sut.configure();
 
         // Verify
@@ -144,13 +143,13 @@ class StaticSceneTest {
 
     @Test
     void destroyDelegatesDestroy() {
-        // Setup
+        // Arrange
         var children = mock(ObservableList.class);
         when(root.getChildren()).thenReturn(children);
 
         sut.configure();
 
-        // Test
+        // Act
         sut.destroy();
 
         // Verify
@@ -161,12 +160,12 @@ class StaticSceneTest {
 
     @Test
     void addEntityAddsTheEntitySupplier() {
-        // Setup
+        // Arrange
         sut.configure();
 
         var testEntity = mock(Entity.class);
 
-        // Test
+        // Act
         sut.addEntity(testEntity);
 
         // Verify
@@ -175,12 +174,12 @@ class StaticSceneTest {
 
     @Test
     void pressingF1TogglesDebugger() {
-        // Setup
+        // Arrange
         var input = new HashSet<KeyCode>();
         input.add(KeyCode.F1);
         sut.configure();
 
-        // Test
+        // Act
         sut.onPressedKeysChange(input);
 
         // Verify
@@ -189,10 +188,10 @@ class StaticSceneTest {
 
     @Test
     void setBackgroundAudioDelegatesToBackgroundDelegate() {
-        // Setup
+        // Arrange
         final var AUDIO_STRING = "Hello World";
 
-        // Test
+        // Act
         sut.setBackgroundAudio(AUDIO_STRING);
 
         // Verify
@@ -201,10 +200,10 @@ class StaticSceneTest {
 
     @Test
     void setBackgroundImageDelegatesToBackgroundDelegate() {
-        // Setup
+        // Arrange
         final var IMAGE_STRING = "Hello World";
 
-        // Test
+        // Act
         sut.setBackgroundImage(IMAGE_STRING);
 
         // Verify
@@ -213,10 +212,10 @@ class StaticSceneTest {
 
     @Test
     void getSceneReturnsExpectedScene() {
-        // Setup
+        // Arrange
         sut.configure();
 
-        // Test
+        // Act
         var returnedScene = sut.getScene();
 
         // Verify
@@ -225,10 +224,10 @@ class StaticSceneTest {
 
     @Test
     void postActivationMakeRequiredCalls() {
-        // Setup
+        // Arrange
         sut.configure();
 
-        // Test
+        // Act
         sut.postActivation();
 
         // Verify

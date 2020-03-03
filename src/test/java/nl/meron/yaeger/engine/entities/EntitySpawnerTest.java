@@ -40,106 +40,106 @@ class EntitySpawnerTest {
 
     @Test
     void testTickIsNotCalledImmediatlyAfterCreation() {
-        // Setup
+        // Arrange
         entitySpawner.init(null);
 
-        // Test
+        // Act
 
-        // Verify
+        // Assert
         assertFalse(tickHasBeenCalled);
     }
 
     @Test
     void intervalIsDelegatedToSpawner() {
-        // Setup
+        // Arrange
         entitySpawner.init(null);
 
-        // Test
+        // Act
 
-        // Verify
+        // Assert
         verify(animationTimerFactory).createTimeableAnimationTimer(any(), eq(1000L));
     }
 
     @Test
     void spawnAddsEntitiesToSpawnedEntities() {
-        // Setup
+        // Arrange
         entitySpawner.init(null);
         Entity entity = new TestEntity();
 
-        // Test
+        // Act
         entitySpawner.spawn(entity);
 
-        // Verify
+        // Assert
         assertEquals(1, entitySpawner.size());
     }
 
     @Test
     void destroyClearsListOfSpawnedEntities() {
-        // Setup
+        // Arrange
         entitySpawner.init(null);
         Entity entity = new TestEntity();
 
-        // Test
+        // Act
         entitySpawner.spawn(entity);
         entitySpawner.destroy();
 
-        // Verify
+        // Assert
         assertEquals(0, entitySpawner.size());
     }
 
     @Test
     void nullIsNotEqual() {
-        // Setup
+        // Arrange
         entitySpawner.init(null);
 
-        // Test
+        // Act
 
-        // Verify
+        // Assert
         assertNotEquals(null, entitySpawner);
     }
 
     @Test
     void differentIntervalIsNotEqual() {
-        // Setup
+        // Arrange
         entitySpawner.init(null);
         var otherEntitySpawner = new TestEntitySpawner(37);
 
-        // Test
+        // Act
 
-        // Verify
+        // Assert
         assertNotEquals(entitySpawner, otherEntitySpawner);
     }
 
     @Test
     void sameObjectIsEqual() {
-        // Setup
+        // Arrange
         entitySpawner.init(null);
 
-        // Test
+        // Act
 
-        // Verify
+        // Assert
         assertEquals(entitySpawner, entitySpawner);
     }
 
     @Test
     void sameObjectIsSameHashCode() {
-        // Setup
+        // Arrange
         entitySpawner.init(null);
 
-        // Test
+        // Act
 
-        // Verify
+        // Assert
         assertEquals(entitySpawner.hashCode(), entitySpawner.hashCode());
     }
 
     @Test
     void differentIntervalIsDifferentHashCode() {
-        // Setup
+        // Arrange
         var otherEntitySpawner = new TestEntitySpawner(37);
 
-        // Test
+        // Act
 
-        // Verify
+        // Assert
         assertNotEquals(entitySpawner.hashCode(), otherEntitySpawner.hashCode());
     }
 

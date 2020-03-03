@@ -11,25 +11,25 @@ class SizeTest {
 
     @Test
     void widthFromConstructorIsSet() {
-        // Setup
+        // Arrange
         var sut = new Size(WIDTH, HEIGHT);
 
-        // Test
+        // Act
         int width = sut.getWidth();
 
-        // Verify
+        // Assert
         assertEquals(WIDTH, width);
     }
 
     @Test
     void heightFromConstructorIsSet() {
-        // Setup
+        // Arrange
         var sut = new Size(WIDTH, HEIGHT);
 
-        // Test
+        // Act
         int height = sut.getHeight();
 
-        // Verify
+        // Assert
         assertEquals(HEIGHT, height);
     }
 

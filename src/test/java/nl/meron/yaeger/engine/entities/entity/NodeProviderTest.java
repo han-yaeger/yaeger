@@ -12,29 +12,29 @@ class NodeProviderTest {
 
     @Test
     void toFrontIsDelegatedToTheNode() {
-        // Setup
+        // Arrange
         var node = mock(Node.class, withSettings().withoutAnnotations());
         var sut = new NodeProviderImpl();
         sut.setNode(Optional.of(node));
 
-        // Test
+        // Act
         sut.toFront();
 
-        // Verify
+        // Assert
         verify(node).toFront();
     }
 
     @Test
     void toBackIsDelegatedToTheNode() {
-        // Setup
+        // Arrange
         var node = mock(Node.class, withSettings().withoutAnnotations());
         var sut = new NodeProviderImpl();
         sut.setNode(Optional.of(node));
 
-        // Test
+        // Act
         sut.toBack();
 
-        // Verify
+        // Assert
         verify(node).toBack();
     }
 }

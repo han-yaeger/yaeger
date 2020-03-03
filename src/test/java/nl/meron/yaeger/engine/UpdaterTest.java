@@ -22,15 +22,15 @@ class UpdaterTest {
 
     @Test
     void asFirstUpdatableIsCalledFirstWhenAddedAsSecond() {
-        // Setup
+        // Arrange
         var firstUpdatable = mock(Updatable.class);
         sut.addUpdatable(updatable);
         sut.addUpdatable(firstUpdatable, true);
 
-        // Test
+        // Act
         sut.update(TIMESTAMP);
 
-        // Verify
+        // Assert
         InOrder inOrder = inOrder(firstUpdatable, updatable);
         inOrder.verify(firstUpdatable).update(TIMESTAMP);
         inOrder.verify(updatable).update(TIMESTAMP);
@@ -38,15 +38,15 @@ class UpdaterTest {
 
     @Test
     void asFirstUpdatableIsCalledFirstWhenAddedAsFirst() {
-        // Setup
+        // Arrange
         var firstUpdatable = mock(Updatable.class);
         sut.addUpdatable(firstUpdatable, true);
         sut.addUpdatable(updatable);
 
-        // Test
+        // Act
         sut.update(TIMESTAMP);
 
-        // Verify
+        // Assert
         InOrder inOrder = inOrder(firstUpdatable, updatable);
         inOrder.verify(firstUpdatable).update(TIMESTAMP);
         inOrder.verify(updatable).update(TIMESTAMP);
@@ -54,27 +54,27 @@ class UpdaterTest {
 
     @Test
     void clearEmptiesUpdatables() {
-        // Setup
+        // Arrange
         sut.addUpdatable(updatable);
 
-        // Test
+        // Act
         sut.clear();
         sut.update(TIMESTAMP);
 
-        // Verify
+        // Assert
         verify(updatable, never()).update(TIMESTAMP);
 
     }
 
     @Test
     void testUpdaterDelegatesUpdateToAddedUpdatable() {
-        // Setup
+        // Arrange
         sut.addUpdatable(updatable);
 
-        // Test
+        // Act
         sut.update(TIMESTAMP);
 
-        // Verify
+        // Assert
         verify(updatable).update(TIMESTAMP);
     }
 }

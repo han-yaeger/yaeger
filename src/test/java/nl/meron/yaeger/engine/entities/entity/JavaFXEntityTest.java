@@ -38,70 +38,70 @@ class JavaFXEntityTest {
 
     @Test
     void getTimersReturnsAnEmptyCollection() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         List<Timer> timers = sut.getTimers();
 
-        // Verify
+        // Assert
         assertNotNull(timers);
         assertTrue(timers.isEmpty());
     }
 
     @Test
     void initCallsSetVisible() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.init(injector);
 
-        // Verify
+        // Assert
         verify(node).setVisible(true);
     }
 
     @Test
     void placeOnSceneCallsSetXWithInitialLocation() {
-        // Setup
+        // Arrange
         sut.init(injector);
 
-        // Test
+        // Act
         sut.placeOnScene();
 
-        // Verify
+        // Assert
         Assertions.assertEquals(LOCATION.getX(), sut.getOriginX());
     }
 
     @Test
     void placeOnSceneCallsSetYWithInitialLocation() {
-        // Setup
+        // Arrange
         sut.init(injector);
 
-        // Test
+        // Act
         sut.placeOnScene();
 
-        // Verify
+        // Assert
         Assertions.assertEquals(LOCATION.getY(), sut.getOriginY());
     }
 
     @Test
     void setVisibleDelegatesToNode() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.setVisible(false);
 
-        // Verify
+        // Assert
         verify(node).setVisible(false);
     }
 
     @Test
     void removeCallsSetVisibleFalseOnGameNode() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.remove();
 
-        // Verify
+        // Assert
         verify(node).setVisible(false);
     }
 

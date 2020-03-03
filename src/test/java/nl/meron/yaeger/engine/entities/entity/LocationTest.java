@@ -9,28 +9,28 @@ class LocationTest {
 
     @Test
     void addingPointWorksAsExpected() {
-        // Setup
+        // Arrange
         var position = new Location(0d, 0d);
         var positionToAdd = new Location(1d, 1d);
 
-        // Test
+        // Act
         var addedPosition = position.add(positionToAdd);
 
-        // Verify
+        // Assert
         assertEquals(1d, addedPosition.getX());
         assertEquals(1d, addedPosition.getY());
     }
 
     @Test
     void addingPoint2DWorksAsExpected() {
-        // Setup
+        // Arrange
         var position = new Location(0d, 0d);
         var positionToAdd = new Point2D(1d, 1d);
 
-        // Test
+        // Act
         var addedPosition = position.add(positionToAdd);
 
-        // Verify
+        // Assert
         assertEquals(1d, addedPosition.getX());
         assertEquals(1d, addedPosition.getY());
     }

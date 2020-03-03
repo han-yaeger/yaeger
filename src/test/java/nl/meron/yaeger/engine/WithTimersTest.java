@@ -26,66 +26,65 @@ class WithTimersTest {
 
     @Test
     void initFirstClearsListOfTimers() {
-        // Setup
+        // Arrange
 
-
-        // Test
+        // Act
         sut.initTimers();
 
-        // Verify
+        // Assert
         verify(timers).clear();
     }
 
     @Test
     void initCallsRegisterTimers() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.initTimers();
 
-        // Verify
+        // Assert
         assertTrue(sut.isRegisterTimersCalled());
     }
 
     @Test
     void registerTimerAddTheTimerToTheTimers() {
-        // Setup
+        // Arrange
         sut.setTimers(new ArrayList<>());
         var timer = mock(Timer.class);
 
-        // Test
+        // Act
         sut.registerTimer(timer);
 
-        // Verify
+        // Assert
         assertEquals(timer, sut.getTimers().get(0));
     }
 
     @Test
     void callTimersDoesNotBreakIfTimersIsNull() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         var updatable = sut.callTimers();
 
-        // Verify
+        // Assert
         assertTrue(updatable instanceof Updatable);
     }
 
     @Test
     void registerTimerThrowsExceptionIfGetTimersReturnNull() {
-        // Setup
+        // Arrange
         var timer1 = mock(Timer.class);
         sut.setTimers(null);
 
-        // Test
+        // Act
 
-        // Verify
+        // Assert
         assertThrows(YaegerEngineException.class, () -> sut.registerTimer(timer1));
     }
 
     @Test
     void invokingTheUpdatableCallsHandleOnEachTimer() {
-        // Setup
+        // Arrange
         sut.setTimers(new ArrayList<>());
         var timer1 = mock(Timer.class);
         var timer2 = mock(Timer.class);
@@ -93,10 +92,10 @@ class WithTimersTest {
         sut.registerTimer(timer2);
         var updatable = sut.callTimers();
 
-        // Test
+        // Act
         updatable.update(TIMESTAMP);
 
-        // Verify
+        // Assert
         verify(timer1).handle(TIMESTAMP);
         verify(timer2).handle(TIMESTAMP);
     }

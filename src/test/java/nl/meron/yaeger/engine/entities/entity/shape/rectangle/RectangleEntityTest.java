@@ -52,10 +52,10 @@ class RectangleEntityTest {
 
     @Test
     void settingPositionWithoutDelegateStoresPositionAsInitialPosition() {
-        // Setup
+        // Arrange
         var sut = new RectangleEntityImpl(new Location(0, 0));
 
-        // Test
+        // Act
         sut.setOriginX(LOCATION.getX());
         sut.setOriginY(LOCATION.getY());
 
@@ -66,10 +66,10 @@ class RectangleEntityTest {
 
     @Test
     void getGameNodeReturnsTheRectangle() {
-        // Setup
+        // Arrange
         var sut = new RectangleEntityImpl(LOCATION);
 
-        // Test
+        // Act
         sut.setRectangle(rectangle);
         sut.init(injector);
 
@@ -79,12 +79,12 @@ class RectangleEntityTest {
 
     @Test
     void settingValuesAfterDelegateIsSetDelegatesTheValues() {
-        // Setup
+        // Arrange
         var rectangleEntity = new RectangleEntityImpl(LOCATION);
         rectangleEntity.setRectangle(rectangle);
         rectangleEntity.init(injector);
 
-        // Test
+        // Act
         rectangleEntity.setArcHeight(ARC_HEIGHT);
         rectangleEntity.setArcWidth(ARC_WIDTH);
         rectangleEntity.setWidth(WIDTH);
@@ -106,7 +106,7 @@ class RectangleEntityTest {
 
     @Test
     void getLeftXTakesTheStrokeWidthIntoAccount() {
-        // Setup
+        // Arrange
         var sut = new RectangleEntityImpl(LOCATION);
         var bounds = mock(BoundingBox.class);
         when(rectangle.getBoundsInLocal()).thenReturn(bounds);
@@ -121,7 +121,7 @@ class RectangleEntityTest {
         sut.setRectangle(rectangle);
         sut.init(injector);
 
-        // Test
+        // Act
         double leftX = sut.getLeftX();
 
         // Verify
@@ -130,7 +130,7 @@ class RectangleEntityTest {
 
     @Test
     void getTopXTakesTheStrokeWidthIntoAccount() {
-        // Setup
+        // Arrange
         var sut = new RectangleEntityImpl(LOCATION);
         var bounds = mock(BoundingBox.class);
         when(rectangle.getBoundsInLocal()).thenReturn(bounds);
@@ -145,7 +145,7 @@ class RectangleEntityTest {
         sut.setRectangle(rectangle);
         sut.init(injector);
 
-        // Test
+        // Act
         double topY = sut.getTopY();
 
         // Verify
@@ -154,10 +154,10 @@ class RectangleEntityTest {
 
     @Test
     void ifRectangleNotYetSetStrokeHeightIsStoredAndSetAtInit() {
-        // Setup
+        // Arrange
         var sut = new RectangleEntityImpl(LOCATION);
 
-        // Test
+        // Act
         sut.setHeight(HEIGHT);
         sut.setRectangle(rectangle);
         sut.init(injector);
@@ -168,10 +168,10 @@ class RectangleEntityTest {
 
     @Test
     void ifRectangleNotYetSetArcWidthIsStoredAndSetAtInit() {
-        // Setup
+        // Arrange
         var sut = new RectangleEntityImpl(LOCATION);
 
-        // Test
+        // Act
         sut.setArcWidth(ARC_WIDTH);
         sut.setRectangle(rectangle);
         sut.init(injector);
@@ -182,10 +182,10 @@ class RectangleEntityTest {
 
     @Test
     void ifRectangleNotYetSetArcHeightIsStoredAndSetAtInit() {
-        // Setup
+        // Arrange
         var sut = new RectangleEntityImpl(LOCATION);
 
-        // Test
+        // Act
         sut.setArcHeight(ARC_HEIGHT);
         sut.setRectangle(rectangle);
         sut.init(injector);
@@ -196,10 +196,10 @@ class RectangleEntityTest {
 
     @Test
     void ifRectangleNotYetSetStrokeColorIsStoredAndSetAtInit() {
-        // Setup
+        // Arrange
         var sut = new RectangleEntityImpl(LOCATION);
 
-        // Test
+        // Act
         sut.setStrokeColor(COLOR_STROKE);
         sut.setRectangle(rectangle);
         sut.init(injector);
@@ -210,10 +210,10 @@ class RectangleEntityTest {
 
     @Test
     void ifRectangleNotYetSetStrokeWidthIsStoredAndSetAtInit() {
-        // Setup
+        // Arrange
         var sut = new RectangleEntityImpl(LOCATION);
 
-        // Test
+        // Act
         sut.setStrokeWidth(STROKE_WIDTH);
         sut.setRectangle(rectangle);
         sut.init(injector);
@@ -224,10 +224,10 @@ class RectangleEntityTest {
 
     @Test
     void ifRectangleNotYetSetFillIsStoredAndSetAtInit() {
-        // Setup
+        // Arrange
         var sut = new RectangleEntityImpl(LOCATION);
 
-        // Test
+        // Act
         sut.setFill(COLOR_FILL);
         sut.setRectangle(rectangle);
         sut.init(injector);

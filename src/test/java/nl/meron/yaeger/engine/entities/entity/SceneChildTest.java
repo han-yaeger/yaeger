@@ -32,50 +32,50 @@ class SceneChildTest {
 
     @Test
     void getWidthDelegatesToNodeIfPresent() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         double sceneWidth = sut.getSceneWidth();
 
-        // Verify
+        // Assert
         verify(scene).getWidth();
         assertEquals(WIDTH, sceneWidth);
     }
 
     @Test
     void getHeightDelegatesToNodeIfPresent() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         double sceneHeight = sut.getSceneHeight();
 
-        // Verify
+        // Assert
         verify(scene).getHeight();
         assertEquals(HEIGHT, sceneHeight);
     }
 
     @Test
     void getWidthReturnsZeroIfNodeNotPresent() {
-        // Setup
+        // Arrange
         sut.setNode(Optional.empty());
 
-        // Test
+        // Act
         double sceneWidth = sut.getSceneWidth();
 
-        // Verify
+        // Assert
         assertEquals(0, sceneWidth);
     }
 
 
     @Test
     void getHeightReturnsZeroIfNodeNotPresent() {
-        // Setup
+        // Arrange
         sut.setNode(Optional.empty());
 
-        // Test
+        // Act
         double sceneHeight = sut.getSceneHeight();
 
-        // Verify
+        // Assert
         assertEquals(0, sceneHeight);
     }
 

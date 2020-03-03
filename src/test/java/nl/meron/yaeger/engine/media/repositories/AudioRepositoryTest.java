@@ -16,80 +16,80 @@ class AudioRepositoryTest {
 
     @Test
     void afterDestroyRepositoryIsEmpty() {
-        // Setup
+        // Arrange
         audioRepository.destroy();
 
-        // Test
+        // Act
         int size = audioRepository.size();
 
-        // Verify
+        // Assert
         Assertions.assertEquals(0, size);
     }
 
     @Test
     void getCreatesAndReturnsAnAudioClip() {
-        // Setup
+        // Arrange
         audioRepository.destroy();
 
-        // Test
+        // Act
         AudioClip audioClip = audioRepository.get("waterworld/audio/waterworld.mp3");
 
-        // Verify
+        // Assert
         Assertions.assertNotNull(audioClip);
         Assertions.assertEquals(1, audioRepository.size());
     }
 
     @Test
     void callingGetTwiceCreatesCreatesOnlyOneAudioClip() {
-        // Setup
+        // Arrange
         audioRepository.destroy();
 
-        // Test
+        // Act
         AudioClip audioClip1 = audioRepository.get("waterworld/audio/waterworld.mp3");
         AudioClip audioClip2 = audioRepository.get("waterworld/audio/waterworld.mp3");
 
-        // Verify
+        // Assert
         Assertions.assertSame(audioClip1, audioClip2);
         Assertions.assertEquals(1, audioRepository.size());
     }
 
     @Test
     void callingGetWithDifferentUrlsCreatesDifferentAudioClips() {
-        // Setup
+        // Arrange
         audioRepository.destroy();
 
-        // Test
+        // Act
         AudioClip audioClip1 = audioRepository.get("waterworld/audio/ocean.mp3");
         AudioClip audioClip2 = audioRepository.get("waterworld/audio/waterworld.mp3");
 
-        // Verify
+        // Assert
         Assertions.assertNotSame(audioClip1, audioClip2);
         Assertions.assertEquals(2, audioRepository.size());
     }
 
     @Test
     void getWithAGivenCycleCountsReturnsAnAudioClip() {
-        // Setup
+        // Arrange
         audioRepository.destroy();
 
-        // Test
+        // Act
         AudioClip audioClip = audioRepository.get("waterworld/audio/waterworld.mp3", 2);
 
-        // Verify
+        // Assert
         Assertions.assertNotNull(audioClip);
         Assertions.assertEquals(1, audioRepository.size());
     }
 
     @Test
     void callingGetWithDifferentCycleCountsCreatesCreatesDifferentAudioClips() {
-        // Setup
+        // Arrange
         audioRepository.destroy();
 
-        // Test
+        // Act
         AudioClip audioClip1 = audioRepository.get("waterworld/audio/waterworld.mp3");
         AudioClip audioClip2 = audioRepository.get("waterworld/audio/waterworld.mp3", 3);
 
-        // Verify
+        // Assert
         Assertions.assertNotSame(audioClip1, audioClip2);
         Assertions.assertEquals(2, audioRepository.size());
     }

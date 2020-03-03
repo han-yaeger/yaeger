@@ -28,37 +28,37 @@ class EntitySupplierTest {
 
     @Test
     void addEntitiesAddsEntity() {
-        // Setup
+        // Arrange
         Entity entity = new TestEntity();
 
-        // Test
+        // Act
         entitySupplier.add(entity);
 
-        // Verify
+        // Assert
         Assertions.assertEquals(1, entitySupplier.size());
     }
 
     @Test
     void clearClearsListOfSpawnedEntities() {
-        // Setup
+        // Arrange
         Entity entity = new TestEntity();
 
-        // Test
+        // Act
         entitySupplier.add(entity);
         entitySupplier.clear();
 
-        // Verify
+        // Assert
         Assertions.assertEquals(0, entitySupplier.size());
     }
 
     @Test
     void getOnEmptySetReturnsEmptySet() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         Set<Entity> entities = entitySupplier.get();
 
-        // Verify
+        // Assert
         Assertions.assertEquals(0, entities.size());
     }
 

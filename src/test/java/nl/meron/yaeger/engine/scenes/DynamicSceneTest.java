@@ -86,9 +86,9 @@ class DynamicSceneTest {
 
     @Test
     void getTimersReturnsAnEmptyCollection() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         List<Timer> timers = sut.getTimers();
 
         // Verify
@@ -98,9 +98,9 @@ class DynamicSceneTest {
 
     @Test
     void setupSpawnersIsCalledDuringConfiguration() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.configure();
 
         // Verify
@@ -109,7 +109,7 @@ class DynamicSceneTest {
 
     @Test
     void registerSpawnerDelegatesToTheEntityCollection() {
-        // Setup
+        // Arrange
         var injector = mock(Injector.class);
         sut.init(injector);
 
@@ -123,7 +123,7 @@ class DynamicSceneTest {
 
         sut.configure();
 
-        // Test
+        // Act
         sut.registerSpawner(spawner);
 
         // Verify
@@ -132,12 +132,12 @@ class DynamicSceneTest {
 
     @Test
     void destroyClearsEntityCollection() {
-        // Setup
+        // Arrange
         var children = mock(ObservableList.class);
         when(root.getChildren()).thenReturn(children);
         sut.configure();
 
-        // Test
+        // Act
         sut.destroy();
 
         // Verify
@@ -146,13 +146,13 @@ class DynamicSceneTest {
 
     @Test
     void destroyClearsUpdaters() {
-        // Setup
+        // Arrange
         var children = mock(ObservableList.class);
         when(root.getChildren()).thenReturn(children);
 
         sut.configure();
 
-        // Test
+        // Act
         sut.destroy();
 
         // Verify
@@ -161,12 +161,12 @@ class DynamicSceneTest {
 
     @Test
     void onInputChangeNotifiesEntityCollection() {
-        // Setup
+        // Arrange
         var input = new HashSet<KeyCode>();
         input.add(KeyCode.F1);
         sut.configure();
 
-        // Test
+        // Act
         sut.onInputChanged(input);
 
         // Verify
@@ -175,10 +175,10 @@ class DynamicSceneTest {
 
     @Test
     void setEntityCollectionUpdatableReturnsUpdatable() {
-        // Setup
+        // Arrange
         sut.configure();
 
-        // Test
+        // Act
         var updatable = sut.entityCollectionUpdatable();
 
         // Verify
@@ -187,11 +187,11 @@ class DynamicSceneTest {
 
     @Test
     void updatingEntityCollectionUpdatesEntityCollection() {
-        // Setup
+        // Arrange
         sut.configure();
         var updatable = sut.entityCollectionUpdatable();
 
-        // Test
+        // Act
         updatable.update(0l);
 
         // Verify
@@ -200,9 +200,9 @@ class DynamicSceneTest {
 
     @Test
     void setUpdaterIsUsed() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         var u = sut.getUpdater();
 
         // Verify

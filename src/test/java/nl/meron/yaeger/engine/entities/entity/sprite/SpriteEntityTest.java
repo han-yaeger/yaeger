@@ -68,7 +68,7 @@ class SpriteEntityTest {
         sut.setOriginX(DEFAULT_LOCATION.getX());
         sut.setOriginY(DEFAULT_LOCATION.getY());
 
-        // Verify
+        // Assert
         Assertions.assertEquals(0, Double.compare(sut.getInitialLocation().getX(), DEFAULT_LOCATION.getX()));
         Assertions.assertEquals(0, Double.compare(sut.getInitialLocation().getY(), DEFAULT_LOCATION.getY()));
     }
@@ -80,7 +80,7 @@ class SpriteEntityTest {
         // Test
         var sut = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
 
-        // Verify
+        // Assert
         Assertions.assertNotNull(sut);
     }
 
@@ -91,7 +91,7 @@ class SpriteEntityTest {
         // Test
         var sut = new TestSpriteEntityWithTwoFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 2);
 
-        // Verify
+        // Assert
         Assertions.assertNotNull(sut);
     }
 
@@ -112,7 +112,7 @@ class SpriteEntityTest {
         // Test
         sut.init(injector);
 
-        // Verify
+        // Assert
         verifyNoMoreInteractions(spriteAnimationDelegateFactory);
     }
 
@@ -133,7 +133,7 @@ class SpriteEntityTest {
         // Test
         spriteEntity.init(injector);
 
-        // Verify
+        // Assert
         verify(spriteAnimationDelegateFactory).create(imageView, 2);
     }
 
@@ -155,7 +155,7 @@ class SpriteEntityTest {
         // Test
         spriteEntity.remove();
 
-        // Verify
+        // Assert
         verify(imageView).setImage(null);
         verify(imageView).setVisible(false);
         verify(imageView).fireEvent(any(RemoveEntityEvent.class));
@@ -182,7 +182,7 @@ class SpriteEntityTest {
         sut.setOriginX(X);
         sut.setOriginY(Y);
 
-        // Verify
+        // Assert
         verify(imageView).setX(X);
         verify(imageView).setY(Y);
     }
@@ -211,7 +211,7 @@ class SpriteEntityTest {
         // Test
         spriteEntity.setCurrentFrameIndex(frames);
 
-        // Verify
+        // Assert
         verify(spriteAnimationDelegate).setSpriteIndex(frames);
     }
 

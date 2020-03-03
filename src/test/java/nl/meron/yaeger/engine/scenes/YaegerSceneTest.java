@@ -28,9 +28,9 @@ class YaegerSceneTest {
 
     @Test
     void setCursorDelegatesToScene() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         sut.setCursor(Cursor.DEFAULT);
 
         // Verify
@@ -39,11 +39,11 @@ class YaegerSceneTest {
 
     @Test
     void getWidthReturnValueFromStage() {
-        // Setup
+        // Arrange
         var width = 37d;
         when(stage.getWidth()).thenReturn(width);
 
-        // Test
+        // Act
         double returnedWidth = sut.getWidth();
 
         // Verify
@@ -52,11 +52,11 @@ class YaegerSceneTest {
 
     @Test
     void getHeightReturnValueFromStage() {
-        // Setup
+        // Arrange
         var height = 0.42;
         when(stage.getHeight()).thenReturn(height);
 
-        // Test
+        // Act
         double returnedHeight = sut.getHeight();
 
         // Verify

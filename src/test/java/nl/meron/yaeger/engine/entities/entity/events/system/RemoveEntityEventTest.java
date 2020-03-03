@@ -9,14 +9,14 @@ class RemoveEntityEventTest {
 
     @Test
     void correctSourceSet() {
-        // Setup
+        // Arrange
         var removeable = Mockito.mock(Removeable.class);
         var event = new RemoveEntityEvent(removeable);
 
-        // Test
+        // Act
         var source = event.getSource();
 
-        // Verify
+        // Assert
         Assertions.assertSame(removeable, source);
     }
 }

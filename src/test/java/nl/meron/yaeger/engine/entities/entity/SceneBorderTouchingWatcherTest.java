@@ -36,18 +36,18 @@ class SceneBorderTouchingWatcherTest {
 
     @Test
     void testWatchForBoundaryTouchingReturnsAnUpdatable() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         var updatable = watcher.watchForBoundaryTouching();
 
-        // Verify
+        // Assert
         assertTrue(updatable instanceof Updatable);
     }
 
     @Test
     void testBoundaryNotTouched() {
-        // Setup
+        // Arrange
         when(node.getBoundsInParent()).thenReturn(BOUNDS_IN_SCENE);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
@@ -55,16 +55,16 @@ class SceneBorderTouchingWatcherTest {
 
         var updatable = watcher.watchForBoundaryTouching();
 
-        // Test
+        // Act
         updatable.update(0);
 
-        // Verify
+        // Assert
         assertNull(watcher.borderTouched);
     }
 
     @Test
     void testBoundaryLeftCrossed() {
-        // Setup
+        // Arrange
         when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_LEFT);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
@@ -72,16 +72,16 @@ class SceneBorderTouchingWatcherTest {
 
         var updatable = watcher.watchForBoundaryTouching();
 
-        // Test
+        // Act
         updatable.update(0);
 
-        // Verify
+        // Assert
         assertEquals(SceneBorder.LEFT, watcher.borderTouched);
     }
 
     @Test
     void testBoundaryRightCrossed() {
-        // Setup
+        // Arrange
         when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_RIGHT);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
@@ -89,16 +89,16 @@ class SceneBorderTouchingWatcherTest {
 
         var updatable = watcher.watchForBoundaryTouching();
 
-        // Test
+        // Act
         updatable.update(0);
 
-        // Verify
+        // Assert
         assertEquals(SceneBorder.RIGHT, watcher.borderTouched);
     }
 
     @Test
     void testBoundaryBottomTouched() {
-        // Setup
+        // Arrange
         when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_BOTTOM);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
@@ -106,16 +106,16 @@ class SceneBorderTouchingWatcherTest {
 
         var updatable = watcher.watchForBoundaryTouching();
 
-        // Test
+        // Act
         updatable.update(0);
 
-        // Verify
+        // Assert
         assertEquals(SceneBorder.BOTTOM, watcher.borderTouched);
     }
 
     @Test
     void testBoundaryTopTouched() {
-        // Setup
+        // Arrange
         when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_TOP);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
@@ -123,10 +123,10 @@ class SceneBorderTouchingWatcherTest {
 
         var updatable = watcher.watchForBoundaryTouching();
 
-        // Test
+        // Act
         updatable.update(0);
 
-        // Verify
+        // Assert
         assertEquals(SceneBorder.TOP, watcher.borderTouched);
     }
 

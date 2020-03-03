@@ -10,37 +10,37 @@ class TimerTest {
 
     @Test
     void handleDoesNotCallOnAnimationUpdateIfTimestampIsLessThanInterval() {
-        // Setup
+        // Arrange
         var timer = new TimerImpl(1000);
 
-        // Test
+        // Act
         timer.handle(500 * 1_000_000);
 
-        // Verify
+        // Assert
         Assertions.assertFalse(timer.updateCalled);
     }
 
     @Test
     void handleIsCalledOnAnimationUpdateIfTimestampIsMoreThanInterval() {
-        // Setup
+        // Arrange
         var timer = new TimerImpl(1000);
 
-        // Test
+        // Act
         timer.handle(1500 * 1_000_000);
 
-        // Verify
+        // Assert
         Assertions.assertTrue(timer.updateCalled);
     }
 
     @Test
     void handleIsCalledOnAnimationUpdateIfTimestampIsSameAsInterval() {
-        // Setup
+        // Arrange
         var timer = new TimerImpl(1000);
 
-        // Test
+        // Act
         timer.handle(1000 * 1_000_000);
 
-        // Verify
+        // Assert
         Assertions.assertTrue(timer.updateCalled);
     }
 

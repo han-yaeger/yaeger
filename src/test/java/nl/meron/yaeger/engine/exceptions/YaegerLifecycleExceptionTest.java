@@ -7,14 +7,14 @@ class YaegerLifecycleExceptionTest {
 
     @Test
     void correctMessageIsContructed() {
-        // Setup
+        // Arrange
         var originalMessage = "Message related to the lifecycle exception.";
-        // Test
+
+        // Act
         var sut = new YaegerLifecycleException(originalMessage);
 
-        // Verify
+        // Assert
         var message = sut.getMessage();
-
         Assertions.assertEquals(originalMessage, message);
     }
 }

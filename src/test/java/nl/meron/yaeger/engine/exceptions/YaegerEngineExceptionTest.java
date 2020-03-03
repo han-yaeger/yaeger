@@ -9,25 +9,25 @@ class YaegerEngineExceptionTest {
 
     @Test
     void testMessageStaysAvailable() {
-        // Setup
+        // Arrange
         var message = "testmessage";
 
-        // Test
+        // Act
         var sut = new YaegerEngineException(message);
 
-        // Verify
+        // Assert
         assertEquals(message, sut.getMessage());
     }
 
     @Test
     void testCausingExceptionStaysAvailable() {
-        // Setup
+        // Arrange
         var exception = Mockito.mock(Exception.class);
 
-        // Test
+        // Act
         var sut = new YaegerEngineException(exception);
 
-        // Verify
+        // Assert
         assertEquals(exception, sut.getCause());
     }
 }

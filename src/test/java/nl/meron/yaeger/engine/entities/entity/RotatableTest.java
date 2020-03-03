@@ -15,17 +15,16 @@ class RotatableTest {
 
     @Test
     void setRotateDelegatesToNode() {
-        // Setup
+        // Arrange
         var rotatable = new RotatableImpl();
         var node = mock(Node.class, withSettings().withoutAnnotations());
         rotatable.setNode(node);
 
-        // Test
+        // Act
         rotatable.setRotate(DEGREES);
 
-        // Verify
+        // Assert
         verify(node).setRotate(DEGREES);
-
     }
 
     private class RotatableImpl implements Rotatable {

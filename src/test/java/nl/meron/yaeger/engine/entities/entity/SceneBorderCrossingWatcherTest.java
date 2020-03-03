@@ -36,18 +36,18 @@ class SceneBorderCrossingWatcherTest {
 
     @Test
     void testWatchForBoundaryCrossingReturnsAnUpdatable() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         var updatable = watcher.watchForBoundaryCrossing();
 
-        // Verify
+        // Assert
         assertTrue(updatable instanceof Updatable);
     }
 
     @Test
     void testBoundaryNotCrossed() {
-        // Setup
+        // Arrange
         when(node.getBoundsInParent()).thenReturn(BOUNDS_IN_SCENE);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
@@ -55,16 +55,16 @@ class SceneBorderCrossingWatcherTest {
 
         var updatable = watcher.watchForBoundaryCrossing();
 
-        // Test
+        // Act
         updatable.update(0);
 
-        // Verify
+        // Assert
         assertNull(watcher.borderCrossed);
     }
 
     @Test
     void testBoundaryLeftCrossed() {
-        // Setup
+        // Arrange
         when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_LEFT);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
@@ -72,16 +72,16 @@ class SceneBorderCrossingWatcherTest {
 
         var updatable = watcher.watchForBoundaryCrossing();
 
-        // Test
+        // Act
         updatable.update(0);
 
-        // Verify
+        // Assert
         assertEquals(SceneBorder.LEFT, watcher.borderCrossed);
     }
 
     @Test
     void testBoundaryRightCrossed() {
-        // Setup
+        // Arrange
         when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_RIGHT);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
@@ -89,16 +89,16 @@ class SceneBorderCrossingWatcherTest {
 
         var updatable = watcher.watchForBoundaryCrossing();
 
-        // Test
+        // Act
         updatable.update(0);
 
-        // Verify
+        // Assert
         assertEquals(SceneBorder.RIGHT, watcher.borderCrossed);
     }
 
     @Test
     void testBoundaryBottomCrossed() {
-        // Setup
+        // Arrange
         when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_BOTTOM);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
@@ -106,16 +106,16 @@ class SceneBorderCrossingWatcherTest {
 
         var updatable = watcher.watchForBoundaryCrossing();
 
-        // Test
+        // Act
         updatable.update(0);
 
-        // Verify
+        // Assert
         assertEquals(SceneBorder.BOTTOM, watcher.borderCrossed);
     }
 
     @Test
     void testBoundaryTopCrossed() {
-        // Setup
+        // Arrange
         when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_TOP);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
@@ -123,10 +123,10 @@ class SceneBorderCrossingWatcherTest {
 
         var updatable = watcher.watchForBoundaryCrossing();
 
-        // Test
+        // Act
         updatable.update(0);
 
-        // Verify
+        // Assert
         assertEquals(SceneBorder.TOP, watcher.borderCrossed);
     }
 

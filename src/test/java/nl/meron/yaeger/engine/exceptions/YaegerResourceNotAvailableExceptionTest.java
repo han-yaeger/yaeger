@@ -9,15 +9,14 @@ class YaegerResourceNotAvailableExceptionTest {
 
     @Test
     void correctMessageIsConstructed() {
-        // Setup
+        // Arrange
         var resource = "testresource";
 
-        // Test
+        // Act
         var sut = new YaegerResourceNotAvailableException(resource);
 
-        // Verify
+        // Assert
         var message = sut.getMessage();
-
         assertEquals("Resource " + resource + " can not be found. Ensure that it is placed in resource/ folder.", message);
     }
 }

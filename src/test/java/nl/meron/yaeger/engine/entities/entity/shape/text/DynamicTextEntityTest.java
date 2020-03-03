@@ -40,9 +40,9 @@ class DynamicTextEntityTest {
 
     @Test
     void bufferIsSetInConstructor() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         Optional<EntityMotionInitBuffer> buffer = sut.getBuffer();
 
         // Verify
@@ -51,12 +51,12 @@ class DynamicTextEntityTest {
 
     @Test
     void bufferTransfersMotionOnInit() {
-        // Setup
+        // Arrange
         var motionApplier = mock(DefaultMotionApplier.class);
         sut.setMotionApplier(motionApplier);
         sut.setMotionTo(SPEED, DIRECTION);
 
-        // Test
+        // Act
         sut.init(injector);
 
         // Verify
@@ -65,11 +65,11 @@ class DynamicTextEntityTest {
 
     @Test
     void bufferIsEmptiedAfterInitIsCalled() {
-        // Setup
+        // Arrange
         var motionApplier = mock(DefaultMotionApplier.class);
         sut.setMotionApplier(motionApplier);
 
-        // Test
+        // Act
         sut.init(injector);
 
         // Verify
@@ -78,12 +78,12 @@ class DynamicTextEntityTest {
 
     @Test
     void initSetsMotionToDesiredSpeed() {
-        // Setup
+        // Arrange
         sut.setSpeedTo(SPEED);
         var motionApplier = mock(DefaultMotionApplier.class);
         sut.setMotionApplier(motionApplier);
 
-        // Test
+        // Act
         sut.init(injector);
 
         // Verify
@@ -92,11 +92,11 @@ class DynamicTextEntityTest {
 
     @Test
     void setMotionApplierIsUsed() {
-        // Setup
+        // Arrange
         var motionApplier = mock(DefaultMotionApplier.class);
         sut.setMotionApplier(motionApplier);
 
-        // Test
+        // Act
         var mA = sut.getMotionApplier();
 
         // Verify
@@ -105,11 +105,11 @@ class DynamicTextEntityTest {
 
     @Test
     void setUpdaterIsUsed() {
-        // Setup
+        // Arrange
         var updater = mock(Updater.class);
         sut.setUpdater(updater);
 
-        // Test
+        // Act
         var u = sut.getUpdater();
 
         // Verify
@@ -118,10 +118,10 @@ class DynamicTextEntityTest {
 
     @Test
     void setRotationSpeedIsUsed() {
-        // Setup
+        // Arrange
         sut.setRotationSpeed(ROTATION_SPEED);
 
-        // Test
+        // Act
         var rS = sut.getRotationSpeed();
 
         // Verify

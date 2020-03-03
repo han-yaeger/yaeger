@@ -13,15 +13,15 @@ class MouseReleasedListenerTest {
 
     @Test
     void attachMousePressedListenerAttachesMouseListener() {
-        // Setup
+        // Arrange
         var node = mock(Node.class, withSettings().withoutAnnotations());
         var mouseListeningEntity = new MouseReleasedListeningInstancee();
         mouseListeningEntity.setNode(node);
 
-        // Test
+        // Act
         mouseListeningEntity.attachMouseReleasedListener();
 
-        // Verify
+        // Assert
         verify(node).setOnMouseReleased(any());
     }
 
