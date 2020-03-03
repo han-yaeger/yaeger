@@ -12,7 +12,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class CollidedTest {
+public class AABBCollidedTest {
 
     private static final Bounds TEST_COLLIDED_BOUNDINGBOX = new BoundingBox(50, 50, 0, 25, 25, 0);
     private static final Bounds TEST_NOT_COLLIDING_BOUNDINGBOX = new BoundingBox(0, 0, 0, 1, 1, 0);
@@ -119,7 +119,7 @@ public class CollidedTest {
         }
     }
 
-    private class TestCollided implements Collided {
+    private class TestCollided implements AABBCollided {
 
         private Collider lastCollided;
 
@@ -143,7 +143,7 @@ public class CollidedTest {
         }
     }
 
-    private class TestCollidable extends TestCollided implements Collider, Collided {
+    private class TestCollidable extends TestCollided implements Collider, AABBCollided {
 
         @Override
         public Optional<Node> getGameNode() {

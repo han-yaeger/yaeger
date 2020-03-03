@@ -29,7 +29,7 @@ class CollisionDelegateTest {
     @Test
     void onlyCollidedGetsCollisionCheck() {
         // Arrange
-        Collided collided = mock(Collided.class);
+        AABBCollided collided = mock(AABBCollided.class);
         Collider collider = mock(Collider.class);
 
         collisionDelegate.register(collided);
@@ -60,7 +60,7 @@ class CollisionDelegateTest {
         collisionDelegate.checkCollisions();
 
         // Assert
-        Mockito.verify((Collided) collidedEntity).checkForCollisions(argument.capture());
+        Mockito.verify((AABBCollided) collidedEntity).checkForCollisions(argument.capture());
         Assertions.assertEquals(1, argument.getValue().size());
     }
 
@@ -97,11 +97,11 @@ class CollisionDelegateTest {
         collisionDelegate.checkCollisions();
 
         // Assert
-        Mockito.verify((Collided) collidedEntity).checkForCollisions(argument.capture());
+        Mockito.verify((AABBCollided) collidedEntity).checkForCollisions(argument.capture());
         Assertions.assertEquals(0, argument.getValue().size());
     }
 
-    private class CollidedTestEntity implements Entity, Collided {
+    private class CollidedTestEntity implements Entity, AABBCollided {
 
         @Override
         public void onCollision(Collider collidingObject) {

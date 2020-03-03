@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class CollisionDelegate {
 
-    private Set<Collided> collideds;
+    private Set<AABBCollided> collideds;
     private Set<Collider> colliders;
 
     /**
@@ -32,8 +32,8 @@ public class CollisionDelegate {
         if (entity instanceof Collider) {
             register((Collider) entity);
         }
-        if (entity instanceof Collided) {
-            register((Collided) entity);
+        if (entity instanceof AABBCollided) {
+            register((AABBCollided) entity);
         }
     }
 
@@ -47,11 +47,11 @@ public class CollisionDelegate {
     }
 
     /**
-     * Register a {@link Collided} to be evaluated for collision detection.
+     * Register a {@link AABBCollided} to be evaluated for collision detection.
      *
-     * @param collided the {@link Collided} that should be registered
+     * @param collided the {@link AABBCollided} that should be registered
      */
-    public void register(Collided collided) {
+    public void register(AABBCollided collided) {
         collideds.add(collided);
     }
 
@@ -64,13 +64,13 @@ public class CollisionDelegate {
         if (removeable instanceof Collider) {
             removeCollider((Collider) removeable);
         }
-        if (removeable instanceof Collided) {
-            removeCollided((Collided) removeable);
+        if (removeable instanceof AABBCollided) {
+            removeCollided((AABBCollided) removeable);
         }
     }
 
     /**
-     * Check for collisions. Each {@link Collided} is asked to check for collisions.
+     * Check for collisions. Each {@link AABBCollided} is asked to check for collisions.
      */
     public void checkCollisions() {
         collideds.forEach(collided -> collided.checkForCollisions(colliders));
@@ -80,7 +80,7 @@ public class CollisionDelegate {
         colliders.remove(collider);
     }
 
-    private void removeCollided(Collided collided) {
+    private void removeCollided(AABBCollided collided) {
         collideds.remove(collided);
     }
 }

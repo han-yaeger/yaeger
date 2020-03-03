@@ -2,17 +2,16 @@ package nl.meron.waterworld.entities.game;
 
 import nl.meron.waterworld.scenes.levels.Level;
 import nl.meron.yaeger.engine.entities.entity.collisions.Collider;
-import nl.meron.yaeger.engine.entities.entity.collisions.CollisionSide;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.SceneBorderCrossingWatcher;
 import nl.meron.yaeger.engine.media.audio.SoundClip;
-import nl.meron.yaeger.engine.entities.entity.collisions.Collided;
+import nl.meron.yaeger.engine.entities.entity.collisions.AABBCollided;
 import nl.meron.yaeger.engine.entities.entity.sprite.DynamicSpriteEntity;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 
-public abstract class Bubble extends DynamicSpriteEntity implements Collided, SceneBorderCrossingWatcher {
+public abstract class Bubble extends DynamicSpriteEntity implements AABBCollided, SceneBorderCrossingWatcher {
 
     private static final String AUDIO_POP_MP3 = "waterworld/audio/pop.mp3";
     private final Level level;

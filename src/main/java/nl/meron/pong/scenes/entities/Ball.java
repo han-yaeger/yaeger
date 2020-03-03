@@ -1,7 +1,6 @@
 package nl.meron.pong.scenes.entities;
 
 import nl.meron.pong.scenes.ScoreKeeper;
-import nl.meron.yaeger.engine.entities.entity.collisions.Collided;
 import nl.meron.yaeger.engine.entities.entity.collisions.Collider;
 import nl.meron.yaeger.engine.entities.entity.collisions.CollisionSide;
 import nl.meron.yaeger.engine.entities.entity.Location;

@@ -8,7 +8,7 @@ import nl.meron.yaeger.engine.Updatable;
 import nl.meron.yaeger.engine.annotations.AnnotationProcessor;
 import nl.meron.yaeger.engine.Initializable;
 import nl.meron.yaeger.engine.debug.StatisticsObserver;
-import nl.meron.yaeger.engine.entities.entity.collisions.Collided;
+import nl.meron.yaeger.engine.entities.entity.collisions.AABBCollided;
 import nl.meron.yaeger.engine.entities.entity.collisions.Collider;
 import nl.meron.yaeger.engine.entities.entity.collisions.CollisionDelegate;
 import nl.meron.yaeger.engine.entities.entity.*;
@@ -115,8 +115,8 @@ public class EntityCollection implements Initializable {
      * </li>
      * <li>
      * <b>Check for collisions</b> Check if collisions have occured between instances of
-     * {@link Collided} and
-     * {@link Collider}. In such a case, the {@link Collided}
+     * {@link AABBCollided} and
+     * {@link Collider}. In such a case, the {@link AABBCollided}
      * will be notified.
      * </li>
      * <li>

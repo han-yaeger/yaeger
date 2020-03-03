@@ -14,11 +14,11 @@ import javafx.geometry.Bounds;
  * {@link nl.meron.yaeger.engine.entities.entity.Entity} that really need to be part of the collision detection implement
  * the {@link SideCollided} or {@link Collider} interfaces.
  * <p>
- * If it is not required to know the side of the collision, implement the {@link Collided} interface, which will save you valuable
+ * If it is not required to know the side of the collision, implement the {@link AABBCollided} interface, which will save you valuable
  * processortime.</p>
  */
 
-public interface SideCollided extends Collided {
+public interface SideCollided extends AABBCollided {
 
     /**
      * This method is called if a collision has occurred.
