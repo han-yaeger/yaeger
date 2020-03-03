@@ -5,7 +5,6 @@ import javafx.scene.Node;
 import nl.meron.yaeger.engine.Timer;
 import nl.meron.yaeger.engine.entities.entity.AnchorPoint;
 import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.entities.entity.Location;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,24 +43,6 @@ class CollisionDelegateTest {
         // Assert
         Mockito.verify(collided).checkForCollisions(argument.capture());
         Assertions.assertEquals(1, argument.getValue().size());
-    }
-
-    @Test
-    void collidableGetsCheckedIncludingItself() {
-        // Arrange
-        Collidable collidable = mock(Collidable.class);
-        Collider collider = mock(Collider.class);
-        collisionDelegate.register(collidable);
-        collisionDelegate.register(collider);
-
-        ArgumentCaptor<Set> argument = ArgumentCaptor.forClass(Set.class);
-
-        // Act
-        collisionDelegate.checkCollisions();
-
-        // Assert
-        Mockito.verify(collidable).checkForCollisions(argument.capture());
-        Assertions.assertEquals(2, argument.getValue().size());
     }
 
     @Test

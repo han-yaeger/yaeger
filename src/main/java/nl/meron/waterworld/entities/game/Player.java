@@ -2,18 +2,17 @@ package nl.meron.waterworld.entities.game;
 
 import javafx.scene.input.KeyCode;
 import nl.meron.waterworld.scenes.levels.Level;
-import nl.meron.yaeger.engine.entities.entity.collisions.CollisionSide;
+import nl.meron.yaeger.engine.entities.entity.collisions.Collided;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.Size;
-import nl.meron.yaeger.engine.entities.entity.collisions.Collidable;
 import nl.meron.yaeger.engine.entities.entity.collisions.Collider;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;
 import nl.meron.yaeger.engine.entities.entity.sprite.DynamicSpriteEntity;
 
 import java.util.Set;
 
-public class Player extends DynamicSpriteEntity implements KeyListener, Collidable {
+public class Player extends DynamicSpriteEntity implements KeyListener, Collided, Collider {
 
     private static final String IMAGES_PLAYER_PNG = "waterworld/images/player.png";
     private int health;

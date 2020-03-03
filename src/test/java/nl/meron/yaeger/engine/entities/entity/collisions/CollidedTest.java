@@ -80,14 +80,14 @@ public class CollidedTest {
     @Test
     void tesCollisionWithSelfReportsNoCollision() {
         // Arrange
-        TestCollidable collidable = new TestCollidable();
-        Set<Collider> testColliders = Set.of(collidable);
+        TestCollidable collidables = new TestCollidable();
+        Set<Collider> testColliders = Set.of(collidables);
 
         // Act
-        collidable.checkForCollisions(testColliders);
+        collidables.checkForCollisions(testColliders);
 
         // Assert
-        assertNull(collidable.getLastCollider());
+        assertNull(collidables.getLastCollider());
     }
 
     private class CollidingCollider implements Collider {
@@ -143,7 +143,7 @@ public class CollidedTest {
         }
     }
 
-    private class TestCollidable extends TestCollided implements Collidable {
+    private class TestCollidable extends TestCollided implements Collider, Collided {
 
         @Override
         public Optional<Node> getGameNode() {

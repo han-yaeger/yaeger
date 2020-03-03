@@ -56,16 +56,6 @@ public class CollisionDelegate {
     }
 
     /**
-     * Register a {@link Collidable} to be evaluated for collision detection.
-     *
-     * @param collidable the {@link Collidable} that should be registered
-     */
-    public void register(Collidable collidable) {
-        collideds.add(collidable);
-        colliders.add(collidable);
-    }
-
-    /**
      * Remove the {@link Removeable} from the list of Objects that are taken into account
      *
      * @param removeable The {@link Removeable} that should be removed.
@@ -80,7 +70,7 @@ public class CollisionDelegate {
     }
 
     /**
-     * Check for collisions. Each {@link Collidable} is asked to check for collisions.
+     * Check for collisions. Each {@link Collided} is asked to check for collisions.
      */
     public void checkCollisions() {
         collideds.forEach(collided -> collided.checkForCollisions(colliders));
