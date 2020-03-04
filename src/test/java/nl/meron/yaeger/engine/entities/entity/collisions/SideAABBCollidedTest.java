@@ -21,11 +21,11 @@ class SideAABBCollidedTest {
     private static final Bounds TEST_COLLIDED_RIGHT_BOUNDINGBOX = new BoundingBox(74, 55, 0, 2, 10, 0);
     private static final Bounds TEST_COLLIDED_BODY_BOUNDINGBOX = new BoundingBox(66, 66, 0, 2, 2, 0);
 
-    private TestCollided sut;
+    private TestAwareCollidedAABB sut;
 
     @BeforeEach
     void setup() {
-        sut = new TestCollided();
+        sut = new TestAwareCollidedAABB();
     }
 
     @Test
@@ -149,7 +149,7 @@ class SideAABBCollidedTest {
         }
     }
 
-    private class TestCollided implements SideCollided {
+    private class TestAwareCollidedAABB implements AABBSideAwareCollided {
 
         private Collider collider;
         private CollisionSide collisionSide;
