@@ -4,10 +4,10 @@ import nl.meron.waterworld.scenes.levels.LevelOne;
 import nl.meron.waterworld.scenes.GameOver;
 import nl.meron.waterworld.scenes.Intro;
 import nl.meron.waterworld.scenes.levels.LevelTwo;
-import nl.meron.yaeger.engine.YaegerEngine;
+import nl.meron.yaeger.engine.YaegerApplication;
 import nl.meron.yaeger.engine.Size;
 
-public class Waterworld extends YaegerEngine {
+public class Waterworld extends YaegerApplication {
 
     public static final String FONT = "palatino";
 

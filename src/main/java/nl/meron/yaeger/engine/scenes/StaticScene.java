@@ -6,7 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import nl.meron.yaeger.engine.YaegerEngine;
+import nl.meron.yaeger.engine.YaegerApplication;
 import nl.meron.yaeger.engine.entities.EntityCollection;
 import nl.meron.yaeger.engine.entities.EntitySupplier;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;
@@ -108,7 +108,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
 
     @Override
     public void onPressedKeysChange(final Set<KeyCode> input) {
-        if (input.contains(YaegerEngine.TOGGLE_DEBUGGER_KEY)) {
+        if (input.contains(YaegerApplication.TOGGLE_DEBUGGER_KEY)) {
             debugger.toggle();
         }
 

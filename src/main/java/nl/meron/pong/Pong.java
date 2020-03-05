@@ -1,13 +1,13 @@
 package nl.meron.pong;
 
 import nl.meron.pong.scenes.LevelOne;
-import nl.meron.yaeger.engine.YaegerEngine;
+import nl.meron.yaeger.engine.YaegerApplication;
 import nl.meron.yaeger.engine.Size;
 
 /**
  * Elementary implementation of the PONG game.
  */
-public class Pong extends YaegerEngine {
+public class Pong extends YaegerApplication {
 
     private static final String GAME_TITLE = "Pong";
     public static final String FONT = "arial";

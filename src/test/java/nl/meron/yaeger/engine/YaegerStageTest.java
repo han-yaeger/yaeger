@@ -6,9 +6,7 @@ import nl.meron.yaeger.engine.scenes.SceneCollection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
-import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class YaegerStageTest {
@@ -16,14 +14,14 @@ class YaegerStageTest {
     private static final int WIDTH = 960;
     private static final int HEIGHT = 600;
 
-    private YaegerEngine yaegerApplication;
+    private YaegerApplication yaegerApplication;
     private Stage stage;
     private Injector injector;
     private YaegerStage sut;
 
     @BeforeEach
     void setUp() {
-        yaegerApplication = mock(YaegerEngine.class);
+        yaegerApplication = mock(YaegerApplication.class);
         stage = mock(Stage.class);
         injector = mock(Injector.class);
         sut = new YaegerStage(yaegerApplication, stage);

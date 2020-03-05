@@ -7,14 +7,14 @@ import nl.meron.yaeger.engine.scenes.YaegerScene;
 
 public class YaegerStage implements Initializable {
 
-    private Size size = YaegerEngine.DEFAULT_GAME_DIMENSIONS;
+    private Size size = YaegerApplication.DEFAULT_GAME_DIMENSIONS;
 
-    private YaegerEngine yaegerEngine;
+    private YaegerApplication yaegerApplication;
     private Stage stage;
     private SceneCollection sceneCollection;
 
-    YaegerStage(final YaegerEngine yaegerEngine, final Stage stage) {
-        this.yaegerEngine = yaegerEngine;
+    YaegerStage(final YaegerApplication yaegerApplication, final Stage stage) {
+        this.yaegerApplication = yaegerApplication;
         this.stage = stage;
     }
 
@@ -35,12 +35,12 @@ public class YaegerStage implements Initializable {
         sceneCollection = new SceneCollection(stage, injector);
         injector.injectMembers(sceneCollection);
 
-        yaegerEngine.initializeGame();
+        yaegerApplication.initializeGame();
 
         stage.setWidth(size.getWidth());
         stage.setHeight(size.getHeight());
 
-        yaegerEngine.setupScenes();
+        yaegerApplication.setupScenes();
 
         stage.show();
     }

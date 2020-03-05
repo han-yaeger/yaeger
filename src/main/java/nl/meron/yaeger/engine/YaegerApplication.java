@@ -8,9 +8,20 @@ import nl.meron.yaeger.engine.scenes.YaegerScene;
 import nl.meron.yaeger.guice.YaegerModule;
 
 /**
- * {@link YaegerEngine} is the base class that must be extended to create a Yaeger game.
+ * {@link YaegerApplication} is the base class that must be extended to create a Yaeger game. After extending this class,
+ * two lifecycle methods will become available: {@link #initializeGame()} and {@link #setupScenes()}. The methods should be used
+ * for any further configuration.
+ * <p>
+ * The constructor of the extending class should be the default and empty constructor. Furthermore, the extending class
+ * should have a main-method that should look as follows:
+ * <pre>{@code
+ *      public static void main(String[] args) {
+ *          launch(args);
+ *      }
+ * }
+ * </pre>
  */
-public abstract class YaegerEngine extends Application {
+public abstract class YaegerApplication extends Application {
     public static final KeyCode TOGGLE_DEBUGGER_KEY = KeyCode.F1;
     public static final Size DEFAULT_GAME_DIMENSIONS = new Size(640, 480);
 

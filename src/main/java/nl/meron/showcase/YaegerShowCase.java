@@ -6,12 +6,12 @@ import nl.meron.showcase.scenes.shapeentities.ShapeEntitiesScene;
 import nl.meron.showcase.scenes.spriteentities.SpriteEntitiesScene;
 import nl.meron.showcase.scenes.textentities.TextEntitiesScene;
 import nl.meron.yaeger.engine.Size;
-import nl.meron.yaeger.engine.YaegerEngine;
+import nl.meron.yaeger.engine.YaegerApplication;
 
 /**
  * ShowCase of all Yaeger Features.
  */
-public class YaegerShowCase extends YaegerEngine {
+public class YaegerShowCase extends YaegerApplication {
 
     private static final String GAME_TITLE = "Yaeger Show Case";
     private static final int WIDTH = 1280;
