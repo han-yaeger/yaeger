@@ -41,10 +41,6 @@ class YaegerStageTest {
     }
 
     @Test
-    void setActiveScene() {
-    }
-
-    @Test
     void atInitializationInitializeGameIsaCalled() {
         // Arrange
 
@@ -111,9 +107,5 @@ class YaegerStageTest {
 
         // Assert
         verify(stage).close();
-    }
-
-    @Test
-    void addScene() {
     }
 }
