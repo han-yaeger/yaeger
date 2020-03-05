@@ -4,7 +4,6 @@ import com.google.inject.Guice;
 import javafx.application.Application;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import nl.meron.yaeger.engine.scenes.SceneCollection;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 import nl.meron.yaeger.guice.YaegerModule;
 
@@ -13,13 +12,9 @@ import nl.meron.yaeger.guice.YaegerModule;
  */
 public abstract class YaegerEngine extends Application {
     public static final KeyCode TOGGLE_DEBUGGER_KEY = KeyCode.F1;
+    public static final Size DEFAULT_GAME_DIMENSIONS = new Size(640, 480);
 
-    private static final Size DEFAULT_GAME_DIMENSIONS = new Size(640, 480);
-
-    private Size size = DEFAULT_GAME_DIMENSIONS;
-
-    private Stage yaegerStage;
-    private SceneCollection sceneCollection;
+    private YaegerStage yaegerStage;
 
     /**
      * Set the {@link Size}, being the {@code width} and {@code height} of the game.
@@ -27,7 +22,7 @@ public abstract class YaegerEngine extends Application {
      * @param size A {@link Size} object that encapsulates the {@code width} and {@code height} of the game
      */
     protected void setSize(final Size size) {
-        this.size = size;
+        yaegerStage.setSize(size);
     }
 
     /**
@@ -45,7 +40,7 @@ public abstract class YaegerEngine extends Application {
      * @param number The {@link Integer} identifying the {@link YaegerScene}
      */
     protected void setActiveScene(final int number) {
-        sceneCollection.setActive(number);
+        yaegerStage.setActiveScene(number);
     }
 
     /**
@@ -55,8 +50,7 @@ public abstract class YaegerEngine extends Application {
      * @param scene  The {@link YaegerScene} that should be added
      */
     protected void addScene(final int number, final YaegerScene scene) {
-
-        sceneCollection.addScene(number, scene);
+        yaegerStage.addScene(number, scene);
     }
 
     /**
@@ -87,30 +81,15 @@ public abstract class YaegerEngine extends Application {
     @Override
     public void start(final Stage primaryStage) {
         var injector = Guice.createInjector(new YaegerModule());
-        yaegerStage = primaryStage;
-        yaegerStage.setResizable(false);
-
-        sceneCollection = new SceneCollection(primaryStage, injector);
-        injector.injectMembers(sceneCollection);
-
-        initializeGame();
-
-        yaegerStage.setWidth(size.getWidth());
-        yaegerStage.setHeight(size.getHeight());
-
-        setupScenes();
-
-        showGame();
+        yaegerStage = new YaegerStage(this, primaryStage);
+        yaegerStage.init(injector);
     }
 
     /**
      * Stop the Game and close the Game.
      */
     public void quitGame() {
-        yaegerStage.close();
+        yaegerStage.quit();
     }
 
-    private void showGame() {
-        yaegerStage.show();
-    }
 }
