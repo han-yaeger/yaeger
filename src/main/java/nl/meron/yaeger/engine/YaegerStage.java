@@ -1,9 +1,11 @@
 package nl.meron.yaeger.engine;
 
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.stage.Stage;
 import nl.meron.yaeger.engine.scenes.SceneCollection;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
+import nl.meron.yaeger.guice.factories.SceneCollectionFactory;
 
 public class YaegerStage implements Initializable {
 
@@ -11,6 +13,7 @@ public class YaegerStage implements Initializable {
 
     private YaegerApplication yaegerApplication;
     private Stage stage;
+    private SceneCollectionFactory sceneCollectionFactory;
     private SceneCollection sceneCollection;
 
     YaegerStage(final YaegerApplication yaegerApplication, final Stage stage) {
@@ -32,8 +35,9 @@ public class YaegerStage implements Initializable {
     public void init(Injector injector) {
         stage.setResizable(false);
 
-        sceneCollection = new SceneCollection(stage, injector);
+        sceneCollection = sceneCollectionFactory.create(stage);
         injector.injectMembers(sceneCollection);
+        sceneCollection.init(injector);
 
         yaegerApplication.initializeGame();
 
@@ -79,5 +83,10 @@ public class YaegerStage implements Initializable {
      */
     protected void setActiveScene(final int number) {
         sceneCollection.setActive(number);
+    }
+
+    @Inject
+    public void setSceneCollectionFactory(SceneCollectionFactory sceneCollectionFactory) {
+        this.sceneCollectionFactory = sceneCollectionFactory;
     }
 }

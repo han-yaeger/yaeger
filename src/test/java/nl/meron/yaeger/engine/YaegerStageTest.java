@@ -3,6 +3,8 @@ package nl.meron.yaeger.engine;
 import com.google.inject.Injector;
 import javafx.stage.Stage;
 import nl.meron.yaeger.engine.scenes.SceneCollection;
+import nl.meron.yaeger.engine.scenes.YaegerScene;
+import nl.meron.yaeger.guice.factories.SceneCollectionFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
@@ -18,13 +20,20 @@ class YaegerStageTest {
     private Stage stage;
     private Injector injector;
     private YaegerStage sut;
+    private SceneCollectionFactory sceneCollectionFactory;
+    private SceneCollection sceneCollection;
 
     @BeforeEach
     void setUp() {
         yaegerApplication = mock(YaegerApplication.class);
         stage = mock(Stage.class);
         injector = mock(Injector.class);
+        sceneCollectionFactory = mock(SceneCollectionFactory.class);
+        sceneCollection = mock(SceneCollection.class);
         sut = new YaegerStage(yaegerApplication, stage);
+        sut.setSceneCollectionFactory(sceneCollectionFactory);
+
+        when(sceneCollectionFactory.create(stage)).thenReturn(sceneCollection);
     }
 
     @Test
@@ -107,5 +116,32 @@ class YaegerStageTest {
 
         // Assert
         verify(stage).close();
+    }
+
+    @Test
+    void setActiveSceneDelegatesToSceneCollection() {
+        // Arrange
+        var expected = 1;
+        sut.init(injector);
+
+        // Act
+        sut.setActiveScene(expected);
+
+        // Assert
+        verify(sceneCollection).setActive(expected);
+    }
+
+    @Test
+    void addSceneDelegatesToSceneCollection() {
+        // Arrange
+        var expectedIndex = 1;
+        var expectedScene = mock(YaegerScene.class);
+        sut.init(injector);
+
+        // Act
+        sut.addScene(expectedIndex, expectedScene);
+
+        // Assert
+        verify(sceneCollection).addScene(expectedIndex, expectedScene);
     }
 }

@@ -3,6 +3,7 @@ package nl.meron.yaeger.engine.scenes;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.stage.Stage;
+import nl.meron.yaeger.engine.Initializable;
 import nl.meron.yaeger.engine.annotations.AnnotationProcessor;
 import nl.meron.yaeger.engine.exceptions.YaegerSceneNotAvailableException;
 
@@ -13,16 +14,15 @@ import java.util.Objects;
  * A {@link SceneCollection} contains all instances of {@link YaegerScene} that are part of a Game. It is
  * responsible for initializing all the scenes and setting the current {@link YaegerScene}.
  */
-public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> {
+public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> implements Initializable {
 
     private final transient Stage stage;
-    private final transient Injector injector;
+    private transient Injector injector;
     private transient AnnotationProcessor annotationProcessor;
     private transient YaegerScene activeScene;
 
-    public SceneCollection(final Stage stage, final Injector injector) {
+    public SceneCollection(final Stage stage) {
         this.stage = stage;
-        this.injector = injector;
     }
 
     /**
@@ -86,6 +86,11 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> {
 
     private void setActiveSceneOnStage() {
         stage.setScene(activeScene.getScene());
+    }
+
+    @Override
+    public void init(Injector injector) {
+        this.injector = injector;
     }
 
     @Override

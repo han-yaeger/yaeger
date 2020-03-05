@@ -93,6 +93,7 @@ public abstract class YaegerApplication extends Application {
     public void start(final Stage primaryStage) {
         var injector = Guice.createInjector(new YaegerModule());
         yaegerStage = new YaegerStage(this, primaryStage);
+        injector.injectMembers(yaegerStage);
         yaegerStage.init(injector);
     }
 

@@ -23,15 +23,16 @@ class SceneCollectionTest {
         stage = mock(Stage.class);
         injector = mock(Injector.class);
         annotationProcessor = mock(AnnotationProcessor.class);
-        sut = new SceneCollection(stage, injector);
+        sut = new SceneCollection(stage);
+        sut.init(injector);
         sut.setAnnotationProcessor(annotationProcessor);
     }
 
     @Test
     void addingOneSceneSetAsActiveScene() {
         // Arrange
-        YaegerScene scene = mock(YaegerScene.class);
-        Scene javaFXScene = mock(Scene.class);
+        var scene = mock(YaegerScene.class);
+        var javaFXScene = mock(Scene.class);
 
         when(scene.getScene()).thenReturn(javaFXScene);
         doNothing().when(stage).setScene(javaFXScene);
@@ -60,8 +61,8 @@ class SceneCollectionTest {
     @Test
     void addedScenesAreInitializedAfterAdding() {
         // Arrange
-        YaegerScene scene = mock(YaegerScene.class);
-        Scene javaFXScene = mock(Scene.class);
+        var scene = mock(YaegerScene.class);
+        var javaFXScene = mock(Scene.class);
 
         when(scene.getScene()).thenReturn(javaFXScene);
         doNothing().when(stage).setScene(javaFXScene);
@@ -76,12 +77,12 @@ class SceneCollectionTest {
     @Test
     void addingMultipleScenesSetsFirstAsActiveScene() {
         // Arrange
-        YaegerScene yaegerScene1 = mock(YaegerScene.class);
-        YaegerScene yaegerScene2 = mock(YaegerScene.class);
-        YaegerScene yaegerScene3 = mock(YaegerScene.class);
-        YaegerScene yaegerScene4 = mock(YaegerScene.class);
+        var yaegerScene1 = mock(YaegerScene.class);
+        var yaegerScene2 = mock(YaegerScene.class);
+        var yaegerScene3 = mock(YaegerScene.class);
+        var yaegerScene4 = mock(YaegerScene.class);
 
-        Scene javaFXScene = mock(Scene.class);
+        var javaFXScene = mock(Scene.class);
 
         when(yaegerScene1.getScene()).thenReturn(javaFXScene);
         when(yaegerScene2.getScene()).thenReturn(javaFXScene);
@@ -101,9 +102,9 @@ class SceneCollectionTest {
     @Test
     void activatingASceneCallsTheAnnotationProcessor() {
         // Arrange
-        YaegerScene intro = mock(YaegerScene.class);
+        var intro = mock(YaegerScene.class);
 
-        Scene javaFXScene = mock(Scene.class);
+        var javaFXScene = mock(Scene.class);
 
         when(intro.getScene()).thenReturn(javaFXScene);
 
@@ -118,10 +119,10 @@ class SceneCollectionTest {
     @Test
     void selectingADifferentSceneChangesTheActiveScene() {
         // Arrange
-        YaegerScene intro = mock(YaegerScene.class);
-        YaegerScene level1 = mock(YaegerScene.class);
+        var intro = mock(YaegerScene.class);
+        var level1 = mock(YaegerScene.class);
 
-        Scene javaFXScene = mock(Scene.class);
+        var javaFXScene = mock(Scene.class);
 
         when(intro.getScene()).thenReturn(javaFXScene);
         when(level1.getScene()).thenReturn(javaFXScene);
@@ -140,10 +141,10 @@ class SceneCollectionTest {
     @Test
     void selectingADifferentSceneTearsDownTheCurrentActiveScene() {
         // Arrange
-        YaegerScene intro = mock(YaegerScene.class);
-        YaegerScene level1 = mock(YaegerScene.class);
+        var intro = mock(YaegerScene.class);
+        var level1 = mock(YaegerScene.class);
 
-        Scene javaFXScene = mock(Scene.class);
+        var javaFXScene = mock(Scene.class);
 
         when(intro.getScene()).thenReturn(javaFXScene);
         when(level1.getScene()).thenReturn(javaFXScene);
@@ -163,7 +164,7 @@ class SceneCollectionTest {
         // Arrange
 
         // Act
-        boolean equals = sut.equals(sut);
+        var equals = sut.equals(sut);
 
         // Verify
         Assertions.assertTrue(equals);
@@ -172,11 +173,12 @@ class SceneCollectionTest {
     @Test
     void equalsFailsWithDifferentInstance() {
         // Arrange
-        Stage stage2 = mock(Stage.class);
-        SceneCollection sceneCollection2 = new SceneCollection(stage2, injector);
+        var stage2 = mock(Stage.class);
+        SceneCollection sceneCollection2 = new SceneCollection(stage2);
+        sceneCollection2.init(injector);
 
         // Act
-        boolean equals = sut.equals(sceneCollection2);
+        var equals = sut.equals(sceneCollection2);
 
         // Verify
         Assertions.assertFalse(equals);
@@ -187,7 +189,7 @@ class SceneCollectionTest {
         // Arrange
 
         // Act
-        boolean equals = sut.equals(null);
+        var equals = sut.equals(null);
 
         // Verify
         Assertions.assertFalse(equals);
@@ -198,7 +200,7 @@ class SceneCollectionTest {
         // Arrange
 
         // Act
-        boolean equals = sut.equals(stage);
+        var equals = sut.equals(stage);
 
         // Verify
         Assertions.assertFalse(equals);
@@ -207,12 +209,13 @@ class SceneCollectionTest {
     @Test
     void differentInstancesHaveDifferentHashCodes() {
         // Arrange
-        Stage stage2 = mock(Stage.class);
-        SceneCollection sceneCollection2 = new SceneCollection(stage2, injector);
+        var stage2 = mock(Stage.class);
+        var sceneCollection2 = new SceneCollection(stage2);
+        sceneCollection2.init(injector);
 
         // Act
-        int hash1 = sut.hashCode();
-        int hash2 = sceneCollection2.hashCode();
+        var hash1 = sut.hashCode();
+        var hash2 = sceneCollection2.hashCode();
 
         // Verify
         Assertions.assertNotEquals(hash1, hash2);
