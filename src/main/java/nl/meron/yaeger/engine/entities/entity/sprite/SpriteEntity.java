@@ -71,7 +71,7 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
         super.init(injector);
     }
 
-    private ImageView createImageView(final String resource, final int requestedWidth, final int requestedHeight) {
+    private ImageView createImageView(final String resource, final double requestedWidth, final double requestedHeight) {
         var image = imageRepository.get(resource, requestedWidth, requestedHeight, true);
 
         return imageViewFactory.create(image);

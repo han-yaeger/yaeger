@@ -53,6 +53,10 @@ public class SelectionScene extends StaticScene {
         var dynamicSceneWithTimers = new Button(new Location(20, 160), "4) Dynamic Scene with a Timer", showCase, YaegerShowCase.SCENE_WITH_TIMERS);
         styleText(dynamicSceneWithTimers);
         addEntity(dynamicSceneWithTimers);
+
+        var entityMapsScee = new Button(new Location(20, 190), "5) Dynamic Scene with an EntityMap", showCase, YaegerShowCase.SCENE_WITH_ENTITYMAPS);
+        styleText(entityMapsScee);
+        addEntity(entityMapsScee);
     }
 
     @Override

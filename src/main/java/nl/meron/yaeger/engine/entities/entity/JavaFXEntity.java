@@ -118,7 +118,6 @@ public abstract class JavaFXEntity implements Entity {
                 node.setTranslateX(-getNonTransformedBounds().getWidth());
                 node.setTranslateY(-getNonTransformedBounds().getHeight());
                 break;
-
             default:
                 break;
         }

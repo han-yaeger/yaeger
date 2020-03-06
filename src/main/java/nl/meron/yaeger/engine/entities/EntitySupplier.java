@@ -21,7 +21,7 @@ public class EntitySupplier extends HashSet<Entity> implements Clearable {
         if (isEmpty()) {
             return new HashSet<>();
         } else {
-            Set<Entity> allEntities = new HashSet<>(this);
+            var allEntities = new HashSet<>(this);
             clear();
             return allEntities;
         }

@@ -30,7 +30,6 @@ public class YaegerStage implements Initializable {
         this.size = size;
     }
 
-
     @Override
     public void init(Injector injector) {
         stage.setResizable(false);

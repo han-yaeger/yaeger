@@ -12,7 +12,7 @@ import nl.meron.yaeger.engine.entities.entity.Entity;
 /**
  * A {@code YaegerScene} encapsulates a scene or level from a {@code Yaeger Game}.
  */
-public interface YaegerScene extends Destroyable, Initializable, Configurable, Clearable {
+public interface YaegerScene extends DimensionsProvider, Destroyable, Initializable, Configurable, Clearable {
 
     /**
      * Setup the {@link YaegerScene}. Use this method to add background images and/or background audio.

@@ -28,7 +28,6 @@ public interface ContinuousRotatable extends Rotatable {
                     setRotate(getGameNode().get().getRotate() + getRotationSpeed());
                 }
             }
-
         };
     }
 }

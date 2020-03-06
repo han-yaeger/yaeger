@@ -8,7 +8,7 @@ import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
  * Implementing this interface exposes the {@link #registerTimer(Timer)} method. A {@link Timer} that is
  * instantiated, but not registered, will not work.
  */
-public interface WithTimers extends Timeable {
+public interface WithTimers extends WithTimerList {
 
     /**
      * Use this method to register any {@link Timer} that is required by the {@link nl.meron.yaeger.engine.scenes.YaegerScene}
@@ -30,16 +30,16 @@ public interface WithTimers extends Timeable {
 
     /**
      * Only instances of {@link Timer} that are registered with the method {@link #registerTimer(Timer)}
-     * within this method are registered and each animation update.
+     * within this method are registered and will receive an animation update.
      */
     void registerTimers();
 
     @UpdatableProvider
     default Updatable callTimers() {
         return timestamp -> {
-            if (getTimers() != null && !getTimers().isEmpty()) {
-                getTimers().forEach(timer -> timer.handle(timestamp));
-            }
+                if (getTimers() != null && !getTimers().isEmpty()) {
+                    getTimers().forEach(timer -> timer.handle(timestamp));
+                }
         };
     }
 }

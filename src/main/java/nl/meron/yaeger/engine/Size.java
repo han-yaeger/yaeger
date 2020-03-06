@@ -5,8 +5,8 @@ package nl.meron.yaeger.engine;
  */
 public class Size {
 
-    private int width;
-    private int height;
+    private double width;
+    private double height;
 
     /**
      * Creates a new instance of {@code Size}.
@@ -14,7 +14,7 @@ public class Size {
      * @param width  the width of the {@code Size}
      * @param height the height of the {@code Size}
      */
-    public Size(final int width, final int height) {
+    public Size(final double width, final double height) {
         this.width = width;
         this.height = height;
     }
@@ -22,14 +22,14 @@ public class Size {
     /**
      * @return The height the height of the {@code Size}
      */
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 
     /**
      * @return The width the height of the {@code Size}
      */
-    public int getWidth() {
+    public double getWidth() {
         return width;
     }
 }

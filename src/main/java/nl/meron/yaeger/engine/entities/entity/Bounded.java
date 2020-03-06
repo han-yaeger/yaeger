@@ -2,12 +2,13 @@ package nl.meron.yaeger.engine.entities.entity;
 
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
+import nl.meron.yaeger.engine.scenes.DimensionsProvider;
 
 /**
  * Implementing this interface exposes the {@link Bounded#getNonTransformedBounds()} method, which returns the bounds, aka
  * Bounding Box, of this Entity.
  */
-public interface Bounded extends NodeProvider {
+public interface Bounded extends DimensionsProvider, NodeProvider {
 
     /**
      * Return the {@link Bounds}, aka Bounding Box after all transformations have been
@@ -36,16 +37,12 @@ public interface Bounded extends NodeProvider {
         }
     }
 
-    /**
-     * @return The width as a {@code double}.
-     */
+    @Override
     default double getWidth() {
         return getNonTransformedBounds().getWidth();
     }
 
-    /**
-     * @return The height as a {@code double}.
-     */
+    @Override
     default double getHeight() {
         return getNonTransformedBounds().getHeight();
     }

@@ -18,7 +18,6 @@ public class Quit extends Button {
         setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 30));
     }
 
-
     @Override
     public void onMousePressed(MouseButton button) {
         showCase.quitGame();

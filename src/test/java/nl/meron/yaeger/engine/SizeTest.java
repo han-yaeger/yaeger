@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SizeTest {
 
-    private static final int WIDTH = 37;
-    private static final int HEIGHT = 42;
+    private static final double WIDTH = 37;
+    private static final double HEIGHT = 42;
 
     @Test
     void widthFromConstructorIsSet() {
@@ -15,10 +15,10 @@ class SizeTest {
         var sut = new Size(WIDTH, HEIGHT);
 
         // Act
-        int width = sut.getWidth();
+        var actual = sut.getWidth();
 
         // Assert
-        assertEquals(WIDTH, width);
+        assertEquals(WIDTH, actual);
     }
 
     @Test
@@ -27,10 +27,10 @@ class SizeTest {
         var sut = new Size(WIDTH, HEIGHT);
 
         // Act
-        int height = sut.getHeight();
+        var actual = sut.getHeight();
 
         // Assert
-        assertEquals(HEIGHT, height);
+        assertEquals(HEIGHT, actual);
     }
 
 }

@@ -13,14 +13,17 @@ import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;
 import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.EntitySpawner;
+import nl.meron.yaeger.engine.entities.entitymap.EntityMap;
 import nl.meron.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.meron.yaeger.engine.scenes.delegates.KeyListenerDelegate;
 import nl.meron.yaeger.guice.factories.EntityCollectionFactory;
 import nl.meron.yaeger.guice.factories.SceneFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
-public abstract class StaticScene implements YaegerScene, KeyListener {
+public abstract class StaticScene implements YaegerScene, KeyListener, WithSupplier {
 
     private EntityCollectionFactory entityCollectionFactory;
     private SceneFactory sceneFactory;
@@ -28,9 +31,12 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
     protected Injector injector;
 
     protected EntityCollection entityCollection;
-    EntitySupplier entitySupplier;
+
+    private EntitySupplier entitySupplier;
     private KeyListenerDelegate keyListenerDelegate;
     private BackgroundDelegate backgroundDelegate;
+
+    private List<EntityMap> entityMaps = new ArrayList<>();
 
     private Stage stage;
     private Scene scene;
@@ -122,6 +128,21 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
         scene = null;
     }
 
+    @Override
+    public Stage getStage() {
+        return stage;
+    }
+
+    @Override
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    @Override
+    public EntitySupplier getEntitySupplier() {
+        return entitySupplier;
+    }
+
     /**
      * Set the {@link Group} to be used. The {@link Group} will be the root node of the graph that
      * will be constructed for this {@link Scene}.
@@ -179,13 +200,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener {
         this.entitySupplier = entitySupplier;
     }
 
-    @Override
-    public Stage getStage() {
-        return stage;
-    }
-
-    @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public List<EntityMap> getEntityMaps() {
+        return entityMaps;
     }
 }
