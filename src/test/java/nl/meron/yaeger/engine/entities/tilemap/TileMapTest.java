@@ -1,17 +1,17 @@
-package nl.meron.yaeger.engine.entities.entitymap;
+package nl.meron.yaeger.engine.entities.tilemap;
 
 import org.junit.jupiter.api.BeforeEach;
 
-class EntityMapTest {
+class TileMapTest {
 
-    private EntityMap sut;
+    private TileMap sut;
 
     @BeforeEach
     void setup() {
-        sut = new EntityMapImpl();
+        sut = new TileMapImpl();
     }
 
-    private class EntityMapImpl extends EntityMap {
+    private class TileMapImpl extends TileMap {
 
         @Override
         public void setupEntities() {

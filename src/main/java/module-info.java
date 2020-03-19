@@ -6,7 +6,7 @@ module nl.meron.yaeger {
 
     exports nl.meron.pong;
     exports nl.meron.showcase;
-    exports nl.meron.showcase.scenes.entitymaps.EntityMap.entities;
+    exports nl.meron.showcase.scenes.entitymaps.tilemaps.entities;
     exports nl.meron.waterworld;
     exports nl.meron.yaeger.engine;
     exports nl.meron.yaeger.engine.annotations;
@@ -20,6 +20,7 @@ module nl.meron.yaeger {
     exports nl.meron.yaeger.guice.factories;
     exports nl.meron.yaeger.javafx.animationtimer;
     exports nl.meron.yaeger.engine.entities.entity.sprite;
+    exports nl.meron.yaeger.engine.entities.tilemap;
     exports nl.meron.yaeger.engine.entities.entity;
     exports nl.meron.yaeger.engine.entities.entity.shape.text;
     exports nl.meron.yaeger.engine.entities.entity.shape.rectangle;

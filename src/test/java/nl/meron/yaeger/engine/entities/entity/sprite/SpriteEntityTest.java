@@ -50,7 +50,7 @@ class SpriteEntityTest {
     @Test
     void getNodeReturnsEmptyNodeIfTextNotSet() {
         // Arrange
-        var sut = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
 
         // Act
         Optional<Node> gameNode = sut.getGameNode();
@@ -62,7 +62,7 @@ class SpriteEntityTest {
     @Test
     void settingPositionWithoutDelegateStoresPositionAsInitialPosition() {
         // Setup
-        var sut = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
 
         // Test
         sut.setOriginX(DEFAULT_LOCATION.getX());
@@ -78,7 +78,7 @@ class SpriteEntityTest {
         // Setup
 
         // Test
-        var sut = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
 
         // Assert
         Assertions.assertNotNull(sut);
@@ -89,7 +89,7 @@ class SpriteEntityTest {
         // Setup
 
         // Test
-        var sut = new TestSpriteEntityWithTwoFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 2);
+        var sut = new SpriteEntityWithTwoFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 2);
 
         // Assert
         Assertions.assertNotNull(sut);
@@ -98,7 +98,7 @@ class SpriteEntityTest {
     @Test
     void callingInitAfterInstantiatingWithSingleFrameImageWiresDelegates() {
         // Setup
-        var sut = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
         sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         sut.setImageRepository(imageRepository);
         sut.setImageViewFactory(imageViewFactory);
@@ -119,7 +119,7 @@ class SpriteEntityTest {
     @Test
     void callingInitAfterInstantiatingWithDoubleFrameImageWiresDelegates() {
         // Setup
-        var spriteEntity = new TestSpriteEntityWithTwoFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 2);
+        var spriteEntity = new SpriteEntityWithTwoFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 2);
         spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         spriteEntity.setImageRepository(imageRepository);
         spriteEntity.setImageViewFactory(imageViewFactory);
@@ -140,7 +140,7 @@ class SpriteEntityTest {
     @Test
     void removingAnEntitySetsImageViewCorrectly() {
         // Setup
-        var spriteEntity = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        var spriteEntity = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
         spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         spriteEntity.setImageRepository(imageRepository);
         spriteEntity.setImageViewFactory(imageViewFactory);
@@ -162,11 +162,33 @@ class SpriteEntityTest {
     }
 
     @Test
+    void setPreserveAspectRatioDelegatesToTheImageRepository() {
+        // Setup
+        var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        sut.setImageRepository(imageRepository);
+        sut.setImageViewFactory(imageViewFactory);
+
+        var image = mock(Image.class);
+        when(imageRepository.get(anyString(), anyDouble(), anyDouble(), anyBoolean())).thenReturn(image);
+
+        var imageView = mock(ImageView.class);
+        when(imageViewFactory.create(image)).thenReturn(imageView);
+
+        // Test
+        sut.setPreserveAspectRatio(false);
+        sut.init(injector);
+
+        // Assert
+        verify(imageRepository).get(DEFAULT_RESOURCE, WIDTH, HEIGHT, false);
+    }
+
+    @Test
     void setPositionDelegatesToTheImageView() {
         // Setup
         final var X = 42;
         final var Y = 48;
-        var sut = new TestSpriteEntityWithDefaultFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
         sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         sut.setImageRepository(imageRepository);
         sut.setImageViewFactory(imageViewFactory);
@@ -190,7 +212,7 @@ class SpriteEntityTest {
     @Test
     void setFrameIndexDelegatesToSpriteAnimationDelegate() {
         // Setup
-        var spriteEntity = new TestSpriteEntityWithTwoFrames(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 2);
+        var spriteEntity = new SpriteEntityWithTwoFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 2);
         spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         spriteEntity.setImageRepository(imageRepository);
         spriteEntity.setImageViewFactory(imageViewFactory);
@@ -215,9 +237,9 @@ class SpriteEntityTest {
         verify(spriteAnimationDelegate).setSpriteIndex(frames);
     }
 
-    private class TestSpriteEntityWithDefaultFrames extends SpriteEntity {
+    private class SpriteEntityWithDefaultFramesImpl extends SpriteEntity {
 
-        TestSpriteEntityWithDefaultFrames(String resource, Location location, Size size) {
+        SpriteEntityWithDefaultFramesImpl(String resource, Location location, Size size) {
             super(resource, location, size);
         }
 
@@ -226,9 +248,9 @@ class SpriteEntityTest {
         }
     }
 
-    private class TestSpriteEntityWithTwoFrames extends SpriteEntity {
+    private class SpriteEntityWithTwoFramesImpl extends SpriteEntity {
 
-        TestSpriteEntityWithTwoFrames(String resource, Location location, Size size, int frames) {
+        SpriteEntityWithTwoFramesImpl(String resource, Location location, Size size, int frames) {
             super(resource, location, size, frames);
         }
     }

@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import nl.meron.yaeger.engine.RequiresInjection;
 import nl.meron.yaeger.engine.YaegerApplication;
 import nl.meron.yaeger.engine.entities.EntityCollection;
 import nl.meron.yaeger.engine.entities.EntitySupplier;
@@ -13,7 +14,7 @@ import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;
 import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.EntitySpawner;
-import nl.meron.yaeger.engine.entities.entitymap.EntityMap;
+import nl.meron.yaeger.engine.entities.tilemap.TileMap;
 import nl.meron.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.meron.yaeger.engine.scenes.delegates.KeyListenerDelegate;
 import nl.meron.yaeger.guice.factories.EntityCollectionFactory;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public abstract class StaticScene implements YaegerScene, KeyListener, WithSupplier {
+public abstract class StaticScene implements YaegerScene, KeyListener, WithSupplier, RequiresInjection {
 
     private EntityCollectionFactory entityCollectionFactory;
     private SceneFactory sceneFactory;
@@ -36,7 +37,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener, WithSuppl
     private KeyListenerDelegate keyListenerDelegate;
     private BackgroundDelegate backgroundDelegate;
 
-    private List<EntityMap> entityMaps = new ArrayList<>();
+    private List<TileMap> tileMaps = new ArrayList<>();
 
     private Stage stage;
     private Scene scene;
@@ -143,6 +144,11 @@ public abstract class StaticScene implements YaegerScene, KeyListener, WithSuppl
         return entitySupplier;
     }
 
+    @Override
+    public Injector getInjector() {
+        return this.injector;
+    }
+
     /**
      * Set the {@link Group} to be used. The {@link Group} will be the root node of the graph that
      * will be constructed for this {@link Scene}.
@@ -200,7 +206,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener, WithSuppl
         this.entitySupplier = entitySupplier;
     }
 
-    public List<EntityMap> getEntityMaps() {
-        return entityMaps;
+    public List<TileMap> getTileMaps() {
+        return tileMaps;
     }
 }

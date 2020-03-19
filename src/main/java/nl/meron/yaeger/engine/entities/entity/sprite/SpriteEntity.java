@@ -23,6 +23,7 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
 
     private final String resource;
     private final Size size;
+    private boolean preserveAspectRatio = true;
     private SpriteAnimationDelegateFactory spriteAnimationDelegateFactory;
     private ImageRepository imageRepository;
     private ImageViewFactory imageViewFactory;
@@ -62,7 +63,7 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
     @Override
     public void init(final Injector injector) {
         var requestedWidth = size.getWidth() * frames;
-        imageView = Optional.of(createImageView(resource, requestedWidth, size.getHeight()));
+        imageView = Optional.of(createImageView(resource, requestedWidth, size.getHeight(), preserveAspectRatio));
 
         if (frames > 1) {
             spriteAnimationDelegate = spriteAnimationDelegateFactory.create(imageView.get(), frames);
@@ -71,8 +72,8 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
         super.init(injector);
     }
 
-    private ImageView createImageView(final String resource, final double requestedWidth, final double requestedHeight) {
-        var image = imageRepository.get(resource, requestedWidth, requestedHeight, true);
+    private ImageView createImageView(final String resource, final double requestedWidth, final double requestedHeight, final boolean preserveAspectRatio) {
+        var image = imageRepository.get(resource, requestedWidth, requestedHeight, preserveAspectRatio);
 
         return imageViewFactory.create(image);
     }
@@ -84,6 +85,15 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
      */
     public void setCurrentFrameIndex(final int index) {
         spriteAnimationDelegate.setSpriteIndex(index);
+    }
+
+    /**
+     * Preserve the aspect ration of the width and height of this {@link SpriteEntity}.
+     *
+     * @param preserveAspectRatio {@code true} if the ratio should be preserved. {@code false} otherwise.
+     */
+    public void setPreserveAspectRatio(boolean preserveAspectRatio) {
+        this.preserveAspectRatio = preserveAspectRatio;
     }
 
     /**
