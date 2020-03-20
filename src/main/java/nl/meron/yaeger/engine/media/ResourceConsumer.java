@@ -1,6 +1,6 @@
 package nl.meron.yaeger.engine.media;
 
-import nl.meron.yaeger.engine.exceptions.YaegerResourceNotAvailableException;
+import nl.meron.yaeger.engine.exceptions.ResourceNotAvailableException;
 
 /**
  * Implementing a {@code ResourceConsumer} exposes a default methode that can be used to acquire the absolute path to a
@@ -13,7 +13,7 @@ public interface ResourceConsumer {
      *
      * @param resource the {@code Resource}, which should be available on the class path
      * @return the relative path to the {@code Resource}
-     * @throws YaegerResourceNotAvailableException an {@link YaegerResourceNotAvailableException} is thrown if the
+     * @throws ResourceNotAvailableException an {@link ResourceNotAvailableException} is thrown if the
      *                                             resource can not be found on the class path
      */
     default String createPathForResource(final String resource) {
@@ -25,7 +25,7 @@ public interface ResourceConsumer {
         var url = getClass().getClassLoader().getResource(resource);
 
         if (url == null) {
-            throw new YaegerResourceNotAvailableException(resource);
+            throw new ResourceNotAvailableException(resource);
         }
         return url.toString();
     }

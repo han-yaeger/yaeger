@@ -1,6 +1,6 @@
 package nl.meron.yaeger.engine.media;
 
-import nl.meron.yaeger.engine.exceptions.YaegerResourceNotAvailableException;
+import nl.meron.yaeger.engine.exceptions.ResourceNotAvailableException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +24,7 @@ public class ResourceConsumerTest {
 
     @Test
     void unavailableResourceReturnsCorrectException() {
-        assertThrows(YaegerResourceNotAvailableException.class,
+        assertThrows(ResourceNotAvailableException.class,
                 () ->
                         resourceConsumer.createPathForResource(RESOURCE_NOT_EXISTING)
         );
@@ -32,7 +32,7 @@ public class ResourceConsumerTest {
 
     @Test
     void thrownUnavailableResourceExceptionDisplaysCorrectMessage() {
-        Throwable exception = assertThrows(YaegerResourceNotAvailableException.class,
+        Throwable exception = assertThrows(ResourceNotAvailableException.class,
                 () -> resourceConsumer.createPathForResource(RESOURCE_NOT_EXISTING));
     }
 

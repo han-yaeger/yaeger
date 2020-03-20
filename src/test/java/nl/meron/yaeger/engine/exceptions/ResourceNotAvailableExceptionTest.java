@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class YaegerResourceNotAvailableExceptionTest {
+class ResourceNotAvailableExceptionTest {
 
     @Test
     void correctMessageIsConstructed() {
@@ -13,7 +13,7 @@ class YaegerResourceNotAvailableExceptionTest {
         var resource = "testresource";
 
         // Act
-        var sut = new YaegerResourceNotAvailableException(resource);
+        var sut = new ResourceNotAvailableException(resource);
 
         // Assert
         var message = sut.getMessage();

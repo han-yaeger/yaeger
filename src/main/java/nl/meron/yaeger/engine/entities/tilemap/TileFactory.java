@@ -4,7 +4,8 @@ import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.sprite.SpriteEntity;
-import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
+import nl.meron.yaeger.engine.exceptions.FailedToInstantiateEntityException;
+import nl.meron.yaeger.engine.exceptions.InvalidConstructorException;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -18,22 +19,18 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class TileFactory {
 
+    private static final String MESSAGE_INVALID_CONSTRUCTOR_EXCEPTION = "An Entity used for a Tilemap should have a constructor that accepts" +
+            "exactly two parameters: An instance of Location and of Size.";
+    private static final String MESSAGE_FAILED_TO_INSTATIATE_ENTITY = "Unable to instantiate an Entity for the entitymap";
+
     public Entity create(final Class<? extends SpriteEntity> entityClass, final Location location, final Size size) {
         SpriteEntity entity;
         try {
             entity = entityClass.getDeclaredConstructor(Location.class, Size.class).newInstance(location, size);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-            throw new YaegerEngineException("Unable to instantiate an Entity for the entitymap");
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            throw new YaegerEngineException("Unable to instantiate an Entity for the entitymap");
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-            throw new YaegerEngineException("Unable to instantiate an Entity for the entitymap");
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            throw new FailedToInstantiateEntityException(MESSAGE_FAILED_TO_INSTATIATE_ENTITY, e);
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-            throw new YaegerEngineException("Unable to instantiate an Entity for the entitymap");
+            throw new InvalidConstructorException(MESSAGE_INVALID_CONSTRUCTOR_EXCEPTION, e);
         }
 
         entity.setPreserveAspectRatio(false);
