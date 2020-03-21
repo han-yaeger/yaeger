@@ -93,13 +93,13 @@ public abstract class TileMap extends EntitySupplier implements Configurable {
     private void transformMapToEntities() {
         double x, y, width, height;
 
-        if (size.isPresent() || location.isPresent()) {
+        if (size.isPresent() && location.isPresent()) {
             x = location.get().getX();
             y = location.get().getY();
             width = size.get().getWidth();
             height = size.get().getHeight();
         } else {
-            throw new YaegerEngineException("Something peculiar went wrong with a tilemap. This should not happen.");
+            throw new YaegerEngineException("No Size or Location is set for this EntityMap. Has setDimensionProvider been called?");
         }
 
         for (int i = 0; i < map.length; i++) {
