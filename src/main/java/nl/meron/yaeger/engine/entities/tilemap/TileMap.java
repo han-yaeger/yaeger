@@ -7,12 +7,11 @@ import nl.meron.yaeger.engine.entities.EntitySupplier;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.sprite.SpriteEntity;
+import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
 import nl.meron.yaeger.engine.scenes.DimensionsProvider;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * A {@link TileMap} encapsulate a two-dimensional map of Entities.
@@ -26,10 +25,10 @@ public abstract class TileMap extends EntitySupplier implements Configurable {
 
     private Map<Integer, Class<? extends SpriteEntity>> entities = new HashMap<>();
 
-    private TileFactory tileFactory;
     private int[][] map;
-    private Optional<Size> size = Optional.empty();
-    private final Optional<Location> location;
+    private transient TileFactory tileFactory;
+    private transient Optional<Size> size = Optional.empty();
+    private transient final Optional<Location> location;
 
     /**
      * Create a new {@link TileMap} that takes up the full width and height of the
@@ -92,6 +91,9 @@ public abstract class TileMap extends EntitySupplier implements Configurable {
     }
 
     private void transformMapToEntities() {
+        if (size.isEmpty() || location.isEmpty()) {
+            throw new YaegerEngineException("Something peculiar went wrong with the a tilemap. This should not happen.");
+        }
         for (int i = 0; i < map.length; i++) {
             var entityHeight = size.get().getHeight() / map.length;
             var entityY = i * entityHeight;
@@ -134,5 +136,24 @@ public abstract class TileMap extends EntitySupplier implements Configurable {
     @Inject
     public void setTileFactory(TileFactory tileFactory) {
         this.tileFactory = tileFactory;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        TileMap entities1 = (TileMap) o;
+        return entities.equals(entities1.entities) &&
+                Arrays.equals(map, entities1.map) &&
+                size.equals(entities1.size) &&
+                location.equals(entities1.location);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(super.hashCode(), entities, size, location);
+        result = 31 * result + Arrays.hashCode(map);
+        return result;
     }
 }
