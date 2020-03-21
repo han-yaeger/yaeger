@@ -2,11 +2,12 @@ package nl.meron.yaeger.engine.entities.tilemap;
 
 import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.Location;
-import nl.meron.yaeger.engine.entities.entity.sprite.SpriteEntity;
+import nl.meron.yaeger.engine.exceptions.FailedToInstantiateEntityException;
 import nl.meron.yaeger.engine.exceptions.InvalidConstructorException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.InvocationTargetException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +15,7 @@ class TileFactoryTest {
 
     private TileFactory sut;
 
-    private final static String DEFAULT_RESOURCE = "images/bubble.png";
+    public final static String DEFAULT_RESOURCE = "images/bubble.png";
     private final static Location DEFAULT_LOCATION = new Location(37, 42);
     private final static Size DEFAULT_SIZE = new Size(39, 45);
 
@@ -34,18 +35,25 @@ class TileFactoryTest {
         assertTrue(invalidConstructorException.getCause() instanceof NoSuchMethodException);
     }
 
-    private class SpriteEntityValidConstructorImpl extends SpriteEntity {
+    @Test
+    void creatingEntityWithCrashingConstructorThrowsInvalidConstructorException() {
+        // Arrange
 
-        protected SpriteEntityValidConstructorImpl(Location initialLocation, Size size) {
-            super(DEFAULT_RESOURCE, initialLocation, size);
-        }
+        // Act
+        var failedToInstantiateEntityException = assertThrows(FailedToInstantiateEntityException.class, () -> sut.create(SpriteEntityCrashingConstructorImpl.class, DEFAULT_LOCATION, DEFAULT_SIZE));
+
+        // Assert
+        assertTrue(failedToInstantiateEntityException.getCause() instanceof InvocationTargetException);
     }
 
-    private class SpriteEntityInvalidConstructorImpl extends SpriteEntity {
+    @Test
+    void onCreatedEntityCalledSetPreserveIsCalled() {
+        // Arrange
 
-        protected SpriteEntityInvalidConstructorImpl(String resource, Location initialLocation, Size size) {
-            super(resource, initialLocation, size);
-        }
+        // Act
+        var entity = sut.create(SpriteEntityValidConstructorImpl.class, new Location(1, 1), new Size(1, 1));
+
+        // Assert
+        assertFalse(((SpriteEntityValidConstructorImpl) entity).isPreserveAspectRatio());
     }
-
 }
