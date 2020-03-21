@@ -28,7 +28,7 @@ public abstract class TileMap extends EntitySupplier implements Configurable {
     private int[][] map;
     private transient TileFactory tileFactory;
     private transient Optional<Size> size = Optional.empty();
-    private transient final Optional<Location> location;
+    private final transient Optional<Location> location;
 
     /**
      * Create a new {@link TileMap} that takes up the full width and height of the
@@ -91,19 +91,27 @@ public abstract class TileMap extends EntitySupplier implements Configurable {
     }
 
     private void transformMapToEntities() {
-        if (size.isEmpty() || location.isEmpty()) {
-            throw new YaegerEngineException("Something peculiar went wrong with the a tilemap. This should not happen.");
+        double x, y, width, height;
+
+        if (size.isPresent() || location.isPresent()) {
+            x = location.get().getX();
+            y = location.get().getY();
+            width = size.get().getWidth();
+            height = size.get().getHeight();
+        } else {
+            throw new YaegerEngineException("Something peculiar went wrong with a tilemap. This should not happen.");
         }
+
         for (int i = 0; i < map.length; i++) {
-            var entityHeight = size.get().getHeight() / map.length;
+            var entityHeight = height / map.length;
             var entityY = i * entityHeight;
             for (int j = 0; j < map[i].length; j++) {
                 int key = map[i][j];
                 if (key != 0) {
-                    var entityWidth = size.get().getWidth() / map[i].length;
+                    var entityWidth = width / map[i].length;
 
                     var entity = tileFactory.create(entities.get(key),
-                            new Location(location.get().getX() + (j * entityWidth), location.get().getY() + entityY),
+                            new Location(x + (j * entityWidth), y + entityY),
                             new Size(entityWidth, entityHeight));
 
                     add(entity);
