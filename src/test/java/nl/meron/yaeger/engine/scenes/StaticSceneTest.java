@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.EntityCollection;
 import nl.meron.yaeger.engine.entities.EntitySupplier;
@@ -23,6 +24,7 @@ import org.mockito.Mockito;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class StaticSceneTest {
@@ -39,6 +41,7 @@ class StaticSceneTest {
     private EntitySupplier entitySupplier;
     private Group root;
     private Scene scene;
+    private Stage stage;
 
     @BeforeEach
     void setup() {
@@ -51,7 +54,8 @@ class StaticSceneTest {
         entitySupplier = mock(EntitySupplier.class);
         sceneFactory = mock(SceneFactory.class);
         entityCollectionFactory = mock(EntityCollectionFactory.class);
-        injector = Mockito.mock(Injector.class);
+        injector = mock(Injector.class);
+        stage = mock(Stage.class);
 
         sut.setDebugger(debugger);
         sut.setSceneFactory(sceneFactory);
@@ -60,6 +64,7 @@ class StaticSceneTest {
         sut.setBackgroundDelegate(backgroundDelegate);
         sut.setKeyListenerDelegate(keyListenerDelegate);
         sut.setEntitySupplier(entitySupplier);
+        sut.setStage(stage);
 
         scene = mock(Scene.class);
         entityCollection = mock(EntityCollection.class);
@@ -68,6 +73,28 @@ class StaticSceneTest {
         when(entityCollectionFactory.create(root)).thenReturn(entityCollection);
 
         sut.init(injector);
+    }
+
+    @Test
+    void getInjectorReturnsInjectorProvidedThroughInit() {
+        // Arrange
+
+        // Act
+        var actual = sut.getInjector();
+
+        // Verify
+        assertEquals(actual, injector);
+    }
+
+    @Test
+    void getStageReturnsSetStage() {
+        // Arrange
+
+        // Act
+        var actual = sut.getStage();
+
+        // Verify
+        assertEquals(actual, stage);
     }
 
     @Test
@@ -219,7 +246,7 @@ class StaticSceneTest {
         var returnedScene = sut.getScene();
 
         // Verify
-        Assertions.assertEquals(scene, returnedScene);
+        assertEquals(scene, returnedScene);
     }
 
     @Test
