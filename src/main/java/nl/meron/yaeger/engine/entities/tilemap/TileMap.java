@@ -7,6 +7,7 @@ import nl.meron.yaeger.engine.entities.EntitySupplier;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.sprite.SpriteEntity;
+import nl.meron.yaeger.engine.exceptions.EntityNotAvailableException;
 import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
 import nl.meron.yaeger.engine.scenes.DimensionsProvider;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
@@ -91,7 +92,10 @@ public abstract class TileMap extends EntitySupplier implements Configurable {
     }
 
     private void transformMapToEntities() {
-        double x, y, width, height;
+        double x;
+        double y;
+        double width;
+        double height;
 
         if (size.isPresent() && location.isPresent()) {
             x = location.get().getX();
@@ -110,7 +114,13 @@ public abstract class TileMap extends EntitySupplier implements Configurable {
                 if (key != 0) {
                     var entityWidth = width / map[i].length;
 
-                    var entity = tileFactory.create(entities.get(key),
+                    var entityClass = entities.get(key);
+
+                    if (entityClass == null) {
+                        throw new EntityNotAvailableException("An Entity with key \"" + key + "\" has not been added to the EntityMap.");
+                    }
+
+                    var entity = tileFactory.create(entityClass,
                             new Location(x + (j * entityWidth), y + entityY),
                             new Size(entityWidth, entityHeight));
 
