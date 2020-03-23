@@ -161,7 +161,7 @@
         <dependency>
             <groupId>com.guicedee.services</groupId>
             <artifactId>guice</artifactId>
-            <version>62</version>
+            <version>1.0.5.1</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
