@@ -28,8 +28,8 @@ public abstract class TileMap extends EntitySupplier implements Configurable {
 
     private int[][] map;
     private transient TileFactory tileFactory;
-    private transient Optional<Size> size = Optional.empty();
-    private final transient Optional<Location> location;
+    protected transient Optional<Size> size = Optional.empty();
+    protected final transient Optional<Location> location;
 
     /**
      * Create a new {@link TileMap} that takes up the full width and height of the

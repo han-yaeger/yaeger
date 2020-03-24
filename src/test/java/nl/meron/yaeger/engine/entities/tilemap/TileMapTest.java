@@ -1,13 +1,17 @@
 package nl.meron.yaeger.engine.entities.tilemap;
 
+import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.entities.entity.sprite.SpriteEntity;
+import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.exceptions.EntityNotAvailableException;
 import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
 import nl.meron.yaeger.engine.scenes.DimensionsProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -18,6 +22,9 @@ class TileMapTest {
 
     private static final double WIDTH = 370;
     private static final double HEIGHT = 420;
+
+    private static final Location LOCATION = new Location(10, 20);
+    private static final Size SIZE = new Size(200, 100);
 
     @BeforeEach
     void setup() {
@@ -46,6 +53,30 @@ class TileMapTest {
 
         // Arc, Assert
         assertTrue(sut.equals(sut2));
+    }
+
+    @Test
+    void tileMapHashIsEqualToDifferentTileMapWithSameEmptyContentHash() {
+        // Arrange
+        var sut2 = new TileMapEmptyConstructorImpl();
+
+        // Arc, Assert
+        assertEquals(sut.hashCode(), sut2.hashCode());
+    }
+
+    @Test
+    void sizeAndPositionOfTilemapWithNonEmptyConstructorIsUsed() {
+        // Arrange
+
+        // Act
+        var sutNonEmptyConstructor = new TileMapFilledConstructorImpl(LOCATION, SIZE);
+
+        // Assert
+        assertTrue(sutNonEmptyConstructor.getLocation().isPresent());
+        assertTrue(sutNonEmptyConstructor.getSize().isPresent());
+
+        assertEquals(sutNonEmptyConstructor.getLocation().get(), LOCATION);
+        assertEquals(sutNonEmptyConstructor.getSize().get(), SIZE);
     }
 
     @Test
@@ -240,6 +271,112 @@ class TileMapTest {
         assertTrue(entityNotAvailableException.getMessage().contains(Integer.toString(KEY)));
     }
 
+    @Test
+    void inAOneByOneTileMapTheEntityGetsFullWidthAndHeight() {
+        // Arrange
+        var localSut = new TileMap(LOCATION, SIZE) {
+
+            @Override
+            public void setupEntities() {
+                addEntity(1, SpriteEntityOne.class);
+            }
+
+            @Override
+            public int[][] defineMap() {
+                int[][] map = {
+                        {1}
+                };
+                return map;
+            }
+        };
+
+        var entity = mock(Entity.class);
+        var tileFactory = mock(TileFactory.class);
+        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+
+        localSut.setTileFactory(tileFactory);
+
+        // Act
+        localSut.configure();
+
+        // Assert
+        ArgumentCaptor<Size> argument = ArgumentCaptor.forClass(Size.class);
+        verify(tileFactory).create(any(), any(), argument.capture());
+        assertEquals(SIZE.getHeight(), argument.getValue().getHeight());
+        assertEquals(SIZE.getWidth(), argument.getValue().getWidth());
+    }
+
+    @Test
+    void inARectangularTileMapTheEntityGetsCorrectWidthAndHeight() {
+        // Arrange
+        var localSut = new TileMap(LOCATION, SIZE) {
+
+            @Override
+            public void setupEntities() {
+                addEntity(1, SpriteEntityOne.class);
+            }
+
+            @Override
+            public int[][] defineMap() {
+                int[][] map = {{0, 0, 0},
+                        {0, 1, 0},
+                        {0, 0, 0}
+                };
+                return map;
+            }
+        };
+
+        var entity = mock(Entity.class);
+        var tileFactory = mock(TileFactory.class);
+        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+
+        localSut.setTileFactory(tileFactory);
+
+        // Act
+        localSut.configure();
+
+        // Assert
+        ArgumentCaptor<Size> argument = ArgumentCaptor.forClass(Size.class);
+        verify(tileFactory).create(any(), any(), argument.capture());
+        assertEquals(SIZE.getHeight() / 3, argument.getValue().getHeight());
+        assertEquals(SIZE.getWidth() / 3, argument.getValue().getWidth());
+    }
+
+    @Test
+    void inANonRectangularTileMapTheEntityGetsCorrectWidthAndHeight() {
+        // Arrange
+        var localSut = new TileMap(LOCATION, SIZE) {
+
+            @Override
+            public void setupEntities() {
+                addEntity(1, SpriteEntityOne.class);
+            }
+
+            @Override
+            public int[][] defineMap() {
+                int[][] map = {{0, 0, 0},
+                        {1},
+                        {0, 0, 0}
+                };
+                return map;
+            }
+        };
+
+        var entity = mock(Entity.class);
+        var tileFactory = mock(TileFactory.class);
+        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+
+        localSut.setTileFactory(tileFactory);
+
+        // Act
+        localSut.configure();
+
+        // Assert
+        ArgumentCaptor<Size> argument = ArgumentCaptor.forClass(Size.class);
+        verify(tileFactory).create(any(), any(), argument.capture());
+        assertEquals(SIZE.getHeight() / 3, argument.getValue().getHeight());
+        assertEquals(SIZE.getWidth(), argument.getValue().getWidth());
+    }
 
     private class TileMapEmptyConstructorImpl extends TileMap {
 
@@ -253,7 +390,6 @@ class TileMapTest {
 
         @Override
         public int[][] defineMap() {
-
             defineMapCalled = true;
             return new int[0][];
         }
@@ -264,6 +400,31 @@ class TileMapTest {
 
         public boolean isDefineMapCalled() {
             return defineMapCalled;
+        }
+    }
+
+    private class TileMapFilledConstructorImpl extends TileMap {
+
+        public TileMapFilledConstructorImpl(final Location location, final Size size) {
+            super(location, size);
+        }
+
+        @Override
+        public void setupEntities() {
+
+        }
+
+        @Override
+        public int[][] defineMap() {
+            return new int[0][];
+        }
+
+        public Optional<Size> getSize() {
+            return size;
+        }
+
+        public Optional<Location> getLocation() {
+            return location;
         }
     }
 }
