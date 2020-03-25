@@ -127,6 +127,11 @@ class BufferedMoveableTest {
         }
 
         @Override
+        public void setAnchorPoint(AnchorPoint anchorPoint) {
+            // Not required here.
+        }
+
+        @Override
         public AnchorPoint getAnchorPoint() {
             return null;
         }

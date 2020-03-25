@@ -4,6 +4,8 @@ import com.google.inject.Inject;
 import nl.meron.yaeger.engine.Configurable;
 import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.EntitySupplier;
+import nl.meron.yaeger.engine.entities.entity.AnchorPoint;
+import nl.meron.yaeger.engine.entities.entity.Anchorable;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.sprite.SpriteEntity;
@@ -15,14 +17,14 @@ import nl.meron.yaeger.engine.scenes.YaegerScene;
 import java.util.*;
 
 /**
- * A {@link TileMap} encapsulate a two-dimensional map of Entities.
+ * A {@link TileMap} encapsulate a two-dimensional map of {@link SpriteEntity}.
  * <p>
  * By default a {@link TileMap} will assume
  * the full width of the {@link nl.meron.yaeger.engine.scenes.YaegerScene} must be used for placing the tiles.
  * For this, it will require both tiles to be added, as a map to be defined. Based on those, it will automatically
  * calculate the width, height and placement of all tiles.
  */
-public abstract class TileMap extends EntitySupplier implements Configurable {
+public abstract class TileMap extends EntitySupplier implements Anchorable, Configurable {
 
     private Map<Integer, Class<? extends SpriteEntity>> entities = new HashMap<>();
 
@@ -30,6 +32,7 @@ public abstract class TileMap extends EntitySupplier implements Configurable {
     private transient TileFactory tileFactory;
     protected transient Optional<Size> size = Optional.empty();
     protected final transient Optional<Location> location;
+    private transient AnchorPoint anchorPoint = AnchorPoint.TOP_LEFT;
 
     /**
      * Create a new {@link TileMap} that takes up the full width and height of the
@@ -98,10 +101,12 @@ public abstract class TileMap extends EntitySupplier implements Configurable {
         double height;
 
         if (size.isPresent() && location.isPresent()) {
-            x = location.get().getX();
-            y = location.get().getY();
             width = size.get().getWidth();
             height = size.get().getHeight();
+
+            var topLeftLocation = getTopLeftLocation(location.get(), size.get());
+            x = topLeftLocation.getX();
+            y = topLeftLocation.getY();
         } else {
             throw new YaegerEngineException("No Size or Location is set for this EntityMap. Has setDimensionProvider been called?");
         }
@@ -130,6 +135,29 @@ public abstract class TileMap extends EntitySupplier implements Configurable {
         }
     }
 
+    private Location getTopLeftLocation(Location location, Size size) {
+        switch (anchorPoint) {
+            case TOP_CENTER:
+                return new Location(location.getX() - (size.getWidth() / 2), location.getY());
+            case TOP_RIGHT:
+                return new Location(location.getX() - size.getWidth(), location.getY());
+            case CENTER_LEFT:
+                return new Location(location.getX(), location.getY() - (size.getHeight() / 2));
+            case CENTER_CENTER:
+                return new Location(location.getX() - (size.getWidth() / 2), location.getY() - (size.getHeight() / 2));
+            case CENTER_RIGHT:
+                return new Location(location.getX() - (size.getWidth()), location.getY() - (size.getHeight() / 2));
+            case BOTTOM_LEFT:
+                return new Location(location.getX(), location.getY() - size.getHeight());
+            case BOTTOM_CENTER:
+                return new Location(location.getX() - (size.getWidth() / 2), location.getY() - (size.getHeight()));
+            case BOTTOM_RIGHT:
+                return new Location(location.getX() - size.getWidth(), location.getY() - size.getHeight());
+            default:
+                return location;
+        }
+    }
+
     @Override
     public void configure() {
         setupEntities();
@@ -149,6 +177,16 @@ public abstract class TileMap extends EntitySupplier implements Configurable {
         if (!size.isPresent()) {
             size = Optional.of(new Size(dimensionsProvider.getWidth(), dimensionsProvider.getHeight()));
         }
+    }
+
+    @Override
+    public void setAnchorPoint(AnchorPoint anchorPoint) {
+        this.anchorPoint = anchorPoint;
+    }
+
+    @Override
+    public AnchorPoint getAnchorPoint() {
+        return anchorPoint;
     }
 
     @Inject

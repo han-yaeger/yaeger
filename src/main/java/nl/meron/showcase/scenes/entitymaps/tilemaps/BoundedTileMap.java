@@ -5,9 +5,9 @@ import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.tilemap.TileMap;
 
-public class CenteredTileMap extends TileMap {
+public class BoundedTileMap extends TileMap {
 
-    public CenteredTileMap(final Location location, final Size size) {
+    public BoundedTileMap(final Location location, final Size size) {
         super(location, size);
     }
 

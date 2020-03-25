@@ -71,7 +71,7 @@ public class SpriteEntitiesScene extends ShowCaseScene {
         addEntity(rugbyBallTR);
 
         var rugbyBallLC = new RugbyBall(new Location(0, getHeight() / 2));
-        rugbyBallLC.setAnchorPoint(AnchorPoint.LEFT_CENTER);
+        rugbyBallLC.setAnchorPoint(AnchorPoint.CENTER_LEFT);
         addEntity(rugbyBallLC);
 
         var rugbyBallCC = new RugbyBall(new Location(getWidth() / 2, getHeight() / 2));
@@ -79,7 +79,7 @@ public class SpriteEntitiesScene extends ShowCaseScene {
         addEntity(rugbyBallCC);
 
         var rugbyBallRC = new RugbyBall(new Location(getWidth(), getHeight() / 2));
-        rugbyBallRC.setAnchorPoint(AnchorPoint.RIGHT_CENTER);
+        rugbyBallRC.setAnchorPoint(AnchorPoint.CENTER_RIGHT);
         addEntity(rugbyBallRC);
 
         var rugbyBallBL = new RugbyBall(new Location(0, getHeight()));

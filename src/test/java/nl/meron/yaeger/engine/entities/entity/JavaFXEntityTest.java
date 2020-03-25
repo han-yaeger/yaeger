@@ -111,10 +111,10 @@ class JavaFXEntityTest {
         sut.setNode(Optional.empty());
 
         // Act
-        sut.setAnchorPoint(AnchorPoint.RIGHT_CENTER);
+        sut.setAnchorPoint(AnchorPoint.CENTER_RIGHT);
 
         // Assert
-        Assertions.assertEquals(AnchorPoint.RIGHT_CENTER, sut.getAnchorPoint());
+        Assertions.assertEquals(AnchorPoint.CENTER_RIGHT, sut.getAnchorPoint());
     }
 
     @Test
@@ -156,7 +156,7 @@ class JavaFXEntityTest {
         // Arrange
 
         // Act
-        sut.setAnchorPoint(AnchorPoint.LEFT_CENTER);
+        sut.setAnchorPoint(AnchorPoint.CENTER_LEFT);
 
         // Assert
         verify(node).setTranslateY(-(ENTITY_HEIGHT / 2));
@@ -179,7 +179,7 @@ class JavaFXEntityTest {
         // Arrange
 
         // Act
-        sut.setAnchorPoint(AnchorPoint.RIGHT_CENTER);
+        sut.setAnchorPoint(AnchorPoint.CENTER_RIGHT);
 
         // Assert
         verify(node).setTranslateX(-(ENTITY_WIDTH));

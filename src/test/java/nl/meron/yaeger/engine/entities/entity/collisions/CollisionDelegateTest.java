@@ -119,6 +119,11 @@ class CollisionDelegateTest {
         }
 
         @Override
+        public void setAnchorPoint(AnchorPoint anchorPoint) {
+            // Not required here.
+        }
+
+        @Override
         public AnchorPoint getAnchorPoint() {
             return null;
         }
@@ -180,6 +185,11 @@ class CollisionDelegateTest {
         @Override
         public Optional<Node> getGameNode() {
             return null;
+        }
+
+        @Override
+        public void setAnchorPoint(AnchorPoint anchorPoint) {
+            // Not required here.
         }
 
         @Override

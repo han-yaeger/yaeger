@@ -1,12 +1,12 @@
 package nl.meron.yaeger.engine.entities.tilemap;
 
 import nl.meron.yaeger.engine.Size;
+import nl.meron.yaeger.engine.entities.entity.AnchorPoint;
 import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.exceptions.EntityNotAvailableException;
 import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
 import nl.meron.yaeger.engine.scenes.DimensionsProvider;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -376,6 +376,380 @@ class TileMapTest {
         verify(tileFactory).create(any(), any(), argument.capture());
         assertEquals(SIZE.getHeight() / 3, argument.getValue().getHeight());
         assertEquals(SIZE.getWidth(), argument.getValue().getWidth());
+    }
+
+    @Test
+    void topLeftAnchoringPutsTopLeftTileOnOrigin() {
+        // Arrange
+        var localSut = new TileMap(LOCATION, SIZE) {
+
+            @Override
+            public void setupEntities() {
+                addEntity(1, SpriteEntityOne.class);
+            }
+
+            @Override
+            public int[][] defineMap() {
+                int[][] map = {{1, 0, 0},
+                        {0, 0, 0},
+                        {0, 0, 0}
+                };
+                return map;
+            }
+        };
+
+        localSut.setAnchorPoint(AnchorPoint.TOP_LEFT);
+
+        var entity = mock(Entity.class);
+        var tileFactory = mock(TileFactory.class);
+        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+
+        localSut.setTileFactory(tileFactory);
+
+        // Act
+        localSut.configure();
+
+        // Assert
+        ArgumentCaptor<Location> argument = ArgumentCaptor.forClass(Location.class);
+        verify(tileFactory).create(any(), argument.capture(), any());
+        assertEquals(LOCATION.getX(), argument.getValue().getX());
+        assertEquals(LOCATION.getY(), argument.getValue().getY());
+    }
+
+    @Test
+    void topCenterAnchoringPutsTopLeftTileOnCorrectLocation() {
+        // Arrange
+        var localSut = new TileMap(LOCATION, SIZE) {
+
+            @Override
+            public void setupEntities() {
+                addEntity(1, SpriteEntityOne.class);
+            }
+
+            @Override
+            public int[][] defineMap() {
+                int[][] map = {{1, 0, 0},
+                        {0, 0, 0},
+                        {0, 0, 0}
+                };
+                return map;
+            }
+        };
+
+        localSut.setAnchorPoint(AnchorPoint.TOP_CENTER);
+
+        var entity = mock(Entity.class);
+        var tileFactory = mock(TileFactory.class);
+        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+
+        localSut.setTileFactory(tileFactory);
+
+        // Act
+        localSut.configure();
+
+        // Assert
+        ArgumentCaptor<Location> argument = ArgumentCaptor.forClass(Location.class);
+        verify(tileFactory).create(any(), argument.capture(), any());
+
+        var expectedX = LOCATION.getX() - SIZE.getWidth() / 2;
+
+        assertEquals(expectedX, argument.getValue().getX());
+        assertEquals(LOCATION.getY(), argument.getValue().getY());
+    }
+
+    @Test
+    void topRightAnchoringPutsTopLeftTileOnCorrectLocation() {
+        // Arrange
+        var localSut = new TileMap(LOCATION, SIZE) {
+
+            @Override
+            public void setupEntities() {
+                addEntity(1, SpriteEntityOne.class);
+            }
+
+            @Override
+            public int[][] defineMap() {
+                int[][] map = {{1, 0, 0},
+                        {0, 0, 0},
+                        {0, 0, 0}
+                };
+                return map;
+            }
+        };
+
+        localSut.setAnchorPoint(AnchorPoint.TOP_RIGHT);
+
+        var entity = mock(Entity.class);
+        var tileFactory = mock(TileFactory.class);
+        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+
+        localSut.setTileFactory(tileFactory);
+
+        // Act
+        localSut.configure();
+
+        // Assert
+        ArgumentCaptor<Location> argument = ArgumentCaptor.forClass(Location.class);
+        verify(tileFactory).create(any(), argument.capture(), any());
+
+        var expectedX = LOCATION.getX() - SIZE.getWidth();
+
+        assertEquals(expectedX, argument.getValue().getX());
+        assertEquals(LOCATION.getY(), argument.getValue().getY());
+    }
+
+    @Test
+    void leftCenterAnchoringPutsTopLeftTileCorrectLocation() {
+        // Arrange
+        var localSut = new TileMap(LOCATION, SIZE) {
+
+            @Override
+            public void setupEntities() {
+                addEntity(1, SpriteEntityOne.class);
+            }
+
+            @Override
+            public int[][] defineMap() {
+                int[][] map = {{1, 0, 0},
+                        {0, 0, 0},
+                        {0, 0, 0}
+                };
+                return map;
+            }
+        };
+
+        localSut.setAnchorPoint(AnchorPoint.CENTER_LEFT);
+
+        var entity = mock(Entity.class);
+        var tileFactory = mock(TileFactory.class);
+        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+
+        localSut.setTileFactory(tileFactory);
+
+        // Act
+        localSut.configure();
+
+        // Assert
+        ArgumentCaptor<Location> argument = ArgumentCaptor.forClass(Location.class);
+        verify(tileFactory).create(any(), argument.capture(), any());
+
+        var expectedX = LOCATION.getX();
+        var expectedY = LOCATION.getY() - SIZE.getHeight() / 2;
+
+        assertEquals(expectedX, argument.getValue().getX());
+        assertEquals(expectedY, argument.getValue().getY());
+    }
+
+    @Test
+    void centerCenterAnchoringPutsTopLeftTileOnCorrectLocation() {
+        // Arrange
+        var localSut = new TileMap(LOCATION, SIZE) {
+
+            @Override
+            public void setupEntities() {
+                addEntity(1, SpriteEntityOne.class);
+            }
+
+            @Override
+            public int[][] defineMap() {
+                int[][] map = {{1, 0, 0},
+                        {0, 0, 0},
+                        {0, 0, 0}
+                };
+                return map;
+            }
+        };
+
+        localSut.setAnchorPoint(AnchorPoint.CENTER_CENTER);
+
+        var entity = mock(Entity.class);
+        var tileFactory = mock(TileFactory.class);
+        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+
+        localSut.setTileFactory(tileFactory);
+
+        // Act
+        localSut.configure();
+
+        // Assert
+        ArgumentCaptor<Location> argument = ArgumentCaptor.forClass(Location.class);
+        verify(tileFactory).create(any(), argument.capture(), any());
+
+        var expectedX = LOCATION.getX() - SIZE.getWidth() / 2;
+        var expectedY = LOCATION.getY() - SIZE.getHeight() / 2;
+
+        assertEquals(expectedX, argument.getValue().getX());
+        assertEquals(expectedY, argument.getValue().getY());
+    }
+
+    @Test
+    void centerRightAnchoringPutsTopLeftTileOnCorrectLocation() {
+        // Arrange
+        var localSut = new TileMap(LOCATION, SIZE) {
+
+            @Override
+            public void setupEntities() {
+                addEntity(1, SpriteEntityOne.class);
+            }
+
+            @Override
+            public int[][] defineMap() {
+                int[][] map = {{1, 0, 0},
+                        {0, 0, 0},
+                        {0, 0, 0}
+                };
+                return map;
+            }
+        };
+
+        localSut.setAnchorPoint(AnchorPoint.CENTER_RIGHT);
+
+        var entity = mock(Entity.class);
+        var tileFactory = mock(TileFactory.class);
+        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+
+        localSut.setTileFactory(tileFactory);
+
+        // Act
+        localSut.configure();
+
+        // Assert
+        ArgumentCaptor<Location> argument = ArgumentCaptor.forClass(Location.class);
+        verify(tileFactory).create(any(), argument.capture(), any());
+
+        var expectedX = LOCATION.getX() - SIZE.getWidth();
+        var expectedY = LOCATION.getY() - SIZE.getHeight() / 2;
+
+        assertEquals(expectedX, argument.getValue().getX());
+        assertEquals(expectedY, argument.getValue().getY());
+    }
+
+    // --------
+
+    @Test
+    void bottomLeftAnchoringPutsTopLeftTileOnCorrectLocation() {
+        // Arrange
+        var localSut = new TileMap(LOCATION, SIZE) {
+
+            @Override
+            public void setupEntities() {
+                addEntity(1, SpriteEntityOne.class);
+            }
+
+            @Override
+            public int[][] defineMap() {
+                int[][] map = {{1, 0, 0},
+                        {0, 0, 0},
+                        {0, 0, 0}
+                };
+                return map;
+            }
+        };
+
+        localSut.setAnchorPoint(AnchorPoint.BOTTOM_LEFT);
+
+        var entity = mock(Entity.class);
+        var tileFactory = mock(TileFactory.class);
+        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+
+        localSut.setTileFactory(tileFactory);
+
+        // Act
+        localSut.configure();
+
+        // Assert
+        ArgumentCaptor<Location> argument = ArgumentCaptor.forClass(Location.class);
+        verify(tileFactory).create(any(), argument.capture(), any());
+
+        var expectedX = LOCATION.getX();
+        var expectedY = LOCATION.getY() - SIZE.getHeight();
+
+        assertEquals(expectedX, argument.getValue().getX());
+        assertEquals(expectedY, argument.getValue().getY());
+    }
+
+    @Test
+    void bottomCenterAnchoringPutsTopLeftTileOnCorrectLocation() {
+        // Arrange
+        var localSut = new TileMap(LOCATION, SIZE) {
+
+            @Override
+            public void setupEntities() {
+                addEntity(1, SpriteEntityOne.class);
+            }
+
+            @Override
+            public int[][] defineMap() {
+                int[][] map = {{1, 0, 0},
+                        {0, 0, 0},
+                        {0, 0, 0}
+                };
+                return map;
+            }
+        };
+
+        localSut.setAnchorPoint(AnchorPoint.BOTTOM_CENTER);
+
+        var entity = mock(Entity.class);
+        var tileFactory = mock(TileFactory.class);
+        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+
+        localSut.setTileFactory(tileFactory);
+
+        // Act
+        localSut.configure();
+
+        // Assert
+        ArgumentCaptor<Location> argument = ArgumentCaptor.forClass(Location.class);
+        verify(tileFactory).create(any(), argument.capture(), any());
+
+        var expectedX = LOCATION.getX() - SIZE.getWidth() / 2;
+        var expectedY = LOCATION.getY() - SIZE.getHeight();
+
+        assertEquals(expectedX, argument.getValue().getX());
+        assertEquals(expectedY, argument.getValue().getY());
+    }
+
+    @Test
+    void bottomRightAnchoringPutsTopLeftTileOnCorrectLocation() {
+        // Arrange
+        var localSut = new TileMap(LOCATION, SIZE) {
+
+            @Override
+            public void setupEntities() {
+                addEntity(1, SpriteEntityOne.class);
+            }
+
+            @Override
+            public int[][] defineMap() {
+                int[][] map = {{1, 0, 0},
+                        {0, 0, 0},
+                        {0, 0, 0}
+                };
+                return map;
+            }
+        };
+
+        localSut.setAnchorPoint(AnchorPoint.BOTTOM_RIGHT);
+
+        var entity = mock(Entity.class);
+        var tileFactory = mock(TileFactory.class);
+        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+
+        localSut.setTileFactory(tileFactory);
+
+        // Act
+        localSut.configure();
+
+        // Assert
+        ArgumentCaptor<Location> argument = ArgumentCaptor.forClass(Location.class);
+        verify(tileFactory).create(any(), argument.capture(), any());
+
+        var expectedX = LOCATION.getX() - SIZE.getWidth();
+        var expectedY = LOCATION.getY() - SIZE.getHeight();
+
+        assertEquals(expectedX, argument.getValue().getX());
+        assertEquals(expectedY, argument.getValue().getY());
     }
 
     private class TileMapEmptyConstructorImpl extends TileMap {

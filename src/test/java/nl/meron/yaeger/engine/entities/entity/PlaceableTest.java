@@ -47,6 +47,11 @@ class PlaceableImpl implements Placeable {
     }
 
     @Override
+    public void setAnchorPoint(AnchorPoint anchorPoint) {
+        // Not required here.
+    }
+
+    @Override
     public AnchorPoint getAnchorPoint() {
         return null;
     }
@@ -63,6 +68,6 @@ class PlaceableImpl implements Placeable {
 
     @Override
     public void placeOnScene() {
-
+        // Not required here.
     }
 }

@@ -29,13 +29,7 @@ public abstract class JavaFXEntity implements Entity {
         this.anchorPoint = AnchorPoint.TOP_LEFT;
     }
 
-    /**
-     * Set the {@link AnchorPoint} of this {@link Entity}. The {@link AnchorPoint} will be used
-     * to set the given x, y-coordinate. By default an {@link Entity} will use the top-left as
-     * its anchorpoint.
-     *
-     * @param anchorPoint The {@link AnchorPoint} of this {@link Entity}.
-     */
+   @Override
     public void setAnchorPoint(AnchorPoint anchorPoint) {
         getGameNode().ifPresentOrElse(node -> {
                     applyTranslationsForAnchorPoint(node, anchorPoint);
@@ -96,14 +90,14 @@ public abstract class JavaFXEntity implements Entity {
             case TOP_RIGHT:
                 node.setTranslateX(-getNonTransformedBounds().getWidth());
                 break;
-            case LEFT_CENTER:
+            case CENTER_LEFT:
                 node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
                 break;
             case CENTER_CENTER:
                 node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
                 node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
                 break;
-            case RIGHT_CENTER:
+            case CENTER_RIGHT:
                 node.setTranslateX(-getNonTransformedBounds().getWidth());
                 node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
                 break;

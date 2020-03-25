@@ -4,14 +4,7 @@ package nl.meron.yaeger.engine.entities.entity;
  * A {@link Placeable} has a methods that can be used to place it at a different x,y-coordinates
  * on the {@link nl.meron.yaeger.engine.scenes.YaegerScene}.
  */
-public interface Placeable extends Bounded {
-
-    /**
-     * Return the {@link AnchorPoint} of this {@link Placeable}.
-     *
-     * @return The {@link AnchorPoint} of this {@link Placeable}.
-     */
-    AnchorPoint getAnchorPoint();
+public interface Placeable extends Bounded, Anchorable {
 
     /**
      * @return The x-coordinate of the top-left corner of the Bounding Box without any transformations
