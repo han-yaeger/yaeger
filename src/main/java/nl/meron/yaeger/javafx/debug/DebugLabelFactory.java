@@ -17,17 +17,19 @@ public class DebugLabelFactory {
     private static final int DEBUGGER_FONT_SIZE = 12;
 
     /**
-     * Create a {@link} that can be used to display a {@code value on the {@link Debugger }
+     * Create a {@link Label} that can be used to display a value on the {@link Debugger}.
+     *
+     * @return The {@link Label} with an empty value.
      */
     public Label createValue() {
         return createValue("");
     }
 
-
     /**
-     * Create a {@link} that can be used to display a {@code value on the {@link Debugger }
+     * Create a {@link Label} that can be used to display a value on the {@link Debugger}.
      *
-     * @param string the {@link String} to be shown
+     * @param string The {@link String} to be shown.
+     * @return The {@link Label} with the supplied value.
      */
     public Label createValue(final String string) {
         var label = new Label(string);
@@ -40,7 +42,10 @@ public class DebugLabelFactory {
     }
 
     /**
-     * Instantiate a new {@code DebugLabelFactory} without any text value shown.
+     * Instantiate a new {@link DebugLabelFactory} without any text value shown.
+     *
+     * @param string The {@link String} to be shown.
+     * @return The {@link Label} with the supplied value.
      */
     public Label createLabel(final String string) {
         var label = new Label(string);

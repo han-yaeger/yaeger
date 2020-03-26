@@ -10,8 +10,8 @@ public class Location extends Point2D {
     /**
      * Creates a new instance of {@link Location}.
      *
-     * @param x the x coordinate of the {@link Location}
-     * @param y the y coordinate of the {@link Location}it
+     * @param x The x coordinate of the {@link Location}.
+     * @param y The y coordinate of the {@link Location}.
      */
     public Location(final double x, final double y) {
         super(x, y);
@@ -20,7 +20,7 @@ public class Location extends Point2D {
     /**
      * Creates a new instance of a {@link Location}.
      *
-     * @param point a {@link Point2D representation of this {@link Location}
+     * @param point A {@link Point2D} representation of this {@link Location}.
      */
     public Location(final Point2D point) {
         super(point.getX(), point.getY());

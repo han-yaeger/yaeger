@@ -73,7 +73,6 @@ public abstract class YaegerApplication extends Application {
      *         <li>setSize()</li>
      *         <li>setGameTitle()</li>
      *     </ul>
-     * </p>
      */
     protected abstract void initializeGame();
 

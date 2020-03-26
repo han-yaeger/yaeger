@@ -30,7 +30,6 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      *
      * @param increment A value greater than 1 will mean an increment in speed. A value between 0 and 1 will mean a
      *                  decrement in speed.
-     * @param increment A {@code double} representing the increment in speed
      */
     void alterSpeedBy(final double increment);
 

@@ -25,9 +25,9 @@ public class DynamicSceneWithTimer extends ShowCaseScene implements WithTimers {
     }
 
     @Override
-    public void registerTimers() {
+    public void setupTimers() {
         displayNumber = COUNTDOWN_NUMBER;
-        registerTimer(new SceneMinuteTimer(this));
+        addTimer(new SceneMinuteTimer(this));
     }
 
     @Override

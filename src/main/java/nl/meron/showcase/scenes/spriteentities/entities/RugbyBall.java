@@ -15,8 +15,8 @@ public class RugbyBall extends DynamicSpriteEntity implements WithTimers {
     }
 
     @Override
-    public void registerTimers() {
-        registerTimer(new RugbyBallTimer(this, 1000));
+    public void setupTimers() {
+        addTimer(new RugbyBallTimer(this, 1000));
     }
 
     public void changeDirection() {

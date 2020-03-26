@@ -42,8 +42,8 @@ public class TimedDynamicTextEntity extends DynamicTextEntity implements WithTim
     }
 
     @Override
-    public void registerTimers() {
-        registerTimer(new TimedDynamicTextTimer(this, 2100));
+    public void setupTimers() {
+        addTimer(new TimedDynamicTextTimer(this, 2100));
     }
 
     public void nextLine() {

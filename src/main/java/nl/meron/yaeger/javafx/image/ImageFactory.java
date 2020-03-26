@@ -15,9 +15,9 @@ public class ImageFactory {
      *
      * @param url the string representing the URL to use in fetching the pixel
      *            data
-     * @return An instance of {@link Image}
-     * @throws NullPointerException     if URL is null
-     * @throws IllegalArgumentException if URL is invalid or unsupported
+     * @return An instance of {@link Image}.
+     * @throws NullPointerException     if URL is null.
+     * @throws IllegalArgumentException if URL is invalid or unsupported.
      */
     public Image create(String url) {
         return new Image(url);
@@ -33,6 +33,7 @@ public class ImageFactory {
      * @param preserveRatio   indicates whether to preserve the aspect ratio of
      *                        the original image when scaling to fit the image within the
      *                        specified bounding box
+     * @return The requested {@link Image}.
      * @throws NullPointerException     if URL is null
      * @throws IllegalArgumentException if URL is invalid or unsupported
      */

@@ -67,17 +67,19 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Conf
      * on the map. The first array ({@code int[]}) defines the rows. Each entry in this array is itself an array
      * containing the columns of the given row.
      * <p>
-     * This way, the following array
+     * This way, the following array:
      * <pre>
-     *      <@code
+     *      {@code
      *          int[][] map = {
      *              {0, 0, 0, 0, 0, 0, 0 },
      *              {0, 0, 2, 0, 3, 3, 3},
      *              {2, 3, 0, 0, 0, 0, 1}}
-     *      >
+     *      }
      * </pre>
      * will place three rows of seven entities. In this case there should be four Entities added through the
-     * {@link #addEntity(int, Class<? extends Entity>)} method.
+     * {@link #addEntity(int, Class)} method.
+     *
+     * @return The two dimensional array representing the map.
      */
     public abstract int[][] defineMap();
 

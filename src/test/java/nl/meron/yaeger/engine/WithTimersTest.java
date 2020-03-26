@@ -53,7 +53,7 @@ class WithTimersTest {
         var timer = mock(Timer.class);
 
         // Act
-        sut.registerTimer(timer);
+        sut.addTimer(timer);
 
         // Assert
         assertEquals(timer, sut.getTimers().get(0));
@@ -79,7 +79,7 @@ class WithTimersTest {
         // Act
 
         // Assert
-        assertThrows(YaegerEngineException.class, () -> sut.registerTimer(timer1));
+        assertThrows(YaegerEngineException.class, () -> sut.addTimer(timer1));
     }
 
     @Test
@@ -88,8 +88,8 @@ class WithTimersTest {
         sut.setTimers(new ArrayList<>());
         var timer1 = mock(Timer.class);
         var timer2 = mock(Timer.class);
-        sut.registerTimer(timer1);
-        sut.registerTimer(timer2);
+        sut.addTimer(timer1);
+        sut.addTimer(timer2);
         var updatable = sut.callTimers();
 
         // Act
@@ -106,7 +106,7 @@ class WithTimersTest {
         private boolean registerTimersCalled = false;
 
         @Override
-        public void registerTimers() {
+        public void setupTimers() {
             registerTimersCalled = true;
         }
 

@@ -5,7 +5,6 @@ import nl.meron.showcase.scenes.shapeentities.entities.timers.TimedDynamicRectan
 import nl.meron.yaeger.engine.WithTimers;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.SceneBorderTouchingWatcher;
-import nl.meron.yaeger.engine.entities.entity.motion.Direction;
 import nl.meron.yaeger.engine.entities.entity.shape.rectangle.DynamicRectangleEntity;
 import nl.meron.yaeger.engine.scenes.SceneBorder;
 
@@ -32,8 +31,8 @@ public class TimedDynamicRectangle extends DynamicRectangleEntity implements Wit
     }
 
     @Override
-    public void registerTimers() {
-        registerTimer(new TimedDynamicRectangleTimer(this, 10));
+    public void setupTimers() {
+        addTimer(new TimedDynamicRectangleTimer(this, 10));
     }
 
     public void setArc() {

@@ -84,7 +84,7 @@ public class EntityCollection implements Initializable {
     /**
      * Notify all {@link Entity} that implement the interface {@link KeyListener} that keys are being pressed.
      *
-     * @param input A {@link Set<KeyCode>} containing als keys currently pressed.
+     * @param input A {@link Set} containing all keys currently pressed.
      */
     public void notifyGameObjectsOfPressedKeys(final Set<KeyCode> input) {
         keyListeners.forEach(gameObject -> gameObject.onPressedKeysChange(input));
@@ -105,7 +105,7 @@ public class EntityCollection implements Initializable {
      * <ul>
      * <li>
      * <b>Collect garbage</b> All EntityCollection that have been marked as Garbage will be removed.
-     * </i>
+     *
      * <li>
      * <b>Notify Entities</b> On all Entities that implement the interface {@link Updatable}, update()
      * will be called.

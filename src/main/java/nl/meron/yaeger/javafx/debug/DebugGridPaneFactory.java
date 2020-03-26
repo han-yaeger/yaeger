@@ -12,7 +12,9 @@ import nl.meron.yaeger.engine.debug.Debugger;
 public class DebugGridPaneFactory {
 
     /**
-     * Construct a new {@link GridPane} that can be used by the {@link Debugger}
+     * Construct a new {@link GridPane} that can be used by the {@link Debugger}.
+     *
+     * @return The {@link GridPane} that can be used by this {@link Debugger}.
      */
     public GridPane create() {
         var gridPane = new GridPane();

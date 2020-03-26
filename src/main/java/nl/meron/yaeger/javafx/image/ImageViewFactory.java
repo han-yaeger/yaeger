@@ -13,8 +13,8 @@ public class ImageViewFactory {
     /**
      * Constructs an {@link ImageView} for the given {@link Image}.
      *
-     * @param image the {@link Image} for which an {@link ImageView should be created
-     * @return An instance of {@link ImageView}
+     * @param image The {@link Image} for which an {@link ImageView} should be created.
+     * @return An instance of {@link ImageView}.
      */
     public ImageView create(final Image image) {
         return new ImageView(image);
