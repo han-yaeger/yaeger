@@ -9,13 +9,13 @@ import nl.meron.yaeger.engine.scenes.WithSupplier;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 
 /**
- * Implementing this interface exposes the {@link #addEntityMap(TileMap)} method. An {@link TileMap} that is
+ * Implementing this interface exposes the {@link #addTileMap(TileMap)} method. An {@link TileMap} that is
  * instantiated, but not registered, will not be added to the {@link YaegerScene}.
  */
 public interface WithTileMaps extends WithSupplier, WithTileMapList, DimensionsProvider, RequiresInjection {
 
     /**
-     * Only instances of {@link Timer} that are registered with the method {@link #addEntityMap(TileMap)}
+     * Only instances of {@link Timer} that are registered with the method {@link #addTileMap(TileMap)}
      * within this method are registered and will receive an animation update.
      */
     void setupTileMaps();
@@ -33,7 +33,7 @@ public interface WithTileMaps extends WithSupplier, WithTileMapList, DimensionsP
      *
      * @param tileMap The {@link TileMap} that should be registered.
      */
-    default void addEntityMap(TileMap tileMap) {
+    default void addTileMap(TileMap tileMap) {
         if (getTileMaps() != null) {
             tileMap.setDimensionsProvider(this);
             getTileMaps().add(tileMap);

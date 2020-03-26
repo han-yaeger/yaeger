@@ -92,7 +92,7 @@ class WithTileMapsTest {
         var entityMap = mock(TileMap.class);
 
         // Act Assert
-        assertThrows(YaegerEngineException.class, () -> sut.addEntityMap(entityMap));
+        assertThrows(YaegerEngineException.class, () -> sut.addTileMap(entityMap));
     }
 
     private class WithTileMapsImpl implements WithTileMaps {
@@ -104,7 +104,7 @@ class WithTileMapsTest {
 
         @Override
         public void setupTileMaps() {
-            mapsToRegister.forEach(map -> addEntityMap(map));
+            mapsToRegister.forEach(map -> addTileMap(map));
             registerEntityMapsCalled = true;
         }
 
