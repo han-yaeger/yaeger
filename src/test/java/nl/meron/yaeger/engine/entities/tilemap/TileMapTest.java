@@ -307,6 +307,19 @@ class TileMapTest {
     }
 
     @Test
+    void anchorPointIsAvailableThroughGetter() {
+        // Arrange
+        var expected = AnchorPoint.CENTER_CENTER;
+        sut.setAnchorPoint(expected);
+
+        // Act
+        var actual = sut.getAnchorPoint();
+
+        // Assert
+        assertEquals(actual, expected);
+    }
+
+    @Test
     void inARectangularTileMapTheEntityGetsCorrectWidthAndHeight() {
         // Arrange
         var localSut = new TileMap(LOCATION, SIZE) {
