@@ -44,12 +44,12 @@ public class BubbleSpawner extends EntitySpawner {
     }
 
     private int generateRandomSpeed() {
-        return new Random().nextInt(5);
+        return new Random().nextInt(4) + 1;
     }
 
     private Location generateRandomPosition() {
         int x = new Random().nextInt((int) Math.round(worldWidth));
-        int y = (int) Math.round(worldHeight) - 30;
+        int y = (int) Math.round(worldHeight);
 
         return new Location(x, y);
     }
