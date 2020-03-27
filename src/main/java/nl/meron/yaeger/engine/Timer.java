@@ -22,7 +22,10 @@ public abstract class Timer {
 
     void handle(final long now) {
 
-        // some delay
+        if (prevTime == 0) {
+            prevTime = now;
+        }
+
         if ((now - prevTime) < interval) {
             return;
         }
