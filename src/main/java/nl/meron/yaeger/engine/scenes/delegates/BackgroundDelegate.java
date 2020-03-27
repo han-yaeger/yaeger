@@ -3,6 +3,7 @@ package nl.meron.yaeger.engine.scenes.delegates;
 import com.google.inject.Inject;
 import javafx.scene.Scene;
 import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
 import nl.meron.yaeger.engine.Destroyable;
 import nl.meron.yaeger.engine.media.ResourceConsumer;
 import nl.meron.yaeger.engine.media.audio.SoundClip;
@@ -48,6 +49,17 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
     }
 
     /**
+     * Set the background color of the {@link YaegerScene}.
+     *
+     * @param color The {@link Color} of the background.
+     */
+    public void setBackgroundColor(Color color) {
+        if (scene != null) {
+            scene.setFill(color);
+        }
+    }
+
+    /**
      * Set the background image. The image will be set as the full background for the
      * {@link Scene}.
      *
@@ -89,4 +101,6 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
     public void setImagePatternFactory(final ImagePatternFactory imagePatternFactory) {
         this.imagePatternFactory = imagePatternFactory;
     }
+
+
 }

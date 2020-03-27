@@ -5,6 +5,7 @@ import com.google.inject.Injector;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import nl.meron.yaeger.engine.RequiresInjection;
 import nl.meron.yaeger.engine.YaegerApplication;
@@ -81,6 +82,11 @@ public abstract class StaticScene implements YaegerScene, KeyListener, WithSuppl
      */
     protected void addEntity(final Entity entity) {
         entitySupplier.add(entity);
+    }
+
+    @Override
+    public void setBackgroundColor(Color color){
+        backgroundDelegate.setBackgroundColor(color);
     }
 
     @Override
@@ -209,4 +215,6 @@ public abstract class StaticScene implements YaegerScene, KeyListener, WithSuppl
     public List<TileMap> getTileMaps() {
         return tileMaps;
     }
+
+
 }

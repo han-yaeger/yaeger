@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.EntityCollection;
@@ -223,6 +224,18 @@ class StaticSceneTest {
 
         // Verify
         verify(backgroundDelegate).setBackgroundAudio(AUDIO_STRING);
+    }
+
+    @Test
+    void setBackgroundColorDelegatesToBackgroundDelegate() {
+        // Arrange
+        final var color = Color.YELLOW;
+
+        // Act
+        sut.setBackgroundColor(color);
+
+        // Verify
+        verify(backgroundDelegate).setBackgroundColor(color);
     }
 
     @Test

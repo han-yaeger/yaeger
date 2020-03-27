@@ -2,6 +2,7 @@ package nl.meron.yaeger.engine.scenes;
 
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import nl.meron.yaeger.engine.Clearable;
 import nl.meron.yaeger.engine.Configurable;
@@ -30,6 +31,13 @@ public interface YaegerScene extends DimensionsProvider, Destroyable, Initializa
      * set up.
      */
     void postActivation();
+
+    /**
+     * Set the background color of the {@link YaegerScene}.
+     *
+     * @param color The {@link Color} of the background.
+     */
+    void setBackgroundColor(Color color);
 
     /**
      * Set the name of the background image file.

@@ -3,6 +3,7 @@ package nl.meron.yaeger.engine.scenes;
 import com.google.inject.Injector;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,7 +45,7 @@ class YaegerSceneTest {
         when(stage.getWidth()).thenReturn(width);
 
         // Act
-        double returnedWidth = sut.getWidth();
+        var returnedWidth = sut.getWidth();
 
         // Verify
         Assertions.assertEquals(width, returnedWidth);
@@ -84,6 +85,11 @@ class YaegerSceneTest {
 
         @Override
         public void postActivation() {
+
+        }
+
+        @Override
+        public void setBackgroundColor(Color color) {
 
         }
 

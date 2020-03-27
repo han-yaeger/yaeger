@@ -3,6 +3,7 @@ package nl.meron.yaeger.engine.scenes.delegates;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import nl.meron.yaeger.engine.media.audio.SoundClip;
 import nl.meron.yaeger.engine.media.repositories.AudioRepository;
@@ -57,6 +58,18 @@ class BackgroundDelegateTest {
 
         // Verify
         verify(audioClip).play();
+    }
+
+    @Test
+    void setBackgroundColorDelegatesToScene() {
+        // Arrange
+        var color = Color.YELLOW;
+
+        // Act
+        backgroundDelegate.setBackgroundColor(color);
+
+        // Assert
+        verify(scene).setFill(color);
     }
 
     @Test
