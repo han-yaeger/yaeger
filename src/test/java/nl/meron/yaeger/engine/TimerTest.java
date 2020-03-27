@@ -26,6 +26,7 @@ class TimerTest {
         var timer = new TimerImpl(1000);
 
         // Act
+        timer.handle(1);
         timer.handle(1500 * 1_000_000);
 
         // Assert
@@ -38,7 +39,8 @@ class TimerTest {
         var timer = new TimerImpl(1000);
 
         // Act
-        timer.handle(1000 * 1_000_000);
+        timer.handle(1 * 1_000_000);
+        timer.handle(1001 * 1_000_000);
 
         // Assert
         Assertions.assertTrue(timer.updateCalled);
@@ -60,10 +62,6 @@ class TimerTest {
         @Override
         public void onAnimationUpdate(long timestamp) {
             updateCalled = true;
-        }
-
-        public boolean isUpdateCalled() {
-            return updateCalled;
         }
     }
 }
