@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TimerTest {
 
-
     @Test
     void handleDoesNotCallOnAnimationUpdateIfTimestampIsLessThanInterval() {
         // Arrange

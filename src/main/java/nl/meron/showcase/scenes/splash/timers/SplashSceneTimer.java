@@ -8,13 +8,12 @@ public class SplashSceneTimer extends Timer {
     private SplashScene scene;
 
     public SplashSceneTimer(SplashScene scene) {
-        super(2000);
+        super(3000);
         this.scene = scene;
     }
 
     @Override
     public void onAnimationUpdate(long timestamp) {
-
         scene.update();
     }
 
