@@ -6,9 +6,11 @@ import javafx.stage.Stage;
 import nl.meron.yaeger.engine.Initializable;
 import nl.meron.yaeger.engine.annotations.AnnotationProcessor;
 import nl.meron.yaeger.engine.exceptions.YaegerSceneNotAvailableException;
+import nl.meron.yaeger.screens.splash.SplashScene;
 
 import java.util.LinkedHashMap;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A {@link SceneCollection} contains all instances of {@link YaegerScene} that are part of a Game. It is
@@ -20,6 +22,8 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     private transient Injector injector;
     private transient AnnotationProcessor annotationProcessor;
     private transient YaegerScene activeScene;
+    private int firstScene;
+    private boolean finishedSplashScreen = false;
 
     public SceneCollection(final Stage stage) {
         this.stage = stage;
@@ -27,7 +31,7 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
 
     /**
      * Add a {@link YaegerScene} to the collection of {@link SceneCollection}. A {@link YaegerScene} uses a number ({@link Integer})
-     * to be identified. Each number can be only used ones..
+     * to be identified. Each number can be only used one time.
      *
      * @param number The {@link Integer} identifying the {@link YaegerScene}
      * @param scene  The {@link YaegerScene} to be added
@@ -38,7 +42,7 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
         scene.setStage(stage);
 
         if (size() == 1) {
-            activate(scene);
+            firstScene = number;
         }
     }
 
@@ -58,6 +62,9 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
      * @param number The {@link Integer} identifying the {@link YaegerScene}
      */
     public void setActive(final int number) {
+        if (!finishedSplashScreen) {
+            firstScene = number;
+        }
 
         var requestedScene = get(number);
 
@@ -93,6 +100,16 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
         this.injector = injector;
     }
 
+    public void addSplashScreen() {
+        var splash = new SplashScene(() -> {
+            this.finishedSplashScreen = true;
+            setActive(firstScene);
+        });
+        splash.init(injector);
+        splash.setStage(stage);
+        activate(splash);
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
@@ -111,4 +128,6 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     public void setAnnotationProcessor(AnnotationProcessor annotationProcessor) {
         this.annotationProcessor = annotationProcessor;
     }
+
+
 }

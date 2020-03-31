@@ -37,7 +37,7 @@ class YaegerStageTest {
     }
 
     @Test
-    void setSizeIsUsedAtInitialization() {
+    void atInitializationsetSizeIsUsed() {
         // Arrange
         sut.setSize(new Size(WIDTH, HEIGHT));
 
@@ -61,7 +61,7 @@ class YaegerStageTest {
     }
 
     @Test
-    void atInitializationSetupScenesIsaCalled() {
+    void atInitializationSetupScenesIsCalled() {
         // Arrange
 
         // Act
@@ -93,6 +93,17 @@ class YaegerStageTest {
 
         // Assert
         verify(injector).injectMembers(any(SceneCollection.class));
+    }
+
+    @Test
+    void atInitializationAddSplashScreenIsCalled() {
+        // Arrange
+
+        // Act
+        sut.init(injector);
+
+        // Assert
+        verify(sceneCollection).addSplashScreen();
     }
 
     @Test

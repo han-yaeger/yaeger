@@ -44,6 +44,7 @@ public class YaegerStage implements Initializable {
         stage.setHeight(size.getHeight());
 
         yaegerApplication.setupScenes();
+        sceneCollection.addSplashScreen();
 
         stage.show();
     }

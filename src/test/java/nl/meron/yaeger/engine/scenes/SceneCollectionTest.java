@@ -29,7 +29,7 @@ class SceneCollectionTest {
     }
 
     @Test
-    void addingOneSceneSetAsActiveScene() {
+    void firstAddedSceneStoredAsFirstScene() {
         // Arrange
         var scene = mock(YaegerScene.class);
         var javaFXScene = mock(Scene.class);

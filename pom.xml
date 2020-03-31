@@ -18,7 +18,8 @@
             **/showcase/**/*,
             **/waterworld/**/*,
             **/yaeger/guice/**/*,
-            **/yaeger/javafx/**/*.java
+            **/yaeger/javafx/**/*,
+            **/yaeger/screens/**/*
         </sonar.exclusions>
     </properties>
 
@@ -97,6 +98,9 @@
                         <exclude>nl/meron/showcase/**/*</exclude>
                         <exclude>nl/meron/waterworld/**/*</exclude>
                         <exclude>nl/meron/yaeger/guice/**/*</exclude>
+                        <exclude>nl/meron/screens/**/*</exclude>
+                        <exclude>nl/meron/screens/entities/**/*</exclude>
+                        <exclude>nl/meron/screens/timers/**/*</exclude>
                         <exclude>nl/meron/yaeger/javafx/debug/*</exclude>
                         <exclude>nl/meron/yaeger/javafx/image/*</exclude>
                         <exclude>nl/meron/yaeger/javafx/animationtimer/*</exclude>
@@ -126,6 +130,7 @@
                 <version>3.2.0</version>
                 <configuration>
                     <excludePackageNames>nl.meron.pong</excludePackageNames>
+                    <excludePackageNames>nl.meron.screens</excludePackageNames>
                     <excludePackageNames>nl.meron.showcase</excludePackageNames>
                     <excludePackageNames>nl.meron.waterworld</excludePackageNames>
                     <source>${java.version}</source>

@@ -32,17 +32,10 @@ public class Waterworld extends YaegerApplication {
 
     @Override
     public void setupScenes() {
-        var introScene = new Intro(this);
-        var levelOne = new LevelOne(this);
-        var levelTwo = new LevelTwo(this);
-        var gameOverScene = new GameOver(this);
-
-        addScene(SCENE_INTRO, introScene);
-        addScene(SCENE_LEVEL_ONE, levelOne);
-        addScene(SCENE_LEVEL_TWO, levelTwo);
-        addScene(SCENE_GAME_OVER, gameOverScene);
-
-        setActiveScene(SCENE_INTRO);
+        addScene(SCENE_INTRO, new Intro(this));
+        addScene(SCENE_LEVEL_ONE, new LevelOne(this));
+        addScene(SCENE_LEVEL_TWO, new LevelTwo(this));
+        addScene(SCENE_GAME_OVER, new GameOver(this));
     }
 
     public void nextScene(int scene) {

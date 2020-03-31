@@ -18,7 +18,7 @@ public class YaegerShowCase extends YaegerApplication {
     private static final String GAME_TITLE = "Yaeger Show Case";
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 719;
-    public static final int SPLASH = 0;
+//    public static final int SPLASH = 0;
     public static final int SCENE_SELECTION = 1;
     public static final int SCENE_TEXT_ENTITIES = 2;
     public static final int SCENE_SPRITE_ENTITIES = 3;
@@ -38,8 +38,8 @@ public class YaegerShowCase extends YaegerApplication {
 
     @Override
     protected void setupScenes() {
-        var splash = new SplashScene(this);
-        addScene(SPLASH, splash);
+//        var splash = new SplashScene(this);
+//        addScene(SPLASH, splash);
         var selectionScene = new SelectionScene(this);
         addScene(SCENE_SELECTION, selectionScene);
         var textEntitiesScene = new TextEntitiesScene(this);
