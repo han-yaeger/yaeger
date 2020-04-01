@@ -6,7 +6,6 @@ module nl.meron.yaeger {
 
     exports nl.meron.pong;
     exports nl.meron.showcase;
-    exports nl.meron.showcase.scenes.entitymaps.tilemaps.entities;
     exports nl.meron.waterworld;
     exports nl.meron.yaeger.engine;
     exports nl.meron.yaeger.engine.annotations;
@@ -25,6 +24,7 @@ module nl.meron.yaeger {
     exports nl.meron.yaeger.engine.entities.entity.shape.text;
     exports nl.meron.yaeger.engine.entities.entity.shape.rectangle;
     exports nl.meron.yaeger.engine.entities.entity.motion;
+    exports nl.meron.yaeger.screens.splash;
 
     opens pong;
     opens showcase.backgrounds;

@@ -5,9 +5,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.meron.yaeger.engine.annotations.AnnotationProcessor;
 import nl.meron.yaeger.engine.exceptions.YaegerSceneNotAvailableException;
+import nl.meron.yaeger.screens.splash.SplashScene;
+import nl.meron.yaeger.screens.splash.SplashScreenFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import static org.mockito.Mockito.*;
 
@@ -17,19 +20,72 @@ class SceneCollectionTest {
     private SceneCollection sut;
     private Injector injector;
     private AnnotationProcessor annotationProcessor;
+    private SplashScreenFactory splashScreenFactory;
+    private SplashScene splashScene;
+    private ArgumentCaptor<Runnable> loadFirstSceneCallBack;
 
     @BeforeEach
     void setup() {
         stage = mock(Stage.class);
         injector = mock(Injector.class);
         annotationProcessor = mock(AnnotationProcessor.class);
+        splashScreenFactory = mock(SplashScreenFactory.class);
+        splashScene = mock(SplashScene.class);
+
+        loadFirstSceneCallBack = ArgumentCaptor.forClass(Runnable.class);
+        when(splashScreenFactory.create(loadFirstSceneCallBack.capture())).thenReturn(splashScene);
         sut = new SceneCollection(stage);
         sut.init(injector);
         sut.setAnnotationProcessor(annotationProcessor);
+        sut.setSplashScreenFactory(splashScreenFactory);
     }
 
     @Test
-    void firstAddedSceneStoredAsFirstScene() {
+    void addSplashScreenCallsTheFactory() {
+        // Arrange
+
+        // Act
+        sut.addSplashScreen();
+
+        // Assert
+        verify(splashScreenFactory).create(any());
+    }
+
+    @Test
+    void splashScreenReceivesInjector() {
+        // Arrange
+
+        // Act
+        sut.addSplashScreen();
+
+        // Assert
+        verify(splashScene).init(injector);
+    }
+
+    @Test
+    void splashScreenReceivesStage() {
+        // Arrange
+
+        // Act
+        sut.addSplashScreen();
+
+        // Assert
+        verify(splashScene).setStage(stage);
+    }
+
+    @Test
+    void splashScreenGetsActivated() {
+        // Arrange
+
+        // Act
+        sut.addSplashScreen();
+
+        // Assert
+        verify(splashScene).postActivation();
+    }
+
+    @Test
+    void firstAddedSceneLoadedAfterSplashScreen() {
         // Arrange
         var scene = mock(YaegerScene.class);
         var javaFXScene = mock(Scene.class);
@@ -37,8 +93,11 @@ class SceneCollectionTest {
         when(scene.getScene()).thenReturn(javaFXScene);
         doNothing().when(stage).setScene(javaFXScene);
 
-        // Act
         sut.addScene(0, scene);
+        sut.addSplashScreen();
+
+        // Act
+        loadFirstSceneCallBack.getValue().run();
 
         // Verify
         Assertions.assertEquals(scene, sut.getActiveScene());
@@ -95,6 +154,9 @@ class SceneCollectionTest {
         sut.addScene(2, yaegerScene3);
         sut.addScene(3, yaegerScene4);
 
+        sut.addSplashScreen();
+        loadFirstSceneCallBack.getValue().run();
+
         // Verify
         Assertions.assertEquals(yaegerScene1, sut.getActiveScene());
     }
@@ -110,6 +172,9 @@ class SceneCollectionTest {
 
         // Act
         sut.addScene(0, intro);
+
+        sut.addSplashScreen();
+        loadFirstSceneCallBack.getValue().run();
 
         // Verify
         verify(annotationProcessor).invokeInitializers(intro);
@@ -151,6 +216,9 @@ class SceneCollectionTest {
 
         sut.addScene(0, intro);
         sut.addScene(1, level1);
+
+        sut.addSplashScreen();
+        loadFirstSceneCallBack.getValue().run();
 
         // Act
         sut.setActive(1);

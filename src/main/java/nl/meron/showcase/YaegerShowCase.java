@@ -4,7 +4,6 @@ import nl.meron.showcase.scenes.dynamicscenewithtimer.DynamicSceneWithTimer;
 import nl.meron.showcase.scenes.entitymaps.TileMapScene;
 import nl.meron.showcase.scenes.selection.SelectionScene;
 import nl.meron.showcase.scenes.shapeentities.ShapeEntitiesScene;
-import nl.meron.showcase.scenes.splash.SplashScene;
 import nl.meron.showcase.scenes.spriteentities.SpriteEntitiesScene;
 import nl.meron.showcase.scenes.textentities.TextEntitiesScene;
 import nl.meron.yaeger.engine.Size;
@@ -18,7 +17,6 @@ public class YaegerShowCase extends YaegerApplication {
     private static final String GAME_TITLE = "Yaeger Show Case";
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 719;
-//    public static final int SPLASH = 0;
     public static final int SCENE_SELECTION = 1;
     public static final int SCENE_TEXT_ENTITIES = 2;
     public static final int SCENE_SPRITE_ENTITIES = 3;

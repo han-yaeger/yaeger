@@ -7,6 +7,7 @@ import nl.meron.yaeger.engine.Initializable;
 import nl.meron.yaeger.engine.annotations.AnnotationProcessor;
 import nl.meron.yaeger.engine.exceptions.YaegerSceneNotAvailableException;
 import nl.meron.yaeger.screens.splash.SplashScene;
+import nl.meron.yaeger.screens.splash.SplashScreenFactory;
 
 import java.util.LinkedHashMap;
 import java.util.Objects;
@@ -23,6 +24,7 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     private transient AnnotationProcessor annotationProcessor;
     private transient YaegerScene activeScene;
     private int firstScene;
+    private SplashScreenFactory splashScreenFactory;
     private boolean finishedSplashScreen = false;
 
     public SceneCollection(final Stage stage) {
@@ -101,7 +103,7 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     }
 
     public void addSplashScreen() {
-        var splash = new SplashScene(() -> {
+        var splash = splashScreenFactory.create(() -> {
             this.finishedSplashScreen = true;
             setActive(firstScene);
         });
@@ -129,5 +131,8 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
         this.annotationProcessor = annotationProcessor;
     }
 
-
+    @Inject
+    public void setSplashScreenFactory(SplashScreenFactory splashScreenFactory) {
+        this.splashScreenFactory = splashScreenFactory;
+    }
 }
