@@ -1,4 +1,4 @@
-package nl.meron.yaeger.screens.splash;
+package nl.meron.yaeger.engine.scenes.splash;
 
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 
@@ -14,7 +14,7 @@ public class SplashScreenFactory {
      *                 constructor parameter.
      * @return An instance of {@link SplashScene}.
      */
-    public YaegerScene create(Runnable runnable) {
+    public YaegerScene create(final Runnable runnable) {
         return new SplashScene(runnable);
     }
 }

@@ -24,7 +24,7 @@ module nl.meron.yaeger {
     exports nl.meron.yaeger.engine.entities.entity.shape.text;
     exports nl.meron.yaeger.engine.entities.entity.shape.rectangle;
     exports nl.meron.yaeger.engine.entities.entity.motion;
-    exports nl.meron.yaeger.screens.splash;
+    exports nl.meron.yaeger.engine.scenes.splash;
 
     opens pong;
     opens showcase.backgrounds;

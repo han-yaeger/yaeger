@@ -6,12 +6,10 @@ import javafx.stage.Stage;
 import nl.meron.yaeger.engine.Initializable;
 import nl.meron.yaeger.engine.annotations.AnnotationProcessor;
 import nl.meron.yaeger.engine.exceptions.YaegerSceneNotAvailableException;
-import nl.meron.yaeger.screens.splash.SplashScene;
-import nl.meron.yaeger.screens.splash.SplashScreenFactory;
+import nl.meron.yaeger.engine.scenes.splash.SplashScreenFactory;
 
 import java.util.LinkedHashMap;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * A {@link SceneCollection} contains all instances of {@link YaegerScene} that are part of a Game. It is
@@ -102,14 +100,8 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
         this.injector = injector;
     }
 
-    public void addSplashScreen() {
-        var splash = splashScreenFactory.create(() -> {
-            this.finishedSplashScreen = true;
-            setActive(firstScene);
-        });
-        splash.init(injector);
-        splash.setStage(stage);
-        activate(splash);
+    public void postSetupScenes() {
+        addSplashScreen();
     }
 
     @Override
@@ -124,6 +116,16 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), stage);
+    }
+
+    private void addSplashScreen() {
+        var splash = splashScreenFactory.create(() -> {
+            this.finishedSplashScreen = true;
+            setActive(firstScene);
+        });
+        splash.init(injector);
+        splash.setStage(stage);
+        activate(splash);
     }
 
     @Inject

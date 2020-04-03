@@ -5,8 +5,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.meron.yaeger.engine.annotations.AnnotationProcessor;
 import nl.meron.yaeger.engine.exceptions.YaegerSceneNotAvailableException;
-import nl.meron.yaeger.screens.splash.SplashScene;
-import nl.meron.yaeger.screens.splash.SplashScreenFactory;
+import nl.meron.yaeger.engine.scenes.splash.SplashScene;
+import nl.meron.yaeger.engine.scenes.splash.SplashScreenFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,7 +45,7 @@ class SceneCollectionTest {
         // Arrange
 
         // Act
-        sut.addSplashScreen();
+        sut.postSetupScenes();
 
         // Assert
         verify(splashScreenFactory).create(any());
@@ -56,7 +56,7 @@ class SceneCollectionTest {
         // Arrange
 
         // Act
-        sut.addSplashScreen();
+        sut.postSetupScenes();
 
         // Assert
         verify(splashScene).init(injector);
@@ -67,7 +67,7 @@ class SceneCollectionTest {
         // Arrange
 
         // Act
-        sut.addSplashScreen();
+        sut.postSetupScenes();
 
         // Assert
         verify(splashScene).setStage(stage);
@@ -78,7 +78,7 @@ class SceneCollectionTest {
         // Arrange
 
         // Act
-        sut.addSplashScreen();
+        sut.postSetupScenes();
 
         // Assert
         verify(splashScene).postActivation();
@@ -94,7 +94,7 @@ class SceneCollectionTest {
         doNothing().when(stage).setScene(javaFXScene);
 
         sut.addScene(0, scene);
-        sut.addSplashScreen();
+        sut.postSetupScenes();
 
         // Act
         loadFirstSceneCallBack.getValue().run();
@@ -154,7 +154,7 @@ class SceneCollectionTest {
         sut.addScene(2, yaegerScene3);
         sut.addScene(3, yaegerScene4);
 
-        sut.addSplashScreen();
+        sut.postSetupScenes();
         loadFirstSceneCallBack.getValue().run();
 
         // Verify
@@ -173,7 +173,7 @@ class SceneCollectionTest {
         // Act
         sut.addScene(0, intro);
 
-        sut.addSplashScreen();
+        sut.postSetupScenes();
         loadFirstSceneCallBack.getValue().run();
 
         // Verify
@@ -217,7 +217,7 @@ class SceneCollectionTest {
         sut.addScene(0, intro);
         sut.addScene(1, level1);
 
-        sut.addSplashScreen();
+        sut.postSetupScenes();
         loadFirstSceneCallBack.getValue().run();
 
         // Act

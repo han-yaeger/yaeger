@@ -43,7 +43,7 @@ public class YaegerStage implements Initializable {
         yaegerApplication.initializeGame();
 
         yaegerApplication.setupScenes();
-        sceneCollection.addSplashScreen();
+        sceneCollection.postSetupScenes();
 
         stage.show();
     }

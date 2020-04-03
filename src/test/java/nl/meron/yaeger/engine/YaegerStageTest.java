@@ -96,14 +96,14 @@ class YaegerStageTest {
     }
 
     @Test
-    void atInitializationAddSplashScreenIsCalled() {
+    void atInitializationPostSetupScenesIsCalled() {
         // Arrange
 
         // Act
         sut.init(injector);
 
         // Assert
-        verify(sceneCollection).addSplashScreen();
+        verify(sceneCollection).postSetupScenes();
     }
 
     @Test
