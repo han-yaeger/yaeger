@@ -33,14 +33,13 @@ public class YaegerStage implements Initializable {
     @Override
     public void init(Injector injector) {
         stage.setResizable(false);
-        stage.setWidth(size.getWidth());
-        stage.setHeight(size.getHeight());
-
         sceneCollection = sceneCollectionFactory.create(stage);
         injector.injectMembers(sceneCollection);
         sceneCollection.init(injector);
 
         yaegerApplication.initializeGame();
+        stage.setWidth(size.getWidth());
+        stage.setHeight(size.getHeight());
 
         yaegerApplication.setupScenes();
         sceneCollection.postSetupScenes();

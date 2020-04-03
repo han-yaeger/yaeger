@@ -107,6 +107,20 @@ class YaegerStageTest {
     }
 
     @Test
+    void atInitializationWidthAndHeightAreSetAfterInitializeGame() {
+        // Arrange
+
+        // Act
+        sut.init(injector);
+
+        // Assert
+        InOrder inOrder = inOrder(yaegerApplication, stage);
+        inOrder.verify(yaegerApplication).initializeGame();
+        inOrder.verify(stage).setWidth(anyDouble());
+        inOrder.verify(stage).setHeight(anyDouble());
+    }
+
+    @Test
     void callingQuitDelegatesToStage() {
         // Arrange
         var expected = "Title";
