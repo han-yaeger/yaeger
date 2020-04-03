@@ -96,7 +96,7 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     }
 
     @Override
-    public void init(Injector injector) {
+    public void init(final Injector injector) {
         this.injector = injector;
     }
 
@@ -129,12 +129,12 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     }
 
     @Inject
-    public void setAnnotationProcessor(AnnotationProcessor annotationProcessor) {
+    public void setAnnotationProcessor(final AnnotationProcessor annotationProcessor) {
         this.annotationProcessor = annotationProcessor;
     }
 
     @Inject
-    public void setSplashScreenFactory(SplashScreenFactory splashScreenFactory) {
+    public void setSplashScreenFactory(final SplashScreenFactory splashScreenFactory) {
         this.splashScreenFactory = splashScreenFactory;
     }
 }
