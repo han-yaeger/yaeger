@@ -39,7 +39,7 @@ public class SplashScene extends DynamicScene implements WithTimers {
 
     @Override
     public void setupEntities() {
-        var logo = new Logo("logo.png", new Location(getWidth() / 2, getHeight() / 2), new Size(353, 115));
+        var logo = new Logo(new Location(getWidth() / 2, getHeight() / 2), new Size(353, 115));
         logo.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(logo);
     }
