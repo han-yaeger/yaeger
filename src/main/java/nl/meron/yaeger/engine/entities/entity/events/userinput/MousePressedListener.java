@@ -16,13 +16,13 @@ public interface MousePressedListener extends NodeProvider {
      *
      * @param button the {@link MouseButton} being pressed.
      */
-    void onMousePressed(MouseButton button);
+    void onMousePressed(MouseButton button, Double xCoordinates, Double yCoordinates);
 
     /**
      * Attach a mousePressedListener to this entity.
      */
     @Initializer
-    default void attachMousePressedListener() {
-        getGameNode().get().setOnMousePressed(event -> onMousePressed(event.getButton()));
+    default void attachMousePressedListener() { ;
+        getGameNode().get().setOnMousePressed(event -> onMousePressed(event.getButton(), event.getX(), event.getY()));
     }
 }

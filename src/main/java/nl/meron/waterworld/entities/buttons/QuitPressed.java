@@ -28,7 +28,7 @@ public class QuitPressed extends TextEntity implements MousePressedListener, Mou
     }
 
     @Override
-    public void onMousePressed(MouseButton button) {
+    public void onMousePressed(MouseButton button, Double xCoordinates, Double yCoordinates) {
         if (button.equals(MouseButton.PRIMARY)) {
             waterworld.quitGame();
         }
