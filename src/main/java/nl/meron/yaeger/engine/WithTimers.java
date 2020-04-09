@@ -5,8 +5,15 @@ import nl.meron.yaeger.engine.annotations.UpdatableProvider;
 import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
 
 /**
- * Implementing this interface exposes the {@link #addTimer(Timer)} method. A {@link Timer} that is
- * instantiated, but not registered, will not work.
+ * When implementing this interface, the {@link #setupTimers()} method needs to be implemented.
+ * This interface can be used with both a {@link nl.meron.yaeger.engine.scenes.YaegerScene} and en
+ * {@link nl.meron.yaeger.engine.entities.entity.Entity} and ensures that the method {@link #setupTimers()}
+ * is being called during initialization of such an object.
+ * <p>
+ * THe body of {@link #setupTimers()} should be used to add instances of {@link Timer}, using the exposed
+ * method  {@link #addTimer(Timer)}. These timers will then be registered and added to the Game-loop.
+ * <p>
+ * A {@link Timer} that is instantiated, but not added in this way, will not work.
  */
 public interface WithTimers extends TimerListProvider {
 
