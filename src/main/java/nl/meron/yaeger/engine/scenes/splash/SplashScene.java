@@ -28,7 +28,7 @@ public class SplashScene extends DynamicScene implements WithTimers {
     }
 
     @Override
-    protected void setupSpawners() {
+    protected void setupDeprecatedSpawners() {
 
     }
 

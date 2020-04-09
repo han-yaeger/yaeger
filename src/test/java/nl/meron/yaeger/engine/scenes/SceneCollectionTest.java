@@ -81,7 +81,7 @@ class SceneCollectionTest {
         sut.postSetupScenes();
 
         // Assert
-        verify(splashScene).postActivation();
+        verify(splashScene).postActivate();
     }
 
     @Test
@@ -177,7 +177,7 @@ class SceneCollectionTest {
         loadFirstSceneCallBack.getValue().run();
 
         // Verify
-        verify(annotationProcessor).invokeInitializers(intro);
+        verify(annotationProcessor).invokeActivators(intro);
         verify(annotationProcessor).configureUpdateDelegators(intro);
     }
 

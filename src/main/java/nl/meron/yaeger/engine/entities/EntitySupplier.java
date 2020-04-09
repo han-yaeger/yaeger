@@ -7,7 +7,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * An {@code EntitySupplier} encapsulates a {@link HashSet} of instances of {@link Entity}.
+ * An {@link EntitySupplier} extends a {@link HashSet} of instances of {@link Entity}. When calling
+ * {@link EntitySupplier#get()} the content will passed as the return value, after which all content is
+ * cleared.
  */
 public class EntitySupplier extends HashSet<Entity> implements Clearable {
 

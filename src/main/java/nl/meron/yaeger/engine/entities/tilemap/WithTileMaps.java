@@ -2,7 +2,7 @@ package nl.meron.yaeger.engine.entities.tilemap;
 
 import nl.meron.yaeger.engine.DependencyInjector;
 import nl.meron.yaeger.engine.Timer;
-import nl.meron.yaeger.engine.annotations.Initializer;
+import nl.meron.yaeger.engine.annotations.OnActivation;
 import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
 import nl.meron.yaeger.engine.scenes.DimensionsProvider;
 import nl.meron.yaeger.engine.scenes.SupplierProvider;
@@ -20,7 +20,7 @@ public interface WithTileMaps extends SupplierProvider, TileMapListProvider, Dim
      */
     void setupTileMaps();
 
-    @Initializer
+    @OnActivation
     default void initTileMaps() {
         getTileMaps().clear();
         setupTileMaps();
@@ -51,7 +51,7 @@ public interface WithTileMaps extends SupplierProvider, TileMapListProvider, Dim
     private void configureTileMaps() {
         getTileMaps().forEach(entityMap -> {
             getInjector().injectMembers(entityMap);
-            entityMap.configure();
+            entityMap.activate();
         });
     }
 }

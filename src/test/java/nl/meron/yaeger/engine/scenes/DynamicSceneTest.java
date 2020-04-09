@@ -9,7 +9,7 @@ import javafx.scene.input.KeyCode;
 import nl.meron.yaeger.engine.Timer;
 import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.EntityCollection;
-import nl.meron.yaeger.engine.entities.EntitySpawner;
+import nl.meron.yaeger.engine.entities.DeprecatedEntitySpawner;
 import nl.meron.yaeger.engine.entities.EntitySupplier;
 import nl.meron.yaeger.engine.Updatable;
 import nl.meron.yaeger.engine.Updater;
@@ -101,7 +101,7 @@ class DynamicSceneTest {
         // Arrange
 
         // Act
-        sut.configure();
+        sut.activate();
 
         // Verify
         assertTrue(sut.setupSpawnersCalled);
@@ -115,13 +115,13 @@ class DynamicSceneTest {
 
         var animationTimer = mock(AnimationTimer.class);
         var animationTimerFactory = mock(AnimationTimerFactory.class);
-        var spawner = mock(EntitySpawner.class);
+        var spawner = mock(DeprecatedEntitySpawner.class);
         spawner.setAnimationTimerFactory(animationTimerFactory);
         spawner.init(null);
 
         when(animationTimerFactory.createTimeableAnimationTimer(any(), anyLong())).thenReturn(animationTimer);
 
-        sut.configure();
+        sut.activate();
 
         // Act
         sut.registerSpawner(spawner);
@@ -135,7 +135,7 @@ class DynamicSceneTest {
         // Arrange
         var children = mock(ObservableList.class);
         when(root.getChildren()).thenReturn(children);
-        sut.configure();
+        sut.activate();
 
         // Act
         sut.destroy();
@@ -150,7 +150,7 @@ class DynamicSceneTest {
         var children = mock(ObservableList.class);
         when(root.getChildren()).thenReturn(children);
 
-        sut.configure();
+        sut.activate();
 
         // Act
         sut.destroy();
@@ -164,7 +164,7 @@ class DynamicSceneTest {
         // Arrange
         var input = new HashSet<KeyCode>();
         input.add(KeyCode.F1);
-        sut.configure();
+        sut.activate();
 
         // Act
         sut.onInputChanged(input);
@@ -176,7 +176,7 @@ class DynamicSceneTest {
     @Test
     void setEntityCollectionUpdatableReturnsUpdatable() {
         // Arrange
-        sut.configure();
+        sut.activate();
 
         // Act
         var updatable = sut.entityCollectionUpdatable();
@@ -188,7 +188,7 @@ class DynamicSceneTest {
     @Test
     void updatingEntityCollectionUpdatesEntityCollection() {
         // Arrange
-        sut.configure();
+        sut.activate();
         var updatable = sut.entityCollectionUpdatable();
 
         // Act
@@ -214,7 +214,7 @@ class DynamicSceneTest {
         private boolean setupSpawnersCalled;
 
         @Override
-        protected void setupSpawners() {
+        protected void setupDeprecatedSpawners() {
             setupSpawnersCalled = true;
         }
 

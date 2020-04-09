@@ -1,6 +1,6 @@
 package nl.meron.yaeger.engine;
 
-import nl.meron.yaeger.engine.annotations.Initializer;
+import nl.meron.yaeger.engine.annotations.OnActivation;
 import nl.meron.yaeger.engine.annotations.UpdatableProvider;
 import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
 
@@ -31,7 +31,7 @@ public interface WithTimers extends TimerListProvider {
         }
     }
 
-    @Initializer
+    @OnActivation
     default void initTimers() {
         getTimers().clear();
         setupTimers();

@@ -5,7 +5,7 @@ import javafx.scene.text.Font;
 import nl.meron.waterworld.Waterworld;
 import nl.meron.waterworld.entities.game.Player;
 import nl.meron.waterworld.entities.game.Swordfish;
-import nl.meron.waterworld.entities.game.spawners.BubbleSpawner;
+import nl.meron.waterworld.entities.game.spawners.BubbleSpawnerDeprecated;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.DynamicScene;
@@ -67,8 +67,8 @@ public abstract class Level extends DynamicScene {
     }
 
     @Override
-    protected void setupSpawners() {
-        var spawner = new BubbleSpawner(getWidth(), getHeight(), this);
+    protected void setupDeprecatedSpawners() {
+        var spawner = new BubbleSpawnerDeprecated(getWidth(), getHeight(), this);
         registerSpawner(spawner);
     }
 

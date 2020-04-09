@@ -17,7 +17,7 @@ public class ShapeEntitiesScene extends ShowCaseScene {
     }
 
     @Override
-    protected void setupSpawners() {
+    protected void setupDeprecatedSpawners() {
 
     }
 
@@ -28,7 +28,7 @@ public class ShapeEntitiesScene extends ShowCaseScene {
 
     @Override
     public void setupEntities() {
-        var backButton = new Back(showCase);
+        var backButton = new Back(showCase, new Location(20, getHeight() - 30));
         addEntity(backButton);
 
         var rect = new StaticRectangle(new Location(40, 60));

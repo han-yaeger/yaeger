@@ -110,7 +110,7 @@ public class EntityCollection implements Initializable {
      * <b>Notify Entities</b> On all Entities that implement the interface {@link Updatable}, update()
      * will be called.
      * </li>
-     * <li><b>Add spawned objects</b> All Entities created by the {@link EntitySpawner}s will be collected
+     * <li><b>Add spawned objects</b> All Entities created by the {@link DeprecatedEntitySpawner}s will be collected
      * and added to the correct collection.
      * </li>
      * <li>
@@ -202,7 +202,7 @@ public class EntityCollection implements Initializable {
     private void initialize(final Entity entity) {
         injector.injectMembers(entity);
         entity.init(injector);
-        annotationProcessor.invokeInitializers(entity);
+        annotationProcessor.invokeActivators(entity);
     }
 
     private void addToUpdatablesOrStatics(final Entity entity) {

@@ -15,12 +15,10 @@ public abstract class Bubble extends DynamicSpriteEntity implements AABBCollided
 
     private static final String AUDIO_POP_MP3 = "waterworld/audio/pop.mp3";
     private final Level level;
-    private final double speed;
 
     Bubble(final Location location, final String resource, final double speed, final Level game) {
         super(resource, location, new Size(20, 20), 0);
         this.level = game;
-        this.speed = speed;
         setMotionTo(speed, Direction.UP.getValue());
         setRotationSpeed(Math.random() * 5);
     }

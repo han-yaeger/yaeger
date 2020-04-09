@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import nl.meron.yaeger.engine.Timer;
 import nl.meron.yaeger.engine.entities.entity.AnchorPoint;
 import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.javafx.animationtimer.AnimationTimerFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,9 +16,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class EntitySpawnerTest {
+class DeprecatedEntitySpawnerTest {
 
-    private EntitySpawner entitySpawner;
+    private DeprecatedEntitySpawner deprecatedEntitySpawner;
     private AnimationTimer animationTimer;
     private AnimationTimerFactory animationTimerFactory;
 
@@ -27,11 +26,11 @@ class EntitySpawnerTest {
 
     @BeforeEach
     void setup() {
-        entitySpawner = new TestEntitySpawner(1000);
+        deprecatedEntitySpawner = new TestDeprecatedEntitySpawner(1000);
         animationTimer = mock(AnimationTimer.class);
         animationTimerFactory = mock(AnimationTimerFactory.class);
 
-        entitySpawner.setAnimationTimerFactory(animationTimerFactory);
+        deprecatedEntitySpawner.setAnimationTimerFactory(animationTimerFactory);
 
         when(animationTimerFactory.createTimeableAnimationTimer(any(), anyLong())).thenReturn(animationTimer);
 
@@ -41,7 +40,7 @@ class EntitySpawnerTest {
     @Test
     void testTickIsNotCalledImmediatlyAfterCreation() {
         // Arrange
-        entitySpawner.init(null);
+        deprecatedEntitySpawner.init(null);
 
         // Act
 
@@ -52,7 +51,7 @@ class EntitySpawnerTest {
     @Test
     void intervalIsDelegatedToSpawner() {
         // Arrange
-        entitySpawner.init(null);
+        deprecatedEntitySpawner.init(null);
 
         // Act
 
@@ -63,89 +62,89 @@ class EntitySpawnerTest {
     @Test
     void spawnAddsEntitiesToSpawnedEntities() {
         // Arrange
-        entitySpawner.init(null);
+        deprecatedEntitySpawner.init(null);
         Entity entity = new TestEntity();
 
         // Act
-        entitySpawner.spawn(entity);
+        deprecatedEntitySpawner.spawn(entity);
 
         // Assert
-        assertEquals(1, entitySpawner.size());
+        assertEquals(1, deprecatedEntitySpawner.size());
     }
 
     @Test
     void destroyClearsListOfSpawnedEntities() {
         // Arrange
-        entitySpawner.init(null);
+        deprecatedEntitySpawner.init(null);
         Entity entity = new TestEntity();
 
         // Act
-        entitySpawner.spawn(entity);
-        entitySpawner.destroy();
+        deprecatedEntitySpawner.spawn(entity);
+        deprecatedEntitySpawner.destroy();
 
         // Assert
-        assertEquals(0, entitySpawner.size());
+        assertEquals(0, deprecatedEntitySpawner.size());
     }
 
     @Test
     void nullIsNotEqual() {
         // Arrange
-        entitySpawner.init(null);
+        deprecatedEntitySpawner.init(null);
 
         // Act
 
         // Assert
-        assertNotEquals(null, entitySpawner);
+        assertNotEquals(null, deprecatedEntitySpawner);
     }
 
     @Test
     void differentIntervalIsNotEqual() {
         // Arrange
-        entitySpawner.init(null);
-        var otherEntitySpawner = new TestEntitySpawner(37);
+        deprecatedEntitySpawner.init(null);
+        var otherEntitySpawner = new TestDeprecatedEntitySpawner(37);
 
         // Act
 
         // Assert
-        assertNotEquals(entitySpawner, otherEntitySpawner);
+        assertNotEquals(deprecatedEntitySpawner, otherEntitySpawner);
     }
 
     @Test
     void sameObjectIsEqual() {
         // Arrange
-        entitySpawner.init(null);
+        deprecatedEntitySpawner.init(null);
 
         // Act
 
         // Assert
-        assertEquals(entitySpawner, entitySpawner);
+        assertEquals(deprecatedEntitySpawner, deprecatedEntitySpawner);
     }
 
     @Test
     void sameObjectIsSameHashCode() {
         // Arrange
-        entitySpawner.init(null);
+        deprecatedEntitySpawner.init(null);
 
         // Act
 
         // Assert
-        assertEquals(entitySpawner.hashCode(), entitySpawner.hashCode());
+        assertEquals(deprecatedEntitySpawner.hashCode(), deprecatedEntitySpawner.hashCode());
     }
 
     @Test
     void differentIntervalIsDifferentHashCode() {
         // Arrange
-        var otherEntitySpawner = new TestEntitySpawner(37);
+        var otherEntitySpawner = new TestDeprecatedEntitySpawner(37);
 
         // Act
 
         // Assert
-        assertNotEquals(entitySpawner.hashCode(), otherEntitySpawner.hashCode());
+        assertNotEquals(deprecatedEntitySpawner.hashCode(), otherEntitySpawner.hashCode());
     }
 
-    private class TestEntitySpawner extends EntitySpawner {
+    private class TestDeprecatedEntitySpawner extends DeprecatedEntitySpawner {
 
-        TestEntitySpawner(long interval) {
+        TestDeprecatedEntitySpawner(long interval) {
             super(interval);
         }
 

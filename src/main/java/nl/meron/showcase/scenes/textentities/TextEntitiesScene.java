@@ -22,7 +22,7 @@ public class TextEntitiesScene extends ShowCaseScene {
     }
 
     @Override
-    protected void setupSpawners() {
+    protected void setupDeprecatedSpawners() {
 
     }
 
@@ -33,7 +33,7 @@ public class TextEntitiesScene extends ShowCaseScene {
 
     @Override
     public void setupEntities() {
-        var backButton = new Back(showCase);
+        var backButton = new Back(showCase, new Location(20, getHeight() - 30));
         addEntity(backButton);
 
         var staticTextEntity = new TextEntity(new Location(getWidth() / 2, 30), "I'm a TextEntity and remain static on the Scene");

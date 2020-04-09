@@ -4,17 +4,17 @@ import nl.meron.waterworld.entities.game.Air;
 import nl.meron.waterworld.entities.game.Poison;
 import nl.meron.waterworld.scenes.levels.Level;
 import nl.meron.yaeger.engine.entities.entity.Location;
-import nl.meron.yaeger.engine.entities.EntitySpawner;
+import nl.meron.yaeger.engine.entities.DeprecatedEntitySpawner;
 
 import java.util.Random;
 
-public class BubbleSpawner extends EntitySpawner {
+public class BubbleSpawnerDeprecated extends DeprecatedEntitySpawner {
 
     private final double worldWidth;
     private final double worldHeight;
     private Level waterworld;
 
-    public BubbleSpawner(double width, double height, Level waterworld) {
+    public BubbleSpawnerDeprecated(double width, double height, Level waterworld) {
         super(100);
 
         this.worldWidth = width;

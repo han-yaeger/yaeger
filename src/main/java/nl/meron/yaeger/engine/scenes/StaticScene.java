@@ -14,8 +14,9 @@ import nl.meron.yaeger.engine.entities.EntitySupplier;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;
 import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.entities.EntitySpawner;
+import nl.meron.yaeger.engine.entities.DeprecatedEntitySpawner;
 import nl.meron.yaeger.engine.entities.tilemap.TileMap;
+import nl.meron.yaeger.engine.entities.tilemap.TileMapListProvider;
 import nl.meron.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.meron.yaeger.engine.scenes.delegates.KeyListenerDelegate;
 import nl.meron.yaeger.guice.factories.EntityCollectionFactory;
@@ -25,7 +26,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public abstract class StaticScene implements YaegerScene, KeyListener, SupplierProvider, DependencyInjector {
+/**
+ * A {@link StaticScene} is the abstract superclass of all scenes that do not require a Game Loop. If a Game
+ * Loop is required, extend a {@link DynamicScene}.
+ */
+public abstract class StaticScene implements YaegerScene, KeyListener, SupplierProvider, TileMapListProvider, EntityCollectionSupplier, DependencyInjector {
 
     private EntityCollectionFactory entityCollectionFactory;
     private SceneFactory sceneFactory;
@@ -51,7 +56,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener, SupplierP
     }
 
     @Override
-    public void configure() {
+    public void activate() {
         scene = sceneFactory.create(root);
 
         entityCollection = entityCollectionFactory.create(root);
@@ -62,10 +67,13 @@ public abstract class StaticScene implements YaegerScene, KeyListener, SupplierP
         debugger.setup(root);
         keyListenerDelegate.setup(scene, this);
         backgroundDelegate.setup(scene);
+
+        setupScene();
+        setupEntities();
     }
 
     @Override
-    public void postActivation() {
+    public void postActivate() {
         entityCollection.registerSupplier(entitySupplier);
         entityCollection.initialUpdate();
         debugger.toFront();
@@ -75,7 +83,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener, SupplierP
      * Add an {@link Entity} to this {@link YaegerScene}. An {@link Entity} can only be added once.
      * <p>
      * This method can only be used to add an instance of {@link Entity} during initialisation.If
-     * one should be added during the game, a {@link EntitySpawner} should be used.
+     * one should be added during the game, a {@link DeprecatedEntitySpawner} should be used.
      * </p>
      *
      * @param entity the {@link Entity} to be added
@@ -84,8 +92,45 @@ public abstract class StaticScene implements YaegerScene, KeyListener, SupplierP
         entitySupplier.add(entity);
     }
 
+    /**
+     * Implement this method to be informed when a key has been pressed or released.
+     *
+     * @param input A {@link Set} containing all keys currently pressed.
+     */
+    protected abstract void onInputChanged(final Set<KeyCode> input);
+
     @Override
-    public void setBackgroundColor(Color color){
+    public EntityCollection getEntityCollection() {
+        return entityCollection;
+    }
+
+    @Override
+    public List<TileMap> getTileMaps() {
+        return tileMaps;
+    }
+
+    @Override
+    public EntitySupplier getEntitySupplier() {
+        return entitySupplier;
+    }
+
+    @Override
+    public Injector getInjector() {
+        return this.injector;
+    }
+
+    @Override
+    public Stage getStage() {
+        return stage;
+    }
+
+    @Override
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    @Override
+    public void setBackgroundColor(Color color) {
         backgroundDelegate.setBackgroundColor(color);
     }
 
@@ -99,18 +144,10 @@ public abstract class StaticScene implements YaegerScene, KeyListener, SupplierP
         backgroundDelegate.setBackgroundAudio(url);
     }
 
-    /**
-     * Implement this method to be informed when a key has been pressed or released.
-     *
-     * @param input A {@link Set} containing all keys currently pressed.
-     */
-    public abstract void onInputChanged(final Set<KeyCode> input);
-
     @Override
     public Scene getScene() {
         return this.scene;
     }
-
 
     @Override
     public void destroy() {
@@ -133,26 +170,6 @@ public abstract class StaticScene implements YaegerScene, KeyListener, SupplierP
         root.getChildren().clear();
         root = null;
         scene = null;
-    }
-
-    @Override
-    public Stage getStage() {
-        return stage;
-    }
-
-    @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    @Override
-    public EntitySupplier getEntitySupplier() {
-        return entitySupplier;
-    }
-
-    @Override
-    public Injector getInjector() {
-        return this.injector;
     }
 
     /**
@@ -211,10 +228,4 @@ public abstract class StaticScene implements YaegerScene, KeyListener, SupplierP
     public void setEntitySupplier(final EntitySupplier entitySupplier) {
         this.entitySupplier = entitySupplier;
     }
-
-    public List<TileMap> getTileMaps() {
-        return tileMaps;
-    }
-
-
 }

@@ -1,86 +1,61 @@
 package nl.meron.yaeger.engine.entities;
 
 import com.google.inject.Inject;
-import com.google.inject.Injector;
-import javafx.animation.AnimationTimer;
-import nl.meron.yaeger.engine.Destroyable;
-import nl.meron.yaeger.engine.Initializable;
+import nl.meron.yaeger.engine.Timer;
 import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.javafx.animationtimer.AnimationTimerFactory;
-
-import java.util.Objects;
 
 /**
- * An {@code EntitiySpawner} is the abstract superclass that should be extended to create an object that
- * spawns a subclass of {@link Entity}.
+ * An {@link EntitySpawner} is the abstract superclass that should be extended to create an object that
+ * spawns a subclass of {@link Entity}. After each {@code interval in ms}, set through the constructor, the method
+ * {@link #spawnEntities()} is called, which should be implemented in a subclass.
  */
-public abstract class EntitySpawner extends EntitySupplier implements Destroyable, Initializable {
 
-    private transient AnimationTimer timer;
-    private transient AnimationTimerFactory animationTimerFactory;
+public abstract class EntitySpawner extends Timer {
 
-    private long interval;
+    private EntitySupplier supplier;
 
     /**
-     * Create a new {@code EntitySpawner}.
+     * Create a new instance of {@link EntitySpawner} for the given interval in milliseconds.
      *
-     * @param interval the interval at which instances of {@link Entity} should ne spawned, in milli-seconds
+     * @param intervalInMs The interval in milleseconds.
      */
-    public EntitySpawner(final long interval) {
-        this.interval = interval;
+    public EntitySpawner(long intervalInMs) {
+        super(intervalInMs);
     }
 
     @Override
-    public void init(final Injector injector) {
-        initTimer();
+    public void handle(long now) {
+        super.handle(now);
+    }
+
+    @Override
+    public void onAnimationUpdate(long timestamp) {
+        spawnEntities();
     }
 
     /**
-     * Spawn an {@link Entity}.
+     * This method is called after each interval in milleseconds as passed through the constructor of this
+     * {@link EntitySpawner}. It's body should be used for calling {@link #spawn(Entity)} with the required instance
+     * of {@link Entity}.
+     */
+    protected abstract void spawnEntities();
+
+    /**
+     * Spawn an {@link Entity}. Use this method to add the spawned {@link Entity} to the
+     * {@link nl.meron.yaeger.engine.scenes.YaegerScene}.
      *
-     * @param entity the {@link Entity} to be spawned
+     * @param entity The {@link Entity} to be spawned.
      */
     protected void spawn(final Entity entity) {
-        add(entity);
+        supplier.add(entity);
     }
 
-    /**
-     * Called by the {@code EntitySpawner} every time a new {@link Entity} should be spawned.
-     */
-    public abstract void tick();
-
-    @Override
-    public void destroy() {
-
-        clear();
-
-        if (timer != null) {
-            timer.stop();
-        }
-    }
-
-    private void initTimer() {
-        timer = this.animationTimerFactory.createTimeableAnimationTimer(this::tick, this.interval);
-
-        timer.start();
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        EntitySpawner entities = (EntitySpawner) o;
-        return interval == entities.interval;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), interval);
+    public EntitySupplier getSupplier() {
+        return supplier;
     }
 
     @Inject
-    public void setAnimationTimerFactory(final AnimationTimerFactory animationTimerFactory) {
-        this.animationTimerFactory = animationTimerFactory;
+    public void setSupplier(EntitySupplier supplier) {
+        this.supplier = supplier;
     }
 }

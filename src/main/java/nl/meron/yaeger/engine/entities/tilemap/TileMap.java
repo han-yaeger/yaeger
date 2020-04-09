@@ -1,7 +1,7 @@
 package nl.meron.yaeger.engine.entities.tilemap;
 
 import com.google.inject.Inject;
-import nl.meron.yaeger.engine.Configurable;
+import nl.meron.yaeger.engine.Activatable;
 import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.EntitySupplier;
 import nl.meron.yaeger.engine.entities.entity.AnchorPoint;
@@ -24,7 +24,7 @@ import java.util.*;
  * For this, it will require both tiles to be added, as a map to be defined. Based on those, it will automatically
  * calculate the width, height and placement of all tiles.
  */
-public abstract class TileMap extends EntitySupplier implements Anchorable, Configurable {
+public abstract class TileMap extends EntitySupplier implements Anchorable, Activatable {
 
     private Map<Integer, Class<? extends SpriteEntity>> entities = new HashMap<>();
 
@@ -161,7 +161,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Conf
     }
 
     @Override
-    public void configure() {
+    public void activate() {
         setupEntities();
         map = defineMap();
         transformMapToEntities();

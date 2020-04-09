@@ -33,7 +33,7 @@ class AnnotationProcessorTest {
         var entityWithInitializer = new EntityWithInitializer(LOCATION);
 
         // Test
-        sut.invokeInitializers(entityWithInitializer);
+        sut.invokeActivators(entityWithInitializer);
 
         // Verify
         Assertions.assertTrue(entityWithInitializer.isInitialized());
@@ -195,7 +195,7 @@ class AnnotationProcessorTest {
             return Optional.of(node);  // Not required here.
         }
 
-        @Initializer
+        @OnActivation
         public void initializerMethod() {
             this.initialized = true;
         }

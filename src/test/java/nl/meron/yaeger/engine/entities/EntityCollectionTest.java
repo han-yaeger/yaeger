@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
-import nl.meron.yaeger.engine.Timer;
 import nl.meron.yaeger.engine.Updatable;
 import nl.meron.yaeger.engine.annotations.AnnotationProcessor;
 import nl.meron.yaeger.engine.debug.Debugger;
@@ -182,7 +181,7 @@ class EntityCollectionTest {
         sut.initialUpdate();
 
         // Assert
-        verify(annotationProcessor).invokeInitializers(updatableEntity);
+        verify(annotationProcessor).invokeActivators(updatableEntity);
         verify(annotationProcessor).configureUpdateDelegators(updatableEntity);
     }
 

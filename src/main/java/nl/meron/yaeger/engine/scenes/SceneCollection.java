@@ -82,13 +82,14 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     private void activate(final YaegerScene scene) {
         injector.injectMembers(scene);
         annotationProcessor.configureUpdateDelegators(scene);
-        annotationProcessor.invokeInitializers(scene);
-        scene.configure();
-        scene.setupScene();
-        scene.setupEntities();
+        annotationProcessor.invokeActivators(scene);
+        scene.activate();
+
         activeScene = scene;
         setActiveSceneOnStage();
-        scene.postActivation();
+
+        annotationProcessor.invokePostActivators(scene);
+        scene.postActivate();
     }
 
     private void setActiveSceneOnStage() {

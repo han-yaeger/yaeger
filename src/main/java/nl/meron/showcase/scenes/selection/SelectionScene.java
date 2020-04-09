@@ -57,6 +57,10 @@ public class SelectionScene extends StaticScene {
         var entityMapsScee = new Button(new Location(20, 190), "5) Dynamic Scene with an EntityMap", showCase, YaegerShowCase.SCENE_WITH_ENTITYMAPS);
         styleText(entityMapsScee);
         addEntity(entityMapsScee);
+
+        var entitySpawnerScene = new Button(new Location(20, 220), "6) Dynamic Scene with a EntitySpawner", showCase, YaegerShowCase.SCENE_WITH_SPAWNERS);
+        styleText(entitySpawnerScene);
+        addEntity(entitySpawnerScene);
     }
 
     @Override
@@ -69,6 +73,10 @@ public class SelectionScene extends StaticScene {
             showCase.setActiveScene(YaegerShowCase.SCENE_SHAPE_ENTITIES);
         } else if (input.contains(KeyCode.DIGIT4)) {
             showCase.setActiveScene(YaegerShowCase.SCENE_WITH_TIMERS);
+        } else if (input.contains(KeyCode.DIGIT5)) {
+            showCase.setActiveScene(YaegerShowCase.SCENE_WITH_ENTITYMAPS);
+        } else if (input.contains(KeyCode.DIGIT6)) {
+            showCase.setActiveScene(YaegerShowCase.SCENE_WITH_SPAWNERS);
         }
     }
 

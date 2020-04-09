@@ -11,16 +11,13 @@ import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.EntityCollection;
 import nl.meron.yaeger.engine.entities.EntitySupplier;
 import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.scenes.StaticScene;
 import nl.meron.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.meron.yaeger.engine.scenes.delegates.KeyListenerDelegate;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;
 import nl.meron.yaeger.guice.factories.EntityCollectionFactory;
 import nl.meron.yaeger.guice.factories.SceneFactory;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -103,7 +100,7 @@ class StaticSceneTest {
         // Arrange
 
         // Act
-        sut.configure();
+        sut.activate();
 
         // Verify
         verify(sceneFactory).create(root);
@@ -115,7 +112,7 @@ class StaticSceneTest {
         // Arrange
 
         // Act
-        sut.configure();
+        sut.activate();
 
         // Verify
         verify(debugger).setup(root);
@@ -127,7 +124,7 @@ class StaticSceneTest {
         // Arrange
 
         // Act
-        sut.configure();
+        sut.activate();
 
         // Verify
         verify(entityCollectionFactory).create(root);
@@ -138,7 +135,7 @@ class StaticSceneTest {
         // Arrange
 
         // Act
-        sut.configure();
+        sut.activate();
 
         // Verify
         verify(injector).injectMembers(any());
@@ -149,7 +146,7 @@ class StaticSceneTest {
         // Arrange
 
         // Act
-        sut.configure();
+        sut.activate();
 
         // Verify
         verify(keyListenerDelegate).setup(any(Scene.class), any(KeyListener.class));
@@ -163,7 +160,7 @@ class StaticSceneTest {
         when(entityCollectionFactory.create(root)).thenReturn(entityCollection);
 
         // Act
-        sut.configure();
+        sut.activate();
 
         // Verify
         verify(entityCollection).addStatisticsObserver(debugger);
@@ -175,7 +172,7 @@ class StaticSceneTest {
         var children = mock(ObservableList.class);
         when(root.getChildren()).thenReturn(children);
 
-        sut.configure();
+        sut.activate();
 
         // Act
         sut.destroy();
@@ -189,7 +186,7 @@ class StaticSceneTest {
     @Test
     void addEntityAddsTheEntitySupplier() {
         // Arrange
-        sut.configure();
+        sut.activate();
 
         var testEntity = mock(Entity.class);
 
@@ -205,7 +202,7 @@ class StaticSceneTest {
         // Arrange
         var input = new HashSet<KeyCode>();
         input.add(KeyCode.F1);
-        sut.configure();
+        sut.activate();
 
         // Act
         sut.onPressedKeysChange(input);
@@ -253,7 +250,7 @@ class StaticSceneTest {
     @Test
     void getSceneReturnsExpectedScene() {
         // Arrange
-        sut.configure();
+        sut.activate();
 
         // Act
         var returnedScene = sut.getScene();
@@ -265,10 +262,10 @@ class StaticSceneTest {
     @Test
     void postActivationMakeRequiredCalls() {
         // Arrange
-        sut.configure();
+        sut.activate();
 
         // Act
-        sut.postActivation();
+        sut.postActivate();
 
         // Verify
         verify(entityCollection).registerSupplier(any());

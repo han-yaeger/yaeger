@@ -24,7 +24,7 @@ public class TileMapScene extends DynamicScene implements WithTileMaps {
     }
 
     @Override
-    protected void setupSpawners() {
+    protected void setupDeprecatedSpawners() {
     }
 
     @Override
@@ -71,7 +71,7 @@ public class TileMapScene extends DynamicScene implements WithTileMaps {
 
     @Override
     public void setupEntities() {
-        var backButton = new Back(showCase);
+        var backButton = new Back(showCase, new Location(20, getHeight() - 30));
         addEntity(backButton);
     }
 }
