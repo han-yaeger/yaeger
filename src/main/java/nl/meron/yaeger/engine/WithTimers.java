@@ -8,7 +8,7 @@ import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
  * Implementing this interface exposes the {@link #addTimer(Timer)} method. A {@link Timer} that is
  * instantiated, but not registered, will not work.
  */
-public interface WithTimers extends WithTimerList {
+public interface WithTimers extends TimerListProvider {
 
     /**
      * Use this method to add any {@link Timer} that is required by the {@link nl.meron.yaeger.engine.scenes.YaegerScene}

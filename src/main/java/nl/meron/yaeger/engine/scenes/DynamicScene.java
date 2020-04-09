@@ -3,7 +3,7 @@ package nl.meron.yaeger.engine.scenes;
 import com.google.inject.Inject;
 import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
-import nl.meron.yaeger.engine.WithTimerList;
+import nl.meron.yaeger.engine.TimerListProvider;
 import nl.meron.yaeger.engine.Timer;
 import nl.meron.yaeger.engine.annotations.UpdatableProvider;
 import nl.meron.yaeger.engine.entities.entity.Entity;
@@ -21,7 +21,7 @@ import java.util.Set;
  * Instantiate a new  {@code DynamicScene}. A {@code DynamicScene} extends a {@link StaticScene}, but adds its
  * own {@code Gameloop}.
  */
-public abstract class DynamicScene extends StaticScene implements UpdateDelegator, WithTimerList {
+public abstract class DynamicScene extends StaticScene implements UpdateDelegator, TimerListProvider {
 
     private Updater updater;
     private AnimationTimer animator;

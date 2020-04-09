@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import nl.meron.yaeger.engine.RequiresInjection;
+import nl.meron.yaeger.engine.DependencyInjector;
 import nl.meron.yaeger.engine.YaegerApplication;
 import nl.meron.yaeger.engine.entities.EntityCollection;
 import nl.meron.yaeger.engine.entities.EntitySupplier;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public abstract class StaticScene implements YaegerScene, KeyListener, WithSupplier, RequiresInjection {
+public abstract class StaticScene implements YaegerScene, KeyListener, SupplierProvider, DependencyInjector {
 
     private EntityCollectionFactory entityCollectionFactory;
     private SceneFactory sceneFactory;

@@ -1,18 +1,18 @@
 package nl.meron.yaeger.engine.entities.tilemap;
 
-import nl.meron.yaeger.engine.RequiresInjection;
+import nl.meron.yaeger.engine.DependencyInjector;
 import nl.meron.yaeger.engine.Timer;
 import nl.meron.yaeger.engine.annotations.Initializer;
 import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
 import nl.meron.yaeger.engine.scenes.DimensionsProvider;
-import nl.meron.yaeger.engine.scenes.WithSupplier;
+import nl.meron.yaeger.engine.scenes.SupplierProvider;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 
 /**
  * Implementing this interface exposes the {@link #addTileMap(TileMap)} method. An {@link TileMap} that is
  * instantiated, but not registered, will not be added to the {@link YaegerScene}.
  */
-public interface WithTileMaps extends WithSupplier, WithTileMapList, DimensionsProvider, RequiresInjection {
+public interface WithTileMaps extends SupplierProvider, TileMapListProvider, DimensionsProvider, DependencyInjector {
 
     /**
      * Only instances of {@link Timer} that are registered with the method {@link #addTileMap(TileMap)}
