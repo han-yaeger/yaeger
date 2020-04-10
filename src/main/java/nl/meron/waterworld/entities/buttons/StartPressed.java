@@ -28,9 +28,11 @@ public class StartPressed extends TextEntity implements MousePressedListener, Mo
     }
 
     @Override
-    public void onMousePressed(MouseButton button) {
+    public void onMousePressed(MouseButton button, Double xCoordinates, Double yCoordinates) {
         if (button.equals(MouseButton.PRIMARY)) {
             waterworld.nextScene(Waterworld.SCENE_LEVEL_ONE);
+            System.out.println(xCoordinates);
+            System.out.println(yCoordinates);
         }
     }
 

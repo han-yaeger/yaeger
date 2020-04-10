@@ -29,7 +29,7 @@ class MousePressedListenerTest {
         private Node node;
 
         @Override
-        public void onMousePressed(MouseButton button) {
+        public void onMousePressed(MouseButton button, Double xCoordinates, Double yCoordinates) {
         }
 
         @Override
