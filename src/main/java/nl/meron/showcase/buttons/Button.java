@@ -2,6 +2,7 @@ package nl.meron.showcase.buttons;
 
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import nl.meron.showcase.YaegerShowCase;
 import nl.meron.showcase.scenes.selection.SelectionScene;
 import nl.meron.yaeger.engine.entities.entity.Location;
@@ -22,7 +23,7 @@ public class Button extends TextEntity implements MousePressedListener, MouseEnt
     }
 
     @Override
-    public void onMousePressed(MouseButton button, Double xCoordinates, Double yCoordinates) {
+    public void onMousePressed(MouseEvent event, MouseButton button, Double xCoordinates, Double yCoordinates) {
         showCase.setActiveScene(scene);
     }
 

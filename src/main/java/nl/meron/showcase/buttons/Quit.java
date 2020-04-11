@@ -1,6 +1,7 @@
 package nl.meron.showcase.buttons;
 
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -19,7 +20,7 @@ public class Quit extends Button {
     }
 
     @Override
-    public void onMousePressed(MouseButton button, Double xCoordinates, Double yCoordinates) {
+    public void onMousePressed(MouseEvent event, MouseButton button, Double xCoordinates, Double yCoordinates) {
         showCase.quitGame();
     }
 }

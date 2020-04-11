@@ -109,7 +109,7 @@ class BoundedTest {
     void getCenterXReturnValueFromBounds() {
         // Arrange
         var centerX = 0.24;
-        when(bounds.getCenterX()).thenReturn(centerX);
+        when(bounds.getMaxX() - bounds.getMinX()).thenReturn(centerX);
 
         // Act
         double returnedCenterX = sut.getCenterX();
@@ -148,7 +148,7 @@ class BoundedTest {
     void getCenterYReturnValueFromBounds() {
         // Arrange
         var centerY = 0.23;
-        when(bounds.getCenterY()).thenReturn(centerY);
+        when(bounds.getMaxY() - bounds.getMinY()).thenReturn(centerY);
 
         // Act
         double returnedCenterY = sut.getCenterY();

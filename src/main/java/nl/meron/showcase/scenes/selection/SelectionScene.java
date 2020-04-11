@@ -54,9 +54,13 @@ public class SelectionScene extends StaticScene {
         styleText(dynamicSceneWithTimers);
         addEntity(dynamicSceneWithTimers);
 
-        var entityMapsScee = new Button(new Location(20, 190), "5) Dynamic Scene with an EntityMap", showCase, YaegerShowCase.SCENE_WITH_ENTITYMAPS);
-        styleText(entityMapsScee);
-        addEntity(entityMapsScee);
+        var entityMapsScene = new Button(new Location(20, 190), "5) Dynamic Scene with an EntityMap", showCase, YaegerShowCase.SCENE_WITH_ENTITYMAPS);
+        styleText(entityMapsScene);
+        addEntity(entityMapsScene);
+
+        var mouseEventsScene = new Button(new Location(20, 220), "6) Mouse Events Scene", showCase, YaegerShowCase.MOUSE_EVENTS_SCENE);
+        styleText(mouseEventsScene);
+        addEntity(mouseEventsScene);
     }
 
     @Override

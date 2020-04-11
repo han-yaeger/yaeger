@@ -16,7 +16,7 @@ public interface MouseEnterListener extends NodeProvider {
     void onMouseEntered();
 
     /**
-     * Attach a mousePressedListener to this entity.
+     * Attach a mouseEnterListener to this entity.
      */
     @Initializer
     default void attachMouseEnterListener() {

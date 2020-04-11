@@ -2,6 +2,7 @@ package nl.meron.showcase;
 
 import nl.meron.showcase.scenes.dynamicscenewithtimer.DynamicSceneWithTimer;
 import nl.meron.showcase.scenes.entitymaps.TileMapScene;
+import nl.meron.showcase.scenes.mouseevents.MouseEventsScene;
 import nl.meron.showcase.scenes.selection.SelectionScene;
 import nl.meron.showcase.scenes.shapeentities.ShapeEntitiesScene;
 import nl.meron.showcase.scenes.spriteentities.SpriteEntitiesScene;
@@ -23,6 +24,7 @@ public class YaegerShowCase extends YaegerApplication {
     public static final int SCENE_SHAPE_ENTITIES = 4;
     public static final int SCENE_WITH_TIMERS = 5;
     public static final int SCENE_WITH_ENTITYMAPS = 6;
+    public static final int MOUSE_EVENTS_SCENE = 7;
 
     public static void main(String[] args) {
         launch(args);
@@ -50,6 +52,8 @@ public class YaegerShowCase extends YaegerApplication {
         addScene(SCENE_WITH_TIMERS, dynamicSceneWithTimers);
         var sceneWithEntityMaps = new TileMapScene(this);
         addScene(SCENE_WITH_ENTITYMAPS, sceneWithEntityMaps);
+        var mouseEventsScene = new MouseEventsScene(this);
+        addScene(MOUSE_EVENTS_SCENE, mouseEventsScene);
     }
 
     public void setActiveScene(int scene) {

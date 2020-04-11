@@ -2,6 +2,7 @@ package nl.meron.waterworld.entities.buttons;
 
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -28,7 +29,7 @@ public class StartPressed extends TextEntity implements MousePressedListener, Mo
     }
 
     @Override
-    public void onMousePressed(MouseButton button, Double xCoordinates, Double yCoordinates) {
+    public void onMousePressed(MouseEvent event, MouseButton button, Double xCoordinates, Double yCoordinates) {
         if (button.equals(MouseButton.PRIMARY)) {
             waterworld.nextScene(Waterworld.SCENE_LEVEL_ONE);
             System.out.println(xCoordinates);
