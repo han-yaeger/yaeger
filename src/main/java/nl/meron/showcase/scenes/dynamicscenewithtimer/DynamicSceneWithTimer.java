@@ -31,11 +31,6 @@ public class DynamicSceneWithTimer extends ShowCaseScene implements WithTimers {
     }
 
     @Override
-    protected void setupDeprecatedSpawners() {
-
-    }
-
-    @Override
     public void setupScene() {
         setBackgroundImage("showcase/backgrounds/milky-way.jpg");
     }

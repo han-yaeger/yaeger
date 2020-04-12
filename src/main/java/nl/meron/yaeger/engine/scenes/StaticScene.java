@@ -14,7 +14,6 @@ import nl.meron.yaeger.engine.entities.EntitySupplier;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;
 import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.entities.DeprecatedEntitySpawner;
 import nl.meron.yaeger.engine.entities.tilemap.TileMap;
 import nl.meron.yaeger.engine.entities.tilemap.TileMapListProvider;
 import nl.meron.yaeger.engine.scenes.delegates.BackgroundDelegate;
@@ -83,7 +82,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener, SupplierP
      * Add an {@link Entity} to this {@link YaegerScene}. An {@link Entity} can only be added once.
      * <p>
      * This method can only be used to add an instance of {@link Entity} during initialisation.If
-     * one should be added during the game, a {@link DeprecatedEntitySpawner} should be used.
+     * one should be added during the game, a {@link nl.meron.yaeger.engine.entities.EntitySpawner} should be used.
      * </p>
      *
      * @param entity the {@link Entity} to be added

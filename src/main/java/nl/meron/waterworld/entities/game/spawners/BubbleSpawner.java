@@ -3,7 +3,6 @@ package nl.meron.waterworld.entities.game.spawners;
 import nl.meron.waterworld.entities.game.Air;
 import nl.meron.waterworld.entities.game.Poison;
 import nl.meron.waterworld.scenes.levels.Level;
-import nl.meron.yaeger.engine.entities.DeprecatedEntitySpawner;
 import nl.meron.yaeger.engine.entities.EntitySpawner;
 import nl.meron.yaeger.engine.entities.entity.Location;
 

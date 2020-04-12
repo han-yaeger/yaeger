@@ -67,12 +67,6 @@ public abstract class Level extends DynamicScene implements WithSpawners {
         updateBubblesPoppedText();
     }
 
-    @Override
-    protected void setupDeprecatedSpawners() {
-//        var spawner = new BubbleSpawnerDeprecated(getWidth(), getHeight(), this);
-//        registerSpawner(spawner);
-    }
-
     public void setupEntitySpawners() {
         addEntitySpawner(new BubbleSpawner(getWidth(), getHeight(), this));
     }

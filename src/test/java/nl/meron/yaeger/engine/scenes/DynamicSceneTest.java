@@ -9,7 +9,6 @@ import javafx.scene.input.KeyCode;
 import nl.meron.yaeger.engine.Timer;
 import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.EntityCollection;
-import nl.meron.yaeger.engine.entities.DeprecatedEntitySpawner;
 import nl.meron.yaeger.engine.entities.EntitySupplier;
 import nl.meron.yaeger.engine.Updatable;
 import nl.meron.yaeger.engine.Updater;
@@ -31,7 +30,7 @@ import static org.mockito.Mockito.*;
 
 class DynamicSceneTest {
 
-    private TestDynamicScene sut;
+    private DynamicSceneImpl sut;
     private SceneFactory sceneFactory;
     private Debugger debugger;
     private EntityCollectionFactory entityCollectionFactory;
@@ -50,7 +49,7 @@ class DynamicSceneTest {
 
     @BeforeEach
     void setup() {
-        sut = new TestDynamicScene();
+        sut = new DynamicSceneImpl();
 
         root = mock(Group.class);
         backgroundDelegate = mock(BackgroundDelegate.class);
@@ -94,40 +93,6 @@ class DynamicSceneTest {
         // Verify
         assertNotNull(timers);
         assertTrue(timers.isEmpty());
-    }
-
-    @Test
-    void setupSpawnersIsCalledDuringConfiguration() {
-        // Arrange
-
-        // Act
-        sut.activate();
-
-        // Verify
-        assertTrue(sut.setupSpawnersCalled);
-    }
-
-    @Test
-    void registerSpawnerDelegatesToTheEntityCollection() {
-        // Arrange
-        var injector = mock(Injector.class);
-        sut.init(injector);
-
-        var animationTimer = mock(AnimationTimer.class);
-        var animationTimerFactory = mock(AnimationTimerFactory.class);
-        var spawner = mock(DeprecatedEntitySpawner.class);
-        spawner.setAnimationTimerFactory(animationTimerFactory);
-        spawner.init(null);
-
-        when(animationTimerFactory.createTimeableAnimationTimer(any(), anyLong())).thenReturn(animationTimer);
-
-        sut.activate();
-
-        // Act
-        sut.registerSpawner(spawner);
-
-        // Verify
-        verify(entityCollection).registerSupplier(spawner);
     }
 
     @Test
@@ -209,24 +174,16 @@ class DynamicSceneTest {
         assertEquals(updater, u);
     }
 
-    private class TestDynamicScene extends DynamicScene {
-
-        private boolean setupSpawnersCalled;
-
-        @Override
-        protected void setupDeprecatedSpawners() {
-            setupSpawnersCalled = true;
-        }
-
+    private class DynamicSceneImpl extends DynamicScene {
 
         @Override
         public void setupScene() {
-
+            // Not required here
         }
 
         @Override
         public void setupEntities() {
-
+            // Not required here
         }
     }
 }

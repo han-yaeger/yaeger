@@ -7,8 +7,6 @@ import nl.meron.yaeger.engine.TimerListProvider;
 import nl.meron.yaeger.engine.Timer;
 import nl.meron.yaeger.engine.annotations.UpdatableProvider;
 import nl.meron.yaeger.engine.entities.EntitySpawner;
-import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.entities.DeprecatedEntitySpawner;
 import nl.meron.yaeger.engine.Updatable;
 import nl.meron.yaeger.engine.UpdateDelegator;
 import nl.meron.yaeger.engine.Updater;
@@ -33,34 +31,13 @@ public abstract class DynamicScene extends StaticScene implements UpdateDelegato
     @Override
     public void activate() {
         super.activate();
-
         createGameLoop();
-
-        setupDeprecatedSpawners();
-
         startGameLoop();
     }
-
-    @Deprecated
-    protected abstract void setupDeprecatedSpawners();
 
     @Override
     public void onInputChanged(final Set<KeyCode> input) {
         entityCollection.notifyGameObjectsOfPressedKeys(input);
-    }
-
-    /**
-     * Register an {@link DeprecatedEntitySpawner}. After being registered, the {@link DeprecatedEntitySpawner} will be responsible for spawning
-     * new instances of {@link Entity}.
-     *
-     * @param spawner the {@link DeprecatedEntitySpawner} to be registered
-     */
-    @Deprecated
-    protected void registerSpawner(final DeprecatedEntitySpawner spawner) {
-        injector.injectMembers(spawner);
-        spawner.init(injector);
-
-        entityCollection.registerSupplier(spawner);
     }
 
     @Override

@@ -21,11 +21,6 @@ public class SpriteEntitiesScene extends ShowCaseScene {
     }
 
     @Override
-    protected void setupDeprecatedSpawners() {
-
-    }
-
-    @Override
     public void setupScene() {
         setBackgroundImage("showcase/backgrounds/landscape.jpg");
     }

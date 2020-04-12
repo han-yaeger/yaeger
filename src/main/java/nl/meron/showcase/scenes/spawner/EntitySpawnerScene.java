@@ -25,11 +25,6 @@ public class EntitySpawnerScene extends ShowCaseScene implements WithSpawners {
     }
 
     @Override
-    protected void setupDeprecatedSpawners() {
-
-    }
-
-    @Override
     public void setupScene() {
         setBackgroundImage("showcase/backgrounds/night-city.jpg");
     }

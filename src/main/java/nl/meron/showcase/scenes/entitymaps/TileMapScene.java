@@ -24,10 +24,6 @@ public class TileMapScene extends DynamicScene implements WithTileMaps {
     }
 
     @Override
-    protected void setupDeprecatedSpawners() {
-    }
-
-    @Override
     public void setupTileMaps() {
         var fullScreenMap = new FullScreenTileMap();
         addTileMap(fullScreenMap);
