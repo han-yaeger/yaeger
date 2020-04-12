@@ -1,5 +1,6 @@
 package nl.meron.yaeger.engine.entities;
 
+import nl.meron.yaeger.engine.entities.entity.Entity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,6 +46,18 @@ class EntitySpawnerTest {
         Assertions.assertTrue(sut.isUpdateCalled());
     }
 
+    @Test
+    void spawnedEntitiesAreAddedToTheSupplier() {
+        // Arrange
+        var entity = mock(Entity.class);
+
+        // Act
+        sut.spawn(entity);
+
+        // Assert
+        verify(supplier).add(entity);
+    }
+
     private class EntitySpawnerImpl extends EntitySpawner {
 
         private boolean updateCalled = false;
@@ -66,6 +79,11 @@ class EntitySpawnerTest {
 
         public boolean isUpdateCalled() {
             return updateCalled;
+        }
+
+        @Override
+        public void spawn(Entity entity) {
+            super.spawn(entity);
         }
     }
 }
