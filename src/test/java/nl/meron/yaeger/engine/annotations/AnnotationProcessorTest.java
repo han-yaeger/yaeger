@@ -29,14 +29,25 @@ class AnnotationProcessorTest {
     }
 
     @Test
-    void invokeInitializersFindsandInvokesAnnotatedMethod() {
-        var entityWithInitializer = new EntityWithInitializer(LOCATION);
+    void invokeActivatorsFindsAndInvokesAnnotatedMethod() {
+        var entityWithActivators = new EntityWithActivators(LOCATION);
 
         // Test
-        sut.invokeActivators(entityWithInitializer);
+        sut.invokeActivators(entityWithActivators);
 
         // Verify
-        Assertions.assertTrue(entityWithInitializer.isInitialized());
+        Assertions.assertTrue(entityWithActivators.isActivated());
+    }
+
+    @Test
+    void invokePostActivatorsFindsAndInvokesAnnotatedMethod() {
+        var entityWithPostActivators = new EntityWithPostActivators(LOCATION);
+
+        // Test
+        sut.invokePostActivators(entityWithPostActivators);
+
+        // Verify
+        Assertions.assertTrue(entityWithPostActivators.isPostActivated());
     }
 
     @Test
@@ -167,12 +178,12 @@ class AnnotationProcessorTest {
         }
     }
 
-    private class EntityWithInitializer extends JavaFXEntity {
+    private class EntityWithActivators extends JavaFXEntity {
 
-        private boolean initialized = false;
+        private boolean activated = false;
         private Node node;
 
-        public EntityWithInitializer(Location initialPosition) {
+        public EntityWithActivators(Location initialPosition) {
             super(initialPosition);
         }
 
@@ -196,12 +207,66 @@ class AnnotationProcessorTest {
         }
 
         @OnActivation
-        public void initializerMethod() {
-            this.initialized = true;
+        public void ActivationMethod() {
+            this.activated = true;
         }
 
-        public boolean isInitialized() {
-            return initialized;
+        public boolean isActivated() {
+            return activated;
+        }
+
+        @Override
+        public List<Timer> getTimers() {
+            return null;
+            // Not required here.
+        }
+
+        @Override
+        public void setOriginX(double x) {
+            // Not required here.
+        }
+
+        @Override
+        public void setOriginY(double y) {
+            // Not required here.
+        }
+    }
+
+    private class EntityWithPostActivators extends JavaFXEntity {
+
+        private boolean postActivated = false;
+        private Node node;
+
+        public EntityWithPostActivators(Location initialPosition) {
+            super(initialPosition);
+        }
+
+        public void setNode(Node node) {
+            this.node = node;
+        }
+
+        @Override
+        public void init(Injector injector) {
+            // Not required here.
+        }
+
+        @Override
+        public void remove() {
+            // Not required here.
+        }
+
+        @Override
+        public Optional<Node> getGameNode() {
+            return Optional.of(node);  // Not required here.
+        }
+
+        @OnPostActivation
+        public void ActivationMethod() {
+            this.postActivated = true;
+        }
+
+        public boolean isPostActivated() {
+            return postActivated;
         }
 
         @Override

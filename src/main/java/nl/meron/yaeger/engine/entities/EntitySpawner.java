@@ -9,7 +9,6 @@ import nl.meron.yaeger.engine.entities.entity.Entity;
  * spawns a subclass of {@link Entity}. After each {@code interval in ms}, set through the constructor, the method
  * {@link #spawnEntities()} is called, which should be implemented in a subclass.
  */
-
 public abstract class EntitySpawner extends Timer {
 
     private EntitySupplier supplier;
@@ -50,6 +49,11 @@ public abstract class EntitySpawner extends Timer {
         supplier.add(entity);
     }
 
+    /**
+     * Return the {@link EntitySupplier} that is part of this {@link EntitySpawner}.
+     *
+     * @return The {@link EntitySupplier} that is part of this {@link EntitySpawner}.
+     */
     public EntitySupplier getSupplier() {
         return supplier;
     }

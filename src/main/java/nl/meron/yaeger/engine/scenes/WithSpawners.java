@@ -2,7 +2,6 @@ package nl.meron.yaeger.engine.scenes;
 
 import nl.meron.yaeger.engine.DependencyInjector;
 import nl.meron.yaeger.engine.Updatable;
-import nl.meron.yaeger.engine.annotations.OnActivation;
 import nl.meron.yaeger.engine.annotations.OnPostActivation;
 import nl.meron.yaeger.engine.annotations.UpdatableProvider;
 import nl.meron.yaeger.engine.entities.EntitySpawner;
@@ -42,8 +41,7 @@ public interface WithSpawners extends EntitySpawnerListProvider, EntityCollectio
     }
 
     default void registerEntitySpawners() {
-        var collection = getEntityCollection();
-        getSpawners().forEach(spawner -> collection.registerSupplier(spawner.getSupplier()));
+        getSpawners().forEach(spawner -> getEntityCollection().registerSupplier(spawner.getSupplier()));
     }
 
     /**
