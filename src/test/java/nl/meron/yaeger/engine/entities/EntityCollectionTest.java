@@ -73,7 +73,7 @@ class EntityCollectionTest {
         var node = mock(Node.class, withSettings().withoutAnnotations());
         when(updatableEntity.getGameNode()).thenReturn(Optional.of(node));
 
-        Set<Entity> updatables = new HashSet<>();
+        Set<YaegerEntity> updatables = new HashSet<>();
         updatables.add(updatableEntity);
         var supplier = mock(EntitySupplier.class);
         when(supplier.get()).thenReturn(updatables);
@@ -163,7 +163,7 @@ class EntityCollectionTest {
         var node = mock(Node.class, withSettings().withoutAnnotations());
         when(updatableEntity.getGameNode()).thenReturn(Optional.of(node));
 
-        Set<Entity> updatables = new HashSet<>();
+        Set<YaegerEntity> updatables = new HashSet<>();
         updatables.add(updatableEntity);
         var supplier = mock(EntitySupplier.class);
         when(supplier.get()).thenReturn(updatables);
@@ -186,13 +186,41 @@ class EntityCollectionTest {
     }
 
     @Test
+    void activateIsCalledForEachEntity() {
+        // Arrange
+        var updatableEntity = mock(UpdatableEntity.class);
+        var node = mock(Node.class, withSettings().withoutAnnotations());
+        when(updatableEntity.getGameNode()).thenReturn(Optional.of(node));
+
+        Set<YaegerEntity> updatables = new HashSet<>();
+        updatables.add(updatableEntity);
+        var supplier = mock(EntitySupplier.class);
+        when(supplier.get()).thenReturn(updatables);
+
+        var group = mock(Group.class);
+        var children = mock(ObservableList.class);
+        when(group.getChildren()).thenReturn(children);
+
+        sut = new EntityCollection(group);
+        sut.setAnnotationProcessor(annotationProcessor);
+        sut.init(injector);
+
+        // Act
+        sut.registerSupplier(supplier);
+        sut.initialUpdate();
+
+        // Assert
+        verify(updatableEntity).activate();
+    }
+
+    @Test
     void entityIsPlacedOnScene() {
         // Arrange
         var updatableEntity = mock(UpdatableEntity.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
         when(updatableEntity.getGameNode()).thenReturn(Optional.of(node));
 
-        Set<Entity> updatables = new HashSet<>();
+        Set<YaegerEntity> updatables = new HashSet<>();
         updatables.add(updatableEntity);
         var supplier = mock(EntitySupplier.class);
         when(supplier.get()).thenReturn(updatables);
@@ -213,9 +241,26 @@ class EntityCollectionTest {
         verify(updatableEntity).placeOnScene();
     }
 
-    private abstract class UpdatableEntity implements Entity, Updatable {
+    private abstract class UpdatableEntity extends YaegerEntity implements Updatable {
+
+        /**
+         * Instantiate a new {@link YaegerEntity} for the given {@link Location} and textDelegate.
+         *
+         * @param initialPosition the initial {@link Location} of this {@link YaegerEntity}
+         */
+        public UpdatableEntity(Location initialPosition) {
+            super(initialPosition);
+        }
     }
 
-    private abstract class KeyListeningEntity implements Entity, KeyListener {
+    private abstract class KeyListeningEntity extends YaegerEntity implements KeyListener {
+        /**
+         * Instantiate a new {@link YaegerEntity} for the given {@link Location} and textDelegate.
+         *
+         * @param initialPosition the initial {@link Location} of this {@link YaegerEntity}
+         */
+        public KeyListeningEntity(Location initialPosition) {
+            super(initialPosition);
+        }
     }
 }

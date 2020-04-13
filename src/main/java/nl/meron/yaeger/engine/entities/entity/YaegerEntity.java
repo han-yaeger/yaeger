@@ -1,35 +1,53 @@
 package nl.meron.yaeger.engine.entities.entity;
 
 import com.google.inject.Injector;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
+import nl.meron.yaeger.engine.Activatable;
+import nl.meron.yaeger.engine.Initializable;
 import nl.meron.yaeger.engine.Timer;
+import nl.meron.yaeger.engine.TimerListProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A {@link JavaFXEntity} can be used to display anything that is a child of a {@link javafx.scene.Node}.
+ * A {@link YaegerEntity} can be used to display anything that is a child of a {@link javafx.scene.Node}.
  */
-public abstract class JavaFXEntity implements Entity {
+public abstract class YaegerEntity implements Initializable, Activatable, TimerListProvider, Bounded, Removeable, Placeable, SceneChild, NodeProvider, Rotatable {
 
     protected double initialX;
     protected double initialY;
     private boolean visible = true;
+    private double opacity = 1;
+    private Cursor cursor = Cursor.DEFAULT;
     private List<Timer> timers = new ArrayList<>();
     private AnchorPoint anchorPoint;
 
     /**
-     * Instantiate a new {@link JavaFXEntity} for the given {@link Location} and textDelegate.
+     * Instantiate a new {@link YaegerEntity} for the given {@link Location} and textDelegate.
      *
-     * @param initialPosition the initial {@link Location} of this {@link JavaFXEntity}
+     * @param initialPosition the initial {@link Location} of this {@link YaegerEntity}
      */
-    public JavaFXEntity(final Location initialPosition) {
+    public YaegerEntity(final Location initialPosition) {
         this.initialX = initialPosition.getX();
         this.initialY = initialPosition.getY();
         this.anchorPoint = AnchorPoint.TOP_LEFT;
     }
 
-   @Override
+    @Override
+    public void init(final Injector injector) {
+        setVisible(visible);
+        setOpacity(opacity);
+
+    }
+
+    @Override
+    public void activate() {
+        setCursor(cursor);
+    }
+
+    @Override
     public void setAnchorPoint(AnchorPoint anchorPoint) {
         getGameNode().ifPresentOrElse(node -> {
                     applyTranslationsForAnchorPoint(node, anchorPoint);
@@ -46,18 +64,24 @@ public abstract class JavaFXEntity implements Entity {
         });
     }
 
-    @Override
-    public void setVisible(final boolean visible) {
+    public void setCursor(final Cursor cursor) {
+        getGameNode().ifPresentOrElse(node -> {
+            node.getScene().setCursor(cursor);
+        }, () -> this.cursor = cursor);
+    }
 
+    public void setVisible(final boolean visible) {
         getGameNode().ifPresentOrElse(node -> {
             node.setVisible(visible);
         }, () -> this.visible = visible);
     }
 
-    @Override
-    public void init(final Injector injector) {
-        setVisible(visible);
+    public void setOpacity(final double opacity) {
+        getGameNode().ifPresentOrElse(node -> {
+            node.setOpacity(opacity);
+        }, () -> this.opacity = opacity);
     }
+
 
     @Override
     public List<Timer> getTimers() {

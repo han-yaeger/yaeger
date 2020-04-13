@@ -1,6 +1,6 @@
 package nl.meron.yaeger.engine.entities;
 
-import nl.meron.yaeger.engine.entities.entity.Entity;
+import nl.meron.yaeger.engine.entities.entity.YaegerEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,7 +49,7 @@ class EntitySpawnerTest {
     @Test
     void spawnedEntitiesAreAddedToTheSupplier() {
         // Arrange
-        var entity = mock(Entity.class);
+        var entity = mock(YaegerEntity.class);
 
         // Act
         sut.spawn(entity);
@@ -82,7 +82,7 @@ class EntitySpawnerTest {
         }
 
         @Override
-        public void spawn(Entity entity) {
+        public void spawn(YaegerEntity entity) {
             super.spawn(entity);
         }
     }

@@ -8,7 +8,6 @@ import nl.meron.yaeger.engine.Clearable;
 import nl.meron.yaeger.engine.Activatable;
 import nl.meron.yaeger.engine.Destroyable;
 import nl.meron.yaeger.engine.Initializable;
-import nl.meron.yaeger.engine.entities.entity.Entity;
 
 /**
  * A {@code YaegerScene} encapsulates a scene or level from a {@code Yaeger Game}.
@@ -21,7 +20,7 @@ public interface YaegerScene extends DimensionsProvider, Destroyable, Initializa
     void setupScene();
 
     /**
-     * Use this method to setup all instances of {@link Entity} that should
+     * Use this method to setup all instances of {@link nl.meron.yaeger.engine.entities.entity.YaegerEntity} that should
      * be added to the {@link YaegerScene} before activation.
      */
     void setupEntities();

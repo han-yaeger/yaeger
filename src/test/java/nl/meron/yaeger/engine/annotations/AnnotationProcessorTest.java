@@ -76,7 +76,7 @@ class AnnotationProcessorTest {
         verify(updater).addUpdatable(any(Updatable.class), eq(false));
     }
 
-    private class FirstUpdateDelegatingEntity extends JavaFXEntity implements UpdateDelegator {
+    private class FirstUpdateDelegatingEntity extends YaegerEntity implements UpdateDelegator {
 
         private Updater updater;
 
@@ -127,7 +127,7 @@ class AnnotationProcessorTest {
         }
     }
 
-    private class UpdateDelegatingEntity extends JavaFXEntity implements UpdateDelegator {
+    private class UpdateDelegatingEntity extends YaegerEntity implements UpdateDelegator {
 
         private Updater updater;
 
@@ -178,7 +178,7 @@ class AnnotationProcessorTest {
         }
     }
 
-    private class EntityWithActivators extends JavaFXEntity {
+    private class EntityWithActivators extends YaegerEntity {
 
         private boolean activated = false;
         private Node node;
@@ -232,7 +232,7 @@ class AnnotationProcessorTest {
         }
     }
 
-    private class EntityWithPostActivators extends JavaFXEntity {
+    private class EntityWithPostActivators extends YaegerEntity {
 
         private boolean postActivated = false;
         private Node node;

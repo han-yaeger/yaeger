@@ -2,8 +2,8 @@ package nl.meron.yaeger.engine.entities.tilemap;
 
 import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.entity.AnchorPoint;
-import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Location;
+import nl.meron.yaeger.engine.entities.entity.YaegerEntity;
 import nl.meron.yaeger.engine.exceptions.EntityNotAvailableException;
 import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
 import nl.meron.yaeger.engine.scenes.DimensionsProvider;
@@ -144,7 +144,7 @@ class TileMapTest {
         when(dimensionsProvider.getHeight()).thenReturn(HEIGHT);
         localSut.setDimensionsProvider(dimensionsProvider);
 
-        var entity = mock(Entity.class);
+        var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
         when(tileFactory.create(any(), any(), any())).thenReturn(entity);
 
@@ -182,7 +182,7 @@ class TileMapTest {
         when(dimensionsProvider.getHeight()).thenReturn(HEIGHT);
         localSut.setDimensionsProvider(dimensionsProvider);
 
-        var entity = mock(Entity.class);
+        var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
         when(tileFactory.create(any(), any(), any())).thenReturn(entity);
 
@@ -222,7 +222,7 @@ class TileMapTest {
         when(dimensionsProvider.getHeight()).thenReturn(HEIGHT);
         localSut.setDimensionsProvider(dimensionsProvider);
 
-        var entity = mock(Entity.class);
+        var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
         when(tileFactory.create(any(), any(), any())).thenReturn(entity);
 
@@ -260,7 +260,7 @@ class TileMapTest {
         when(dimensionsProvider.getHeight()).thenReturn(HEIGHT);
         localSut.setDimensionsProvider(dimensionsProvider);
 
-        var entity = mock(Entity.class);
+        var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
         when(tileFactory.create(any(), any(), any())).thenReturn(entity);
 
@@ -290,7 +290,7 @@ class TileMapTest {
             }
         };
 
-        var entity = mock(Entity.class);
+        var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
         when(tileFactory.create(any(), any(), any())).thenReturn(entity);
 
@@ -339,7 +339,7 @@ class TileMapTest {
             }
         };
 
-        var entity = mock(Entity.class);
+        var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
         when(tileFactory.create(any(), any(), any())).thenReturn(entity);
 
@@ -375,7 +375,7 @@ class TileMapTest {
             }
         };
 
-        var entity = mock(Entity.class);
+        var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
         when(tileFactory.create(any(), any(), any())).thenReturn(entity);
 
@@ -413,7 +413,7 @@ class TileMapTest {
 
         localSut.setAnchorPoint(AnchorPoint.TOP_LEFT);
 
-        var entity = mock(Entity.class);
+        var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
         when(tileFactory.create(any(), any(), any())).thenReturn(entity);
 
@@ -451,7 +451,7 @@ class TileMapTest {
 
         localSut.setAnchorPoint(AnchorPoint.TOP_CENTER);
 
-        var entity = mock(Entity.class);
+        var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
         when(tileFactory.create(any(), any(), any())).thenReturn(entity);
 
@@ -492,7 +492,7 @@ class TileMapTest {
 
         localSut.setAnchorPoint(AnchorPoint.TOP_RIGHT);
 
-        var entity = mock(Entity.class);
+        var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
         when(tileFactory.create(any(), any(), any())).thenReturn(entity);
 
@@ -533,7 +533,7 @@ class TileMapTest {
 
         localSut.setAnchorPoint(AnchorPoint.CENTER_LEFT);
 
-        var entity = mock(Entity.class);
+        var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
         when(tileFactory.create(any(), any(), any())).thenReturn(entity);
 
@@ -575,7 +575,7 @@ class TileMapTest {
 
         localSut.setAnchorPoint(AnchorPoint.CENTER_CENTER);
 
-        var entity = mock(Entity.class);
+        var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
         when(tileFactory.create(any(), any(), any())).thenReturn(entity);
 
@@ -617,7 +617,7 @@ class TileMapTest {
 
         localSut.setAnchorPoint(AnchorPoint.CENTER_RIGHT);
 
-        var entity = mock(Entity.class);
+        var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
         when(tileFactory.create(any(), any(), any())).thenReturn(entity);
 
@@ -661,7 +661,7 @@ class TileMapTest {
 
         localSut.setAnchorPoint(AnchorPoint.BOTTOM_LEFT);
 
-        var entity = mock(Entity.class);
+        var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
         when(tileFactory.create(any(), any(), any())).thenReturn(entity);
 
@@ -703,7 +703,7 @@ class TileMapTest {
 
         localSut.setAnchorPoint(AnchorPoint.BOTTOM_CENTER);
 
-        var entity = mock(Entity.class);
+        var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
         when(tileFactory.create(any(), any(), any())).thenReturn(entity);
 
@@ -745,7 +745,7 @@ class TileMapTest {
 
         localSut.setAnchorPoint(AnchorPoint.BOTTOM_RIGHT);
 
-        var entity = mock(Entity.class);
+        var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
         when(tileFactory.create(any(), any(), any())).thenReturn(entity);
 

@@ -6,8 +6,8 @@ import nl.meron.yaeger.engine.Size;
 import nl.meron.yaeger.engine.entities.EntitySupplier;
 import nl.meron.yaeger.engine.entities.entity.AnchorPoint;
 import nl.meron.yaeger.engine.entities.entity.Anchorable;
-import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Location;
+import nl.meron.yaeger.engine.entities.entity.YaegerEntity;
 import nl.meron.yaeger.engine.entities.entity.sprite.SpriteEntity;
 import nl.meron.yaeger.engine.exceptions.EntityNotAvailableException;
 import nl.meron.yaeger.engine.exceptions.YaegerEngineException;
@@ -56,14 +56,14 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
     }
 
     /**
-     * The lifecycle method {@link #setupEntities()} should be used to add the instances of {@link Entity}
+     * The lifecycle method {@link #setupEntities()} should be used to add the instances of {@link YaegerEntity}
      * that should be used in this {@link TileMap}.
      */
     public abstract void setupEntities();
 
     /**
      * The lifecycle method {@link #defineMap()} should be used to define the map that should be used. It is
-     * represented by a two dimensional array of type {@code int}, where each cell represents an {@link Entity}
+     * represented by a two dimensional array of type {@code int}, where each cell represents an {@link YaegerEntity}
      * on the map. The first array ({@code int[]}) defines the rows. Each entry in this array is itself an array
      * containing the columns of the given row.
      * <p>
@@ -170,7 +170,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
     /**
      * A {@link DimensionsProvider} is required because the {@link TileMap} will need info on the width
      * and height of the {@link nl.meron.yaeger.engine.scenes.YaegerScene} to calculate the placement
-     * of the individual instances of {@link Entity}.
+     * of the individual instances of {@link YaegerEntity}.
      *
      * @param dimensionsProvider The {@link DimensionsProvider} that provides a {@link DimensionsProvider#getWidth()} and
      *                           {@link DimensionsProvider#getHeight()} method; most likely an {@link YaegerScene}.

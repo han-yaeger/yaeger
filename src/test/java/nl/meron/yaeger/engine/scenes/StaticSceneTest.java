@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.EntityCollection;
 import nl.meron.yaeger.engine.entities.EntitySupplier;
-import nl.meron.yaeger.engine.entities.entity.Entity;
+import nl.meron.yaeger.engine.entities.entity.YaegerEntity;
 import nl.meron.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.meron.yaeger.engine.scenes.delegates.KeyListenerDelegate;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;
@@ -188,7 +188,7 @@ class StaticSceneTest {
         // Arrange
         sut.activate();
 
-        var testEntity = mock(Entity.class);
+        var testEntity = mock(YaegerEntity.class);
 
         // Act
         sut.addEntity(testEntity);

@@ -14,6 +14,7 @@ public class Raindrop extends DynamicRectangleEntity implements SceneBorderCross
         super(initialPosition);
         setWidth(1);
         setHeight(3);
+        setOpacity(0.4);
         setFill(Color.WHITESMOKE);
         setStrokeWidth(0);
         setMotionTo(speed, Direction.DOWN.getValue());

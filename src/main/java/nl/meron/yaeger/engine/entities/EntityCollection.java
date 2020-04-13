@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * An {@link EntityCollection} encapsulates all behaviour related to all instances of {@link Entity} that are part of
+ * An {@link EntityCollection} encapsulates all behaviour related to all instances of {@link YaegerEntity} that are part of
  * a {@link YaegerScene}.
  */
 public class EntityCollection implements Initializable {
@@ -31,7 +31,7 @@ public class EntityCollection implements Initializable {
     private Injector injector;
     private final Group group;
     private final Set<EntitySupplier> suppliers = new HashSet<>();
-    private final Set<Entity> statics = new HashSet<>();
+    private final Set<YaegerEntity> statics = new HashSet<>();
     private final Set<Updatable> updatables = new HashSet<>();
     private final Set<KeyListener> keyListeners = new HashSet<>();
     private final Set<Removeable> garbage = new HashSet<>();
@@ -42,9 +42,9 @@ public class EntityCollection implements Initializable {
     private AnnotationProcessor annotationProcessor;
 
     /**
-     * Instantiate an {@link EntityCollection} for a given {@link Group} and a {@link Set} of {@link Entity} instances.
+     * Instantiate an {@link EntityCollection} for a given {@link Group} and a {@link Set} of {@link YaegerEntity} instances.
      *
-     * @param group The {@link Group} to which all instances of {@link Entity}s should be added.
+     * @param group The {@link Group} to which all instances of {@link YaegerEntity}s should be added.
      */
     public EntityCollection(final Group group) {
         this.group = group;
@@ -82,7 +82,7 @@ public class EntityCollection implements Initializable {
     }
 
     /**
-     * Notify all {@link Entity} that implement the interface {@link KeyListener} that keys are being pressed.
+     * Notify all {@link YaegerEntity} that implement the interface {@link KeyListener} that keys are being pressed.
      *
      * @param input A {@link Set} containing all keys currently pressed.
      */
@@ -100,7 +100,7 @@ public class EntityCollection implements Initializable {
     }
 
     /**
-     * Perform all operations required during one cycle of the GameLoop, being:
+     * Perform all operations required during one cycle of the Game Loop, being:
      *
      * <ul>
      * <li>
@@ -110,8 +110,10 @@ public class EntityCollection implements Initializable {
      * <b>Notify Entities</b> On all Entities that implement the interface {@link Updatable}, update()
      * will be called.
      * </li>
-     * <li><b>Add spawned objects</b> All Entities created by the {@link DeprecatedEntitySpawner}s will be collected
-     * and added to the correct collection.
+     * <li><b>Add supplied entities</b> Entities that should be added are so-called supplied. This means that
+     * an {@link EntitySupplier} is registered with this {@link EntityCollection}. Each cycle of the Game Loop all
+     * instances of {@link YaegerEntity} that are supplied by all registered {@link EntitySupplier} are transferred to
+     * the appropriate collection.
      * </li>
      * <li>
      * <b>Check for collisions</b> Check if collisions have occured between instances of
@@ -185,7 +187,7 @@ public class EntityCollection implements Initializable {
         }
     }
 
-    private void addToGameLoop(final Entity entity) {
+    private void addToGameLoop(final YaegerEntity entity) {
         initialize(entity);
         addToKeylisteners(entity);
         attachGameEventListeners(entity);
@@ -193,19 +195,20 @@ public class EntityCollection implements Initializable {
         addToUpdatablesOrStatics(entity);
         collisionDelegate.register(entity);
         addToScene(entity);
+        entity.activate();
     }
 
-    private void placeEntityOnScene(Entity entity) {
+    private void placeEntityOnScene(YaegerEntity entity) {
         entity.placeOnScene();
     }
 
-    private void initialize(final Entity entity) {
+    private void initialize(final YaegerEntity entity) {
         injector.injectMembers(entity);
         entity.init(injector);
         annotationProcessor.invokeActivators(entity);
     }
 
-    private void addToUpdatablesOrStatics(final Entity entity) {
+    private void addToUpdatablesOrStatics(final YaegerEntity entity) {
 
         if (entity instanceof Updatable) {
             var updatable = (Updatable) entity;
@@ -216,17 +219,17 @@ public class EntityCollection implements Initializable {
         }
     }
 
-    private void addToKeylisteners(final Entity entity) {
+    private void addToKeylisteners(final YaegerEntity entity) {
         if (entity instanceof KeyListener) {
             keyListeners.add((KeyListener) entity);
         }
     }
 
-    private void addToScene(final Entity entity) {
+    private void addToScene(final YaegerEntity entity) {
         this.group.getChildren().add(entity.getGameNode().get());
     }
 
-    private void attachGameEventListeners(final Entity entity) {
+    private void attachGameEventListeners(final YaegerEntity entity) {
         entity.getGameNode().ifPresent(node -> node.addEventHandler(EventTypes.REMOVE, event -> markAsGarbage(event.getSource())));
     }
 
@@ -251,5 +254,4 @@ public class EntityCollection implements Initializable {
     public void setAnnotationProcessor(AnnotationProcessor annotationProcessor) {
         this.annotationProcessor = annotationProcessor;
     }
-
 }

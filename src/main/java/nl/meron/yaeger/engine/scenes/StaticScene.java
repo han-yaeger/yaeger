@@ -11,9 +11,9 @@ import nl.meron.yaeger.engine.DependencyInjector;
 import nl.meron.yaeger.engine.YaegerApplication;
 import nl.meron.yaeger.engine.entities.EntityCollection;
 import nl.meron.yaeger.engine.entities.EntitySupplier;
+import nl.meron.yaeger.engine.entities.entity.YaegerEntity;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;
 import nl.meron.yaeger.engine.debug.Debugger;
-import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.tilemap.TileMap;
 import nl.meron.yaeger.engine.entities.tilemap.TileMapListProvider;
 import nl.meron.yaeger.engine.scenes.delegates.BackgroundDelegate;
@@ -79,15 +79,15 @@ public abstract class StaticScene implements YaegerScene, KeyListener, SupplierP
     }
 
     /**
-     * Add an {@link Entity} to this {@link YaegerScene}. An {@link Entity} can only be added once.
+     * Add an {@link YaegerEntity} to this {@link YaegerScene}. An {@link YaegerEntity} can only be added once.
      * <p>
-     * This method can only be used to add an instance of {@link Entity} during initialisation.If
+     * This method can only be used to add an instance of {@link YaegerEntity} during initialisation.If
      * one should be added during the game, a {@link nl.meron.yaeger.engine.entities.EntitySpawner} should be used.
      * </p>
      *
-     * @param entity the {@link Entity} to be added
+     * @param entity the {@link YaegerEntity} to be added
      */
-    protected void addEntity(final Entity entity) {
+    protected void addEntity(final YaegerEntity entity) {
         entitySupplier.add(entity);
     }
 

@@ -1,13 +1,12 @@
 package nl.meron.yaeger.engine.entities.entity.events.userinput;
 
 import javafx.scene.input.MouseButton;
-import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.annotations.OnActivation;
 import nl.meron.yaeger.engine.entities.entity.NodeProvider;
 
 /**
- * Being a {@link MouseReleasedListener} enables the {@link Entity} to be notified if a {@link MouseButton} has been
- * released while the mouse pointer is on the {@link Entity}.
+ * Being a {@link MouseReleasedListener} enables the {@link nl.meron.yaeger.engine.entities.entity.YaegerEntity} to be notified if a {@link MouseButton} has been
+ * released while the mouse pointer is on the {@link nl.meron.yaeger.engine.entities.entity.YaegerEntity}.
  */
 public interface MouseReleasedListener extends NodeProvider {
 
