@@ -16,7 +16,7 @@ public class YaegerStage implements Initializable {
     private SceneCollectionFactory sceneCollectionFactory;
     private SceneCollection sceneCollection;
 
-    YaegerStage(final YaegerApplication yaegerApplication, final Stage stage) {
+    public YaegerStage(final YaegerApplication yaegerApplication, final Stage stage) {
         this.yaegerApplication = yaegerApplication;
         this.stage = stage;
     }

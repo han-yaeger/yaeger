@@ -20,7 +20,7 @@ public class Quit extends Button {
     }
 
     @Override
-    public void onMousePressed(MouseEvent event, MouseButton button, Double xCoordinates, Double yCoordinates) {
+    public void onMousePressed(MouseButton button) {
         showCase.quitGame();
     }
 }

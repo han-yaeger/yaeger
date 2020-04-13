@@ -58,9 +58,6 @@ public class SelectionScene extends StaticScene {
         styleText(entityMapsScene);
         addEntity(entityMapsScene);
 
-        var mouseEventsScene = new Button(new Location(20, 220), "6) Mouse Events Scene", showCase, YaegerShowCase.MOUSE_EVENTS_SCENE);
-        styleText(mouseEventsScene);
-        addEntity(mouseEventsScene);
     }
 
     @Override

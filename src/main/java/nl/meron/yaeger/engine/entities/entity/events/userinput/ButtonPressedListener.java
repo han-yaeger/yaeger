@@ -12,14 +12,14 @@ import java.util.Optional;
  * Being a {@link MousePressedListener} enables the {@link Entity} to be notified if a {@link MouseButton} has been clicked
  * while the mouse pointer is on the {@link Entity}.
  */
-public interface MousePressedListener extends NodeProvider {
+public interface ButtonPressedListener extends NodeProvider {
 
     /**
      * Called when the corresponding {@link javafx.scene.Node} receives a mouse pressed event.
      *
-     * @param event the {@link MouseEvent} being pressed.
+     * @param button the {@link MouseEvent} being pressed.
      */
-    void onMousePressed(MouseEvent event, Double xCoordinates, Double yCoordinates);
+    void onMousePressed(MouseButton button);
 
     /**
      * Attach a mousePressedListener to this entity.
@@ -27,7 +27,7 @@ public interface MousePressedListener extends NodeProvider {
     @Initializer
     default void attachMousePressedListener() {
         if(getGameNode().isPresent()) {
-            getGameNode().get().setOnMousePressed(event -> onMousePressed(event, event.getX(), event.getY()));
+            getGameNode().get().setOnMousePressed(event -> onMousePressed(event.getButton()));
         }
     }
 }

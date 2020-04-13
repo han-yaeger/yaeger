@@ -7,13 +7,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import nl.meron.waterworld.Waterworld;
+import nl.meron.yaeger.engine.entities.entity.events.userinput.ButtonPressedListener;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseEnterListener;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseExitListener;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MousePressedListener;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 
-public class QuitPressed extends TextEntity implements MousePressedListener, MouseEnterListener, MouseExitListener {
+public class QuitPressed extends TextEntity implements ButtonPressedListener, MouseEnterListener, MouseExitListener {
 
     private static final Color TEXT_COLOR = Color.YELLOWGREEN;
     private static final Color TEXT_COLOR_HIGHLIGHT = Color.GREENYELLOW;
@@ -29,7 +30,7 @@ public class QuitPressed extends TextEntity implements MousePressedListener, Mou
     }
 
     @Override
-    public void onMousePressed(MouseEvent event, MouseButton button, Double xCoordinates, Double yCoordinates) {
+    public void onMousePressed(MouseButton button) {
         if (button.equals(MouseButton.PRIMARY)) {
             waterworld.quitGame();
         }
