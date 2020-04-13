@@ -260,6 +260,30 @@ class StaticSceneTest {
     }
 
     @Test
+    void getTileMapsReturnsNotNullArrayList() {
+        // Arrange
+        sut.activate();
+
+        // Act
+        var actual = sut.getTileMaps();
+
+        // Verify
+        assertNotNull(actual);
+    }
+
+    @Test
+    void getEntitySpawnersReturnsExpectedEntitySpawners() {
+        // Arrange
+        sut.activate();
+
+        // Act
+        var actual = sut.getEntitySupplier();
+
+        // Verify
+        assertNotNull(actual);
+    }
+
+    @Test
     void postActivationMakeRequiredCalls() {
         // Arrange
         sut.activate();
