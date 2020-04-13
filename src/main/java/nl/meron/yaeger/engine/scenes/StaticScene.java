@@ -3,10 +3,12 @@ package nl.meron.yaeger.engine.scenes;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import nl.meron.showcase.YaegerShowCase;
 import nl.meron.yaeger.engine.RequiresInjection;
 import nl.meron.yaeger.engine.YaegerApplication;
 import nl.meron.yaeger.engine.entities.EntityCollection;
@@ -53,7 +55,6 @@ public abstract class StaticScene implements YaegerScene, KeyListener, WithSuppl
     @Override
     public void configure() {
         scene = sceneFactory.create(root);
-
         entityCollection = entityCollectionFactory.create(root);
         injector.injectMembers(entityCollection);
         entityCollection.init(injector);
@@ -127,6 +128,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener, WithSuppl
 
         onInputChanged(input);
     }
+
 
     @Override
     public void clear() {

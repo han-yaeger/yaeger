@@ -29,7 +29,7 @@ public class StartPressed extends TextEntity implements ButtonPressedListener, M
     }
 
     @Override
-    public void onMousePressed(MouseButton button) {
+    public void onButtonPressed(MouseButton button) {
         if (button.equals(MouseButton.PRIMARY)) {
             waterworld.nextScene(Waterworld.SCENE_LEVEL_ONE);
         }

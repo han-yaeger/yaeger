@@ -23,7 +23,7 @@ public class Button extends TextEntity implements ButtonPressedListener, MouseEn
     }
 
     @Override
-    public void onMousePressed(MouseButton button) {
+    public void onButtonPressed(MouseButton button) {
         showCase.setActiveScene(scene);
     }
 
