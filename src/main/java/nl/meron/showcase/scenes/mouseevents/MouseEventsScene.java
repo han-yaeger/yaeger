@@ -96,8 +96,4 @@ public class MouseEventsScene extends StaticScene implements MousePressedListene
 
     @Override
     public void onInputChanged(Set<KeyCode> input) {}
-
-    public void update() {
-
-    }
 }
