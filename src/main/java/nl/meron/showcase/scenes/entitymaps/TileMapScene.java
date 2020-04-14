@@ -24,10 +24,6 @@ public class TileMapScene extends DynamicScene implements WithTileMaps {
     }
 
     @Override
-    protected void setupSpawners() {
-    }
-
-    @Override
     public void setupTileMaps() {
         var fullScreenMap = new FullScreenTileMap();
         addTileMap(fullScreenMap);
@@ -71,7 +67,7 @@ public class TileMapScene extends DynamicScene implements WithTileMaps {
 
     @Override
     public void setupEntities() {
-        var backButton = new Back(showCase);
+        var backButton = new Back(showCase, new Location(20, getHeight() - 30));
         addEntity(backButton);
     }
 }

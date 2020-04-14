@@ -4,8 +4,8 @@ import com.google.inject.Injector;
 import javafx.scene.Node;
 import nl.meron.yaeger.engine.Timer;
 import nl.meron.yaeger.engine.entities.entity.AnchorPoint;
-import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Location;
+import nl.meron.yaeger.engine.entities.entity.YaegerEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class EntitySupplierTest {
 
+    private static final Location DEFAULT_LOCATION = new Location(0, 0);
     private EntitySupplier entitySupplier;
 
 
@@ -29,7 +30,7 @@ class EntitySupplierTest {
     @Test
     void addEntitiesAddsEntity() {
         // Arrange
-        Entity entity = new TestEntity();
+        YaegerEntity entity = new TestEntity(DEFAULT_LOCATION);
 
         // Act
         entitySupplier.add(entity);
@@ -41,7 +42,7 @@ class EntitySupplierTest {
     @Test
     void clearClearsListOfSpawnedEntities() {
         // Arrange
-        Entity entity = new TestEntity();
+        YaegerEntity entity = new TestEntity(DEFAULT_LOCATION);
 
         // Act
         entitySupplier.add(entity);
@@ -56,13 +57,22 @@ class EntitySupplierTest {
         // Arrange
 
         // Act
-        Set<Entity> entities = entitySupplier.get();
+        Set<YaegerEntity> entities = entitySupplier.get();
 
         // Assert
         Assertions.assertEquals(0, entities.size());
     }
 
-    private class TestEntity implements Entity {
+    private class TestEntity extends YaegerEntity {
+        /**
+         * Instantiate a new {@link YaegerEntity} for the given {@link Location} and textDelegate.
+         *
+         * @param initialPosition the initial {@link Location} of this {@link YaegerEntity}
+         */
+        public TestEntity(Location initialPosition) {
+            super(initialPosition);
+        }
+
         @Override
         public void remove() {
             // Not required here.

@@ -1,12 +1,11 @@
 package nl.meron.yaeger.engine.entities.entity.events.userinput;
 
-import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.annotations.Initializer;
+import nl.meron.yaeger.engine.annotations.OnActivation;
 import nl.meron.yaeger.engine.entities.entity.NodeProvider;
 
 /**
- * Being a {@link MouseExitListener} enables the {@link Entity} to be notified if the Mouse Cursor has
- * exited the area defined by the {@link javafx.geometry.BoundingBox} of an {@link Entity}.
+ * Being a {@link MouseExitListener} enables the {@link nl.meron.yaeger.engine.entities.entity.YaegerEntity} to be notified if the Mouse Cursor has
+ * exited the area defined by the {@link javafx.geometry.BoundingBox} of an {@link nl.meron.yaeger.engine.entities.entity.YaegerEntity}.
  */
 public interface MouseExitListener extends NodeProvider {
 
@@ -18,7 +17,7 @@ public interface MouseExitListener extends NodeProvider {
     /**
      * Attach a mouseExitListener to this entity.
      */
-    @Initializer
+    @OnActivation
     default void attachMouseExitListener() {
         if(getGameNode().isPresent()) {
             getGameNode().get().setOnMouseExited(mouseEvent -> onMouseExited());

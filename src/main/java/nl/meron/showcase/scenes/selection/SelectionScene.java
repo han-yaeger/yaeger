@@ -74,6 +74,10 @@ public class SelectionScene extends StaticScene {
             showCase.setActiveScene(YaegerShowCase.SCENE_SHAPE_ENTITIES);
         } else if (input.contains(KeyCode.DIGIT4)) {
             showCase.setActiveScene(YaegerShowCase.SCENE_WITH_TIMERS);
+        } else if (input.contains(KeyCode.DIGIT5)) {
+            showCase.setActiveScene(YaegerShowCase.SCENE_WITH_ENTITYMAPS);
+        } else if (input.contains(KeyCode.DIGIT6)) {
+            showCase.setActiveScene(YaegerShowCase.SCENE_WITH_SPAWNERS);
         }
     }
 

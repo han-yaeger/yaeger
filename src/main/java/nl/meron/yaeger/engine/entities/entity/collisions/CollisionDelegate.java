@@ -1,7 +1,7 @@
 package nl.meron.yaeger.engine.entities.entity.collisions;
 
-import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Removeable;
+import nl.meron.yaeger.engine.entities.entity.YaegerEntity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,12 +23,12 @@ public class CollisionDelegate {
     }
 
     /**
-     * Register an {@link Entity} to be evaluated for collision detection. The {@link Entity} will only be added
+     * Register an {@link nl.meron.yaeger.engine.entities.entity.YaegerEntity} to be evaluated for collision detection. The {@link Entity} will only be added
      * if
      *
-     * @param entity the {@link Entity} that should be registered
+     * @param entity the {@link YaegerEntity} that should be registered
      */
-    public void register(Entity entity) {
+    public void register(YaegerEntity entity) {
         if (entity instanceof Collider) {
             register((Collider) entity);
         }

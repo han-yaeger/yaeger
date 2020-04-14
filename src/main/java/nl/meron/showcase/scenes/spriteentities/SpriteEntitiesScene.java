@@ -21,11 +21,6 @@ public class SpriteEntitiesScene extends ShowCaseScene {
     }
 
     @Override
-    protected void setupSpawners() {
-
-    }
-
-    @Override
     public void setupScene() {
         setBackgroundImage("showcase/backgrounds/landscape.jpg");
     }
@@ -33,7 +28,7 @@ public class SpriteEntitiesScene extends ShowCaseScene {
     @Override
     public void setupEntities() {
 
-        var backButton = new Back(showCase);
+        var backButton = new Back(showCase, new Location(20, getHeight() - 30));
         addEntity(backButton);
 
         placeRugbyBallOnWithAllAnchorPoints();

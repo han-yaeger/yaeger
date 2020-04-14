@@ -6,6 +6,7 @@ import nl.meron.showcase.scenes.entitymaps.TileMapScene;
 import nl.meron.showcase.scenes.mouseevents.MouseEventsScene;
 import nl.meron.showcase.scenes.selection.SelectionScene;
 import nl.meron.showcase.scenes.shapeentities.ShapeEntitiesScene;
+import nl.meron.showcase.scenes.spawner.EntitySpawnerScene;
 import nl.meron.showcase.scenes.spriteentities.SpriteEntitiesScene;
 import nl.meron.showcase.scenes.textentities.TextEntitiesScene;
 import nl.meron.yaeger.engine.Size;
@@ -17,8 +18,8 @@ import nl.meron.yaeger.engine.YaegerApplication;
 public class YaegerShowCase extends YaegerApplication {
 
     private static final String GAME_TITLE = "Yaeger Show Case";
-    private static final int WIDTH = 1280;
-    private static final int HEIGHT = 719;
+    private static final int WIDTH = 880; // 880
+    private static final int HEIGHT = 600; // 600
     public static final int SCENE_SELECTION = 1;
     public static final int SCENE_TEXT_ENTITIES = 2;
     public static final int SCENE_SPRITE_ENTITIES = 3;
@@ -26,6 +27,7 @@ public class YaegerShowCase extends YaegerApplication {
     public static final int SCENE_WITH_TIMERS = 5;
     public static final int SCENE_WITH_ENTITYMAPS = 6;
     public static final int MOUSE_EVENTS_SCENE = 7;
+    public static final int SCENE_WITH_SPAWNERS = 7;
 
     public static void main(String[] args) {
         launch(args);
@@ -39,8 +41,6 @@ public class YaegerShowCase extends YaegerApplication {
 
     @Override
     protected void setupScenes() {
-//        var splash = new SplashScene(this);
-//        addScene(SPLASH, splash);
         var selectionScene = new SelectionScene(this);
         addScene(SCENE_SELECTION, selectionScene);
         var textEntitiesScene = new TextEntitiesScene(this);

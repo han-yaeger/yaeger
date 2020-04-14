@@ -6,7 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import nl.meron.yaeger.engine.entities.entity.Location;
-import nl.meron.yaeger.engine.entities.entity.JavaFXEntity;
+import nl.meron.yaeger.engine.entities.entity.YaegerEntity;
 
 import java.util.Optional;
 
@@ -14,7 +14,7 @@ import java.util.Optional;
  * A {@link RectangleEntity} provides the option to use a drawable Rectangle as an
  * {@link nl.meron.yaeger.engine.entities.entity.Entity}.
  */
-public abstract class RectangleEntity extends JavaFXEntity {
+public abstract class RectangleEntity extends YaegerEntity {
 
     private Optional<Rectangle> rectangle;
     private Color strokeColor;

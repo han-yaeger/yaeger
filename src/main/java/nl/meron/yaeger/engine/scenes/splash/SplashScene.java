@@ -28,11 +28,6 @@ public class SplashScene extends DynamicScene implements WithTimers {
     }
 
     @Override
-    protected void setupSpawners() {
-
-    }
-
-    @Override
     public void setupScene() {
         setBackgroundColor(Color.BLACK);
     }

@@ -3,10 +3,10 @@ package nl.meron.yaeger.engine;
 import java.util.List;
 
 /**
- * Implementing the {@link WithTimerList} interface guarantees that a {@link List} of
+ * Implementing the {@link TimerListProvider} interface guarantees that a {@link List} of
  * instances of {@link Timer} is available.
  */
-public interface WithTimerList {
+public interface TimerListProvider {
 
     /**
      * Return the {@link List} of {@link Timer} instances.

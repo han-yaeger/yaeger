@@ -4,7 +4,8 @@ import com.google.inject.Injector;
 import javafx.scene.Node;
 import nl.meron.yaeger.engine.Timer;
 import nl.meron.yaeger.engine.entities.entity.AnchorPoint;
-import nl.meron.yaeger.engine.entities.entity.Entity;
+import nl.meron.yaeger.engine.entities.entity.Location;
+import nl.meron.yaeger.engine.entities.entity.YaegerEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,8 +49,8 @@ class CollisionDelegateTest {
     @Test
     void entitiesGetCorrectlyAdded() {
         // Arrange
-        Entity collidedEntity = mock(CollidedTestEntity.class);
-        Entity colliderEntity = mock(ColliderTestEntity.class);
+        YaegerEntity collidedEntity = mock(CollidedTestEntity.class);
+        YaegerEntity colliderEntity = mock(ColliderTestEntity.class);
 
         collisionDelegate.register(collidedEntity);
         collisionDelegate.register(colliderEntity);
@@ -67,8 +68,8 @@ class CollisionDelegateTest {
     @Test
     void afterRemoveCollidedNoCollisionsAreChecked() {
         // Arrange
-        Entity collidedEntity = mock(CollidedTestEntity.class);
-        Entity colliderEntity = mock(ColliderTestEntity.class);
+        YaegerEntity collidedEntity = mock(CollidedTestEntity.class);
+        YaegerEntity colliderEntity = mock(ColliderTestEntity.class);
 
         collisionDelegate.register(collidedEntity);
         collisionDelegate.register(colliderEntity);
@@ -84,8 +85,8 @@ class CollisionDelegateTest {
     @Test
     void afterRemoveColliderNoCollisionsAreReported() {
         // Arrange
-        Entity collidedEntity = mock(CollidedTestEntity.class);
-        Entity colliderEntity = mock(ColliderTestEntity.class);
+        YaegerEntity collidedEntity = mock(CollidedTestEntity.class);
+        YaegerEntity colliderEntity = mock(ColliderTestEntity.class);
 
         collisionDelegate.register(collidedEntity);
         collisionDelegate.register(colliderEntity);
@@ -101,7 +102,16 @@ class CollisionDelegateTest {
         Assertions.assertEquals(0, argument.getValue().size());
     }
 
-    private class CollidedTestEntity implements Entity, AABBCollided {
+    private class CollidedTestEntity extends YaegerEntity implements AABBCollided {
+
+        /**
+         * Instantiate a new {@link YaegerEntity} for the given {@link Location} and textDelegate.
+         *
+         * @param initialPosition the initial {@link Location} of this {@link YaegerEntity}
+         */
+        public CollidedTestEntity(Location initialPosition) {
+            super(initialPosition);
+        }
 
         @Override
         public void onCollision(Collider collidingObject) {
@@ -175,7 +185,16 @@ class CollisionDelegateTest {
         }
     }
 
-    private class ColliderTestEntity implements Entity, Collider {
+    private class ColliderTestEntity extends YaegerEntity implements Collider {
+
+        /**
+         * Instantiate a new {@link YaegerEntity} for the given {@link Location} and textDelegate.
+         *
+         * @param initialPosition the initial {@link Location} of this {@link YaegerEntity}
+         */
+        public ColliderTestEntity(Location initialPosition) {
+            super(initialPosition);
+        }
 
         @Override
         public void remove() {
