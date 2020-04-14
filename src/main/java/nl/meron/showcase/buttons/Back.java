@@ -12,7 +12,7 @@ public class Back extends Button {
     public static final String BACK = "Back";
 
     public Back(YaegerShowCase showCase) {
-        super(new Location(20, 650), BACK, showCase, YaegerShowCase.SCENE_SELECTION);
+        super(new Location(20, 625), BACK, showCase, YaegerShowCase.SCENE_SELECTION);
         setFill(Color.SNOW);
         setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 30));
     }

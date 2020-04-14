@@ -14,7 +14,7 @@ public class Quit extends Button {
     private static final String QUIT = "Quit";
 
     public Quit(YaegerShowCase showCase) {
-        super(new Location(20, 650), QUIT, showCase, -1);
+        super(new Location(20, 625), QUIT, showCase, -1);
         setFill(Color.SNOW);
         setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 30));
     }

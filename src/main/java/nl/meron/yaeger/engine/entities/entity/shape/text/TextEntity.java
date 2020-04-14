@@ -91,10 +91,15 @@ public class TextEntity extends JavaFXEntity {
         text.ifPresentOrElse(text -> text.setY(y), () -> initialY = y);
     }
 
+
+    public String getText() {
+        return this.initialText;
+    }
+
     @Override
     public void init(final Injector injector) {
         super.init(injector);
-
+        
         text.get().setTextOrigin(VPos.TOP);
 
         if (font != null) {

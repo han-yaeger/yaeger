@@ -26,8 +26,8 @@ public class MouseEventsScene extends StaticScene implements MousePressedListene
     private final Font TEXT_FONT = Font.font("American Typewriter", FontWeight.NORMAL, 20);
     private TextEntity mouseEnterText = new TextEntity(new Location(20, 100), "Mouse entered the screen.");
     private TextEntity mouseExitText = new TextEntity(new Location(20, 150), "Mouse exited the screen.");
-    private TextEntity x_val = new TextEntity(new Location(820,625), Double.toString(x_coordinate));
-    private TextEntity y_val = new TextEntity(new Location(920,625), Double.toString(y_coordinate));
+    public TextEntity x_val = new TextEntity(new Location(820,625), Double.toString(x_coordinate));
+    public TextEntity y_val = new TextEntity(new Location(920,625), Double.toString(y_coordinate));
     private YaegerShowCase showCase;
 
     public MouseEventsScene(YaegerShowCase showCase) {this.showCase = showCase;}
