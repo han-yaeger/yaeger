@@ -20,6 +20,7 @@ public abstract class Bubble extends DynamicSpriteEntity implements AABBCollided
         super(resource, location, new Size(20, 20), 0);
         this.level = game;
         setMotionTo(speed, Direction.UP.getValue());
+        setOpacity(0.8);
         setRotationSpeed(Math.random() * 5);
     }
 
