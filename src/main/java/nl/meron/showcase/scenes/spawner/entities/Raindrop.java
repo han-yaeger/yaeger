@@ -10,10 +10,10 @@ import nl.meron.yaeger.engine.scenes.SceneBorder;
 
 public class Raindrop extends DynamicRectangleEntity implements SceneBorderCrossingWatcher {
 
-    public Raindrop(final Location initialPosition, final double speed) {
+    public Raindrop(final Location initialPosition, final double speed, final double width, final double height) {
         super(initialPosition);
-        setWidth(1);
-        setHeight(3);
+        setWidth(width);
+        setHeight(height);
         setOpacity(0.4);
         setFill(Color.WHITESMOKE);
         setStrokeWidth(0);

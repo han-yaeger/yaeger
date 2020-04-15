@@ -63,6 +63,19 @@ class EntitySupplierTest {
         Assertions.assertEquals(0, entities.size());
     }
 
+    @Test
+    void twoDifferentSuppliersWithNoContentAreNotEqual() {
+        // Arrange
+        var sut1 = new EntitySupplier();
+        var sut2 = new EntitySupplier();
+
+        // Act
+        boolean equals = sut1.equals(sut2);
+
+        // Assert
+        Assertions.assertFalse(equals);
+    }
+
     private class TestEntity extends YaegerEntity {
         /**
          * Instantiate a new {@link YaegerEntity} for the given {@link Location} and textDelegate.
@@ -103,20 +116,5 @@ class EntitySupplierTest {
             // Not required here.
         }
 
-        @Override
-        public void placeOnScene() {
-
-        }
-
-        @Override
-        public void init(Injector injector) {
-            // Not required here.
-        }
-
-        @Override
-        public List<Timer> getTimers() {
-            return null;
-            // Not required here.
-        }
     }
 }

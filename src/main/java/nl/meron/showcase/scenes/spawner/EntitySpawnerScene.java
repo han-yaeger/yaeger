@@ -42,6 +42,7 @@ public class EntitySpawnerScene extends ShowCaseScene implements WithSpawners {
 
     @Override
     public void setupEntitySpawners() {
-        addEntitySpawner(new RainSpawner(getWidth(), 10));
+        addEntitySpawner(new RainSpawner(getWidth(), 2, 4, 1, 2));
+        addEntitySpawner(new RainSpawner(getWidth(), 2, 10, 2, 4));
     }
 }

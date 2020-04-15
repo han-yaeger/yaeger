@@ -28,4 +28,14 @@ public class EntitySupplier extends HashSet<YaegerEntity> implements Clearable {
             return allEntities;
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return this == o;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
