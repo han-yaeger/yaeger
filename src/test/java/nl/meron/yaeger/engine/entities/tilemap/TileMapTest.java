@@ -47,12 +47,12 @@ class TileMapTest {
     }
 
     @Test
-    void tileMapIsEqualToDifferentTileMapWithSameEmptyContent() {
+    void tileMapIsNotEqualToDifferentTileMapWithSameEmptyContent() {
         // Arrange
         var sut2 = new TileMapEmptyConstructorImpl();
 
         // Arc, Assert
-        assertTrue(sut.equals(sut2));
+        assertFalse(sut.equals(sut2));
     }
 
     @Test
