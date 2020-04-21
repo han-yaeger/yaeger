@@ -14,7 +14,7 @@ public enum Direction {
     LEFT(270d);
 
     private double value;
-    private static Map<Double, Direction> map = new HashMap();
+    private static Map<Double, Direction> map = new HashMap<>();
 
     Direction(double value) {
         this.value = value;
