@@ -94,14 +94,14 @@
                 </executions>
                 <configuration>
                     <excludes>
-                        <exclude>nl/meron/pong/**/*</exclude>
-                        <exclude>nl/meron/showcase/**/*</exclude>
-                        <exclude>nl/meron/waterworld/**/*</exclude>
-                        <exclude>nl/meron/yaeger/guice/**/*</exclude>
-                        <exclude>nl/meron/yaeger/javafx/debug/*</exclude>
-                        <exclude>nl/meron/yaeger/javafx/image/*</exclude>
-                        <exclude>nl/meron/yaeger/javafx/animationtimer/*</exclude>
-                        <exclude>nl/meron/yaeger/engine/scenes/splash/**/*</exclude>
+                        <exclude>nl/han/pong/**/*</exclude>
+                        <exclude>nl/han/showcase/**/*</exclude>
+                        <exclude>nl/han/waterworld/**/*</exclude>
+                        <exclude>nl/han/yaeger/guice/**/*</exclude>
+                        <exclude>nl/han/yaeger/javafx/debug/*</exclude>
+                        <exclude>nl/han/yaeger/javafx/image/*</exclude>
+                        <exclude>nl/han/yaeger/javafx/animationtimer/*</exclude>
+                        <exclude>nl/han/yaeger/engine/scenes/splash/**/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
