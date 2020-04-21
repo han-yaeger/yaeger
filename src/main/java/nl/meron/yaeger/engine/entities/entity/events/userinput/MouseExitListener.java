@@ -15,7 +15,7 @@ public interface MouseExitListener extends NodeProvider {
     void onMouseExited();
 
     /**
-     * Attach a mousePressedListener to this entity.
+     * Attach a {@link MouseExitListener} to this entity.
      */
     @OnActivation
     default void attachMouseExitListener() {

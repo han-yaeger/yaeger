@@ -5,8 +5,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import nl.meron.waterworld.Waterworld;
-import nl.meron.waterworld.entities.buttons.QuitPressed;
-import nl.meron.waterworld.entities.buttons.StartPressed;
+import nl.meron.waterworld.entities.buttons.QuitButtonPressed;
+import nl.meron.waterworld.entities.buttons.StartButtonPressed;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.StaticScene;
@@ -49,10 +49,10 @@ public class Intro extends StaticScene {
     }
 
     private void createButtons() {
-        var playGameText = new StartPressed(waterworld);
+        var playGameText = new StartButtonPressed(waterworld);
         addEntity(playGameText);
 
-        var quitGameText = new QuitPressed(waterworld);
+        var quitGameText = new QuitButtonPressed(waterworld);
         addEntity(quitGameText);
     }
 

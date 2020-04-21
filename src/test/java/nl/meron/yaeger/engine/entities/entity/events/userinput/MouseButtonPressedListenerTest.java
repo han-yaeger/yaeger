@@ -8,13 +8,13 @@ import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
-class MousePressedListenerTest {
+class MouseButtonPressedListenerTest {
 
     @Test
     void attachMousePressedListenerAttachesMouseListener() {
         // Arrange
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        var mouseListeningEntity = new MousePressedListeningInstancee();
+        var mouseListeningEntity = new MouseButtonPressedListeningInstancee();
         mouseListeningEntity.setNode(node);
 
         // Act
@@ -24,12 +24,12 @@ class MousePressedListenerTest {
         verify(node).setOnMousePressed(any());
     }
 
-    private class MousePressedListeningInstancee implements MousePressedListener {
+    private class MouseButtonPressedListeningInstancee implements MouseButtonPressedListener {
 
         private Node node;
 
         @Override
-        public void onMousePressed(MouseButton button) {
+        public void onMouseButtonPressed(MouseButton button, double x, double y) {
         }
 
         @Override

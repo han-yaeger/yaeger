@@ -7,10 +7,10 @@ import nl.meron.showcase.scenes.selection.SelectionScene;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseEnterListener;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseExitListener;
-import nl.meron.yaeger.engine.entities.entity.events.userinput.MousePressedListener;
+import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseButtonPressedListener;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 
-public class Button extends TextEntity implements MousePressedListener, MouseEnterListener, MouseExitListener {
+public class Button extends TextEntity implements MouseButtonPressedListener, MouseEnterListener, MouseExitListener {
 
     protected YaegerShowCase showCase;
     private int scene;
@@ -22,7 +22,7 @@ public class Button extends TextEntity implements MousePressedListener, MouseEnt
     }
 
     @Override
-    public void onMousePressed(MouseButton button) {
+    public void onMouseButtonPressed(MouseButton button, double x, double y) {
         showCase.setActiveScene(scene);
     }
 

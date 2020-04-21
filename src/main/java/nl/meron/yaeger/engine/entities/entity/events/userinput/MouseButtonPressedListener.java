@@ -5,23 +5,25 @@ import nl.meron.yaeger.engine.annotations.OnActivation;
 import nl.meron.yaeger.engine.entities.entity.NodeProvider;
 
 /**
- * Being a {@link MousePressedListener} enables the {@link nl.meron.yaeger.engine.entities.entity.YaegerEntity} to be notified if a {@link MouseButton} has been clicked
+ * Being a {@link MouseButtonPressedListener} enables the {@link nl.meron.yaeger.engine.entities.entity.YaegerEntity} to be notified if a {@link MouseButton} has been clicked
  * while the mouse pointer is on the {@link nl.meron.yaeger.engine.entities.entity.YaegerEntity}.
  */
-public interface MousePressedListener extends NodeProvider {
+public interface MouseButtonPressedListener extends NodeProvider {
 
     /**
      * Called when the corresponding {@link javafx.scene.Node} receives a mouse pressed event.
      *
      * @param button the {@link MouseButton} being pressed.
+     * @param x      The x-coordinate of the mouse pointer while being pressed as a {@code double}.
+     * @param y      The y-coordinate of the mouse pointer while being pressed as a {@code double}.
      */
-    void onMousePressed(MouseButton button);
+    void onMouseButtonPressed(MouseButton button, double x, double y);
 
     /**
      * Attach a mousePressedListener to this entity.
      */
     @OnActivation
     default void attachMousePressedListener() {
-        getGameNode().get().setOnMousePressed(event -> onMousePressed(event.getButton()));
+        getGameNode().get().setOnMousePressed(event -> onMouseButtonPressed(event.getButton(), event.getX(), event.getY()));
     }
 }

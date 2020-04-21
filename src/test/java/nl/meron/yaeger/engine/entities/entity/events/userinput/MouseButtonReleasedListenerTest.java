@@ -9,13 +9,13 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class MouseReleasedListenerTest {
+class MouseButtonReleasedListenerTest {
 
     @Test
     void attachMousePressedListenerAttachesMouseListener() {
         // Arrange
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        var mouseListeningEntity = new MouseReleasedListeningInstancee();
+        var mouseListeningEntity = new MouseButtonReleasedListeningInstancee();
         mouseListeningEntity.setNode(node);
 
         // Act
@@ -25,7 +25,7 @@ class MouseReleasedListenerTest {
         verify(node).setOnMouseReleased(any());
     }
 
-    private class MouseReleasedListeningInstancee implements MouseReleasedListener {
+    private class MouseButtonReleasedListeningInstancee implements MouseButtonReleasedListener {
 
         private Node node;
 
@@ -39,7 +39,7 @@ class MouseReleasedListenerTest {
         }
 
         @Override
-        public void onMouseReleased(MouseButton button) {
+        public void onMouseButtonReleased(MouseButton button, double x, double y) {
 
         }
     }
