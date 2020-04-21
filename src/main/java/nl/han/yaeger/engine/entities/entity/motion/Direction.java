@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Convenience enum for setting the {@link Direction}
+ * Convenience enum for setting the {@link Direction}.
  */
 public enum Direction {
 
