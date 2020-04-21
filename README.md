@@ -12,7 +12,3 @@ functional 2D game-engine that requires only a traditional Object Oriented style
 * API: [https://meronbrouwer.github.io/yaeger/](https://meronbrouwer.github.io/yaeger/)
 * Tutorial: [Yaeger tutorial](docs/tutorial.md)
 * Architecture: [Yaeger's architecture](docs/architecture.md)
-
-## Disclaimer
-
-This application is in no way affiliated to the HAN University of Applied Sciences. 

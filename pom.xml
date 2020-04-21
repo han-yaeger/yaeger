@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>nl.meron</groupId>
+    <groupId>nl.han</groupId>
     <artifactId>yaeger</artifactId>
     <version>2019.2020-beta1</version>
     <packaging>jar</packaging>
@@ -37,7 +37,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>nl.meron.showcase.YaegerShowCase</mainClass>
+                    <mainClass>nl.han.showcase.YaegerShowCase</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -127,9 +127,9 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <excludePackageNames>nl.meron.pong</excludePackageNames>
-                    <excludePackageNames>nl.meron.showcase</excludePackageNames>
-                    <excludePackageNames>nl.meron.waterworld</excludePackageNames>
+                    <excludePackageNames>nl.han.pong</excludePackageNames>
+                    <excludePackageNames>nl.han.showcase</excludePackageNames>
+                    <excludePackageNames>nl.han.waterworld</excludePackageNames>
                     <source>${java.version}</source>
                 </configuration>
             </plugin>

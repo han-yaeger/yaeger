@@ -1,30 +1,30 @@
-module nl.meron.yaeger {
+module nl.han.yaeger {
     requires javafx.controls;
     requires javafx.media;
     requires com.google.guice;
     requires java.base;
 
-    exports nl.meron.pong;
-    exports nl.meron.showcase;
-    exports nl.meron.waterworld;
-    exports nl.meron.yaeger.engine;
-    exports nl.meron.yaeger.engine.annotations;
-    exports nl.meron.yaeger.engine.entities;
-    exports nl.meron.yaeger.engine.scenes;
-    exports nl.meron.yaeger.engine.scenes.delegates;
-    exports nl.meron.yaeger.engine.media.repositories;
-    exports nl.meron.yaeger.javafx.image;
-    exports nl.meron.yaeger.engine.debug;
-    exports nl.meron.yaeger.javafx.debug;
-    exports nl.meron.yaeger.guice.factories;
-    exports nl.meron.yaeger.javafx.animationtimer;
-    exports nl.meron.yaeger.engine.entities.entity.sprite;
-    exports nl.meron.yaeger.engine.entities.tilemap;
-    exports nl.meron.yaeger.engine.entities.entity;
-    exports nl.meron.yaeger.engine.entities.entity.shape.text;
-    exports nl.meron.yaeger.engine.entities.entity.shape.rectangle;
-    exports nl.meron.yaeger.engine.entities.entity.motion;
-    exports nl.meron.yaeger.engine.scenes.splash;
+    exports nl.han.pong;
+    exports nl.han.showcase;
+    exports nl.han.waterworld;
+    exports nl.han.yaeger.engine;
+    exports nl.han.yaeger.engine.annotations;
+    exports nl.han.yaeger.engine.entities;
+    exports nl.han.yaeger.engine.scenes;
+    exports nl.han.yaeger.engine.scenes.delegates;
+    exports nl.han.yaeger.engine.media.repositories;
+    exports nl.han.yaeger.javafx.image;
+    exports nl.han.yaeger.engine.debug;
+    exports nl.han.yaeger.javafx.debug;
+    exports nl.han.yaeger.guice.factories;
+    exports nl.han.yaeger.javafx.animationtimer;
+    exports nl.han.yaeger.engine.entities.entity.sprite;
+    exports nl.han.yaeger.engine.entities.tilemap;
+    exports nl.han.yaeger.engine.entities.entity;
+    exports nl.han.yaeger.engine.entities.entity.shape.text;
+    exports nl.han.yaeger.engine.entities.entity.shape.rectangle;
+    exports nl.han.yaeger.engine.entities.entity.motion;
+    exports nl.han.yaeger.engine.scenes.splash;
 
     opens pong;
     opens showcase.backgrounds;
