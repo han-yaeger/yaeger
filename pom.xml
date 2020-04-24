@@ -14,32 +14,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>12</java.version>
         <sonar.exclusions>
-            **/pong/**/*,
-            **/showcase/**/*,
-            **/waterworld/**/*,
             **/yaeger/guice/**/*,
             **/yaeger/javafx/**/*,
             **/yaeger/engine/scenes/splash/**/*,
         </sonar.exclusions>
+
     </properties>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>nl.han.showcase.YaegerShowCase</mainClass>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -94,9 +77,6 @@
                 </executions>
                 <configuration>
                     <excludes>
-                        <exclude>nl/han/pong/**/*</exclude>
-                        <exclude>nl/han/showcase/**/*</exclude>
-                        <exclude>nl/han/waterworld/**/*</exclude>
                         <exclude>nl/han/yaeger/guice/**/*</exclude>
                         <exclude>nl/han/yaeger/javafx/debug/*</exclude>
                         <exclude>nl/han/yaeger/javafx/image/*</exclude>
@@ -127,9 +107,6 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <excludePackageNames>nl.han.pong</excludePackageNames>
-                    <excludePackageNames>nl.han.showcase</excludePackageNames>
-                    <excludePackageNames>nl.han.waterworld</excludePackageNames>
                     <source>${java.version}</source>
                 </configuration>
             </plugin>

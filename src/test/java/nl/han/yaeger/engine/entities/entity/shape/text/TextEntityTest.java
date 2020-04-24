@@ -8,7 +8,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import nl.han.waterworld.Waterworld;
 import nl.han.yaeger.engine.entities.entity.Location;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +21,7 @@ class TextEntityTest {
 
     private static final String YAEGER = "Yaeger";
     private static final Location LOCATION = new Location(37, 37);
-    private static final Font FONT = Font.font(Waterworld.FONT, FontWeight.BOLD, 240);
+    private static final Font FONT = Font.font("palatino", FontWeight.BOLD, 240);
     private static final Color COLOR = Color.DARKBLUE;
     private Text text;
     private Injector injector;

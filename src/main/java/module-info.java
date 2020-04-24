@@ -1,12 +1,10 @@
 module nl.han.yaeger {
-    requires javafx.controls;
-    requires javafx.media;
-    requires com.google.guice;
+    requires transitive javafx.controls;
+    requires transitive javafx.media;
+    requires transitive javafx.graphics;
+    requires transitive com.google.guice;
     requires java.base;
 
-    exports nl.han.pong;
-    exports nl.han.showcase;
-    exports nl.han.waterworld;
     exports nl.han.yaeger.engine;
     exports nl.han.yaeger.engine.annotations;
     exports nl.han.yaeger.engine.entities;
@@ -25,11 +23,4 @@ module nl.han.yaeger {
     exports nl.han.yaeger.engine.entities.entity.shape.rectangle;
     exports nl.han.yaeger.engine.entities.entity.motion;
     exports nl.han.yaeger.engine.scenes.splash;
-
-    opens pong;
-    opens showcase.backgrounds;
-    opens showcase.entities;
-    opens waterworld;
-    opens waterworld.audio;
-    opens waterworld.images;
 }
