@@ -30,7 +30,9 @@ public class MouseEventsScene extends StaticScene implements MousePressedListene
     public TextEntity y_val = new TextEntity(new Location(920,625), Double.toString(y_coordinate));
     private YaegerShowCase showCase;
 
-    public MouseEventsScene(YaegerShowCase showCase) {this.showCase = showCase;}
+    public MouseEventsScene(YaegerShowCase showCase) {
+        this.showCase = showCase;
+    }
 
     @Override
     public void setupScene() {
@@ -95,5 +97,7 @@ public class MouseEventsScene extends StaticScene implements MousePressedListene
     }
 
     @Override
-    public void onInputChanged(Set<KeyCode> input) {}
+    public void onInputChanged(Set<KeyCode> input) {
+
+    }
 }

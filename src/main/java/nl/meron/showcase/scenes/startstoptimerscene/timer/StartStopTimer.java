@@ -17,8 +17,7 @@ public class StartStopTimer extends Thread{
         }
     }
 
-    public int[] getTime()
-    {
+    public int[] getTime() {
         long milliTime = System.currentTimeMillis() - this.startTime;
         int[] out = new int[]{0, 0, 0, 0};
         out[0] = (int)(milliTime / 3600000      );
@@ -29,8 +28,7 @@ public class StartStopTimer extends Thread{
         return out;
     }
 
-    public void stopThread()
-    {
+    public void stopThread() {
         this.started = false;
     }
 

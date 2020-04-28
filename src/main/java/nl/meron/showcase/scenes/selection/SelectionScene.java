@@ -62,6 +62,11 @@ public class SelectionScene extends StaticScene {
         styleText(mouseEventsScene);
         addEntity(mouseEventsScene);
 
+        var startStoptimerScene = new Button(new Location(20, 250), "7) Start Stop Timer Showcase", showCase, YaegerShowCase.START_STOP_TIMER_SCENE);
+        styleText(startStoptimerScene);
+        addEntity(startStoptimerScene);
+
+
     }
 
     @Override
