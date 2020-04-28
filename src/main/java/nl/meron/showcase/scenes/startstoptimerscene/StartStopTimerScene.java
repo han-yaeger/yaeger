@@ -48,6 +48,8 @@ public class StartStopTimerScene extends ShowCaseScene {
         var startButton = new Button(new Location(1200, 350), "Start", showCase, 8);
 
         while (true) {
+            StartStopTimer s = new StartStopTimer();
+            s.startThread();
             int[] curTime = s.getTime();
 
             var displayNumberText = new TextEntity(new Location(getWidth() / 2, getHeight() / 2), curTime[0] + " : " + curTime[1] + " : " + curTime[2] + " : " + curTime[3]);
@@ -56,11 +58,6 @@ public class StartStopTimerScene extends ShowCaseScene {
             displayNumberText.setAnchorPoint(AnchorPoint.CENTER_CENTER);
             addEntity(displayNumberText);
         }
-    }
-
-    public void buttonStart(Button button){
-        StartStopTimer s = new StartStopTimer();
-        s.startThread();
     }
 
     @Override
