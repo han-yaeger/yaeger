@@ -2,11 +2,9 @@ package nl.meron.yaeger.engine.entities.entity.events.userinput;
 
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.annotations.Initializer;
+import nl.meron.yaeger.engine.annotations.OnActivation;
 import nl.meron.yaeger.engine.entities.entity.NodeProvider;
 
-import java.util.Optional;
 
 /**
  * Being a {@link MousePressedListener} enables the {@link nl.meron.yaeger.engine.entities.entity.YaegerEntity} to be notified if a {@link MouseButton} has been clicked

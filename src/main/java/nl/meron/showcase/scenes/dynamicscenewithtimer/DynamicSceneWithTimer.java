@@ -37,7 +37,7 @@ public class DynamicSceneWithTimer extends ShowCaseScene implements WithTimers {
 
     @Override
     public void setupEntities() {
-        var backButton = new Back(showCase, new Location(20, getHeight() - 30));
+        var backButton = new Back(showCase, new Location(20, 625));
         addEntity(backButton);
 
         var explanationText = new TextEntity(new Location(getWidth() / 2, 150), "This scene will automatically switch back to the selection scene in: ");
