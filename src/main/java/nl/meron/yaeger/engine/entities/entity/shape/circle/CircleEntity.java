@@ -5,7 +5,6 @@ import com.google.inject.Injector;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.JavaFXEntity;
 
@@ -21,10 +20,7 @@ public abstract class CircleEntity extends JavaFXEntity {
     private Color strokeColor;
     private Color fill;
     private double strokeWidth;
-    private double height;
-    private double width;
-    private double arcHeight;
-    private double arcWidth;
+    private double radius;
 
     /**
      * Create a new {@link CircleEntity} on the given {@code initialPosition}.
@@ -59,8 +55,8 @@ public abstract class CircleEntity extends JavaFXEntity {
      *
      * @param height The {@code height} of the rectangle as a {@code double}
      */
-    public void setHeight(final double height) {
-        circle.ifPresentOrElse(rectangle -> rectangle.setRadius(height), () -> this.height = height);
+    public void setRadius(final double height) {
+        circle.ifPresentOrElse(rectangle -> rectangle.setRadius(height), () -> this.radius = height);
     }
 
     /**
@@ -102,7 +98,7 @@ public abstract class CircleEntity extends JavaFXEntity {
             circle.get().setFill(fill);
         }
         circle.get().setStrokeWidth(strokeWidth);
-        circle.get().setRadius(height);
+        circle.get().setRadius(radius);
     }
 
     @Override
