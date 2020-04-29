@@ -23,6 +23,7 @@ module nl.meron.yaeger {
     exports nl.meron.yaeger.engine.entities.entity;
     exports nl.meron.yaeger.engine.entities.entity.shape.text;
     exports nl.meron.yaeger.engine.entities.entity.shape.rectangle;
+    exports nl.meron.yaeger.engine.entities.entity.shape.circle;
     exports nl.meron.yaeger.engine.entities.entity.motion;
     exports nl.meron.yaeger.engine.scenes.splash;
 
