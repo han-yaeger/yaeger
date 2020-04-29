@@ -4,11 +4,12 @@
 
     <groupId>nl.han</groupId>
     <artifactId>yaeger</artifactId>
-    <version>2019.2020-beta1</version>
+    <version>2019.2020-alpha1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>yaeger</name>
-    <url>https://github.com/meronbrouwer/yaeger</url>
+    <description>A JavaFX based 2D Game Engine.</description>
+    <url>https://github.com/han-yaeger/yaeger</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,8 +19,25 @@
             **/yaeger/javafx/**/*,
             **/yaeger/engine/scenes/splash/**/*,
         </sonar.exclusions>
-
     </properties>
+
+    <licenses>
+        <license>
+            <name>GNU GENERAL PUBLIC LICENSE, Version 3</name>
+            <url>https://www.gnu.org/licenses/gpl-3.0.html</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Meron Brouwer</name>
+            <email>meron.brouwer@han.nl</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/han-yaeger/yaeger/tree/master</url>
+    </scm>
 
     <build>
         <plugins>
@@ -108,6 +126,15 @@
                 <version>3.2.0</version>
                 <configuration>
                     <source>${java.version}</source>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <releaseProfiles>releases</releaseProfiles>
                 </configuration>
             </plugin>
         </plugins>
