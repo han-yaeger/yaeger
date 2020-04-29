@@ -44,7 +44,7 @@ public class MouseEventsScene extends StaticScene implements MousePressedListene
 
     @Override
     public void setupEntities() {
-        var backButton = new Back(showCase);
+        var backButton = new Back(showCase, new Location(20, 625));
         backButton.setFill(Color.BLACK);
         addEntity(backButton);
 

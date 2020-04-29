@@ -5,7 +5,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import nl.meron.showcase.YaegerShowCase;
 import nl.meron.waterworld.Waterworld;
-import nl.meron.yaeger.engine.entities.entity.AnchorPoint;
 import nl.meron.yaeger.engine.entities.entity.Location;
 
 public class Back extends Button {
