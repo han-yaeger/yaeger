@@ -33,7 +33,7 @@ jobs:
         run: mvn -B package --file pom.xml
 
       - name: Generate Code Coverage
-        run: mvn jacoco:prepare-agent install jacoco:report coveralls:report
+        run: mvn compile jacoco:prepare-agent install jacoco:report coveralls:report
 
 #      - name: Coveralls
 #        uses: coverallsapp/github-action@master
