@@ -29,11 +29,11 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Build with Maven
+      - name: Build and Test with Maven
         run: mvn -B package --file pom.xml
 
-#      - name: Generate Code Coverage
-#        run: mvn compile jacoco:prepare-agent install jacoco:report coveralls:report
+      - name: Generate Code Coverage
+        run: mvn jacoco:prepare-agent install jacoco:report coveralls:report
 
 #      - name: Coveralls
 #        uses: coverallsapp/github-action@master
