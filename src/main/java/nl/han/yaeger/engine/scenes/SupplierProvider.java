@@ -3,7 +3,7 @@ package nl.han.yaeger.engine.scenes;
 import nl.han.yaeger.engine.entities.EntitySupplier;
 
 /**
- * Provide a {@link SupplierProvider#getEntitySupplier()} that returns an instance of {@link EntitySupplier\}.
+ * Provide a {@link SupplierProvider#getEntitySupplier()} that returns an instance of {@link EntitySupplier}.
  */
 public interface SupplierProvider {
 

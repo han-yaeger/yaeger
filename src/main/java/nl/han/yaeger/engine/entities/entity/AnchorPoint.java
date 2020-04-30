@@ -1,7 +1,7 @@
 package nl.han.yaeger.engine.entities.entity;
 
 /**
- * An {@link AnchorPoint} denotes the point of an {@link Entity} which is being used for
+ * An {@link AnchorPoint} denotes the point of an {@link YaegerEntity} which is being used for
  * placement on the x,y-coordinate.
  */
 public enum AnchorPoint {

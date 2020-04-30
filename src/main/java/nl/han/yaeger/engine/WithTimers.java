@@ -7,7 +7,7 @@ import nl.han.yaeger.engine.exceptions.YaegerEngineException;
 /**
  * When implementing this interface, the {@link #setupTimers()} method needs to be implemented.
  * This interface can be used with both a {@link nl.han.yaeger.engine.scenes.YaegerScene} and en
- * {@link nl.han.yaeger.engine.entities.entity.Entity} and ensures that the method {@link #setupTimers()}
+ * {@link nl.han.yaeger.engine.entities.entity.YaegerEntity} and ensures that the method {@link #setupTimers()}
  * is being called during initialization of such an object.
  * <p>
  * THe body of {@link #setupTimers()} should be used to add instances of {@link Timer}, using the exposed
@@ -19,7 +19,7 @@ public interface WithTimers extends TimerListProvider {
 
     /**
      * Use this method to add any {@link Timer} that is required by the {@link nl.han.yaeger.engine.scenes.YaegerScene}
-     * or {@link nl.han.yaeger.engine.entities.entity.Entity} in which it is instantiated.
+     * or {@link nl.han.yaeger.engine.entities.entity.YaegerEntity} in which it is instantiated.
      *
      * @param timer The {@link Timer} that needs to be added.
      */

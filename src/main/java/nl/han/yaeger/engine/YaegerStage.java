@@ -8,7 +8,7 @@ import nl.han.yaeger.engine.scenes.YaegerScene;
 import nl.han.yaeger.guice.factories.SceneCollectionFactory;
 
 /**
- * A {@link YaegerStage encapsulates an JavaFX {@link Stage}. It defines the window
+ * A {@link YaegerStage} encapsulates an JavaFX {@link Stage}. It defines the window
  * that is being used and contains the {@link SceneCollection} that contains all instances
  * of {@link YaegerScene} that are part of the {@link YaegerApplication}.
  */

@@ -3,7 +3,7 @@ package nl.han.yaeger.engine.entities.entity;
 import nl.han.yaeger.engine.entities.entity.events.system.RemoveEntityEvent;
 
 /**
- * A {@code Removeable} denotes an {@code Object}, most likely an {@link Entity}, that is eligible for
+ * A {@code Removeable} denotes an {@code Object}, most likely an {@link YaegerEntity}, that is eligible for
  * removance from its parent.
  */
 public interface Removeable extends NodeProvider {

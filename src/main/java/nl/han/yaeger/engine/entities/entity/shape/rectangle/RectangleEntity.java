@@ -12,7 +12,7 @@ import java.util.Optional;
 
 /**
  * A {@link RectangleEntity} provides the option to use a drawable Rectangle as an
- * {@link nl.han.yaeger.engine.entities.entity.Entity}.
+ * {@link nl.han.yaeger.engine.entities.entity.YaegerEntity}.
  */
 public abstract class RectangleEntity extends YaegerEntity {
 

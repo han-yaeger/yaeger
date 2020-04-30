@@ -6,14 +6,14 @@ import nl.han.yaeger.engine.annotations.UpdatableProvider;
 public interface ContinuousRotatable extends Rotatable {
 
     /**
-     * Return the angle that should be added each update to the rotation of the {@link Entity}.
+     * Return the angle that should be added each update to the rotation of the {@link YaegerEntity}.
      *
      * @return the rotation angle in degrees as a {@code double}
      */
     double getRotationSpeed();
 
     /**
-     * Set the angle at which this {@link nl.han.yaeger.engine.entities.entity.Entity} will bew rotated
+     * Set the angle at which this {@link nl.han.yaeger.engine.entities.entity.YaegerEntity} will bew rotated
      * at each update.
      *
      * @param angle the angle as a {@code double}

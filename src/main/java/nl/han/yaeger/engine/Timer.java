@@ -2,7 +2,7 @@ package nl.han.yaeger.engine;
 
 /**
  * Abstract superclass of all timers that are available for both a {@link nl.han.yaeger.engine.scenes.YaegerScene}
- * and an {@link nl.han.yaeger.engine.entities.entity.Entity}.
+ * and an {@link nl.han.yaeger.engine.entities.entity.YaegerEntity}.
  * <p>
  * Extend this class and implement the method {@link #onAnimationUpdate(long)}.
  */

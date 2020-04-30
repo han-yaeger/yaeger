@@ -3,7 +3,7 @@ package nl.han.yaeger.engine.entities.entity.motion;
 import javafx.geometry.Point2D;
 
 /**
- * Base interface of all Objects that apply a motion to a subclass of {@link nl.han.yaeger.engine.entities.entity.Entity}.
+ * Base interface of all Objects that apply a motion to a subclass of {@link nl.han.yaeger.engine.entities.entity.YaegerEntity}.
  */
 public interface MotionApplier extends MotionModifier, LocationUpdater {
 

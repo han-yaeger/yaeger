@@ -23,23 +23,23 @@ public interface Placeable extends Bounded, Anchorable {
     }
 
     /**
-     * Set the new x-coordinate of this {@link Entity}. The x-coordinate will be of the top-left
-     * corner of the {@link javafx.geometry.BoundingBox} that is being used by this {@link Entity}.
+     * Set the new x-coordinate of this {@link YaegerEntity}. The x-coordinate will be of the top-left
+     * corner of the {@link javafx.geometry.BoundingBox} that is being used by this {@link YaegerEntity}.
      *
      * @param x the x-coordinate as a {@code double}.
      */
     void setOriginX(final double x);
 
     /**
-     * Set the new y-coordinate of this {@link Entity}.The y-coordinate will be of the top-left
-     * corner of the {@link javafx.geometry.BoundingBox} that is being used by this {@link Entity}.
+     * Set the new y-coordinate of this {@link YaegerEntity}.The y-coordinate will be of the top-left
+     * corner of the {@link javafx.geometry.BoundingBox} that is being used by this {@link YaegerEntity}.
      *
      * @param y the y-coordinate as a {@code double}.
      */
     void setOriginY(final double y);
 
     /**
-     * Place the {@link Entity} on the scene at its x,y-coordinate.
+     * Place the {@link YaegerEntity} on the scene at its x,y-coordinate.
      */
     void placeOnScene();
 }

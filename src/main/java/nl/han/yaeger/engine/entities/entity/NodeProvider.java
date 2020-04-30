@@ -10,9 +10,9 @@ import java.util.Optional;
 public interface NodeProvider {
 
     /**
-     * Return an {@link Optional} of the {@link Node} that is related to this {@link Entity}.
+     * Return an {@link Optional} of the {@link Node} that is related to this {@link YaegerEntity}.
      *
-     * @return an {@link Optional} of the {@link Node} that is related to this {@link Entity}
+     * @return an {@link Optional} of the {@link Node} that is related to this {@link YaegerEntity}
      */
     Optional<Node> getGameNode();
 
