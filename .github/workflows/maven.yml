@@ -31,3 +31,8 @@ jobs:
 
       - name: Build with Maven
         run: mvn package
+      
+      - name: Run Sonar analysis
+        run: mvn -Dsonar.login=${{ sectrets.SONAR_LOGIN }} verify sonar:sonar
+
+      
