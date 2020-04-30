@@ -6,7 +6,7 @@
 
 ![Java CI with Maven](https://github.com/han-yaeger/yaeger/workflows/Java%20CI%20with%20Maven/badge.svg)
 [![codebeat badge](https://codebeat.co/badges/e5806ed2-598a-4597-b85b-3940650927e3)](https://codebeat.co/projects/github-com-han-yaeger-yaeger-master)
-
+[![CodeFactor](https://www.codefactor.io/repository/github/han-yaeger/yaeger/badge)](https://www.codefactor.io/repository/github/han-yaeger/yaeger)
 
 
 Yaeger (Yet Another Education Game Engine Runtime) is a fully functional 2D game-engine that 
