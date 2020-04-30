@@ -15,10 +15,9 @@ Because Yaeger will be used in an educational context, versioning will be based 
 Thus version 2020.2021 will be used during the school year that start in September 2020 and ends in July 2021.
 
 ### Breaking changes
-It is likely that the API will break between different versions
+It is likely that the API will break between different versions.
 
 ## Documentation
-
 * API: [https://han-yaeger.github.io/yaeger/](https://han-yaeger.github.io/yaeger/)
 * Tutorial: [Yaeger tutorial](docs/tutorial.md)
 * Architecture: [Yaeger's architecture](docs/architecture.md)
