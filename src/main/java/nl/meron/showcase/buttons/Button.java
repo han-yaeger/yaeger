@@ -5,6 +5,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import nl.meron.showcase.YaegerShowCase;
 import nl.meron.showcase.scenes.selection.SelectionScene;
+import nl.meron.showcase.scenes.startstoptimerscene.timer.StartStopTimer;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.ButtonPressedListener;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseEnterListener;
@@ -37,5 +38,9 @@ public class Button extends TextEntity implements ButtonPressedListener, MouseEn
     public void onMouseExited() {
         setFill(SelectionScene.TEXT_COLOR);
         setCursor(Cursor.DEFAULT);
+    }
+
+    public boolean isPressed(MouseButton button){
+        return true;
     }
 }

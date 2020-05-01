@@ -1,9 +1,12 @@
 package nl.meron.showcase.scenes.startstoptimerscene.timer;
 
+import nl.meron.showcase.scenes.startstoptimerscene.StartStopTimerScene;
+
 public class StartStopTimer extends Thread{
 
     private long startTime;
     private boolean started;
+    private StartStopTimerScene scene;
 
     public void startThread(){
         this.startTime = System.currentTimeMillis();
@@ -30,6 +33,7 @@ public class StartStopTimer extends Thread{
 
     public void stopThread() {
         this.started = false;
+        this.getTime();
     }
 
 }
