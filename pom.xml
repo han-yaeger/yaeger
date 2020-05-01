@@ -38,10 +38,6 @@
         </developer>
     </developers>
 
-    <scm>
-        <url>https://github.com/han-yaeger/yaeger/tree/master</url>
-    </scm>
-
     <build>
         <plugins>
             <plugin>
