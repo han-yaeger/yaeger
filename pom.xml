@@ -4,7 +4,7 @@
 
     <groupId>nl.han</groupId>
     <artifactId>yaeger</artifactId>
-    <version>2019.2020-alpha0.2</version>
+    <version>2019.2020-alpha0.3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>yaeger</name>
