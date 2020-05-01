@@ -27,12 +27,15 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/site/apidocs
 
+      - name: Build Project
+        run: mvn package
+
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
         with:
-            artifacts: "target/*.jar"
-            bodyFile: "release.md"
-            prerelease: true
-            token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: "target/*.jar"
+          bodyFile: "release.md"
+          prerelease: true
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       
