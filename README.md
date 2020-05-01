@@ -4,6 +4,7 @@
 [![codebeat badge](https://codebeat.co/badges/e5806ed2-598a-4597-b85b-3940650927e3)](https://codebeat.co/projects/github-com-han-yaeger-yaeger-master)
 [![CodeFactor](https://www.codefactor.io/repository/github/han-yaeger/yaeger/badge)](https://www.codefactor.io/repository/github/han-yaeger/yaeger)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=han-yaeger_yaeger&metric=alert_status)](https://sonarcloud.io/dashboard?id=han-yaeger_yaeger)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 Yaeger (Yet Another Education Game Engine Runtime) is a fully functional 2D game-engine that 
 requires only a traditional Object Oriented style of programming. It is based on JavaFX and 
@@ -32,3 +33,6 @@ exposed through it's API.
 Contributing to Yaeger is encouraged and we would love to review your Pull Requests. Either
 pick up one of the Issues or implement a feature you've been missing. Ensure that you feature does not require modern 
 Java features to be exposed through the API. 
+
+## License
+The code and documentation in this project are released under the [GNU General Public License v3.0](LICENSE)
