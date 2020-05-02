@@ -13,6 +13,6 @@ public class ResourceNotAvailableException extends RuntimeException {
      */
     public ResourceNotAvailableException(final String resource) {
 
-        super("Resource " + resource + " can not be found. Ensure that it is placed in resource/ folder.");
+        super("Resource " + resource + " can not be found. Ensure that it is placed in resources/ folder.");
     }
 }
