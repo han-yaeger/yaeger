@@ -23,7 +23,7 @@ public class CollisionDelegate {
     }
 
     /**
-     * Register an {@link nl.han.yaeger.engine.entities.entity.YaegerEntity} to be evaluated for collision detection. The {@link Entity} will only be added
+     * Register an {@link nl.han.yaeger.engine.entities.entity.YaegerEntity} to be evaluated for collision detection. The {@link YaegerEntity} will only be added
      * if
      *
      * @param entity the {@link YaegerEntity} that should be registered

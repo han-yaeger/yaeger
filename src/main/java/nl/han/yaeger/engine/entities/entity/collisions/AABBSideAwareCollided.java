@@ -4,14 +4,14 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 
 /**
- * A {@link AABBSideAwareCollided} represents an {@link nl.han.yaeger.engine.entities.entity.Entity} that can be collided with by a
+ * A {@link AABBSideAwareCollided} represents an {@link nl.han.yaeger.engine.entities.entity.YaegerEntity} that can be collided with by a
  * {@link Collider} and that is aware of which of its side the {@link Collider} had collided with. In such a case,
- * the {@link AABBSideAwareCollided} is the {@link nl.han.yaeger.engine.entities.entity.Entity} thatgets notified of the collision and of the side.
+ * the {@link AABBSideAwareCollided} is the {@link nl.han.yaeger.engine.entities.entity.YaegerEntity} thatgets notified of the collision and of the side.
  *
  * <p>Each Game world Update a {@link AABBSideAwareCollided} is checked against all instances of{@link Collider}. If many instances
  * of {@link Collider} are part of the {@link nl.han.yaeger.engine.scenes.YaegerScene}, this
  * could lead to many calculations, which could slow down the game and framerate. Thus ensure only those instances of
- * {@link nl.han.yaeger.engine.entities.entity.Entity} that really need to be part of the collision detection implement
+ * {@link nl.han.yaeger.engine.entities.entity.YaegerEntity} that really need to be part of the collision detection implement
  * the {@link AABBSideAwareCollided} or {@link Collider} interfaces.
  * <p>
  * If it is not required to know the side of the collision, implement the {@link AABBCollided} interface, which will save you valuable
@@ -23,6 +23,7 @@ public interface AABBSideAwareCollided extends AABBCollided {
      * This method is called if a collision has occurred.
      *
      * @param collidingObject The EntityCollection you are colliding with.
+     * @param side            The side with which a collision has occurred.
      */
     void onCollision(final Collider collidingObject, final CollisionSide side);
 

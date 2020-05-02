@@ -8,7 +8,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * The {@link AnnotationProcessor} is responsible for processing Yaeger specific annotations.
+ * The {@link AnnotationProcessor} is responsible for processing Yaeger specific annotations. Currently
+ * only the following annotations are supported and will be processed:
+ *
+ * <ul>
+ *     <li>{@link OnActivation}</li>
+ *     <li>{@link OnPostActivation}</li>
+ *     <li>{@link UpdatableProvider}</li>
+ * </ul>
  */
 public class AnnotationProcessor {
 
@@ -30,8 +37,8 @@ public class AnnotationProcessor {
         invoke(gameObject, OnPostActivation.class);
     }
 
-    private void invoke(final Object gameObject, Class annotation) {
-        for (Method method : gameObject.getClass().getMethods()) {
+    private void invoke(final Object gameObject, final Class annotation) {
+        for (var method : gameObject.getClass().getMethods()) {
             if (method.isAnnotationPresent(annotation)) {
                 try {
                     method.invoke(gameObject);
@@ -42,15 +49,24 @@ public class AnnotationProcessor {
         }
     }
 
+    /**
+     * When calling this method, the {@link Object} provided als its parameter will be scanned for
+     * the annotation {@link UpdatableProvider}, if the {@link Object} is an {@link UpdateDelegator}.
+     *
+     * @param gameObject The object that will be scanned for the {@link UpdatableProvider} annotation.
+     */
     public void configureUpdateDelegators(final Object gameObject) {
         if (gameObject instanceof UpdateDelegator) {
             var updateDelegator = (UpdateDelegator) gameObject;
-            for (Method method : gameObject.getClass().getMethods()) {
+            for (var method : gameObject.getClass().getMethods()) {
                 if (method.isAnnotationPresent(UpdatableProvider.class)) {
                     UpdatableProvider annotation = method.getAnnotation(UpdatableProvider.class);
                     try {
-                        Updatable delegatedUpdatable = (Updatable) method.invoke(updateDelegator);
-                        updateDelegator.getUpdater().addUpdatable(delegatedUpdatable, annotation.asFirst());
+                        var providedUpdatable = method.invoke(updateDelegator);
+                        if (providedUpdatable instanceof Updatable) {
+                            var delegatedUpdatable = (Updatable) providedUpdatable;
+                            updateDelegator.getUpdater().addUpdatable(delegatedUpdatable, annotation.asFirst());
+                        }
                     } catch (IllegalAccessException | InvocationTargetException | ClassCastException e) {
                         throw new YaegerEngineException(e);
                     }
