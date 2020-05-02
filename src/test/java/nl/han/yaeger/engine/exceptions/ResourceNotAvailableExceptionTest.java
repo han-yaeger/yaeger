@@ -17,6 +17,6 @@ class ResourceNotAvailableExceptionTest {
 
         // Assert
         var message = sut.getMessage();
-        assertEquals("Resource " + resource + " can not be found. Ensure that it is placed in resource/ folder.", message);
+        assertEquals("Resource " + resource + " can not be found. Ensure that it is placed in resources/ folder.", message);
     }
 }
