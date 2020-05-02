@@ -1,4 +1,5 @@
 module nl.han.yaeger {
+    requires transitive javafx.base;
     requires transitive javafx.controls;
     requires transitive javafx.media;
     requires transitive javafx.graphics;
@@ -23,4 +24,6 @@ module nl.han.yaeger {
     exports nl.han.yaeger.engine.entities.entity.shape.rectangle;
     exports nl.han.yaeger.engine.entities.entity.motion;
     exports nl.han.yaeger.engine.scenes.splash;
+    exports nl.han.yaeger.engine.entities.entity.collisions;
+    exports nl.han.yaeger.engine.entities.entity.events.userinput;
 }
