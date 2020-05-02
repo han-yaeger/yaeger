@@ -157,10 +157,10 @@ class DynamicSceneTest {
         var updatable = sut.entityCollectionUpdatable();
 
         // Act
-        updatable.update(0l);
+        updatable.update(0L);
 
         // Verify
-        verify(entityCollection).update(0l);
+        verify(entityCollection).update(0L);
     }
 
     @Test

@@ -17,7 +17,7 @@ import static org.mockito.Mockito.verify;
 
 class WithSpawnersTest {
 
-    public static final long TIMESTAMP = 0l;
+    public static final Long TIMESTAMP = 0l;
     private WithSpawnersImpl sut;
     private List<EntitySpawner> spawners;
     private Injector injector;

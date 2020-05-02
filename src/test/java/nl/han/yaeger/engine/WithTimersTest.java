@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 
 class WithTimersTest {
 
-    public static final long TIMESTAMP = 0l;
+    public static final Long TIMESTAMP = 0l;
     private WithTimersImpl sut;
     private List<Timer> timers;
 
