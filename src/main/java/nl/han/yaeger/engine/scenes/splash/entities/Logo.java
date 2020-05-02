@@ -16,6 +16,6 @@ public class Logo extends SpriteEntity {
      * @param size     The {@link Size} of the {@link Logo}.
      */
     public Logo(final Location location, final Size size) {
-        super("logo.png", location, size);
+        super("images/logo.png", location, size);
     }
 }
