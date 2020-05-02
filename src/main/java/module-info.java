@@ -4,7 +4,6 @@ module nl.han.yaeger {
     requires transitive javafx.media;
     requires transitive javafx.graphics;
     requires transitive com.google.guice;
-    requires java.base;
 
     exports nl.han.yaeger.engine;
     exports nl.han.yaeger.engine.annotations;
