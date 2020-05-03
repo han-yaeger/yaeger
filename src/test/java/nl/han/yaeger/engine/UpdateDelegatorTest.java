@@ -6,7 +6,7 @@ import static org.mockito.Mockito.*;
 
 class UpdateDelegatorTest {
 
-    private final long TIMESTAMP = 0l;
+    private final long TIMESTAMP = 0L;
 
     @Test
     void updateGetsDelegated() {
