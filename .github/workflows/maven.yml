@@ -34,4 +34,4 @@ jobs:
         run: mvn package
 
       - name: Run Sonar analysis
-        run: mvn -Dsonar.login=${{ secrets.SONAR_LOGIN }} verify sonar:sonar
+        run: mvn -Dsonar.login=${{ secrets.SONAR_LOGIN }} jacoco:prepare-agent install jacoco:report sonar:sonar
