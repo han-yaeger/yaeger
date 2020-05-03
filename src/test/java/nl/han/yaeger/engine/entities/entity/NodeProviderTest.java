@@ -37,17 +37,19 @@ class NodeProviderTest {
         // Assert
         verify(node).toBack();
     }
+
+    private class NodeProviderImpl implements NodeProvider {
+        private Optional<Node> node;
+
+        @Override
+        public Optional<Node> getGameNode() {
+            return node;
+        }
+
+        public void setNode(Optional<Node> node) {
+            this.node = node;
+        }
+    }
 }
 
-class NodeProviderImpl implements NodeProvider {
-    private Optional<Node> node;
 
-    @Override
-    public Optional<Node> getGameNode() {
-        return node;
-    }
-
-    public void setNode(Optional<Node> node) {
-        this.node = node;
-    }
-}

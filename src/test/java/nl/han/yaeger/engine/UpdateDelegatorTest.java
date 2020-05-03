@@ -1,6 +1,7 @@
 package nl.han.yaeger.engine;
 
 import org.junit.jupiter.api.Test;
+
 import static org.mockito.Mockito.*;
 
 class UpdateDelegatorTest {
@@ -20,18 +21,20 @@ class UpdateDelegatorTest {
         // Assert
         verify(updater).update(TIMESTAMP);
     }
+
+    private class UpdateDelegatorImpl implements UpdateDelegator {
+
+        private Updater updater;
+
+        @Override
+        public Updater getUpdater() {
+            return updater;
+        }
+
+        public void setUpdater(Updater updater) {
+            this.updater = updater;
+        }
+    }
 }
 
-class UpdateDelegatorImpl implements UpdateDelegator {
 
-    private Updater updater;
-
-    @Override
-    public Updater getUpdater() {
-        return updater;
-    }
-
-    public void setUpdater(Updater updater) {
-        this.updater = updater;
-    }
-}

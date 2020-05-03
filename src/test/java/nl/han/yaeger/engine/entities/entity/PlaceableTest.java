@@ -31,43 +31,45 @@ class PlaceableTest {
         assertEquals(x, sut.getOriginX());
         assertEquals(y, sut.getOriginY());
     }
+
+    private class PlaceableImpl implements Placeable {
+
+        private Node node;
+
+        @Override
+        public Optional<Node> getGameNode() {
+            return Optional.of(this.node);
+        }
+
+        public void setNode(Node node) {
+            this.node = node;
+        }
+
+        @Override
+        public void setAnchorPoint(AnchorPoint anchorPoint) {
+            // Not required here.
+        }
+
+        @Override
+        public AnchorPoint getAnchorPoint() {
+            return null;
+        }
+
+        @Override
+        public void setOriginX(double x) {
+            // Not required here.
+        }
+
+        @Override
+        public void setOriginY(double y) {
+            // Not required here.
+        }
+
+        @Override
+        public void placeOnScene() {
+            // Not required here.
+        }
+    }
+
 }
 
-class PlaceableImpl implements Placeable {
-
-    private Node node;
-
-    @Override
-    public Optional<Node> getGameNode() {
-        return Optional.of(this.node);
-    }
-
-    public void setNode(Node node) {
-        this.node = node;
-    }
-
-    @Override
-    public void setAnchorPoint(AnchorPoint anchorPoint) {
-        // Not required here.
-    }
-
-    @Override
-    public AnchorPoint getAnchorPoint() {
-        return null;
-    }
-
-    @Override
-    public void setOriginX(double x) {
-        // Not required here.
-    }
-
-    @Override
-    public void setOriginY(double y) {
-        // Not required here.
-    }
-
-    @Override
-    public void placeOnScene() {
-        // Not required here.
-    }
-}

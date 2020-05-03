@@ -35,5 +35,3 @@ jobs:
 
       - name: Run Sonar analysis
         run: mvn -Dsonar.login=${{ secrets.SONAR_LOGIN }} verify sonar:sonar
-
-      

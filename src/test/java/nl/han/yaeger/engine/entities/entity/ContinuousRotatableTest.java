@@ -22,7 +22,7 @@ class ContinuousRotatableTest {
 
         // Act
         var updatable = rotatable.applyRotation();
-        updatable.update(1l);
+        updatable.update(1L);
 
         // Assert
         verify(node).setRotate(37d);
@@ -53,5 +53,4 @@ class ContinuousRotatableTest {
             this.rotationAngle = rotationAngle;
         }
     }
-
 }

@@ -182,26 +182,26 @@ class BoundedTest {
         // Assert
         Assertions.assertEquals(height, returnedHeight);
     }
-}
 
-class BoundedImpl implements Bounded {
+    private class BoundedImpl implements Bounded {
 
-    private Node node;
+        private Node node;
 
-    @Override
-    public Optional<Node> getGameNode() {
-        return Optional.of(node);
+        @Override
+        public Optional<Node> getGameNode() {
+            return Optional.of(node);
+        }
+
+        public void setNode(Node node) {
+            this.node = node;
+        }
     }
 
-    public void setNode(Node node) {
-        this.node = node;
-    }
-}
+    private class EmptyNodeBoundedImpl implements Bounded {
 
-class EmptyNodeBoundedImpl implements Bounded {
-
-    @Override
-    public Optional<Node> getGameNode() {
-        return Optional.empty();
+        @Override
+        public Optional<Node> getGameNode() {
+            return Optional.empty();
+        }
     }
 }
