@@ -11,12 +11,11 @@ public class StartStopTimer extends Thread {
     public void startThread(){
         this.startTime = System.currentTimeMillis();
         this.started = true;
-        this.start();
     }
 
     public void run() {
         while (started) {
-
+            this.start();
         }
     }
 

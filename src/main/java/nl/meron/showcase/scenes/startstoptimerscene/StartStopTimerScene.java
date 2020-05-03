@@ -13,12 +13,15 @@ import nl.meron.yaeger.engine.entities.entity.AnchorPoint;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 
+import java.awt.*;
+
 
 public class StartStopTimerScene extends ShowCaseScene {
 
     private YaegerShowCase showCase;
     private TextEntity displayNumberText;
     private StartStopTimer s = new StartStopTimer();
+    private int[] curTime;
 
 
     public StartStopTimerScene(YaegerShowCase showCase){
@@ -43,7 +46,7 @@ public class StartStopTimerScene extends ShowCaseScene {
         var backButton = new Back(showCase);
         addEntity(backButton);
 
-        Start startButton = new Start(new Location(625, 625), "Start", s);
+        Start startButton = new Start(new Location(575, 625), "Start", s);
         startButton.setFont(Font.font(Waterworld.FONT, FontWeight.BOLD, 50));
         startButton.setFill(Color.SNOW);
         addEntity(startButton);
@@ -59,8 +62,6 @@ public class StartStopTimerScene extends ShowCaseScene {
         displayNumberText.setFill(Color.YELLOW);
         displayNumberText.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(displayNumberText);
-
-
     }
 
     @Override
@@ -68,11 +69,10 @@ public class StartStopTimerScene extends ShowCaseScene {
         return showCase;
     }
 
-    public void update() {
-        int[] curTime;
-        while(true){
-            curTime = s.getTime();
-            displayNumberText.setText(curTime[0] + ":" + curTime[1] + ":" + curTime[2] + ":" + curTime[3]);
-        }
+    public void update(){
+        curTime = s.getTime();
+
+        displayNumberText.setText(curTime[0] + ":" + curTime[1] + ":" + curTime[2] + ":" + curTime[3]);
     }
+
 }
