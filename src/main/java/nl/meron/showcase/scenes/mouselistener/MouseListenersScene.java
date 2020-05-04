@@ -1,8 +1,10 @@
-package nl.meron.showcase.scenes.mouseevents;
+package nl.meron.showcase.scenes.mouselistener;
 
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -14,12 +16,11 @@ import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseExitListener
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MousePressedListener;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.StaticScene;
-
-import java.awt.*;
+import java.awt.event.MouseMotionListener;
 import java.util.Optional;
 import java.util.Set;
 
-public class MouseEventsScene extends StaticScene implements MousePressedListener, MouseEnterListener, MouseExitListener {
+public class MouseListenersScene extends StaticScene implements MousePressedListener, MouseEnterListener, MouseExitListener, MouseMotionListener {
 
     private double x_coordinate = 0;
     private double y_coordinate = 0;
@@ -29,9 +30,8 @@ public class MouseEventsScene extends StaticScene implements MousePressedListene
     public TextEntity x_val = new TextEntity(new Location(820,625), Double.toString(x_coordinate));
     public TextEntity y_val = new TextEntity(new Location(920,625), Double.toString(y_coordinate));
     private YaegerShowCase showCase;
-    private Point p;
 
-    public MouseEventsScene(YaegerShowCase showCase) {
+    public MouseListenersScene(YaegerShowCase showCase) {
         this.showCase = showCase;
     }
 
@@ -41,8 +41,10 @@ public class MouseEventsScene extends StaticScene implements MousePressedListene
         scene.setOnMousePressed(event -> onMousePressed(event, event.getX(), event.getY()));
         scene.setOnMouseEntered(event -> onMouseEntered());
         scene.setOnMouseExited(event -> onMouseExited());
+        scene.setOnMouseMoved(this::mouseMoved);
 
-        setBackgroundColor(Color.BLANCHEDALMOND);
+
+        setBackgroundColor(Color.FLORALWHITE);
     }
 
     @Override
@@ -51,7 +53,7 @@ public class MouseEventsScene extends StaticScene implements MousePressedListene
         backButton.setFill(Color.BLACK);
         addEntity(backButton);
 
-        TextEntity instructionText = new TextEntity(new Location(20, 30), "Click anywhere to see the x and y coordinates for that point....");
+        TextEntity instructionText = new TextEntity(new Location(20, 30), "Move your mouse in the scene to track its location...");
         instructionText.setFont(TEXT_FONT);
         addEntity(instructionText);
 
@@ -72,6 +74,8 @@ public class MouseEventsScene extends StaticScene implements MousePressedListene
         y_val.setFont(TEXT_FONT);
         addEntity(x_val);
         addEntity(y_val);
+
+
     }
 
     @Override
@@ -87,11 +91,10 @@ public class MouseEventsScene extends StaticScene implements MousePressedListene
     }
 
     @Override
-    public void onMousePressed(javafx.scene.input.MouseEvent event, Double xCoordinates, Double yCoordinates) {
+    public void onMousePressed(MouseEvent event, Double xCoordinates, Double yCoordinates) {
         x_val.setText(Double.toString(xCoordinates));
         y_val.setText(Double.toString(yCoordinates));
     }
-
 
     @Override
     public Optional<Node> getGameNode() {
@@ -101,6 +104,21 @@ public class MouseEventsScene extends StaticScene implements MousePressedListene
     @Override
     public void onInputChanged(Set<KeyCode> input) {
 
+    }
+
+    @Override
+    public void mouseDragged(java.awt.event.MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(java.awt.event.MouseEvent e) {
+
+    }
+
+    private void mouseMoved(MouseEvent e) {
+        x_val.setText(Double.toString(e.getX()));
+        y_val.setText(Double.toString(e.getY()));
     }
 
 }

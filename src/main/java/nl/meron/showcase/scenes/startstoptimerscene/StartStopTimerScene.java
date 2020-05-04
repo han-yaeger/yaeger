@@ -13,7 +13,6 @@ import nl.meron.yaeger.engine.entities.entity.AnchorPoint;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 
-import java.awt.*;
 
 
 public class StartStopTimerScene extends ShowCaseScene {
@@ -21,7 +20,6 @@ public class StartStopTimerScene extends ShowCaseScene {
     private YaegerShowCase showCase;
     private TextEntity displayNumberText;
     private StartStopTimer s = new StartStopTimer();
-    private int[] curTime;
 
 
     public StartStopTimerScene(YaegerShowCase showCase){
@@ -70,7 +68,7 @@ public class StartStopTimerScene extends ShowCaseScene {
     }
 
     public void update(){
-        curTime = s.getTime();
+        int[] curTime = s.getTime();
 
         displayNumberText.setText(curTime[0] + ":" + curTime[1] + ":" + curTime[2] + ":" + curTime[3]);
     }
