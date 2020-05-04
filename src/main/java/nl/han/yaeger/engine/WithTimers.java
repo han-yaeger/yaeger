@@ -31,6 +31,10 @@ public interface WithTimers extends TimerListProvider {
         }
     }
 
+    /**
+     * Annotated with {@link OnActivation}, this method will be called during activation. First it will clear
+     * any timers from a previous activation, after which it will call {@link #setupTimers()}.
+     */
     @OnActivation
     default void initTimers() {
         getTimers().clear();

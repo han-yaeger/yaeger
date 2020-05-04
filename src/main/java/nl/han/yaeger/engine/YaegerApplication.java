@@ -12,7 +12,7 @@ import nl.han.yaeger.guice.YaegerModule;
  * two lifecycle methods will become available: {@link #initializeGame()} and {@link #setupScenes()}. The methods should be used
  * for any further configuration.
  * <p>
- * The constructor of the extending class should be the default and empty constructor. Furthermore, the extending class
+ * The constructor of the extending class should be the default empty constructor. Furthermore, the extending class
  * should have a main-method that should look as follows:
  * <pre>{@code
  *      public static void main(String[] args) {
@@ -30,7 +30,7 @@ public abstract class YaegerApplication extends Application {
     /**
      * Set the {@link Size}, being the {@code width} and {@code height} of the game.
      *
-     * @param size A {@link Size} object that encapsulates the {@code width} and {@code height} of the game
+     * @param size A {@link Size} object that encapsulates the {@code width} and {@code height} of the game.
      */
     protected void setSize(final Size size) {
         yaegerStage.setSize(size);
@@ -39,7 +39,7 @@ public abstract class YaegerApplication extends Application {
     /**
      * Set the title of the Game.
      *
-     * @param title A {@link String} containing the title of the Game
+     * @param title A {@link String} containing the title of the Game.
      */
     protected void setGameTitle(final String title) {
         yaegerStage.setTitle(title);
@@ -68,11 +68,11 @@ public abstract class YaegerApplication extends Application {
      * Use this method for game initialization code.
      *
      * <p>
-     * Initialization options are:
-     *     <ul>
-     *         <li>setSize()</li>
-     *         <li>setGameTitle()</li>
-     *     </ul>
+     * ialization options are:
+     * <ul>
+     *     <li>setSize()</li>
+     *     <li>setGameTitle()</li>
+     * </ul>
      */
     protected abstract void initializeGame();
 
@@ -97,10 +97,9 @@ public abstract class YaegerApplication extends Application {
     }
 
     /**
-     * Stop the Game and close the Game.
+     * Stop and close the Game.
      */
     public void quitGame() {
         yaegerStage.quit();
     }
-
 }
