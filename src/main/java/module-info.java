@@ -25,6 +25,7 @@ module nl.han.yaeger {
     exports nl.han.yaeger.engine.scenes.splash;
     exports nl.han.yaeger.engine.entities.entity.collisions;
     exports nl.han.yaeger.engine.entities.entity.events.userinput;
+    exports nl.han.yaeger.engine.styles;
 
     opens fonts;
     opens images;
