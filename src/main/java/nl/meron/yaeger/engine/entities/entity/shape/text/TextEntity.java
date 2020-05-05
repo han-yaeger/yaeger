@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import nl.meron.yaeger.engine.entities.entity.Location;
-import nl.meron.yaeger.engine.entities.entity.JavaFXEntity;
+import nl.meron.yaeger.engine.entities.entity.YaegerEntity;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 
 import java.util.Optional;
@@ -18,7 +18,7 @@ import java.util.Optional;
  * A {@code TextEntity} can be used to display a line of text on a {@link YaegerScene}. The text will be placed, using
  * the top left corner as its anchor point.
  */
-public class TextEntity extends JavaFXEntity {
+public class TextEntity extends YaegerEntity {
 
     private Color fill;
     private Font font;
@@ -91,10 +91,15 @@ public class TextEntity extends JavaFXEntity {
         text.ifPresentOrElse(text -> text.setY(y), () -> initialY = y);
     }
 
+
+    public String getText() {
+        return this.initialText;
+    }
+
     @Override
     public void init(final Injector injector) {
         super.init(injector);
-
+        
         text.get().setTextOrigin(VPos.TOP);
 
         if (font != null) {

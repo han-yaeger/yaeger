@@ -2,15 +2,16 @@ package nl.meron.showcase.buttons;
 
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import nl.meron.showcase.YaegerShowCase;
 import nl.meron.showcase.scenes.selection.SelectionScene;
 import nl.meron.yaeger.engine.entities.entity.Location;
+import nl.meron.yaeger.engine.entities.entity.events.userinput.ButtonPressedListener;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseEnterListener;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.MouseExitListener;
-import nl.meron.yaeger.engine.entities.entity.events.userinput.MousePressedListener;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 
-public class Button extends TextEntity implements MousePressedListener, MouseEnterListener, MouseExitListener {
+public class Button extends TextEntity implements ButtonPressedListener, MouseEnterListener, MouseExitListener {
 
     protected YaegerShowCase showCase;
     private int scene;
@@ -22,7 +23,7 @@ public class Button extends TextEntity implements MousePressedListener, MouseEnt
     }
 
     @Override
-    public void onMousePressed(MouseButton button, Double xCoordinates, Double yCoordinates) {
+    public void onButtonPressed(MouseButton button) {
         showCase.setActiveScene(scene);
     }
 

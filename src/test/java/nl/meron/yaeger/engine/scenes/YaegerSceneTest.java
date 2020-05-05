@@ -84,7 +84,7 @@ class YaegerSceneTest {
         }
 
         @Override
-        public void postActivation() {
+        public void postActivate() {
 
         }
 
@@ -124,7 +124,7 @@ class YaegerSceneTest {
         }
 
         @Override
-        public void configure() {
+        public void activate() {
 
         }
 

@@ -3,6 +3,7 @@ package nl.meron.yaeger.engine;
 import com.google.inject.Guice;
 import javafx.application.Application;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 import nl.meron.yaeger.guice.YaegerModule;
@@ -102,5 +103,4 @@ public abstract class YaegerApplication extends Application {
     public void quitGame() {
         yaegerStage.quit();
     }
-
 }

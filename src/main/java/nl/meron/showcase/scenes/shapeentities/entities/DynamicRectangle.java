@@ -13,6 +13,7 @@ public class DynamicRectangle extends DynamicRectangleEntity implements SceneBor
         super(initialPosition);
         setWidth(40);
         setHeight(80);
+        setOpacity(0.8);
         setFill(Color.PALEGREEN);
         setStrokeColor(Color.SPRINGGREEN);
         setStrokeWidth(4);

@@ -20,13 +20,13 @@ public interface NodeProvider {
      * Bring the {@link Node} to the front of the stack of nodes.
      */
     default void toFront() {
-        getGameNode().ifPresent(node -> node.toFront());
+        getGameNode().ifPresent(Node::toFront);
     }
 
     /**
      * Bring the {@link Node} to the back of the stack of nodes.
      */
     default void toBack() {
-        getGameNode().ifPresent(node -> node.toBack());
+        getGameNode().ifPresent(Node::toBack);
     }
 }

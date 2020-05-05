@@ -9,8 +9,9 @@ import nl.meron.waterworld.entities.game.spawners.BubbleSpawner;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.DynamicScene;
+import nl.meron.yaeger.engine.scenes.WithSpawners;
 
-public abstract class Level extends DynamicScene {
+public abstract class Level extends DynamicScene implements WithSpawners {
 
     private static final String BACKGROUND_AUDIO = "waterworld/audio/waterworld.mp3";
 
@@ -66,10 +67,8 @@ public abstract class Level extends DynamicScene {
         updateBubblesPoppedText();
     }
 
-    @Override
-    protected void setupSpawners() {
-        var spawner = new BubbleSpawner(getWidth(), getHeight(), this);
-        registerSpawner(spawner);
+    public void setupEntitySpawners() {
+        addEntitySpawner(new BubbleSpawner(getWidth(), getHeight(), this));
     }
 
     /**

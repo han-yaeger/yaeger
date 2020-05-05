@@ -25,11 +25,6 @@ public class LevelOne extends DynamicScene implements ScoreKeeper {
     private TextEntity playerTwo;
 
     @Override
-    protected void setupSpawners() {
-
-    }
-
-    @Override
     public void setupScene() {
         playerOnePoints = 0;
         playerTwoPoints = 0;
