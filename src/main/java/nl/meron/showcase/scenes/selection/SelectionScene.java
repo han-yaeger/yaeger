@@ -62,6 +62,10 @@ public class SelectionScene extends StaticScene {
         styleText(mouseEventsScene);
         addEntity(mouseEventsScene);
 
+        var brightnessScene = new Button(new Location(20, 250), "7) Brightness & Contrast Demo", showCase, YaegerShowCase.BRIGHTNESS_DEMO);
+        styleText(brightnessScene);
+        addEntity(brightnessScene);
+
     }
 
     @Override

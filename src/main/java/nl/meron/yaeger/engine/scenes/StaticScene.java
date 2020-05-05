@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -38,6 +39,10 @@ public abstract class StaticScene implements YaegerScene, KeyListener, SupplierP
 
     protected EntityCollection entityCollection;
 
+    protected ColorAdjust colorAdjust = new ColorAdjust();
+    protected double currentBrightness = 0.1;
+    protected double currentContrast = 0.1;
+
     private EntitySupplier entitySupplier;
     private KeyListenerDelegate keyListenerDelegate;
     private BackgroundDelegate backgroundDelegate;
@@ -46,7 +51,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener, SupplierP
 
     private Stage stage;
     private Scene scene;
-    private Group root;
+    protected Group root;
     Debugger debugger;
 
     @Override
@@ -56,6 +61,9 @@ public abstract class StaticScene implements YaegerScene, KeyListener, SupplierP
 
     @Override
     public void activate() {
+        colorAdjust.setBrightness(currentBrightness);
+        colorAdjust.setContrast(currentContrast);
+        root.setEffect(colorAdjust);
         scene = sceneFactory.create(root);
         entityCollection = entityCollectionFactory.create(root);
         injector.injectMembers(entityCollection);
@@ -95,7 +103,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener, SupplierP
      *
      * @param input A {@link Set} containing all keys currently pressed.
      */
-    protected abstract void onInputChanged(final Set<KeyCode> input);
+    public abstract void onInputChanged(final Set<KeyCode> input);
 
     @Override
     public EntityCollection getEntityCollection() {

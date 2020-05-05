@@ -105,6 +105,7 @@ class BoundedTest {
         Assertions.assertEquals(maxX, rightSideX);
     }
 
+
     @Test
     void getCenterXReturnValueFromBounds() {
         // Arrange
@@ -143,6 +144,7 @@ class BoundedTest {
         // Assert
         Assertions.assertEquals(minY, bottomY);
     }
+
 
     @Test
     void getCenterYReturnValueFromBounds() {
