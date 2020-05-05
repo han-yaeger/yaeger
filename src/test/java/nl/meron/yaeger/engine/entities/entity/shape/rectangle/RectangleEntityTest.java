@@ -105,6 +105,36 @@ class RectangleEntityTest {
     }
 
     @Test
+    void setOriginXSetsCorrectlyAfterInit() {
+        var sut = new RectangleEntityTest.RectangleEntityImpl(LOCATION);
+        sut.setRectangle(rectangle);
+        sut.init(injector);
+        sut.setOriginX(LOCATION.getX());
+
+        verify(rectangle).setX(LOCATION.getX());
+    }
+
+    @Test
+    void setOriginYSetsCorrectlyAfterInit() {
+        var sut = new RectangleEntityTest.RectangleEntityImpl(LOCATION);
+        sut.setRectangle(rectangle);
+        sut.init(injector);
+        sut.setOriginY(LOCATION.getY());
+
+        verify(rectangle).setY(LOCATION.getY());
+    }
+
+    @Test
+    void setWidthStoresCorrectlyBeforeInit() {
+        var sut = new RectangleEntityTest.RectangleEntityImpl(LOCATION);
+        sut.setWidth(WIDTH);
+        sut.setRectangle(rectangle);
+        sut.init(injector);
+
+        verify(rectangle).setWidth(WIDTH);
+    }
+
+    @Test
     void getLeftXTakesTheStrokeWidthIntoAccount() {
         // Arrange
         var sut = new RectangleEntityImpl(LOCATION);

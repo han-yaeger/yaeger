@@ -6,15 +6,15 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import nl.meron.yaeger.engine.entities.entity.Location;
-import nl.meron.yaeger.engine.entities.entity.JavaFXEntity;
+import nl.meron.yaeger.engine.entities.entity.YaegerEntity;
 
 import java.util.Optional;
 
 /**
  * A {@link CircleEntity} provides the option to use a drawable Rectangle as an
- * {@link nl.meron.yaeger.engine.entities.entity.Entity}.
+ * {@link nl.meron.yaeger.engine.entities.entity.YaegerEntity}.
  */
-public abstract class CircleEntity extends JavaFXEntity {
+public abstract class CircleEntity extends YaegerEntity {
 
     private Optional<Circle> circle;
     private Color strokeColor;
