@@ -1,8 +1,8 @@
 package nl.meron.yaeger.engine.entities.tilemap;
 
 import nl.meron.yaeger.engine.Size;
-import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Location;
+import nl.meron.yaeger.engine.entities.entity.YaegerEntity;
 import nl.meron.yaeger.engine.entities.entity.sprite.SpriteEntity;
 import nl.meron.yaeger.engine.exceptions.FailedToInstantiateEntityException;
 import nl.meron.yaeger.engine.exceptions.InvalidConstructorException;
@@ -24,7 +24,7 @@ public class TileFactory {
             " exactly two parameters: An instance of Location and of Size.";
     private static final String MESSAGE_FAILED_TO_INSTANTIATE_ENTITY = "Unable to instantiate an Entity for the entitymap";
 
-    public Entity create(final Class<? extends SpriteEntity> entityClass, final Location location, final Size size) {
+    public YaegerEntity create(final Class<? extends SpriteEntity> entityClass, final Location location, final Size size) {
         SpriteEntity entity;
 
         Constructor<? extends SpriteEntity> declaredConstructor = null;

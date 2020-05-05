@@ -82,13 +82,14 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     private void activate(final YaegerScene scene) {
         injector.injectMembers(scene);
         annotationProcessor.configureUpdateDelegators(scene);
-        annotationProcessor.invokeInitializers(scene);
-        scene.configure();
-        scene.setupScene();
-        scene.setupEntities();
+        annotationProcessor.invokeActivators(scene);
+        scene.activate();
+
         activeScene = scene;
         setActiveSceneOnStage();
-        scene.postActivation();
+
+        annotationProcessor.invokePostActivators(scene);
+        scene.postActivate();
     }
 
     private void setActiveSceneOnStage() {
@@ -96,7 +97,7 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     }
 
     @Override
-    public void init(Injector injector) {
+    public void init(final Injector injector) {
         this.injector = injector;
     }
 
@@ -129,12 +130,12 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     }
 
     @Inject
-    public void setAnnotationProcessor(AnnotationProcessor annotationProcessor) {
+    public void setAnnotationProcessor(final AnnotationProcessor annotationProcessor) {
         this.annotationProcessor = annotationProcessor;
     }
 
     @Inject
-    public void setSplashScreenFactory(SplashScreenFactory splashScreenFactory) {
+    public void setSplashScreenFactory(final SplashScreenFactory splashScreenFactory) {
         this.splashScreenFactory = splashScreenFactory;
     }
 }

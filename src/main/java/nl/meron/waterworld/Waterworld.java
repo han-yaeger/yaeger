@@ -1,5 +1,6 @@
 package nl.meron.waterworld;
 
+import javafx.stage.Stage;
 import nl.meron.waterworld.scenes.levels.LevelOne;
 import nl.meron.waterworld.scenes.GameOver;
 import nl.meron.waterworld.scenes.Intro;

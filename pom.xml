@@ -85,10 +85,15 @@
                 <version>0.8.4</version>
                 <executions>
                     <execution>
-                        <id>prepare-agent</id>
-                        <phase>prepare-package</phase>
                         <goals>
                             <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -189,6 +194,12 @@
             <artifactId>byte-buddy</artifactId>
             <version>1.10.8</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>13.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

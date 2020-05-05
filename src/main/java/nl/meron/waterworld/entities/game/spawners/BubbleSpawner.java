@@ -3,8 +3,8 @@ package nl.meron.waterworld.entities.game.spawners;
 import nl.meron.waterworld.entities.game.Air;
 import nl.meron.waterworld.entities.game.Poison;
 import nl.meron.waterworld.scenes.levels.Level;
-import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.EntitySpawner;
+import nl.meron.yaeger.engine.entities.entity.Location;
 
 import java.util.Random;
 
@@ -34,15 +34,6 @@ public class BubbleSpawner extends EntitySpawner {
         spawn(poison);
     }
 
-    @Override
-    public void tick() {
-        if (new Random().nextInt(10) < 2) {
-            createPoison();
-        } else {
-            createAir();
-        }
-    }
-
     private int generateRandomSpeed() {
         return new Random().nextInt(4) + 1;
     }
@@ -52,5 +43,14 @@ public class BubbleSpawner extends EntitySpawner {
         int y = (int) Math.round(worldHeight);
 
         return new Location(x, y);
+    }
+
+    @Override
+    protected void spawnEntities() {
+        if (new Random().nextInt(10) < 2) {
+            createPoison();
+        } else {
+            createAir();
+        }
     }
 }

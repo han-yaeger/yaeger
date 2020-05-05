@@ -1,12 +1,11 @@
 package nl.meron.yaeger.engine.entities.entity.events.userinput;
 
-import nl.meron.yaeger.engine.entities.entity.Entity;
-import nl.meron.yaeger.engine.annotations.Initializer;
+import nl.meron.yaeger.engine.annotations.OnActivation;
 import nl.meron.yaeger.engine.entities.entity.NodeProvider;
 
 /**
- * Being a {@link MouseEnterListener} enables the {@link Entity} to be notified if the Mouse Cursor has
- * entered the area defined by the {@link javafx.geometry.BoundingBox} of an {@link Entity}.
+ * Being a {@link MouseEnterListener} enables the {@link nl.meron.yaeger.engine.entities.entity.YaegerEntity} to be notified if the Mouse Cursor has
+ * entered the area defined by the {@link javafx.geometry.BoundingBox} of an {@link nl.meron.yaeger.engine.entities.entity.YaegerEntity}.
  */
 public interface MouseEnterListener extends NodeProvider {
 
@@ -16,10 +15,12 @@ public interface MouseEnterListener extends NodeProvider {
     void onMouseEntered();
 
     /**
-     * Attach a mousePressedListener to this entity.
+     * Attach a mouseEnterListener to this entity.
      */
-    @Initializer
+    @OnActivation
     default void attachMouseEnterListener() {
-        getGameNode().get().setOnMouseEntered(mouseEvent -> onMouseEntered());
+        if(getGameNode().isPresent()) {
+            getGameNode().get().setOnMouseEntered(mouseEvent -> onMouseEntered());
+        }
     }
 }

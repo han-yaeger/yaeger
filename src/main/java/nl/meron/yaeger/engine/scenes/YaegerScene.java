@@ -5,15 +5,14 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import nl.meron.yaeger.engine.Clearable;
-import nl.meron.yaeger.engine.Configurable;
+import nl.meron.yaeger.engine.Activatable;
 import nl.meron.yaeger.engine.Destroyable;
 import nl.meron.yaeger.engine.Initializable;
-import nl.meron.yaeger.engine.entities.entity.Entity;
 
 /**
  * A {@code YaegerScene} encapsulates a scene or level from a {@code Yaeger Game}.
  */
-public interface YaegerScene extends DimensionsProvider, Destroyable, Initializable, Configurable, Clearable {
+public interface YaegerScene extends DimensionsProvider, Destroyable, Initializable, Activatable, Clearable {
 
     /**
      * Setup the {@link YaegerScene}. Use this method to add background images and/or background audio.
@@ -21,7 +20,7 @@ public interface YaegerScene extends DimensionsProvider, Destroyable, Initializa
     void setupScene();
 
     /**
-     * Use this method to setup all instances of {@link Entity} that should
+     * Use this method to setup all instances of {@link nl.meron.yaeger.engine.entities.entity.YaegerEntity} that should
      * be added to the {@link YaegerScene} before activation.
      */
     void setupEntities();
@@ -30,7 +29,7 @@ public interface YaegerScene extends DimensionsProvider, Destroyable, Initializa
      * Use this method to trigger behaviour that should be set after the {@link YaegerScene} has been completely
      * set up.
      */
-    void postActivation();
+    void postActivate();
 
     /**
      * Set the background color of the {@link YaegerScene}.

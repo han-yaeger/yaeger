@@ -1,5 +1,6 @@
 package nl.meron.pong;
 
+import javafx.stage.Stage;
 import nl.meron.pong.scenes.LevelOne;
 import nl.meron.yaeger.engine.YaegerApplication;
 import nl.meron.yaeger.engine.Size;

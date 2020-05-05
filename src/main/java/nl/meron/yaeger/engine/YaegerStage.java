@@ -7,6 +7,11 @@ import nl.meron.yaeger.engine.scenes.SceneCollection;
 import nl.meron.yaeger.engine.scenes.YaegerScene;
 import nl.meron.yaeger.guice.factories.SceneCollectionFactory;
 
+/**
+ * A {@link YaegerStage encapsulates an JavaFX {@link Stage}. It defines the window
+ * that is being used and contains the {@link SceneCollection} that contains all instances
+ * of {@link YaegerScene} that are part of the {@link YaegerApplication}.
+ */
 public class YaegerStage implements Initializable {
 
     private Size size = YaegerApplication.DEFAULT_GAME_DIMENSIONS;
@@ -16,7 +21,7 @@ public class YaegerStage implements Initializable {
     private SceneCollectionFactory sceneCollectionFactory;
     private SceneCollection sceneCollection;
 
-    YaegerStage(final YaegerApplication yaegerApplication, final Stage stage) {
+    public YaegerStage(final YaegerApplication yaegerApplication, final Stage stage) {
         this.yaegerApplication = yaegerApplication;
         this.stage = stage;
     }
@@ -31,7 +36,7 @@ public class YaegerStage implements Initializable {
     }
 
     @Override
-    public void init(Injector injector) {
+    public void init(final Injector injector) {
         stage.setResizable(false);
         sceneCollection = sceneCollectionFactory.create(stage);
         injector.injectMembers(sceneCollection);
@@ -84,7 +89,7 @@ public class YaegerStage implements Initializable {
     }
 
     @Inject
-    public void setSceneCollectionFactory(SceneCollectionFactory sceneCollectionFactory) {
+    public void setSceneCollectionFactory(final SceneCollectionFactory sceneCollectionFactory) {
         this.sceneCollectionFactory = sceneCollectionFactory;
     }
 }

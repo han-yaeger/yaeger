@@ -2,7 +2,9 @@ package nl.meron.yaeger.engine.entities.entity;
 
 import com.google.inject.Injector;
 import javafx.geometry.BoundingBox;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import nl.meron.yaeger.engine.Timer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,26 +16,34 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class JavaFXEntityTest {
+class YaegerEntityTest {
 
     private static final Location LOCATION = new Location(37, 37);
+    private static final double SCENE_WIDTH = 37d;
+    private static final double SCENE_HEIGHT = 42d;
     private static final double ENTITY_WIDTH = 200d;
     private static final double ENTITY_HEIGHT = 100d;
-    private JavaFXEntityImpl sut;
+    private static final BoundingBox BOUNDING_BOX = new BoundingBox(0, 0, 10, 10);
+
+    private YaegerEntityImpl sut;
     private Node node;
     private Injector injector;
     private BoundingBox boundingBox;
+    private Scene scene;
 
     @BeforeEach
     void setup() {
-        sut = new JavaFXEntityImpl(LOCATION);
+        sut = new YaegerEntityImpl(LOCATION);
         injector = mock(Injector.class);
         node = mock(Node.class, withSettings().withoutAnnotations());
         sut.setNode(Optional.of(node));
+        scene = mock(Scene.class);
         boundingBox = mock(BoundingBox.class);
         when(node.getBoundsInLocal()).thenReturn(boundingBox);
         when(boundingBox.getWidth()).thenReturn(ENTITY_WIDTH);
         when(boundingBox.getHeight()).thenReturn(ENTITY_HEIGHT);
+        when(node.getScene()).thenReturn(scene);
+        when(scene.getWidth()).thenReturn(SCENE_WIDTH);
     }
 
     @Test
@@ -49,6 +59,17 @@ class JavaFXEntityTest {
     }
 
     @Test
+    void initCallsSetOpacity() {
+        // Arrange
+
+        // Act
+        sut.init(injector);
+
+        // Assert
+        verify(node).setOpacity(1);
+    }
+
+    @Test
     void initCallsSetVisible() {
         // Arrange
 
@@ -57,6 +78,18 @@ class JavaFXEntityTest {
 
         // Assert
         verify(node).setVisible(true);
+    }
+
+    @Test
+    void activateCallsSetCursor() {
+        // Arrange
+        sut.init(injector);
+
+        // Act
+        sut.activate();
+
+        // Assert
+        verify(scene).setCursor(Cursor.DEFAULT);
     }
 
     @Test
@@ -221,13 +254,51 @@ class JavaFXEntityTest {
         verify(node).setTranslateY(-(ENTITY_HEIGHT));
     }
 
-    private class JavaFXEntityImpl extends JavaFXEntity {
+    @Test
+    void getSceneWidthReturnsSceneWidthFromNode() {
+        // Arrange
+        when(node.getScene()).thenReturn(scene);
+        when(scene.getWidth()).thenReturn(SCENE_WIDTH);
+
+        // Act
+        double actual = sut.getSceneWidth();
+
+        // Assert
+        assertEquals(SCENE_WIDTH, actual);
+    }
+
+    @Test
+    void getSceneHeightReturnsSceneHeightFromNode() {
+        // Arrange
+        when(node.getScene()).thenReturn(scene);
+        when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
+
+        // Act
+        double actual = sut.getSceneHeight();
+
+        // Assert
+        assertEquals(SCENE_HEIGHT, actual);
+    }
+
+    @Test
+    void getBoundsDelegatesToNode() {
+        // Arrange
+        when(node.getBoundsInLocal()).thenReturn(BOUNDING_BOX);
+
+        // Act
+        var actual = sut.getNonTransformedBounds();
+
+        // Assert
+        assertEquals(BOUNDING_BOX, actual);
+    }
+
+    private class YaegerEntityImpl extends YaegerEntity {
 
         private Optional<Node> node;
         private double x;
         private double y;
 
-        public JavaFXEntityImpl(Location initialPosition) {
+        public YaegerEntityImpl(Location initialPosition) {
             super(initialPosition);
         }
 

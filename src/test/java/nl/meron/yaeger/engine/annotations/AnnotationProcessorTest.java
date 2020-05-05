@@ -29,14 +29,25 @@ class AnnotationProcessorTest {
     }
 
     @Test
-    void invokeInitializersFindsandInvokesAnnotatedMethod() {
-        var entityWithInitializer = new EntityWithInitializer(LOCATION);
+    void invokeActivatorsFindsAndInvokesAnnotatedMethod() {
+        var entityWithActivators = new EntityWithActivators(LOCATION);
 
         // Test
-        sut.invokeInitializers(entityWithInitializer);
+        sut.invokeActivators(entityWithActivators);
 
         // Verify
-        Assertions.assertTrue(entityWithInitializer.isInitialized());
+        Assertions.assertTrue(entityWithActivators.isActivated());
+    }
+
+    @Test
+    void invokePostActivatorsFindsAndInvokesAnnotatedMethod() {
+        var entityWithPostActivators = new EntityWithPostActivators(LOCATION);
+
+        // Test
+        sut.invokePostActivators(entityWithPostActivators);
+
+        // Verify
+        Assertions.assertTrue(entityWithPostActivators.isPostActivated());
     }
 
     @Test
@@ -65,7 +76,7 @@ class AnnotationProcessorTest {
         verify(updater).addUpdatable(any(Updatable.class), eq(false));
     }
 
-    private class FirstUpdateDelegatingEntity extends JavaFXEntity implements UpdateDelegator {
+    private class FirstUpdateDelegatingEntity extends YaegerEntity implements UpdateDelegator {
 
         private Updater updater;
 
@@ -116,7 +127,7 @@ class AnnotationProcessorTest {
         }
     }
 
-    private class UpdateDelegatingEntity extends JavaFXEntity implements UpdateDelegator {
+    private class UpdateDelegatingEntity extends YaegerEntity implements UpdateDelegator {
 
         private Updater updater;
 
@@ -167,12 +178,12 @@ class AnnotationProcessorTest {
         }
     }
 
-    private class EntityWithInitializer extends JavaFXEntity {
+    private class EntityWithActivators extends YaegerEntity {
 
-        private boolean initialized = false;
+        private boolean activated = false;
         private Node node;
 
-        public EntityWithInitializer(Location initialPosition) {
+        public EntityWithActivators(Location initialPosition) {
             super(initialPosition);
         }
 
@@ -195,13 +206,67 @@ class AnnotationProcessorTest {
             return Optional.of(node);  // Not required here.
         }
 
-        @Initializer
-        public void initializerMethod() {
-            this.initialized = true;
+        @OnActivation
+        public void ActivationMethod() {
+            this.activated = true;
         }
 
-        public boolean isInitialized() {
-            return initialized;
+        public boolean isActivated() {
+            return activated;
+        }
+
+        @Override
+        public List<Timer> getTimers() {
+            return null;
+            // Not required here.
+        }
+
+        @Override
+        public void setOriginX(double x) {
+            // Not required here.
+        }
+
+        @Override
+        public void setOriginY(double y) {
+            // Not required here.
+        }
+    }
+
+    private class EntityWithPostActivators extends YaegerEntity {
+
+        private boolean postActivated = false;
+        private Node node;
+
+        public EntityWithPostActivators(Location initialPosition) {
+            super(initialPosition);
+        }
+
+        public void setNode(Node node) {
+            this.node = node;
+        }
+
+        @Override
+        public void init(Injector injector) {
+            // Not required here.
+        }
+
+        @Override
+        public void remove() {
+            // Not required here.
+        }
+
+        @Override
+        public Optional<Node> getGameNode() {
+            return Optional.of(node);  // Not required here.
+        }
+
+        @OnPostActivation
+        public void ActivationMethod() {
+            this.postActivated = true;
+        }
+
+        public boolean isPostActivated() {
+            return postActivated;
         }
 
         @Override

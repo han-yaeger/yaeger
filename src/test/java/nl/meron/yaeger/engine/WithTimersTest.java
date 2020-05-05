@@ -36,18 +36,18 @@ class WithTimersTest {
     }
 
     @Test
-    void initCallsRegisterTimers() {
+    void initCallsSetupTimers() {
         // Arrange
 
         // Act
         sut.initTimers();
 
         // Assert
-        assertTrue(sut.isRegisterTimersCalled());
+        assertTrue(sut.isSetupTimersCalled());
     }
 
     @Test
-    void registerTimerAddTheTimerToTheTimers() {
+    void addTimerAddTheTimerToTheTimers() {
         // Arrange
         sut.setTimers(new ArrayList<>());
         var timer = mock(Timer.class);
@@ -71,7 +71,7 @@ class WithTimersTest {
     }
 
     @Test
-    void registerTimerThrowsExceptionIfGetTimersReturnNull() {
+    void addTimerThrowsExceptionIfGetTimersReturnNull() {
         // Arrange
         var timer1 = mock(Timer.class);
         sut.setTimers(null);
@@ -103,11 +103,11 @@ class WithTimersTest {
     private class WithTimersImpl implements WithTimers {
 
         private List<Timer> timers;
-        private boolean registerTimersCalled = false;
+        private boolean setupTimersCalled = false;
 
         @Override
         public void setupTimers() {
-            registerTimersCalled = true;
+            setupTimersCalled = true;
         }
 
         @Override
@@ -115,8 +115,8 @@ class WithTimersTest {
             return timers;
         }
 
-        public boolean isRegisterTimersCalled() {
-            return registerTimersCalled;
+        public boolean isSetupTimersCalled() {
+            return setupTimersCalled;
         }
 
         public void setTimers(List<Timer> timers) {

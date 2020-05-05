@@ -2,6 +2,7 @@ package nl.meron.yaeger.engine.entities.entity.events.userinput;
 
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -14,7 +15,7 @@ class MousePressedListenerTest {
     void attachMousePressedListenerAttachesMouseListener() {
         // Arrange
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        var mouseListeningEntity = new MousePressedListeningInstancee();
+        var mouseListeningEntity = new MousePressedListeningInstance();
         mouseListeningEntity.setNode(node);
 
         // Act
@@ -24,12 +25,12 @@ class MousePressedListenerTest {
         verify(node).setOnMousePressed(any());
     }
 
-    private class MousePressedListeningInstancee implements MousePressedListener {
+    private class MousePressedListeningInstance implements MousePressedListener {
 
         private Node node;
 
         @Override
-        public void onMousePressed(MouseButton button, Double xCoordinates, Double yCoordinates) {
+        public void onMousePressed(MouseEvent event, Double xCoordinates, Double yCoordinates) {
         }
 
         @Override

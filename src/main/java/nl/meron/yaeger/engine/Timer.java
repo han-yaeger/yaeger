@@ -20,7 +20,7 @@ public abstract class Timer {
         this.interval = intervalInMs * 1_000_000;
     }
 
-    void handle(final long now) {
+    protected void handle(final long now) {
 
         if (prevTime == 0) {
             prevTime = now;

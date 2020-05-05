@@ -1,23 +1,25 @@
 package nl.meron.yaeger.engine.entities;
 
 import nl.meron.yaeger.engine.Clearable;
-import nl.meron.yaeger.engine.entities.entity.Entity;
+import nl.meron.yaeger.engine.entities.entity.YaegerEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * An {@code EntitySupplier} encapsulates a {@link HashSet} of instances of {@link Entity}.
+ * An {@link EntitySupplier} extends a {@link HashSet} of instances of {@link YaegerEntity}. When calling
+ * {@link EntitySupplier#get()} the content will passed as the return value, after which all content is
+ * cleared.
  */
-public class EntitySupplier extends HashSet<Entity> implements Clearable {
+public class EntitySupplier extends HashSet<YaegerEntity> implements Clearable {
 
     /**
-     * Return a {@link Set} of instances of {@link Entity}. After this method is called,
+     * Return a {@link Set} of instances of {@link YaegerEntity}. After this method is called,
      * the {@link EntitySupplier} is cleared.
      *
-     * @return a {@link Set} containing instances of {@link Entity}
+     * @return a {@link Set} containing instances of {@link YaegerEntity}
      */
-    public Set<Entity> get() {
+    public Set<YaegerEntity> get() {
         if (isEmpty()) {
             return new HashSet<>();
         } else {

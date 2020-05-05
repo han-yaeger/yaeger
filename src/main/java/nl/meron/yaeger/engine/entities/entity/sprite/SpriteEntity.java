@@ -5,9 +5,8 @@ import com.google.inject.Injector;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import nl.meron.yaeger.engine.Size;
-import nl.meron.yaeger.engine.entities.entity.Entity;
 import nl.meron.yaeger.engine.entities.entity.Location;
-import nl.meron.yaeger.engine.entities.entity.JavaFXEntity;
+import nl.meron.yaeger.engine.entities.entity.YaegerEntity;
 import nl.meron.yaeger.engine.entities.entity.sprite.delegates.SpriteAnimationDelegate;
 import nl.meron.yaeger.engine.media.repositories.ImageRepository;
 import nl.meron.yaeger.engine.media.ResourceConsumer;
@@ -17,9 +16,9 @@ import nl.meron.yaeger.guice.factories.SpriteAnimationDelegateFactory;
 import java.util.Optional;
 
 /**
- * A {@link SpriteEntity} is a {@link Entity} that is represented by an Image.
+ * A {@link SpriteEntity} is a {@link YaegerEntity} that is represented by an Image.
  */
-public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsumer {
+public abstract class SpriteEntity extends YaegerEntity implements ResourceConsumer {
 
     private final String resource;
     private final Size size;
@@ -36,9 +35,9 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
     /**
      * Instantiate a new {@code SpriteEntity} for a given Image.
      *
-     * @param resource        The url of the image file. Relative to the resources folder.
+     * @param resource The url of the image file. Relative to the resources folder.
      * @param location the initial {@link Location} of this Entity
-     * @param size            The bounding box of this SpriteEntity.
+     * @param size     The bounding box of this SpriteEntity.
      */
     protected SpriteEntity(final String resource, final Location location, final Size size) {
         this(resource, location, size, 1);
@@ -47,10 +46,10 @@ public abstract class SpriteEntity extends JavaFXEntity implements ResourceConsu
     /**
      * Instantiate a new {@code SpriteEntity} for a given Image.
      *
-     * @param resource        The url of the image file. Relative to the resources folder.
+     * @param resource The url of the image file. Relative to the resources folder.
      * @param location the initial {@link Location} of this Entity
-     * @param size            The bounding box of this SpriteEntity.
-     * @param frames          The number of frames this Image contains. By default the first frame is loaded.
+     * @param size     The bounding box of this SpriteEntity.
+     * @param frames   The number of frames this Image contains. By default the first frame is loaded.
      */
     protected SpriteEntity(final String resource, final Location location, final Size size, final int frames) {
         super(location);

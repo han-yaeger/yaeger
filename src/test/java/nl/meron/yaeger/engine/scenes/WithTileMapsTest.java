@@ -166,8 +166,8 @@ class WithTileMapsTest {
         }
 
         @Override
-        public void configure() {
-            super.configure();
+        public void activate() {
+            super.activate();
             configureCalled = true;
         }
 
