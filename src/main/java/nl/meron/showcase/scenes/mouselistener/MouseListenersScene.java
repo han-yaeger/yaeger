@@ -20,7 +20,7 @@ import java.awt.event.MouseMotionListener;
 import java.util.Optional;
 import java.util.Set;
 
-public class MouseListenersScene extends StaticScene implements MousePressedListener, MouseEnterListener, MouseExitListener, MouseMotionListener {
+public class MouseListenersScene extends StaticScene implements MouseEnterListener, MouseExitListener, MouseMotionListener {
 
     private double x_coordinate = 0;
     private double y_coordinate = 0;
@@ -38,7 +38,6 @@ public class MouseListenersScene extends StaticScene implements MousePressedList
     @Override
     public void setupScene() {
         Scene scene = getScene();
-        scene.setOnMousePressed(event -> onMousePressed(event, event.getX(), event.getY()));
         scene.setOnMouseEntered(event -> onMouseEntered());
         scene.setOnMouseExited(event -> onMouseExited());
         scene.setOnMouseMoved(this::mouseMoved);
@@ -88,12 +87,6 @@ public class MouseListenersScene extends StaticScene implements MousePressedList
     public void onMouseExited() {
         mouseExitText.setVisible(true);
         mouseEnterText.setVisible(false);
-    }
-
-    @Override
-    public void onMousePressed(MouseEvent event, Double xCoordinates, Double yCoordinates) {
-        x_val.setText(Double.toString(xCoordinates));
-        y_val.setText(Double.toString(yCoordinates));
     }
 
     @Override
