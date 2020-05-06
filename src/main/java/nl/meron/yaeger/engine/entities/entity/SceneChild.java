@@ -1,5 +1,7 @@
 package nl.meron.yaeger.engine.entities.entity;
 
+import nl.meron.yaeger.engine.exceptions.FailedToInstantiateEntityException;
+
 /**
  * A {@link SceneChild} is part of a {@link nl.meron.yaeger.engine.scenes.YaegerScene}
  * and has thus access to width and height of the {@link nl.meron.yaeger.engine.scenes.YaegerScene} it
@@ -15,7 +17,11 @@ public interface SceneChild extends NodeProvider {
      */
     default double getSceneWidth() {
         if (getGameNode().isPresent()) {
-            return getGameNode().get().getScene().getWidth();
+            try {
+                return getGameNode().get().getScene().getWidth();
+            } catch (Exception e) {
+                throw new FailedToInstantiateEntityException("Game Object not fully instantiated", e);
+            }
         } else {
             return 0;
         }
@@ -29,7 +35,11 @@ public interface SceneChild extends NodeProvider {
      */
     default double getSceneHeight() {
         if (getGameNode().isPresent()) {
-            return getGameNode().get().getScene().getHeight();
+            try {
+                return getGameNode().get().getScene().getHeight();
+            } catch (Exception e) {
+                throw new FailedToInstantiateEntityException("Game Object not fully instantiated", e);
+            }
         } else {
             return 0;
         }
