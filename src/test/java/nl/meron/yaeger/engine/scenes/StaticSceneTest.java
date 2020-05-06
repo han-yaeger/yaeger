@@ -11,11 +11,13 @@ import nl.meron.yaeger.engine.debug.Debugger;
 import nl.meron.yaeger.engine.entities.EntityCollection;
 import nl.meron.yaeger.engine.entities.EntitySupplier;
 import nl.meron.yaeger.engine.entities.entity.YaegerEntity;
+import nl.meron.yaeger.engine.entities.tilemap.TileMap;
 import nl.meron.yaeger.engine.scenes.delegates.BackgroundDelegate;
 import nl.meron.yaeger.engine.scenes.delegates.KeyListenerDelegate;
 import nl.meron.yaeger.engine.entities.entity.events.userinput.KeyListener;
 import nl.meron.yaeger.guice.factories.EntityCollectionFactory;
 import nl.meron.yaeger.guice.factories.SceneFactory;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -82,6 +84,20 @@ class StaticSceneTest {
 
         // Verify
         assertEquals(actual, injector);
+    }
+
+    @Test
+    void getCollectionReturnsCollection() {
+        sut = new TestStaticScene();
+        entityCollectionFactory = mock(EntityCollectionFactory.class);
+        entityCollection = mock(EntityCollection.class);
+        // Act
+        sut.setEntityCollectionFactory(entityCollectionFactory);
+        sut.entityCollection = entityCollection;
+        when(entityCollectionFactory.create(root)).thenReturn(entityCollection);
+        // Verify
+        Assertions.assertEquals(entityCollection, sut.getEntityCollection());
+
     }
 
     @Test
