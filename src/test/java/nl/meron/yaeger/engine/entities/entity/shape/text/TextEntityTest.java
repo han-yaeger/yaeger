@@ -10,7 +10,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import nl.meron.waterworld.Waterworld;
 import nl.meron.yaeger.engine.entities.entity.Location;
-import nl.meron.yaeger.engine.entities.entity.shape.rectangle.RectangleEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -106,9 +105,7 @@ class TextEntityTest {
     @Test
     void settingDelegateWithContentDelegatesContent() {
         // Setup
-        var sut = new TextEntity(LOCATION, YAEGER);
-
-        // Test
+        TextEntity sut = new TextEntity(LOCATION, YAEGER);
         sut.setTextDelegate(text);
         sut.init(injector);
 
@@ -147,6 +144,26 @@ class TextEntityTest {
         verify(text).setFill(COLOR);
         verify(text).setText(YAEGER);
         verify(text).setFont(FONT);
+    }
+
+    @Test
+    void setOriginXStoresCorrectlyAfterInit() {
+        var sut = new TextEntity(LOCATION);
+        sut.setTextDelegate(text);
+        sut.init(injector);
+        sut.setOriginX(LOCATION.getX());
+
+        verify(text).setX(LOCATION.getX());
+    }
+
+    @Test
+    void setOriginYStoresCorrectlyAfterInit() {
+        var sut = new TextEntity(LOCATION);
+        sut.setTextDelegate(text);
+        sut.init(injector);
+        sut.setOriginY(LOCATION.getY());
+
+        verify(text).setY(LOCATION.getY());
     }
 
     private class TextEntityImpl extends TextEntity {
