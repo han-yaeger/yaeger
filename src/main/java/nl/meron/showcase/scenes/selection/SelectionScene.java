@@ -66,6 +66,9 @@ public class SelectionScene extends StaticScene {
         styleText(brightnessScene);
         addEntity(brightnessScene);
 
+        var MouseListenersScene = new Button(new Location(20, 280), "8) Mouse Listeners Showcase", showCase, YaegerShowCase.MOUSE_LISTENERS_SCENE);
+        styleText(MouseListenersScene);
+        addEntity(MouseListenersScene);
     }
 
     @Override
