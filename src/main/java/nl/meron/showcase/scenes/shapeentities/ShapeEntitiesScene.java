@@ -3,10 +3,7 @@ package nl.meron.showcase.scenes.shapeentities;
 import nl.meron.showcase.YaegerShowCase;
 import nl.meron.showcase.buttons.Back;
 import nl.meron.showcase.scenes.ShowCaseScene;
-import nl.meron.showcase.scenes.shapeentities.entities.DynamicRectangle;
-import nl.meron.showcase.scenes.shapeentities.entities.StaticCircle;
-import nl.meron.showcase.scenes.shapeentities.entities.StaticRectangle;
-import nl.meron.showcase.scenes.shapeentities.entities.TimedDynamicRectangle;
+import nl.meron.showcase.scenes.shapeentities.entities.*;
 import nl.meron.yaeger.engine.entities.entity.Location;
 
 public class ShapeEntitiesScene extends ShowCaseScene {
@@ -38,6 +35,9 @@ public class ShapeEntitiesScene extends ShowCaseScene {
 
         var circle = new StaticCircle(new Location(150, 560));
         addEntity(circle);
+
+        var ellipse = new StaticEllipse(new Location(400, 560));
+        addEntity(ellipse);
     }
 
     @Override

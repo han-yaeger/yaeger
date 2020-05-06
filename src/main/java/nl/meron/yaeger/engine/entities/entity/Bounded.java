@@ -71,7 +71,7 @@ public interface Bounded extends DimensionsProvider, NodeProvider {
 
     /**
      * @return A {@code double} of the bottom y value.
-     */
+
     default double getBottomY() {
         return getNonTransformedBounds().getMaxY();
     }
