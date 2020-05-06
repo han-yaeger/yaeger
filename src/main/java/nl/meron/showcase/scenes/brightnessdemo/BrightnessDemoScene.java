@@ -3,9 +3,11 @@ package nl.meron.showcase.scenes.brightnessdemo;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import nl.meron.showcase.YaegerShowCase;
+import nl.meron.showcase.buttons.Back;
 import nl.meron.yaeger.engine.entities.entity.Location;
 import nl.meron.yaeger.engine.entities.entity.shape.text.TextEntity;
 import nl.meron.yaeger.engine.scenes.StaticScene;
@@ -35,6 +37,10 @@ public class BrightnessDemoScene extends StaticScene {
         TextEntity instructionText = new TextEntity(new Location(450, 40), "Raise Brightness: F12  Lower Brightness: F11  Raise Contrast: F10  Lower Contrast: F9");
         instructionText.setFont(TEXT_FONT);
         addEntity(instructionText);
+
+        var backButton = new Back(showCase, new Location(20, 625));
+        backButton.setFill(Color.BLACK);
+        addEntity(backButton);
     }
 
     @Override

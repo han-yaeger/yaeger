@@ -65,6 +65,7 @@ public interface Bounded extends DimensionsProvider, NodeProvider {
      * @return A {@code double} of the center x value.
      */
 
+
     default double getCenterX() {
         return (getNonTransformedBounds().getCenterX());
     }
