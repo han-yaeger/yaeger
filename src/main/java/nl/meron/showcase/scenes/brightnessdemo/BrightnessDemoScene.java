@@ -25,13 +25,14 @@ public class BrightnessDemoScene extends StaticScene {
     public void setupScene() {
         Image image = new Image("showcase/backgrounds/brightness_demo_img.png");
         ImageView imageView = new ImageView(image);
+        super.root.autosize();
         super.root.getChildren().add(imageView);
         setRoot(super.root);
     }
 
     @Override
     public void setupEntities() {
-        TextEntity instructionText = new TextEntity(new Location(350, 45), "Raise Brightness: F12  Lower Brightness: F11  Raise Contrast: F10  Lower Contrast: F9");
+        TextEntity instructionText = new TextEntity(new Location(450, 40), "Raise Brightness: F12  Lower Brightness: F11  Raise Contrast: F10  Lower Contrast: F9");
         instructionText.setFont(TEXT_FONT);
         addEntity(instructionText);
     }
