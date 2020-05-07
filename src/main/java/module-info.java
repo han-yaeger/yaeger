@@ -1,4 +1,4 @@
-module nl.han.yaeger {
+module yaeger.core {
     requires transitive javafx.base;
     requires transitive javafx.controls;
     requires transitive javafx.media;
@@ -27,6 +27,7 @@ module nl.han.yaeger {
     exports nl.han.yaeger.engine.entities.entity.events.userinput;
     exports nl.han.yaeger.engine.styles;
 
-    opens fonts;
+    opens fonts.avenirnext;
+    opens fonts.avenirnextcondensed;
     opens images;
 }

@@ -1,25 +1,22 @@
 package nl.han.yaeger.engine.styles;
 
 import javafx.scene.text.Font;
+import nl.han.yaeger.engine.media.ResourceConsumer;
 
 /**
- * Yaeger's interface to all styles that are part of the HAN University of applied sciences
+ * Yaeger's interface to all font styles that are part of the HAN University of applied sciences
  * house style.
  */
-public class HanFont {
+public class HanFont implements ResourceConsumer {
 
-    private static final String FONT_LOCATION = "/fonts/";
-    private static final String FONT_DEFAULT_NAME = "AvenirNext";
+    private static final String FONT_LOCATION = "fonts/";
+    private static final String FONT_DEFAULT_NAME = "avenirnext/AvenirNext";
     private static final String FONT_STYLE_SEPERATOR = "-";
-    private static final String FONT_DEFAULT_CONDENSED_NAME = "AvenirNextCondensed";
-    private static final String FONT_EXTENTION = "ttf";
+    private static final String FONT_DEFAULT_CONDENSED_NAME = "avenirnextcondensed/AvenirNextCondensed";
+    private static final String FONT_EXTENTION = ".ttf";
 
-    public static HanFont getInstance() {
+    private static HanFont getInstance() {
         return new HanFont();
-    }
-
-    public Font createDefaultFont(final double size) {
-        return createDefaultFont(HanFontStyle.REGULAR, size);
     }
 
     /**
@@ -28,17 +25,19 @@ public class HanFont {
      * @param size The size of the font as a {@code double}.
      * @return A {@link Font} of the given size and the HAN default style.
      */
-    public Font createDefaultFont(final HanFontStyle style, final double size) {
-        return Font.loadFont(constructUrl(false, style), size);
+    public static Font createDefaultFont(final double size) {
+        return createDefaultFont(HanFontStyle.REGULAR, size);
     }
 
-    private String constructUrl(final boolean condensed, final HanFontStyle style) {
-        var fontName = condensed ? FONT_DEFAULT_CONDENSED_NAME : FONT_DEFAULT_NAME;
-        return FONT_LOCATION + fontName + FONT_STYLE_SEPERATOR + style.getStyle() + FONT_EXTENTION;
-    }
-
-    public Font createDefaultCondensedFont(double size) {
-        return createDefaultCondensedFont(HanFontStyle.REGULAR, size);
+    /**
+     * Create a {@link Font} for the given size in the HAN default style.
+     *
+     * @param style The {@link HanFontStyle} to be used.
+     * @param size  The size of the font as a {@code double}.
+     * @return A {@link Font} of the given size and the HAN default style.
+     */
+    public static Font createDefaultFont(final HanFontStyle style, final double size) {
+        return Font.loadFont(getInstance().constructUrl(false, style), size);
     }
 
     /**
@@ -47,7 +46,24 @@ public class HanFont {
      * @param size The size of the font as a {@code double}.
      * @return A {@link Font} of the given size and the HAN default condensed style.
      */
-    public Font createDefaultCondensedFont(final HanFontStyle style, double size) {
-        return Font.loadFont(constructUrl(true, style), size);
+    public static Font createDefaultCondensedFont(final double size) {
+        return createDefaultCondensedFont(HanFontStyle.REGULAR, size);
+    }
+
+    /**
+     * Create a {@link Font} for the given size in the HAN default condensed style.
+     *
+     * @param style The {@link HanFontStyle} to be used.
+     * @param size  The size of the font as a {@code double}.
+     * @return A {@link Font} of the given size and the HAN default condensed style.
+     */
+    public static Font createDefaultCondensedFont(final HanFontStyle style, final double size) {
+        return Font.loadFont(getInstance().constructUrl(true, style), size);
+    }
+
+    private String constructUrl(final boolean condensed, final HanFontStyle style) {
+        var fontName = condensed ? FONT_DEFAULT_CONDENSED_NAME : FONT_DEFAULT_NAME;
+        var path = createPathForResource(FONT_LOCATION + fontName + FONT_STYLE_SEPERATOR + style.getStyle() + FONT_EXTENTION);
+        return path;
     }
 }
