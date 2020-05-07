@@ -3,7 +3,6 @@ package nl.han.yaeger.engine;
 import com.google.inject.Guice;
 import javafx.application.Application;
 import javafx.scene.input.KeyCode;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import nl.han.yaeger.engine.scenes.YaegerScene;
 import nl.han.yaeger.guice.YaegerModule;

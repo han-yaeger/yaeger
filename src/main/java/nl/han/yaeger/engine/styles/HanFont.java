@@ -63,7 +63,6 @@ public class HanFont implements ResourceConsumer {
 
     private String constructUrl(final boolean condensed, final HanFontStyle style) {
         var fontName = condensed ? FONT_DEFAULT_CONDENSED_NAME : FONT_DEFAULT_NAME;
-        var path = createPathForResource(FONT_LOCATION + fontName + FONT_STYLE_SEPERATOR + style.getStyle() + FONT_EXTENTION);
-        return path;
+        return createPathForResource(FONT_LOCATION + fontName + FONT_STYLE_SEPERATOR + style.getStyle() + FONT_EXTENTION);
     }
 }
