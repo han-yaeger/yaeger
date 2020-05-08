@@ -22,6 +22,7 @@ module hanyaeger.api {
     exports com.github.hanyaeger.api.engine.entities.entity.collisions;
     exports com.github.hanyaeger.api.engine.entities.entity.events.userinput;
     exports com.github.hanyaeger.api.engine.styles;
+    exports com.github.hanyaeger.api.engine.media.audio;
 
     exports com.github.hanyaeger.api.guice.factories;
 

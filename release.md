@@ -12,3 +12,4 @@ all package names to comply.
 - Added the HAN style font and static methods for using them.
 
 ### Bugfixes
+- Opened up the audio package
