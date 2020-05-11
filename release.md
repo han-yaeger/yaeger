@@ -1,15 +1,11 @@
 ## Changes in this release
 
 ### Configuration
-- Added a release-action to automate GitHub Releases.
-- Added the source-plugin to Maven to generate a sources-jar.
+- Automated the release to the Maven Central Repository
 
 ### Refactor
-- Changed the groupname to com.github.hanyaeger and consequently refactored
-all package names to comply.
 
 ### Features
-- Added the HAN style font and static methods for using them.
 
 ### Bugfixes
-- Opened up the audio package
+
