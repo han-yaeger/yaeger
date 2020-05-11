@@ -8,7 +8,7 @@ on:
       - '*'
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,6 +17,9 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 12
+          server-id: ossrh
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
 
       - name: Generate JavaDoc
         run: mvn compile javadoc:javadoc
@@ -27,8 +30,13 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/site/apidocs
 
-      - name: Build Project
-        run: mvn package
+      - name: Install gpg secret key
+        run: |
+          cat <(echo -e "${{ secrets.OSSRH_GPG_SECRET_KEY }}") | gpg --batch --import
+          gpg --list-secret-keys --keyid-format LONG
+
+      - name: Build Project for release
+        run: mvn package -P release -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
@@ -37,3 +45,9 @@ jobs:
           bodyFile: "release.md"
           prerelease: true
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to the Maven Central Repository
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+        run: mvn deploy -P release
