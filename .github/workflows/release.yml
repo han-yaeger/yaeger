@@ -21,14 +21,14 @@ jobs:
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
 
-      - name: Generate JavaDoc
-        run: mvn compile javadoc:javadoc
-
-      - name: Deploy JavaDoc
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/site/apidocs
+#      - name: Generate JavaDoc
+#        run: mvn compile javadoc:javadoc
+#
+#      - name: Deploy JavaDoc
+#        uses: peaceiris/actions-gh-pages@v3
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          publish_dir: ./target/site/apidocs
 
       - name: Install gpg secret key
         run: |
@@ -38,13 +38,13 @@ jobs:
       - name: Build Project for release
         run: mvn package -P release -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
 
-      - name: Create GitHub Release
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "target/*.jar"
-          bodyFile: "release.md"
-          prerelease: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Create GitHub Release
+#        uses: ncipollo/release-action@v1
+#        with:
+#          artifacts: "target/*.jar"
+#          bodyFile: "release.md"
+#          prerelease: true
+#          token: ${{ secrets.GITHUB_TOKEN }}
 
 #      - name: Deploy to the Maven Central Repository
 #        env:
