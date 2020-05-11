@@ -30,12 +30,11 @@ jobs:
 #          github_token: ${{ secrets.GITHUB_TOKEN }}
 #          publish_dir: ./target/site/apidocs
 
-      - name: Install gpg secret key
-        run: |
-          echo "$GPG_PRIVATE_KEY" > private.asc
-          gpg --verbose --import --batch private.asc
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v1
         env:
           GPG_PRIVATE_KEY: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+
       - name: Build Project for release
         run: mvn package -P release -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
 
