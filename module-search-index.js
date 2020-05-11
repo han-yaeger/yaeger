@@ -1,1 +1,1 @@
-moduleSearchIndex = [{"l":"nl.han.yaeger"}]
+moduleSearchIndex = [{"l":"hanyaeger.api"}]
