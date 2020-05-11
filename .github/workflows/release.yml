@@ -21,6 +21,13 @@ jobs:
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
 
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
       - name: Generate JavaDoc
         run: mvn compile javadoc:javadoc
 
@@ -32,19 +39,19 @@ jobs:
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v1
-        env:
-          GPG_PRIVATE_KEY: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+          env:
+            GPG_PRIVATE_KEY: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
 
       - name: Build Project for release
-        run: mvn package -P release -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
+          run: mvn package -P release -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
 
       - name: Create GitHub Release
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "target/*.jar"
-          bodyFile: "release.md"
-          prerelease: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+          uses: ncipollo/release-action@v1
+          with:
+            artifacts: "target/*.jar"
+            bodyFile: "release.md"
+            prerelease: true
+            token: ${{ secrets.GITHUB_TOKEN }}
 
 #      - name: Deploy to the Maven Central Repository
 #        env:
