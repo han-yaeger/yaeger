@@ -16,6 +16,7 @@ requires Java 12 or above to work.
 ## Documentation
 * API: [https://han-yaeger.github.io/yaeger/](https://han-yaeger.github.io/yaeger/)
 * Tutorial: [Yaeger tutorial](https://github.com/han-yaeger/yaeger-tutorial)
+* Showcase: [Yaeger showcase](https://github.com/han-yaeger/yaeger-showcase)
 * Architecture: [Yaeger's architecture](docs/architecture.md)
 
 ## Modern Java, but an API with only traditional Object Orientation?
