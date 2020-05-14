@@ -59,4 +59,4 @@ jobs:
           server-password: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
 
       - name: Deploy to the Maven Central Repository
-        run: mvn deploy -P release -X -DskipTests -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} -Dgpg.executable=gpg
+        run: mvn deploy -P release -DskipTests -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} -Dgpg.executable=gpg
