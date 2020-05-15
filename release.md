@@ -1,3 +1,11 @@
 ## Changes in this release
 
-- Added a release-action to automate GitHub Releases
+### Configuration
+
+### Refactor
+
+### Features
+
+### Bugfixes
+- Fixed the faulty link in the Maven Central badge
+

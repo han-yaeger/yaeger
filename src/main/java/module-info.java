@@ -1,31 +1,36 @@
-module nl.han.yaeger {
+module hanyaeger.api {
     requires transitive javafx.base;
     requires transitive javafx.controls;
     requires transitive javafx.media;
     requires transitive javafx.graphics;
     requires transitive com.google.guice;
 
-    exports nl.han.yaeger.engine;
-    exports nl.han.yaeger.engine.annotations;
-    exports nl.han.yaeger.engine.entities;
-    exports nl.han.yaeger.engine.scenes;
-    exports nl.han.yaeger.engine.scenes.delegates;
-    exports nl.han.yaeger.engine.media.repositories;
-    exports nl.han.yaeger.javafx.image;
-    exports nl.han.yaeger.engine.debug;
-    exports nl.han.yaeger.javafx.debug;
-    exports nl.han.yaeger.guice.factories;
-    exports nl.han.yaeger.javafx.animationtimer;
-    exports nl.han.yaeger.engine.entities.entity.sprite;
-    exports nl.han.yaeger.engine.entities.tilemap;
-    exports nl.han.yaeger.engine.entities.entity;
-    exports nl.han.yaeger.engine.entities.entity.shape.text;
-    exports nl.han.yaeger.engine.entities.entity.shape.rectangle;
-    exports nl.han.yaeger.engine.entities.entity.motion;
-    exports nl.han.yaeger.engine.scenes.splash;
-    exports nl.han.yaeger.engine.entities.entity.collisions;
-    exports nl.han.yaeger.engine.entities.entity.events.userinput;
+    exports com.github.hanyaeger.api.engine;
+    exports com.github.hanyaeger.api.engine.annotations;
+    exports com.github.hanyaeger.api.engine.entities;
+    exports com.github.hanyaeger.api.engine.scenes;
+    exports com.github.hanyaeger.api.engine.scenes.delegates;
+    exports com.github.hanyaeger.api.engine.media.repositories;
+    exports com.github.hanyaeger.api.engine.debug;
+    exports com.github.hanyaeger.api.engine.entities.entity.sprite;
+    exports com.github.hanyaeger.api.engine.entities.tilemap;
+    exports com.github.hanyaeger.api.engine.entities.entity;
+    exports com.github.hanyaeger.api.engine.entities.entity.shape.text;
+    exports com.github.hanyaeger.api.engine.entities.entity.shape.rectangle;
+    exports com.github.hanyaeger.api.engine.entities.entity.motion;
+    exports com.github.hanyaeger.api.engine.scenes.splash;
+    exports com.github.hanyaeger.api.engine.entities.entity.collisions;
+    exports com.github.hanyaeger.api.engine.entities.entity.events.userinput;
+    exports com.github.hanyaeger.api.engine.styles;
+    exports com.github.hanyaeger.api.engine.media.audio;
 
-    opens fonts;
+    exports com.github.hanyaeger.api.guice.factories;
+
+    exports com.github.hanyaeger.api.javafx.image;
+    exports com.github.hanyaeger.api.javafx.debug;
+    exports com.github.hanyaeger.api.javafx.animationtimer;
+
+    opens fonts.avenirnext;
+    opens fonts.avenirnextcondensed;
     opens images;
 }
