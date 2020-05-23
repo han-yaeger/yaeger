@@ -5,7 +5,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/han-yaeger/yaeger/badge)](https://www.codefactor.io/repository/github/han-yaeger/yaeger)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=han-yaeger_yaeger&metric=alert_status)](https://sonarcloud.io/dashboard?id=han-yaeger_yaeger)
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.han-yaeger/yaeger/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/com.github.han-yaeger/yaeger)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.han-yaeger/yaeger/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.han-yaeger/yaeger)
 [![Generic badge](https://img.shields.io/badge/Java-12-purple.svg)](https://shields.io/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
