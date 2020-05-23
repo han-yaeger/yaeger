@@ -42,7 +42,7 @@ public class YaegerStage implements Initializable {
         injector.injectMembers(sceneCollection);
         sceneCollection.init(injector);
 
-        yaegerApplication.initializeGame();
+        yaegerApplication.setupGame();
         stage.setWidth(size.getWidth());
         stage.setHeight(size.getHeight());
 

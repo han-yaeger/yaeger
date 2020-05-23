@@ -57,7 +57,7 @@ class YaegerStageTest {
         sut.init(injector);
 
         // Assert
-        verify(yaegerApplication).initializeGame();
+        verify(yaegerApplication).setupGame();
     }
 
     @Test
@@ -80,7 +80,7 @@ class YaegerStageTest {
 
         // Assert
         InOrder inOrder = inOrder(yaegerApplication, yaegerApplication);
-        inOrder.verify(yaegerApplication).initializeGame();
+        inOrder.verify(yaegerApplication).setupGame();
         inOrder.verify(yaegerApplication).setupScenes();
     }
 
@@ -115,7 +115,7 @@ class YaegerStageTest {
 
         // Assert
         InOrder inOrder = inOrder(yaegerApplication, stage);
-        inOrder.verify(yaegerApplication).initializeGame();
+        inOrder.verify(yaegerApplication).setupGame();
         inOrder.verify(stage).setWidth(anyDouble());
         inOrder.verify(stage).setHeight(anyDouble());
     }

@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 /**
  * {@link YaegerApplication} is the base class that must be extended to create a Yaeger game. After extending this class,
- * two lifecycle methods will become available: {@link #initializeGame()} and {@link #setupScenes()}. The methods should be used
+ * two lifecycle methods will become available: {@link #setupGame()} and {@link #setupScenes()}. The methods should be used
  * for any further configuration.
  * <p>
  * The constructor of the extending class should be the default empty constructor. Furthermore, the extending class
@@ -59,24 +59,22 @@ public abstract class YaegerApplication extends Application {
     /**
      * Add a {@link YaegerScene} to the Game.
      *
-     * @param id The {@link Integer} identifying the {@link YaegerScene}
-     * @param scene  The {@link YaegerScene} that should be added
+     * @param id    The {@link Integer} identifying the {@link YaegerScene}
+     * @param scene The {@link YaegerScene} that should be added
      */
     protected void addScene(final int id, final YaegerScene scene) {
         yaegerStage.addScene(id, scene);
     }
 
     /**
-     * Use this method for game initialization code.
+     * Use this method to setup the Game. The following methods are available:
      *
-     * <p>
-     * ialization options are:
      * <ul>
-     *     <li>setSize()</li>
-     *     <li>setGameTitle()</li>
+     *     <li>{@link #setSize(Size)}</li>
+     *     <li>{@link #setGameTitle(String)}</li>
      * </ul>
      */
-    protected abstract void initializeGame();
+    protected abstract void setupGame();
 
     /**
      * Use this method to add the instances of {@link YaegerScene} that make up the Game. A {@link YaegerScene} will

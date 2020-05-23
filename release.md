@@ -3,6 +3,7 @@
 ### Configuration
 
 ### Refactor
+- Renamed initializeGame() to setupGame() (#79)
 
 ### Features
 
