@@ -3,7 +3,8 @@
 ### Configuration
 
 ### Refactor
-- Renamed initializeGame() to setupGame() (#79)
+- Renamed method initializeGame() to setupGame() (#79)
+- Renamed class YaegerApplication to YaegerGame
 
 ### Features
 

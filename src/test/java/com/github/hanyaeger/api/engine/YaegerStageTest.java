@@ -16,7 +16,7 @@ class YaegerStageTest {
     private static final int WIDTH = 960;
     private static final int HEIGHT = 600;
 
-    private YaegerApplication yaegerApplication;
+    private YaegerGame yaegerGame;
     private Stage stage;
     private Injector injector;
     private YaegerStage sut;
@@ -25,12 +25,12 @@ class YaegerStageTest {
 
     @BeforeEach
     void setUp() {
-        yaegerApplication = mock(YaegerApplication.class);
+        yaegerGame = mock(YaegerGame.class);
         stage = mock(Stage.class);
         injector = mock(Injector.class);
         sceneCollectionFactory = mock(SceneCollectionFactory.class);
         sceneCollection = mock(SceneCollection.class);
-        sut = new YaegerStage(yaegerApplication, stage);
+        sut = new YaegerStage(yaegerGame, stage);
         sut.setSceneCollectionFactory(sceneCollectionFactory);
 
         when(sceneCollectionFactory.create(stage)).thenReturn(sceneCollection);
@@ -57,7 +57,7 @@ class YaegerStageTest {
         sut.init(injector);
 
         // Assert
-        verify(yaegerApplication).setupGame();
+        verify(yaegerGame).setupGame();
     }
 
     @Test
@@ -68,7 +68,7 @@ class YaegerStageTest {
         sut.init(injector);
 
         // Assert
-        verify(yaegerApplication).setupScenes();
+        verify(yaegerGame).setupScenes();
     }
 
     @Test
@@ -79,9 +79,9 @@ class YaegerStageTest {
         sut.init(injector);
 
         // Assert
-        InOrder inOrder = inOrder(yaegerApplication, yaegerApplication);
-        inOrder.verify(yaegerApplication).setupGame();
-        inOrder.verify(yaegerApplication).setupScenes();
+        InOrder inOrder = inOrder(yaegerGame, yaegerGame);
+        inOrder.verify(yaegerGame).setupGame();
+        inOrder.verify(yaegerGame).setupScenes();
     }
 
     @Test
@@ -114,8 +114,8 @@ class YaegerStageTest {
         sut.init(injector);
 
         // Assert
-        InOrder inOrder = inOrder(yaegerApplication, stage);
-        inOrder.verify(yaegerApplication).setupGame();
+        InOrder inOrder = inOrder(yaegerGame, stage);
+        inOrder.verify(yaegerGame).setupGame();
         inOrder.verify(stage).setWidth(anyDouble());
         inOrder.verify(stage).setHeight(anyDouble());
     }

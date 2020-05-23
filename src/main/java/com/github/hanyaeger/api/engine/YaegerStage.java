@@ -10,19 +10,19 @@ import com.github.hanyaeger.api.engine.scenes.YaegerScene;
 /**
  * A {@link YaegerStage} encapsulates an JavaFX {@link Stage}. It defines the window
  * that is being used and contains the {@link SceneCollection} that contains all instances
- * of {@link YaegerScene} that are part of the {@link YaegerApplication}.
+ * of {@link YaegerScene} that are part of the {@link YaegerGame}.
  */
 public class YaegerStage implements Initializable {
 
-    private Size size = YaegerApplication.DEFAULT_GAME_DIMENSIONS;
+    private Size size = YaegerGame.DEFAULT_GAME_DIMENSIONS;
 
-    private YaegerApplication yaegerApplication;
+    private YaegerGame yaegerGame;
     private Stage stage;
     private SceneCollectionFactory sceneCollectionFactory;
     private SceneCollection sceneCollection;
 
-    YaegerStage(final YaegerApplication yaegerApplication, final Stage stage) {
-        this.yaegerApplication = yaegerApplication;
+    YaegerStage(final YaegerGame yaegerGame, final Stage stage) {
+        this.yaegerGame = yaegerGame;
         this.stage = stage;
     }
 
@@ -42,11 +42,11 @@ public class YaegerStage implements Initializable {
         injector.injectMembers(sceneCollection);
         sceneCollection.init(injector);
 
-        yaegerApplication.setupGame();
+        yaegerGame.setupGame();
         stage.setWidth(size.getWidth());
         stage.setHeight(size.getHeight());
 
-        yaegerApplication.setupScenes();
+        yaegerGame.setupScenes();
         sceneCollection.postSetupScenes();
 
         stage.show();

@@ -14,7 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import com.github.hanyaeger.api.engine.YaegerApplication;
+import com.github.hanyaeger.api.engine.YaegerGame;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.EntitySupplier;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
@@ -158,7 +158,7 @@ public abstract class StaticScene implements YaegerScene, KeyListener, SupplierP
 
     @Override
     public void onPressedKeysChange(final Set<KeyCode> input) {
-        if (input.contains(YaegerApplication.TOGGLE_DEBUGGER_KEY)) {
+        if (input.contains(YaegerGame.TOGGLE_DEBUGGER_KEY)) {
             debugger.toggle();
         }
 

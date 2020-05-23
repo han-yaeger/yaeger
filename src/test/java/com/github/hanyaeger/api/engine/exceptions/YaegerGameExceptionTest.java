@@ -5,7 +5,7 @@ import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class YaegerApplicationExceptionTest {
+class YaegerGameExceptionTest {
 
     @Test
     void testMessageStaysAvailable() {

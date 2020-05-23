@@ -10,7 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 /**
- * {@link YaegerApplication} is the base class that must be extended to create a Yaeger game. After extending this class,
+ * {@link YaegerGame} is the base class that must be extended to create a Yaeger game. After extending this class,
  * two lifecycle methods will become available: {@link #setupGame()} and {@link #setupScenes()}. The methods should be used
  * for any further configuration.
  * <p>
@@ -23,7 +23,7 @@ import javafx.stage.Stage;
  * }
  * </pre>
  */
-public abstract class YaegerApplication extends Application {
+public abstract class YaegerGame extends Application {
     public static final KeyCode TOGGLE_DEBUGGER_KEY = KeyCode.F1;
     public static final Size DEFAULT_GAME_DIMENSIONS = new Size(640, 480);
 
