@@ -71,21 +71,21 @@ public class YaegerStage implements Initializable {
     /**
      * Add a {@link YaegerScene} to the {@link YaegerStage}.
      *
-     * @param number The number as an {@code int} that identifies the {@link YaegerScene}. By calling the method
+     * @param id The number as an {@code int} that identifies the {@link YaegerScene}. By calling the method
      *               {@link #setActiveScene(int)} the added {@link YaegerScene} can be set as the active one.
      * @param scene  The {@link YaegerScene} that should be added.
      */
-    protected void addScene(final int number, final YaegerScene scene) {
-        sceneCollection.addScene(number, scene);
+    protected void addScene(final int id, final YaegerScene scene) {
+        sceneCollection.addScene(id, scene);
     }
 
     /**
      * Set the current active {@link YaegerScene}.
      *
-     * @param number The {@link Integer} identifying the {@link YaegerScene}
+     * @param id The {@link Integer} identifying the {@link YaegerScene}
      */
-    protected void setActiveScene(final int number) {
-        sceneCollection.setActive(number);
+    protected void setActiveScene(final int id) {
+        sceneCollection.setActive(id);
     }
 
     @Inject

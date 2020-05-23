@@ -50,20 +50,20 @@ public abstract class YaegerApplication extends Application {
     /**
      * Set the current active {@link YaegerScene}.
      *
-     * @param number The {@link Integer} identifying the {@link YaegerScene}
+     * @param id The {@link Integer} identifying the {@link YaegerScene}
      */
-    protected void setActiveScene(final int number) {
-        yaegerStage.setActiveScene(number);
+    protected void setActiveScene(final int id) {
+        yaegerStage.setActiveScene(id);
     }
 
     /**
      * Add a {@link YaegerScene} to the Game.
      *
-     * @param number The {@link Integer} identifying the {@link YaegerScene}
+     * @param id The {@link Integer} identifying the {@link YaegerScene}
      * @param scene  The {@link YaegerScene} that should be added
      */
-    protected void addScene(final int number, final YaegerScene scene) {
-        yaegerStage.addScene(number, scene);
+    protected void addScene(final int id, final YaegerScene scene) {
+        yaegerStage.addScene(id, scene);
     }
 
     /**

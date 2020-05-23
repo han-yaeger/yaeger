@@ -33,16 +33,16 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
      * Add a {@link YaegerScene} to the collection of {@link SceneCollection}. A {@link YaegerScene} uses a number ({@link Integer})
      * to be identified. Each number can be only used one time.
      *
-     * @param number The {@link Integer} identifying the {@link YaegerScene}
-     * @param scene  The {@link YaegerScene} to be added
+     * @param id    The {@link Integer} identifying the {@link YaegerScene}
+     * @param scene The {@link YaegerScene} to be added
      */
-    public void addScene(final int number, final YaegerScene scene) {
-        put(number, scene);
+    public void addScene(final int id, final YaegerScene scene) {
+        put(id, scene);
         scene.init(injector);
         scene.setStage(stage);
 
         if (size() == 1) {
-            firstScene = number;
+            firstScene = id;
         }
     }
 
@@ -59,17 +59,17 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
      * Set the {@link YaegerScene} of the given {@code int}. The set {@link YaegerScene} will be shown and if available
      * its {@code GameLoop} and {@code EventListeners} will be active.
      *
-     * @param number The {@link Integer} identifying the {@link YaegerScene}
+     * @param id The {@link Integer} identifying the {@link YaegerScene}
      */
-    public void setActive(final int number) {
+    public void setActive(final int id) {
         if (!finishedSplashScreen) {
-            firstScene = number;
+            firstScene = id;
         }
 
-        var requestedScene = get(number);
+        var requestedScene = get(id);
 
         if (requestedScene == null) {
-            throw new YaegerSceneNotAvailableException(number);
+            throw new YaegerSceneNotAvailableException(id);
         }
 
         if (activeScene != null) {
