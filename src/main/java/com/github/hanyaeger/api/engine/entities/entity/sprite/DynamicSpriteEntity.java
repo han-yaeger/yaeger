@@ -16,7 +16,7 @@ import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
 import java.util.Optional;
 
 /**
- * An {@link DynamicSpriteEntity} extends all behaviour of a {@link SpriteEntity}, but also implements the
+ * A {@link DynamicSpriteEntity} extends all behaviour of a {@link SpriteEntity}, but also implements the
  * {@link Updatable} Interface.
  */
 public abstract class DynamicSpriteEntity extends SpriteEntity implements UpdateDelegator, BufferedMoveable, ContinuousRotatable {
@@ -28,23 +28,26 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     private double rotationAngle;
 
     /**
-     * Create a new SpriteEntity.
+     * Create a new {@link DynamicSpriteEntity} for the given image resource on the given {@link Location}, with the given {@link Size}.
      *
      * @param resource        The url of the image file. Relative to the resources folder.
      * @param initialLocation the initial {@link Location} of this Entity
-     * @param size            The bounding box of this {@code SpriteEntity}.
+     * @param size            The {@link Size} (width and height) with which the image should be shown. This {@link Size}
+     *                        will also be used as the {@link javafx.geometry.BoundingBox} in case of collision detection.
      */
     public DynamicSpriteEntity(final String resource, final Location initialLocation, final Size size) {
         this(resource, initialLocation, size, 1);
     }
 
     /**
-     * Create a new SpriteEntity.
+     * Create a new {@link DynamicSpriteEntity} for the given image resource on the given {@link Location},
+     * with the given {@link Size}.
      *
      * @param resource        The url of the image file. Relative to the resources folder.
      * @param initialLocation the initial {@link Location} of this Entity
-     * @param size            The bounding box of this {@code SpriteEntity}.
-     * @param frames          The number of frames this Image contains. By default the first frame is loaded.
+     * @param size            The {@link Size} (width and height) that should be used. The height and width divided by the
+     *                        number of frames will be used for displaying the Image and as the {@link javafx.geometry.BoundingBox} in case of collision detection.
+     * @param frames          The number of frames the Image contains. By default the first frame is loaded.
      */
     public DynamicSpriteEntity(final String resource, final Location initialLocation, final Size size, final int frames) {
         super(resource, initialLocation, size, frames);
@@ -53,9 +56,9 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     }
 
     /**
-     * Set the interval at which the sprite should be automatically cycled
+     * Set the interval at which the sprite should be automatically cycled.
      *
-     * @param interval the interval milli-seconds
+     * @param interval The interval milli-seconds.
      */
     protected void setAutoCycle(final long interval) {
         this.autoCycleInterval = interval;
