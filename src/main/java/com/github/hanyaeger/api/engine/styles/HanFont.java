@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
  */
 public class HanFont implements ResourceConsumer {
 
-    private static final String FONT_LOCATION = "fonts/";
+    private static final String FONT_LOCATION = "yaegerfonts/";
     private static final String FONT_DEFAULT_NAME = "avenirnext/AvenirNext";
     private static final String FONT_STYLE_SEPERATOR = "-";
     private static final String FONT_DEFAULT_CONDENSED_NAME = "avenirnextcondensed/AvenirNextCondensed";

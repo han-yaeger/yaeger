@@ -30,7 +30,7 @@ module hanyaeger.api {
     exports com.github.hanyaeger.api.javafx.debug;
     exports com.github.hanyaeger.api.javafx.animationtimer;
 
-    opens fonts.avenirnext;
-    opens fonts.avenirnextcondensed;
-    opens images;
+    opens yaegerfonts.avenirnext;
+    opens yaegerfonts.avenirnextcondensed;
+    opens yaegerimages;
 }
