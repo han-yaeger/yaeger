@@ -122,7 +122,11 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     private void addSplashScreen() {
         var splash = splashScreenFactory.create(() -> {
             this.finishedSplashScreen = true;
-            setActive(firstScene);
+            if (get(firstScene) == null) {
+                stage.close();
+            } else {
+                setActive(firstScene);
+            }
         });
         splash.init(injector);
         splash.setStage(stage);

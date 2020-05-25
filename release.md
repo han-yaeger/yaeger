@@ -10,4 +10,5 @@
 
 ### Bugfixes
 - Fixed the faulty link in the Maven Central badge
+- Fixed Yaeger crashing after the SplashScreen if no Scene was added (#77)
 

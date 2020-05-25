@@ -106,6 +106,18 @@ class SceneCollectionTest {
     }
 
     @Test
+    void yaegerExistsIfNoSceneWasAddedAfterSplashScreenFinishes() {
+        // Arrange
+        sut.postSetupScenes();
+
+        // Act
+        loadFirstSceneCallBack.getValue().run();
+
+        // Verify
+        verify(stage).close();
+    }
+
+    @Test
     void requestingUnavailableSceneThrowsException() {
         // Arrange
         var sceneType = 0;
