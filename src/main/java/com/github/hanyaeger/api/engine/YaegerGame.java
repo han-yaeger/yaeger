@@ -30,6 +30,22 @@ public abstract class YaegerGame extends Application {
     private YaegerStage yaegerStage;
 
     /**
+     * Set the current active {@link YaegerScene}.
+     *
+     * @param id The {@link Integer} identifying the {@link YaegerScene}
+     */
+    public void setActiveScene(final int id) {
+        yaegerStage.setActiveScene(id);
+    }
+
+    /**
+     * Stop and close the Game.
+     */
+    public void quit() {
+        yaegerStage.quit();
+    }
+
+    /**
      * Set the {@link Size}, being the {@code width} and {@code height} of the game.
      *
      * @param size A {@link Size} object that encapsulates the {@code width} and {@code height} of the game.
@@ -47,14 +63,6 @@ public abstract class YaegerGame extends Application {
         yaegerStage.setTitle(title);
     }
 
-    /**
-     * Set the current active {@link YaegerScene}.
-     *
-     * @param id The {@link Integer} identifying the {@link YaegerScene}
-     */
-    protected void setActiveScene(final int id) {
-        yaegerStage.setActiveScene(id);
-    }
 
     /**
      * Add a {@link YaegerScene} to the Game.
@@ -94,12 +102,5 @@ public abstract class YaegerGame extends Application {
         yaegerStage = new YaegerStage(this, primaryStage);
         injector.injectMembers(yaegerStage);
         yaegerStage.init(injector);
-    }
-
-    /**
-     * Stop and close the Game.
-     */
-    public void quit() {
-        yaegerStage.quit();
     }
 }
