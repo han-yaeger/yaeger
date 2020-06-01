@@ -9,18 +9,18 @@ import java.util.Set;
 
 /**
  * A {@link AABBCollided} represents an non-rotatable {@link YaegerEntity} that can be collided with by a
- * {@link Collider}. In such a case, the {@link AABBCollided} is the {@link YaegerEntity} that
+ * {@link AABBCollider}. In such a case, the {@link AABBCollided} is the {@link YaegerEntity} that
  * gets notified of the collision.
  *
  * <p>There are different types of collision detection. In the case of an {@link AABBCollided} we perform so called
  * <b>Axis-Aligned Bounding Box</b> collision detection, which required the instances of {@link YaegerEntity}
  * to not be {@link Rotatable}. </p>
  *
- * <p>Each Game world Update a {@link AABBCollided} is checked against all instances of{@link Collider}. If many instances
- * of {@link Collider} are part of the {@link YaegerScene}, this
+ * <p>Each Game world Update a {@link AABBCollided} is checked against all instances of{@link AABBCollider}. If many instances
+ * of {@link AABBCollider} are part of the {@link YaegerScene}, this
  * could lead to many calculations, which could slow down the game and framerate. Thus ensure only those instances of
  * {@link YaegerEntity} that really need to be part of the collision detection implement
- * the {@link AABBCollided} or {@link Collider} interfaces.
+ * the {@link AABBCollided} or {@link AABBCollider} interfaces.
  * </p>
  */
 public interface AABBCollided extends Bounded {
@@ -30,28 +30,28 @@ public interface AABBCollided extends Bounded {
      *
      * @param collidingObject The EntityCollection you are colliding with.
      */
-    void onCollision(Collider collidingObject);
+    void onCollision(AABBCollider collidingObject);
 
     /**
-     * Perform collision detection with a {@link Set} of {@link Collider} instances. Only the first collision
+     * Perform collision detection with a {@link Set} of {@link AABBCollider} instances. Only the first collision
      * is detected.
      *
-     * @param colliders A {@link Set} of colliders that should be checked for collisions.
+     * @param AABBColliders A {@link Set} of colliders that should be checked for collisions.
      */
-    default void checkForCollisions(Set<Collider> colliders) {
-        if (colliders == null || colliders.isEmpty()) {
+    default void checkForCollisions(Set<AABBCollider> AABBColliders) {
+        if (AABBColliders == null || AABBColliders.isEmpty()) {
             return;
         }
 
-        for (Collider collider : colliders) {
-            if (collisionHasOccured(collider)) {
-                onCollision(collider);
+        for (AABBCollider AABBCollider : AABBColliders) {
+            if (collisionHasOccured(AABBCollider)) {
+                onCollision(AABBCollider);
                 break;
             }
         }
     }
 
-    private boolean collisionHasOccured(Collider collider) {
-        return !this.equals(collider) && getTransformedBounds().intersects(collider.getTransformedBounds());
+    private boolean collisionHasOccured(AABBCollider AABBCollider) {
+        return !this.equals(AABBCollider) && getTransformedBounds().intersects(AABBCollider.getTransformedBounds());
     }
 }

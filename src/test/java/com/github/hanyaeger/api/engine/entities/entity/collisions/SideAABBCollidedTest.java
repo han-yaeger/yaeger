@@ -31,13 +31,13 @@ class SideAABBCollidedTest {
     @Test
     void testNoSideCollisionReportsCorrectly() {
         // Arrange
-        var noCollisionCollider = new CollidingCollider();
+        var noCollisionCollider = new CollidingAABBCollider();
         noCollisionCollider.setBounds(TEST_COLLIDED_BODY_BOUNDINGBOX);
 
-        Set<Collider> testColliders = Set.of(noCollisionCollider);
+        Set<AABBCollider> testAABBColliders = Set.of(noCollisionCollider);
 
         // Act
-        sut.checkForCollisions(testColliders);
+        sut.checkForCollisions(testAABBColliders);
 
         // Assert
         assertEquals(CollisionSide.UNKNOWN, sut.getCollisionSide());
@@ -46,15 +46,15 @@ class SideAABBCollidedTest {
     @Test
     void testBottomCollisionReportsCorrectly() {
         // Arrange
-        var noCollisionCollider = new CollidingCollider();
+        var noCollisionCollider = new CollidingAABBCollider();
         noCollisionCollider.setBounds(TEST_NOT_COLLIDING_BOUNDINGBOX);
-        var bottomCollisionCollider = new CollidingCollider();
+        var bottomCollisionCollider = new CollidingAABBCollider();
         bottomCollisionCollider.setBounds(TEST_COLLIDED_BOTTOM_BOUNDINGBOX);
 
-        Set<Collider> testColliders = Set.of(noCollisionCollider, bottomCollisionCollider);
+        Set<AABBCollider> testAABBColliders = Set.of(noCollisionCollider, bottomCollisionCollider);
 
         // Act
-        sut.checkForCollisions(testColliders);
+        sut.checkForCollisions(testAABBColliders);
 
         // Assert
         assertEquals(bottomCollisionCollider, sut.getLastCollider());
@@ -64,15 +64,15 @@ class SideAABBCollidedTest {
     @Test
     void testTopCollisionReportsCorrectly() {
         // Arrange
-        var noCollisionCollider = new CollidingCollider();
+        var noCollisionCollider = new CollidingAABBCollider();
         noCollisionCollider.setBounds(TEST_NOT_COLLIDING_BOUNDINGBOX);
-        var topCollisionCollider = new CollidingCollider();
+        var topCollisionCollider = new CollidingAABBCollider();
         topCollisionCollider.setBounds(TEST_COLLIDED_TOP_BOUNDINGBOX);
 
-        Set<Collider> testColliders = Set.of(noCollisionCollider, topCollisionCollider);
+        Set<AABBCollider> testAABBColliders = Set.of(noCollisionCollider, topCollisionCollider);
 
         // Act
-        sut.checkForCollisions(testColliders);
+        sut.checkForCollisions(testAABBColliders);
 
         // Assert
         assertEquals(sut.getLastCollider(), topCollisionCollider);
@@ -82,15 +82,15 @@ class SideAABBCollidedTest {
     @Test
     void testLeftCollisionReportsCorrectly() {
         // Arrange
-        var noCollisionCollider = new CollidingCollider();
+        var noCollisionCollider = new CollidingAABBCollider();
         noCollisionCollider.setBounds(TEST_NOT_COLLIDING_BOUNDINGBOX);
-        var leftCollisionCollider = new CollidingCollider();
+        var leftCollisionCollider = new CollidingAABBCollider();
         leftCollisionCollider.setBounds(TEST_COLLIDED_LEFT_BOUNDINGBOX);
 
-        Set<Collider> testColliders = Set.of(noCollisionCollider, leftCollisionCollider);
+        Set<AABBCollider> testAABBColliders = Set.of(noCollisionCollider, leftCollisionCollider);
 
         // Act
-        sut.checkForCollisions(testColliders);
+        sut.checkForCollisions(testAABBColliders);
 
         // Assert
         assertEquals(sut.getLastCollider(), leftCollisionCollider);
@@ -100,22 +100,22 @@ class SideAABBCollidedTest {
     @Test
     void testRightCollisionReportsCorrectly() {
         // Arrange
-        var noCollisionCollider = new CollidingCollider();
+        var noCollisionCollider = new CollidingAABBCollider();
         noCollisionCollider.setBounds(TEST_NOT_COLLIDING_BOUNDINGBOX);
-        var rightCollisionCollider = new CollidingCollider();
+        var rightCollisionCollider = new CollidingAABBCollider();
         rightCollisionCollider.setBounds(TEST_COLLIDED_RIGHT_BOUNDINGBOX);
 
-        Set<Collider> testColliders = Set.of(noCollisionCollider, rightCollisionCollider);
+        Set<AABBCollider> testAABBColliders = Set.of(noCollisionCollider, rightCollisionCollider);
 
         // Act
-        sut.checkForCollisions(testColliders);
+        sut.checkForCollisions(testAABBColliders);
 
         // Assert
         assertEquals(sut.getLastCollider(), rightCollisionCollider);
         assertEquals(CollisionSide.RIGHT, sut.getCollisionSide());
     }
 
-    private class CollidingCollider implements Collider {
+    private class CollidingAABBCollider implements AABBCollider {
 
         private Bounds bounds;
 
@@ -151,12 +151,12 @@ class SideAABBCollidedTest {
 
     private class TestAwareCollidedAABB implements AABBSideAwareCollided {
 
-        private Collider collider;
+        private AABBCollider AABBCollider;
         private CollisionSide collisionSide;
 
         @Override
-        public void onCollision(Collider collidingObject, CollisionSide side) {
-            this.collider = collidingObject;
+        public void onCollision(AABBCollider collidingObject, CollisionSide side) {
+            this.AABBCollider = collidingObject;
             this.collisionSide = side;
         }
 
@@ -180,8 +180,8 @@ class SideAABBCollidedTest {
             return collisionSide;
         }
 
-        public Collider getLastCollider() {
-            return collider;
+        public AABBCollider getLastCollider() {
+            return AABBCollider;
         }
     }
 }

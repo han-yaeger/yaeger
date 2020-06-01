@@ -5,6 +5,9 @@
 ### Refactor
 - Renamed method initializeGame() to setupGame() (#79)
 - Renamed class YaegerApplication to YaegerGame
+- Renamed quitGame() to quit (#82)
+- Set the visibillity of setActiveScene(int) to public (#81)
+- Renamed Collider to AABBColider (#80)
 
 ### Features
 

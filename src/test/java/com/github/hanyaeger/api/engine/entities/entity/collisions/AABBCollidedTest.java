@@ -38,7 +38,7 @@ public class AABBCollidedTest {
     @Test
     void testNoCollidersGivesNoCollisions() {
         // Arrange
-        Set<Collider> emptySet = Set.of();
+        Set<AABBCollider> emptySet = Set.of();
 
         // Act
         sut.checkForCollisions(emptySet);
@@ -50,13 +50,13 @@ public class AABBCollidedTest {
     @Test
     void testTrivialCollisionGivesCollision() {
         // Arrange
-        var trivialCollider = new CollidingCollider();
+        var trivialCollider = new CollidingAABBCollider();
         trivialCollider.setBounds(TEST_COLLIDED_BOUNDINGBOX);
 
-        Set<Collider> testColliders = Set.of(trivialCollider);
+        Set<AABBCollider> testAABBColliders = Set.of(trivialCollider);
 
         // Act
-        sut.checkForCollisions(testColliders);
+        sut.checkForCollisions(testAABBColliders);
 
         // Assert
         assertEquals(trivialCollider, sut.getLastCollider());
@@ -65,13 +65,13 @@ public class AABBCollidedTest {
     @Test
     void testNoCollisionReportNoCollision() {
         // Arrange
-        var noCollisionCollider = new CollidingCollider();
+        var noCollisionCollider = new CollidingAABBCollider();
         noCollisionCollider.setBounds(TEST_NOT_COLLIDING_BOUNDINGBOX);
 
-        Set<Collider> testColliders = Set.of(noCollisionCollider);
+        Set<AABBCollider> testAABBColliders = Set.of(noCollisionCollider);
 
         // Act
-        sut.checkForCollisions(testColliders);
+        sut.checkForCollisions(testAABBColliders);
 
         // Assert
         assertNull(sut.getLastCollider());
@@ -81,16 +81,16 @@ public class AABBCollidedTest {
     void tesCollisionWithSelfReportsNoCollision() {
         // Arrange
         TestCollidable collidables = new TestCollidable();
-        Set<Collider> testColliders = Set.of(collidables);
+        Set<AABBCollider> testAABBColliders = Set.of(collidables);
 
         // Act
-        collidables.checkForCollisions(testColliders);
+        collidables.checkForCollisions(testAABBColliders);
 
         // Assert
         assertNull(collidables.getLastCollider());
     }
 
-    private class CollidingCollider implements Collider {
+    private class CollidingAABBCollider implements AABBCollider {
 
         private Bounds bounds;
 
@@ -121,10 +121,10 @@ public class AABBCollidedTest {
 
     private class TestCollided implements AABBCollided {
 
-        private Collider lastCollided;
+        private AABBCollider lastCollided;
 
         @Override
-        public void onCollision(Collider collidingObject) {
+        public void onCollision(AABBCollider collidingObject) {
             lastCollided = collidingObject;
         }
 
@@ -133,7 +133,7 @@ public class AABBCollidedTest {
             return TEST_COLLIDED_BOUNDINGBOX;
         }
 
-        public Collider getLastCollider() {
+        public AABBCollider getLastCollider() {
             return lastCollided;
         }
 
@@ -143,7 +143,7 @@ public class AABBCollidedTest {
         }
     }
 
-    private class TestCollidable extends TestCollided implements Collider, AABBCollided {
+    private class TestCollidable extends TestCollided implements AABBCollider, AABBCollided {
 
         @Override
         public Optional<Node> getGameNode() {

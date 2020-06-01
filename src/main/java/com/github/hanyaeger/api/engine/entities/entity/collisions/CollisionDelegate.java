@@ -12,14 +12,14 @@ import java.util.Set;
 public class CollisionDelegate {
 
     private Set<AABBCollided> collideds;
-    private Set<Collider> colliders;
+    private Set<AABBCollider> AABBColliders;
 
     /**
      * Create a new CollisionDelegate.
      */
     public CollisionDelegate() {
         collideds = new HashSet<>();
-        colliders = new HashSet<>();
+        AABBColliders = new HashSet<>();
     }
 
     /**
@@ -29,8 +29,8 @@ public class CollisionDelegate {
      * @param entity the {@link YaegerEntity} that should be registered
      */
     public void register(YaegerEntity entity) {
-        if (entity instanceof Collider) {
-            register((Collider) entity);
+        if (entity instanceof AABBCollider) {
+            register((AABBCollider) entity);
         }
         if (entity instanceof AABBCollided) {
             register((AABBCollided) entity);
@@ -38,12 +38,12 @@ public class CollisionDelegate {
     }
 
     /**
-     * Register a {@link Collider} to be evaluated for collision detection.
+     * Register a {@link AABBCollider} to be evaluated for collision detection.
      *
-     * @param collider the {@link Collider} that should be registered
+     * @param AABBCollider the {@link AABBCollider} that should be registered
      */
-    public void register(Collider collider) {
-        colliders.add(collider);
+    public void register(AABBCollider AABBCollider) {
+        AABBColliders.add(AABBCollider);
     }
 
     /**
@@ -61,8 +61,8 @@ public class CollisionDelegate {
      * @param removeable The {@link Removeable} that should be removed.
      */
     public void remove(Removeable removeable) {
-        if (removeable instanceof Collider) {
-            removeCollider((Collider) removeable);
+        if (removeable instanceof AABBCollider) {
+            removeCollider((AABBCollider) removeable);
         }
         if (removeable instanceof AABBCollided) {
             removeCollided((AABBCollided) removeable);
@@ -73,11 +73,11 @@ public class CollisionDelegate {
      * Check for collisions. Each {@link AABBCollided} is asked to check for collisions.
      */
     public void checkCollisions() {
-        collideds.forEach(collided -> collided.checkForCollisions(colliders));
+        collideds.forEach(collided -> collided.checkForCollisions(AABBColliders));
     }
 
-    private void removeCollider(Collider collider) {
-        colliders.remove(collider);
+    private void removeCollider(AABBCollider AABBCollider) {
+        AABBColliders.remove(AABBCollider);
     }
 
     private void removeCollided(AABBCollided collided) {
