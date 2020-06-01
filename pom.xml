@@ -40,7 +40,7 @@
     <distributionManagement>
         <site>
             <id>api</id>
-            <url>https://han-yaeger.github.io/yaeger/nl.han.yaeger/module-summary.html</url>
+            <url>https://han-yaeger.github.io/yaeger/hanyaeger.api/module-summary.html</url>
         </site>
         <snapshotRepository>
             <id>ossrh</id>
