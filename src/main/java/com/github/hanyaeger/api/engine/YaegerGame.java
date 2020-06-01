@@ -99,7 +99,7 @@ public abstract class YaegerGame extends Application {
     /**
      * Stop and close the Game.
      */
-    public void quitGame() {
+    public void quit() {
         yaegerStage.quit();
     }
 }
