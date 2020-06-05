@@ -17,7 +17,7 @@ import com.github.hanyaeger.api.engine.entities.EntitySpawner;
  * <p>
  * A {@link EntitySpawner} that is instantiated, but not added in this way, will not work.
  */
-public interface WithSpawners extends EntitySpawnerListProvider, EntityCollectionSupplier, DependencyInjector {
+public interface EntitySpawning extends EntitySpawnerListProvider, EntityCollectionSupplier, DependencyInjector {
 
     /**
      * Use this method to add any {@link EntitySpawner} that is required by the {@link YaegerScene}.

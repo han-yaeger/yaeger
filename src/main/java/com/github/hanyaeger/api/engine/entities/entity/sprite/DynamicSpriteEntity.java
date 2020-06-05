@@ -116,5 +116,4 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     public void setMotionApplier(final DefaultMotionApplier motionApplier) {
         this.motionApplier = motionApplier;
     }
-
 }
