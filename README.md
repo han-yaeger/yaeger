@@ -19,6 +19,17 @@ requires Java 12 or above to work.
 * Showcase: [Yaeger showcase](https://github.com/han-yaeger/yaeger-showcase)
 * Architecture: [Yaeger's architecture](docs/architecture.md)
 
+## Usage
+
+Yaeger is available through the Maven Central Repository.
+```xml
+<dependency>
+  <groupId>com.github.han-yaeger</groupId>
+  <artifactId>yaeger</artifactId>
+  <version>2020.2021-beta1</version>
+</dependency>
+```
+
 ## Modern Java, but an API with only traditional Object Orientation?
 Yaeger is to be used in a course that is part of the first year at the HAN University of applied sciences. Students
 just learned to master Object Orientation in the traditional sense and therefore the API of Yaeger is only targeted 
