@@ -8,7 +8,8 @@
 - Renamed quitGame() to quit (#82)
 - Set the visibillity of setActiveScene(int) to public (#81)
 - Renamed Collider to AABBColider (#80)
-- Renamed WithSpawners to EntitySpawning
+- Renamed WithSpawners to EntitySpawnerContainer
+- Renamed WithTileMaps to TileMapContainer
 
 ### Features
 

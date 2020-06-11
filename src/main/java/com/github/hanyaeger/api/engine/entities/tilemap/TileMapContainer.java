@@ -12,7 +12,7 @@ import com.github.hanyaeger.api.engine.scenes.YaegerScene;
  * Implementing this interface exposes the {@link #addTileMap(TileMap)} method. An {@link TileMap} that is
  * instantiated, but not registered, will not be added to the {@link YaegerScene}.
  */
-public interface WithTileMaps extends SupplierProvider, TileMapListProvider, DimensionsProvider, DependencyInjector {
+public interface TileMapContainer extends SupplierProvider, TileMapListProvider, DimensionsProvider, DependencyInjector {
 
     /**
      * Only instances of {@link Timer} that are registered with the method {@link #addTileMap(TileMap)}

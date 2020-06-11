@@ -3,7 +3,7 @@ package com.github.hanyaeger.api.engine.scenes;
 import com.github.hanyaeger.api.engine.entities.EntitySupplier;
 import com.github.hanyaeger.api.engine.entities.tilemap.TileFactory;
 import com.github.hanyaeger.api.engine.entities.tilemap.TileMap;
-import com.github.hanyaeger.api.engine.entities.tilemap.WithTileMaps;
+import com.github.hanyaeger.api.engine.entities.tilemap.TileMapContainer;
 import com.github.hanyaeger.api.engine.exceptions.YaegerEngineException;
 import com.google.inject.Injector;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,15 +15,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class WithTileMapsTest {
+class TileMapContainerTest {
 
-    private WithTileMapsImpl sut;
+    private TileMapContainerImpl sut;
     private Injector injector;
     private List<TileMap> tileMaps;
 
     @BeforeEach
     void setup() {
-        sut = new WithTileMapsImpl();
+        sut = new TileMapContainerImpl();
 
         injector = mock(Injector.class);
         sut.setInjector(injector);
@@ -95,7 +95,7 @@ class WithTileMapsTest {
         assertThrows(YaegerEngineException.class, () -> sut.addTileMap(entityMap));
     }
 
-    private class WithTileMapsImpl implements WithTileMaps {
+    private class TileMapContainerImpl implements TileMapContainer {
         private List<TileMap> mapsToRegister = new ArrayList<>();
         private boolean registerEntityMapsCalled = false;
 

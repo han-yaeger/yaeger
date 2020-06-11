@@ -15,16 +15,16 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-class EntitySpawningTest {
+class EntitySpawnerContainerTest {
 
     public static final Long TIMESTAMP = 0L;
-    private EntitySpawningImpl sut;
+    private EntitySpawnerContainerImpl sut;
     private List<EntitySpawner> spawners;
     private Injector injector;
 
     @BeforeEach
     void setup() {
-        sut = new EntitySpawningImpl();
+        sut = new EntitySpawnerContainerImpl();
         spawners = mock(ArrayList.class);
         injector = mock(Injector.class);
         sut.setSpawners(spawners);
@@ -107,7 +107,7 @@ class EntitySpawningTest {
         verify(spawner2).handle(TIMESTAMP);
     }
 
-    private class EntitySpawningImpl implements EntitySpawning {
+    private class EntitySpawnerContainerImpl implements EntitySpawnerContainer {
 
         private List<EntitySpawner> spawners;
         private boolean setupSpawnersCalled = false;
