@@ -14,5 +14,7 @@ public interface DirectionProvider {
      *
      * @return The direction in degrees as a {@code double} or {@code NaN}
      */
-    double getDirection();
+    default double getDirection(){
+        return 0;
+    }
 }

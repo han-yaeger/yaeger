@@ -10,5 +10,7 @@ public interface SpeedProvider {
      *
      * @return The speed as a  {@code double}
      */
-    double getSpeed();
+    default double getSpeed() {
+        return 0;
+    }
 }
