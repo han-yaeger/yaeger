@@ -11,15 +11,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class WithTimersTest {
+class TimerContainerTest {
 
     public static final Long TIMESTAMP = 0L;
-    private WithTimersImpl sut;
+    private TimerContainerImpl sut;
     private List<Timer> timers;
 
     @BeforeEach
     void setup() {
-        sut = new WithTimersImpl();
+        sut = new TimerContainerImpl();
         timers = Mockito.mock(ArrayList.class);
         sut.setTimers(timers);
     }
@@ -100,7 +100,7 @@ class WithTimersTest {
         verify(timer2).handle(TIMESTAMP);
     }
 
-    private class WithTimersImpl implements WithTimers {
+    private class TimerContainerImpl implements TimerContainer {
 
         private List<Timer> timers;
         private boolean setupTimersCalled = false;

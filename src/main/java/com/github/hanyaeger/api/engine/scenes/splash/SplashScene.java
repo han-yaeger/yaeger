@@ -2,7 +2,7 @@ package com.github.hanyaeger.api.engine.scenes.splash;
 
 import com.github.hanyaeger.api.engine.Size;
 import com.github.hanyaeger.api.engine.Timer;
-import com.github.hanyaeger.api.engine.WithTimers;
+import com.github.hanyaeger.api.engine.TimerContainer;
 import com.github.hanyaeger.api.engine.YaegerGame;
 import com.github.hanyaeger.api.engine.scenes.DynamicScene;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
@@ -16,7 +16,7 @@ import com.github.hanyaeger.api.engine.scenes.splash.entities.Logo;
  * A Splash Screen, being an instance of {@link YaegerScene} that
  * will be shown a given number of miliseconds at the start of a {@link YaegerGame}.
  */
-public class SplashScene extends DynamicScene implements WithTimers {
+public class SplashScene extends DynamicScene implements TimerContainer {
 
     private Runnable runnable;
 

@@ -17,7 +17,7 @@ import com.github.hanyaeger.api.engine.scenes.YaegerScene;
  * <p>
  * A {@link Timer} that is instantiated, but not added in this way, will not work.
  */
-public interface WithTimers extends TimerListProvider {
+public interface TimerContainer extends TimerListProvider {
 
     /**
      * Use this method to add any {@link Timer} that is required by the {@link YaegerScene}

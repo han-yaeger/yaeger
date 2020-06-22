@@ -3,6 +3,7 @@
 ### Configuration
 
 ### Refactor
+* Renamed the WithTimers interface to TimerContainer
 
 ### Features
 
