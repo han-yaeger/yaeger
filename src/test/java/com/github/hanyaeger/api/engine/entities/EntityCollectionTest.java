@@ -5,12 +5,12 @@ import com.github.hanyaeger.api.engine.annotations.AnnotationProcessor;
 import com.github.hanyaeger.api.engine.debug.Debugger;
 import com.github.hanyaeger.api.engine.entities.entity.Location;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
+import com.github.hanyaeger.api.engine.entities.entity.events.userinput.KeyListener;
 import com.google.inject.Injector;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
-import com.github.hanyaeger.api.engine.entities.entity.events.userinput.KeyListener;
 import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -98,7 +98,7 @@ class EntityCollectionTest {
     @Test
     void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsEmpty() {
         // Arrange
-        var keyListeningEntity = mock(KeyListeningEntity.class);
+        var keyListeningEntity = mock(KeyListeningEntityImpl.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
         when(keyListeningEntity.getGameNode()).thenReturn(Optional.of(node));
 
@@ -126,7 +126,7 @@ class EntityCollectionTest {
     @Test
     void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsFilled() {
         // Arrange
-        var keyListeningEntity = mock(KeyListeningEntity.class);
+        var keyListeningEntity = mock(KeyListeningEntityImpl.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
         when(keyListeningEntity.getGameNode()).thenReturn(Optional.of(node));
 
@@ -254,14 +254,34 @@ class EntityCollectionTest {
         }
     }
 
-    private abstract class KeyListeningEntity extends YaegerEntity implements KeyListener {
+    private class KeyListeningEntityImpl extends YaegerEntity implements KeyListener {
         /**
          * Instantiate a new {@link YaegerEntity} for the given {@link Location} and textDelegate.
          *
          * @param initialPosition the initial {@link Location} of this {@link YaegerEntity}
          */
-        public KeyListeningEntity(Location initialPosition) {
+        public KeyListeningEntityImpl(Location initialPosition) {
             super(initialPosition);
+        }
+
+        @Override
+        public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
+
+        }
+
+        @Override
+        public void setOriginX(double x) {
+
+        }
+
+        @Override
+        public void setOriginY(double y) {
+
+        }
+
+        @Override
+        public Optional<Node> getGameNode() {
+            return Optional.empty();
         }
     }
 }

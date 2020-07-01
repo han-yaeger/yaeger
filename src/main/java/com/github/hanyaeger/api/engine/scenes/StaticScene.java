@@ -30,7 +30,7 @@ import java.util.Set;
  * A {@link StaticScene} is the abstract superclass of all scenes that do not require a Game Loop. If a Game
  * Loop is required, extend a {@link DynamicScene}.
  */
-public abstract class StaticScene implements YaegerScene, KeyListener, SupplierProvider, TileMapListProvider, EntityCollectionSupplier, DependencyInjector {
+public abstract class StaticScene implements YaegerScene, SupplierProvider, TileMapListProvider, EntityCollectionSupplier, DependencyInjector {
 
     private EntityCollectionFactory entityCollectionFactory;
     private SceneFactory sceneFactory;
@@ -65,7 +65,11 @@ public abstract class StaticScene implements YaegerScene, KeyListener, SupplierP
         entityCollection.addStatisticsObserver(debugger);
 
         debugger.setup(root);
-        keyListenerDelegate.setup(scene, this);
+        keyListenerDelegate.setup(scene, (input) -> onInputChanged(input));
+
+        if (this instanceof KeyListener) {
+            entityCollection.registerKeyListener((KeyListener) this);
+        }
         backgroundDelegate.setup(scene);
 
         setupScene();
@@ -91,13 +95,6 @@ public abstract class StaticScene implements YaegerScene, KeyListener, SupplierP
     protected void addEntity(final YaegerEntity entity) {
         entitySupplier.add(entity);
     }
-
-    /**
-     * Implement this method to be informed when a key has been pressed or released.
-     *
-     * @param input A {@link Set} containing all keys currently pressed.
-     */
-    protected abstract void onInputChanged(final Set<KeyCode> input);
 
     @Override
     public EntityCollection getEntityCollection() {
@@ -156,13 +153,11 @@ public abstract class StaticScene implements YaegerScene, KeyListener, SupplierP
         clear();
     }
 
-    @Override
-    public void onPressedKeysChange(final Set<KeyCode> input) {
+    private void onInputChanged(final Set<KeyCode> input) {
         if (input.contains(YaegerGame.TOGGLE_DEBUGGER_KEY)) {
             debugger.toggle();
         }
-
-        onInputChanged(input);
+        entityCollection.notifyGameObjectsOfPressedKeys(input);
     }
 
     @Override

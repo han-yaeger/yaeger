@@ -18,6 +18,7 @@ import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import com.github.hanyaeger.api.engine.entities.entity.events.userinput.KeyListener;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class StaticSceneTest {
-    private TestStaticScene sut;
+    private StaticSceneImpl sut;
     private SceneFactory sceneFactory;
     private EntityCollectionFactory entityCollectionFactory;
 
@@ -43,7 +44,7 @@ class StaticSceneTest {
 
     @BeforeEach
     void setup() {
-        sut = new TestStaticScene();
+        sut = new StaticSceneImpl();
 
         root = mock(Group.class);
         backgroundDelegate = mock(BackgroundDelegate.class);
@@ -198,20 +199,6 @@ class StaticSceneTest {
     }
 
     @Test
-    void pressingF1TogglesDebugger() {
-        // Arrange
-        var input = new HashSet<KeyCode>();
-        input.add(KeyCode.F1);
-        sut.activate();
-
-        // Act
-        sut.onPressedKeysChange(input);
-
-        // Verify
-        verify(debugger).toggle();
-    }
-
-    @Test
     void setBackgroundAudioDelegatesToBackgroundDelegate() {
         // Arrange
         final var AUDIO_STRING = "Hello World";
@@ -221,6 +208,35 @@ class StaticSceneTest {
 
         // Verify
         verify(backgroundDelegate).setBackgroundAudio(AUDIO_STRING);
+    }
+
+    @Test
+    void implementingKeyListenerAddsSceneToKeyListeners() {
+        // Arrange
+        final var sut = new StaticSceneKeyListenerImpl();
+
+        sut.setDebugger(debugger);
+        sut.setSceneFactory(sceneFactory);
+        sut.setEntityCollectionFactory(entityCollectionFactory);
+        sut.setRoot(root);
+        sut.setBackgroundDelegate(backgroundDelegate);
+        sut.setKeyListenerDelegate(keyListenerDelegate);
+        sut.setEntitySupplier(entitySupplier);
+        sut.setStage(stage);
+
+        scene = mock(Scene.class);
+        entityCollection = mock(EntityCollection.class);
+
+        when(sceneFactory.create(root)).thenReturn(scene);
+        when(entityCollectionFactory.create(root)).thenReturn(entityCollection);
+
+        sut.init(injector);
+
+        // Act
+        sut.activate();
+
+        // Verify
+        verify(entityCollection).registerKeyListener(sut);
     }
 
     @Test
@@ -284,7 +300,58 @@ class StaticSceneTest {
     }
 
     @Test
-    void postActivationMakeRequiredCalls() {
+    void pressingF1TogglesDebugger() {
+        // Arrange
+        var input = new HashSet<KeyCode>();
+        input.add(KeyCode.F1);
+
+        sut.activate();
+        ArgumentCaptor<KeyListener> captor = ArgumentCaptor.forClass(KeyListener.class);
+        verify(keyListenerDelegate, times(1)).setup(any(), captor.capture());
+
+        // Act
+        captor.getValue().onPressedKeysChange(input);
+
+        // Verify
+        verify(debugger).toggle();
+    }
+
+    @Test
+    void pressingF1NotifiesEntityCollection() {
+        // Arrange
+        var input = new HashSet<KeyCode>();
+        input.add(KeyCode.F1);
+
+        sut.activate();
+        ArgumentCaptor<KeyListener> captor = ArgumentCaptor.forClass(KeyListener.class);
+        verify(keyListenerDelegate, times(1)).setup(any(), captor.capture());
+
+        // Act
+        captor.getValue().onPressedKeysChange(input);
+
+        // Verify
+        verify(debugger).toggle();
+    }
+
+    @Test
+    void onInputChangeNotifiesEntityCollection() {
+        // Arrange
+        var input = new HashSet<KeyCode>();
+        input.add(KeyCode.A);
+
+        sut.activate();
+        ArgumentCaptor<KeyListener> captor = ArgumentCaptor.forClass(KeyListener.class);
+        verify(keyListenerDelegate, times(1)).setup(any(), captor.capture());
+
+        // Act
+        captor.getValue().onPressedKeysChange(input);
+
+        // Verify
+        verify(entityCollection).notifyGameObjectsOfPressedKeys(input);
+    }
+
+    @Test
+    void postActivationMakesRequiredCalls() {
         // Arrange
         sut.activate();
 
@@ -297,7 +364,7 @@ class StaticSceneTest {
         verify(debugger).toFront();
     }
 
-    private class TestStaticScene extends StaticScene {
+    private class StaticSceneImpl extends StaticScene {
 
         @Override
         public void setupScene() {
@@ -306,9 +373,23 @@ class StaticSceneTest {
         @Override
         public void setupEntities() {
         }
+    }
+
+    private class StaticSceneKeyListenerImpl extends StaticScene implements KeyListener {
 
         @Override
-        public void onInputChanged(Set<KeyCode> input) {
+        public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
+
+        }
+
+        @Override
+        public void setupScene() {
+
+        }
+
+        @Override
+        public void setupEntities() {
+
         }
     }
 }

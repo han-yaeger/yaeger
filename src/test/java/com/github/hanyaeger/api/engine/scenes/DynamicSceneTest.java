@@ -124,19 +124,7 @@ class DynamicSceneTest {
         verify(updater).clear();
     }
 
-    @Test
-    void onInputChangeNotifiesEntityCollection() {
-        // Arrange
-        var input = new HashSet<KeyCode>();
-        input.add(KeyCode.F1);
-        sut.activate();
 
-        // Act
-        sut.onInputChanged(input);
-
-        // Verify
-        verify(entityCollection).notifyGameObjectsOfPressedKeys(input);
-    }
 
     @Test
     void setEntityCollectionUpdatableReturnsUpdatable() {

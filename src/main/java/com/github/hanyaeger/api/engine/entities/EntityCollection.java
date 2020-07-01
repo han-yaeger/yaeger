@@ -8,11 +8,11 @@ import com.github.hanyaeger.api.engine.entities.entity.Removeable;
 import com.github.hanyaeger.api.engine.entities.entity.collisions.AABBCollided;
 import com.github.hanyaeger.api.engine.entities.entity.collisions.AABBCollider;
 import com.github.hanyaeger.api.engine.entities.entity.collisions.CollisionDelegate;
+import com.github.hanyaeger.api.engine.entities.entity.events.userinput.KeyListener;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
-import com.github.hanyaeger.api.engine.entities.entity.events.userinput.KeyListener;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 import com.github.hanyaeger.api.engine.entities.entity.events.EventTypes;
@@ -56,7 +56,7 @@ public class EntityCollection implements Initializable {
     /**
      * Add a {@link StatisticsObserver}.
      *
-     * @param observer the {@link StatisticsObserver} to be added
+     * @param observer the {@link StatisticsObserver} to be added.
      */
     public void addStatisticsObserver(final StatisticsObserver observer) {
         statisticsObservers.add(observer);
@@ -72,13 +72,21 @@ public class EntityCollection implements Initializable {
     }
 
     /**
+     * Regist a {@link KeyListener}.
+     *
+     * @param keyListener The {@link KeyListener} to be registered.
+     */
+    public void registerKeyListener(final KeyListener keyListener) {
+        this.keyListeners.add(keyListener);
+    }
+
+    /**
      * Mark an {@link Removeable} as garbage. After this is done, the {@link Removeable} is set for Garbage Collection and will
      * be collected in the next Garbage Collection cycle.
      *
      * @param entity The {@link Removeable} to be removed.
      */
     private void markAsGarbage(final Removeable entity) {
-
         this.garbage.add(entity);
     }
 
@@ -222,7 +230,7 @@ public class EntityCollection implements Initializable {
 
     private void addToKeylisteners(final YaegerEntity entity) {
         if (entity instanceof KeyListener) {
-            keyListeners.add((KeyListener) entity);
+            registerKeyListener((KeyListener) entity);
         }
     }
 

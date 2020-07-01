@@ -36,11 +36,6 @@ public abstract class DynamicScene extends StaticScene implements UpdateDelegato
     }
 
     @Override
-    public void onInputChanged(final Set<KeyCode> input) {
-        entityCollection.notifyGameObjectsOfPressedKeys(input);
-    }
-
-    @Override
     public void destroy() {
         stopGameLoop();
         updater.clear();
