@@ -142,10 +142,11 @@ public class EntityCollection implements Initializable {
      */
     public void update(final long timestamp) {
         collectGarbage();
-        notifyUpdatables(timestamp);
-        addSuppliedEntities();
+
+        updatables.forEach(updatable -> updatable.update(timestamp));
         collisionDelegate.checkCollisions();
 
+        addSuppliedEntities();
         updateStatistics();
         notifyStatisticsObservers();
     }
@@ -240,10 +241,6 @@ public class EntityCollection implements Initializable {
 
     private void attachGameEventListeners(final YaegerEntity entity) {
         entity.getGameNode().ifPresent(node -> node.addEventHandler(EventTypes.REMOVE, event -> markAsGarbage(event.getSource())));
-    }
-
-    private void notifyUpdatables(final long timestamp) {
-        updatables.forEach(updatable -> updatable.update(timestamp));
     }
 
     private void updateStatistics() {
