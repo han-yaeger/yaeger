@@ -158,7 +158,27 @@ class EntityCollectionTest {
     }
 
     @Test
-    void annotationProcessorIsCalledForEachEntity() {
+    void addDynamicEntityCallsAnnotationProcessor() {
+        // Arrange
+        var updatableEntity = mock(UpdatableEntity.class);
+
+        var group = mock(Group.class);
+        var children = mock(ObservableList.class);
+        when(group.getChildren()).thenReturn(children);
+
+        sut = new EntityCollection(group);
+        sut.setAnnotationProcessor(annotationProcessor);
+        sut.init(injector);
+
+        // Act
+        sut.addDynamicEntity(updatableEntity);
+
+        // Assert
+        verify(annotationProcessor).configureUpdateDelegators(updatableEntity);
+    }
+
+    @Test
+    void addToEntityCollectionIsCalledForEachEntity() {
         // Arrange
         var updatableEntity = mock(UpdatableEntity.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
@@ -182,8 +202,7 @@ class EntityCollectionTest {
         sut.initialUpdate();
 
         // Assert
-        verify(annotationProcessor).invokeActivators(updatableEntity);
-        verify(annotationProcessor).configureUpdateDelegators(updatableEntity);
+        verify(updatableEntity).addToEntityCollection(sut);
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.sprite;
 
+import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.entity.motion.BufferedMoveable;
 import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBuffer;
 import com.google.inject.Inject;
@@ -89,6 +90,11 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
             entityMotionInitBuffer.init(injector);
         });
         buffer = Optional.empty();
+    }
+
+    @Override
+    public void addToEntityCollection(EntityCollection collection) {
+        collection.addDynamicEntity(this);
     }
 
     @Override

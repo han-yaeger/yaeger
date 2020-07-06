@@ -199,17 +199,15 @@ public class EntityCollection implements Initializable {
 
     private void addToGameLoop(final YaegerEntity entity) {
         initialize(entity);
+
         addToKeylisteners(entity);
+        entity.addToEntityCollection(this);
         attachGameEventListeners(entity);
-        placeEntityOnScene(entity);
-        addToUpdatablesOrStatics(entity);
         collisionDelegate.register(entity);
+
+        entity.placeOnScene();
         addToScene(entity);
         entity.activate();
-    }
-
-    private void placeEntityOnScene(YaegerEntity entity) {
-        entity.placeOnScene();
     }
 
     private void initialize(final YaegerEntity entity) {
@@ -218,15 +216,25 @@ public class EntityCollection implements Initializable {
         annotationProcessor.invokeActivators(entity);
     }
 
-    private void addToUpdatablesOrStatics(final YaegerEntity entity) {
+    /**
+     * Add a Dynamic Entity to this {@link EntityCollection}. By definition, a Dynamic Entity
+     * will implement the {@link Updatable} interface.
+     *
+     * @param dynamicEntity A Dynamic Entity, being an Entity that implements the interface
+     *                      {@link Updatable}.
+     */
+    public void addDynamicEntity(Updatable dynamicEntity) {
+        annotationProcessor.configureUpdateDelegators(dynamicEntity);
+        updatables.add(dynamicEntity);
+    }
 
-        if (entity instanceof Updatable) {
-            var updatable = (Updatable) entity;
-            annotationProcessor.configureUpdateDelegators(updatable);
-            updatables.add(updatable);
-        } else {
-            statics.add(entity);
-        }
+    /**
+     * Add a Static Entity to this {@link EntityCollection}.
+     *
+     * @param staticEntity A Static Entity, being a child of {@link YaegerEntity}.
+     */
+    public void addStaticEntity(YaegerEntity staticEntity) {
+        statics.add(staticEntity);
     }
 
     private void addToKeylisteners(final YaegerEntity entity) {

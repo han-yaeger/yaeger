@@ -4,6 +4,7 @@ import com.github.hanyaeger.api.engine.Activatable;
 import com.github.hanyaeger.api.engine.Initializable;
 import com.github.hanyaeger.api.engine.Timer;
 import com.github.hanyaeger.api.engine.TimerListProvider;
+import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.google.inject.Injector;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -100,6 +101,10 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
             setOriginY(initialY);
             applyTranslationsForAnchorPoint(node, anchorPoint);
         });
+    }
+
+    public void addToEntityCollection(EntityCollection collection) {
+        collection.addStaticEntity(this);
     }
 
     private void applyTranslationsForAnchorPoint(Node node, AnchorPoint anchorPoint) {

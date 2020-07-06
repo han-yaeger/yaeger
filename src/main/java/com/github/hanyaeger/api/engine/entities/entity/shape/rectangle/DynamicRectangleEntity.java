@@ -3,6 +3,7 @@ package com.github.hanyaeger.api.engine.entities.entity.shape.rectangle;
 import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.UpdateDelegator;
 import com.github.hanyaeger.api.engine.Updater;
+import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.entity.ContinuousRotatable;
 import com.github.hanyaeger.api.engine.entities.entity.Location;
 import com.github.hanyaeger.api.engine.entities.entity.motion.BufferedMoveable;
@@ -71,6 +72,11 @@ public abstract class DynamicRectangleEntity extends RectangleEntity implements 
     @Override
     public Optional<EntityMotionInitBuffer> getBuffer() {
         return buffer;
+    }
+
+    @Override
+    public void addToEntityCollection(EntityCollection collection) {
+        collection.addDynamicEntity(this);
     }
 
     @Inject

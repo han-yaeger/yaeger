@@ -1,6 +1,7 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape.rectangle;
 
 import com.github.hanyaeger.api.engine.Updater;
+import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.entity.Location;
 import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBuffer;
 import com.google.inject.Injector;
@@ -61,7 +62,7 @@ class DynamicRectangleEntityTest {
     }
 
     @Test
-    void bufferTransfersMotionOnInit(){
+    void bufferTransfersMotionOnInit() {
         // Arrange
         var motionApplier = mock(DefaultMotionApplier.class);
         sut.setMotionApplier(motionApplier);
@@ -124,6 +125,18 @@ class DynamicRectangleEntityTest {
 
         // Assert
         Assertions.assertEquals(ROTATION_SPEED, rS);
+    }
+
+    @Test
+    void addToEntityCollectionCallsAddDynamicEntity() {
+        // Arrange
+        var entityCollection = mock(EntityCollection.class);
+
+        // Act
+        sut.addToEntityCollection(entityCollection);
+
+        // Assert
+        verify(entityCollection).addDynamicEntity(sut);
     }
 
 

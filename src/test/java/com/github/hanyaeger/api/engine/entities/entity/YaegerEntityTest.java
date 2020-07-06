@@ -1,6 +1,7 @@
 package com.github.hanyaeger.api.engine.entities.entity;
 
 import com.github.hanyaeger.api.engine.Timer;
+import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.google.inject.Injector;
 import javafx.geometry.BoundingBox;
 import javafx.scene.Cursor;
@@ -290,6 +291,18 @@ class YaegerEntityTest {
 
         // Assert
         assertEquals(BOUNDING_BOX, actual);
+    }
+
+    @Test
+    void addToEntityCollectionCallsAddStaticEntity(){
+        // Arrange
+        var entityCollection = mock(EntityCollection.class);
+
+        // Act
+        sut.addToEntityCollection(entityCollection);
+
+        // Assert
+        verify(entityCollection).addStaticEntity(sut);
     }
 
     private class YaegerEntityImpl extends YaegerEntity {
