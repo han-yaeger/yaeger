@@ -4,6 +4,8 @@ import com.github.hanyaeger.api.engine.Timer;
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
 import com.github.hanyaeger.api.engine.entities.entity.Location;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
+import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
+import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
 import com.google.inject.Injector;
 import javafx.scene.Node;
 import org.junit.jupiter.api.Assertions;
@@ -180,8 +182,24 @@ class CollisionDelegateTest {
 
         @Override
         public List<Timer> getTimers() {
-            return null;
             // Not required here.
+            return null;
+        }
+
+        @Override
+        public void setMotionApplier(DefaultMotionApplier motionApplier) {
+            // Not required here.
+        }
+
+        @Override
+        public MotionApplier getMotionApplier() {
+            // Not required here.
+            return null;
+        }
+
+        @Override
+        public void undoUpdate() {
+            // TODO
         }
     }
 

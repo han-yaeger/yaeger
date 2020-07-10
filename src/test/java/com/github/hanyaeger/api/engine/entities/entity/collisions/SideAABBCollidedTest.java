@@ -1,5 +1,8 @@
 package com.github.hanyaeger.api.engine.entities.entity.collisions;
 
+import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
+import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
+import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
@@ -182,6 +185,46 @@ class SideAABBCollidedTest {
 
         public AABBCollider getLastCollider() {
             return AABBCollider;
+        }
+
+        @Override
+        public void setMotionApplier(DefaultMotionApplier motionApplier) {
+
+        }
+
+        @Override
+        public MotionApplier getMotionApplier() {
+            return null;
+        }
+
+        @Override
+        public void undoUpdate() {
+            // TODO
+        }
+
+        @Override
+        public void setOriginX(double x) {
+
+        }
+
+        @Override
+        public void setOriginY(double y) {
+
+        }
+
+        @Override
+        public void placeOnScene() {
+
+        }
+
+        @Override
+        public void setAnchorPoint(AnchorPoint anchorPoint) {
+
+        }
+
+        @Override
+        public AnchorPoint getAnchorPoint() {
+            return null;
         }
     }
 }

@@ -1,16 +1,21 @@
 package com.github.hanyaeger.api.engine.entities.entity.collisions;
 
+import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
+import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
+import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class AABBCollidedTest {
 
@@ -18,10 +23,13 @@ public class AABBCollidedTest {
     private static final Bounds TEST_NOT_COLLIDING_BOUNDINGBOX = new BoundingBox(0, 0, 0, 1, 1, 0);
 
     private TestCollided sut;
+    private DefaultMotionApplier motionApplier;
 
     @BeforeEach
     void setup() {
         sut = new TestCollided();
+        motionApplier = mock(DefaultMotionApplier.class);
+        sut.setMotionApplier(motionApplier);
     }
 
     @Test
@@ -53,6 +61,9 @@ public class AABBCollidedTest {
         var trivialCollider = new CollidingAABBCollider();
         trivialCollider.setBounds(TEST_COLLIDED_BOUNDINGBOX);
 
+        when(motionApplier.getSpeed()).thenReturn(0d);
+        when(motionApplier.getPreviousLocation()).thenReturn(new Point2D(0, 0));
+
         Set<AABBCollider> testAABBColliders = Set.of(trivialCollider);
 
         // Act
@@ -60,6 +71,28 @@ public class AABBCollidedTest {
 
         // Assert
         assertEquals(trivialCollider, sut.getLastCollider());
+    }
+
+    @Test
+    void testCollisionCallsUndoUpdate() {
+        // Arrange
+        var trivialCollider = new CollidingAABBCollider();
+        trivialCollider.setBounds(TEST_COLLIDED_BOUNDINGBOX);
+
+        var previousX = 37d;
+        var previousY = 37d;
+
+        when(motionApplier.getSpeed()).thenReturn(0d);
+        when(motionApplier.getPreviousLocation()).thenReturn(new Point2D(previousX, previousY));
+
+        Set<AABBCollider> testAABBColliders = Set.of(trivialCollider);
+
+        // Act
+        sut.checkForCollisions(testAABBColliders);
+
+        // Assert
+        assertTrue(sut.isSetOriginXcalled());
+        assertTrue(sut.isSetOriginYcalled());
     }
 
     @Test
@@ -122,6 +155,9 @@ public class AABBCollidedTest {
     private class TestCollided implements AABBCollided {
 
         private AABBCollider lastCollided;
+        private MotionApplier motionApplier;
+        private boolean setOriginXcalled = false;
+        private boolean setOriginYcalled = false;
 
         @Override
         public void onCollision(AABBCollider collidingObject) {
@@ -141,6 +177,49 @@ public class AABBCollidedTest {
         public Optional<Node> getGameNode() {
             return null;
         }
+
+        @Override
+        public void setMotionApplier(DefaultMotionApplier motionApplier) {
+            this.motionApplier = motionApplier;
+        }
+
+        @Override
+        public MotionApplier getMotionApplier() {
+            return motionApplier;
+        }
+
+        @Override
+        public void setOriginX(double x) {
+            this.setOriginXcalled = true;
+        }
+
+        @Override
+        public void setOriginY(double y) {
+            this.setOriginYcalled = true;
+        }
+
+        @Override
+        public void placeOnScene() {
+
+        }
+
+        @Override
+        public void setAnchorPoint(AnchorPoint anchorPoint) {
+
+        }
+
+        @Override
+        public AnchorPoint getAnchorPoint() {
+            return null;
+        }
+
+        public boolean isSetOriginXcalled() {
+            return setOriginXcalled;
+        }
+
+        public boolean isSetOriginYcalled() {
+            return setOriginYcalled;
+        }
     }
 
     private class TestCollidable extends TestCollided implements AABBCollider, AABBCollided {
@@ -156,8 +235,48 @@ public class AABBCollidedTest {
         }
 
         @Override
+        public void setMotionApplier(DefaultMotionApplier motionApplier) {
+
+        }
+
+        @Override
+        public MotionApplier getMotionApplier() {
+            return null;
+        }
+
+        @Override
         public double getSpeed() {
             return 0;
+        }
+
+        @Override
+        public void undoUpdate() {
+            // TODO
+        }
+
+        @Override
+        public void setOriginX(double x) {
+
+        }
+
+        @Override
+        public void setOriginY(double y) {
+
+        }
+
+        @Override
+        public void placeOnScene() {
+
+        }
+
+        @Override
+        public void setAnchorPoint(AnchorPoint anchorPoint) {
+
+        }
+
+        @Override
+        public AnchorPoint getAnchorPoint() {
+            return null;
         }
     }
 }

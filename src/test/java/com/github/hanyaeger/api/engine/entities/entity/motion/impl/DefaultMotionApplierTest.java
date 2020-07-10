@@ -3,6 +3,7 @@ package com.github.hanyaeger.api.engine.entities.entity.motion.impl;
 import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
 import com.github.hanyaeger.api.engine.entities.entity.motion.Direction;
 import javafx.geometry.Point2D;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -342,5 +343,19 @@ class DefaultMotionApplierTest {
 
         // Assert
         assertEquals(0d, DEFAULT_MOVEMENT_UP.angle(sut.get()), DELTA);
+    }
+
+    @Test
+    void getPreviousLocationReturnsPreviousLocation() {
+        // Arrange
+        var expected = new Point2D(37, 42);
+        sut.setMotionTo(4, Direction.DOWN.getValue());
+
+        // Act
+        sut.updateLocation(expected);
+        var actual = sut.getPreviousLocation();
+
+        // Assert
+        Assertions.assertEquals(expected, actual);
     }
 }

@@ -73,4 +73,11 @@ public interface Moveable extends Placeable, MotionModifier {
             setOriginY(updatedPosition.getY());
         };
     }
+
+    default void undoUpdate() {
+        if (Double.compare(getSpeed(), 0) == 0) {
+            setOriginX(getMotionApplier().getPreviousLocation().getX());
+            setOriginY(getMotionApplier().getPreviousLocation().getY());
+        }
+    }
 }

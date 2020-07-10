@@ -8,11 +8,23 @@ import javafx.geometry.Point2D;
  */
 public interface MotionApplier extends MotionModifier, LocationUpdater {
 
-
     /**
      * Return the current transformation.
      *
      * @return A {@link Point2D} representing the transformation applied on {@link LocationUpdater#updateLocation(Point2D)}
      */
     Point2D get();
+
+    /**
+     * Return the previous location. This Object is exposed to resolve an issue with the
+     * fact that collision detection occurs after all Entities are updated. If an
+     * Entity sets its speed to 0 on collision detection, it still received its last motion.
+     * <p>
+     * Because of that it is impossible that halt an Entities movement if the user continues
+     * to press the movement buttons or another system is continuing to set the speed to a positive
+     * value.
+     *
+     * @return A {@link Point2D} representing the previous location of the Entity.
+     */
+    Point2D getPreviousLocation();
 }
