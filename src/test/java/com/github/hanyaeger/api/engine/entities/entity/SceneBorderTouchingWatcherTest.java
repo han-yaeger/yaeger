@@ -1,8 +1,11 @@
 package com.github.hanyaeger.api.engine.entities.entity;
 
 import com.github.hanyaeger.api.engine.Updatable;
+import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
+import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
 import com.github.hanyaeger.api.engine.scenes.SceneBorder;
 import javafx.geometry.BoundingBox;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import org.junit.jupiter.api.Assertions;
@@ -23,16 +26,22 @@ class SceneBorderTouchingWatcherTest {
     private final static BoundingBox BOUNDS_CROSSED_RIGHT = new BoundingBox(110, 10, 10, 10);
     private final static BoundingBox BOUNDS_CROSSED_BOTTOM = new BoundingBox(10, 100, 10, 10);
     private final static BoundingBox BOUNDS_CROSSED_TOP = new BoundingBox(10, -20, 10, 10);
-    private TestWatcher watcher;
+    private SceneBorderTouchingWatcherImpl sut;
     private Node node;
     private Scene scene;
+    private DefaultMotionApplier motionApplier;
 
     @BeforeEach
     void setup() {
-        watcher = new TestWatcher();
+        sut = new SceneBorderTouchingWatcherImpl();
         node = mock(Node.class, withSettings().withoutAnnotations());
         scene = mock(Scene.class);
-        watcher.setGameNode(node);
+        motionApplier = mock(DefaultMotionApplier.class);
+
+        sut.setGameNode(node);
+        sut.setMotionApplier(motionApplier);
+
+        when(motionApplier.getPreviousLocation()).thenReturn(new Point2D(0, 0));
     }
 
     @Test
@@ -40,7 +49,7 @@ class SceneBorderTouchingWatcherTest {
         // Arrange
 
         // Act
-        var updatable = watcher.watchForBoundaryTouching();
+        var updatable = sut.watchForBoundaryTouching();
 
         // Assert
         assertTrue(updatable instanceof Updatable);
@@ -54,86 +63,179 @@ class SceneBorderTouchingWatcherTest {
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
 
-        var updatable = watcher.watchForBoundaryTouching();
+        var updatable = sut.watchForBoundaryTouching();
 
         // Act
         updatable.update(0);
 
         // Assert
-        assertNull(watcher.borderTouched);
+        assertNull(sut.borderTouched);
     }
 
     @Test
-    void testBoundaryLeftCrossed() {
+    void testBoundaryLeftCrossedWithZeroSpeed() {
         // Arrange
         when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_LEFT);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
 
-        var updatable = watcher.watchForBoundaryTouching();
+        when(motionApplier.getSpeed()).thenReturn(0d);
+
+        var updatable = sut.watchForBoundaryTouching();
 
         // Act
         updatable.update(0);
 
         // Assert
-        Assertions.assertEquals(SceneBorder.LEFT, watcher.borderTouched);
+        Assertions.assertEquals(SceneBorder.LEFT, sut.borderTouched);
+        verify(motionApplier, times(2)).getPreviousLocation();
     }
 
     @Test
-    void testBoundaryRightCrossed() {
+    void testBoundaryLeftCrossedWithNonZeroSpeed() {
+        // Arrange
+        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_LEFT);
+        when(node.getScene()).thenReturn(scene);
+        when(scene.getWidth()).thenReturn(SCENE_WIDTH);
+        when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
+
+        when(motionApplier.getSpeed()).thenReturn(1d);
+
+        var updatable = sut.watchForBoundaryTouching();
+
+        // Act
+        updatable.update(0);
+
+        // Assert
+        Assertions.assertEquals(SceneBorder.LEFT, sut.borderTouched);
+        verify(motionApplier, times(0)).getPreviousLocation();
+    }
+
+    @Test
+    void testBoundaryRightCrossedWithZeroSpeed() {
         // Arrange
         when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_RIGHT);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
 
-        var updatable = watcher.watchForBoundaryTouching();
+        when(motionApplier.getSpeed()).thenReturn(0d);
+
+        var updatable = sut.watchForBoundaryTouching();
 
         // Act
         updatable.update(0);
 
         // Assert
-        assertEquals(SceneBorder.RIGHT, watcher.borderTouched);
+        assertEquals(SceneBorder.RIGHT, sut.borderTouched);
+        verify(motionApplier, times(2)).getPreviousLocation();
     }
 
     @Test
-    void testBoundaryBottomTouched() {
+    void testBoundaryRightCrossedWithNonZeroSpeed() {
+        // Arrange
+        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_RIGHT);
+        when(node.getScene()).thenReturn(scene);
+        when(scene.getWidth()).thenReturn(SCENE_WIDTH);
+        when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
+
+        when(motionApplier.getSpeed()).thenReturn(1d);
+
+        var updatable = sut.watchForBoundaryTouching();
+
+        // Act
+        updatable.update(0);
+
+        // Assert
+        assertEquals(SceneBorder.RIGHT, sut.borderTouched);
+        verify(motionApplier, times(0)).getPreviousLocation();
+    }
+
+    @Test
+    void testBoundaryBottomTouchedWithZeroSpeed() {
         // Arrange
         when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_BOTTOM);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
 
-        var updatable = watcher.watchForBoundaryTouching();
+        when(motionApplier.getSpeed()).thenReturn(0d);
+
+        var updatable = sut.watchForBoundaryTouching();
 
         // Act
         updatable.update(0);
 
         // Assert
-        assertEquals(SceneBorder.BOTTOM, watcher.borderTouched);
+        assertEquals(SceneBorder.BOTTOM, sut.borderTouched);
+        verify(motionApplier, times(2)).getPreviousLocation();
     }
 
     @Test
-    void testBoundaryTopTouched() {
+    void testBoundaryBottomTouchedWithNonZeroSpeed() {
+        // Arrange
+        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_BOTTOM);
+        when(node.getScene()).thenReturn(scene);
+        when(scene.getWidth()).thenReturn(SCENE_WIDTH);
+        when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
+
+        when(motionApplier.getSpeed()).thenReturn(1d);
+
+        var updatable = sut.watchForBoundaryTouching();
+
+        // Act
+        updatable.update(0);
+
+        // Assert
+        assertEquals(SceneBorder.BOTTOM, sut.borderTouched);
+        verify(motionApplier, times(0)).getPreviousLocation();
+    }
+
+    @Test
+    void testBoundaryTopTouchedWithZeroSpeed() {
         // Arrange
         when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_TOP);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
 
-        var updatable = watcher.watchForBoundaryTouching();
+        when(motionApplier.getSpeed()).thenReturn(0d);
+
+        var updatable = sut.watchForBoundaryTouching();
 
         // Act
         updatable.update(0);
 
         // Assert
-        assertEquals(SceneBorder.TOP, watcher.borderTouched);
+        assertEquals(SceneBorder.TOP, sut.borderTouched);
+        verify(motionApplier, times(2)).getPreviousLocation();
     }
 
-    private class TestWatcher implements SceneBorderTouchingWatcher {
+    @Test
+    void testBoundaryTopTouchedWithNonZeroSpeed() {
+        // Arrange
+        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_TOP);
+        when(node.getScene()).thenReturn(scene);
+        when(scene.getWidth()).thenReturn(SCENE_WIDTH);
+        when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
+
+        when(motionApplier.getSpeed()).thenReturn(1d);
+
+        var updatable = sut.watchForBoundaryTouching();
+
+        // Act
+        updatable.update(0);
+
+        // Assert
+        assertEquals(SceneBorder.TOP, sut.borderTouched);
+        verify(motionApplier, times(0)).getPreviousLocation();
+    }
+
+    private class SceneBorderTouchingWatcherImpl implements SceneBorderTouchingWatcher {
 
         private Node gameNode;
+        private MotionApplier motionApplier;
         SceneBorder borderTouched;
 
         @Override
@@ -148,6 +250,41 @@ class SceneBorderTouchingWatcherTest {
 
         public void setGameNode(Node node) {
             this.gameNode = node;
+        }
+
+        @Override
+        public void setMotionApplier(DefaultMotionApplier motionApplier) {
+            this.motionApplier = motionApplier;
+        }
+
+        @Override
+        public MotionApplier getMotionApplier() {
+            return motionApplier;
+        }
+
+        @Override
+        public void setOriginX(double x) {
+
+        }
+
+        @Override
+        public void setOriginY(double y) {
+
+        }
+
+        @Override
+        public void placeOnScene() {
+
+        }
+
+        @Override
+        public void setAnchorPoint(AnchorPoint anchorPoint) {
+
+        }
+
+        @Override
+        public AnchorPoint getAnchorPoint() {
+            return null;
         }
     }
 }

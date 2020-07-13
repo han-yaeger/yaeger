@@ -2,6 +2,7 @@ package com.github.hanyaeger.api.engine.entities.entity;
 
 import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.annotations.UpdatableProvider;
+import com.github.hanyaeger.api.engine.entities.entity.motion.Moveable;
 import com.github.hanyaeger.api.engine.scenes.SceneBorder;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
 
@@ -10,7 +11,7 @@ import com.github.hanyaeger.api.engine.scenes.YaegerScene;
  * In that case, the method {@link SceneBorderCrossingWatcher#notifyBoundaryCrossing(SceneBorder)}
  * will be called.
  */
-public interface SceneBorderCrossingWatcher extends Bounded, SceneChild {
+public interface SceneBorderCrossingWatcher extends Bounded, SceneChild, Moveable {
 
     /**
      * This method is being called when this {@link SceneBorderCrossingWatcher} crosses a border of the {@link YaegerScene}.
@@ -23,14 +24,19 @@ public interface SceneBorderCrossingWatcher extends Bounded, SceneChild {
     default Updatable watchForBoundaryCrossing() {
         return timestamp -> {
             if (getTransformedBounds().getMaxX() <= 0) {
-                notifyBoundaryCrossing(SceneBorder.LEFT);
+                handleCrossing(SceneBorder.LEFT);
             } else if (getTransformedBounds().getMaxY() <= 0) {
-                notifyBoundaryCrossing(SceneBorder.TOP);
+                handleCrossing(SceneBorder.TOP);
             } else if (getTransformedBounds().getMinY() >= getSceneHeight()) {
-                notifyBoundaryCrossing(SceneBorder.BOTTOM);
+                handleCrossing(SceneBorder.BOTTOM);
             } else if (getTransformedBounds().getMinX() >= getSceneWidth()) {
-                notifyBoundaryCrossing(SceneBorder.RIGHT);
+                handleCrossing(SceneBorder.RIGHT);
             }
         };
+    }
+
+    private void handleCrossing(SceneBorder border) {
+        notifyBoundaryCrossing(border);
+        undoUpdate();
     }
 }
