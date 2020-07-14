@@ -236,7 +236,7 @@ public class AABBCollidedTest {
 
         @Override
         public void setMotionApplier(DefaultMotionApplier motionApplier) {
-
+            // Not required here
         }
 
         @Override
@@ -251,27 +251,27 @@ public class AABBCollidedTest {
 
         @Override
         public void undoUpdate() {
-            // TODO
+            // Not required here
         }
 
         @Override
         public void setOriginX(double x) {
-
+            // Not required here
         }
 
         @Override
         public void setOriginY(double y) {
-
+            // Not required here
         }
 
         @Override
         public void placeOnScene() {
-
+            // Not required here
         }
 
         @Override
         public void setAnchorPoint(AnchorPoint anchorPoint) {
-
+            // Not required here
         }
 
         @Override

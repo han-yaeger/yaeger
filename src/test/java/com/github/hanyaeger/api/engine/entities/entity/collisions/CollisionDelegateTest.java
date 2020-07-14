@@ -51,8 +51,8 @@ class CollisionDelegateTest {
     @Test
     void entitiesGetCorrectlyAdded() {
         // Arrange
-        YaegerEntity collidedEntity = mock(CollidedTestEntity.class);
-        YaegerEntity colliderEntity = mock(AABBColliderTestEntity.class);
+        YaegerEntity collidedEntity = mock(AABBCollidedImpl.class);
+        YaegerEntity colliderEntity = mock(AABBColliderImpl.class);
 
         collisionDelegate.register(collidedEntity);
         collisionDelegate.register(colliderEntity);
@@ -70,8 +70,8 @@ class CollisionDelegateTest {
     @Test
     void afterRemoveCollidedNoCollisionsAreChecked() {
         // Arrange
-        YaegerEntity collidedEntity = mock(CollidedTestEntity.class);
-        YaegerEntity colliderEntity = mock(AABBColliderTestEntity.class);
+        YaegerEntity collidedEntity = mock(AABBCollidedImpl.class);
+        YaegerEntity colliderEntity = mock(AABBColliderImpl.class);
 
         collisionDelegate.register(collidedEntity);
         collisionDelegate.register(colliderEntity);
@@ -87,8 +87,8 @@ class CollisionDelegateTest {
     @Test
     void afterRemoveColliderNoCollisionsAreReported() {
         // Arrange
-        YaegerEntity collidedEntity = mock(CollidedTestEntity.class);
-        YaegerEntity colliderEntity = mock(AABBColliderTestEntity.class);
+        YaegerEntity collidedEntity = mock(AABBCollidedImpl.class);
+        YaegerEntity colliderEntity = mock(AABBColliderImpl.class);
 
         collisionDelegate.register(collidedEntity);
         collisionDelegate.register(colliderEntity);
@@ -104,14 +104,14 @@ class CollisionDelegateTest {
         Assertions.assertEquals(0, argument.getValue().size());
     }
 
-    private class CollidedTestEntity extends YaegerEntity implements AABBCollided {
+    private class AABBCollidedImpl extends YaegerEntity implements AABBCollided {
 
         /**
          * Instantiate a new {@link YaegerEntity} for the given {@link Location} and textDelegate.
          *
          * @param initialPosition the initial {@link Location} of this {@link YaegerEntity}
          */
-        public CollidedTestEntity(Location initialPosition) {
+        public AABBCollidedImpl(Location initialPosition) {
             super(initialPosition);
         }
 
@@ -199,18 +199,18 @@ class CollisionDelegateTest {
 
         @Override
         public void undoUpdate() {
-            // TODO
+            // Not required here
         }
     }
 
-    private class AABBColliderTestEntity extends YaegerEntity implements AABBCollider {
+    private class AABBColliderImpl extends YaegerEntity implements AABBCollider {
 
         /**
          * Instantiate a new {@link YaegerEntity} for the given {@link Location} and textDelegate.
          *
          * @param initialPosition the initial {@link Location} of this {@link YaegerEntity}
          */
-        public AABBColliderTestEntity(Location initialPosition) {
+        public AABBColliderImpl(Location initialPosition) {
             super(initialPosition);
         }
 
