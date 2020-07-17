@@ -15,7 +15,7 @@ class DirectionProviderTest {
         double actual = directionProvider.getDirection();
 
         // Assert
-        assertTrue(Double.compare(actual, 0d) == 0);
+        assertEquals(0, Double.compare(actual, 0d));
 
     }
 

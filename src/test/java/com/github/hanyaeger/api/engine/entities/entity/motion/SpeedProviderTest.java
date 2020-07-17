@@ -15,7 +15,7 @@ class SpeedProviderTest {
         double actual = speedProvider.getSpeed();
 
         // Assert
-        assertTrue(Double.compare(actual, 0d) == 0);
+        assertEquals(0, Double.compare(actual, 0d));
     }
 
     private class SpeedProviderImpl implements SpeedProvider {
