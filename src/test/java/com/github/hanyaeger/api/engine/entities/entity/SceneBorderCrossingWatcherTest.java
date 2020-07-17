@@ -41,7 +41,7 @@ class SceneBorderCrossingWatcherTest {
         sut.setGameNode(node);
         sut.setMotionApplier(motionApplier);
 
-        when(motionApplier.getPreviousLocation()).thenReturn(new Point2D(0, 0));
+        when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(new Point2D(0, 0)));
     }
 
     @Test
@@ -89,7 +89,7 @@ class SceneBorderCrossingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.LEFT, sut.borderCrossed);
-        verify(motionApplier, times(2)).getPreviousLocation();
+        verify(motionApplier, times(3)).getPreviousLocation();
     }
 
     @Test
@@ -129,7 +129,7 @@ class SceneBorderCrossingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.RIGHT, sut.borderCrossed);
-        verify(motionApplier, times(2)).getPreviousLocation();
+        verify(motionApplier, times(3)).getPreviousLocation();
     }
 
     @Test
@@ -169,7 +169,7 @@ class SceneBorderCrossingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.BOTTOM, sut.borderCrossed);
-        verify(motionApplier, times(2)).getPreviousLocation();
+        verify(motionApplier, times(3)).getPreviousLocation();
     }
 
     @Test
@@ -210,7 +210,7 @@ class SceneBorderCrossingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.TOP, sut.borderCrossed);
-        verify(motionApplier, times(2)).getPreviousLocation();
+        verify(motionApplier, times(3)).getPreviousLocation();
     }
 
     @Test

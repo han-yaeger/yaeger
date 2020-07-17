@@ -41,7 +41,7 @@ class SceneBorderTouchingWatcherTest {
         sut.setGameNode(node);
         sut.setMotionApplier(motionApplier);
 
-        when(motionApplier.getPreviousLocation()).thenReturn(new Point2D(0, 0));
+        when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(new Point2D(0, 0)));
     }
 
     @Test
@@ -89,7 +89,7 @@ class SceneBorderTouchingWatcherTest {
 
         // Assert
         Assertions.assertEquals(SceneBorder.LEFT, sut.borderTouched);
-        verify(motionApplier, times(2)).getPreviousLocation();
+        verify(motionApplier, times(3)).getPreviousLocation();
     }
 
     @Test
@@ -129,7 +129,7 @@ class SceneBorderTouchingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.RIGHT, sut.borderTouched);
-        verify(motionApplier, times(2)).getPreviousLocation();
+        verify(motionApplier, times(3)).getPreviousLocation();
     }
 
     @Test
@@ -169,7 +169,7 @@ class SceneBorderTouchingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.BOTTOM, sut.borderTouched);
-        verify(motionApplier, times(2)).getPreviousLocation();
+        verify(motionApplier, times(3)).getPreviousLocation();
     }
 
     @Test
@@ -209,7 +209,7 @@ class SceneBorderTouchingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.TOP, sut.borderTouched);
-        verify(motionApplier, times(2)).getPreviousLocation();
+        verify(motionApplier, times(3)).getPreviousLocation();
     }
 
     @Test

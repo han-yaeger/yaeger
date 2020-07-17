@@ -3,6 +3,8 @@ package com.github.hanyaeger.api.engine.entities.entity.motion;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import javafx.geometry.Point2D;
 
+import java.util.Optional;
+
 /**
  * Base interface of all Objects that apply a motion to a subclass of {@link YaegerEntity}.
  */
@@ -24,7 +26,8 @@ public interface MotionApplier extends MotionModifier, LocationUpdater {
      * to press the movement buttons or another system is continuing to set the speed to a positive
      * value.
      *
-     * @return A {@link Point2D} representing the previous location of the Entity.
+     * @return An {@link Optional} containing the {@link Point2D} representing the previous location of the
+     * Entity.
      */
-    Point2D getPreviousLocation();
+    Optional<Point2D> getPreviousLocation();
 }

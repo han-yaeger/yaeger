@@ -2,6 +2,8 @@ package com.github.hanyaeger.api.engine.entities.entity.motion;
 
 import javafx.geometry.Point2D;
 
+import java.util.Optional;
+
 /**
  * A {@link DefaultMotionApplier} is an implementation of {@link MotionApplier} that does not abide
  * the laws of Physics and only provides basis behaviour regarding speed and direction.
@@ -10,7 +12,7 @@ public class DefaultMotionApplier implements MotionApplier {
 
     private static final Point2D ZERO_ANGLE_IDENTITY_MOTION = new Point2D(0, 1);
     private Point2D transformation;
-    private Point2D previousLocation;
+    private Optional<Point2D> previousLocation;
 
     /**
      * Create a new instance of {@link DefaultMotionApplier}.
@@ -79,12 +81,12 @@ public class DefaultMotionApplier implements MotionApplier {
 
     @Override
     public Point2D updateLocation(final Point2D currentLocation) {
-        previousLocation = new Point2D(currentLocation.getX(), currentLocation.getY());
+        previousLocation = Optional.of(new Point2D(currentLocation.getX(), currentLocation.getY()));
         return currentLocation.add(transformation);
     }
 
     @Override
-    public Point2D getPreviousLocation() {
+    public Optional<Point2D> getPreviousLocation() {
         return previousLocation;
     }
 }

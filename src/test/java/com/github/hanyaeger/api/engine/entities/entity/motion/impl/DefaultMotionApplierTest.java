@@ -353,7 +353,7 @@ class DefaultMotionApplierTest {
 
         // Act
         sut.updateLocation(expected);
-        var actual = sut.getPreviousLocation();
+        var actual = sut.getPreviousLocation().get();
 
         // Assert
         Assertions.assertEquals(expected, actual);

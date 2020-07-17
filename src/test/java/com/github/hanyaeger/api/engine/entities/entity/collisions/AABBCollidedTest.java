@@ -62,7 +62,7 @@ public class AABBCollidedTest {
         trivialCollider.setBounds(TEST_COLLIDED_BOUNDINGBOX);
 
         when(motionApplier.getSpeed()).thenReturn(0d);
-        when(motionApplier.getPreviousLocation()).thenReturn(new Point2D(0, 0));
+        when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(new Point2D(0, 0)));
 
         Set<AABBCollider> testAABBColliders = Set.of(trivialCollider);
 
@@ -83,7 +83,7 @@ public class AABBCollidedTest {
         var previousY = 37d;
 
         when(motionApplier.getSpeed()).thenReturn(0d);
-        when(motionApplier.getPreviousLocation()).thenReturn(new Point2D(previousX, previousY));
+        when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(new Point2D(previousX, previousY)));
 
         Set<AABBCollider> testAABBColliders = Set.of(trivialCollider);
 
