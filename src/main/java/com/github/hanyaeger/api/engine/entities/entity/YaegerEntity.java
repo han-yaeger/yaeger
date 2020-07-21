@@ -26,7 +26,7 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
     private AnchorPoint anchorPoint;
 
     /**
-     * Instantiate a new {@link YaegerEntity} for the given {@link Location} and textDelegate.
+     * Instantiate a new {@link YaegerEntity} for the given {@link Location}.
      *
      * @param initialPosition the initial {@link Location} of this {@link YaegerEntity}
      */

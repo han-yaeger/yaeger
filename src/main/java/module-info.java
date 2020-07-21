@@ -15,8 +15,10 @@ module hanyaeger.api {
     exports com.github.hanyaeger.api.engine.entities.entity.sprite;
     exports com.github.hanyaeger.api.engine.entities.tilemap;
     exports com.github.hanyaeger.api.engine.entities.entity;
+    exports com.github.hanyaeger.api.engine.entities.entity.shape to com.google.guice;
     exports com.github.hanyaeger.api.engine.entities.entity.shape.text;
     exports com.github.hanyaeger.api.engine.entities.entity.shape.rectangle;
+    exports com.github.hanyaeger.api.engine.entities.entity.shape.circle;
     exports com.github.hanyaeger.api.engine.entities.entity.motion;
     exports com.github.hanyaeger.api.engine.scenes.splash;
     exports com.github.hanyaeger.api.engine.entities.entity.collisions;

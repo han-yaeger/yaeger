@@ -82,7 +82,6 @@ public class TextEntity extends YaegerEntity {
 
     @Override
     public void setOriginX(double x) {
-
         text.ifPresentOrElse(text -> text.setX(x), () -> initialX = x);
     }
 
