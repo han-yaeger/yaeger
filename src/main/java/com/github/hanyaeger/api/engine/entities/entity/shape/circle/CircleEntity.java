@@ -2,7 +2,7 @@ package com.github.hanyaeger.api.engine.entities.entity.shape.circle;
 
 import com.github.hanyaeger.api.engine.entities.entity.Location;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
-import com.github.hanyaeger.api.engine.entities.entity.shape.ShapeEntity;
+import com.github.hanyaeger.api.engine.entities.entity.shape.CenteredShapeEntity;
 import com.google.inject.Injector;
 import javafx.scene.shape.Circle;
 
@@ -14,9 +14,9 @@ import java.util.Optional;
  * ({@link com.github.hanyaeger.api.engine.entities.entity.shape.rectangle.RectangleEntity}, for instance),
  * the reference point of a {@link CircleEntity} is its center.
  */
-public abstract class CircleEntity extends ShapeEntity<Circle> {
+public abstract class CircleEntity extends CenteredShapeEntity<Circle> {
 
-    private Optional<Double> radius;
+    private Optional<Double> radius = Optional.empty();
 
     /**
      * Create a new {@link CircleEntity} on the given {@code initialPosition}.
@@ -26,7 +26,6 @@ public abstract class CircleEntity extends ShapeEntity<Circle> {
     public CircleEntity(final Location initialPosition) {
         super(initialPosition);
     }
-
 
     /**
      * Set the radius of the circle.
@@ -39,12 +38,22 @@ public abstract class CircleEntity extends ShapeEntity<Circle> {
 
     @Override
     public void setOriginX(double x) {
-        shape.ifPresentOrElse(circle -> circle.setCenterX(x), () -> this.initialX = x);
+        shape.ifPresentOrElse(circle -> circle.setCenterX(x), () -> this.x = x);
     }
 
     @Override
     public void setOriginY(double y) {
-        shape.ifPresentOrElse(circle -> circle.setCenterY(y), () -> this.initialY = y);
+        shape.ifPresentOrElse(circle -> circle.setCenterY(y), () -> this.y = y);
+    }
+
+    @Override
+    public double getTopY() {
+        return super.getTopY() + radius.get();
+    }
+
+    @Override
+    public double getLeftX() {
+        return super.getLeftX() + radius.get();
     }
 
     @Override
@@ -52,14 +61,4 @@ public abstract class CircleEntity extends ShapeEntity<Circle> {
         super.init(injector);
         radius.ifPresent(radius -> shape.get().setRadius(radius));
     }
-
-//    @Override
-//    public double getTopY() {
-//        return super.getTopY() ;
-//    }
-//
-//    @Override
-//    public double getLeftX() {
-//        return super.getLeftX() + (0.5 * shape.get().getStrokeWidth());
-//    }
 }

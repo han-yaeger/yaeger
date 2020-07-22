@@ -244,7 +244,7 @@ class SpriteEntityTest {
         }
 
         public Point2D getInitialLocation() {
-            return new Point2D(initialX, initialY);
+            return new Point2D(x, y);
         }
     }
 

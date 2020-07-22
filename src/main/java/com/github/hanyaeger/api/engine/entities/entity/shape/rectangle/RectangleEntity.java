@@ -2,10 +2,8 @@ package com.github.hanyaeger.api.engine.entities.entity.shape.rectangle;
 
 import com.github.hanyaeger.api.engine.entities.entity.Location;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
-import com.google.inject.Inject;
+import com.github.hanyaeger.api.engine.entities.entity.shape.ShapeEntity;
 import com.google.inject.Injector;
-import javafx.scene.Node;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.util.Optional;
@@ -14,16 +12,12 @@ import java.util.Optional;
  * A {@link RectangleEntity} provides the option to use a drawable Rectangle as an
  * {@link YaegerEntity}.
  */
-public abstract class RectangleEntity extends YaegerEntity {
+public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
 
-    private Optional<Rectangle> rectangle;
-    private Color strokeColor;
-    private Color fill;
-    private double strokeWidth;
-    private double height;
-    private double width;
-    private double arcHeight;
-    private double arcWidth;
+    private Optional<Double> height = Optional.empty();
+    private Optional<Double> width = Optional.empty();
+    private Optional<Double> arcHeight = Optional.empty();
+    private Optional<Double> arcWidth = Optional.empty();
 
     /**
      * Create a new {@link RectangleEntity} on the given {@code initialPosition}.
@@ -32,25 +26,6 @@ public abstract class RectangleEntity extends YaegerEntity {
      */
     public RectangleEntity(final Location initialPosition) {
         super(initialPosition);
-        this.rectangle = Optional.empty();
-    }
-
-    /**
-     * Set the color of the stroke of the rectangle.
-     *
-     * @param strokeColor The {@link Color} of the stroke
-     */
-    public void setStrokeColor(final Color strokeColor) {
-        rectangle.ifPresentOrElse(rectangle -> rectangle.setStroke(strokeColor), () -> this.strokeColor = strokeColor);
-    }
-
-    /**
-     * Set the width of the stroke of the rectangle.
-     *
-     * @param strokeWidth The with of the stroke as a {@code double}
-     */
-    public void setStrokeWidth(final double strokeWidth) {
-        rectangle.ifPresentOrElse(rectangle -> rectangle.setStrokeWidth(strokeWidth), () -> this.strokeWidth = strokeWidth);
     }
 
     /**
@@ -59,7 +34,7 @@ public abstract class RectangleEntity extends YaegerEntity {
      * @param height The {@code height} of the rectangle as a {@code double}
      */
     public void setHeight(final double height) {
-        rectangle.ifPresentOrElse(rectangle -> rectangle.setHeight(height), () -> this.height = height);
+        shape.ifPresentOrElse(shape -> shape.setHeight(height), () -> this.height = Optional.of(height));
     }
 
     /**
@@ -68,16 +43,7 @@ public abstract class RectangleEntity extends YaegerEntity {
      * @param width The {@code width} of the rectangle as a {@code double}
      */
     public void setWidth(final double width) {
-        rectangle.ifPresentOrElse(rectangle -> rectangle.setWidth(width), () -> this.width = width);
-    }
-
-    /**
-     * Set the fill color of the rectangle.
-     *
-     * @param fill The {@link Color} of the fill
-     */
-    public void setFill(final Color fill) {
-        rectangle.ifPresentOrElse(rectangle -> rectangle.setFill(fill), () -> this.fill = fill);
+        shape.ifPresentOrElse(shape -> shape.setWidth(width), () -> this.width = Optional.of(width));
     }
 
     /**
@@ -86,7 +52,7 @@ public abstract class RectangleEntity extends YaegerEntity {
      * @param arcHeight The {@code height} of the arc corner of the rectangle as a {@code double}
      */
     public void setArcHeight(final double arcHeight) {
-        rectangle.ifPresentOrElse(rectangle -> rectangle.setArcHeight(arcHeight), () -> this.arcHeight = arcHeight);
+        shape.ifPresentOrElse(shape -> shape.setArcHeight(arcHeight), () -> this.arcHeight = Optional.of(arcHeight));
     }
 
     /**
@@ -95,57 +61,26 @@ public abstract class RectangleEntity extends YaegerEntity {
      * @param arcWidth The {@code width} of the arc corner of the rectangle as a {@code double}
      */
     public void setArcWidth(final double arcWidth) {
-        rectangle.ifPresentOrElse(rectangle -> rectangle.setArcWidth(arcWidth), () -> this.arcWidth = arcWidth);
+        shape.ifPresentOrElse(shape -> shape.setArcWidth(arcWidth), () -> this.arcWidth = Optional.of(arcWidth));
     }
 
     @Override
     public void setOriginX(double x) {
-        rectangle.ifPresentOrElse(rectangle -> rectangle.setX(x), () -> this.initialX = x);
+        shape.ifPresentOrElse(shape -> shape.setX(x), () -> this.x = x);
     }
 
     @Override
     public void setOriginY(double y) {
-        rectangle.ifPresentOrElse(rectangle -> rectangle.setY(y), () -> this.initialY = y);
-    }
-
-    @Override
-    public Optional<Node> getGameNode() {
-        if (rectangle.isPresent()) {
-            return Optional.of(rectangle.get());
-        } else {
-            return Optional.empty();
-        }
+        shape.ifPresentOrElse(shape -> shape.setY(y), () -> this.y = y);
     }
 
     @Override
     public void init(final Injector injector) {
         super.init(injector);
 
-        if (strokeColor != null) {
-            rectangle.get().setStroke(strokeColor);
-        }
-        if (fill != null) {
-            rectangle.get().setFill(fill);
-        }
-        rectangle.get().setStrokeWidth(strokeWidth);
-        rectangle.get().setHeight(height);
-        rectangle.get().setWidth(width);
-        rectangle.get().setArcHeight(arcHeight);
-        rectangle.get().setArcWidth(arcWidth);
-    }
-
-    @Override
-    public double getTopY() {
-        return super.getTopY() + (0.5 * rectangle.get().getStrokeWidth());
-    }
-
-    @Override
-    public double getLeftX() {
-        return super.getLeftX() + (0.5 * rectangle.get().getStrokeWidth());
-    }
-
-    @Inject
-    public void setRectangle(final Rectangle rectangle) {
-        this.rectangle = Optional.of(rectangle);
+        height.ifPresent(height -> shape.get().setHeight(height));
+        width.ifPresent(width -> shape.get().setWidth(width));
+        arcHeight.ifPresent(arcHeight -> shape.get().setArcHeight(arcHeight));
+        arcWidth.ifPresent(arcWidth -> shape.get().setArcWidth(arcWidth));
     }
 }

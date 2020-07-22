@@ -33,39 +33,13 @@ class TextEntityTest {
     }
 
     @Test
-    void getNodeReturnsEmptyNodeIfTextNotSet() {
-        // Arrange
-        var sut = new TextEntityImpl(new Location(0, 0));
-
-        // Act
-        Optional<Node> gameNode = sut.getGameNode();
-
-        // Assert
-        Assertions.assertTrue(gameNode.isEmpty());
-    }
-
-    @Test
-    void settingPositionWithoutDelegateStoresPositionAsInitialPosition() {
-        // Setup
-        var sut = new TextEntityImpl(new Location(0, 0));
-
-        // Test
-        sut.setOriginX(LOCATION.getX());
-        sut.setOriginY(LOCATION.getY());
-
-        // Assert
-        Assertions.assertEquals(0, Double.compare(sut.getInitialLocation().getX(), LOCATION.getX()));
-        Assertions.assertEquals(0, Double.compare(sut.getInitialLocation().getY(), LOCATION.getY()));
-    }
-
-    @Test
     void settingDelegateSetsTextOnDelegate() {
         // Setup
         var sut = new TextEntity(LOCATION);
 
         // Test
         sut.setText(YAEGER);
-        sut.setTextDelegate(text);
+        sut.setShape(text);
         sut.init(injector);
 
         // Assert
@@ -80,7 +54,7 @@ class TextEntityTest {
 
         // Test
         sut.setFill(COLOR);
-        sut.setTextDelegate(text);
+        sut.setShape(text);
         sut.init(injector);
 
         // Assert
@@ -94,7 +68,7 @@ class TextEntityTest {
 
         // Test
         sut.setFont(FONT);
-        sut.setTextDelegate(text);
+        sut.setShape(text);
         sut.init(injector);
 
         // Assert
@@ -107,7 +81,7 @@ class TextEntityTest {
         var sut = new TextEntity(LOCATION, YAEGER);
 
         // Test
-        sut.setTextDelegate(text);
+        sut.setShape(text);
         sut.init(injector);
 
         // Assert
@@ -115,23 +89,10 @@ class TextEntityTest {
     }
 
     @Test
-    void getGameNodeReturnsTheTextDelegate() {
-        // Setup
-        var sut = new TextEntity(LOCATION, YAEGER);
-
-        // Test
-        sut.setTextDelegate(text);
-        sut.init(injector);
-
-        // Assert
-        Assertions.assertEquals(text, sut.getGameNode().get());
-    }
-
-    @Test
     void settingValuesAfterDelegateIsSetDelegatesTheValues() {
         // Setup
         var sut = new TextEntity(LOCATION);
-        sut.setTextDelegate(text);
+        sut.setShape(text);
         sut.init(injector);
 
         // Test
@@ -145,21 +106,5 @@ class TextEntityTest {
         verify(text).setFill(COLOR);
         verify(text).setText(YAEGER);
         verify(text).setFont(FONT);
-    }
-
-    private class TextEntityImpl extends TextEntity {
-
-        /**
-         * Create a new {@link TextEntityImpl} on the given {@code initialPosition}.
-         *
-         * @param initialPosition The initial position at which this {@link TextEntityImpl} should be placed
-         */
-        public TextEntityImpl(Location initialPosition) {
-            super(initialPosition);
-        }
-
-        public Point2D getInitialLocation() {
-            return new Point2D(initialX, initialY);
-        }
     }
 }

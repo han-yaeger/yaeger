@@ -1,0 +1,64 @@
+package com.github.hanyaeger.api.engine.entities.entity.shape;
+
+import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
+import com.github.hanyaeger.api.engine.entities.entity.Location;
+import javafx.scene.Node;
+import javafx.scene.shape.Shape;
+
+/**
+ * A {@link CenteredShapeEntity} is a special case of a {@link ShapeEntity}, based on a {@link Shape}
+ * of which the center is the reference point when placed on a {@link javafx.scene.Scene}. Because
+ * Yaeger uses translations to facilitate various anchor points, these translations will need to
+ * differ from shapes, of which the top left point is used for placement.
+ *
+ * @param <T> The Generic type to be used, which should extend {@link Shape}.
+ */
+public abstract class CenteredShapeEntity<T extends Shape> extends ShapeEntity<T> {
+
+    /**
+     * Instantiate a new {@link CenteredShapeEntity} for the given {@link Location}.
+     *
+     * @param initialPosition the initial {@link Location} of this {@link CenteredShapeEntity}
+     */
+    public CenteredShapeEntity(Location initialPosition) {
+        super(initialPosition);
+    }
+
+    @Override
+    protected void applyTranslationsForAnchorPoint(Node node, AnchorPoint anchorPoint) {
+        switch (anchorPoint) {
+            case TOP_LEFT:
+                node.setTranslateX(getNonTransformedBounds().getWidth() / 2);
+                node.setTranslateY(getNonTransformedBounds().getHeight() / 2);
+                break;
+            case TOP_CENTER:
+                node.setTranslateY(getNonTransformedBounds().getHeight() / 2);
+                break;
+            case TOP_RIGHT:
+                node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
+                node.setTranslateY(getNonTransformedBounds().getHeight() / 2);
+                break;
+            case CENTER_LEFT:
+                node.setTranslateX(getNonTransformedBounds().getWidth() / 2);
+                break;
+            case CENTER_CENTER:
+                break;
+            case CENTER_RIGHT:
+                node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
+                break;
+            case BOTTOM_LEFT:
+                node.setTranslateX(getNonTransformedBounds().getWidth() / 2);
+                node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
+                break;
+            case BOTTOM_CENTER:
+                node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
+                break;
+            case BOTTOM_RIGHT:
+                node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
+                node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
+                break;
+            default:
+                break;
+        }
+    }
+}

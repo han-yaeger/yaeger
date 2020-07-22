@@ -33,7 +33,7 @@ class DynamicRectangleEntityTest {
     void setup() {
         sut = new DynamicRectangleEntityImpl(DEFAULT_LOCATION);
         rectangle = mock(Rectangle.class);
-        sut.setRectangle(rectangle);
+        sut.setShape(rectangle);
         injector = mock(Injector.class);
     }
 

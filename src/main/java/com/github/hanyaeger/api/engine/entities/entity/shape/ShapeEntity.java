@@ -11,6 +11,13 @@ import javafx.scene.shape.StrokeType;
 
 import java.util.Optional;
 
+/**
+ * The {@link ShapeEntity} is the abstract super class of all Entities that encapsulate
+ * a JavaFX {@link Shape}. The specific {@link Shape} to be used, should be set as
+ * the generic type, when this class is extended.
+ *
+ * @param <T> The Generic type to be used, which should extend {@link Shape}.
+ */
 public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
 
     protected Optional<T> shape = Optional.empty();
@@ -20,9 +27,9 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
     private Optional<Double> strokeWidth = Optional.empty();
 
     /**
-     * Instantiate a new {@link YaegerEntity} for the given {@link Location}.
+     * Instantiate a new {@link ShapeEntity} for the given {@link Location}.
      *
-     * @param initialPosition the initial {@link Location} of this {@link YaegerEntity}
+     * @param initialPosition the initial {@link Location} of this {@link ShapeEntity}
      */
     public ShapeEntity(Location initialPosition) {
         super(initialPosition);

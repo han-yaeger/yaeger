@@ -35,7 +35,7 @@ class DynamicTextEntityTest {
         sut = new DynamicTextEntityImpl(DEFAULT_LOCATION);
         text = mock(Text.class);
         sut.setText(YAEGER);
-        sut.setTextDelegate(text);
+        sut.setShape(text);
         injector = mock(Injector.class);
     }
 

@@ -1,14 +1,11 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape.text;
 
 import com.github.hanyaeger.api.engine.entities.entity.Location;
-import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
+import com.github.hanyaeger.api.engine.entities.entity.shape.ShapeEntity;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import javafx.geometry.VPos;
-import javafx.scene.Node;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -18,12 +15,10 @@ import java.util.Optional;
  * A {@code TextEntity} can be used to display a line of text on a {@link YaegerScene}. The text will be placed, using
  * the top left corner as its anchor point.
  */
-public class TextEntity extends YaegerEntity {
+public class TextEntity extends ShapeEntity<Text> {
 
-    private Color fill;
-    private Font font;
-    private String initialText;
-    private Optional<Text> text;
+    private Optional<Font> font = Optional.empty();
+    private Optional<String> text;
 
     /**
      * Instantiate a new {@code TextEntity} for the given {@link Point2D}.
@@ -42,8 +37,7 @@ public class TextEntity extends YaegerEntity {
      */
     public TextEntity(final Location initialPosition, final String text) {
         super(initialPosition);
-        this.text = Optional.empty();
-        this.initialText = text;
+        this.text = Optional.of(text);
     }
 
     /**
@@ -52,16 +46,7 @@ public class TextEntity extends YaegerEntity {
      * @param displayText the {@link String} that should be shown
      */
     public void setText(final String displayText) {
-        text.ifPresentOrElse(text -> text.setText(displayText), () -> this.initialText = displayText);
-    }
-
-    /**
-     * Set the color of the text.
-     *
-     * @param color an instance of {@link Color}
-     */
-    public void setFill(final Color color) {
-        text.ifPresentOrElse(text -> text.setFill(color), () -> this.fill = color);
+        shape.ifPresentOrElse(text -> text.setText(displayText), () -> this.text = Optional.of(displayText));
     }
 
     /**
@@ -77,47 +62,25 @@ public class TextEntity extends YaegerEntity {
      * @param font the {@link Font} to be used
      */
     public void setFont(final Font font) {
-        text.ifPresentOrElse(text -> text.setFont(font), () -> this.font = font);
+        shape.ifPresentOrElse(text -> text.setFont(font), () -> this.font = Optional.of(font));
     }
 
     @Override
     public void setOriginX(double x) {
-        text.ifPresentOrElse(text -> text.setX(x), () -> initialX = x);
+        shape.ifPresentOrElse(text -> text.setX(x), () -> this.x = x);
     }
 
     @Override
     public void setOriginY(double y) {
-        text.ifPresentOrElse(text -> text.setY(y), () -> initialY = y);
+        shape.ifPresentOrElse(text -> text.setY(y), () -> this.y = y);
     }
 
     @Override
     public void init(final Injector injector) {
         super.init(injector);
 
-        text.get().setTextOrigin(VPos.TOP);
-
-        if (font != null) {
-            text.get().setFont(font);
-        }
-        if (fill != null) {
-            text.get().setFill(fill);
-        }
-        if (initialText != null && !initialText.isEmpty()) {
-            text.get().setText(initialText);
-        }
-    }
-
-    @Inject
-    public void setTextDelegate(final Text text) {
-        this.text = Optional.of(text);
-    }
-
-    @Override
-    public Optional<Node> getGameNode() {
-        if (text.isPresent()) {
-            return Optional.of(text.get());
-        } else {
-            return Optional.empty();
-        }
+        shape.get().setTextOrigin(VPos.TOP);
+        font.ifPresent(font1 -> shape.get().setFont(font1));
+        text.ifPresent(text -> shape.get().setText(text));
     }
 }

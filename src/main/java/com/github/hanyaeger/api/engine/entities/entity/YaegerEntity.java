@@ -17,8 +17,8 @@ import java.util.List;
  */
 public abstract class YaegerEntity implements Initializable, Activatable, TimerListProvider, Bounded, Removeable, Placeable, SceneChild, NodeProvider, Rotatable {
 
-    protected double initialX;
-    protected double initialY;
+    protected double x;
+    protected double y;
     private boolean visible = true;
     private double opacity = 1;
     private Cursor cursor = Cursor.DEFAULT;
@@ -31,8 +31,8 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
      * @param initialPosition the initial {@link Location} of this {@link YaegerEntity}
      */
     public YaegerEntity(final Location initialPosition) {
-        this.initialX = initialPosition.getX();
-        this.initialY = initialPosition.getY();
+        this.x = initialPosition.getX();
+        this.y = initialPosition.getY();
         this.anchorPoint = AnchorPoint.TOP_LEFT;
     }
 
@@ -40,7 +40,6 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
     public void init(final Injector injector) {
         setVisible(visible);
         setOpacity(opacity);
-
     }
 
     @Override
@@ -97,8 +96,8 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
     @Override
     public void placeOnScene() {
         getGameNode().ifPresent(node -> {
-            setOriginX(initialX);
-            setOriginY(initialY);
+            setOriginX(x);
+            setOriginY(y);
             applyTranslationsForAnchorPoint(node, anchorPoint);
         });
     }
@@ -107,7 +106,7 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
         collection.addStaticEntity(this);
     }
 
-    private void applyTranslationsForAnchorPoint(Node node, AnchorPoint anchorPoint) {
+    protected void applyTranslationsForAnchorPoint(Node node, AnchorPoint anchorPoint) {
         switch (anchorPoint) {
             case TOP_LEFT:
                 node.setTranslateX(0);

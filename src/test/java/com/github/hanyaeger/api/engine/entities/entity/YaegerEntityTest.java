@@ -294,7 +294,7 @@ class YaegerEntityTest {
     }
 
     @Test
-    void addToEntityCollectionCallsAddStaticEntity(){
+    void addToEntityCollectionCallsAddStaticEntity() {
         // Arrange
         var entityCollection = mock(EntityCollection.class);
 
@@ -308,8 +308,8 @@ class YaegerEntityTest {
     private class YaegerEntityImpl extends YaegerEntity {
 
         private Optional<Node> node;
-        private double x;
-        private double y;
+        private double testX;
+        private double testY;
 
         public YaegerEntityImpl(Location initialPosition) {
             super(initialPosition);
@@ -325,21 +325,21 @@ class YaegerEntityTest {
         }
 
         public double getOriginX() {
-            return x;
+            return testX;
         }
 
         public double getOriginY() {
-            return y;
+            return testY;
         }
 
         @Override
         public void setOriginX(double x) {
-            this.x = x;
+            this.testX = x;
         }
 
         @Override
         public void setOriginY(double y) {
-            this.y = y;
+            this.testY = y;
         }
     }
 }
