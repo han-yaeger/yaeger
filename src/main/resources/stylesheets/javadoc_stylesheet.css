@@ -128,13 +128,13 @@ button {
  */
 .clear {
     clear: both;
-    height: 0px;
+    height: 0;
     overflow: hidden;
 }
 
 .aboutLanguage {
     float: right;
-    padding: 0px 21px;
+    padding: 0 21px;
     font-size: 11px;
     z-index: 200;
     margin-top: -9px;
@@ -245,7 +245,7 @@ ul.navList li {
 
 ul.navListSearch {
     float: right;
-    margin: 0 0 0 0;
+    margin: 0;
     padding: 0;
 }
 
@@ -298,7 +298,7 @@ ul.subNavList li {
 .header, .footer {
     clear: both;
     margin: 0 20px;
-    padding: 5px 0 0 0;
+    padding: 5px 0 0;
 }
 
 .indexNav {
@@ -329,16 +329,16 @@ ul.subNavList li {
 }
 
 .subTitle {
-    margin: 5px 0 0 0;
+    margin: 5px 0 0;
 }
 
 .header ul {
-    margin: 0 0 15px 0;
+    margin: 0 0 15px;
     padding: 0;
 }
 
 .footer ul {
-    margin: 20px 0 5px 0;
+    margin: 20px 0 5px;
 }
 
 .header ul li, .footer ul li {
@@ -369,7 +369,7 @@ ul.blockList ul.blockList li.blockList h3 {
 }
 
 ul.blockList li.blockList h2 {
-    padding: 0px 0 20px 0;
+    padding: 0 0 20px;
 }
 
 /*
@@ -390,7 +390,7 @@ ul.blockList li.blockList h2 {
 
 .indexContainer h2 {
     font-size: 13px;
-    padding: 0 0 3px 0;
+    padding: 0 0 3px;
 }
 
 .indexContainer ul {
@@ -406,12 +406,12 @@ ul.blockList li.blockList h2 {
 .contentContainer .description dl dt, .contentContainer .details dl dt, .serializedFormContainer dl dt {
     font-size: 12px;
     font-weight: bold;
-    margin: 10px 0 0 0;
+    margin: 10px 0 0;
     color: #4E4E4E;
 }
 
 .contentContainer .description dl dd, .contentContainer .details dl dd, .serializedFormContainer dl dd {
-    margin: 5px 0 10px 0px;
+    margin: 5px 0 10px 0;
     font-size: 14px;
     font-family: 'Avenir Next', Arial;
 }
@@ -458,7 +458,7 @@ ul.inheritance li ul.inheritance {
 }
 
 ul.blockList, ul.blockListLast {
-    margin: 10px 0 10px 0;
+    margin: 10px 0;
     padding: 0;
 }
 
@@ -469,7 +469,7 @@ ul.blockList li.blockList, ul.blockListLast li.blockList {
 }
 
 ul.blockList ul.blockList li.blockList, ul.blockList ul.blockListLast li.blockList {
-    padding: 0px 20px 5px 10px;
+    padding: 0 20px 5px 10px;
     border: 1px solid #ededed;
     background-color: #f8f8f8;
 }
@@ -511,7 +511,7 @@ table tr td dl, table tr td dl dt, table tr td dl dd {
 }
 
 .overviewSummary table, .memberSummary table, .requiresSummary table, .packagesSummary table, .providesSummary table, .usesSummary table {
-    padding: 0px;
+    padding: 0;
 }
 
 .overviewSummary caption, .memberSummary caption, .typeSummary caption,
@@ -524,10 +524,10 @@ table tr td dl, table tr td dl dt, table tr td dl dd {
     font-weight: bold;
     clear: none;
     overflow: hidden;
-    padding: 0px;
+    padding: 0;
     padding-top: 10px;
     padding-left: 1px;
-    margin: 0px;
+    margin: 0;
     white-space: pre;
 }
 
@@ -585,7 +585,7 @@ table tr td dl, table tr td dl dt, table tr td dl dd {
 .typeSummary [role=tablist] button, .packagesSummary [role=tablist] button {
     border: none;
     cursor: pointer;
-    padding: 5px 12px 7px 12px;
+    padding: 5px 12px 7px;
     font-weight: bold;
     margin-right: 3px;
 }
@@ -610,14 +610,14 @@ table tr td dl, table tr td dl dt, table tr td dl dd {
 .useSummary td, .constantsSummary td, .deprecatedSummary td,
 .requiresSummary td, .packagesSummary td, .providesSummary td, .usesSummary td {
     text-align: left;
-    padding: 0px 0px 12px 10px;
+    padding: 0 0 12px 10px;
 }
 
 th.colFirst, th.colSecond, th.colLast, th.colConstructorName, th.colDeprecatedItemName, .useSummary th,
 .constantsSummary th, .packagesSummary th, td.colFirst, td.colSecond, td.colLast, .useSummary td,
 .constantsSummary td {
     vertical-align: top;
-    padding-right: 0px;
+    padding-right: 0;
     padding-top: 8px;
     padding-bottom: 3px;
 }
@@ -702,7 +702,7 @@ th.colDeprecatedItemName a:link, th.colDeprecatedItemName a:visited,
     padding: 0;
 }
 
-ul.blockList ul.blockList ul.blockList li.blockList h3 {
+li.blockList h3 {
     font-style: normal;
 }
 
@@ -712,7 +712,7 @@ div.block {
 }
 
 td.colLast div {
-    padding-top: 0px;
+    padding-top: 0;
 }
 
 td.colLast a {
@@ -735,7 +735,7 @@ h1.hidden {
 
 .block {
     display: block;
-    margin: 3px 10px 2px 0px;
+    margin: 3px 10px 2px 0;
     color: #474747;
 }
 
@@ -768,7 +768,7 @@ div.block div.block span.interfaceName {
 }
 
 div.contentContainer ul.blockList li.blockList h2 {
-    padding-bottom: 0px;
+    padding-bottom: 0;
 }
 
 /*
@@ -901,7 +901,7 @@ ul.ui-autocomplete li {
     position: relative;
     left: -4px;
     top: -4px;
-    font-size: 0px;
+    font-size: 0;
 }
 
 .watermark {
