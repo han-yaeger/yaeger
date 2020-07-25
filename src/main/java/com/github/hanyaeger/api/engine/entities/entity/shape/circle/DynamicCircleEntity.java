@@ -37,7 +37,6 @@ public abstract class DynamicCircleEntity extends CircleEntity implements Update
         buffer = Optional.of(new EntityMotionInitBuffer());
     }
 
-
     @Override
     public MotionApplier getMotionApplier() {
         return motionApplier;

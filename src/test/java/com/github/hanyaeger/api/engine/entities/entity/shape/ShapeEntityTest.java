@@ -6,6 +6,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
+import javafx.scene.shape.StrokeType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,13 +49,26 @@ class ShapeEntityTest {
     @Test
     void getGameNodeReturnsTheShape() {
         // Arrange
-
-        // Act
         sut.setShape(shape);
         sut.init(injector);
 
+        // Act
+        var actual = sut.getGameNode().get();
+
         // Verify
-        Assertions.assertEquals(shape, sut.getGameNode().get());
+        Assertions.assertEquals(shape, actual);
+    }
+
+    @Test
+    void initSetsStrokeTypeToInside() {
+        // Arrange
+        sut.setShape(shape);
+
+        // Act
+        sut.init(injector);
+
+        // Assert
+        verify(shape).setStrokeType(StrokeType.INSIDE);
     }
 
     @Test
