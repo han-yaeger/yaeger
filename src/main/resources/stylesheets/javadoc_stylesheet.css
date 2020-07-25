@@ -411,7 +411,7 @@ ul.blockList li.blockList h2 {
 }
 
 .contentContainer .description dl dd, .contentContainer .details dl dd, .serializedFormContainer dl dd {
-    margin: 5px 0 10px 0;
+    margin: 5px 0 10px;
     font-size: 14px;
     font-family: 'Avenir Next', Arial;
 }
