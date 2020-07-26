@@ -1,13 +1,12 @@
-package com.github.hanyaeger.api.engine.entities.entity.shape.circle;
+package com.github.hanyaeger.api.engine.entities.entity.shape.ellipse;
 
 import com.github.hanyaeger.api.engine.Updater;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.entity.Location;
 import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
 import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBuffer;
-import com.github.hanyaeger.api.engine.entities.entity.shape.rectangle.DynamicRectangleEntity;
 import com.google.inject.Injector;
-import javafx.scene.shape.Circle;
+import javafx.scene.shape.Ellipse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,8 +16,7 @@ import java.util.Optional;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-class DynamicCircleEntityTest {
-
+class DynamicEllipseEntityTest {
     private final static int X_POSITION = 37;
     private final static int Y_POSITION = 37;
     private final static Location DEFAULT_LOCATION = new Location(X_POSITION, Y_POSITION);
@@ -26,15 +24,15 @@ class DynamicCircleEntityTest {
     public static final double SPEED = 37d;
     public static final double DIRECTION = 42d;
 
-    private DynamicCircleEntityImpl sut;
+    private DynamicEllipseEntity sut;
     private Injector injector;
-    private Circle circle;
+    private Ellipse ellipse;
 
     @BeforeEach
     void setup() {
-        sut = new DynamicCircleEntityImpl(DEFAULT_LOCATION);
-        circle = mock(Circle.class);
-        sut.setShape(circle);
+        sut = new DynamicEllipsEntityImpl(DEFAULT_LOCATION);
+        ellipse = mock(Ellipse.class);
+        sut.setShape(ellipse);
         injector = mock(Injector.class);
     }
 
@@ -141,14 +139,9 @@ class DynamicCircleEntityTest {
     }
 
 
-    private class DynamicCircleEntityImpl extends DynamicCircleEntity {
+    private class DynamicEllipsEntityImpl extends DynamicEllipseEntity {
 
-        /**
-         * Create a new {@link DynamicRectangleEntity} on the given {@code initialPosition}.
-         *
-         * @param initialPosition The initial position at which this {@link DynamicRectangleEntity} should be placed
-         */
-        public DynamicCircleEntityImpl(Location initialPosition) {
+        public DynamicEllipsEntityImpl(Location initialPosition) {
             super(initialPosition);
         }
     }
