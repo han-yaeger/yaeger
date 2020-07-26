@@ -9,44 +9,42 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class EntitySupplierTest {
 
     private static final Location DEFAULT_LOCATION = new Location(0, 0);
-    private EntitySupplier entitySupplier;
-
+    private EntitySupplier sut;
 
     @BeforeEach
     void setup() {
-        entitySupplier = new EntitySupplier();
+        sut = new EntitySupplier();
     }
 
     @Test
     void addEntitiesAddsEntity() {
         // Arrange
-        YaegerEntity entity = new TestEntity(DEFAULT_LOCATION);
+        var entity = new TestEntity(DEFAULT_LOCATION);
 
         // Act
-        entitySupplier.add(entity);
+        sut.add(entity);
 
         // Assert
-        Assertions.assertEquals(1, entitySupplier.size());
+        Assertions.assertEquals(1, sut.size());
     }
 
     @Test
     void clearClearsListOfSpawnedEntities() {
         // Arrange
-        YaegerEntity entity = new TestEntity(DEFAULT_LOCATION);
+        var entity = new TestEntity(DEFAULT_LOCATION);
 
         // Act
-        entitySupplier.add(entity);
-        entitySupplier.clear();
+        sut.add(entity);
+        sut.clear();
 
         // Assert
-        Assertions.assertEquals(0, entitySupplier.size());
+        Assertions.assertEquals(0, sut.size());
     }
 
     @Test
@@ -54,7 +52,7 @@ class EntitySupplierTest {
         // Arrange
 
         // Act
-        Set<YaegerEntity> entities = entitySupplier.get();
+        var entities = sut.get();
 
         // Assert
         Assertions.assertEquals(0, entities.size());
@@ -63,14 +61,24 @@ class EntitySupplierTest {
     @Test
     void twoDifferentSuppliersWithNoContentAreNotEqual() {
         // Arrange
-        var sut1 = new EntitySupplier();
-        var sut2 = new EntitySupplier();
+        var otherSut = new EntitySupplier();
 
         // Act
-        boolean equals = sut1.equals(sut2);
+        var equals = sut.equals(otherSut);
 
         // Assert
         Assertions.assertFalse(equals);
+    }
+
+    @Test
+    void supplierIsEqualToSelf() {
+        // Arrange
+
+        // Act
+        var equals = sut.equals(sut);
+
+        // Assert
+        Assertions.assertTrue(equals);
     }
 
     private class TestEntity extends YaegerEntity {
