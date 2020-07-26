@@ -289,12 +289,12 @@ class EntityCollectionTest {
         }
 
         @Override
-        public void setOriginX(double x) {
+        public void setReferenceX(double x) {
 
         }
 
         @Override
-        public void setOriginY(double y) {
+        public void setReferenceY(double y) {
 
         }
 

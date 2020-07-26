@@ -25,20 +25,20 @@ public interface Placeable extends Bounded, Anchorable {
     }
 
     /**
-     * Set the new x-coordinate of this {@link YaegerEntity}. The x-coordinate will be of the top-left
-     * corner of the {@link javafx.geometry.BoundingBox} that is being used by this {@link YaegerEntity}.
+     * Set the new x-coordinate of the reference of this {@link YaegerEntity}. The reference will depend on the chosen
+     * {@link AnchorPoint}.
      *
      * @param x the x-coordinate as a {@code double}.
      */
-    void setOriginX(final double x);
+    void setReferenceX(final double x);
 
     /**
-     * Set the new y-coordinate of this {@link YaegerEntity}.The y-coordinate will be of the top-left
-     * corner of the {@link javafx.geometry.BoundingBox} that is being used by this {@link YaegerEntity}.
+     * Set the new y-coordinate of the reference of this {@link YaegerEntity}. The reference will depend on the chosen
+     * {@link AnchorPoint}.
      *
      * @param y the y-coordinate as a {@code double}.
      */
-    void setOriginY(final double y);
+    void setReferenceY(final double y);
 
     /**
      * Place the {@link YaegerEntity} on the scene at its x,y-coordinate.

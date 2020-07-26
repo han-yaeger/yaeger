@@ -96,8 +96,8 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
     @Override
     public void placeOnScene() {
         getGameNode().ifPresent(node -> {
-            setOriginX(x);
-            setOriginY(y);
+            setReferenceX(x);
+            setReferenceY(y);
             applyTranslationsForAnchorPoint(node, anchorPoint);
         });
     }

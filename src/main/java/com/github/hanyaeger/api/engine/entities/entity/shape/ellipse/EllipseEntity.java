@@ -47,12 +47,12 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
     }
 
     @Override
-    public void setOriginX(double x) {
+    public void setReferenceX(double x) {
         shape.ifPresentOrElse(ellipse -> ellipse.setCenterX(x), () -> this.x = x);
     }
 
     @Override
-    public void setOriginY(double y) {
+    public void setReferenceY(double y) {
         shape.ifPresentOrElse(ellipse -> ellipse.setCenterY(y), () -> this.y = y);
     }
 

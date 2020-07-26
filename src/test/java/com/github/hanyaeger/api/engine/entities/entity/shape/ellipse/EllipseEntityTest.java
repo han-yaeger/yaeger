@@ -118,6 +118,36 @@ class EllipseEntityTest {
         Assertions.assertEquals(expected, actual);
     }
 
+    @Test
+    void setReferenceXCallsSetXOnShapeAfterInitHasBeenCalled() {
+        // Arrange
+        sut.setShape(ellipse);
+        sut.init(injector);
+
+        var referenceX = 1d;
+
+        // Act
+        sut.setReferenceX(referenceX);
+
+        // Assert
+        verify(ellipse).setCenterX(referenceX);
+    }
+
+    @Test
+    void setReferenceYCallsSetYOnShapeAfterInitHasBeenCalled() {
+        // Arrange
+        sut.setShape(ellipse);
+        sut.init(injector);
+
+        var referenceY = 1d;
+
+        // Act
+        sut.setReferenceY(referenceY);
+
+        // Assert
+        verify(ellipse).setCenterY(referenceY);
+    }
+
     private class EllipseEntityImpl extends EllipseEntity {
 
         public EllipseEntityImpl(Location initialPosition) {

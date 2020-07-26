@@ -62,6 +62,18 @@ class TimerContainerTest {
     @Test
     void callTimersDoesNotBreakIfTimersIsNull() {
         // Arrange
+        sut.setTimers(new ArrayList<>());
+
+        // Act
+        var updatable = sut.callTimers();
+
+        // Assert
+        assertTrue(updatable instanceof Updatable);
+    }
+
+    @Test
+    void callTimersDoesNotBreakIfTimersIsEmpty() {
+        // Arrange
 
         // Act
         var updatable = sut.callTimers();

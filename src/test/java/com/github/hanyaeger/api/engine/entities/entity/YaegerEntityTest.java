@@ -333,12 +333,12 @@ class YaegerEntityTest {
         }
 
         @Override
-        public void setOriginX(double x) {
+        public void setReferenceX(double x) {
             this.testX = x;
         }
 
         @Override
-        public void setOriginY(double y) {
+        public void setReferenceY(double y) {
             this.testY = y;
         }
     }

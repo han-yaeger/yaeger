@@ -65,12 +65,12 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
     }
 
     @Override
-    public void setOriginX(double x) {
+    public void setReferenceX(double x) {
         shape.ifPresentOrElse(shape -> shape.setX(x), () -> this.x = x);
     }
 
     @Override
-    public void setOriginY(double y) {
+    public void setReferenceY(double y) {
         shape.ifPresentOrElse(shape -> shape.setY(y), () -> this.y = y);
     }
 

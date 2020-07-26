@@ -86,6 +86,36 @@ class RectangleEntityTest {
         verify(rectangle).setArcHeight(ARC_HEIGHT);
     }
 
+    @Test
+    void setReferenceXCallsSetXOnShapeAfterInitHasBeenCalled() {
+        // Arrange
+        sut.setShape(rectangle);
+        sut.init(injector);
+
+        var referenceX = 1d;
+
+        // Act
+        sut.setReferenceX(referenceX);
+
+        // Assert
+        verify(rectangle).setX(referenceX);
+    }
+
+    @Test
+    void setReferenceYCallsSetYOnShapeAfterInitHasBeenCalled() {
+        // Arrange
+        sut.setShape(rectangle);
+        sut.init(injector);
+
+        var referenceY = 1d;
+
+        // Act
+        sut.setReferenceY(referenceY);
+
+        // Assert
+        verify(rectangle).setY(referenceY);
+    }
+
     private class RectangleEntityImpl extends RectangleEntity {
 
         public RectangleEntityImpl(Location initialPosition) {

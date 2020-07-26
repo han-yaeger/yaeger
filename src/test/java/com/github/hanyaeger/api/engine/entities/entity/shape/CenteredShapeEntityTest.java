@@ -151,12 +151,12 @@ class CenteredShapeEntityTest {
         }
 
         @Override
-        public void setOriginX(double x) {
+        public void setReferenceX(double x) {
             shape.ifPresentOrElse(shape -> shape.setLayoutX(x), () -> this.x = x);
         }
 
         @Override
-        public void setOriginY(double y) {
+        public void setReferenceY(double y) {
             shape.ifPresentOrElse(shape -> shape.setLayoutY(y), () -> this.y = y);
         }
     }

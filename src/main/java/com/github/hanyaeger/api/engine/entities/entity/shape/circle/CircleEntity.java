@@ -37,12 +37,12 @@ public abstract class CircleEntity extends CenteredShapeEntity<Circle> {
     }
 
     @Override
-    public void setOriginX(double x) {
+    public void setReferenceX(double x) {
         shape.ifPresentOrElse(circle -> circle.setCenterX(x), () -> this.x = x);
     }
 
     @Override
-    public void setOriginY(double y) {
+    public void setReferenceY(double y) {
         shape.ifPresentOrElse(circle -> circle.setCenterY(y), () -> this.y = y);
     }
 

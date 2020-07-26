@@ -189,12 +189,12 @@ public class AABBCollidedTest {
         }
 
         @Override
-        public void setOriginX(double x) {
+        public void setReferenceX(double x) {
             this.setOriginXcalled = true;
         }
 
         @Override
-        public void setOriginY(double y) {
+        public void setReferenceY(double y) {
             this.setOriginYcalled = true;
         }
 
@@ -255,12 +255,12 @@ public class AABBCollidedTest {
         }
 
         @Override
-        public void setOriginX(double x) {
+        public void setReferenceX(double x) {
             // Not required here
         }
 
         @Override
-        public void setOriginY(double y) {
+        public void setReferenceY(double y) {
             // Not required here
         }
 

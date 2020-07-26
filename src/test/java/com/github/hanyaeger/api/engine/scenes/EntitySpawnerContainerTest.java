@@ -78,6 +78,18 @@ class EntitySpawnerContainerTest {
     }
 
     @Test
+    void callSpawnersDoesNotBreakIfSpawnersIsEmpty() {
+        // Arrange
+        sut.setSpawners(new ArrayList<>());
+
+        // Act
+        var updatable = sut.callEntitySpawners();
+
+        // Assert
+        assertTrue(updatable instanceof Updatable);
+    }
+
+    @Test
     void addSpawnerThrowsExceptionIfGetSpawnersReturnNull() {
         // Arrange
         var spawner1 = mock(EntitySpawner.class);

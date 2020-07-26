@@ -65,8 +65,8 @@ class SpriteEntityTest {
         var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
 
         // Test
-        sut.setOriginX(DEFAULT_LOCATION.getX());
-        sut.setOriginY(DEFAULT_LOCATION.getY());
+        sut.setReferenceX(DEFAULT_LOCATION.getX());
+        sut.setReferenceY(DEFAULT_LOCATION.getY());
 
         // Assert
         Assertions.assertEquals(0, Double.compare(sut.getInitialLocation().getX(), DEFAULT_LOCATION.getX()));
@@ -201,8 +201,8 @@ class SpriteEntityTest {
         sut.init(injector);
 
         // Test
-        sut.setOriginX(X);
-        sut.setOriginY(Y);
+        sut.setReferenceX(X);
+        sut.setReferenceY(Y);
 
         // Assert
         verify(imageView).setX(X);

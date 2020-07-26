@@ -89,6 +89,36 @@ class CircleEntityTest {
         Assertions.assertEquals(expected, actual);
     }
 
+    @Test
+    void setReferenceXCallsSetXOnShapeAfterInitHasBeenCalled() {
+        // Arrange
+        sut.setShape(circle);
+        sut.init(injector);
+
+        var referenceX = 1d;
+
+        // Act
+        sut.setReferenceX(referenceX);
+
+        // Assert
+        verify(circle).setCenterX(referenceX);
+    }
+
+    @Test
+    void setReferenceYCallsSetYOnShapeAfterInitHasBeenCalled() {
+        // Arrange
+        sut.setShape(circle);
+        sut.init(injector);
+
+        var referenceY = 1d;
+
+        // Act
+        sut.setReferenceY(referenceY);
+
+        // Assert
+        verify(circle).setCenterY(referenceY);
+    }
+
     private class CircleEntityImpl extends CircleEntity {
 
         public CircleEntityImpl(Location initialPosition) {

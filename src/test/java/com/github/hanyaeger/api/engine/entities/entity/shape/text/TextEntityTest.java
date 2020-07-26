@@ -2,18 +2,13 @@ package com.github.hanyaeger.api.engine.entities.entity.shape.text;
 
 import com.github.hanyaeger.api.engine.entities.entity.Location;
 import com.google.inject.Injector;
-import javafx.geometry.Point2D;
 import javafx.geometry.VPos;
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -25,17 +20,18 @@ class TextEntityTest {
     private static final Color COLOR = Color.DARKBLUE;
     private Text text;
     private Injector injector;
+    private TextEntity sut;
 
     @BeforeEach
     void setup() {
         text = mock(Text.class);
         injector = mock(Injector.class);
+        sut = new TextEntity(LOCATION);
     }
 
     @Test
     void settingDelegateSetsTextOnDelegate() {
         // Setup
-        var sut = new TextEntity(LOCATION);
 
         // Test
         sut.setText(YAEGER);
@@ -50,7 +46,6 @@ class TextEntityTest {
     @Test
     void settingDelegateSetsFillOnDelegate() {
         // Setup
-        var sut = new TextEntity(LOCATION);
 
         // Test
         sut.setFill(COLOR);
@@ -64,7 +59,6 @@ class TextEntityTest {
     @Test
     void settingDelegateSetsFontOnDelegate() {
         // Setup
-        var sut = new TextEntity(LOCATION);
 
         // Test
         sut.setFont(FONT);
@@ -91,7 +85,6 @@ class TextEntityTest {
     @Test
     void settingValuesAfterDelegateIsSetDelegatesTheValues() {
         // Setup
-        var sut = new TextEntity(LOCATION);
         sut.setShape(text);
         sut.init(injector);
 
@@ -106,5 +99,35 @@ class TextEntityTest {
         verify(text).setFill(COLOR);
         verify(text).setText(YAEGER);
         verify(text).setFont(FONT);
+    }
+
+    @Test
+    void setReferenceXCallsSetXOnShapeAfterInitHasBeenCalled() {
+        // Arrange
+        sut.setShape(text);
+        sut.init(injector);
+
+        var referenceX = 1d;
+
+        // Act
+        sut.setReferenceX(referenceX);
+
+        // Assert
+        verify(text).setX(referenceX);
+    }
+
+    @Test
+    void setReferenceYCallsSetYOnShapeAfterInitHasBeenCalled() {
+        // Arrange
+        sut.setShape(text);
+        sut.init(injector);
+
+        var referenceY = 1d;
+
+        // Act
+        sut.setReferenceY(referenceY);
+
+        // Assert
+        verify(text).setY(referenceY);
     }
 }

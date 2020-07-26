@@ -66,12 +66,12 @@ public class TextEntity extends ShapeEntity<Text> {
     }
 
     @Override
-    public void setOriginX(double x) {
+    public void setReferenceX(double x) {
         shape.ifPresentOrElse(text -> text.setX(x), () -> this.x = x);
     }
 
     @Override
-    public void setOriginY(double y) {
+    public void setReferenceY(double y) {
         shape.ifPresentOrElse(text -> text.setY(y), () -> this.y = y);
     }
 
