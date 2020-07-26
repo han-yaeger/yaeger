@@ -2,12 +2,14 @@ package com.github.hanyaeger.api.engine.entities.entity.shape.ellipse;
 
 import com.github.hanyaeger.api.engine.entities.entity.Location;
 import com.google.inject.Injector;
+import javafx.geometry.Bounds;
 import javafx.scene.shape.Ellipse;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 class EllipseEntityTest {
     private static final Location LOCATION = new Location(37, 37);
@@ -35,7 +37,7 @@ class EllipseEntityTest {
         // Act
         sut.setRadiusX(RADIUS_X);
 
-        // Verify
+        // Assert
         verify(ellipse).setVisible(true);
         verify(ellipse).setRadiusX(RADIUS_X);
     }
@@ -49,7 +51,7 @@ class EllipseEntityTest {
         // Act
         sut.setRadiusY(RADIUS_Y);
 
-        // Verify
+        // Assert
         verify(ellipse).setVisible(true);
         verify(ellipse).setRadiusY(RADIUS_Y);
     }
@@ -63,7 +65,7 @@ class EllipseEntityTest {
         // Act
         sut.init(injector);
 
-        // Verify
+        // Assert
         verify(ellipse).setRadiusX(RADIUS_X);
     }
 
@@ -76,8 +78,44 @@ class EllipseEntityTest {
         // Act
         sut.init(injector);
 
-        // Verify
+        // Assert
         verify(ellipse).setRadiusY(RADIUS_Y);
+    }
+
+    @Test
+    void getLeftXTakesRadiusIntoAccount() {
+        // Arrange
+        sut.setRadiusX(RADIUS_X);
+        sut.setShape(ellipse);
+        sut.init(injector);
+        var bounds = mock(Bounds.class);
+        when(ellipse.getBoundsInLocal()).thenReturn(bounds);
+        when(bounds.getMinX()).thenReturn(LOCATION.getX());
+
+        // Act
+        var actual = sut.getLeftX();
+
+        // Assert
+        var expected = LOCATION.getX() + RADIUS_X;
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void getTopYTakesRadiusIntoAccount() {
+        // Arrange
+        sut.setRadiusY(RADIUS_Y);
+        sut.setShape(ellipse);
+        sut.init(injector);
+        var bounds = mock(Bounds.class);
+        when(ellipse.getBoundsInLocal()).thenReturn(bounds);
+        when(bounds.getMinY()).thenReturn(LOCATION.getY());
+
+        // Act
+        var actual = sut.getTopY();
+
+        // Assert
+        var expected = LOCATION.getY() + RADIUS_Y;
+        Assertions.assertEquals(expected, actual);
     }
 
     private class EllipseEntityImpl extends EllipseEntity {

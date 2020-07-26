@@ -2,12 +2,13 @@ package com.github.hanyaeger.api.engine.entities.entity.shape.circle;
 
 import com.github.hanyaeger.api.engine.entities.entity.Location;
 import com.google.inject.Injector;
+import javafx.geometry.Bounds;
 import javafx.scene.shape.Circle;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class CircleEntityTest {
     private static final Location LOCATION = new Location(37, 37);
@@ -34,7 +35,7 @@ class CircleEntityTest {
         // Act
         sut.setRadius(RADIUS);
 
-        // Verify
+        // Assert
         verify(circle).setVisible(true);
         verify(circle).setRadius(RADIUS);
     }
@@ -48,8 +49,44 @@ class CircleEntityTest {
         // Act
         sut.init(injector);
 
-        // Verify
+        // Assert
         verify(circle).setRadius(RADIUS);
+    }
+
+    @Test
+    void getLeftXTakesRadiusIntoAccount() {
+        // Arrange
+        sut.setRadius(RADIUS);
+        sut.setShape(circle);
+        sut.init(injector);
+        var bounds = mock(Bounds.class);
+        when(circle.getBoundsInLocal()).thenReturn(bounds);
+        when(bounds.getMinX()).thenReturn(LOCATION.getX());
+
+        // Act
+        var actual = sut.getLeftX();
+
+        // Assert
+        var expected = LOCATION.getX() + RADIUS;
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void getTopYTakesRadiusIntoAccount() {
+        // Arrange
+        sut.setRadius(RADIUS);
+        sut.setShape(circle);
+        sut.init(injector);
+        var bounds = mock(Bounds.class);
+        when(circle.getBoundsInLocal()).thenReturn(bounds);
+        when(bounds.getMinY()).thenReturn(LOCATION.getY());
+
+        // Act
+        var actual = sut.getTopY();
+
+        // Assert
+        var expected = LOCATION.getY() + RADIUS;
+        Assertions.assertEquals(expected, actual);
     }
 
     private class CircleEntityImpl extends CircleEntity {

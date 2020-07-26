@@ -58,7 +58,7 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
 
     @Override
     public double getTopY() {
-        return super.getTopY() + radiusX.get();
+        return super.getTopY() + radiusY.get();
     }
 
     @Override
