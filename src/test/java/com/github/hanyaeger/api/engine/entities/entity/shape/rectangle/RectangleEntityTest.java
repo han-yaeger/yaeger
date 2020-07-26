@@ -39,7 +39,7 @@ class RectangleEntityTest {
         sut.setWidth(WIDTH);
         sut.setHeight(HEIGHT);
 
-        // Verify
+        // Assert
         verify(rectangle).setVisible(true);
         verify(rectangle).setArcWidth(ARC_WIDTH);
         verify(rectangle).setArcHeight(ARC_HEIGHT);
@@ -56,7 +56,7 @@ class RectangleEntityTest {
         sut.setShape(rectangle);
         sut.init(injector);
 
-        // Verify
+        // Assert
         verify(rectangle).setHeight(HEIGHT);
     }
 
@@ -69,7 +69,7 @@ class RectangleEntityTest {
         // Act
         sut.init(injector);
 
-        // Verify
+        // Assert
         verify(rectangle).setArcWidth(ARC_WIDTH);
     }
 
@@ -82,7 +82,7 @@ class RectangleEntityTest {
         // Act
         sut.init(injector);
 
-        // Verify
+        // Assert
         verify(rectangle).setArcHeight(ARC_HEIGHT);
     }
 
