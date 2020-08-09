@@ -42,6 +42,16 @@ class DefaultMotionApplierTest {
     }
 
     @Test
+    void newInstanceHasEmptyPreviousLocation() {
+        // Arrange
+
+        // Act
+
+        // Assert
+        assertTrue(sut.getPreviousLocation().isEmpty());
+    }
+
+    @Test
     void speedWithNoAngleDefaultsToDirectionOfZero() {
         // Arrange
         sut.setMotionTo(1, Direction.DOWN.getValue());

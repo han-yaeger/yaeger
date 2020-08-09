@@ -12,7 +12,7 @@ public class DefaultMotionApplier implements MotionApplier {
 
     private static final Point2D ZERO_ANGLE_IDENTITY_MOTION = new Point2D(0, 1);
     private Point2D transformation;
-    private Optional<Point2D> previousLocation;
+    private Optional<Point2D> previousLocation = Optional.empty();
 
     /**
      * Create a new instance of {@link DefaultMotionApplier}.
