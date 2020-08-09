@@ -60,15 +60,25 @@ class ShapeEntityTest {
     }
 
     @Test
-    void initSetsStrokeTypeToInside() {
+    void setShapeSetsStrokeTypeToInside() {
         // Arrange
-        sut.setShape(shape);
 
         // Act
-        sut.init(injector);
+        sut.setShape(shape);
 
         // Assert
         verify(shape).setStrokeType(StrokeType.INSIDE);
+    }
+
+    @Test
+    void setShapeSetsManagedToFalse() {
+        // Arrange
+
+        // Act
+        sut.setShape(shape);
+
+        // Assert
+        verify(shape).setManaged(false);
     }
 
     @Test

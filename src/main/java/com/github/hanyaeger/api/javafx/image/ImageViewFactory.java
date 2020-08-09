@@ -17,6 +17,9 @@ public class ImageViewFactory {
      * @return An instance of {@link ImageView}.
      */
     public ImageView create(final Image image) {
-        return new ImageView(image);
+
+        var imageView = new ImageView(image);
+        imageView.setManaged(false);
+        return imageView;
     }
 }
