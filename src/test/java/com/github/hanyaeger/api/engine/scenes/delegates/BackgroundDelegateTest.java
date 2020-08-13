@@ -3,12 +3,12 @@ package com.github.hanyaeger.api.engine.scenes.delegates;
 import com.github.hanyaeger.api.engine.media.audio.SoundClip;
 import com.github.hanyaeger.api.engine.media.repositories.AudioRepository;
 import com.github.hanyaeger.api.engine.media.repositories.ImageRepository;
-import com.github.hanyaeger.api.javafx.image.ImagePatternFactory;
-import javafx.scene.Scene;
+import com.github.hanyaeger.api.javafx.image.BackgroundFactory;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,18 +19,18 @@ class BackgroundDelegateTest {
 
     private String audioFile = "testAudio.mp3";
     private String imageFile = "testImage.png";
-    private BackgroundDelegate backgroundDelegate;
-    private ImagePatternFactory imagePatternFactory;
-    private Scene scene;
+    private BackgroundDelegate sut;
+    private BackgroundFactory backgroundFactory;
+    private Pane pane;
 
     @BeforeEach
     void setup() {
-        scene = mock(Scene.class);
-        imagePatternFactory = mock(ImagePatternFactory.class);
+        pane = mock(Pane.class);
+        backgroundFactory = mock(BackgroundFactory.class);
 
-        backgroundDelegate = new BackgroundDelegate();
-        backgroundDelegate.setup(scene);
-        backgroundDelegate.setImagePatternFactory(imagePatternFactory);
+        sut = new BackgroundDelegate();
+        sut.setBackgroundFactory(backgroundFactory);
+        sut.setup(pane);
     }
 
     @Test
@@ -38,9 +38,9 @@ class BackgroundDelegateTest {
         // Arrange
 
         // Act
-        backgroundDelegate.destroy();
+        sut.destroy();
         // Verify
-        verify(scene).setFill(null);
+        verify(pane).setBackground(null);
     }
 
     @Test
@@ -49,11 +49,11 @@ class BackgroundDelegateTest {
         var audioClip = mock(AudioClip.class);
 
         var audioRepository = mock(AudioRepository.class);
-        backgroundDelegate.setAudioRepository(audioRepository);
+        sut.setAudioRepository(audioRepository);
         when(audioRepository.get(audioFile, SoundClip.INDEFINITE)).thenReturn(audioClip);
 
         // Act
-        backgroundDelegate.setBackgroundAudio(audioFile);
+        sut.setBackgroundAudio(audioFile);
 
         // Verify
         verify(audioClip).play();
@@ -64,29 +64,32 @@ class BackgroundDelegateTest {
         // Arrange
         var color = Color.YELLOW;
 
+        var background = mock(Background.class);
+        when(backgroundFactory.createFillBackground(color)).thenReturn(background);
+
         // Act
-        backgroundDelegate.setBackgroundColor(color);
+        sut.setBackgroundColor(color);
 
         // Assert
-        verify(scene).setFill(color);
+        verify(pane).setBackground(background);
     }
 
     @Test
     void setBackgroundImageSetImageOnScene() {
         // Arrange
         var image = mock(Image.class);
-        var imagePattern = mock(ImagePattern.class);
 
         var imageRepository = mock(ImageRepository.class);
-        backgroundDelegate.setImageRepository(imageRepository);
+        var background = mock(Background.class);
+        sut.setImageRepository(imageRepository);
         when(imageRepository.get(imageFile)).thenReturn(image);
-        when(imagePatternFactory.create(image)).thenReturn(imagePattern);
+        when(backgroundFactory.createImageBackground(image)).thenReturn(background);
 
         // Act
-        backgroundDelegate.setBackgroundImage(imageFile);
+        sut.setBackgroundImage(imageFile);
 
         // Verify
-        verify(scene).setFill(imagePattern);
+        verify(pane).setBackground(background);
     }
 
     @Test
@@ -95,12 +98,12 @@ class BackgroundDelegateTest {
         var audioClip = mock(AudioClip.class);
 
         var audioRepository = mock(AudioRepository.class);
-        backgroundDelegate.setAudioRepository(audioRepository);
+        sut.setAudioRepository(audioRepository);
         when(audioRepository.get(audioFile, SoundClip.INDEFINITE)).thenReturn(audioClip);
-        backgroundDelegate.setBackgroundAudio(audioFile);
+        sut.setBackgroundAudio(audioFile);
 
         // Act
-        backgroundDelegate.destroy();
+        sut.destroy();
 
         // Verify
         verify(audioClip).stop();

@@ -8,9 +8,9 @@ import com.github.hanyaeger.api.guice.factories.EntityCollectionFactory;
 import com.github.hanyaeger.api.guice.factories.SceneFactory;
 import com.google.inject.Injector;
 import javafx.collections.ObservableList;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
@@ -38,7 +38,7 @@ class StaticSceneTest {
 
     private EntityCollection entityCollection;
     private EntitySupplier entitySupplier;
-    private Group root;
+    private Pane pane;
     private Scene scene;
     private Stage stage;
 
@@ -46,7 +46,7 @@ class StaticSceneTest {
     void setup() {
         sut = new StaticSceneImpl();
 
-        root = mock(Group.class);
+        pane = mock(Pane.class);
         backgroundDelegate = mock(BackgroundDelegate.class);
         keyListenerDelegate = mock(KeyListenerDelegate.class);
         debugger = mock(Debugger.class);
@@ -59,7 +59,7 @@ class StaticSceneTest {
         sut.setDebugger(debugger);
         sut.setSceneFactory(sceneFactory);
         sut.setEntityCollectionFactory(entityCollectionFactory);
-        sut.setRoot(root);
+        sut.setPane(pane);
         sut.setBackgroundDelegate(backgroundDelegate);
         sut.setKeyListenerDelegate(keyListenerDelegate);
         sut.setEntitySupplier(entitySupplier);
@@ -68,8 +68,8 @@ class StaticSceneTest {
         scene = mock(Scene.class);
         entityCollection = mock(EntityCollection.class);
 
-        when(sceneFactory.create(root)).thenReturn(scene);
-        when(entityCollectionFactory.create(root)).thenReturn(entityCollection);
+        when(sceneFactory.create(pane)).thenReturn(scene);
+        when(entityCollectionFactory.create(pane)).thenReturn(entityCollection);
 
         sut.init(injector);
     }
@@ -104,7 +104,7 @@ class StaticSceneTest {
         sut.activate();
 
         // Verify
-        verify(sceneFactory).create(root);
+        verify(sceneFactory).create(pane);
     }
 
 
@@ -116,7 +116,7 @@ class StaticSceneTest {
         sut.activate();
 
         // Verify
-        verify(debugger).setup(root);
+        verify(debugger).setup(pane);
     }
 
 
@@ -128,7 +128,7 @@ class StaticSceneTest {
         sut.activate();
 
         // Verify
-        verify(entityCollectionFactory).create(root);
+        verify(entityCollectionFactory).create(pane);
     }
 
     @Test
@@ -158,7 +158,7 @@ class StaticSceneTest {
     void configureAddsTheDebuggerAsAStatisticsObserverToTheEntityCollection() {
         // Arrange
         var entityCollection = mock(EntityCollection.class);
-        when(entityCollectionFactory.create(root)).thenReturn(entityCollection);
+        when(entityCollectionFactory.create(pane)).thenReturn(entityCollection);
 
         // Act
         sut.activate();
@@ -171,7 +171,7 @@ class StaticSceneTest {
     void destroyDelegatesDestroy() {
         // Arrange
         var children = mock(ObservableList.class);
-        when(root.getChildren()).thenReturn(children);
+        when(pane.getChildren()).thenReturn(children);
 
         sut.activate();
 
@@ -218,7 +218,7 @@ class StaticSceneTest {
         sut.setDebugger(debugger);
         sut.setSceneFactory(sceneFactory);
         sut.setEntityCollectionFactory(entityCollectionFactory);
-        sut.setRoot(root);
+        sut.setPane(pane);
         sut.setBackgroundDelegate(backgroundDelegate);
         sut.setKeyListenerDelegate(keyListenerDelegate);
         sut.setEntitySupplier(entitySupplier);
@@ -227,8 +227,8 @@ class StaticSceneTest {
         scene = mock(Scene.class);
         entityCollection = mock(EntityCollection.class);
 
-        when(sceneFactory.create(root)).thenReturn(scene);
-        when(entityCollectionFactory.create(root)).thenReturn(entityCollection);
+        when(sceneFactory.create(pane)).thenReturn(scene);
+        when(entityCollectionFactory.create(pane)).thenReturn(entityCollection);
 
         sut.init(injector);
 

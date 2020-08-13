@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +16,7 @@ import static org.mockito.Mockito.*;
 
 class DebuggerTest {
 
-    private Group group;
+    private Pane pane;
 
     private ImageRepository imageRepository;
     private AudioRepository audioRepository;
@@ -29,9 +30,9 @@ class DebuggerTest {
 
     @BeforeEach
     void setup() {
-        group = mock(Group.class);
+        pane = mock(Pane.class);
         ObservableList<Node> children = mock(ObservableList.class);
-        when(group.getChildren()).thenReturn(children);
+        when(pane.getChildren()).thenReturn(children);
 
         imageRepository = mock(ImageRepository.class);
         audioRepository = mock(AudioRepository.class);
@@ -54,7 +55,7 @@ class DebuggerTest {
         // Setup
 
         // Test
-        sut.setup(group);
+        sut.setup(pane);
 
         // Verify
         verify(debugGridPaneFactory).create();
@@ -65,7 +66,7 @@ class DebuggerTest {
     @Test
     void toFrontSetsTheGridPaneToFront() {
         // Setup
-        sut.setup(group);
+        sut.setup(pane);
 
         // Test
         sut.toFront();
@@ -78,7 +79,7 @@ class DebuggerTest {
     void toggleChangesVisibillityOfGridPane() {
         // Setup
         when(gridPane.isVisible()).thenReturn(true);
-        sut.setup(group);
+        sut.setup(pane);
 
         // Test
         sut.toggle();

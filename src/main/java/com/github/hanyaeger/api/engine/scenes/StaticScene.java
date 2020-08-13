@@ -9,9 +9,10 @@ import com.github.hanyaeger.api.guice.factories.SceneFactory;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.github.hanyaeger.api.engine.entities.EntitySpawner;
-import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import com.github.hanyaeger.api.engine.YaegerGame;
@@ -47,7 +48,8 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
 
     private Stage stage;
     private Scene scene;
-    private Group root;
+    private Pane pane;
+    private ColorAdjust colorAdjust;
     Debugger debugger;
 
     @Override
@@ -57,20 +59,22 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
 
     @Override
     public void activate() {
-        scene = sceneFactory.create(root);
+        pane.setEffect(colorAdjust);
 
-        entityCollection = entityCollectionFactory.create(root);
+        scene = sceneFactory.create(pane);
+
+        entityCollection = entityCollectionFactory.create(pane);
         injector.injectMembers(entityCollection);
         entityCollection.init(injector);
         entityCollection.addStatisticsObserver(debugger);
 
-        debugger.setup(root);
+        debugger.setup(pane);
         keyListenerDelegate.setup(scene, (input) -> onInputChanged(input));
 
         if (this instanceof KeyListener) {
             entityCollection.registerKeyListener((KeyListener) this);
         }
-        backgroundDelegate.setup(scene);
+        backgroundDelegate.setup(pane);
 
         setupScene();
         setupEntities();
@@ -141,6 +145,12 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
         backgroundDelegate.setBackgroundAudio(url);
     }
 
+
+    @Override
+    public void setBrightness(double brightness) {
+        colorAdjust.setBrightness(brightness);
+    }
+
     @Override
     public Scene getScene() {
         return this.scene;
@@ -162,21 +172,22 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
 
     @Override
     public void clear() {
-        root.getChildren().clear();
-        root = null;
+        pane.getChildren().clear();
+        pane = null;
         scene = null;
     }
 
     /**
-     * Set the {@link Group} to be used. The {@link Group} will be the root node of the graph that
+     * Set the {@link Pane} to be used. The {@link Pane} will be the root node of the graph that
      * will be constructed for this {@link Scene}.
      *
-     * @param root the {@link Group} to be used
+     * @param pane the {@link Pane} to be used
      */
     @Inject
-    public void setRoot(final Group root) {
-        this.root = root;
+    public void setPane(final Pane pane) {
+        this.pane = pane;
     }
+
 
     /**
      * Set the {@link KeyListener} that should be used. In general, this will be the {@link YaegerScene}
@@ -222,5 +233,10 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     @Inject
     public void setEntitySupplier(final EntitySupplier entitySupplier) {
         this.entitySupplier = entitySupplier;
+    }
+
+    @Inject
+    public void setColorAdjust(ColorAdjust colorAdjust) {
+        this.colorAdjust = colorAdjust;
     }
 }

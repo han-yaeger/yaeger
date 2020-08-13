@@ -33,16 +33,17 @@ public interface YaegerScene extends DimensionsProvider, Destroyable, Initializa
     void postActivate();
 
     /**
-     * Set the background color of the {@link YaegerScene}.
+     * Set the background color of the {@link YaegerScene}. When both the background color and a background image
+     * are set, the color is not visible.
      *
      * @param color The {@link Color} of the background.
      */
     void setBackgroundColor(Color color);
 
     /**
-     * Set the name of the background image file.
+     * Set the background image file.
      *
-     * @param url The name of the image file, including extention. Although many different file types are supported,
+     * @param url The name of the image file, including extension. Although many different file types are supported,
      *            the following types are preferred:
      *            <ul>
      *            <li>jpg, jpeg</li>
@@ -52,11 +53,26 @@ public interface YaegerScene extends DimensionsProvider, Destroyable, Initializa
     void setBackgroundImage(String url);
 
     /**
-     * Set the name of the background audio file. Currently only {@code *.mp3} files are supported.
+     * Set the background audio file. Currently only {@code *.mp3} files are supported. The audio file
+     * will be looped indefinetly, until the {@link YaegerScene} is destroyed.
      *
-     * @param url The name of the audio file, including extention.
+     * @param url The name of the audio file, including extension.
      */
     void setBackgroundAudio(final String url);
+
+    /**
+     * Set the brightness of the whole {@link YaegerScene}. The value should be a value between
+     * -1 and 1, inclusive.
+     * <p>
+     * The brightness adjustment value.
+     * <pre>
+     *      Min: -1.0 Completely dark
+     *      Max: +1.0 Fully bright
+     * </pre>
+     *
+     * @param brightness The brightness as a {@code double}, between 0 and 1.
+     */
+    void setBrightness(final double brightness);
 
     /**
      * Return the {@link Scene} that is encapsulated by this {@link YaegerScene}

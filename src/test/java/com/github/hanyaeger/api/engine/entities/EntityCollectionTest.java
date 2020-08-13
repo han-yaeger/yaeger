@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
 import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -24,22 +25,23 @@ class EntityCollectionTest {
 
     private EntityCollection sut;
     private Injector injector;
+    private Pane pane;
     private AnnotationProcessor annotationProcessor;
 
     @BeforeEach
     void setup() {
         injector = mock(Injector.class);
         annotationProcessor = mock(AnnotationProcessor.class);
+        pane = mock(Pane.class);
     }
 
     @Test
     void newInstanceIsEmpty() {
         // Arrange
-        var group = mock(Group.class);
         var debugger = mock(Debugger.class);
 
         // Act
-        sut = new EntityCollection(group);
+        sut = new EntityCollection(pane);
         sut.addStatisticsObserver(debugger);
         sut.setAnnotationProcessor(annotationProcessor);
 
@@ -55,8 +57,7 @@ class EntityCollectionTest {
     void clearClearsSupplier() {
         // Arrange
         var supplier = mock(EntitySupplier.class);
-        var group = mock(Group.class);
-        sut = new EntityCollection(group);
+        sut = new EntityCollection(pane);
         sut.setAnnotationProcessor(annotationProcessor);
         sut.registerSupplier(supplier);
 
@@ -79,11 +80,10 @@ class EntityCollectionTest {
         var supplier = mock(EntitySupplier.class);
         when(supplier.get()).thenReturn(updatables);
 
-        var group = mock(Group.class);
         var children = mock(ObservableList.class);
-        when(group.getChildren()).thenReturn(children);
+        when(pane.getChildren()).thenReturn(children);
 
-        sut = new EntityCollection(group);
+        sut = new EntityCollection(pane);
         sut.setAnnotationProcessor(annotationProcessor);
         sut.init(injector);
 
@@ -102,9 +102,8 @@ class EntityCollectionTest {
         var node = mock(Node.class, withSettings().withoutAnnotations());
         when(keyListeningEntity.getGameNode()).thenReturn(Optional.of(node));
 
-        var group = mock(Group.class);
         var children = mock(ObservableList.class);
-        when(group.getChildren()).thenReturn(children);
+        when(pane.getChildren()).thenReturn(children);
 
         var entitySupplier = new EntitySupplier();
         entitySupplier.add(keyListeningEntity);
@@ -112,7 +111,7 @@ class EntityCollectionTest {
         Set<KeyCode> keycodes = new HashSet<>();
 
         // Act
-        sut = new EntityCollection(group);
+        sut = new EntityCollection(pane);
         sut.setAnnotationProcessor(annotationProcessor);
         sut.init(injector);
         sut.registerSupplier(entitySupplier);
@@ -130,9 +129,8 @@ class EntityCollectionTest {
         var node = mock(Node.class, withSettings().withoutAnnotations());
         when(keyListeningEntity.getGameNode()).thenReturn(Optional.of(node));
 
-        var group = mock(Group.class);
         var children = mock(ObservableList.class);
-        when(group.getChildren()).thenReturn(children);
+        when(pane.getChildren()).thenReturn(children);
 
         var entitySupplier = new EntitySupplier();
         entitySupplier.add(keyListeningEntity);
@@ -146,7 +144,7 @@ class EntityCollectionTest {
         keycodes.add(KeyCode.R);
 
         // Act
-        sut = new EntityCollection(group);
+        sut = new EntityCollection(pane);
         sut.setAnnotationProcessor(annotationProcessor);
         sut.init(injector);
         sut.registerSupplier(entitySupplier);
@@ -162,11 +160,10 @@ class EntityCollectionTest {
         // Arrange
         var updatableEntity = mock(UpdatableEntity.class);
 
-        var group = mock(Group.class);
         var children = mock(ObservableList.class);
-        when(group.getChildren()).thenReturn(children);
+        when(pane.getChildren()).thenReturn(children);
 
-        sut = new EntityCollection(group);
+        sut = new EntityCollection(pane);
         sut.setAnnotationProcessor(annotationProcessor);
         sut.init(injector);
 
@@ -189,11 +186,10 @@ class EntityCollectionTest {
         var supplier = mock(EntitySupplier.class);
         when(supplier.get()).thenReturn(updatables);
 
-        var group = mock(Group.class);
         var children = mock(ObservableList.class);
-        when(group.getChildren()).thenReturn(children);
+        when(pane.getChildren()).thenReturn(children);
 
-        sut = new EntityCollection(group);
+        sut = new EntityCollection(pane);
         sut.setAnnotationProcessor(annotationProcessor);
         sut.init(injector);
 
@@ -217,11 +213,10 @@ class EntityCollectionTest {
         var supplier = mock(EntitySupplier.class);
         when(supplier.get()).thenReturn(updatables);
 
-        var group = mock(Group.class);
         var children = mock(ObservableList.class);
-        when(group.getChildren()).thenReturn(children);
+        when(pane.getChildren()).thenReturn(children);
 
-        sut = new EntityCollection(group);
+        sut = new EntityCollection(pane);
         sut.setAnnotationProcessor(annotationProcessor);
         sut.init(injector);
 
@@ -245,11 +240,10 @@ class EntityCollectionTest {
         var supplier = mock(EntitySupplier.class);
         when(supplier.get()).thenReturn(updatables);
 
-        var group = mock(Group.class);
         var children = mock(ObservableList.class);
-        when(group.getChildren()).thenReturn(children);
+        when(pane.getChildren()).thenReturn(children);
 
-        sut = new EntityCollection(group);
+        sut = new EntityCollection(pane);
         sut.setAnnotationProcessor(annotationProcessor);
         sut.init(injector);
 

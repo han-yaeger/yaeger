@@ -6,9 +6,10 @@ import com.github.hanyaeger.api.engine.media.audio.SoundClip;
 import com.github.hanyaeger.api.engine.media.repositories.AudioRepository;
 import com.github.hanyaeger.api.engine.media.repositories.ImageRepository;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
-import com.github.hanyaeger.api.javafx.image.ImagePatternFactory;
+import com.github.hanyaeger.api.javafx.image.BackgroundFactory;
 import com.google.inject.Inject;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 
@@ -18,21 +19,21 @@ import javafx.scene.paint.Color;
  */
 public class BackgroundDelegate implements ResourceConsumer, Destroyable {
 
-    private Scene scene;
+    private Pane pane;
 
     private ImageRepository imageRepository;
     private AudioRepository audioRepository;
-    private ImagePatternFactory imagePatternFactory;
+    private BackgroundFactory backgroundFactory;
 
     private AudioClip backgroundAudio;
 
     /**
-     * Setup the {@link Scene} belonging to this  {@link BackgroundDelegate}.
+     * Setup the {@link Pane} belonging to this  {@link BackgroundDelegate}.
      *
-     * @param scene The {@link Scene} that should be used when setup.
+     * @param pane The {@link Pane} that should be used when setup.
      */
-    public void setup(final Scene scene) {
-        this.scene = scene;
+    public void setup(final Pane pane) {
+        this.pane = pane;
     }
 
     /**
@@ -54,8 +55,8 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
      * @param color The {@link Color} of the background.
      */
     public void setBackgroundColor(Color color) {
-        if (scene != null) {
-            scene.setFill(color);
+        if (pane != null) {
+            pane.setBackground(backgroundFactory.createFillBackground(color));
         }
     }
 
@@ -63,13 +64,13 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
      * Set the background image. The image will be set as the full background for the
      * {@link Scene}.
      *
-     * @param backgroundImageUrl the url of the image file
+     * @param backgroundImageUrl The url of the image file. This is relative to the resource/
+     *                           folder.
      */
     public void setBackgroundImage(final String backgroundImageUrl) {
-        if (backgroundImageUrl != null && scene != null) {
+        if (backgroundImageUrl != null && pane != null) {
             var image = imageRepository.get(backgroundImageUrl);
-            var pattern = imagePatternFactory.create(image);
-            scene.setFill(pattern);
+            pane.setBackground(backgroundFactory.createImageBackground(image));
         }
     }
 
@@ -83,8 +84,8 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
     @Override
     public void destroy() {
         stopBackgroundAudio();
-        scene.setFill(null);
-        scene = null;
+        pane.setBackground(null);
+        pane = null;
     }
 
     @Inject
@@ -98,9 +99,7 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
     }
 
     @Inject
-    public void setImagePatternFactory(final ImagePatternFactory imagePatternFactory) {
-        this.imagePatternFactory = imagePatternFactory;
+    public void setBackgroundFactory(BackgroundFactory backgroundFactory) {
+        this.backgroundFactory = backgroundFactory;
     }
-
-
 }

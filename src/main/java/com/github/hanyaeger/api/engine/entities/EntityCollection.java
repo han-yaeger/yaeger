@@ -16,6 +16,7 @@ import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 import com.github.hanyaeger.api.engine.entities.entity.events.EventTypes;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -30,7 +31,7 @@ public class EntityCollection implements Initializable {
 
     private final EntityCollectionStatistics statistics;
     private Injector injector;
-    private final Group group;
+    private final Pane pane;
     private final Set<EntitySupplier> suppliers = new HashSet<>();
     private final Set<YaegerEntity> statics = new HashSet<>();
     private final Set<Updatable> updatables = new HashSet<>();
@@ -45,10 +46,10 @@ public class EntityCollection implements Initializable {
     /**
      * Instantiate an {@link EntityCollection} for a given {@link Group} and a {@link Set} of {@link YaegerEntity} instances.
      *
-     * @param group The {@link Group} to which all instances of {@link YaegerEntity}s should be added.
+     * @param pane The {@link Group} to which all instances of {@link YaegerEntity}s should be added.
      */
-    public EntityCollection(final Group group) {
-        this.group = group;
+    public EntityCollection(final Pane pane) {
+        this.pane = pane;
         this.collisionDelegate = new CollisionDelegate();
         this.statistics = new EntityCollectionStatistics();
     }
@@ -187,7 +188,7 @@ public class EntityCollection implements Initializable {
     }
 
     private void removeGameObject(final Removeable entity) {
-        this.group.getChildren().remove(entity.getGameNode());
+        this.pane.getChildren().remove(entity.getGameNode());
         this.collisionDelegate.remove(entity);
     }
 
@@ -244,7 +245,7 @@ public class EntityCollection implements Initializable {
     }
 
     private void addToScene(final YaegerEntity entity) {
-        this.group.getChildren().add(entity.getGameNode().get());
+        this.pane.getChildren().add(entity.getGameNode().get());
     }
 
     private void attachGameEventListeners(final YaegerEntity entity) {

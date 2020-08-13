@@ -75,32 +75,37 @@ class YaegerSceneTest {
 
         @Override
         public void setupScene() {
-
+            // Not required here
         }
 
         @Override
         public void setupEntities() {
-
+            // Not required here
         }
 
         @Override
         public void postActivate() {
-
+            // Not required here
         }
 
         @Override
         public void setBackgroundColor(Color color) {
-
+            // Not required here
         }
 
         @Override
         public void setBackgroundImage(String url) {
-
+            // Not required here
         }
 
         @Override
         public void setBackgroundAudio(String url) {
+            // Not required here
+        }
 
+        @Override
+        public void setBrightness(double brightness) {
+            // Not required here
         }
 
         @Override
