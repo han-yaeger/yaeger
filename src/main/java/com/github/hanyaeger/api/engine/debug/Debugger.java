@@ -1,7 +1,6 @@
 package com.github.hanyaeger.api.engine.debug;
 
 import com.google.inject.Inject;
-import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import com.github.hanyaeger.api.engine.media.repositories.AudioRepository;
