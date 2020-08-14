@@ -9,6 +9,7 @@ import com.github.hanyaeger.api.guice.factories.SceneFactory;
 import com.google.inject.Injector;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -261,6 +262,38 @@ class StaticSceneTest {
 
         // Verify
         verify(backgroundDelegate).setBackgroundImage(IMAGE_STRING);
+    }
+
+    @Test
+    void setBrightnessDelegatesToTheColorAdjust() {
+        // Arrange
+        var brightness = -0.37;
+        var colorAdjust = mock(ColorAdjust.class);
+
+        sut.setColorAdjust(colorAdjust);
+
+        // Act
+        sut.setBrightness(brightness);
+
+        // Verify
+        verify(colorAdjust).setBrightness(brightness);
+    }
+
+    @Test
+    void getBrightnessDelegatesToTheColorAdjust() {
+        // Arrange
+        var brightness = -0.37;
+        var colorAdjust = mock(ColorAdjust.class);
+
+        sut.setColorAdjust(colorAdjust);
+
+        when(colorAdjust.getBrightness()).thenReturn(brightness);
+
+        // Act
+        double actual = sut.getBrightness();
+
+        // Verify
+        assertTrue(Double.compare(actual, brightness) == 0);
     }
 
     @Test

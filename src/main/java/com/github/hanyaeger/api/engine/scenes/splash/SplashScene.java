@@ -1,13 +1,14 @@
 package com.github.hanyaeger.api.engine.scenes.splash;
 
+import javafx.scene.paint.Color;
 import com.github.hanyaeger.api.engine.Size;
 import com.github.hanyaeger.api.engine.Timer;
 import com.github.hanyaeger.api.engine.TimerContainer;
 import com.github.hanyaeger.api.engine.YaegerGame;
 import com.github.hanyaeger.api.engine.scenes.DynamicScene;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
+import com.github.hanyaeger.api.engine.scenes.splash.timers.FadeInTimer;
 import com.github.hanyaeger.api.engine.scenes.splash.timers.SplashSceneTimer;
-import javafx.scene.paint.Color;
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
 import com.github.hanyaeger.api.engine.entities.entity.Location;
 import com.github.hanyaeger.api.engine.scenes.splash.entities.Logo;
@@ -32,6 +33,7 @@ public class SplashScene extends DynamicScene implements TimerContainer {
 
     @Override
     public void setupScene() {
+        setBrightness(-1);
         setBackgroundColor(Color.BLACK);
     }
 
@@ -45,5 +47,6 @@ public class SplashScene extends DynamicScene implements TimerContainer {
     @Override
     public void setupTimers() {
         addTimer(new SplashSceneTimer(() -> runnable.run()));
+        addTimer(new FadeInTimer(this));
     }
 }

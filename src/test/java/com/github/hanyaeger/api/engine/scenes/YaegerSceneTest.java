@@ -109,6 +109,11 @@ class YaegerSceneTest {
         }
 
         @Override
+        public double getBrightness() {
+            return 0;
+        }
+
+        @Override
         public Scene getScene() {
             return scene;
         }

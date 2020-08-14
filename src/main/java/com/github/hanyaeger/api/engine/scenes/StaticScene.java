@@ -152,6 +152,11 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     }
 
     @Override
+    public double getBrightness() {
+        return colorAdjust.getBrightness();
+    }
+
+    @Override
     public Scene getScene() {
         return this.scene;
     }

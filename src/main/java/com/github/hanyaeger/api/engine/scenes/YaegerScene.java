@@ -1,9 +1,6 @@
 package com.github.hanyaeger.api.engine.scenes;
 
-import com.github.hanyaeger.api.engine.Activatable;
-import com.github.hanyaeger.api.engine.Clearable;
-import com.github.hanyaeger.api.engine.Destroyable;
-import com.github.hanyaeger.api.engine.Initializable;
+import com.github.hanyaeger.api.engine.*;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -13,7 +10,7 @@ import javafx.stage.Stage;
 /**
  * A {@code YaegerScene} encapsulates a scene or level from a {@code Yaeger Game}.
  */
-public interface YaegerScene extends DimensionsProvider, Destroyable, Initializable, Activatable, Clearable {
+public interface YaegerScene extends DimensionsProvider, Destroyable, Initializable, Activatable, Clearable, Effectable {
 
     /**
      * Setup the {@link YaegerScene}. Use this method to add background images and/or background audio.
@@ -59,20 +56,6 @@ public interface YaegerScene extends DimensionsProvider, Destroyable, Initializa
      * @param url The name of the audio file, including extension.
      */
     void setBackgroundAudio(final String url);
-
-    /**
-     * Set the brightness of the whole {@link YaegerScene}. The value should be a value between
-     * -1 and 1, inclusive.
-     * <p>
-     * The brightness adjustment value.
-     * <pre>
-     *      Min: -1.0 Completely dark
-     *      Max: +1.0 Fully bright
-     * </pre>
-     *
-     * @param brightness The brightness as a {@code double}, between 0 and 1.
-     */
-    void setBrightness(final double brightness);
 
     /**
      * Return the {@link Scene} that is encapsulated by this {@link YaegerScene}
