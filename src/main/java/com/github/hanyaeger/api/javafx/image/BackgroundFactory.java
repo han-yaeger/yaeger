@@ -1,10 +1,7 @@
 package com.github.hanyaeger.api.javafx.image;
 
 import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 /**
@@ -31,6 +28,6 @@ public class BackgroundFactory {
      * @return A {@link Background} that encapsulates an {@link BackgroundImage} with the given {@link Image}.
      */
     public Background createImageBackground(final Image image) {
-        return new Background(new BackgroundImage(image, null, null, null, null));
+        return new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, new BackgroundSize(1.0, 1.0, true, true, false, false)));
     }
 }
