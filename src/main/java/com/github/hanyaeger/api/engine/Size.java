@@ -20,6 +20,16 @@ public class Size {
     }
 
     /**
+     * Creates a new instance of {@code Size}.
+     *
+     * @param widthAndHeight  the width and height of the {@code Size}
+     */
+    public Size(double widthAndHeight) {
+        this.width = widthAndHeight;
+        this.height = widthAndHeight;
+    }
+
+    /**
      * @return The height the height of the {@code Size}
      */
     public double getHeight() {
