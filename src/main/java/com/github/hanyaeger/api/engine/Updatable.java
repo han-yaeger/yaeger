@@ -13,7 +13,7 @@ public interface Updatable {
      * Use this method to init frame-based behaviour to the game-object.
      * </p>
      *
-     * @param timestamp the timestamp of the update
+     * @param timestamp The timestamp of this update.
      */
     void update(final long timestamp);
 }
