@@ -28,13 +28,13 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
     private AnchorPoint anchorPoint;
 
     /**
-     * Instantiate a new {@link YaegerEntity} for the given {@link Location}.
+     * Instantiate a new {@link YaegerEntity} on the given {@link Coordinate2D}.
      *
-     * @param initialPosition the initial {@link Location} of this {@link YaegerEntity}
+     * @param initialLocation The initial {@link Coordinate2D} of this {@link YaegerEntity}
      */
-    public YaegerEntity(final Location initialPosition) {
-        this.x = initialPosition.getX();
-        this.y = initialPosition.getY();
+    public YaegerEntity(final Coordinate2D initialLocation) {
+        this.x = initialLocation.getX();
+        this.y = initialLocation.getY();
         this.anchorPoint = AnchorPoint.TOP_LEFT;
     }
 
@@ -81,24 +81,60 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
 
     /**
      * Calculates the distance to a given {@link YaegerEntity}. This distance
-     * is based on the {@link AnchorPoint} of the Entities and not on its nearest point.
+     * is based on the {@link AnchorPoint} of the Entities and not on the shortest distance between them.
      *
      * @param entity The {@link YaegerEntity} to which the distance should be calculated.
      * @return The distance as a {@code double}.
      */
     public double distanceTo(final YaegerEntity entity) {
-        return distanceTo(new Location(entity.getOriginX(), entity.getOriginY()));
+        return distanceTo(new Coordinate2D(entity.getOriginX(), entity.getOriginY()));
     }
 
     /**
-     * Calculates the distance to a given {@link Location}.
+     * Calculates the distance between the {@link AnchorPoint} of this {@link YaegerEntity} and the to a given
+     * {@link Coordinate2D}.
      *
-     * @param location The {@link Location} to which the distance should be calculated.
+     * @param location The {@link Coordinate2D} to which the distance should be calculated.
      * @return The distance as a {@code double}.
      */
-    public double distanceTo(final Location location) {
+    public double distanceTo(final Coordinate2D location) {
         var thisLocation = new Point2D(getOriginX(), getOriginY());
-        return thisLocation.distance(location);
+        return thisLocation.distance(new Point2D(location.getX(), location.getY()));
+    }
+
+    /**
+     * Computes the angle (in degrees) between the vector represented
+     * by this {@link YaegerEntity} and the vector represented by the specified
+     * {@link YaegerEntity}.
+     *
+     * @param entity The {@link YaegerEntity} of the other vector.
+     * @return the angle between the two vectors measured in degrees,
+     * {@code NaN} if any of the two vectors is a zero vector.
+     * @throws NullPointerException if the specified {@code location} is null.
+     */
+    public double angleTo(final YaegerEntity entity) {
+        return angleTo(new Coordinate2D(entity.getOriginX(), entity.getOriginY()));
+    }
+
+    /**
+     * Computes the angle (in degrees) between the vector represented
+     * by this {@link YaegerEntity} and the vector represented by the specified
+     * {@link Coordinate2D}.
+     *
+     * @param location The {@link Coordinate2D} of the other vector.
+     * @return the angle between the two vectors measured in degrees,
+     * {@code NaN} if any of the two vectors is a zero vector.
+     * @throws NullPointerException if the specified {@code location} is null.
+     */
+    public double angleTo(final Coordinate2D location) {
+        var thisLocation = new Point2D(getOriginX(), getOriginY());
+        var delta = location.subtract(thisLocation);
+        var normalizedDelta = delta.normalize();
+        var angle = new Point2D(0, -1).angle(normalizedDelta);
+        if (delta.getX() < 0) {
+            angle = -1 * angle;
+        }
+        return angle;
     }
 
     public void addToEntityCollection(EntityCollection collection) {

@@ -2,7 +2,7 @@ package com.github.hanyaeger.api.engine.entities.entity.collisions;
 
 import com.github.hanyaeger.api.engine.Timer;
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
 import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
@@ -107,11 +107,11 @@ class CollisionDelegateTest {
     private class AABBCollidedImpl extends YaegerEntity implements AABBCollided {
 
         /**
-         * Instantiate a new {@link YaegerEntity} for the given {@link Location} and textDelegate.
+         * Instantiate a new {@link YaegerEntity} for the given {@link Coordinate2D} and textDelegate.
          *
-         * @param initialPosition the initial {@link Location} of this {@link YaegerEntity}
+         * @param initialPosition the initial {@link Coordinate2D} of this {@link YaegerEntity}
          */
-        public AABBCollidedImpl(Location initialPosition) {
+        public AABBCollidedImpl(Coordinate2D initialPosition) {
             super(initialPosition);
         }
 
@@ -206,11 +206,11 @@ class CollisionDelegateTest {
     private class AABBColliderImpl extends YaegerEntity implements AABBCollider {
 
         /**
-         * Instantiate a new {@link YaegerEntity} for the given {@link Location} and textDelegate.
+         * Instantiate a new {@link YaegerEntity} for the given {@link Coordinate2D} and textDelegate.
          *
-         * @param initialPosition the initial {@link Location} of this {@link YaegerEntity}
+         * @param initialPosition the initial {@link Coordinate2D} of this {@link YaegerEntity}
          */
-        public AABBColliderImpl(Location initialPosition) {
+        public AABBColliderImpl(Coordinate2D initialPosition) {
             super(initialPosition);
         }
 

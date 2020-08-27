@@ -1,6 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape.circle;
 
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.google.inject.Injector;
 import javafx.geometry.Bounds;
 import javafx.scene.shape.Circle;
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
 
 class CircleEntityTest {
-    private static final Location LOCATION = new Location(37, 37);
+    private static final Coordinate2D LOCATION = new Coordinate2D(37, 37);
     public static final double RADIUS = 37;
 
     private Circle circle;
@@ -121,7 +121,7 @@ class CircleEntityTest {
 
     private class CircleEntityImpl extends CircleEntity {
 
-        public CircleEntityImpl(Location initialPosition) {
+        public CircleEntityImpl(Coordinate2D initialPosition) {
             super(initialPosition);
         }
     }

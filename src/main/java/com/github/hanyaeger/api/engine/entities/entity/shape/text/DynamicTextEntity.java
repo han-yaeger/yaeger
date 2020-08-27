@@ -5,7 +5,7 @@ import com.github.hanyaeger.api.engine.UpdateDelegator;
 import com.github.hanyaeger.api.engine.Updater;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.entity.ContinuousRotatable;
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.motion.BufferedMoveable;
 import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBuffer;
 import com.google.inject.Inject;
@@ -28,21 +28,21 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
     private double rotationAngle;
 
     /**
-     * Instantiate a new {@link DynamicTextEntity} for the given {@link Location}.
+     * Instantiate a new {@link DynamicTextEntity} for the given {@link Coordinate2D}.
      *
-     * @param initialPosition the initial {@link Location} of this {@link DynamicTextEntity}
+     * @param initialPosition the initial {@link Coordinate2D} of this {@link DynamicTextEntity}
      */
-    public DynamicTextEntity(final Location initialPosition) {
+    public DynamicTextEntity(final Coordinate2D initialPosition) {
         this(initialPosition, "");
     }
 
     /**
      * Instantiate a new {@link DynamicTextEntity} for the given {@link Point2D} and textDelegate.
      *
-     * @param initialPosition the initial {@link Location} of this {@link DynamicTextEntity}
+     * @param initialPosition the initial {@link Coordinate2D} of this {@link DynamicTextEntity}
      * @param text            a {@link String} containing the initial textDelegate to be displayed
      */
-    public DynamicTextEntity(final Location initialPosition, final String text) {
+    public DynamicTextEntity(final Coordinate2D initialPosition, final String text) {
         super(initialPosition, text);
 
         buffer = Optional.of(new EntityMotionInitBuffer());

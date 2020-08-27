@@ -5,12 +5,11 @@ import com.github.hanyaeger.api.engine.UpdateDelegator;
 import com.github.hanyaeger.api.engine.Updater;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.entity.ContinuousRotatable;
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.motion.BufferedMoveable;
 import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
 import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBuffer;
 import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
-import com.github.hanyaeger.api.engine.entities.entity.shape.circle.CircleEntity;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
@@ -32,7 +31,7 @@ public abstract class DynamicEllipseEntity extends EllipseEntity implements Upda
      *
      * @param initialPosition The initial position at which this {@link DynamicEllipseEntity} should be placed
      */
-    public DynamicEllipseEntity(final Location initialPosition) {
+    public DynamicEllipseEntity(final Coordinate2D initialPosition) {
         super(initialPosition);
 
         buffer = Optional.of(new EntityMotionInitBuffer());

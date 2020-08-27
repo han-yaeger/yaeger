@@ -1,6 +1,6 @@
 package com.github.hanyaeger.api.engine.entities;
 
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import javafx.scene.Node;
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class EntitySupplierTest {
 
-    private static final Location DEFAULT_LOCATION = new Location(0, 0);
+    private static final Coordinate2D DEFAULT_LOCATION = new Coordinate2D(0, 0);
     private EntitySupplier sut;
 
     @BeforeEach
@@ -83,11 +83,11 @@ class EntitySupplierTest {
 
     private class TestEntity extends YaegerEntity {
         /**
-         * Instantiate a new {@link YaegerEntity} for the given {@link Location} and textDelegate.
+         * Instantiate a new {@link YaegerEntity} for the given {@link Coordinate2D} and textDelegate.
          *
-         * @param initialPosition the initial {@link Location} of this {@link YaegerEntity}
+         * @param initialPosition the initial {@link Coordinate2D} of this {@link YaegerEntity}
          */
-        public TestEntity(Location initialPosition) {
+        public TestEntity(Coordinate2D initialPosition) {
             super(initialPosition);
         }
 

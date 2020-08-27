@@ -3,7 +3,7 @@ package com.github.hanyaeger.api.engine.entities.entity.sprite;
 import com.github.hanyaeger.api.engine.Size;
 import com.github.hanyaeger.api.engine.Updater;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
 import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBuffer;
 import com.github.hanyaeger.api.engine.entities.entity.sprite.delegates.SpriteAnimationDelegate;
@@ -26,7 +26,7 @@ class DynamicSpriteEntityTest {
     private final static String DEFAULT_RESOURCE = "images/bubble.png";
     private final static int X_POSITION = 37;
     private final static int Y_POSITION = 37;
-    private final static Location DEFAULT_LOCATION = new Location(X_POSITION, Y_POSITION);
+    private final static Coordinate2D DEFAULT_LOCATION = new Coordinate2D(X_POSITION, Y_POSITION);
     private final static int WIDTH = 39;
     private final static int HEIGHT = 41;
     private final static Size DEFAULT_SIZE = new Size(WIDTH, HEIGHT);
@@ -249,18 +249,18 @@ class DynamicSpriteEntityTest {
 
     private class DynamicSpriteEntityImpl extends DynamicSpriteEntity {
 
-        DynamicSpriteEntityImpl(String resource, Location location, Size size) {
+        DynamicSpriteEntityImpl(String resource, Coordinate2D location, Size size) {
             super(resource, location, size);
         }
 
-        DynamicSpriteEntityImpl(String resource, Location location, Size size, int frames) {
+        DynamicSpriteEntityImpl(String resource, Coordinate2D location, Size size, int frames) {
             super(resource, location, size, frames);
         }
     }
 
     private class AutoCyclingDynamicSpriteEntity extends DynamicSpriteEntity {
 
-        AutoCyclingDynamicSpriteEntity(String resource, Location location, Size size, int frames) {
+        AutoCyclingDynamicSpriteEntity(String resource, Coordinate2D location, Size size, int frames) {
             super(resource, location, size, frames);
             setAutoCycle(2);
         }

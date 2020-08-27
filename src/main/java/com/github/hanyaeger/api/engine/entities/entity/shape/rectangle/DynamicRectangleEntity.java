@@ -5,7 +5,7 @@ import com.github.hanyaeger.api.engine.UpdateDelegator;
 import com.github.hanyaeger.api.engine.Updater;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.entity.ContinuousRotatable;
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.motion.BufferedMoveable;
 import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBuffer;
 import com.google.inject.Inject;
@@ -31,7 +31,7 @@ public abstract class DynamicRectangleEntity extends RectangleEntity implements 
      *
      * @param initialPosition The initial position at which this {@link DynamicRectangleEntity} should be placed
      */
-    public DynamicRectangleEntity(final Location initialPosition) {
+    public DynamicRectangleEntity(final Coordinate2D initialPosition) {
         super(initialPosition);
 
         buffer = Optional.of(new EntityMotionInitBuffer());

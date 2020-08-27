@@ -1,6 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape.circle;
 
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import com.github.hanyaeger.api.engine.entities.entity.shape.CenteredShapeEntity;
 import com.google.inject.Injector;
@@ -23,7 +23,7 @@ public abstract class CircleEntity extends CenteredShapeEntity<Circle> {
      *
      * @param initialPosition The initial position at which this {@link CircleEntity} should be placed
      */
-    public CircleEntity(final Location initialPosition) {
+    public CircleEntity(final Coordinate2D initialPosition) {
         super(initialPosition);
     }
 

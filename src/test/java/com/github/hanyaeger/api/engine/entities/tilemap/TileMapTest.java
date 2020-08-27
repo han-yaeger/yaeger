@@ -2,7 +2,7 @@ package com.github.hanyaeger.api.engine.entities.tilemap;
 
 import com.github.hanyaeger.api.engine.Size;
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import com.github.hanyaeger.api.engine.exceptions.EntityNotAvailableException;
 import com.github.hanyaeger.api.engine.exceptions.YaegerEngineException;
@@ -24,7 +24,7 @@ class TileMapTest {
     private static final double WIDTH = 370;
     private static final double HEIGHT = 420;
 
-    private static final Location LOCATION = new Location(10, 20);
+    private static final Coordinate2D LOCATION = new Coordinate2D(10, 20);
     private static final Size SIZE = new Size(200, 100);
 
     @BeforeEach
@@ -424,7 +424,7 @@ class TileMapTest {
         localSut.activate();
 
         // Assert
-        ArgumentCaptor<Location> argument = ArgumentCaptor.forClass(Location.class);
+        ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
         verify(tileFactory).create(any(), argument.capture(), any());
         assertEquals(LOCATION.getX(), argument.getValue().getX());
         assertEquals(LOCATION.getY(), argument.getValue().getY());
@@ -462,7 +462,7 @@ class TileMapTest {
         localSut.activate();
 
         // Assert
-        ArgumentCaptor<Location> argument = ArgumentCaptor.forClass(Location.class);
+        ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
         verify(tileFactory).create(any(), argument.capture(), any());
 
         var expectedX = LOCATION.getX() - SIZE.getWidth() / 2;
@@ -503,7 +503,7 @@ class TileMapTest {
         localSut.activate();
 
         // Assert
-        ArgumentCaptor<Location> argument = ArgumentCaptor.forClass(Location.class);
+        ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
         verify(tileFactory).create(any(), argument.capture(), any());
 
         var expectedX = LOCATION.getX() - SIZE.getWidth();
@@ -544,7 +544,7 @@ class TileMapTest {
         localSut.activate();
 
         // Assert
-        ArgumentCaptor<Location> argument = ArgumentCaptor.forClass(Location.class);
+        ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
         verify(tileFactory).create(any(), argument.capture(), any());
 
         var expectedX = LOCATION.getX();
@@ -586,7 +586,7 @@ class TileMapTest {
         localSut.activate();
 
         // Assert
-        ArgumentCaptor<Location> argument = ArgumentCaptor.forClass(Location.class);
+        ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
         verify(tileFactory).create(any(), argument.capture(), any());
 
         var expectedX = LOCATION.getX() - SIZE.getWidth() / 2;
@@ -628,7 +628,7 @@ class TileMapTest {
         localSut.activate();
 
         // Assert
-        ArgumentCaptor<Location> argument = ArgumentCaptor.forClass(Location.class);
+        ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
         verify(tileFactory).create(any(), argument.capture(), any());
 
         var expectedX = LOCATION.getX() - SIZE.getWidth();
@@ -672,7 +672,7 @@ class TileMapTest {
         localSut.activate();
 
         // Assert
-        ArgumentCaptor<Location> argument = ArgumentCaptor.forClass(Location.class);
+        ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
         verify(tileFactory).create(any(), argument.capture(), any());
 
         var expectedX = LOCATION.getX();
@@ -714,7 +714,7 @@ class TileMapTest {
         localSut.activate();
 
         // Assert
-        ArgumentCaptor<Location> argument = ArgumentCaptor.forClass(Location.class);
+        ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
         verify(tileFactory).create(any(), argument.capture(), any());
 
         var expectedX = LOCATION.getX() - SIZE.getWidth() / 2;
@@ -756,7 +756,7 @@ class TileMapTest {
         localSut.activate();
 
         // Assert
-        ArgumentCaptor<Location> argument = ArgumentCaptor.forClass(Location.class);
+        ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
         verify(tileFactory).create(any(), argument.capture(), any());
 
         var expectedX = LOCATION.getX() - SIZE.getWidth();
@@ -793,7 +793,7 @@ class TileMapTest {
 
     private class TileMapFilledConstructorImpl extends TileMap {
 
-        public TileMapFilledConstructorImpl(final Location location, final Size size) {
+        public TileMapFilledConstructorImpl(final Coordinate2D location, final Size size) {
             super(location, size);
         }
 
@@ -811,7 +811,7 @@ class TileMapTest {
             return size;
         }
 
-        public Optional<Location> getLocation() {
+        public Optional<Coordinate2D> getLocation() {
             return location;
         }
     }

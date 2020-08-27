@@ -5,7 +5,7 @@ import com.google.inject.Injector;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import com.github.hanyaeger.api.engine.Size;
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import com.github.hanyaeger.api.engine.entities.entity.sprite.delegates.SpriteAnimationDelegate;
 import com.github.hanyaeger.api.engine.media.repositories.ImageRepository;
@@ -36,10 +36,10 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      * Instantiate a new {@code SpriteEntity} for a given Image.
      *
      * @param resource The url of the image file. Relative to the resources folder.
-     * @param location the initial {@link Location} of this Entity
+     * @param location the initial {@link Coordinate2D} of this Entity
      * @param size     The bounding box of this SpriteEntity.
      */
-    protected SpriteEntity(final String resource, final Location location, final Size size) {
+    protected SpriteEntity(final String resource, final Coordinate2D location, final Size size) {
         this(resource, location, size, 1);
     }
 
@@ -47,11 +47,11 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      * Instantiate a new {@code SpriteEntity} for a given Image.
      *
      * @param resource The url of the image file. Relative to the resources folder.
-     * @param location the initial {@link Location} of this Entity
+     * @param location the initial {@link Coordinate2D} of this Entity
      * @param size     The bounding box of this SpriteEntity.
      * @param frames   The number of frames this Image contains. By default the first frame is loaded.
      */
-    protected SpriteEntity(final String resource, final Location location, final Size size, final int frames) {
+    protected SpriteEntity(final String resource, final Coordinate2D location, final Size size, final int frames) {
         super(location);
         this.frames = frames;
         this.resource = resource;

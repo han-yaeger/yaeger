@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 
 class YaegerEntityTest {
 
-    private static final Location LOCATION = new Location(37, 37);
+    private static final Coordinate2D LOCATION = new Coordinate2D(37, 37);
     private static final double SCENE_WIDTH = 37d;
     private static final double SCENE_HEIGHT = 42d;
     private static final double ENTITY_WIDTH = 200d;
@@ -305,13 +305,140 @@ class YaegerEntityTest {
         verify(entityCollection).addStaticEntity(sut);
     }
 
+    @Test
+    void distanceToNullCoordinate2DThrowsNullpointerException() {
+        // Arrange
+        Coordinate2D other = null;
+
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> sut.distanceTo(other));
+    }
+
+    @Test
+    void distanceToNullEntityThrowsNullpointerException() {
+        // Arrange
+        YaegerEntity other = null;
+
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> sut.distanceTo(other));
+    }
+
+    @Test
+    void distanceToSelfReturns0() {
+        // Arrange
+        var expected = 0d;
+
+        // Act
+        var actual = sut.distanceTo(sut);
+
+        // Assert
+        Assertions.assertTrue(Double.compare(actual, expected) == 0);
+    }
+
+    @Test
+    void distanceToOtherOnSameLocationReturns0() {
+        // Arrange
+        var other = new YaegerEntityImpl(LOCATION);
+        var expected = 0d;
+
+        // Act
+        var actual = sut.distanceTo(other);
+
+        // Assert
+        Assertions.assertTrue(Double.compare(actual, expected) == 0);
+    }
+
+    @Test
+    void verticalDistanceToCoordinate2DIsCorrect() {
+        // Arrange
+        var expected = 9d;
+        var other = new Coordinate2D(LOCATION.getX(), LOCATION.getY() + expected);
+        sut.init(injector);
+        sut.placeOnScene();
+
+        // Act
+        var actual = sut.distanceTo(other);
+
+        // Assert
+        Assertions.assertTrue(Double.compare(actual, expected) == 0);
+    }
+
+    @Test
+    void horizontalDistanceToCoordinate2DIsCorrect() {
+        // Arrange
+        var expected = 9d;
+        var other = new Coordinate2D(LOCATION.getX() + expected, LOCATION.getY());
+        sut.init(injector);
+        sut.placeOnScene();
+
+        // Act
+        var actual = sut.distanceTo(other);
+
+        // Assert
+        Assertions.assertTrue(Double.compare(actual, expected) == 0);
+    }
+
+    @Test
+    void verticalDistanceToEntityIsCorrect() {
+        // Arrange
+        var expected = 9d;
+        var other = new YaegerEntityImpl(new Coordinate2D(LOCATION.getX(), LOCATION.getY() + expected));
+        var otherNode = mock(Node.class, withSettings().withoutAnnotations());
+        other.setNode(Optional.of(otherNode));
+        var otherBoundingBox = mock(BoundingBox.class);
+        when(otherNode.getBoundsInLocal()).thenReturn(otherBoundingBox);
+        when(otherBoundingBox.getWidth()).thenReturn(ENTITY_WIDTH);
+        when(otherBoundingBox.getHeight()).thenReturn(ENTITY_HEIGHT);
+        when(otherNode.getScene()).thenReturn(scene);
+        when(scene.getWidth()).thenReturn(SCENE_WIDTH);
+
+        other.init(injector);
+        other.placeOnScene();
+
+        sut.init(injector);
+        sut.placeOnScene();
+
+        // Act
+        var actual = sut.distanceTo(other);
+
+        // Assert
+        Assertions.assertTrue(Double.compare(actual, expected) == 0);
+    }
+
+    @Test
+    void horizontalDistanceToEntityIsCorrect() {
+        // Arrange
+        var expected = 9d;
+        var other = new YaegerEntityImpl(new Coordinate2D(LOCATION.getX() + expected, LOCATION.getY()));
+        var otherNode = mock(Node.class, withSettings().withoutAnnotations());
+        other.setNode(Optional.of(otherNode));
+        var otherBoundingBox = mock(BoundingBox.class);
+        when(otherNode.getBoundsInLocal()).thenReturn(otherBoundingBox);
+        when(otherBoundingBox.getWidth()).thenReturn(ENTITY_WIDTH);
+        when(otherBoundingBox.getHeight()).thenReturn(ENTITY_HEIGHT);
+        when(otherNode.getScene()).thenReturn(scene);
+        when(scene.getWidth()).thenReturn(SCENE_WIDTH);
+
+        other.init(injector);
+        other.placeOnScene();
+
+        sut.init(injector);
+        sut.placeOnScene();
+
+        // Act
+        var actual = sut.distanceTo(other);
+
+        // Assert
+        Assertions.assertTrue(Double.compare(actual, expected) == 0);
+    }
+
     private class YaegerEntityImpl extends YaegerEntity {
 
         private Optional<Node> node;
         private double testX;
         private double testY;
 
-        public YaegerEntityImpl(Location initialPosition) {
+        public YaegerEntityImpl(Coordinate2D initialPosition) {
             super(initialPosition);
         }
 

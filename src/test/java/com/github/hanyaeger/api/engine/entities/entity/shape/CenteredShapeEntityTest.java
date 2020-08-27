@@ -1,12 +1,10 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape;
 
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.google.inject.Injector;
 import javafx.geometry.BoundingBox;
-import javafx.geometry.Point2D;
 import javafx.scene.shape.Shape;
-import javafx.scene.shape.StrokeType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +13,7 @@ import static org.mockito.Mockito.verify;
 
 class CenteredShapeEntityTest {
 
-    private static final Location LOCATION = new Location(37, 37);
+    private static final Coordinate2D LOCATION = new Coordinate2D(37, 37);
     private static final double ENTITY_WIDTH = 200d;
     private static final double ENTITY_HEIGHT = 100d;
     private static final BoundingBox BOUNDING_BOX = new BoundingBox(0, 0, 10, 10);
@@ -146,7 +144,7 @@ class CenteredShapeEntityTest {
 
     private class CenteredShapeEntityImpl extends CenteredShapeEntity<Shape> {
 
-        public CenteredShapeEntityImpl(Location initialPosition) {
+        public CenteredShapeEntityImpl(Coordinate2D initialPosition) {
             super(initialPosition);
         }
 

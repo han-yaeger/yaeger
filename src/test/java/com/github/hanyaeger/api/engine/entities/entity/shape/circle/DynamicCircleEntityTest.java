@@ -2,7 +2,7 @@ package com.github.hanyaeger.api.engine.entities.entity.shape.circle;
 
 import com.github.hanyaeger.api.engine.Updater;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
 import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBuffer;
 import com.github.hanyaeger.api.engine.entities.entity.shape.rectangle.DynamicRectangleEntity;
@@ -21,7 +21,7 @@ class DynamicCircleEntityTest {
 
     private final static int X_POSITION = 37;
     private final static int Y_POSITION = 37;
-    private final static Location DEFAULT_LOCATION = new Location(X_POSITION, Y_POSITION);
+    private final static Coordinate2D DEFAULT_LOCATION = new Coordinate2D(X_POSITION, Y_POSITION);
     public static final int ROTATION_SPEED = 37;
     public static final double SPEED = 37d;
     public static final double DIRECTION = 42d;
@@ -148,7 +148,7 @@ class DynamicCircleEntityTest {
          *
          * @param initialPosition The initial position at which this {@link DynamicRectangleEntity} should be placed
          */
-        public DynamicCircleEntityImpl(Location initialPosition) {
+        public DynamicCircleEntityImpl(Coordinate2D initialPosition) {
             super(initialPosition);
         }
     }

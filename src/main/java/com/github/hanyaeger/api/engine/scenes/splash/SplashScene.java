@@ -10,7 +10,7 @@ import com.github.hanyaeger.api.engine.scenes.YaegerScene;
 import com.github.hanyaeger.api.engine.scenes.splash.timers.FadeInTimer;
 import com.github.hanyaeger.api.engine.scenes.splash.timers.SplashSceneTimer;
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.scenes.splash.entities.Logo;
 
 /**
@@ -39,7 +39,7 @@ public class SplashScene extends DynamicScene implements TimerContainer {
 
     @Override
     public void setupEntities() {
-        var logo = new Logo(new Location(getWidth() / 2, getHeight() / 2), new Size(353, 115));
+        var logo = new Logo(new Coordinate2D(getWidth() / 2, getHeight() / 2), new Size(353, 115));
         logo.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(logo);
     }

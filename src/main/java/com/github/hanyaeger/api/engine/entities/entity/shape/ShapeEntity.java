@@ -1,6 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape;
 
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -27,11 +27,11 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
     private Optional<Double> strokeWidth = Optional.empty();
 
     /**
-     * Instantiate a new {@link ShapeEntity} for the given {@link Location}.
+     * Instantiate a new {@link ShapeEntity} for the given {@link Coordinate2D}.
      *
-     * @param initialPosition the initial {@link Location} of this {@link ShapeEntity}
+     * @param initialPosition the initial {@link Coordinate2D} of this {@link ShapeEntity}
      */
-    public ShapeEntity(Location initialPosition) {
+    public ShapeEntity(Coordinate2D initialPosition) {
         super(initialPosition);
     }
 

@@ -3,12 +3,11 @@ package com.github.hanyaeger.api.engine.entities;
 import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.annotations.AnnotationProcessor;
 import com.github.hanyaeger.api.engine.debug.Debugger;
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import com.github.hanyaeger.api.engine.entities.entity.events.userinput.KeyListener;
 import com.google.inject.Injector;
 import javafx.collections.ObservableList;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
@@ -258,22 +257,22 @@ class EntityCollectionTest {
     private abstract class UpdatableEntity extends YaegerEntity implements Updatable {
 
         /**
-         * Instantiate a new {@link YaegerEntity} for the given {@link Location} and textDelegate.
+         * Instantiate a new {@link YaegerEntity} for the given {@link Coordinate2D} and textDelegate.
          *
-         * @param initialPosition the initial {@link Location} of this {@link YaegerEntity}
+         * @param initialPosition the initial {@link Coordinate2D} of this {@link YaegerEntity}
          */
-        public UpdatableEntity(Location initialPosition) {
+        public UpdatableEntity(Coordinate2D initialPosition) {
             super(initialPosition);
         }
     }
 
     private class KeyListeningEntityImpl extends YaegerEntity implements KeyListener {
         /**
-         * Instantiate a new {@link YaegerEntity} for the given {@link Location} and textDelegate.
+         * Instantiate a new {@link YaegerEntity} for the given {@link Coordinate2D} and textDelegate.
          *
-         * @param initialPosition the initial {@link Location} of this {@link YaegerEntity}
+         * @param initialPosition the initial {@link Coordinate2D} of this {@link YaegerEntity}
          */
-        public KeyListeningEntityImpl(Location initialPosition) {
+        public KeyListeningEntityImpl(Coordinate2D initialPosition) {
             super(initialPosition);
         }
 

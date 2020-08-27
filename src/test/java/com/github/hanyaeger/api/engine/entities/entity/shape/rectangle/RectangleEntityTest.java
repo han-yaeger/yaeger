@@ -1,6 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape.rectangle;
 
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.google.inject.Injector;
 import javafx.scene.shape.Rectangle;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
 
 class RectangleEntityTest {
-    private static final Location LOCATION = new Location(37, 37);
+    private static final Coordinate2D LOCATION = new Coordinate2D(37, 37);
     public static final double ARC_HEIGHT = 1d;
     public static final double ARC_WIDTH = 2d;
     public static final double WIDTH = 3d;
@@ -118,7 +118,7 @@ class RectangleEntityTest {
 
     private class RectangleEntityImpl extends RectangleEntity {
 
-        public RectangleEntityImpl(Location initialPosition) {
+        public RectangleEntityImpl(Coordinate2D initialPosition) {
             super(initialPosition);
         }
     }

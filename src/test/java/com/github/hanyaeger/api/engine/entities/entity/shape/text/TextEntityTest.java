@@ -1,6 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape.text;
 
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.google.inject.Injector;
 import javafx.geometry.VPos;
 import javafx.scene.paint.Color;
@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 class TextEntityTest {
 
     private static final String YAEGER = "Yaeger";
-    private static final Location LOCATION = new Location(37, 37);
+    private static final Coordinate2D LOCATION = new Coordinate2D(37, 37);
     private static final Font FONT = Font.font("palatino", FontWeight.BOLD, 240);
     private static final Color COLOR = Color.DARKBLUE;
     private Text text;

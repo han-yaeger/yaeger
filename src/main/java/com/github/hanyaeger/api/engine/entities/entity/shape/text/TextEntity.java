@@ -1,6 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape.text;
 
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.shape.ShapeEntity;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
 import com.google.inject.Injector;
@@ -23,9 +23,9 @@ public class TextEntity extends ShapeEntity<Text> {
     /**
      * Instantiate a new {@code TextEntity} for the given {@link Point2D}.
      *
-     * @param initialPosition the initial {@link Location} of this {@code TextEntity}
+     * @param initialPosition the initial {@link Coordinate2D} of this {@code TextEntity}
      */
-    public TextEntity(final Location initialPosition) {
+    public TextEntity(final Coordinate2D initialPosition) {
         this(initialPosition, "");
     }
 
@@ -35,7 +35,7 @@ public class TextEntity extends ShapeEntity<Text> {
      * @param initialPosition the initial {@link Point2D} of this {@code TextEntity}
      * @param text            a {@link String} containing the initial textDelegate to be displayed
      */
-    public TextEntity(final Location initialPosition, final String text) {
+    public TextEntity(final Coordinate2D initialPosition, final String text) {
         super(initialPosition);
         this.text = Optional.of(text);
     }

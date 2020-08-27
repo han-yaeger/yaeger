@@ -1,7 +1,7 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape;
 
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import javafx.scene.Node;
 import javafx.scene.shape.Shape;
 
@@ -16,11 +16,11 @@ import javafx.scene.shape.Shape;
 public abstract class CenteredShapeEntity<T extends Shape> extends ShapeEntity<T> {
 
     /**
-     * Instantiate a new {@link CenteredShapeEntity} for the given {@link Location}.
+     * Instantiate a new {@link CenteredShapeEntity} for the given {@link Coordinate2D}.
      *
-     * @param initialPosition the initial {@link Location} of this {@link CenteredShapeEntity}
+     * @param initialPosition the initial {@link Coordinate2D} of this {@link CenteredShapeEntity}
      */
-    public CenteredShapeEntity(Location initialPosition) {
+    public CenteredShapeEntity(Coordinate2D initialPosition) {
         super(initialPosition);
     }
 

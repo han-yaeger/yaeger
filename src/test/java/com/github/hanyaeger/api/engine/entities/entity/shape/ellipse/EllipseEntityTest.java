@@ -1,6 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape.ellipse;
 
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.google.inject.Injector;
 import javafx.geometry.Bounds;
 import javafx.scene.shape.Ellipse;
@@ -12,7 +12,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 
 class EllipseEntityTest {
-    private static final Location LOCATION = new Location(37, 37);
+    private static final Coordinate2D LOCATION = new Coordinate2D(37, 37);
     public static final double RADIUS_X = 37;
     public static final double RADIUS_Y = 42;
 
@@ -150,7 +150,7 @@ class EllipseEntityTest {
 
     private class EllipseEntityImpl extends EllipseEntity {
 
-        public EllipseEntityImpl(Location initialPosition) {
+        public EllipseEntityImpl(Coordinate2D initialPosition) {
             super(initialPosition);
         }
     }

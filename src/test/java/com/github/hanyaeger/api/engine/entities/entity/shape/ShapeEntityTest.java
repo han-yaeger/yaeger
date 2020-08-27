@@ -1,6 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape;
 
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.mock;
 
 class ShapeEntityTest {
 
-    private static final Location LOCATION = new Location(37, 37);
+    private static final Coordinate2D LOCATION = new Coordinate2D(37, 37);
     private static final Color COLOR_FILL = Color.DARKBLUE;
     private static final Color STROKE_COLOR = Color.LIGHTBLUE;
     public static final double STROKE_WIDTH = 4d;
@@ -132,7 +132,7 @@ class ShapeEntityTest {
 
     private class ShapeEntityImpl extends ShapeEntity<Shape> {
 
-        public ShapeEntityImpl(Location initialPosition) {
+        public ShapeEntityImpl(Coordinate2D initialPosition) {
             super(initialPosition);
         }
 

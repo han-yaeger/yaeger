@@ -1,7 +1,7 @@
 package com.github.hanyaeger.api.engine.entities.entity.sprite;
 
 import com.github.hanyaeger.api.engine.Size;
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.events.system.RemoveEntityEvent;
 import com.github.hanyaeger.api.engine.entities.entity.sprite.delegates.SpriteAnimationDelegate;
 import com.github.hanyaeger.api.engine.media.repositories.ImageRepository;
@@ -25,7 +25,7 @@ class SpriteEntityTest {
     private final static String DEFAULT_RESOURCE = "images/bubble.png";
     private final static int X_POSITION = 37;
     private final static int Y_POSITION = 37;
-    private final static Location DEFAULT_LOCATION = new Location(X_POSITION, Y_POSITION);
+    private final static Coordinate2D DEFAULT_LOCATION = new Coordinate2D(X_POSITION, Y_POSITION);
     private final static int WIDTH = 39;
     private final static int HEIGHT = 41;
     private final static Size DEFAULT_SIZE = new Size(WIDTH, HEIGHT);
@@ -239,7 +239,7 @@ class SpriteEntityTest {
 
     private class SpriteEntityWithDefaultFramesImpl extends SpriteEntity {
 
-        SpriteEntityWithDefaultFramesImpl(String resource, Location location, Size size) {
+        SpriteEntityWithDefaultFramesImpl(String resource, Coordinate2D location, Size size) {
             super(resource, location, size);
         }
 
@@ -250,7 +250,7 @@ class SpriteEntityTest {
 
     private class SpriteEntityWithTwoFramesImpl extends SpriteEntity {
 
-        SpriteEntityWithTwoFramesImpl(String resource, Location location, Size size, int frames) {
+        SpriteEntityWithTwoFramesImpl(String resource, Coordinate2D location, Size size, int frames) {
             super(resource, location, size, frames);
         }
     }

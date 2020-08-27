@@ -4,7 +4,7 @@ import com.github.hanyaeger.api.engine.Timer;
 import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.UpdateDelegator;
 import com.github.hanyaeger.api.engine.Updater;
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import com.google.inject.Injector;
 import javafx.scene.Node;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
 
 class AnnotationProcessorTest {
 
-    private static final Location LOCATION = new Location(37, 37);
+    private static final Coordinate2D LOCATION = new Coordinate2D(37, 37);
 
     private AnnotationProcessor sut;
 
@@ -81,7 +81,7 @@ class AnnotationProcessorTest {
 
         private Updater updater;
 
-        public FirstUpdateDelegatingEntity(Location initialPosition) {
+        public FirstUpdateDelegatingEntity(Coordinate2D initialPosition) {
             super(initialPosition);
         }
 
@@ -132,7 +132,7 @@ class AnnotationProcessorTest {
 
         private Updater updater;
 
-        public UpdateDelegatingEntity(Location initialPosition) {
+        public UpdateDelegatingEntity(Coordinate2D initialPosition) {
             super(initialPosition);
         }
 
@@ -184,7 +184,7 @@ class AnnotationProcessorTest {
         private boolean activated = false;
         private Node node;
 
-        public EntityWithActivators(Location initialPosition) {
+        public EntityWithActivators(Coordinate2D initialPosition) {
             super(initialPosition);
         }
 
@@ -238,7 +238,7 @@ class AnnotationProcessorTest {
         private boolean postActivated = false;
         private Node node;
 
-        public EntityWithPostActivators(Location initialPosition) {
+        public EntityWithPostActivators(Coordinate2D initialPosition) {
             super(initialPosition);
         }
 

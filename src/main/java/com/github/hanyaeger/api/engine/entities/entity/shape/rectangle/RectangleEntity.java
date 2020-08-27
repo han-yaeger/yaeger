@@ -1,6 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape.rectangle;
 
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import com.github.hanyaeger.api.engine.entities.entity.shape.ShapeEntity;
 import com.google.inject.Injector;
@@ -24,7 +24,7 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
      *
      * @param initialPosition The initial position at which this {@link RectangleEntity} should be placed
      */
-    public RectangleEntity(final Location initialPosition) {
+    public RectangleEntity(final Coordinate2D initialPosition) {
         super(initialPosition);
     }
 

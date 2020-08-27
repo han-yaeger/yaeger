@@ -5,7 +5,7 @@ import com.github.hanyaeger.api.engine.UpdateDelegator;
 import com.github.hanyaeger.api.engine.Updater;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.entity.ContinuousRotatable;
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.motion.BufferedMoveable;
 import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
 import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBuffer;
@@ -31,7 +31,7 @@ public abstract class DynamicCircleEntity extends CircleEntity implements Update
      *
      * @param initialPosition The initial position at which this {@link DynamicCircleEntity} should be placed
      */
-    public DynamicCircleEntity(final Location initialPosition) {
+    public DynamicCircleEntity(final Coordinate2D initialPosition) {
         super(initialPosition);
 
         buffer = Optional.of(new EntityMotionInitBuffer());

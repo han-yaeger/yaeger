@@ -1,6 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape.ellipse;
 
-import com.github.hanyaeger.api.engine.entities.entity.Location;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import com.github.hanyaeger.api.engine.entities.entity.shape.CenteredShapeEntity;
 import com.google.inject.Injector;
@@ -24,7 +24,7 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
      *
      * @param initialPosition The initial position at which this {@link EllipseEntity} should be placed
      */
-    public EllipseEntity(final Location initialPosition) {
+    public EllipseEntity(final Coordinate2D initialPosition) {
         super(initialPosition);
     }
 

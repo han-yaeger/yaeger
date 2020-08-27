@@ -8,6 +8,7 @@
 
 ### Refactor
 * Renamed the WithTimers interface to TimerContainer.
+* Renamed Location to Coordinate2D.
 * Scenes no longer implement the Keylistener interface by default. This should be done explicitly.
 
 ### Features
