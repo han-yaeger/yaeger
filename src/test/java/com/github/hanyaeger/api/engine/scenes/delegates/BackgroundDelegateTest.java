@@ -9,6 +9,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -44,6 +45,19 @@ class BackgroundDelegateTest {
     }
 
     @Test
+    void setNullBackgroundAudioDoesNotBreak() {
+        // Arrange
+        var audioRepository = mock(AudioRepository.class);
+        sut.setAudioRepository(audioRepository);
+
+        // Act
+        sut.setBackgroundAudio(null);
+
+        // Verify
+        verifyNoInteractions(audioRepository);
+    }
+
+    @Test
     void setBackgroundAudioPlaysAudioFile() {
         // Arrange
         var audioClip = mock(AudioClip.class);
@@ -57,6 +71,16 @@ class BackgroundDelegateTest {
 
         // Verify
         verify(audioClip).play();
+    }
+
+    @Test
+    void setBackgroundColorWithNullPaneDoesNotBreak() {
+        // Arrange
+        var paneIsNullSut = new BackgroundDelegate();
+        var color = Color.YELLOW;
+
+        // Assert & Act
+        Assertions.assertAll(() -> paneIsNullSut.setBackgroundColor(color));
     }
 
     @Test
