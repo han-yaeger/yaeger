@@ -113,6 +113,9 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
      * @throws NullPointerException if the specified {@code location} is null.
      */
     public double angleTo(final YaegerEntity entity) {
+        if (this.equals(entity)) {
+            return 0d;
+        }
         return angleTo(new Coordinate2D(entity.getOriginX(), entity.getOriginY()));
     }
 
@@ -121,18 +124,24 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
      * by this {@link YaegerEntity} and the vector represented by the specified
      * {@link Coordinate2D}.
      *
-     * @param location The {@link Coordinate2D} of the other vector.
+     * @param otherLocation The {@link Coordinate2D} of the other vector.
      * @return the angle between the two vectors measured in degrees,
      * {@code NaN} if any of the two vectors is a zero vector.
-     * @throws NullPointerException if the specified {@code location} is null.
+     * @throws NullPointerException if the specified {@code otherLocation} is null.
      */
-    public double angleTo(final Coordinate2D location) {
+    public double angleTo(final Coordinate2D otherLocation) {
         var thisLocation = new Point2D(getOriginX(), getOriginY());
-        var delta = location.subtract(thisLocation);
+
+        if (thisLocation.equals(otherLocation)) {
+            return 0d;
+        }
+
+        var delta = otherLocation.subtract(thisLocation);
         var normalizedDelta = delta.normalize();
-        var angle = new Point2D(0, -1).angle(normalizedDelta);
+        var angle = new Point2D(0, 1).angle(normalizedDelta);
+
         if (delta.getX() < 0) {
-            angle = -1 * angle;
+            angle += 180;
         }
         return angle;
     }
