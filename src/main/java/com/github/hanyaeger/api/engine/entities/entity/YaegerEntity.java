@@ -103,9 +103,21 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
     }
 
     /**
-     * Computes the angle (in degrees) between the vector represented
-     * by this {@link YaegerEntity} and the vector represented by the specified
-     * {@link YaegerEntity}.
+     * Computes the angle (in degrees) between the unit vector that originates at the reference
+     * point of this {@link YaegerEntity} and the vector with its origin at that same reference point
+     * that points towards the reference point of the specified {@link YaegerEntity}. Note that the unit
+     * vector points downwards, so:
+     *
+     * <ul>
+     *     <li> If {@code otherLocation} is directly below the reference point of this
+     *          {@link YaegerEntity}, the angle will be 0 degrees.</li>
+     *     <li> If {@code otherLocation} is directly above the reference point of this
+     *          {@link YaegerEntity}, the angle will be 180 degrees.</li>
+     *     <li> If {@code otherLocation} is directly to the right of the reference point of this
+     *          {@link YaegerEntity}, the angle will be 90 degrees.</li>
+     *     <li> If {@code otherLocation} is directly to the left of the reference point of this
+     *          {@link YaegerEntity}, the angle will be 270 degrees.</li>
+     * </ul>
      *
      * @param entity The {@link YaegerEntity} of the other vector.
      * @return the angle between the two vectors measured in degrees,
@@ -120,9 +132,21 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
     }
 
     /**
-     * Computes the angle (in degrees) between the vector represented
-     * by this {@link YaegerEntity} and the vector represented by the specified
-     * {@link Coordinate2D}.
+     * Computes the angle (in degrees) between the unit vector that originates at the reference
+     * point of this {@link YaegerEntity} and the vector with its origin at that same reference point
+     * that points towards the specified {@link Coordinate2D}. Note that the unit vector points downwards,
+     * so:
+     *
+     * <ul>
+     *     <li> If {@code otherLocation} is directly below the reference point of this
+     *          {@link YaegerEntity}, the angle will be 0 degrees.</li>
+     *     <li> If {@code otherLocation} is directly above the reference point of this
+     *          {@link YaegerEntity}, the angle will be 180 degrees.</li>
+     *     <li> If {@code otherLocation} is directly to the right of the reference point of this
+     *          {@link YaegerEntity}, the angle will be 90 degrees.</li>
+     *     <li> If {@code otherLocation} is directly to the left of the reference point of this
+     *          {@link YaegerEntity}, the angle will be 270 degrees.</li>
+     * </ul>
      *
      * @param otherLocation The {@link Coordinate2D} of the other vector.
      * @return the angle between the two vectors measured in degrees,
