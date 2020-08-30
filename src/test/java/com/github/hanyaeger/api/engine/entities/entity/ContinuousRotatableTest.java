@@ -14,18 +14,18 @@ class ContinuousRotatableTest {
     @Test
     void setRotationAngleIsUsedForRotationIncrement() {
         // Arrange
-        var rotatable = new ContinuousRotatableImpl();
+        var sut = new ContinuousRotatableImpl();
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        rotatable.setNode(node);
-        rotatable.setRotationSpeed(ROTATION_ANGLE);
+        sut.setNode(node);
+        sut.setRotationSpeed(ROTATION_ANGLE);
         when(node.getRotate()).thenReturn(0d);
 
         // Act
-        var updatable = rotatable.applyRotation();
+        var updatable = sut.applyRotation();
         updatable.update(1L);
 
         // Assert
-        verify(node).setRotate(37d);
+        verify(node).setRotate(-37d);
     }
 
     private class ContinuousRotatableImpl implements ContinuousRotatable {

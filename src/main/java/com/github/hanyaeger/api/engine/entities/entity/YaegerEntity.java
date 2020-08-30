@@ -165,7 +165,7 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
         var angle = new Point2D(0, 1).angle(normalizedDelta);
 
         if (delta.getX() < 0) {
-            angle += 180;
+            angle = 360 - angle;
         }
         return angle;
     }

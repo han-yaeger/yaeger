@@ -586,9 +586,9 @@ class YaegerEntityTest {
     }
 
     @Test
-    void angleToYaegerEntityLeftAboveIs315Degrees() {
+    void angleToYaegerEntityLeftAboveIs225Degrees() {
         // Arrange
-        var expected = 315d;
+        var expected = 225d;
         var other = new YaegerEntityImpl(new Coordinate2D(LOCATION.getX() - 10, LOCATION.getY() - 10));
         var otherNode = mock(Node.class, withSettings().withoutAnnotations());
         other.setNode(Optional.of(otherNode));
@@ -640,9 +640,9 @@ class YaegerEntityTest {
     }
 
     @Test
-    void angleToYaegerEntityLeftBelowIs225Degrees() {
+    void angleToYaegerEntityLeftBelowIs315Degrees() {
         // Arrange
-        var expected = 225d;
+        var expected = 315d;
         var other = new YaegerEntityImpl(new Coordinate2D(LOCATION.getX() - 10, LOCATION.getY() + 10));
         var otherNode = mock(Node.class, withSettings().withoutAnnotations());
         other.setNode(Optional.of(otherNode));
@@ -758,10 +758,10 @@ class YaegerEntityTest {
     }
 
     @Test
-    void angleToCoordinate2DLeftAboveIs315Degrees() {
+    void angleToCoordinate2DLeftAboveIs225Degrees() {
         // Arrange
-        var expected = 315d;
-        var leftAbove = new Coordinate2D(LOCATION.getX() - 10, LOCATION.getY() - 10);
+        var expected = 225;
+        var leftAbove = new Coordinate2D(LOCATION.getX() - 100, LOCATION.getY() - 100);
 
         sut.init(injector);
         sut.placeOnScene();
@@ -790,9 +790,9 @@ class YaegerEntityTest {
     }
 
     @Test
-    void angleToCoordinate2DLeftBelowIs225Degrees() {
+    void angleToCoordinate2DLeftBelowIs315Degrees() {
         // Arrange
-        var expected = 225d;
+        var expected = 315d;
         var leftBelow = new Coordinate2D(LOCATION.getX() - 10, LOCATION.getY() + 10);
 
         sut.init(injector);

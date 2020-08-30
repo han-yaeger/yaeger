@@ -3,6 +3,11 @@ package com.github.hanyaeger.api.engine.entities.entity;
 import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.annotations.UpdatableProvider;
 
+/**
+ * When implementing this Interface, a {@link YaegerEntity} will acquire the behaviour to
+ * perform a rotation on each Game World update, and thus give the illusion of a continuous
+ * rotation.
+ */
 public interface ContinuousRotatable extends Rotatable {
 
     /**
@@ -25,7 +30,7 @@ public interface ContinuousRotatable extends Rotatable {
         return timestamp -> {
             if (Double.compare(getRotationSpeed(), 0d) != 0) {
                 if (getGameNode().isPresent()) {
-                    setRotate(getGameNode().get().getRotate() + getRotationSpeed());
+                    setRotate(-getGameNode().get().getRotate() + getRotationSpeed());
                 }
             }
         };
