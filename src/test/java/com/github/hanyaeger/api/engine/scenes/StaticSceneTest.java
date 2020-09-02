@@ -47,7 +47,7 @@ class StaticSceneTest {
     void setup() {
         sut = new StaticSceneImpl();
 
-        pane = mock(Pane.class);
+        pane = mock(Pane.class, withSettings().withoutAnnotations());
         backgroundDelegate = mock(BackgroundDelegate.class);
         keyListenerDelegate = mock(KeyListenerDelegate.class);
         debugger = mock(Debugger.class);
