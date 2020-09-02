@@ -84,6 +84,7 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
     public void setShape(final T shape) {
         shape.setStrokeType(StrokeType.INSIDE);
         shape.setManaged(false);
+        shape.setFocusTraversable(false);
         this.shape = Optional.of(shape);
     }
 }

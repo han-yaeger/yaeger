@@ -82,6 +82,17 @@ class ShapeEntityTest {
     }
 
     @Test
+    void setShapeSetsFocusTraversableFalse() {
+        // Arrange
+
+        // Act
+        sut.setShape(shape);
+
+        // Assert
+        verify(shape).setFocusTraversable(false);
+    }
+
+    @Test
     void settingPositionWithoutDelegateStoresPositionAsInitialPosition() {
         // Arrange
 

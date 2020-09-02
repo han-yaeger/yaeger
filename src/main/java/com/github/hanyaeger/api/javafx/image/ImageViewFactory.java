@@ -20,6 +20,7 @@ public class ImageViewFactory {
 
         var imageView = new ImageView(image);
         imageView.setManaged(false);
+        imageView.setFocusTraversable(false);
         return imageView;
     }
 }
