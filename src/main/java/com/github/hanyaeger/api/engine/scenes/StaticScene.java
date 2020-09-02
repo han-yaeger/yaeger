@@ -190,7 +190,6 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
      */
     @Inject
     public void setPane(final Pane pane) {
-        pane.setFocusTraversable(false);
         this.pane = pane;
     }
 
