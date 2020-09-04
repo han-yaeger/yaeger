@@ -9,7 +9,7 @@ import com.github.hanyaeger.api.engine.scenes.splash.SplashScene;
  */
 public class SplashSceneTimer extends Timer {
 
-    private static final int INTERVAL_IN_MS = 3000;
+    private static final int INTERVAL_IN_MS = 5000;
 
     private Runnable runnable;
 

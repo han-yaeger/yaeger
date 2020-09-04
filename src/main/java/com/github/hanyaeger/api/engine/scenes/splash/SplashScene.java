@@ -1,7 +1,5 @@
 package com.github.hanyaeger.api.engine.scenes.splash;
 
-import javafx.scene.paint.Color;
-import com.github.hanyaeger.api.engine.Size;
 import com.github.hanyaeger.api.engine.Timer;
 import com.github.hanyaeger.api.engine.TimerContainer;
 import com.github.hanyaeger.api.engine.YaegerGame;
@@ -34,12 +32,12 @@ public class SplashScene extends DynamicScene implements TimerContainer {
     @Override
     public void setupScene() {
         setBrightness(-1);
-        setBackgroundColor(Color.BLACK);
+        setBackgroundImage("yaegerimages/splash-bg.jpg");
     }
 
     @Override
     public void setupEntities() {
-        var logo = new Logo(new Coordinate2D(getWidth() / 2, getHeight() / 2), new Size(353, 115));
+        var logo = new Logo(new Coordinate2D(getWidth() / 2, getHeight() / 2));
         logo.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(logo);
     }
