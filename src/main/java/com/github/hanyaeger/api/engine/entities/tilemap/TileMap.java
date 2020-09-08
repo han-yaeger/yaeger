@@ -110,7 +110,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
             x = topLeftLocation.getX();
             y = topLeftLocation.getY();
         } else {
-            throw new YaegerEngineException("No Size or Location is set for this EntityMap. Has setDimensionProvider been called?");
+            throw new YaegerEngineException("No Size or Location is set for this TileMap. Has setDimensionProvider been called?");
         }
 
         for (int i = 0; i < map.length; i++) {
@@ -124,12 +124,12 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
                     var entityClass = entities.get(key);
 
                     if (entityClass == null) {
-                        throw new EntityNotAvailableException("An Entity with key \"" + key + "\" has not been added to the EntityMap.");
+                        throw new EntityNotAvailableException("An Entity with key \"" + key + "\" has not been added to the TileMap.");
                     }
 
                     var entity = tileFactory.create(entityClass,
-                            new Coordinate2D(x + (j * entityWidth), y + entityY),
-                            new Size(entityWidth, entityHeight));
+                            new Coordinate2D(Math.round(x + (j * entityWidth)), Math.round(y + entityY)),
+                            new Size(Math.ceil(entityWidth), Math.ceil(entityHeight)));
 
                     add(entity);
                 }
