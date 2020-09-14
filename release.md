@@ -13,7 +13,7 @@
 * Renamed Location to Coordinate2D.
 * Scenes no longer implement the Keylistener interface by default. This should be done explicitly.
 * EntityCollections are now based on Lists, meaning the placement order will be maintained. 
-Consequently the toFront() and toBack() have been removed.
+Consequently, the toFront() and toBack() have been removed.
 
 ### Features
 * Scenes must now explicitly implement the KeyListener interface (#78)
