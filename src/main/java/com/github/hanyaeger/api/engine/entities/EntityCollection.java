@@ -19,7 +19,6 @@ import com.github.hanyaeger.api.engine.entities.entity.events.EventTypes;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -32,11 +31,11 @@ public class EntityCollection implements Initializable {
     private final EntityCollectionStatistics statistics;
     private Injector injector;
     private final Pane pane;
-    private final Set<EntitySupplier> suppliers = new HashSet<>();
-    private final Set<YaegerEntity> statics = new HashSet<>();
-    private final Set<Updatable> updatables = new HashSet<>();
-    private final Set<KeyListener> keyListeners = new HashSet<>();
-    private final Set<Removeable> garbage = new HashSet<>();
+    private final List<EntitySupplier> suppliers = new ArrayList<>();
+    private final List<YaegerEntity> statics = new ArrayList<>();
+    private final List<Updatable> updatables = new ArrayList<>();
+    private final List<KeyListener> keyListeners = new ArrayList<>();
+    private final List<Removeable> garbage = new ArrayList<>();
 
     private final List<StatisticsObserver> statisticsObservers = new ArrayList<>();
 

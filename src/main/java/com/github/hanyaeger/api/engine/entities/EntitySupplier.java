@@ -3,27 +3,27 @@ package com.github.hanyaeger.api.engine.entities;
 import com.github.hanyaeger.api.engine.Clearable;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * An {@link EntitySupplier} extends a {@link HashSet} of instances of {@link YaegerEntity}. When calling
+ * An {@link EntitySupplier} extends a {@link ArrayList} of instances of {@link YaegerEntity}. When calling
  * {@link EntitySupplier#get()} the content will passed as the return value, after which all content is
  * cleared.
  */
-public class EntitySupplier extends HashSet<YaegerEntity> implements Clearable {
+public class EntitySupplier extends ArrayList<YaegerEntity> implements Clearable {
 
     /**
-     * Return a {@link Set} of instances of {@link YaegerEntity}. After this method is called,
+     * Return a {@link List} of instances of {@link YaegerEntity}. After this method is called,
      * the {@link EntitySupplier} is cleared.
      *
-     * @return a {@link Set} containing instances of {@link YaegerEntity}
+     * @return a {@link List} containing instances of {@link YaegerEntity}
      */
-    public Set<YaegerEntity> get() {
+    public List<YaegerEntity> get() {
         if (isEmpty()) {
-            return new HashSet<>();
+            return new ArrayList<>();
         } else {
-            var allEntities = new HashSet<>(this);
+            var allEntities = new ArrayList<>(this);
             clear();
             return allEntities;
         }

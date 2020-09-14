@@ -74,7 +74,7 @@ class EntityCollectionTest {
         var node = mock(Node.class, withSettings().withoutAnnotations());
         when(updatableEntity.getGameNode()).thenReturn(Optional.of(node));
 
-        Set<YaegerEntity> updatables = new HashSet<>();
+        List<YaegerEntity> updatables = new ArrayList<>();
         updatables.add(updatableEntity);
         var supplier = mock(EntitySupplier.class);
         when(supplier.get()).thenReturn(updatables);
@@ -180,7 +180,7 @@ class EntityCollectionTest {
         var node = mock(Node.class, withSettings().withoutAnnotations());
         when(updatableEntity.getGameNode()).thenReturn(Optional.of(node));
 
-        Set<YaegerEntity> updatables = new HashSet<>();
+        List<YaegerEntity> updatables = new ArrayList<>();
         updatables.add(updatableEntity);
         var supplier = mock(EntitySupplier.class);
         when(supplier.get()).thenReturn(updatables);
@@ -207,7 +207,7 @@ class EntityCollectionTest {
         var node = mock(Node.class, withSettings().withoutAnnotations());
         when(updatableEntity.getGameNode()).thenReturn(Optional.of(node));
 
-        Set<YaegerEntity> updatables = new HashSet<>();
+        List<YaegerEntity> updatables = new ArrayList<>();
         updatables.add(updatableEntity);
         var supplier = mock(EntitySupplier.class);
         when(supplier.get()).thenReturn(updatables);
@@ -234,7 +234,7 @@ class EntityCollectionTest {
         var node = mock(Node.class, withSettings().withoutAnnotations());
         when(updatableEntity.getGameNode()).thenReturn(Optional.of(node));
 
-        Set<YaegerEntity> updatables = new HashSet<>();
+        List<YaegerEntity> updatables = new ArrayList<>();
         updatables.add(updatableEntity);
         var supplier = mock(EntitySupplier.class);
         when(supplier.get()).thenReturn(updatables);

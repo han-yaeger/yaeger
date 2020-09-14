@@ -97,6 +97,8 @@ public interface YaegerScene extends DimensionsProvider, Destroyable, Initializa
      * @return The width of this {@link YaegerScene}.
      */
     default double getWidth() {
+        getStage();
+
         return getStage().getWidth();
     }
 
