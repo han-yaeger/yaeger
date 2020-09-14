@@ -28,7 +28,7 @@ public interface Placeable extends Bounded, Anchorable {
      * Set the new x-coordinate of the reference of this {@link YaegerEntity}. The reference will depend on the chosen
      * {@link AnchorPoint}.
      *
-     * @param x the x-coordinate as a {@code double}.
+     * @param x The x-coordinate as a {@code double}.
      */
     void setReferenceX(final double x);
 
@@ -36,7 +36,7 @@ public interface Placeable extends Bounded, Anchorable {
      * Set the new y-coordinate of the reference of this {@link YaegerEntity}. The reference will depend on the chosen
      * {@link AnchorPoint}.
      *
-     * @param y the y-coordinate as a {@code double}.
+     * @param y The y-coordinate as a {@code double}.
      */
     void setReferenceY(final double y);
 

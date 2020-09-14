@@ -170,6 +170,16 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
         return angle;
     }
 
+    /**
+     * Add this {@link YaegerEntity} to the {@link EntityCollection}, which will make it
+     * part of the {@link com.github.hanyaeger.api.engine.YaegerGame}. Since an {@link EntityCollection}
+     * contains different lists of Entities, a {@link YaegerEntity} itself is responsible for
+     * knowing to which list it should be added.
+     *
+     * <b>Note that this method is for internal use only and should not be used when creating a {@link com.github.hanyaeger.api.engine.YaegerGame}</b>
+     *
+     * @param collection
+     */
     public void addToEntityCollection(EntityCollection collection) {
         collection.addStaticEntity(this);
     }

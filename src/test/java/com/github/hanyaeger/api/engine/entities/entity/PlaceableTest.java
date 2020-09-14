@@ -70,6 +70,5 @@ class PlaceableTest {
             // Not required here.
         }
     }
-
 }
 
