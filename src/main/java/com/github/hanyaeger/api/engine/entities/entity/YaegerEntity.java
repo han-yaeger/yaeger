@@ -178,7 +178,7 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
      *
      * <b>Note that this method is for internal use only and should not be used when creating a {@link com.github.hanyaeger.api.engine.YaegerGame}</b>
      *
-     * @param collection
+     * @param collection The {@link EntityCollection} to which this {@link YaegerEntity} should add itself.
      */
     public void addToEntityCollection(EntityCollection collection) {
         collection.addStaticEntity(this);
