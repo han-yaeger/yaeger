@@ -13,7 +13,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>12</java.version>
+        <java.version>14</java.version>
         <javafx.version>14.0.2.1</javafx.version>
         <sonar.projectKey>han-yaeger_yaeger</sonar.projectKey>
         <sonar.organization>han-yaeger</sonar.organization>
