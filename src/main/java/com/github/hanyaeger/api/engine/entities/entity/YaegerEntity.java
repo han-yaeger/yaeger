@@ -180,11 +180,11 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
      *
      * @param collection The {@link EntityCollection} to which this {@link YaegerEntity} should add itself.
      */
-    public void addToEntityCollection(EntityCollection collection) {
+    public void addToEntityCollection(final EntityCollection collection) {
         collection.addStaticEntity(this);
     }
 
-    protected void applyTranslationsForAnchorPoint(Node node, AnchorPoint anchorPoint) {
+    protected void applyTranslationsForAnchorPoint(final Node node, final AnchorPoint anchorPoint) {
         switch (anchorPoint) {
             case TOP_LEFT:
                 node.setTranslateX(0);
