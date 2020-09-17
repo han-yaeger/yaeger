@@ -205,7 +205,7 @@
                 <version>3.2.0</version>
                 <configuration>
                     <source>${java.version}</source>
-                    <stylesheetfile>stylesheets/javadoc_stylesheet.css</stylesheetfile>
+                    <stylesheetfile>yaegerstylesheets/javadoc_stylesheet.css</stylesheetfile>
                 </configuration>
                 <executions>
                     <execution>
