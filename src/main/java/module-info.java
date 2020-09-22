@@ -5,8 +5,6 @@ module hanyaeger.api {
     requires transitive javafx.graphics;
     requires transitive com.google.guice;
 
-    requires transitive commons.cli;
-
     exports com.github.hanyaeger.api.engine;
     exports com.github.hanyaeger.api.engine.annotations;
     exports com.github.hanyaeger.api.engine.entities;

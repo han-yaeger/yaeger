@@ -8,7 +8,6 @@ import com.google.inject.Guice;
 import javafx.application.Application;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import org.apache.commons.cli.*;
 
 /**
  * {@link YaegerGame} is the base class that must be extended to create a Yaeger game. After extending this class,
@@ -29,18 +28,6 @@ public abstract class YaegerGame extends Application {
     public static final Size DEFAULT_GAME_DIMENSIONS = new Size(640, 480);
 
     private YaegerStage yaegerStage;
-
-    /**
-     * The entry point of a Yaeger game. Run the {@link #startYaeger(String[])} method and pass
-     * arguments to start the Yaeger game with the given parameters.
-     *
-     * @param args The arguments that should be passed to Yaeger.
-     */
-    public static void startYaeger(final String[] args) {
-        var argumentParser = new ArgumentParser();
-        argumentParser.parse(args);
-        launch(args);
-    }
 
     /**
      * Set the current active {@link YaegerScene}.
@@ -111,6 +98,9 @@ public abstract class YaegerGame extends Application {
 
     @Override
     public void start(final Stage primaryStage) {
+        var argumentParser = new YaegerCommandLineParser();
+        argumentParser.parseToConfig(getParameters().getRaw().toArray(new String[0]));
+
         var injector = Guice.createInjector(new YaegerModule());
         yaegerStage = new YaegerStage(this, primaryStage);
         injector.injectMembers(yaegerStage);

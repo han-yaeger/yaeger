@@ -1,14 +1,43 @@
 package com.github.hanyaeger.api.engine;
 
-public class YaegerConfig {
+import java.util.Objects;
+
+/**
+ * An encapsulation of the various configuration settings that can be applied to Yaeger
+ * at start up.
+ */
+class YaegerConfig {
 
     private boolean showSplash = true;
 
-    public boolean isShowSplash() {
+    /**
+     * Whether the splash screen should be shown during start up.
+     *
+     * @return true by default.
+     */
+    boolean isShowSplash() {
         return showSplash;
     }
 
-    public void setShowSplash(boolean showSplash) {
+    /**
+     * Set whether the Splash Scene should be shown during start up.
+     *
+     * @param showSplash A {@code boolean} value.
+     */
+    void setShowSplash(boolean showSplash) {
         this.showSplash = showSplash;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        YaegerConfig that = (YaegerConfig) o;
+        return showSplash == that.showSplash;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(showSplash);
     }
 }
