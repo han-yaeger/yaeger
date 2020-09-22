@@ -7,6 +7,9 @@ com.github.hanyaeger.api.engine.entities.entity
 com.github.hanyaeger.api.engine.entities.entity.collisions
 com.github.hanyaeger.api.engine.entities.entity.events.userinput
 com.github.hanyaeger.api.engine.entities.entity.motion
+com.github.hanyaeger.api.engine.entities.entity.shape
+com.github.hanyaeger.api.engine.entities.entity.shape.circle
+com.github.hanyaeger.api.engine.entities.entity.shape.ellipse
 com.github.hanyaeger.api.engine.entities.entity.shape.rectangle
 com.github.hanyaeger.api.engine.entities.entity.shape.text
 com.github.hanyaeger.api.engine.entities.entity.sprite
