@@ -1,7 +1,5 @@
 package com.github.hanyaeger.api.engine;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.List;
 
 /**
@@ -40,15 +38,10 @@ class YaegerCommandLineParser {
         return yeagerConfig;
     }
 
-    public static void main(String[] args) {
-        printHelpScreen();
-
-    }
-
-    private static void printHelpScreen() {
-        System.out.println("Options:");
+    private void printHelpScreen() {
+        System.out.println("Yaeger can be run with the following command line options:");
         System.out.format(TABLE_FORMAT, " " + HELP, HELP_SORT_EXPLANATION);
-        System.out.print("\n");
+        System.out.print(System.lineSeparator());
         System.out.format(TABLE_FORMAT, " " + NO_SPLASH, NO_SPLASH_EXPLANATION);
     }
 }
