@@ -18,6 +18,7 @@ class YaegerStageTest {
 
     private YaegerGame yaegerGame;
     private Stage stage;
+    private YaegerConfig yaegerConfig;
     private Injector injector;
     private YaegerStage sut;
     private SceneCollectionFactory sceneCollectionFactory;
@@ -28,16 +29,29 @@ class YaegerStageTest {
         yaegerGame = mock(YaegerGame.class);
         stage = mock(Stage.class);
         injector = mock(Injector.class);
+        yaegerConfig = new YaegerConfig();
         sceneCollectionFactory = mock(SceneCollectionFactory.class);
         sceneCollection = mock(SceneCollection.class);
-        sut = new YaegerStage(yaegerGame, stage);
+
+        sut = new YaegerStage(yaegerGame, stage, yaegerConfig);
         sut.setSceneCollectionFactory(sceneCollectionFactory);
 
-        when(sceneCollectionFactory.create(stage)).thenReturn(sceneCollection);
+        when(sceneCollectionFactory.create(stage, yaegerConfig)).thenReturn(sceneCollection);
     }
 
     @Test
-    void atInitializationsetSizeIsUsed() {
+    void atInitSceneCollectionFactoryCreateIsCalledWithCorrectConfig() {
+        // Arrange
+
+        // Act
+        sut.init(injector);
+
+        // Assert
+        verify(sceneCollectionFactory).create(stage, yaegerConfig);
+    }
+
+    @Test
+    void atInitializationSetSizeIsUsed() {
         // Arrange
         sut.setSize(new Size(WIDTH, HEIGHT));
 

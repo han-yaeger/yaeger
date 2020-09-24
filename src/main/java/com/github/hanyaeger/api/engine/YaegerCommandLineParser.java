@@ -23,15 +23,13 @@ class YaegerCommandLineParser {
      * @param args the {@code String[]} that contain the command line arguments.
      * @return An instance of {@link YaegerConfig} that can be used to initialize a {@link YaegerGame}.
      */
-    YaegerConfig parseToConfig(final String[] args) {
+    YaegerConfig parseToConfig(final List<String> args) {
 
-        List<String> options = List.of(args);
-
-        if (options.contains(HELP)) {
+        if (args.contains(HELP)) {
             printHelpScreen();
         }
 
-        var showSplash = options.contains(NO_SPLASH);
+        var showSplash = args.contains(NO_SPLASH);
         var yeagerConfig = new YaegerConfig();
         yeagerConfig.setShowSplash(!showSplash);
 

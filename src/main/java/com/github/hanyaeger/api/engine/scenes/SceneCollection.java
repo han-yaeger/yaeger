@@ -1,6 +1,7 @@
 package com.github.hanyaeger.api.engine.scenes;
 
 import com.github.hanyaeger.api.engine.Initializable;
+import com.github.hanyaeger.api.engine.YaegerConfig;
 import com.github.hanyaeger.api.engine.annotations.AnnotationProcessor;
 import com.github.hanyaeger.api.engine.exceptions.YaegerSceneNotAvailableException;
 import com.google.inject.Inject;
@@ -18,6 +19,7 @@ import java.util.Objects;
 public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> implements Initializable {
 
     private final transient Stage stage;
+    private final YaegerConfig yaegerConfig;
     private transient Injector injector;
     private transient AnnotationProcessor annotationProcessor;
     private transient YaegerScene activeScene;
@@ -25,8 +27,15 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     private SplashScreenFactory splashScreenFactory;
     private boolean finishedSplashScreen = false;
 
-    public SceneCollection(final Stage stage) {
+    /**
+     * Create a new {@link SceneCollection} for the given {@link Stage} and {@link YaegerConfig}.
+     *
+     * @param stage        The {@link Stage} that should be used.
+     * @param yaegerConfig The {@link YaegerConfig} that should be used.
+     */
+    public SceneCollection(final Stage stage, final YaegerConfig yaegerConfig) {
         this.stage = stage;
+        this.yaegerConfig = yaegerConfig;
     }
 
     /**
@@ -102,7 +111,11 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     }
 
     public void postSetupScenes() {
-        addSplashScreen();
+        if (yaegerConfig.isShowSplash()) {
+            addSplashScreen();
+        } else {
+            activateFirstScene();
+        }
     }
 
     @Override
@@ -122,15 +135,19 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     private void addSplashScreen() {
         var splash = splashScreenFactory.create(() -> {
             this.finishedSplashScreen = true;
-            if (get(firstScene) == null) {
-                stage.close();
-            } else {
-                setActive(firstScene);
-            }
+            activateFirstScene();
         });
         splash.init(injector);
         splash.setStage(stage);
         activate(splash);
+    }
+
+    private void activateFirstScene() {
+        if (get(firstScene) == null) {
+            stage.close();
+        } else {
+            setActive(firstScene);
+        }
     }
 
     @Inject

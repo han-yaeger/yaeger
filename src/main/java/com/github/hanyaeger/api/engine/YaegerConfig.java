@@ -6,7 +6,7 @@ import java.util.Objects;
  * An encapsulation of the various configuration settings that can be applied to Yaeger
  * at start up.
  */
-class YaegerConfig {
+public class YaegerConfig {
 
     private boolean showSplash = true;
 
@@ -15,7 +15,7 @@ class YaegerConfig {
      *
      * @return true by default.
      */
-    boolean isShowSplash() {
+    public boolean isShowSplash() {
         return showSplash;
     }
 

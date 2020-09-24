@@ -98,11 +98,10 @@ public abstract class YaegerGame extends Application {
 
     @Override
     public void start(final Stage primaryStage) {
-        var argumentParser = new YaegerCommandLineParser();
-        argumentParser.parseToConfig(getParameters().getRaw().toArray(new String[0]));
+        var yaegerConfig = new YaegerCommandLineParser().parseToConfig(getParameters().getRaw());
 
         var injector = Guice.createInjector(new YaegerModule());
-        yaegerStage = new YaegerStage(this, primaryStage);
+        yaegerStage = new YaegerStage(this, primaryStage, yaegerConfig);
         injector.injectMembers(yaegerStage);
         yaegerStage.init(injector);
     }

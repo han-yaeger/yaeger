@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.engine.scenes;
 
+import com.github.hanyaeger.api.engine.YaegerConfig;
 import com.github.hanyaeger.api.engine.annotations.AnnotationProcessor;
 import com.github.hanyaeger.api.engine.exceptions.YaegerSceneNotAvailableException;
 import com.github.hanyaeger.api.engine.scenes.splash.SplashScene;
@@ -23,6 +24,7 @@ class SceneCollectionTest {
     private SplashScreenFactory splashScreenFactory;
     private SplashScene splashScene;
     private ArgumentCaptor<Runnable> loadFirstSceneCallBack;
+    private YaegerConfig yaegerConfig;
 
     @BeforeEach
     void setup() {
@@ -32,16 +34,30 @@ class SceneCollectionTest {
         splashScreenFactory = mock(SplashScreenFactory.class);
         splashScene = mock(SplashScene.class);
 
+        yaegerConfig = mock(YaegerConfig.class);
+        when(yaegerConfig.isShowSplash()).thenReturn(true);
+
         loadFirstSceneCallBack = ArgumentCaptor.forClass(Runnable.class);
         when(splashScreenFactory.create(loadFirstSceneCallBack.capture())).thenReturn(splashScene);
-        sut = new SceneCollection(stage);
+        sut = new SceneCollection(stage, yaegerConfig);
         sut.init(injector);
         sut.setAnnotationProcessor(annotationProcessor);
         sut.setSplashScreenFactory(splashScreenFactory);
     }
 
     @Test
-    void addSplashScreenCallsTheFactory() {
+    void postSetupSceneDoesNotCreatesTheSplashScreenForNoSplashConfig() {
+        // Arrange
+        when(yaegerConfig.isShowSplash()).thenReturn(false);
+        // Act
+        sut.postSetupScenes();
+
+        // Assert
+        verifyNoInteractions(splashScreenFactory);
+    }
+
+    @Test
+    void postSetupSceneCreatesTheSplashScreenForDefaultConfig() {
         // Arrange
 
         // Act
@@ -106,7 +122,7 @@ class SceneCollectionTest {
     }
 
     @Test
-    void yaegerExistsIfNoSceneWasAddedAfterSplashScreenFinishes() {
+    void yaegerExitsIfNoSceneWasAddedAfterSplashScreenFinishes() {
         // Arrange
         sut.postSetupScenes();
 
@@ -254,7 +270,7 @@ class SceneCollectionTest {
     void equalsFailsWithDifferentInstance() {
         // Arrange
         var stage2 = mock(Stage.class);
-        SceneCollection sceneCollection2 = new SceneCollection(stage2);
+        SceneCollection sceneCollection2 = new SceneCollection(stage2, yaegerConfig);
         sceneCollection2.init(injector);
 
         // Act
@@ -290,7 +306,7 @@ class SceneCollectionTest {
     void differentInstancesHaveDifferentHashCodes() {
         // Arrange
         var stage2 = mock(Stage.class);
-        var sceneCollection2 = new SceneCollection(stage2);
+        var sceneCollection2 = new SceneCollection(stage2, yaegerConfig);
         sceneCollection2.init(injector);
 
         // Act

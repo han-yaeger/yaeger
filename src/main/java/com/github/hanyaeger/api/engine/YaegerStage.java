@@ -1,10 +1,10 @@
 package com.github.hanyaeger.api.engine;
 
+import com.github.hanyaeger.api.engine.scenes.SceneCollection;
 import com.github.hanyaeger.api.guice.factories.SceneCollectionFactory;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.stage.Stage;
-import com.github.hanyaeger.api.engine.scenes.SceneCollection;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
 
 /**
@@ -18,12 +18,14 @@ public class YaegerStage implements Initializable {
 
     private YaegerGame yaegerGame;
     private Stage stage;
+    private final YaegerConfig yaegerConfig;
     private SceneCollectionFactory sceneCollectionFactory;
     private SceneCollection sceneCollection;
 
-    YaegerStage(final YaegerGame yaegerGame, final Stage stage) {
+    YaegerStage(final YaegerGame yaegerGame, final Stage stage, final YaegerConfig yaegerConfig) {
         this.yaegerGame = yaegerGame;
         this.stage = stage;
+        this.yaegerConfig = yaegerConfig;
     }
 
     /**
@@ -38,9 +40,10 @@ public class YaegerStage implements Initializable {
     @Override
     public void init(final Injector injector) {
         stage.setResizable(false);
-        sceneCollection = sceneCollectionFactory.create(stage);
+        sceneCollection = sceneCollectionFactory.create(stage, yaegerConfig);
         injector.injectMembers(sceneCollection);
         sceneCollection.init(injector);
+
 
         yaegerGame.setupGame();
         stage.setWidth(size.getWidth());

@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +18,7 @@ class YaegerCommandLineParserTest {
         var expected = new YaegerConfig();
 
         // Act
-        var actual = sut.parseToConfig(new String[0]);
+        var actual = sut.parseToConfig(new ArrayList<>());
 
         // Assert
         assertEquals(expected, actual);
@@ -26,7 +28,7 @@ class YaegerCommandLineParserTest {
     void noSplashReturnsCorrectConfig() {
         // Arrange
         var sut = new YaegerCommandLineParser();
-        String[] noSplashArgs = {"--noSplash"};
+        var noSplashArgs = Arrays.asList("--noSplash");
 
         // Act
         var actual = sut.parseToConfig(noSplashArgs);
@@ -39,7 +41,7 @@ class YaegerCommandLineParserTest {
     void helpPrintsHelpScreen() {
         // Arrange
         var sut = new YaegerCommandLineParser();
-        String[] helpArgs = {"--help"};
+        var helpArgs = Arrays.asList("--help");
 
         var ba = new ByteArrayOutputStream();
         System.setOut(new PrintStream(ba));
