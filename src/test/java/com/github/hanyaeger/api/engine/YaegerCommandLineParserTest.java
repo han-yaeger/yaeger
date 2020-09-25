@@ -51,7 +51,7 @@ class YaegerCommandLineParserTest {
 
         // Assert
         String output = new String(ba.toByteArray());
-        output.contains("--noSplash");
-        output.contains("--help");
+        assertTrue(output.contains("--noSplash"));
+        assertTrue(output.contains("--help"));
     }
 }
