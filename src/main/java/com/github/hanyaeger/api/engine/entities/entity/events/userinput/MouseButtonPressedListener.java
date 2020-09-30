@@ -1,7 +1,7 @@
 package com.github.hanyaeger.api.engine.entities.entity.events.userinput;
 
 import com.github.hanyaeger.api.engine.annotations.OnActivation;
-import com.github.hanyaeger.api.engine.entities.entity.NodeProvider;
+import com.github.hanyaeger.api.engine.entities.entity.GameNode;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import javafx.scene.input.MouseButton;
 
@@ -9,7 +9,7 @@ import javafx.scene.input.MouseButton;
  * Being a {@link MouseButtonPressedListener} enables the {@link YaegerEntity} to be notified if a {@link MouseButton} has been clicked
  * while the mouse pointer is on the {@link YaegerEntity}.
  */
-public interface MouseButtonPressedListener extends NodeProvider {
+public interface MouseButtonPressedListener extends GameNode {
 
     /**
      * Called when the corresponding {@link javafx.scene.Node} receives a mouse pressed event.
@@ -25,6 +25,6 @@ public interface MouseButtonPressedListener extends NodeProvider {
      */
     @OnActivation
     default void attachMousePressedListener() {
-        getGameNode().get().setOnMousePressed(event -> onMouseButtonPressed(event.getButton(), event.getX(), event.getY()));
+        getNode().get().setOnMousePressed(event -> onMouseButtonPressed(event.getButton(), event.getX(), event.getY()));
     }
 }

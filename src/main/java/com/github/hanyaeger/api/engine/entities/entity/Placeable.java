@@ -41,7 +41,8 @@ public interface Placeable extends Bounded, Anchorable {
     void setReferenceY(final double y);
 
     /**
-     * Place the {@link YaegerEntity} on the scene at its x,y-coordinate.
+     * Transfer the x and y-coordinate of this {@link YaegerEntity} to its JavaFX {@link javafx.scene.Node}
+     * and apply the requested transformations.
      */
-    void placeOnScene();
+    void transferCoordinatesToNode();
 }

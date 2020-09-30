@@ -53,7 +53,7 @@ class SpriteEntityTest {
         var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
 
         // Act
-        Optional<Node> gameNode = sut.getGameNode();
+        Optional<Node> gameNode = sut.getNode();
 
         // Assert
         Assertions.assertTrue(gameNode.isEmpty());

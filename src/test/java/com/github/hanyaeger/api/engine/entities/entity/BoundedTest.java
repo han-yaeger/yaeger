@@ -30,7 +30,7 @@ class BoundedTest {
     @Test
     void getNonTransformedBoundsReturnsZeroBoundingBoxIfGameNodeIsNotPresent() {
         // Arrange
-        var sut = new EmptyNodeBoundedImpl();
+        var sut = new EmptyGameNodeBoundedImpl();
 
         // Act
         var boundingBox = sut.getNonTransformedBounds();
@@ -56,7 +56,7 @@ class BoundedTest {
     @Test
     void getTransformedBoundsReturnsZeroBoundingBoxIfGameNodeIsNotPresent() {
         // Arrange
-        var sut = new EmptyNodeBoundedImpl();
+        var sut = new EmptyGameNodeBoundedImpl();
 
         // Act
         var boundingBox = sut.getTransformedBounds();
@@ -188,7 +188,7 @@ class BoundedTest {
         private Node node;
 
         @Override
-        public Optional<Node> getGameNode() {
+        public Optional<Node> getNode() {
             return Optional.of(node);
         }
 
@@ -197,10 +197,10 @@ class BoundedTest {
         }
     }
 
-    private class EmptyNodeBoundedImpl implements Bounded {
+    private class EmptyGameNodeBoundedImpl implements Bounded {
 
         @Override
-        public Optional<Node> getGameNode() {
+        public Optional<Node> getNode() {
             return Optional.empty();
         }
     }

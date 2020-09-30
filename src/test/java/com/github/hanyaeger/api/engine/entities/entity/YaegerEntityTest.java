@@ -4,11 +4,12 @@ import com.github.hanyaeger.api.engine.Timer;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.entity.motion.Direction;
 import com.google.inject.Injector;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.BoundingBox;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -100,7 +101,7 @@ class YaegerEntityTest {
         sut.init(injector);
 
         // Act
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Assert
         assertEquals(LOCATION.getX(), sut.getOriginX());
@@ -112,7 +113,7 @@ class YaegerEntityTest {
         sut.init(injector);
 
         // Act
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Assert
         assertEquals(LOCATION.getY(), sut.getOriginY());
@@ -257,6 +258,19 @@ class YaegerEntityTest {
     }
 
     @Test
+    void attachEventListenerDelegatesToNode() {
+        // Arrange
+        var eventType = mock(EventType.class);
+        var eventHandler = mock(EventHandler.class);
+
+        // Act
+        sut.attachEventListener(eventType, eventHandler);
+
+        // Assert
+        verify(node).addEventHandler(eventType, eventHandler);
+    }
+
+    @Test
     void getSceneWidthReturnsSceneWidthFromNode() {
         // Arrange
         when(node.getScene()).thenReturn(scene);
@@ -355,7 +369,7 @@ class YaegerEntityTest {
         var expected = 9d;
         var other = new Coordinate2D(LOCATION.getX(), LOCATION.getY() + expected);
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.distanceTo(other);
@@ -370,7 +384,7 @@ class YaegerEntityTest {
         var expected = 9d;
         var other = new Coordinate2D(LOCATION.getX() + expected, LOCATION.getY());
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.distanceTo(other);
@@ -394,10 +408,10 @@ class YaegerEntityTest {
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
 
         other.init(injector);
-        other.placeOnScene();
+        other.transferCoordinatesToNode();
 
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.distanceTo(other);
@@ -421,10 +435,10 @@ class YaegerEntityTest {
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
 
         other.init(injector);
-        other.placeOnScene();
+        other.transferCoordinatesToNode();
 
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.distanceTo(other);
@@ -450,7 +464,7 @@ class YaegerEntityTest {
         // Arrange
         var expected = 0d;
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.angleTo(LOCATION);
@@ -492,10 +506,10 @@ class YaegerEntityTest {
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
 
         other.init(injector);
-        other.placeOnScene();
+        other.transferCoordinatesToNode();
 
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.angleTo(other);
@@ -519,10 +533,10 @@ class YaegerEntityTest {
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
 
         other.init(injector);
-        other.placeOnScene();
+        other.transferCoordinatesToNode();
 
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.angleTo(other);
@@ -546,10 +560,10 @@ class YaegerEntityTest {
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
 
         other.init(injector);
-        other.placeOnScene();
+        other.transferCoordinatesToNode();
 
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.angleTo(other);
@@ -573,10 +587,10 @@ class YaegerEntityTest {
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
 
         other.init(injector);
-        other.placeOnScene();
+        other.transferCoordinatesToNode();
 
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.angleTo(other);
@@ -600,10 +614,10 @@ class YaegerEntityTest {
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
 
         other.init(injector);
-        other.placeOnScene();
+        other.transferCoordinatesToNode();
 
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.angleTo(other);
@@ -627,10 +641,10 @@ class YaegerEntityTest {
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
 
         other.init(injector);
-        other.placeOnScene();
+        other.transferCoordinatesToNode();
 
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.angleTo(other);
@@ -654,10 +668,10 @@ class YaegerEntityTest {
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
 
         other.init(injector);
-        other.placeOnScene();
+        other.transferCoordinatesToNode();
 
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.angleTo(other);
@@ -681,10 +695,10 @@ class YaegerEntityTest {
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
 
         other.init(injector);
-        other.placeOnScene();
+        other.transferCoordinatesToNode();
 
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.angleTo(other);
@@ -700,7 +714,7 @@ class YaegerEntityTest {
         var above = new Coordinate2D(LOCATION.getX(), LOCATION.getY() - 10);
 
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.angleTo(above);
@@ -716,7 +730,7 @@ class YaegerEntityTest {
         var below = new Coordinate2D(LOCATION.getX(), LOCATION.getY() + 10);
 
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.angleTo(below);
@@ -732,7 +746,7 @@ class YaegerEntityTest {
         var left = new Coordinate2D(LOCATION.getX() - 10, LOCATION.getY());
 
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.angleTo(left);
@@ -748,7 +762,7 @@ class YaegerEntityTest {
         var right = new Coordinate2D(LOCATION.getX() + 10, LOCATION.getY());
 
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.angleTo(right);
@@ -764,7 +778,7 @@ class YaegerEntityTest {
         var leftAbove = new Coordinate2D(LOCATION.getX() - 100, LOCATION.getY() - 100);
 
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.angleTo(leftAbove);
@@ -780,7 +794,7 @@ class YaegerEntityTest {
         var rightAbove = new Coordinate2D(LOCATION.getX() + 10, LOCATION.getY() - 10);
 
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.angleTo(rightAbove);
@@ -796,7 +810,7 @@ class YaegerEntityTest {
         var leftBelow = new Coordinate2D(LOCATION.getX() - 10, LOCATION.getY() + 10);
 
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.angleTo(leftBelow);
@@ -812,7 +826,7 @@ class YaegerEntityTest {
         var rightBelow = new Coordinate2D(LOCATION.getX() + 10, LOCATION.getY() + 10);
 
         sut.init(injector);
-        sut.placeOnScene();
+        sut.transferCoordinatesToNode();
 
         // Act
         var actual = sut.angleTo(rightBelow);
@@ -832,7 +846,7 @@ class YaegerEntityTest {
         }
 
         @Override
-        public Optional<Node> getGameNode() {
+        public Optional<Node> getNode() {
             return node;
         }
 

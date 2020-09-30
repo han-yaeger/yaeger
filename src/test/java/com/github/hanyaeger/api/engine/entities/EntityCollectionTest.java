@@ -5,6 +5,7 @@ import com.github.hanyaeger.api.engine.annotations.AnnotationProcessor;
 import com.github.hanyaeger.api.engine.debug.Debugger;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
+import com.github.hanyaeger.api.engine.entities.entity.events.EventTypes;
 import com.github.hanyaeger.api.engine.entities.entity.events.userinput.KeyListener;
 import com.google.inject.Injector;
 import javafx.collections.ObservableList;
@@ -72,7 +73,7 @@ class EntityCollectionTest {
         // Arrange
         var updatableEntity = mock(UpdatableEntity.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(updatableEntity.getGameNode()).thenReturn(Optional.of(node));
+        when(updatableEntity.getNode()).thenReturn(Optional.of(node));
 
         List<YaegerEntity> updatables = new ArrayList<>();
         updatables.add(updatableEntity);
@@ -99,7 +100,7 @@ class EntityCollectionTest {
         // Arrange
         var keyListeningEntity = mock(KeyListeningEntityImpl.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(keyListeningEntity.getGameNode()).thenReturn(Optional.of(node));
+        when(keyListeningEntity.getNode()).thenReturn(Optional.of(node));
 
         var children = mock(ObservableList.class);
         when(pane.getChildren()).thenReturn(children);
@@ -126,7 +127,7 @@ class EntityCollectionTest {
         // Arrange
         var keyListeningEntity = mock(KeyListeningEntityImpl.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(keyListeningEntity.getGameNode()).thenReturn(Optional.of(node));
+        when(keyListeningEntity.getNode()).thenReturn(Optional.of(node));
 
         var children = mock(ObservableList.class);
         when(pane.getChildren()).thenReturn(children);
@@ -178,7 +179,7 @@ class EntityCollectionTest {
         // Arrange
         var updatableEntity = mock(UpdatableEntity.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(updatableEntity.getGameNode()).thenReturn(Optional.of(node));
+        when(updatableEntity.getNode()).thenReturn(Optional.of(node));
 
         List<YaegerEntity> updatables = new ArrayList<>();
         updatables.add(updatableEntity);
@@ -201,11 +202,38 @@ class EntityCollectionTest {
     }
 
     @Test
+    void attachEventListerIsCalledForEachEntity() {
+        // Arrange
+        var updatableEntity = mock(UpdatableEntity.class);
+        var node = mock(Node.class, withSettings().withoutAnnotations());
+        when(updatableEntity.getNode()).thenReturn(Optional.of(node));
+
+        List<YaegerEntity> updatables = new ArrayList<>();
+        updatables.add(updatableEntity);
+        var supplier = mock(EntitySupplier.class);
+        when(supplier.get()).thenReturn(updatables);
+
+        var children = mock(ObservableList.class);
+        when(pane.getChildren()).thenReturn(children);
+
+        sut = new EntityCollection(pane);
+        sut.setAnnotationProcessor(annotationProcessor);
+        sut.init(injector);
+
+        // Act
+        sut.registerSupplier(supplier);
+        sut.initialUpdate();
+
+        // Assert
+        verify(updatableEntity).attachEventListener(eq(EventTypes.REMOVE), any());
+    }
+
+    @Test
     void activateIsCalledForEachEntity() {
         // Arrange
         var updatableEntity = mock(UpdatableEntity.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(updatableEntity.getGameNode()).thenReturn(Optional.of(node));
+        when(updatableEntity.getNode()).thenReturn(Optional.of(node));
 
         List<YaegerEntity> updatables = new ArrayList<>();
         updatables.add(updatableEntity);
@@ -232,7 +260,7 @@ class EntityCollectionTest {
         // Arrange
         var updatableEntity = mock(UpdatableEntity.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(updatableEntity.getGameNode()).thenReturn(Optional.of(node));
+        when(updatableEntity.getNode()).thenReturn(Optional.of(node));
 
         List<YaegerEntity> updatables = new ArrayList<>();
         updatables.add(updatableEntity);
@@ -251,7 +279,7 @@ class EntityCollectionTest {
         sut.initialUpdate();
 
         // Assert
-        verify(updatableEntity).placeOnScene();
+        verify(updatableEntity).transferCoordinatesToNode();
     }
 
     private abstract class UpdatableEntity extends YaegerEntity implements Updatable {
@@ -292,7 +320,7 @@ class EntityCollectionTest {
         }
 
         @Override
-        public Optional<Node> getGameNode() {
+        public Optional<Node> getNode() {
             return Optional.empty();
         }
     }

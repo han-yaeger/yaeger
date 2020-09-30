@@ -105,7 +105,7 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     }
 
     @Override
-    public Optional<Node> getGameNode() {
+    public Optional<Node> getNode() {
         if (imageView.isPresent()) {
             return Optional.of(imageView.get());
         } else {

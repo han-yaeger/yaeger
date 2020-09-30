@@ -34,7 +34,7 @@ class RemoveableTest {
         }
 
         @Override
-        public Optional<Node> getGameNode() {
+        public Optional<Node> getNode() {
             return node;
         }
 

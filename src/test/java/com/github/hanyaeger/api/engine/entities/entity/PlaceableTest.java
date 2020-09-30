@@ -37,7 +37,7 @@ class PlaceableTest {
         private Node node;
 
         @Override
-        public Optional<Node> getGameNode() {
+        public Optional<Node> getNode() {
             return Optional.of(this.node);
         }
 
@@ -66,7 +66,7 @@ class PlaceableTest {
         }
 
         @Override
-        public void placeOnScene() {
+        public void transferCoordinatesToNode() {
             // Not required here.
         }
     }

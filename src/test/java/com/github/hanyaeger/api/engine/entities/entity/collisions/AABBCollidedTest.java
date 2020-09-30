@@ -133,7 +133,7 @@ public class AABBCollidedTest {
         }
 
         @Override
-        public Optional<Node> getGameNode() {
+        public Optional<Node> getNode() {
             return null;
         }
 
@@ -174,7 +174,7 @@ public class AABBCollidedTest {
         }
 
         @Override
-        public Optional<Node> getGameNode() {
+        public Optional<Node> getNode() {
             return null;
         }
 
@@ -199,7 +199,7 @@ public class AABBCollidedTest {
         }
 
         @Override
-        public void placeOnScene() {
+        public void transferCoordinatesToNode() {
 
         }
 
@@ -225,7 +225,7 @@ public class AABBCollidedTest {
     private class TestCollidable extends TestCollided implements AABBCollider, AABBCollided {
 
         @Override
-        public Optional<Node> getGameNode() {
+        public Optional<Node> getNode() {
             return null;
         }
 
@@ -265,7 +265,7 @@ public class AABBCollidedTest {
         }
 
         @Override
-        public void placeOnScene() {
+        public void transferCoordinatesToNode() {
             // Not required here
         }
 

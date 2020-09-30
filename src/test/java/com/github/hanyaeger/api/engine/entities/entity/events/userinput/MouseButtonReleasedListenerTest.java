@@ -30,7 +30,7 @@ class MouseButtonReleasedListenerTest {
         private Node node;
 
         @Override
-        public Optional<Node> getGameNode() {
+        public Optional<Node> getNode() {
             return Optional.of(node);
         }
 

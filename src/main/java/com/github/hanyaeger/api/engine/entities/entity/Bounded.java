@@ -8,7 +8,7 @@ import javafx.geometry.Bounds;
  * Implementing this interface exposes the {@link Bounded#getNonTransformedBounds()} method, which returns the bounds, aka
  * Bounding Box, of this Entity.
  */
-public interface Bounded extends DimensionsProvider, NodeProvider {
+public interface Bounded extends DimensionsProvider, GameNode {
 
     /**
      * Return the {@link Bounds}, aka Bounding Box after all transformations have been
@@ -17,8 +17,8 @@ public interface Bounded extends DimensionsProvider, NodeProvider {
      * @return The {@link Bounds}.
      */
     default Bounds getTransformedBounds() {
-        if (getGameNode().isPresent()) {
-            return getGameNode().get().getBoundsInParent();
+        if (getNode().isPresent()) {
+            return getNode().get().getBoundsInParent();
         } else {
             return new BoundingBox(0, 0, 0, 0);
         }
@@ -30,8 +30,8 @@ public interface Bounded extends DimensionsProvider, NodeProvider {
      * @return The {@link Bounds}.
      */
     default Bounds getNonTransformedBounds() {
-        if (getGameNode().isPresent()) {
-            return getGameNode().get().getBoundsInLocal();
+        if (getNode().isPresent()) {
+            return getNode().get().getBoundsInLocal();
         } else {
             return new BoundingBox(0, 0, 0, 0);
         }

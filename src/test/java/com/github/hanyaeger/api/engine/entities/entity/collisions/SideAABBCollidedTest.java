@@ -133,7 +133,7 @@ class SideAABBCollidedTest {
         }
 
         @Override
-        public Optional<Node> getGameNode() {
+        public Optional<Node> getNode() {
             return null;
         }
 
@@ -175,7 +175,7 @@ class SideAABBCollidedTest {
         }
 
         @Override
-        public Optional<Node> getGameNode() {
+        public Optional<Node> getNode() {
             return null;
         }
 
@@ -213,7 +213,7 @@ class SideAABBCollidedTest {
         }
 
         @Override
-        public void placeOnScene() {
+        public void transferCoordinatesToNode() {
             // Not required here
         }
 

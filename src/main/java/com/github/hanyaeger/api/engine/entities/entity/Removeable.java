@@ -6,7 +6,7 @@ import com.github.hanyaeger.api.engine.entities.entity.events.system.RemoveEntit
  * A {@code Removeable} denotes an {@code Object}, most likely an {@link YaegerEntity}, that is eligible for
  * removance from its parent.
  */
-public interface Removeable extends NodeProvider {
+public interface Removeable extends GameNode {
 
     /**
      * Perform all necessary actions to remove the entity.
@@ -19,6 +19,6 @@ public interface Removeable extends NodeProvider {
      */
     default void notifyRemove() {
         var removeEvent = new RemoveEntityEvent(this);
-        getGameNode().ifPresent(node -> node.fireEvent(removeEvent));
+        getNode().ifPresent(node -> node.fireEvent(removeEvent));
     }
 }

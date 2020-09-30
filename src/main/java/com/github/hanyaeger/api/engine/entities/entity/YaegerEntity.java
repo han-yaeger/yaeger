@@ -6,6 +6,8 @@ import com.github.hanyaeger.api.engine.Timer;
 import com.github.hanyaeger.api.engine.TimerListProvider;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.google.inject.Injector;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -17,7 +19,7 @@ import java.util.List;
  * A {@link YaegerEntity} is the base class for all things that can be drawn on a
  * {@link com.github.hanyaeger.api.engine.scenes.YaegerScene}.
  */
-public abstract class YaegerEntity implements Initializable, Activatable, TimerListProvider, Bounded, Removeable, Placeable, SceneChild, NodeProvider, Rotatable {
+public abstract class YaegerEntity implements Initializable, Activatable, TimerListProvider, Bounded, Removeable, Placeable, SceneChild, GameNode, Rotatable, EventInitiator {
 
     protected double x;
     protected double y;
@@ -45,7 +47,7 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
      * @param cursor The {@link Cursor} to be shown.
      */
     public void setCursor(final Cursor cursor) {
-        getGameNode().ifPresentOrElse(node -> {
+        getNode().ifPresentOrElse(node -> {
             node.getScene().setCursor(cursor);
         }, () -> this.cursor = cursor);
     }
@@ -58,7 +60,7 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
      * @param visible A {@code boolean} repesenting the visibility if the {@link YaegerEntity}.
      */
     public void setVisible(final boolean visible) {
-        getGameNode().ifPresentOrElse(node -> {
+        getNode().ifPresentOrElse(node -> {
             node.setVisible(visible);
         }, () -> this.visible = visible);
     }
@@ -74,7 +76,7 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
      * @param opacity A {@code double} between 0 and 1.
      */
     public void setOpacity(final double opacity) {
-        getGameNode().ifPresentOrElse(node -> {
+        getNode().ifPresentOrElse(node -> {
             node.setOpacity(opacity);
         }, () -> this.opacity = opacity);
     }
@@ -231,12 +233,13 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
 
     @Override
     public void activate() {
+        // TODO See #104
         setCursor(cursor);
     }
 
     @Override
     public void setAnchorPoint(AnchorPoint anchorPoint) {
-        getGameNode().ifPresentOrElse(node -> {
+        getNode().ifPresentOrElse(node -> {
                     applyTranslationsForAnchorPoint(node, anchorPoint);
                 }, () ->
                         this.anchorPoint = anchorPoint
@@ -245,7 +248,7 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
 
     @Override
     public void remove() {
-        getGameNode().ifPresent(node -> {
+        getNode().ifPresent(node -> {
             node.setVisible(false);
             notifyRemove();
         });
@@ -262,11 +265,16 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
     }
 
     @Override
-    public void placeOnScene() {
-        getGameNode().ifPresent(node -> {
+    public void transferCoordinatesToNode() {
+        getNode().ifPresent(node -> {
             setReferenceX(x);
             setReferenceY(y);
             applyTranslationsForAnchorPoint(node, anchorPoint);
         });
+    }
+
+    @Override
+    public void attachEventListener(final EventType eventType, final EventHandler eventHandler) {
+        getNode().ifPresent(node -> node.addEventHandler(eventType, eventHandler));
     }
 }

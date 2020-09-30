@@ -244,7 +244,7 @@ class SceneBorderTouchingWatcherTest {
         }
 
         @Override
-        public Optional<Node> getGameNode() {
+        public Optional<Node> getNode() {
             return Optional.of(gameNode);
         }
 
@@ -273,7 +273,7 @@ class SceneBorderTouchingWatcherTest {
         }
 
         @Override
-        public void placeOnScene() {
+        public void transferCoordinatesToNode() {
 
         }
 

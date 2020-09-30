@@ -118,7 +118,7 @@ class BufferedMoveableTest {
         }
 
         @Override
-        public Optional<Node> getGameNode() {
+        public Optional<Node> getNode() {
             return null;
         }
 
@@ -147,7 +147,7 @@ class BufferedMoveableTest {
         }
 
         @Override
-        public void placeOnScene() {
+        public void transferCoordinatesToNode() {
 
         }
     }

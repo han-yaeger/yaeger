@@ -187,7 +187,7 @@ class MoveableTest {
         }
 
         @Override
-        public Optional<Node> getGameNode() {
+        public Optional<Node> getNode() {
             return Optional.of(node);
         }
 
@@ -216,7 +216,7 @@ class MoveableTest {
         }
 
         @Override
-        public void placeOnScene() {
+        public void transferCoordinatesToNode() {
 
         }
     }

@@ -187,7 +187,7 @@ public class EntityCollection implements Initializable {
     }
 
     private void removeGameObject(final Removeable entity) {
-        this.pane.getChildren().remove(entity.getGameNode());
+        this.pane.getChildren().remove(entity.getNode());
         this.collisionDelegate.remove(entity);
     }
 
@@ -202,11 +202,11 @@ public class EntityCollection implements Initializable {
 
         addToKeylisteners(entity);
         entity.addToEntityCollection(this);
-        attachGameEventListeners(entity);
+        entity.attachEventListener(EventTypes.REMOVE, event -> markAsGarbage((Removeable) event.getSource()));
         collisionDelegate.register(entity);
 
-        entity.placeOnScene();
-        addToScene(entity);
+        entity.transferCoordinatesToNode();
+        addToParent(entity);
         entity.activate();
     }
 
@@ -243,12 +243,8 @@ public class EntityCollection implements Initializable {
         }
     }
 
-    private void addToScene(final YaegerEntity entity) {
-        this.pane.getChildren().add(entity.getGameNode().get());
-    }
-
-    private void attachGameEventListeners(final YaegerEntity entity) {
-        entity.getGameNode().ifPresent(node -> node.addEventHandler(EventTypes.REMOVE, event -> markAsGarbage(event.getSource())));
+    private void addToParent(final YaegerEntity entity) {
+        this.pane.getChildren().add(entity.getNode().get());
     }
 
     private void updateStatistics() {
