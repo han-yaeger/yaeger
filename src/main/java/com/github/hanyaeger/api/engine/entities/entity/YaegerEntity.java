@@ -5,6 +5,7 @@ import com.github.hanyaeger.api.engine.Initializable;
 import com.github.hanyaeger.api.engine.Timer;
 import com.github.hanyaeger.api.engine.TimerListProvider;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
+import com.github.hanyaeger.api.engine.entities.EntityProcessor;
 import com.google.inject.Injector;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -276,5 +277,29 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
     @Override
     public void attachEventListener(final EventType eventType, final EventHandler eventHandler) {
         getNode().ifPresent(node -> node.addEventHandler(eventType, eventHandler));
+    }
+
+    /**
+     * TODO unittest
+     * Apply an {@link EntityProcessor} to this {@link YaegerEntity}. An {@link EntityProcessor} is most
+     * likely a lambda expression passed by a parent object.
+     *
+     * @param processor An instance of {@link EntityProcessor}, most likely a lambda expression that should
+     *                  be called for processing this {@link YaegerEntity}.
+     */
+    public void applyEntityProcessor(final EntityProcessor processor) {
+        processor.process(this);
+    }
+
+    /**
+     * TODO document and unittest
+     * The {@link Node} encapsulated by this {@link YaegerEntity} should be added to a parent {@link Node}
+     *
+     *
+     * @param processor An instance of {@link EntityProcessor}, most likely a lambda expression that can be
+     *                  used for adding this node as a child to a parent node.
+     */
+    public void addToParent(final EntityProcessor processor) {
+        processor.process(this);
     }
 }

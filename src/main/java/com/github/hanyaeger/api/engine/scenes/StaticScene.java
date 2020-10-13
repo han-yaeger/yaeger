@@ -88,16 +88,16 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     }
 
     /**
-     * Add an {@link YaegerEntity} to this {@link YaegerScene}. An {@link YaegerEntity} can only be added once.
+     * Add an {@link YaegerEntity} to this {@link YaegerScene}.
      * <p>
      * This method can only be used to add an instance of {@link YaegerEntity} during initialisation.If
      * one should be added during the game, a {@link EntitySpawner} should be used.
      * </p>
      *
-     * @param entity the {@link YaegerEntity} to be added
+     * @param yaegerEntity The {@link YaegerEntity} to be added.
      */
-    protected void addEntity(final YaegerEntity entity) {
-        entitySupplier.add(entity);
+    protected void addEntity(final YaegerEntity yaegerEntity) {
+        entitySupplier.add(yaegerEntity);
     }
 
     @Override

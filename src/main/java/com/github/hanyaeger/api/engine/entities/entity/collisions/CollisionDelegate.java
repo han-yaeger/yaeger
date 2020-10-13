@@ -3,23 +3,25 @@ package com.github.hanyaeger.api.engine.entities.entity.collisions;
 import com.github.hanyaeger.api.engine.entities.entity.Removeable;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
- * A CollisionDelegate handles all behavior related to Object collisions.
+ * A {@link CollisionDelegate} handles all behavior related to Object collisions.
  */
 public class CollisionDelegate {
 
-    private Set<AABBCollided> collideds;
-    private Set<AABBCollider> AABBColliders;
+    private List<AABBCollided> collideds;
+    private List<AABBCollider> colliders;
 
     /**
      * Create a new CollisionDelegate.
      */
     public CollisionDelegate() {
-        collideds = new HashSet<>();
-        AABBColliders = new HashSet<>();
+        collideds = new ArrayList<>();
+        colliders = new ArrayList<>();
     }
 
     /**
@@ -43,7 +45,7 @@ public class CollisionDelegate {
      * @param AABBCollider the {@link AABBCollider} that should be registered
      */
     public void register(AABBCollider AABBCollider) {
-        AABBColliders.add(AABBCollider);
+        colliders.add(AABBCollider);
     }
 
     /**
@@ -73,11 +75,11 @@ public class CollisionDelegate {
      * Check for collisions. Each {@link AABBCollided} is asked to check for collisions.
      */
     public void checkCollisions() {
-        collideds.forEach(collided -> collided.checkForCollisions(AABBColliders));
+        collideds.forEach(collided -> collided.checkForCollisions(colliders));
     }
 
     private void removeCollider(AABBCollider AABBCollider) {
-        AABBColliders.remove(AABBCollider);
+        colliders.remove(AABBCollider);
     }
 
     private void removeCollided(AABBCollided collided) {

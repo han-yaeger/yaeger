@@ -12,7 +12,12 @@ import com.google.inject.Injector;
 public interface Activatable {
 
     /**
-     * Lifecycle method used to perform activation of this Game Object.
+     * Lifecycle method used to perform activation of this Game Object. By default this method is empty, so it should
+     * be implemented by the Game Object, if desired.
+     * be implemented by the Game Object, if desired.
      */
-    void activate();
+    default void activate() {
+    }
+
+
 }

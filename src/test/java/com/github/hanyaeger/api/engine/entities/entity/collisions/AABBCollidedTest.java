@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -46,7 +47,7 @@ public class AABBCollidedTest {
     @Test
     void testNoCollidersGivesNoCollisions() {
         // Arrange
-        Set<AABBCollider> emptySet = Set.of();
+        List<AABBCollider> emptySet = List.of();
 
         // Act
         sut.checkForCollisions(emptySet);
@@ -64,7 +65,7 @@ public class AABBCollidedTest {
         when(motionApplier.getSpeed()).thenReturn(0d);
         when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(new Point2D(0, 0)));
 
-        Set<AABBCollider> testAABBColliders = Set.of(trivialCollider);
+        List<AABBCollider> testAABBColliders = List.of(trivialCollider);
 
         // Act
         sut.checkForCollisions(testAABBColliders);
@@ -85,7 +86,7 @@ public class AABBCollidedTest {
         when(motionApplier.getSpeed()).thenReturn(0d);
         when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(new Point2D(previousX, previousY)));
 
-        Set<AABBCollider> testAABBColliders = Set.of(trivialCollider);
+        List<AABBCollider> testAABBColliders = List.of(trivialCollider);
 
         // Act
         sut.checkForCollisions(testAABBColliders);
@@ -101,7 +102,7 @@ public class AABBCollidedTest {
         var noCollisionCollider = new CollidingAABBCollider();
         noCollisionCollider.setBounds(TEST_NOT_COLLIDING_BOUNDINGBOX);
 
-        Set<AABBCollider> testAABBColliders = Set.of(noCollisionCollider);
+        List<AABBCollider> testAABBColliders = List.of(noCollisionCollider);
 
         // Act
         sut.checkForCollisions(testAABBColliders);
@@ -113,8 +114,8 @@ public class AABBCollidedTest {
     @Test
     void tesCollisionWithSelfReportsNoCollision() {
         // Arrange
-        TestCollidable collidables = new TestCollidable();
-        Set<AABBCollider> testAABBColliders = Set.of(collidables);
+        var collidables = new TestCollidable();
+        List<AABBCollider> testAABBColliders = List.of(collidables);
 
         // Act
         collidables.checkForCollisions(testAABBColliders);

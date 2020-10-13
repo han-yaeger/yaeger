@@ -199,14 +199,24 @@ public class EntityCollection implements Initializable {
 
     private void addToGameLoop(final YaegerEntity entity) {
         initialize(entity);
+        entity.afterInit();
 
-        addToKeylisteners(entity);
         entity.addToEntityCollection(this);
         entity.attachEventListener(EventTypes.REMOVE, event -> markAsGarbage((Removeable) event.getSource()));
-        collisionDelegate.register(entity);
-
         entity.transferCoordinatesToNode();
-        addToParent(entity);
+
+        // TODO test en document this
+        // addToKeylisteners(entity);
+        entity.applyEntityProcessor(yaegerEntity -> registerKeylistener(yaegerEntity));
+
+        // TODO test en document this
+        // collisionDelegate.register(entity);
+        entity.applyEntityProcessor(yaegerEntity -> collisionDelegate.register(yaegerEntity));
+
+        // TODO test en document this
+        // addToParent(entity);
+        entity.addToParent(yaegerEntity -> addToParentNode(yaegerEntity));
+
         entity.activate();
     }
 
@@ -223,7 +233,7 @@ public class EntityCollection implements Initializable {
      * @param dynamicEntity A Dynamic Entity, being an Entity that implements the interface
      *                      {@link Updatable}.
      */
-    public void addDynamicEntity(Updatable dynamicEntity) {
+    public void addDynamicEntity(final Updatable dynamicEntity) {
         annotationProcessor.configureUpdateDelegators(dynamicEntity);
         updatables.add(dynamicEntity);
     }
@@ -237,13 +247,13 @@ public class EntityCollection implements Initializable {
         statics.add(staticEntity);
     }
 
-    private void addToKeylisteners(final YaegerEntity entity) {
+    private void registerKeylistener(final YaegerEntity entity) {
         if (entity instanceof KeyListener) {
             registerKeyListener((KeyListener) entity);
         }
     }
 
-    private void addToParent(final YaegerEntity entity) {
+    private void addToParentNode(final YaegerEntity entity) {
         this.pane.getChildren().add(entity.getNode().get());
     }
 
@@ -261,7 +271,7 @@ public class EntityCollection implements Initializable {
     }
 
     @Inject
-    public void setAnnotationProcessor(AnnotationProcessor annotationProcessor) {
+    public void setAnnotationProcessor(final AnnotationProcessor annotationProcessor) {
         this.annotationProcessor = annotationProcessor;
     }
 }

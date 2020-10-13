@@ -6,6 +6,7 @@ import com.github.hanyaeger.api.engine.entities.entity.Bounded;
 import com.github.hanyaeger.api.engine.entities.entity.motion.Moveable;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -47,7 +48,7 @@ public interface AABBCollided extends Bounded, Moveable {
      *
      * @param AABBColliders A {@link Set} of colliders that should be checked for collisions.
      */
-    default void checkForCollisions(Set<AABBCollider> AABBColliders) {
+    default void checkForCollisions(List<AABBCollider> AABBColliders) {
         if (AABBColliders == null || AABBColliders.isEmpty()) {
             return;
         }

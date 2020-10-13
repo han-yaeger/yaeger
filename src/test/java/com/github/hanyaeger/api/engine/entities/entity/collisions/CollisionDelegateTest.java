@@ -32,13 +32,13 @@ class CollisionDelegateTest {
     @Test
     void onlyCollidedGetsCollisionCheck() {
         // Arrange
-        AABBCollided collided = mock(AABBCollided.class);
-        AABBCollider AABBCollider = mock(AABBCollider.class);
+        var collided = mock(AABBCollided.class);
+        var AABBCollider = mock(AABBCollider.class);
 
         collisionDelegate.register(collided);
         collisionDelegate.register(AABBCollider);
 
-        ArgumentCaptor<Set> argument = ArgumentCaptor.forClass(Set.class);
+        ArgumentCaptor<List> argument = ArgumentCaptor.forClass(List.class);
 
         // Act
         collisionDelegate.checkCollisions();
@@ -57,7 +57,7 @@ class CollisionDelegateTest {
         collisionDelegate.register(collidedEntity);
         collisionDelegate.register(colliderEntity);
 
-        ArgumentCaptor<Set> argument = ArgumentCaptor.forClass(Set.class);
+        ArgumentCaptor<List> argument = ArgumentCaptor.forClass(List.class);
 
         // Act
         collisionDelegate.checkCollisions();
@@ -93,7 +93,7 @@ class CollisionDelegateTest {
         collisionDelegate.register(collidedEntity);
         collisionDelegate.register(colliderEntity);
 
-        ArgumentCaptor<Set> argument = ArgumentCaptor.forClass(Set.class);
+        ArgumentCaptor<List> argument = ArgumentCaptor.forClass(List.class);
 
         // Act
         collisionDelegate.remove(colliderEntity);

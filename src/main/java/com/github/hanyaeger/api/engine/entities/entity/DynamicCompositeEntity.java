@@ -1,11 +1,8 @@
-package com.github.hanyaeger.api.engine.entities.entity.shape.circle;
+package com.github.hanyaeger.api.engine.entities.entity;
 
-import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.UpdateDelegator;
 import com.github.hanyaeger.api.engine.Updater;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
-import com.github.hanyaeger.api.engine.entities.entity.ContinuousRotatable;
-import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.motion.BufferedMoveable;
 import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
 import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBuffer;
@@ -16,22 +13,28 @@ import com.google.inject.Injector;
 import java.util.Optional;
 
 /**
- * An {@link DynamicCircleEntity} extends all behaviour of a {@link CircleEntity}, but also implements the
- * {@link Updatable} Interface.
+ * When a group of Entities are combined to create a single Entity, they are
+ * a composition and this class should be used to perform that composition.
+ * <p>
+ * It is possible to add instances of {@link YaegerEntity} to this {@link DynamicCompositeEntity},
+ * which ensures their behavior is managed by this {@link DynamicCompositeEntity}. They are still
+ * part of the {@link com.github.hanyaeger.api.engine.scenes.YaegerScene} as any other
+ * {@link YaegerEntity}, but are managed as a whole.
+ * </p>
+ * <p>
+ * Since the child Entities are part of this {@link DynamicCompositeEntity}, their event listeners will
+ * only be called if their parent {@link DynamicCompositeEntity} implements the correct interfaces. The
+ * such a case, the parent will be called first, after which it will direct the event to its children.
+ * </p>
  */
-public abstract class DynamicCircleEntity extends CircleEntity implements UpdateDelegator, BufferedMoveable, ContinuousRotatable {
+public abstract class DynamicCompositeEntity extends CompositeEntity implements UpdateDelegator, BufferedMoveable, ContinuousRotatable {
 
     private DefaultMotionApplier motionApplier;
     private Updater updater;
     private Optional<EntityMotionInitBuffer> buffer;
     private double rotationAngle;
 
-    /**
-     * Create a new {@link DynamicCircleEntity} on the given {@code initialPosition}.
-     *
-     * @param initialLocation The initial position at which this {@link DynamicCircleEntity} should be placed
-     */
-    public DynamicCircleEntity(final Coordinate2D initialLocation) {
+    public DynamicCompositeEntity(final Coordinate2D initialLocation) {
         super(initialLocation);
 
         buffer = Optional.of(new EntityMotionInitBuffer());
@@ -56,6 +59,23 @@ public abstract class DynamicCircleEntity extends CircleEntity implements Update
             entityMotionInitBuffer.init(injector);
         });
         buffer = Optional.empty();
+    }
+
+    @Override
+    public void update(long timestamp) {
+        collectGarbage();
+        getUpdater().update(timestamp);
+    }
+
+    private void collectGarbage() {
+        if (garbage.isEmpty()) {
+            return;
+        }
+
+        group.ifPresent(groupNode -> garbage.forEach(yaegerEntity -> groupNode.getChildren().remove(yaegerEntity.getNode())));
+        ;
+        entities.removeAll(garbage);
+        garbage.clear();
     }
 
     @Override

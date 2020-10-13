@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -37,7 +38,7 @@ class SideAABBCollidedTest {
         var noCollisionCollider = new CollidingAABBCollider();
         noCollisionCollider.setBounds(TEST_COLLIDED_BODY_BOUNDINGBOX);
 
-        Set<AABBCollider> testAABBColliders = Set.of(noCollisionCollider);
+        List<AABBCollider> testAABBColliders = List.of(noCollisionCollider);
 
         // Act
         sut.checkForCollisions(testAABBColliders);
@@ -54,7 +55,7 @@ class SideAABBCollidedTest {
         var bottomCollisionCollider = new CollidingAABBCollider();
         bottomCollisionCollider.setBounds(TEST_COLLIDED_BOTTOM_BOUNDINGBOX);
 
-        Set<AABBCollider> testAABBColliders = Set.of(noCollisionCollider, bottomCollisionCollider);
+        List<AABBCollider> testAABBColliders = List.of(noCollisionCollider, bottomCollisionCollider);
 
         // Act
         sut.checkForCollisions(testAABBColliders);
@@ -72,7 +73,7 @@ class SideAABBCollidedTest {
         var topCollisionCollider = new CollidingAABBCollider();
         topCollisionCollider.setBounds(TEST_COLLIDED_TOP_BOUNDINGBOX);
 
-        Set<AABBCollider> testAABBColliders = Set.of(noCollisionCollider, topCollisionCollider);
+        List<AABBCollider> testAABBColliders = List.of(noCollisionCollider, topCollisionCollider);
 
         // Act
         sut.checkForCollisions(testAABBColliders);
@@ -90,7 +91,7 @@ class SideAABBCollidedTest {
         var leftCollisionCollider = new CollidingAABBCollider();
         leftCollisionCollider.setBounds(TEST_COLLIDED_LEFT_BOUNDINGBOX);
 
-        Set<AABBCollider> testAABBColliders = Set.of(noCollisionCollider, leftCollisionCollider);
+        List<AABBCollider> testAABBColliders = List.of(noCollisionCollider, leftCollisionCollider);
 
         // Act
         sut.checkForCollisions(testAABBColliders);
@@ -108,7 +109,7 @@ class SideAABBCollidedTest {
         var rightCollisionCollider = new CollidingAABBCollider();
         rightCollisionCollider.setBounds(TEST_COLLIDED_RIGHT_BOUNDINGBOX);
 
-        Set<AABBCollider> testAABBColliders = Set.of(noCollisionCollider, rightCollisionCollider);
+        List<AABBCollider> testAABBColliders = List.of(noCollisionCollider, rightCollisionCollider);
 
         // Act
         sut.checkForCollisions(testAABBColliders);
