@@ -9,7 +9,7 @@
 [![Generic badge](https://img.shields.io/badge/Java-14-purple.svg)](https://shields.io/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-Yaeger (Yet Another Education Game Engine Runtime) is a fully functional 2D game-engine that 
+Yaeger is Another Education Game Engine Runtime and a fully functional 2D game-engine that 
 requires only a traditional Object Oriented style of programming. It is based on JavaFX and 
 requires Java 14 or above to work.
 
