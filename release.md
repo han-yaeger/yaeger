@@ -9,3 +9,4 @@
   `-noSplash` is support, which skips the Splash Screen during startup (#112)
 
 ### Bugfixes
+- (#120) Fixed Yaeger ignoring calling setRotation() on an Entity, before init() was called.
