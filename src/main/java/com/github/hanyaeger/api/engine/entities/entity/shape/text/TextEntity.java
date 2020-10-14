@@ -1,6 +1,7 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape.text;
 
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
+import com.github.hanyaeger.api.engine.entities.entity.motion.RotationBuffer;
 import com.github.hanyaeger.api.engine.entities.entity.shape.ShapeEntity;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
 import com.google.inject.Injector;

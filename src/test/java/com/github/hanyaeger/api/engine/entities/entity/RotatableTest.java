@@ -1,5 +1,7 @@
 package com.github.hanyaeger.api.engine.entities.entity;
 
+import com.github.hanyaeger.api.engine.entities.entity.motion.Rotatable;
+import com.github.hanyaeger.api.engine.entities.entity.motion.RotationBuffer;
 import javafx.scene.Node;
 import org.junit.jupiter.api.Test;
 
@@ -25,17 +27,45 @@ class RotatableTest {
         verify(node).setRotate(-DEGREES);
     }
 
+    @Test
+    void setRotateDelegatesToRotationBufferIfNodeNotAvailable() {
+        // Arrange
+        var sut = new RotatableImpl();
+        var rotationBuffer = mock(RotationBuffer.class);
+        sut.setRotationBuffer(rotationBuffer);
+
+        // Act
+        sut.setRotate(DEGREES);
+
+        // Assert
+        verify(rotationBuffer).setRotation(DEGREES);
+    }
+
     private class RotatableImpl implements Rotatable {
 
         private Node node;
+        private RotationBuffer rotationBuffer;
 
         @Override
         public Optional<Node> getNode() {
-            return Optional.of(node);
+            if (node != null) {
+                return Optional.of(node);
+            } else {
+                return Optional.empty();
+            }
         }
 
         public void setNode(Node node) {
             this.node = node;
+        }
+
+        @Override
+        public RotationBuffer getRotationBuffer() {
+            return rotationBuffer;
+        }
+
+        public void setRotationBuffer(RotationBuffer rotationBuffer) {
+            this.rotationBuffer = rotationBuffer;
         }
     }
 

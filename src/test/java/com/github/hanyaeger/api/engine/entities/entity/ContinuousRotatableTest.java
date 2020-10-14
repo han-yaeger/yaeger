@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity;
 
+import com.github.hanyaeger.api.engine.entities.entity.motion.RotationBuffer;
 import javafx.scene.Node;
 import org.junit.jupiter.api.Test;
 
@@ -51,6 +52,11 @@ class ContinuousRotatableTest {
         @Override
         public void setRotationSpeed(double rotationAngle) {
             this.rotationAngle = rotationAngle;
+        }
+
+        @Override
+        public RotationBuffer getRotationBuffer() {
+            return null;
         }
     }
 }

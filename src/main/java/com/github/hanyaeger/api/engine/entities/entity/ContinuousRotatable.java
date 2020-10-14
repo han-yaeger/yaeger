@@ -2,6 +2,7 @@ package com.github.hanyaeger.api.engine.entities.entity;
 
 import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.annotations.UpdatableProvider;
+import com.github.hanyaeger.api.engine.entities.entity.motion.Rotatable;
 
 /**
  * When implementing this Interface, a {@link YaegerEntity} will acquire the behaviour to

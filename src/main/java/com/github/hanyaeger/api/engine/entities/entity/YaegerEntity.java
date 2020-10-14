@@ -6,6 +6,8 @@ import com.github.hanyaeger.api.engine.Timer;
 import com.github.hanyaeger.api.engine.TimerListProvider;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.EntityProcessor;
+import com.github.hanyaeger.api.engine.entities.entity.motion.Rotatable;
+import com.github.hanyaeger.api.engine.entities.entity.motion.RotationBuffer;
 import com.google.inject.Injector;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -29,6 +31,7 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
     private Cursor cursor = Cursor.DEFAULT;
     private List<Timer> timers = new ArrayList<>();
     private AnchorPoint anchorPoint;
+    private RotationBuffer rotationBuffer;
 
     /**
      * Instantiate a new {@link YaegerEntity} on the given {@link Coordinate2D}.
@@ -39,6 +42,7 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
         this.x = initialLocation.getX();
         this.y = initialLocation.getY();
         this.anchorPoint = AnchorPoint.TOP_LEFT;
+        this.rotationBuffer = new RotationBuffer();
     }
 
     /**
@@ -230,6 +234,7 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
     public void init(final Injector injector) {
         setVisible(visible);
         setOpacity(opacity);
+        setRotate(getRotationBuffer().getRotation());
     }
 
     @Override
@@ -295,11 +300,15 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
      * TODO document and unittest
      * The {@link Node} encapsulated by this {@link YaegerEntity} should be added to a parent {@link Node}
      *
-     *
      * @param processor An instance of {@link EntityProcessor}, most likely a lambda expression that can be
      *                  used for adding this node as a child to a parent node.
      */
     public void addToParent(final EntityProcessor processor) {
         processor.process(this);
+    }
+
+    @Override
+    public RotationBuffer getRotationBuffer() {
+        return rotationBuffer;
     }
 }

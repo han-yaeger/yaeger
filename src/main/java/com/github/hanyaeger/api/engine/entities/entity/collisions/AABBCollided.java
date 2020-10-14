@@ -1,6 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.collisions;
 
-import com.github.hanyaeger.api.engine.entities.entity.Rotatable;
+import com.github.hanyaeger.api.engine.entities.entity.motion.Rotatable;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import com.github.hanyaeger.api.engine.entities.entity.Bounded;
 import com.github.hanyaeger.api.engine.entities.entity.motion.Moveable;
