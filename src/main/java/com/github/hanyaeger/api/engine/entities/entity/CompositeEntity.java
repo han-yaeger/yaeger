@@ -152,9 +152,6 @@ public abstract class CompositeEntity extends YaegerEntity {
         entities.forEach(yaegerEntity -> yaegerEntity.transferCoordinatesToNode());
 
         super.transferCoordinatesToNode();
-
-        System.out.println("Width/Height: " + getWidth() + "px/" + getHeight() + "px");
-        System.out.println("Location: (" + getLeftX() + "," + getTopY() + ")");
     }
 
     private void handleEvent(final EventHandler eventHandler, final Event event, final YaegerEntity yaegerEntity) {
