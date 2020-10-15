@@ -58,6 +58,12 @@ public abstract class CompositeEntity extends YaegerEntity {
         entities.add(yaegerEntity);
     }
 
+    /**
+     * Implement this method to setup all instances of {@link YaegerEntity} that should
+     * be added to the {@link CompositeEntity} before activation.
+     */
+    protected abstract void setupEntities();
+
     @Override
     public void init(final Injector injector) {
         super.init(injector);
@@ -95,12 +101,6 @@ public abstract class CompositeEntity extends YaegerEntity {
 
         group.ifPresent(groupNode -> entities.forEach(entity -> groupNode.getChildren().add(entity.getNode().get())));
     }
-
-    /**
-     * Implement this method to setup all instances of {@link YaegerEntity} that should
-     * be added to the {@link CompositeEntity} before activation.
-     */
-    protected abstract void setupEntities();
 
     @Override
     public void setReferenceX(final double x) {
@@ -142,14 +142,6 @@ public abstract class CompositeEntity extends YaegerEntity {
         );
     }
 
-    private void handleEvent(final EventHandler eventHandler, final Event event, final YaegerEntity yaegerEntity) {
-        eventHandler.handle(event);
-
-        if (event.getEventType().equals(EventTypes.REMOVE)) {
-            garbage.add(yaegerEntity);
-        }
-    }
-
     /**
      * Because the {@link Group} encapsulates the child nodes and its {@link javafx.geometry.BoundingBox}
      * depends on the space and location of those child nodes, first the child nodes receive their coordinates
@@ -160,5 +152,16 @@ public abstract class CompositeEntity extends YaegerEntity {
         entities.forEach(yaegerEntity -> yaegerEntity.transferCoordinatesToNode());
 
         super.transferCoordinatesToNode();
+
+        System.out.println("Width/Height: " + getWidth() + "px/" + getHeight() + "px");
+        System.out.println("Location: (" + getLeftX() + "," + getTopY() + ")");
+    }
+
+    private void handleEvent(final EventHandler eventHandler, final Event event, final YaegerEntity yaegerEntity) {
+        eventHandler.handle(event);
+
+        if (event.getEventType().equals(EventTypes.REMOVE)) {
+            garbage.add(yaegerEntity);
+        }
     }
 }

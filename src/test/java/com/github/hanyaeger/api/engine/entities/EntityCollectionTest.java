@@ -10,6 +10,7 @@ import com.github.hanyaeger.api.engine.entities.entity.events.userinput.KeyListe
 import com.google.inject.Injector;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import org.junit.jupiter.api.Assertions;
@@ -19,6 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class EntityCollectionTest {
@@ -46,11 +48,11 @@ class EntityCollectionTest {
         sut.setAnnotationProcessor(annotationProcessor);
 
         // Assert
-        Assertions.assertEquals(0, sut.getStatistics().getStatics());
-        Assertions.assertEquals(0, sut.getStatistics().getUpdatables());
-        Assertions.assertEquals(0, sut.getStatistics().getGarbage());
-        Assertions.assertEquals(0, sut.getStatistics().getKeyListeners());
-        Assertions.assertEquals(0, sut.getStatistics().getSuppliers());
+        assertEquals(0, sut.getStatistics().getStatics());
+        assertEquals(0, sut.getStatistics().getUpdatables());
+        assertEquals(0, sut.getStatistics().getGarbage());
+        assertEquals(0, sut.getStatistics().getKeyListeners());
+        assertEquals(0, sut.getStatistics().getSuppliers());
     }
 
     @Test
@@ -98,9 +100,11 @@ class EntityCollectionTest {
     @Test
     void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsEmpty() {
         // Arrange
-        var keyListeningEntity = mock(KeyListeningEntityImpl.class);
+        var keyListeningEntity = new KeyListeningEntityImpl(new Coordinate2D(0, 0));
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(keyListeningEntity.getNode()).thenReturn(Optional.of(node));
+        keyListeningEntity.setNode(node);
+        var scene = mock(Scene.class);
+        when(node.getScene()).thenReturn(scene);
 
         var children = mock(ObservableList.class);
         when(pane.getChildren()).thenReturn(children);
@@ -119,15 +123,17 @@ class EntityCollectionTest {
         sut.notifyGameObjectsOfPressedKeys(keycodes);
 
         // Assert
-        verify(keyListeningEntity).onPressedKeysChange(keycodes);
+        assertEquals(keycodes, keyListeningEntity.getPressedKeys());
     }
 
     @Test
     void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsFilled() {
         // Arrange
-        var keyListeningEntity = mock(KeyListeningEntityImpl.class);
+        var keyListeningEntity = new KeyListeningEntityImpl(new Coordinate2D(0, 0));
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(keyListeningEntity.getNode()).thenReturn(Optional.of(node));
+        keyListeningEntity.setNode(node);
+        var scene = mock(Scene.class);
+        when(node.getScene()).thenReturn(scene);
 
         var children = mock(ObservableList.class);
         when(pane.getChildren()).thenReturn(children);
@@ -152,7 +158,7 @@ class EntityCollectionTest {
         sut.notifyGameObjectsOfPressedKeys(keycodes);
 
         // Assert
-        verify(keyListeningEntity).onPressedKeysChange(keycodes);
+        assertEquals(keycodes, keyListeningEntity.getPressedKeys());
     }
 
     @Test
@@ -295,18 +301,17 @@ class EntityCollectionTest {
     }
 
     private class KeyListeningEntityImpl extends YaegerEntity implements KeyListener {
-        /**
-         * Instantiate a new {@link YaegerEntity} for the given {@link Coordinate2D} and textDelegate.
-         *
-         * @param initialPosition the initial {@link Coordinate2D} of this {@link YaegerEntity}
-         */
+
         public KeyListeningEntityImpl(Coordinate2D initialPosition) {
             super(initialPosition);
         }
 
+        private Node node;
+        private Set<KeyCode> pressedKeys;
+
         @Override
         public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
-
+            this.pressedKeys = pressedKeys;
         }
 
         @Override
@@ -321,7 +326,15 @@ class EntityCollectionTest {
 
         @Override
         public Optional<Node> getNode() {
-            return Optional.empty();
+            return Optional.of(node);
+        }
+
+        public void setNode(Node node) {
+            this.node = node;
+        }
+
+        public Set<KeyCode> getPressedKeys() {
+            return pressedKeys;
         }
     }
 }

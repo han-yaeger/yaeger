@@ -2,6 +2,7 @@ package com.github.hanyaeger.api.engine.entities.entity;
 
 import com.github.hanyaeger.api.engine.Timer;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
+import com.github.hanyaeger.api.engine.entities.EntityProcessor;
 import com.github.hanyaeger.api.engine.entities.entity.motion.Direction;
 import com.google.inject.Injector;
 import javafx.event.EventHandler;
@@ -10,6 +11,7 @@ import javafx.geometry.BoundingBox;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -833,6 +835,44 @@ class YaegerEntityTest {
 
         // Assert
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void applyEntityProcessorCallsProcessOnProcessor() {
+        // Arrange
+        var entityProcessor = new EntityProcessor() {
+            private YaegerEntity processedEntity;
+
+            @Override
+            public void process(YaegerEntity yaegerEntity) {
+                processedEntity = yaegerEntity;
+            }
+        };
+
+        // Act
+        sut.applyEntityProcessor(entityProcessor);
+
+        // Assert
+        Assertions.assertEquals(sut, entityProcessor.processedEntity);
+    }
+
+    @Test
+    void addToParentCallsProcessOnProcessor() {
+        // Arrange
+        var entityProcessor = new EntityProcessor() {
+            private YaegerEntity processedEntity;
+
+            @Override
+            public void process(YaegerEntity yaegerEntity) {
+                processedEntity = yaegerEntity;
+            }
+        };
+
+        // Act
+        sut.addToParent(entityProcessor);
+
+        // Assert
+        Assertions.assertEquals(sut, entityProcessor.processedEntity);
     }
 
     private class YaegerEntityImpl extends YaegerEntity {

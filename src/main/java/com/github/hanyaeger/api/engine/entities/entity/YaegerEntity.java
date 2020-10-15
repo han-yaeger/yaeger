@@ -285,7 +285,6 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
     }
 
     /**
-     * TODO unittest
      * Apply an {@link EntityProcessor} to this {@link YaegerEntity}. An {@link EntityProcessor} is most
      * likely a lambda expression passed by a parent object.
      *
@@ -297,7 +296,6 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
     }
 
     /**
-     * TODO document and unittest
      * The {@link Node} encapsulated by this {@link YaegerEntity} should be added to a parent {@link Node}
      *
      * @param processor An instance of {@link EntityProcessor}, most likely a lambda expression that can be

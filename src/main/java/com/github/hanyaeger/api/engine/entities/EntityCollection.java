@@ -205,16 +205,8 @@ public class EntityCollection implements Initializable {
         entity.attachEventListener(EventTypes.REMOVE, event -> markAsGarbage((Removeable) event.getSource()));
         entity.transferCoordinatesToNode();
 
-        // TODO test en document this
-        // addToKeylisteners(entity);
         entity.applyEntityProcessor(yaegerEntity -> registerKeylistener(yaegerEntity));
-
-        // TODO test en document this
-        // collisionDelegate.register(entity);
         entity.applyEntityProcessor(yaegerEntity -> collisionDelegate.register(yaegerEntity));
-
-        // TODO test en document this
-        // addToParent(entity);
         entity.addToParent(yaegerEntity -> addToParentNode(yaegerEntity));
 
         entity.activate();
