@@ -86,18 +86,6 @@ class YaegerEntityTest {
     }
 
     @Test
-    void activateCallsSetCursor() {
-        // Arrange
-        sut.init(injector);
-
-        // Act
-        sut.activate();
-
-        // Assert
-        verify(scene).setCursor(Cursor.DEFAULT);
-    }
-
-    @Test
     void placeOnSceneCallsSetXWithInitialLocation() {
         // Arrange
         sut.init(injector);

@@ -238,12 +238,6 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
     }
 
     @Override
-    public void activate() {
-        // TODO See #104
-        setCursor(cursor);
-    }
-
-    @Override
     public void setAnchorPoint(AnchorPoint anchorPoint) {
         getNode().ifPresentOrElse(node -> {
                     applyTranslationsForAnchorPoint(node, anchorPoint);
