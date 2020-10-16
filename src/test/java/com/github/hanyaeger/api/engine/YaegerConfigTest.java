@@ -53,6 +53,17 @@ class YaegerConfigTest {
     }
 
     @Test
+    void yaegerConfigIsNotEqualToInstanceOfDifferentClass() {
+        // Arrange
+        var sut = new YaegerConfig();
+        var sutOther = new String();
+        sut.setShowSplash(false);
+
+        // Act & Assert
+        assertFalse(sut.equals(sutOther));
+    }
+
+    @Test
     void yaegerConfigIsEqualToSelf() {
         // Arrange
         var sut = new YaegerConfig();
