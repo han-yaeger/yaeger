@@ -48,7 +48,7 @@ class SpriteEntityTest {
     }
 
     @Test
-    void getNodeReturnsEmptyNodeIfTextNotSet() {
+    void getNodeReturnsEmptyNodeIfNodeNotSet() {
         // Arrange
         var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
 
@@ -207,6 +207,33 @@ class SpriteEntityTest {
         // Assert
         verify(imageView).setX(X);
         verify(imageView).setY(Y);
+    }
+
+    @Test
+    void setFrameIndexBeforeInitCalledBufferesIndexAndDelegatesToSpriteAnimationDelegateAtInit() {
+        // Setup
+        var spriteEntity = new SpriteEntityWithTwoFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 2);
+        spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        spriteEntity.setImageRepository(imageRepository);
+        spriteEntity.setImageViewFactory(imageViewFactory);
+
+        var frames = 2;
+        var image = mock(Image.class);
+        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * frames, HEIGHT, true)).thenReturn(image);
+
+        var imageView = mock(ImageView.class);
+        when(imageViewFactory.create(image)).thenReturn(imageView);
+
+
+        var spriteAnimationDelegate = mock(SpriteAnimationDelegate.class);
+        when(spriteAnimationDelegateFactory.create(imageView, 2)).thenReturn(spriteAnimationDelegate);
+
+        // Test
+        spriteEntity.setCurrentFrameIndex(frames);
+        spriteEntity.init(injector);
+
+        // Assert
+        verify(spriteAnimationDelegate).setSpriteIndex(frames);
     }
 
     @Test

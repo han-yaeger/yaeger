@@ -79,12 +79,13 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     public void init(final Injector injector) {
         super.init(injector);
 
-        if (spriteAnimationDelegate != null) {
-            updater.addUpdatable(spriteAnimationDelegate);
-        }
-        if (getFrames() > 1 && autoCycleInterval != 0) {
-            spriteAnimationDelegate.setAutoCycle(autoCycleInterval);
-        }
+        spriteAnimationDelegate.ifPresent(delegate -> {
+            updater.addUpdatable(delegate);
+            if (getFrames() > 1 && autoCycleInterval != 0) {
+                delegate.setAutoCycle(autoCycleInterval);
+            }
+        });
+
         buffer.ifPresent(entityMotionInitBuffer -> {
             entityMotionInitBuffer.setMotionApplier(motionApplier);
             entityMotionInitBuffer.init(injector);

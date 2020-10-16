@@ -53,7 +53,6 @@ class DynamicSpriteEntityTest {
         injector = mock(Injector.class);
 
         sut = new DynamicSpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
-
     }
 
     @Test

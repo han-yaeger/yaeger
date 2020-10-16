@@ -28,9 +28,10 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     private ImageViewFactory imageViewFactory;
 
     private int frames;
+    private Optional<Integer> spriteIndex = Optional.empty();
 
-    protected Optional<ImageView> imageView;
-    protected SpriteAnimationDelegate spriteAnimationDelegate;
+    protected Optional<ImageView> imageView = Optional.empty();
+    protected Optional<SpriteAnimationDelegate> spriteAnimationDelegate = Optional.empty();
 
     /**
      * Instantiate a new {@code SpriteEntity} for a given Image.
@@ -56,7 +57,6 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
         this.frames = frames;
         this.resource = resource;
         this.size = size;
-        this.imageView = Optional.empty();
     }
 
     @Override
@@ -65,8 +65,10 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
         imageView = Optional.of(createImageView(resource, requestedWidth, size.getHeight(), preserveAspectRatio));
 
         if (frames > 1) {
-            spriteAnimationDelegate = spriteAnimationDelegateFactory.create(imageView.get(), frames);
+            spriteAnimationDelegate = Optional.of(spriteAnimationDelegateFactory.create(imageView.get(), frames));
         }
+
+        spriteIndex.ifPresent(index -> spriteAnimationDelegate.get().setSpriteIndex(index));
 
         super.init(injector);
     }
@@ -83,7 +85,8 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      * @param index The index that should be shown. The index is zero based and the frame modulo index will be shown.
      */
     public void setCurrentFrameIndex(final int index) {
-        spriteAnimationDelegate.setSpriteIndex(index);
+        spriteAnimationDelegate.ifPresentOrElse(delegate -> delegate.setSpriteIndex(index),
+                () -> spriteIndex = Optional.of(index));
     }
 
     /**
@@ -98,7 +101,7 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     /**
      * Return the number of frames comprising this {@link SpriteEntity}.
      *
-     * @return the number of frames as an {@code int}
+     * @return The number of frames as an {@code int}.
      */
     protected int getFrames() {
         return frames;
