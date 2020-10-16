@@ -235,33 +235,6 @@ class EntityCollectionTest {
     }
 
     @Test
-    void activateIsCalledForEachEntity() {
-        // Arrange
-        var updatableEntity = mock(UpdatableEntity.class);
-        var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(updatableEntity.getNode()).thenReturn(Optional.of(node));
-
-        List<YaegerEntity> updatables = new ArrayList<>();
-        updatables.add(updatableEntity);
-        var supplier = mock(EntitySupplier.class);
-        when(supplier.get()).thenReturn(updatables);
-
-        var children = mock(ObservableList.class);
-        when(pane.getChildren()).thenReturn(children);
-
-        sut = new EntityCollection(pane);
-        sut.setAnnotationProcessor(annotationProcessor);
-        sut.init(injector);
-
-        // Act
-        sut.registerSupplier(supplier);
-        sut.initialUpdate();
-
-        // Assert
-        verify(updatableEntity).activate();
-    }
-
-    @Test
     void entityIsPlacedOnScene() {
         // Arrange
         var updatableEntity = mock(UpdatableEntity.class);
@@ -316,12 +289,12 @@ class EntityCollectionTest {
 
         @Override
         public void setReferenceX(double x) {
-
+            // Not required here
         }
 
         @Override
         public void setReferenceY(double y) {
-
+            // Not required here
         }
 
         @Override

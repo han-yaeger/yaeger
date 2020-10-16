@@ -208,8 +208,6 @@ public class EntityCollection implements Initializable {
         entity.applyEntityProcessor(yaegerEntity -> registerKeylistener(yaegerEntity));
         entity.applyEntityProcessor(yaegerEntity -> collisionDelegate.register(yaegerEntity));
         entity.addToParent(yaegerEntity -> addToParentNode(yaegerEntity));
-
-        entity.activate();
     }
 
     private void initialize(final YaegerEntity entity) {
