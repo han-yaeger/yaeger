@@ -48,12 +48,20 @@ public abstract class CircleEntity extends CenteredShapeEntity<Circle> {
 
     @Override
     public double getTopY() {
-        return super.getTopY() + radius.get();
+        if (radius.isPresent()) {
+            return super.getTopY() + radius.get();
+        } else {
+            return super.getTopY();
+        }
     }
 
     @Override
     public double getLeftX() {
-        return super.getLeftX() + radius.get();
+        if (radius.isPresent()) {
+            return super.getLeftX() + radius.get();
+        } else {
+            return super.getLeftX();
+        }
     }
 
     @Override

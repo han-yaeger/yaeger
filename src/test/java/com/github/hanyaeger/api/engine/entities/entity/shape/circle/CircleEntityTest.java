@@ -54,6 +54,23 @@ class CircleEntityTest {
     }
 
     @Test
+    void getLeftXDoesNotTakeRadiusIntoAccountIfNotSet() {
+        // Arrange
+        sut.setShape(circle);
+        sut.init(injector);
+        var bounds = mock(Bounds.class);
+        when(circle.getBoundsInLocal()).thenReturn(bounds);
+        when(bounds.getMinX()).thenReturn(LOCATION.getX());
+
+        // Act
+        var actual = sut.getLeftX();
+
+        // Assert
+        var expected = LOCATION.getX();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
     void getLeftXTakesRadiusIntoAccount() {
         // Arrange
         sut.setRadius(RADIUS);
@@ -68,6 +85,23 @@ class CircleEntityTest {
 
         // Assert
         var expected = LOCATION.getX() + RADIUS;
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void getTopYDoesNotTakeRadiusIntoAccountIfNotSet() {
+        // Arrange
+        sut.setShape(circle);
+        sut.init(injector);
+        var bounds = mock(Bounds.class);
+        when(circle.getBoundsInLocal()).thenReturn(bounds);
+        when(bounds.getMinY()).thenReturn(LOCATION.getY());
+
+        // Act
+        var actual = sut.getTopY();
+
+        // Assert
+        var expected = LOCATION.getY();
         Assertions.assertEquals(expected, actual);
     }
 
