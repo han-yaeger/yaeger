@@ -24,7 +24,7 @@ import java.util.Set;
 
 /**
  * An {@link EntityCollection} encapsulates all behaviour related to all instances of {@link YaegerEntity} that are part of
- * a {@link YaegerScene}.
+ * a {@link YaegerScene}. Therefore, an {@link EntityCollection}, is also responsible for creating the Game World update loop.
  */
 public class EntityCollection implements Initializable {
 
