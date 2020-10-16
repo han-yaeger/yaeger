@@ -64,6 +64,32 @@ class YaegerEntityTest {
     }
 
     @Test
+    void initCallsSetCursorIfCursorIsSetBeforeInit() {
+        // Arrange
+        var expected = Cursor.CROSSHAIR;
+        sut.setCursor(expected);
+
+        // Act
+        sut.init(injector);
+
+        // Assert
+        verify(scene).setCursor(expected);
+    }
+
+    @Test
+    void setCursorDelegatedToSceneIfInitAlreadyCalled() {
+        // Arrange
+        var expected = Cursor.CROSSHAIR;
+        sut.init(injector);
+
+        // Act
+        sut.setCursor(expected);
+
+        // Assert
+        verify(scene).setCursor(expected);
+    }
+
+    @Test
     void initCallsSetOpacity() {
         // Arrange
 

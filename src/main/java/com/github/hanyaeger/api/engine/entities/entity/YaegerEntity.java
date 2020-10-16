@@ -19,6 +19,7 @@ import javafx.scene.Node;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * A {@link YaegerEntity} is the base class for all things that can be drawn on a
@@ -30,7 +31,7 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
     protected double y;
     private boolean visible = true;
     private double opacity = 1;
-    private Cursor cursor = Cursor.DEFAULT;
+    private Optional<Cursor> cursor = Optional.empty();
     private List<Timer> timers = new ArrayList<>();
     private AnchorPoint anchorPoint;
     private RotationBuffer rotationBuffer;
@@ -56,7 +57,7 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
     public void setCursor(final Cursor cursor) {
         getNode().ifPresentOrElse(node -> {
             node.getScene().setCursor(cursor);
-        }, () -> this.cursor = cursor);
+        }, () -> this.cursor = Optional.of(cursor));
     }
 
     /**
@@ -236,6 +237,7 @@ public abstract class YaegerEntity implements Initializable, Activatable, TimerL
     public void init(final Injector injector) {
         setVisible(visible);
         setOpacity(opacity);
+        cursor.ifPresent(this::setCursor);
         setRotate(getRotationBuffer().getRotation());
     }
 
