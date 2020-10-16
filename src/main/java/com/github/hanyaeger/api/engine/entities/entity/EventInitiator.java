@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity;
 
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 
@@ -7,7 +8,8 @@ import javafx.event.EventType;
  * By implementing the interface {@link EventInitiator} it is possible to register an {@link EventHandler} for
  * a given {@link EventType}.
  */
-public interface EventInitiator {
+@FunctionalInterface
+public interface EventInitiator<T extends Event> {
 
     /**
      * Attach an {@link EventHandler} for the given {@link EventType}.
@@ -16,6 +18,6 @@ public interface EventInitiator {
      * @param eventHandler The {@link EventHandler} that should be called whenever an event of type {@link EventType}
      *                     occurs.
      */
-    void attachEventListener(final EventType eventType,
+    void attachEventListener(final EventType<T> eventType,
                              final EventHandler eventHandler);
 }

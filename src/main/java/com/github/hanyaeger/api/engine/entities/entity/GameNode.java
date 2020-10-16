@@ -1,7 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity;
 
 import javafx.scene.Node;
-import javafx.scene.Parent;
 
 import java.util.Optional;
 

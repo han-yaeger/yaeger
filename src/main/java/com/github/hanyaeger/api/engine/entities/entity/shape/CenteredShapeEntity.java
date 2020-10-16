@@ -20,7 +20,7 @@ public abstract class CenteredShapeEntity<T extends Shape> extends ShapeEntity<T
      *
      * @param initialPosition the initial {@link Coordinate2D} of this {@link CenteredShapeEntity}
      */
-    public CenteredShapeEntity(Coordinate2D initialPosition) {
+    protected CenteredShapeEntity(Coordinate2D initialPosition) {
         super(initialPosition);
     }
 

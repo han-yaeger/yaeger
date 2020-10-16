@@ -19,7 +19,7 @@ public abstract class EntitySpawner extends Timer {
      *
      * @param intervalInMs The interval in milleseconds.
      */
-    public EntitySpawner(long intervalInMs) {
+    protected EntitySpawner(long intervalInMs) {
         super(intervalInMs);
     }
 

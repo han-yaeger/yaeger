@@ -38,7 +38,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
      * Create a new {@link TileMap} that takes up the full width and height of the
      * {@link YaegerScene}.
      */
-    public TileMap() {
+    protected TileMap() {
         this(new Coordinate2D(0, 0), null);
     }
 
@@ -48,7 +48,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
      * @param location The {@link Coordinate2D} of the top-left corner of the {@link TileMap}.
      * @param size     The {@link Size} of the {@link TileMap}.
      */
-    public TileMap(final Coordinate2D location, final Size size) {
+    protected TileMap(final Coordinate2D location, final Size size) {
         this.location = Optional.of(location);
         if (size != null) {
             this.size = Optional.of(size);
