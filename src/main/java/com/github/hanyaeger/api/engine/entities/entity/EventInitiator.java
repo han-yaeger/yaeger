@@ -19,5 +19,5 @@ public interface EventInitiator<T extends Event> {
      *                     occurs.
      */
     void attachEventListener(final EventType<T> eventType,
-                             final EventHandler eventHandler);
+                             final EventHandler<T> eventHandler);
 }
