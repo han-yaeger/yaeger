@@ -1,16 +1,13 @@
 package com.github.hanyaeger.api.engine.entities.entity;
 
-import com.github.hanyaeger.api.engine.Activatable;
 import com.github.hanyaeger.api.engine.Initializable;
 import com.github.hanyaeger.api.engine.Timer;
 import com.github.hanyaeger.api.engine.TimerListProvider;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.EntityProcessor;
-import com.github.hanyaeger.api.engine.entities.entity.events.EventTypes;
 import com.github.hanyaeger.api.engine.entities.entity.motion.Rotatable;
 import com.github.hanyaeger.api.engine.entities.entity.motion.RotationBuffer;
 import com.google.inject.Injector;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.geometry.Point2D;
@@ -30,6 +27,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     protected double x;
     protected double y;
     private boolean visible = true;
+
     private double opacity = 1;
     private Optional<Cursor> cursor = Optional.empty();
     private List<Timer> timers = new ArrayList<>();
@@ -192,6 +190,24 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      */
     public void addToEntityCollection(final EntityCollection collection) {
         collection.addStaticEntity(this);
+    }
+
+    /**
+     * Return the opacity of this {@link YaegerEntity}, meaning how opaque (that is, solid) the {@link YaegerEntity}
+     * appears. An {@link YaegerEntity} with 0% opacity is fully translucent. That is, while it is still visible
+     * and rendered, you generally won't be able to see it.
+     * <p>
+     * Opacity is specified as a value between 0 and 1. Values less than 0 are
+     * treated as 0, values greater than 1 are treated as 1.
+     *
+     * @return The opacity of this {@link YaegerEntity}.
+     */
+    public double getOpacity() {
+        if (getNode().isPresent()) {
+            return getNode().get().getOpacity();
+        } else {
+            return opacity;
+        }
     }
 
     protected void applyTranslationsForAnchorPoint(final Node node, final AnchorPoint anchorPoint) {

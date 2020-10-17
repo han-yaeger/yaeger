@@ -90,6 +90,32 @@ class YaegerEntityTest {
     }
 
     @Test
+    void getOpacityReturnsInitialOpacityIfNodeIsNotSet() {
+        // Arrange
+        sut = new YaegerEntityImpl(LOCATION);
+
+        // Act
+        var actual = sut.getOpacity();
+
+        // Assert
+        assertEquals(1, actual);
+    }
+
+    @Test
+    void getOpacityReturnsOpacityFromNodeIfNodeIsSet() {
+        // Arrange
+        var expected = 0.37;
+        when(node.getOpacity()).thenReturn(expected);
+        sut.init(injector);
+
+        // Act
+        var actual = sut.getOpacity();
+
+        // Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void initCallsSetOpacity() {
         // Arrange
 
@@ -891,7 +917,7 @@ class YaegerEntityTest {
 
     private class YaegerEntityImpl extends YaegerEntity {
 
-        private Optional<Node> node;
+        private Optional<Node> node = Optional.empty();
         private double testX;
         private double testY;
 
