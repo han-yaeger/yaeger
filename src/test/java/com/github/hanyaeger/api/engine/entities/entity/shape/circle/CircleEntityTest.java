@@ -27,7 +27,7 @@ class CircleEntityTest {
     }
 
     @Test
-    void settingRadiusAfterShapeIsSetDelegatesTheRadius() {
+    void settingRadiusAfterNodeIsSetDelegatesTheRadius() {
         // Arrange
         sut.setShape(circle);
         sut.init(injector);
@@ -38,6 +38,44 @@ class CircleEntityTest {
         // Assert
         verify(circle).setVisible(true);
         verify(circle).setRadius(RADIUS);
+    }
+
+    @Test
+    void getRadiusWithoutNodeOrBufferedRadiusReturns0() {
+        // Arrange
+
+        // Act
+        var actual = sut.getRadius();
+
+        // Assert
+        Assertions.assertEquals(0, actual);
+    }
+
+    @Test
+    void getRadiusBeforeNodeIsSetUsesBufferedRadius() {
+        // Arrange
+        sut.setRadius(RADIUS);
+
+        // Act
+        var actual = sut.getRadius();
+
+        // Assert
+        Assertions.assertEquals(RADIUS, actual);
+    }
+
+    @Test
+    void getRadiusAfterNodeIsSetDelegatesTheRadius() {
+        // Arrange
+        sut.setShape(circle);
+        sut.init(injector);
+
+        when(circle.getRadius()).thenReturn(RADIUS);
+
+        // Act
+        var actual = sut.getRadius();
+
+        // Assert
+        Assertions.assertEquals(RADIUS, actual);
     }
 
     @Test

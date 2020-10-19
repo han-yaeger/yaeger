@@ -36,6 +36,22 @@ public abstract class CircleEntity extends CenteredShapeEntity<Circle> {
         shape.ifPresentOrElse(circle -> circle.setRadius(radius), () -> this.radius = Optional.of(radius));
     }
 
+    /**
+     * Return the {@code radius} of this {@link CircleEntity}.
+     *
+     * @return The {@code radius} as a {@code double}.
+     */
+    public double getRadius() {
+        if (shape.isPresent()) {
+            return shape.get().getRadius();
+        } else if (radius.isPresent()) {
+            return radius.get();
+        } else {
+            return 0;
+        }
+    }
+
+
     @Override
     public void setReferenceX(double x) {
         shape.ifPresentOrElse(circle -> circle.setCenterX(x), () -> this.x = x);
