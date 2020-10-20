@@ -98,7 +98,22 @@ class YaegerEntityTest {
         var actual = sut.getOpacity();
 
         // Assert
-        assertEquals(1, actual);
+        assertEquals(YaegerEntity.DEFAULT_OPACITY, actual);
+    }
+
+    @Test
+    void getOpacityReturnsOpacityIfNodeIsNotSet() {
+        // Arrange
+        var expected = 0.37;
+
+        sut.setNode(Optional.empty());
+        sut.setOpacity(expected);
+
+        // Act
+        var actual = sut.getOpacity();
+
+        // Assert
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -135,6 +150,43 @@ class YaegerEntityTest {
 
         // Assert
         verify(node).setVisible(true);
+    }
+
+    @Test
+    void getVisibleReturnsDefaultIfNodeAndVisibilityNotSet() {
+        // Arrange
+        sut.setNode(Optional.empty());
+
+        // Act
+        var actual = sut.isVisible();
+
+        // Assert
+        assertEquals(YaegerEntity.DEFAULT_VISIBILITY, actual);
+    }
+
+    @Test
+    void getVisibleReturnsSetValueIfNodeNotSet() {
+        // Arrange
+        sut.setVisible(false);
+
+        // Act
+        var actual = sut.isVisible();
+
+        // Assert
+        assertEquals(false, actual);
+    }
+
+    @Test
+    void getVisibleReturnsValueFromNode() {
+        // Arrange
+        sut.init(injector);
+        when(node.isVisible()).thenReturn(false);
+
+        // Act
+        var actual = sut.isVisible();
+
+        // Assert
+        assertEquals(false, actual);
     }
 
     @Test

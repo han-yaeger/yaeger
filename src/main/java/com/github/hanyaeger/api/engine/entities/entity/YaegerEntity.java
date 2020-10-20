@@ -24,11 +24,15 @@ import java.util.Optional;
  */
 public abstract class YaegerEntity implements Initializable, TimerListProvider, Bounded, Removeable, Placeable, SceneChild, GameNode, Rotatable, EventInitiator {
 
+    static final boolean DEFAULT_VISIBILITY = true;
+    static final double DEFAULT_OPACITY = 1;
+
     protected double x;
     protected double y;
-    private boolean visible = true;
 
-    private double opacity = 1;
+    private boolean visible = DEFAULT_VISIBILITY;
+    private double opacity = DEFAULT_OPACITY;
+
     private Optional<Cursor> cursor = Optional.empty();
     private List<Timer> timers = new ArrayList<>();
     private AnchorPoint anchorPoint;
@@ -69,6 +73,19 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
         getNode().ifPresentOrElse(node -> {
             node.setVisible(visible);
         }, () -> this.visible = visible);
+    }
+
+    /**
+     * Return the visibility of this {@link YaegerEntity}.
+     *
+     * @return The visibility of this {@link YaegerEntity} as a {@code boolean}.
+     */
+    public boolean isVisible() {
+        if (getNode().isPresent()) {
+            return getNode().get().isVisible();
+        } else {
+            return visible;
+        }
     }
 
     /**
