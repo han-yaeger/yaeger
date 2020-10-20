@@ -3,21 +3,28 @@ package com.github.hanyaeger.api.engine.entities.entity.shape.ellipse;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import com.github.hanyaeger.api.engine.entities.entity.shape.CenteredShapeEntity;
+import com.github.hanyaeger.api.engine.entities.entity.shape.circle.CircleEntity;
 import com.google.inject.Injector;
 import javafx.scene.shape.Ellipse;
 
 import java.util.Optional;
 
 /**
- * A {@link EllipseEntity} provides the option to use a drawable Ellipse as an
+ * An {@link EllipseEntity} provides the option to use a drawable Ellipse as a
  * {@link YaegerEntity}. As opposed to some of the other shapes
  * ({@link com.github.hanyaeger.api.engine.entities.entity.shape.rectangle.RectangleEntity}, for instance),
  * the reference point of a {@link EllipseEntity} is its center.
+ * <p>
+ * For an {@link EllipseEntity} it is possible to set the x-radius and y-radius, through the methods {@link EllipseEntity#setRadiusX(double)}
+ * and {@link EllipseEntity#setRadiusY(double)}. By default, both values will be set to 1.
  */
 public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
 
-    private Optional<Double> radiusX = Optional.empty();
-    private Optional<Double> radiusY = Optional.empty();
+    static final double DEFAULT_RADIUS_X = 1;
+    static final double DEFAULT_RADIUS_Y = 1;
+
+    private double radiusX = DEFAULT_RADIUS_X;
+    private double radiusY = DEFAULT_RADIUS_Y;
 
     /**
      * Create a new {@link EllipseEntity} on the given {@code initialPosition}.
@@ -34,7 +41,7 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
      * @param radiusX The horizontal {@code radius} of the ellipse as a {@code double}
      */
     public void setRadiusX(final double radiusX) {
-        shape.ifPresentOrElse(ellipse -> ellipse.setRadiusX(radiusX), () -> this.radiusX = Optional.of(radiusX));
+        shape.ifPresentOrElse(ellipse -> ellipse.setRadiusX(radiusX), () -> this.radiusX = radiusX);
     }
 
     /**
@@ -43,7 +50,33 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
      * @param radiusY The vertical {@code radius} of the ellipse as a {@code double}
      */
     public void setRadiusY(final double radiusY) {
-        shape.ifPresentOrElse(ellipse -> ellipse.setRadiusY(radiusY), () -> this.radiusY = Optional.of(radiusY));
+        shape.ifPresentOrElse(ellipse -> ellipse.setRadiusY(radiusY), () -> this.radiusY = radiusY);
+    }
+
+    /**
+     * Return the horizontal {@code radius} of this {@link EllipseEntity}.
+     *
+     * @return The {@code radiusX} as a {@code double}.
+     */
+    public double getRadiusX() {
+        if (shape.isPresent()) {
+            return shape.get().getRadiusX();
+        } else {
+            return radiusX;
+        }
+    }
+
+    /**
+     * Return the vertical {@code radius} of this {@link CircleEntity}.
+     *
+     * @return The {@code radiusY} as a {@code double}.
+     */
+    public double getRadiusY() {
+        if (shape.isPresent()) {
+            return shape.get().getRadiusY();
+        } else {
+            return radiusY;
+        }
     }
 
     @Override
@@ -58,18 +91,18 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
 
     @Override
     public double getTopY() {
-        return super.getTopY() + radiusY.get();
+        return super.getTopY() + radiusY;
     }
 
     @Override
     public double getLeftX() {
-        return super.getLeftX() + radiusX.get();
+        return super.getLeftX() + radiusX;
     }
 
     @Override
     public void init(final Injector injector) {
         super.init(injector);
-        radiusX.ifPresent(radiusX -> shape.get().setRadiusX(radiusX));
-        radiusY.ifPresent(radiusY -> shape.get().setRadiusY(radiusY));
+        shape.get().setRadiusX(radiusX);
+        shape.get().setRadiusY(radiusY);
     }
 }

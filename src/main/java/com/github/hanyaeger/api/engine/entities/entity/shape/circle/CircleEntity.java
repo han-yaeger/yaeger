@@ -6,17 +6,19 @@ import com.github.hanyaeger.api.engine.entities.entity.shape.CenteredShapeEntity
 import com.google.inject.Injector;
 import javafx.scene.shape.Circle;
 
-import java.util.Optional;
-
 /**
  * A {@link CircleEntity} provides the option to use a drawable Circle as an
  * {@link YaegerEntity}. As opposed to some of the other shapes
  * ({@link com.github.hanyaeger.api.engine.entities.entity.shape.rectangle.RectangleEntity}, for instance),
  * the reference point of a {@link CircleEntity} is its center.
+ * <p>
+ * For a {@link CircleEntity} it is possible to set the radius, through the methods {@link CircleEntity#setRadius(double)}.
+ * By default, this value will be set to 1.
  */
 public abstract class CircleEntity extends CenteredShapeEntity<Circle> {
 
-    private Optional<Double> radius = Optional.empty();
+    static final double DEFAULT_RADIUS = 1;
+    private double radius = DEFAULT_RADIUS;
 
     /**
      * Create a new {@link CircleEntity} on the given {@code initialPosition}.
@@ -33,7 +35,7 @@ public abstract class CircleEntity extends CenteredShapeEntity<Circle> {
      * @param radius The {@code radius} of the circle as a {@code double}
      */
     public void setRadius(final double radius) {
-        shape.ifPresentOrElse(circle -> circle.setRadius(radius), () -> this.radius = Optional.of(radius));
+        shape.ifPresentOrElse(circle -> circle.setRadius(radius), () -> this.radius = radius);
     }
 
     /**
@@ -44,10 +46,8 @@ public abstract class CircleEntity extends CenteredShapeEntity<Circle> {
     public double getRadius() {
         if (shape.isPresent()) {
             return shape.get().getRadius();
-        } else if (radius.isPresent()) {
-            return radius.get();
         } else {
-            return 0;
+            return radius;
         }
     }
 
@@ -64,25 +64,17 @@ public abstract class CircleEntity extends CenteredShapeEntity<Circle> {
 
     @Override
     public double getTopY() {
-        if (radius.isPresent()) {
-            return super.getTopY() + radius.get();
-        } else {
-            return super.getTopY();
-        }
+        return super.getTopY() + radius;
     }
 
     @Override
     public double getLeftX() {
-        if (radius.isPresent()) {
-            return super.getLeftX() + radius.get();
-        } else {
-            return super.getLeftX();
-        }
+        return super.getLeftX() + radius;
     }
 
     @Override
     public void init(final Injector injector) {
         super.init(injector);
-        radius.ifPresent(radius -> shape.get().setRadius(radius));
+        shape.get().setRadius(radius);
     }
 }
