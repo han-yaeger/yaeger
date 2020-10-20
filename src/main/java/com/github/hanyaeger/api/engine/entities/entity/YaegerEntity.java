@@ -88,6 +88,24 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     }
 
     /**
+     * Return the opacity of this {@link YaegerEntity}, meaning how opaque (that is, solid) the {@link YaegerEntity}
+     * appears. An {@link YaegerEntity} with 0% opacity is fully translucent. That is, while it is still visible
+     * and rendered, you generally won't be able to see it.
+     * <p>
+     * Opacity is specified as a value between 0 and 1. Values less than 0 are
+     * treated as 0, values greater than 1 are treated as 1.
+     *
+     * @return The opacity of this {@link YaegerEntity}.
+     */
+    public double getOpacity() {
+        if (getNode().isPresent()) {
+            return getNode().get().getOpacity();
+        } else {
+            return opacity;
+        }
+    }
+
+    /**
      * Calculates the distance to a given {@link YaegerEntity}. This distance
      * is based on the {@link AnchorPoint} of the Entities and not on the shortest distance between them.
      *
@@ -190,24 +208,6 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      */
     public void addToEntityCollection(final EntityCollection collection) {
         collection.addStaticEntity(this);
-    }
-
-    /**
-     * Return the opacity of this {@link YaegerEntity}, meaning how opaque (that is, solid) the {@link YaegerEntity}
-     * appears. An {@link YaegerEntity} with 0% opacity is fully translucent. That is, while it is still visible
-     * and rendered, you generally won't be able to see it.
-     * <p>
-     * Opacity is specified as a value between 0 and 1. Values less than 0 are
-     * treated as 0, values greater than 1 are treated as 1.
-     *
-     * @return The opacity of this {@link YaegerEntity}.
-     */
-    public double getOpacity() {
-        if (getNode().isPresent()) {
-            return getNode().get().getOpacity();
-        } else {
-            return opacity;
-        }
     }
 
     protected void applyTranslationsForAnchorPoint(final Node node, final AnchorPoint anchorPoint) {
