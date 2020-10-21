@@ -1,8 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape;
 
-import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
-import javafx.scene.Node;
 import javafx.scene.shape.Shape;
 
 /**
@@ -25,40 +23,42 @@ public abstract class CenteredShapeEntity<T extends Shape> extends ShapeEntity<T
     }
 
     @Override
-    protected void applyTranslationsForAnchorPoint(Node node, AnchorPoint anchorPoint) {
-        switch (anchorPoint) {
-            case TOP_LEFT:
-                node.setTranslateX(getNonTransformedBounds().getWidth() / 2);
-                node.setTranslateY(getNonTransformedBounds().getHeight() / 2);
-                break;
-            case TOP_CENTER:
-                node.setTranslateY(getNonTransformedBounds().getHeight() / 2);
-                break;
-            case TOP_RIGHT:
-                node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
-                node.setTranslateY(getNonTransformedBounds().getHeight() / 2);
-                break;
-            case CENTER_LEFT:
-                node.setTranslateX(getNonTransformedBounds().getWidth() / 2);
-                break;
-            case CENTER_CENTER:
-                break;
-            case CENTER_RIGHT:
-                node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
-                break;
-            case BOTTOM_LEFT:
-                node.setTranslateX(getNonTransformedBounds().getWidth() / 2);
-                node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
-                break;
-            case BOTTOM_CENTER:
-                node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
-                break;
-            case BOTTOM_RIGHT:
-                node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
-                node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
-                break;
-            default:
-                break;
-        }
+    public void applyTranslationsForAnchorPoint() {
+        getNode().ifPresent(node -> {
+            switch (getAnchorPoint()) {
+                case TOP_LEFT:
+                    node.setTranslateX(getNonTransformedBounds().getWidth() / 2);
+                    node.setTranslateY(getNonTransformedBounds().getHeight() / 2);
+                    break;
+                case TOP_CENTER:
+                    node.setTranslateY(getNonTransformedBounds().getHeight() / 2);
+                    break;
+                case TOP_RIGHT:
+                    node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
+                    node.setTranslateY(getNonTransformedBounds().getHeight() / 2);
+                    break;
+                case CENTER_LEFT:
+                    node.setTranslateX(getNonTransformedBounds().getWidth() / 2);
+                    break;
+                case CENTER_CENTER:
+                    break;
+                case CENTER_RIGHT:
+                    node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
+                    break;
+                case BOTTOM_LEFT:
+                    node.setTranslateX(getNonTransformedBounds().getWidth() / 2);
+                    node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
+                    break;
+                case BOTTOM_CENTER:
+                    node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
+                    break;
+                case BOTTOM_RIGHT:
+                    node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
+                    node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 }

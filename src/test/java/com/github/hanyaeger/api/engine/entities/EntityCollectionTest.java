@@ -235,7 +235,7 @@ class EntityCollectionTest {
     }
 
     @Test
-    void entityIsPlacedOnScene() {
+    void transferCoordinatesToNodeIsCalledForEachEntity() {
         // Arrange
         var updatableEntity = mock(UpdatableEntity.class);
         var node = mock(Node.class, withSettings().withoutAnnotations());
@@ -259,6 +259,33 @@ class EntityCollectionTest {
 
         // Assert
         verify(updatableEntity).transferCoordinatesToNode();
+    }
+
+    @Test
+    void applyTranslationsForAnchorPointIsCalledForEachEntity() {
+        // Arrange
+        var updatableEntity = mock(UpdatableEntity.class);
+        var node = mock(Node.class, withSettings().withoutAnnotations());
+        when(updatableEntity.getNode()).thenReturn(Optional.of(node));
+
+        List<YaegerEntity> updatables = new ArrayList<>();
+        updatables.add(updatableEntity);
+        var supplier = mock(EntitySupplier.class);
+        when(supplier.get()).thenReturn(updatables);
+
+        var children = mock(ObservableList.class);
+        when(pane.getChildren()).thenReturn(children);
+
+        sut = new EntityCollection(pane);
+        sut.setAnnotationProcessor(annotationProcessor);
+        sut.init(injector);
+
+        // Act
+        sut.registerSupplier(supplier);
+        sut.initialUpdate();
+
+        // Assert
+        verify(updatableEntity).applyTranslationsForAnchorPoint();
     }
 
     private abstract class UpdatableEntity extends YaegerEntity implements Updatable {

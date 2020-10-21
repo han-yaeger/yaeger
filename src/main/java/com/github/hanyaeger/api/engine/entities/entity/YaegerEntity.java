@@ -227,43 +227,52 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
         collection.addStaticEntity(this);
     }
 
-    protected void applyTranslationsForAnchorPoint(final Node node, final AnchorPoint anchorPoint) {
-        switch (anchorPoint) {
-            case TOP_LEFT:
-                node.setTranslateX(0);
-                node.setTranslateY(0);
-                break;
-            case TOP_CENTER:
-                node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
-                break;
-            case TOP_RIGHT:
-                node.setTranslateX(-getNonTransformedBounds().getWidth());
-                break;
-            case CENTER_LEFT:
-                node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
-                break;
-            case CENTER_CENTER:
-                node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
-                node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
-                break;
-            case CENTER_RIGHT:
-                node.setTranslateX(-getNonTransformedBounds().getWidth());
-                node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
-                break;
-            case BOTTOM_LEFT:
-                node.setTranslateY(-getNonTransformedBounds().getHeight());
-                break;
-            case BOTTOM_CENTER:
-                node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
-                node.setTranslateY(-getNonTransformedBounds().getHeight());
-                break;
-            case BOTTOM_RIGHT:
-                node.setTranslateX(-getNonTransformedBounds().getWidth());
-                node.setTranslateY(-getNonTransformedBounds().getHeight());
-                break;
-            default:
-                break;
-        }
+    /**
+     * A {@link YaegerEntity}'s location is defined by its {@code anchorLocation} and its {@code anchorPoint}.
+     * For most implementation of {@link YaegerEntity}, the default {@code anchorPoint} is {@code TOP_LEFT}.
+     * Using a different {@code anchorpoint} will mean a translation will be applied. Its {@code anchorLocation}
+     * will remain te same.
+     */
+    public void applyTranslationsForAnchorPoint() {
+        getNode().ifPresent(node -> {
+            switch (anchorPoint) {
+                case TOP_LEFT:
+                    node.setTranslateX(0);
+                    node.setTranslateY(0);
+                    break;
+                case TOP_CENTER:
+                    node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
+                    break;
+                case TOP_RIGHT:
+                    node.setTranslateX(-getNonTransformedBounds().getWidth());
+                    break;
+                case CENTER_LEFT:
+                    node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
+                    break;
+                case CENTER_CENTER:
+                    node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
+                    node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
+                    break;
+                case CENTER_RIGHT:
+                    node.setTranslateX(-getNonTransformedBounds().getWidth());
+                    node.setTranslateY(-getNonTransformedBounds().getHeight() / 2);
+                    break;
+                case BOTTOM_LEFT:
+                    node.setTranslateY(-getNonTransformedBounds().getHeight());
+                    break;
+                case BOTTOM_CENTER:
+                    node.setTranslateX(-getNonTransformedBounds().getWidth() / 2);
+                    node.setTranslateY(-getNonTransformedBounds().getHeight());
+                    break;
+                case BOTTOM_RIGHT:
+                    node.setTranslateX(-getNonTransformedBounds().getWidth());
+                    node.setTranslateY(-getNonTransformedBounds().getHeight());
+                    break;
+                default:
+                    break;
+            }
+        });
+
     }
 
     @Override
@@ -276,11 +285,8 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
 
     @Override
     public void setAnchorPoint(AnchorPoint anchorPoint) {
-        getNode().ifPresentOrElse(node -> {
-                    applyTranslationsForAnchorPoint(node, anchorPoint);
-                }, () ->
-                        this.anchorPoint = anchorPoint
-        );
+        this.anchorPoint = anchorPoint;
+        applyTranslationsForAnchorPoint();
     }
 
     @Override
@@ -306,7 +312,6 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
         getNode().ifPresent(node -> {
             setReferenceX(x);
             setReferenceY(y);
-            applyTranslationsForAnchorPoint(node, anchorPoint);
         });
     }
 
