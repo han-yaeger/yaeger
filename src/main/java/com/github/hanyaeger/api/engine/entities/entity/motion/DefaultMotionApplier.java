@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.motion;
 
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import javafx.geometry.Point2D;
 
 import java.util.Optional;
@@ -11,25 +12,25 @@ import java.util.Optional;
 public class DefaultMotionApplier implements MotionApplier {
 
     private static final Point2D ZERO_ANGLE_IDENTITY_MOTION = new Point2D(0, 1);
-    private Point2D transformation;
-    private Optional<Point2D> previousLocation = Optional.empty();
+    private Coordinate2D transformation;
+    private Optional<Coordinate2D> previousLocation = Optional.empty();
 
     /**
      * Create a new instance of {@link DefaultMotionApplier}.
      */
     public DefaultMotionApplier() {
-        transformation = new Point2D(0, 0);
+        transformation = new Coordinate2D(0, 0);
     }
 
     @Override
     public void setMotionTo(final double speed, final double direction) {
-        transformation = new Point2D(0, speed);
+        transformation = new Coordinate2D(0, speed);
         setDirectionTo(direction);
     }
 
     @Override
     public void setSpeedTo(final double newSpeed) {
-        transformation = transformation.normalize().multiply(newSpeed);
+        transformation = new Coordinate2D((transformation.normalize().multiply(newSpeed)));
     }
 
     @Override
@@ -44,7 +45,7 @@ public class DefaultMotionApplier implements MotionApplier {
 
     @Override
     public void multiplySpeedWith(final double multiplication) {
-        transformation = transformation.multiply(multiplication);
+        transformation = new Coordinate2D(transformation.multiply(multiplication));
     }
 
     @Override
@@ -53,7 +54,7 @@ public class DefaultMotionApplier implements MotionApplier {
         final var x = Math.sin(angleInRadians);
         final var y = Math.cos(angleInRadians);
 
-        transformation = new Point2D(x, y).multiply(transformation.magnitude());
+        transformation = new Coordinate2D(new Coordinate2D(x, y).multiply(transformation.magnitude()));
     }
 
     @Override
@@ -75,18 +76,18 @@ public class DefaultMotionApplier implements MotionApplier {
     }
 
     @Override
-    public Point2D get() {
+    public Coordinate2D get() {
         return transformation;
     }
 
     @Override
-    public Point2D updateLocation(final Point2D currentLocation) {
-        previousLocation = Optional.of(new Point2D(currentLocation.getX(), currentLocation.getY()));
-        return currentLocation.add(transformation);
+    public Coordinate2D updateLocation(final Point2D currentLocation) {
+        previousLocation = Optional.of(new Coordinate2D(currentLocation.getX(), currentLocation.getY()));
+        return new Coordinate2D(currentLocation.add(transformation));
     }
 
     @Override
-    public Optional<Point2D> getPreviousLocation() {
+    public Optional<Coordinate2D> getPreviousLocation() {
         return previousLocation;
     }
 }

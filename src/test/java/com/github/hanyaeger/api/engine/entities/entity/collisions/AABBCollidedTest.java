@@ -1,19 +1,17 @@
 package com.github.hanyaeger.api.engine.entities.entity.collisions;
 
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
 import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -63,7 +61,7 @@ public class AABBCollidedTest {
         trivialCollider.setBounds(TEST_COLLIDED_BOUNDINGBOX);
 
         when(motionApplier.getSpeed()).thenReturn(0d);
-        when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(new Point2D(0, 0)));
+        when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(new Coordinate2D(0, 0)));
 
         List<AABBCollider> testAABBColliders = List.of(trivialCollider);
 
@@ -84,7 +82,7 @@ public class AABBCollidedTest {
         var previousY = 37d;
 
         when(motionApplier.getSpeed()).thenReturn(0d);
-        when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(new Point2D(previousX, previousY)));
+        when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(new Coordinate2D(previousX, previousY)));
 
         List<AABBCollider> testAABBColliders = List.of(trivialCollider);
 
@@ -92,8 +90,7 @@ public class AABBCollidedTest {
         sut.checkForCollisions(testAABBColliders);
 
         // Assert
-        assertTrue(sut.isSetOriginXcalled());
-        assertTrue(sut.isSetOriginYcalled());
+        assertTrue(sut.isSetAnchorLocationCalled());
     }
 
     @Test
@@ -157,7 +154,7 @@ public class AABBCollidedTest {
 
         private AABBCollider lastCollided;
         private MotionApplier motionApplier;
-        private boolean setOriginXcalled = false;
+        private boolean setAnchorLocationCalled = false;
         private boolean setOriginYcalled = false;
 
         @Override
@@ -190,23 +187,33 @@ public class AABBCollidedTest {
         }
 
         @Override
-        public void setReferenceX(double x) {
-            this.setOriginXcalled = true;
+        public void setAnchorLocationX(double x) {
+            // Not required here.
         }
 
         @Override
-        public void setReferenceY(double y) {
-            this.setOriginYcalled = true;
+        public void setAnchorLocationY(double y) {
+            // Not required here.
+        }
+
+        @Override
+        public void setAnchorLocation(Coordinate2D anchorLocation) {
+            this.setAnchorLocationCalled = true;
+        }
+
+        @Override
+        public Coordinate2D getAnchorLocation() {
+            return null;
         }
 
         @Override
         public void transferCoordinatesToNode() {
-
+            // Not required here.
         }
 
         @Override
         public void setAnchorPoint(AnchorPoint anchorPoint) {
-
+            // Not required here.
         }
 
         @Override
@@ -214,12 +221,8 @@ public class AABBCollidedTest {
             return null;
         }
 
-        public boolean isSetOriginXcalled() {
-            return setOriginXcalled;
-        }
-
-        public boolean isSetOriginYcalled() {
-            return setOriginYcalled;
+        public boolean isSetAnchorLocationCalled() {
+            return setAnchorLocationCalled;
         }
     }
 
@@ -252,16 +255,6 @@ public class AABBCollidedTest {
 
         @Override
         public void undoUpdate() {
-            // Not required here
-        }
-
-        @Override
-        public void setReferenceX(double x) {
-            // Not required here
-        }
-
-        @Override
-        public void setReferenceY(double y) {
             // Not required here
         }
 

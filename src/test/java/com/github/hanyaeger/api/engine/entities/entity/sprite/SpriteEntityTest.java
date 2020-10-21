@@ -48,6 +48,32 @@ class SpriteEntityTest {
     }
 
     @Test
+    void setAnchorLocationSetsAnchorLocationOnNode() {
+        // Arrange
+        var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+        sut.setImageRepository(imageRepository);
+        sut.setImageViewFactory(imageViewFactory);
+
+        var image = mock(Image.class);
+        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
+
+        var imageView = mock(ImageView.class);
+        when(imageViewFactory.create(image)).thenReturn(imageView);
+
+        var expected = new Coordinate2D(1.1, 2.2);
+
+        sut.init(injector);
+
+        // Act
+        sut.setAnchorLocation(expected);
+
+        // Assert
+        verify(imageView).setX(expected.getX());
+        verify(imageView).setY(expected.getY());
+    }
+
+    @Test
     void getNodeReturnsEmptyNodeIfNodeNotSet() {
         // Arrange
         var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
@@ -57,20 +83,6 @@ class SpriteEntityTest {
 
         // Assert
         Assertions.assertTrue(gameNode.isEmpty());
-    }
-
-    @Test
-    void settingPositionWithoutDelegateStoresPositionAsInitialPosition() {
-        // Setup
-        var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
-
-        // Test
-        sut.setReferenceX(DEFAULT_LOCATION.getX());
-        sut.setReferenceY(DEFAULT_LOCATION.getY());
-
-        // Assert
-        Assertions.assertEquals(0, Double.compare(sut.getInitialLocation().getX(), DEFAULT_LOCATION.getX()));
-        Assertions.assertEquals(0, Double.compare(sut.getInitialLocation().getY(), DEFAULT_LOCATION.getY()));
     }
 
     @Test
@@ -184,32 +196,6 @@ class SpriteEntityTest {
     }
 
     @Test
-    void setPositionDelegatesToTheImageView() {
-        // Setup
-        final var X = 42;
-        final var Y = 48;
-        var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
-        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        sut.setImageRepository(imageRepository);
-        sut.setImageViewFactory(imageViewFactory);
-
-        var image = mock(Image.class);
-        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
-
-        var imageView = mock(ImageView.class);
-        when(imageViewFactory.create(image)).thenReturn(imageView);
-        sut.init(injector);
-
-        // Test
-        sut.setReferenceX(X);
-        sut.setReferenceY(Y);
-
-        // Assert
-        verify(imageView).setX(X);
-        verify(imageView).setY(Y);
-    }
-
-    @Test
     void setFrameIndexBeforeInitCalledBufferesIndexAndDelegatesToSpriteAnimationDelegateAtInit() {
         // Setup
         var spriteEntity = new SpriteEntityWithTwoFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 2);
@@ -268,10 +254,6 @@ class SpriteEntityTest {
 
         SpriteEntityWithDefaultFramesImpl(String resource, Coordinate2D location, Size size) {
             super(resource, location, size);
-        }
-
-        public Point2D getInitialLocation() {
-            return new Point2D(x, y);
         }
     }
 

@@ -7,8 +7,6 @@ import com.github.hanyaeger.api.engine.entities.entity.shape.circle.CircleEntity
 import com.google.inject.Injector;
 import javafx.scene.shape.Ellipse;
 
-import java.util.Optional;
-
 /**
  * An {@link EllipseEntity} provides the option to use a drawable Ellipse as a
  * {@link YaegerEntity}. As opposed to some of the other shapes
@@ -80,23 +78,12 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
     }
 
     @Override
-    public void setReferenceX(double x) {
-        shape.ifPresentOrElse(ellipse -> ellipse.setCenterX(x), () -> this.x = x);
-    }
-
-    @Override
-    public void setReferenceY(double y) {
-        shape.ifPresentOrElse(ellipse -> ellipse.setCenterY(y), () -> this.y = y);
-    }
-
-    @Override
-    public double getTopY() {
-        return super.getTopY() + radiusY;
-    }
-
-    @Override
-    public double getLeftX() {
-        return super.getLeftX() + radiusX;
+    public final void setAnchorLocation(Coordinate2D anchorLocation) {
+        super.setAnchorLocation(anchorLocation);
+        shape.ifPresent(ellipse -> {
+            ellipse.setCenterX(anchorLocation.getX());
+            ellipse.setCenterY(anchorLocation.getY());
+        });
     }
 
     @Override

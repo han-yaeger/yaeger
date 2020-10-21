@@ -116,16 +116,6 @@ class AnnotationProcessorTest {
             return null;
             // Not required here.
         }
-
-        @Override
-        public void setReferenceX(double x) {
-            // Not required here.
-        }
-
-        @Override
-        public void setReferenceY(double y) {
-            // Not required here.
-        }
     }
 
     private class UpdateDelegatingEntity extends YaegerEntity implements UpdateDelegator {
@@ -165,16 +155,6 @@ class AnnotationProcessorTest {
         @Override
         public List<Timer> getTimers() {
             return null;
-            // Not required here.
-        }
-
-        @Override
-        public void setReferenceX(double x) {
-            // Not required here.
-        }
-
-        @Override
-        public void setReferenceY(double y) {
             // Not required here.
         }
     }
@@ -221,16 +201,6 @@ class AnnotationProcessorTest {
             return null;
             // Not required here.
         }
-
-        @Override
-        public void setReferenceX(double x) {
-            // Not required here.
-        }
-
-        @Override
-        public void setReferenceY(double y) {
-            // Not required here.
-        }
     }
 
     private class EntityWithPostActivators extends YaegerEntity {
@@ -273,16 +243,6 @@ class AnnotationProcessorTest {
         @Override
         public List<Timer> getTimers() {
             return null;
-            // Not required here.
-        }
-
-        @Override
-        public void setReferenceX(double x) {
-            // Not required here.
-        }
-
-        @Override
-        public void setReferenceY(double y) {
             // Not required here.
         }
     }

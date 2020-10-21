@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class CircleEntityTest {
@@ -24,6 +25,20 @@ class CircleEntityTest {
         injector = mock(Injector.class);
 
         sut = new CircleEntityImpl(LOCATION);
+    }
+
+    @Test
+    void setAnchorLocationSetsAnchorLocationOnNode() {
+        // Arrange
+        sut.setShape(circle);
+        var expected = new Coordinate2D(1.1, 2.2);
+
+        // Act
+        sut.setAnchorLocation(expected);
+
+        // Assert
+        verify(circle).setCenterX(expected.getX());
+        verify(circle).setCenterY(expected.getY());
     }
 
     @Test
@@ -89,72 +104,6 @@ class CircleEntityTest {
 
         // Assert
         verify(circle).setRadius(RADIUS);
-    }
-
-    @Test
-    void getLeftXTakesRadiusIntoAccount() {
-        // Arrange
-        sut.setRadius(RADIUS);
-        sut.setShape(circle);
-        sut.init(injector);
-        var bounds = mock(Bounds.class);
-        when(circle.getBoundsInLocal()).thenReturn(bounds);
-        when(bounds.getMinX()).thenReturn(LOCATION.getX());
-
-        // Act
-        var actual = sut.getLeftX();
-
-        // Assert
-        var expected = LOCATION.getX() + RADIUS;
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    void getTopYTakesRadiusIntoAccount() {
-        // Arrange
-        sut.setRadius(RADIUS);
-        sut.setShape(circle);
-        sut.init(injector);
-        var bounds = mock(Bounds.class);
-        when(circle.getBoundsInLocal()).thenReturn(bounds);
-        when(bounds.getMinY()).thenReturn(LOCATION.getY());
-
-        // Act
-        var actual = sut.getTopY();
-
-        // Assert
-        var expected = LOCATION.getY() + RADIUS;
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    void setReferenceXCallsSetXOnShapeAfterInitHasBeenCalled() {
-        // Arrange
-        sut.setShape(circle);
-        sut.init(injector);
-
-        var referenceX = 1d;
-
-        // Act
-        sut.setReferenceX(referenceX);
-
-        // Assert
-        verify(circle).setCenterX(referenceX);
-    }
-
-    @Test
-    void setReferenceYCallsSetYOnShapeAfterInitHasBeenCalled() {
-        // Arrange
-        sut.setShape(circle);
-        sut.init(injector);
-
-        var referenceY = 1d;
-
-        // Act
-        sut.setReferenceY(referenceY);
-
-        // Assert
-        verify(circle).setCenterY(referenceY);
     }
 
     private class CircleEntityImpl extends CircleEntity {

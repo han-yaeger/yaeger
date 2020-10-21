@@ -93,16 +93,15 @@ class ShapeEntityTest {
     }
 
     @Test
-    void settingPositionWithoutDelegateStoresPositionAsInitialPosition() {
+    void settingAncWithoutDelegateStoresPositionAsInitialPosition() {
         // Arrange
 
         // Act
-        sut.setReferenceX(LOCATION.getX());
-        sut.setReferenceY(LOCATION.getY());
+        sut.setAnchorLocation(LOCATION);
 
         // Verify
-        Assertions.assertEquals(0, Double.compare(sut.getInitialLocation().getX(), LOCATION.getX()));
-        Assertions.assertEquals(0, Double.compare(sut.getInitialLocation().getY(), LOCATION.getY()));
+        Assertions.assertEquals(0, Double.compare(sut.getAnchorLocation().getX(), LOCATION.getX()));
+        Assertions.assertEquals(0, Double.compare(sut.getAnchorLocation().getY(), LOCATION.getY()));
     }
 
     @Test
@@ -148,18 +147,13 @@ class ShapeEntityTest {
         }
 
         @Override
-        public void setReferenceX(double x) {
-            shape.ifPresentOrElse(shape -> shape.setLayoutX(x), () -> this.x = x);
-        }
+        public void setAnchorLocation(Coordinate2D anchorLocation) {
+            super.setAnchorLocation(anchorLocation);
 
-        @Override
-        public void setReferenceY(double y) {
-            shape.ifPresentOrElse(shape -> shape.setLayoutY(y), () -> this.y = y);
-        }
-
-        public Point2D getInitialLocation() {
-            return new Point2D(x, y);
+            shape.ifPresent(shape -> {
+                shape.setLayoutX(anchorLocation.getX());
+                shape.setLayoutY(anchorLocation.getY());
+            });
         }
     }
-
 }

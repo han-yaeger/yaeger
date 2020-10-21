@@ -3,7 +3,6 @@ package com.github.hanyaeger.api.engine.entities.entity.motion;
 import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.annotations.UpdatableProvider;
 import com.github.hanyaeger.api.engine.entities.entity.Placeable;
-import javafx.geometry.Point2D;
 
 public interface Moveable extends Placeable, MotionModifier {
 
@@ -67,17 +66,13 @@ public interface Moveable extends Placeable, MotionModifier {
             if (Double.compare(getSpeed(), 0d) == 0) {
                 return;
             }
-            var currentPosition = new Point2D(getOriginX(), getOriginY());
-            var updatedPosition = getMotionApplier().updateLocation(currentPosition);
-            setReferenceX(updatedPosition.getX());
-            setReferenceY(updatedPosition.getY());
+            setAnchorLocation(getMotionApplier().updateLocation(getAnchorLocation()));
         };
     }
 
     default void undoUpdate() {
         if (Double.compare(getSpeed(), 0) == 0 && getMotionApplier().getPreviousLocation().isPresent()) {
-            setReferenceX(getMotionApplier().getPreviousLocation().get().getX());
-            setReferenceY(getMotionApplier().getPreviousLocation().get().getY());
+            setAnchorLocation(getMotionApplier().getPreviousLocation().get());
         }
     }
 }

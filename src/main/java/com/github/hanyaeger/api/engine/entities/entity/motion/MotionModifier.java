@@ -6,10 +6,11 @@ package com.github.hanyaeger.api.engine.entities.entity.motion;
 public interface MotionModifier extends SpeedProvider, DirectionProvider {
 
     /**
-     * Set the motion.
+     * Set the motion with which this {@link com.github.hanyaeger.api.engine.entities.entity.YaegerEntity}
+     * is travelling.
      *
-     * @param speed     the speed as a {@code double}
-     * @param direction the direction in degrees as a {@code double}
+     * @param speed     The speed as a {@code double}.
+     * @param direction The direction in degrees as a {@code double}.
      */
     void setMotionTo(final double speed, final double direction);
 

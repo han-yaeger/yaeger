@@ -110,16 +110,5 @@ class EntitySupplierTest {
         public AnchorPoint getAnchorPoint() {
             return null;
         }
-
-        @Override
-        public void setReferenceX(double x) {
-            // Not required here.
-        }
-
-        @Override
-        public void setReferenceY(double y) {
-            // Not required here.
-        }
-
     }
 }

@@ -30,6 +30,20 @@ class TextEntityTest {
     }
 
     @Test
+    void setAnchorLocationSetsAnchorLocationOnNode() {
+        // Arrange
+        sut.setShape(text);
+        var expected = new Coordinate2D(1.1, 2.2);
+
+        // Act
+        sut.setAnchorLocation(expected);
+
+        // Assert
+        verify(text).setX(expected.getX());
+        verify(text).setY(expected.getY());
+    }
+
+    @Test
     void settingDelegateSetsTextOnDelegate() {
         // Setup
 
@@ -99,35 +113,5 @@ class TextEntityTest {
         verify(text).setFill(COLOR);
         verify(text).setText(YAEGER);
         verify(text).setFont(FONT);
-    }
-
-    @Test
-    void setReferenceXCallsSetXOnShapeAfterInitHasBeenCalled() {
-        // Arrange
-        sut.setShape(text);
-        sut.init(injector);
-
-        var referenceX = 1d;
-
-        // Act
-        sut.setReferenceX(referenceX);
-
-        // Assert
-        verify(text).setX(referenceX);
-    }
-
-    @Test
-    void setReferenceYCallsSetYOnShapeAfterInitHasBeenCalled() {
-        // Arrange
-        sut.setShape(text);
-        sut.init(injector);
-
-        var referenceY = 1d;
-
-        // Act
-        sut.setReferenceY(referenceY);
-
-        // Assert
-        verify(text).setY(referenceY);
     }
 }

@@ -149,13 +149,13 @@ class CenteredShapeEntityTest {
         }
 
         @Override
-        public void setReferenceX(double x) {
-            shape.ifPresentOrElse(shape -> shape.setLayoutX(x), () -> this.x = x);
-        }
+        public void setAnchorLocation(Coordinate2D anchorLocation) {
+            super.setAnchorLocation(anchorLocation);
 
-        @Override
-        public void setReferenceY(double y) {
-            shape.ifPresentOrElse(shape -> shape.setLayoutY(y), () -> this.y = y);
+            shape.ifPresent(shape -> {
+                shape.setLayoutX(anchorLocation.getX());
+                shape.setLayoutY(anchorLocation.getY());
+            });
         }
     }
 

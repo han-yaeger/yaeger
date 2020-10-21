@@ -9,36 +9,34 @@ import com.github.hanyaeger.api.engine.scenes.YaegerScene;
 public interface Placeable extends Bounded, Anchorable {
 
     /**
-     * @return The x-coordinate of the top-left corner of the Bounding Box without any transformations
-     * (e.g. translations, rotations) as a {@code double}.
-     */
-    default double getOriginX() {
-        return getLeftX();
-    }
-
-    /**
-     * @return The y-coordinate of the top-left corner of the Bounding Box without any transformations
-     * (e.g. translations, rotations) as a {@code double}.
-     */
-    default double getOriginY() {
-        return getTopY();
-    }
-
-    /**
-     * Set the new x-coordinate of the reference of this {@link YaegerEntity}. The reference will depend on the chosen
-     * {@link AnchorPoint}.
+     * Set the x-coordinate of the {@code AnchorLocation} of this {@link YaegerEntity};
      *
      * @param x The x-coordinate as a {@code double}.
      */
-    void setReferenceX(final double x);
+    void setAnchorLocationX(final double x);
 
     /**
-     * Set the new y-coordinate of the reference of this {@link YaegerEntity}. The reference will depend on the chosen
-     * {@link AnchorPoint}.
+     * Set the y-coordinate of the {@code AnchorLocation} of this {@link YaegerEntity};
      *
      * @param y The y-coordinate as a {@code double}.
      */
-    void setReferenceY(final double y);
+    void setAnchorLocationY(final double y);
+
+    /**
+     * Set the {@link Coordinate2D} where the {@link AnchorPoint} of this {@link YaegerEntity} will be placed, within
+     * the {@link com.github.hanyaeger.api.engine.scenes.YaegerScene}.
+     *
+     * @param anchorLocation The {@link Coordinate2D} that should be used.
+     */
+    void setAnchorLocation(final Coordinate2D anchorLocation);
+
+    /**
+     * Return the {@link Coordinate2D} where the {@link AnchorPoint} of this {@link YaegerEntity} is placed, within
+     * the {@link com.github.hanyaeger.api.engine.scenes.YaegerScene}.
+     *
+     * @return The {@link Coordinate2D} that is currently being used.
+     */
+    Coordinate2D getAnchorLocation();
 
     /**
      * Transfer the x and y-coordinate of this {@link YaegerEntity} to its JavaFX {@link javafx.scene.Node}

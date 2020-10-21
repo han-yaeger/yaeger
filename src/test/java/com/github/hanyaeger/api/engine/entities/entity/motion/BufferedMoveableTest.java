@@ -1,6 +1,7 @@
 package com.github.hanyaeger.api.engine.entities.entity.motion;
 
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import javafx.scene.Node;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -137,18 +138,29 @@ class BufferedMoveableTest {
         }
 
         @Override
-        public void setReferenceX(double x) {
-            // Not required here
+        public void setAnchorLocationX(double x) {
+            // Not required here.
         }
 
         @Override
-        public void setReferenceY(double y) {
-            // Not required here
+        public void setAnchorLocationY(double y) {
+            // Not required here.
+        }
+
+        @Override
+        public void setAnchorLocation(Coordinate2D anchorLocation) {
+            // Not required here.
+        }
+
+        @Override
+        public Coordinate2D getAnchorLocation() {
+            // Not required here.
+            return null;
         }
 
         @Override
         public void transferCoordinatesToNode() {
-
+            // Not required here.
         }
     }
 }

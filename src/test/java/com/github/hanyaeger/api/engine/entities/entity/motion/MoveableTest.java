@@ -2,6 +2,7 @@ package com.github.hanyaeger.api.engine.entities.entity.motion;
 
 import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -135,22 +136,18 @@ class MoveableTest {
     }
 
     @Test
-    void callingTheUpdatableModifiesPosition() {
+    void callingTheUpdatableModifiesLocation() {
         // Arrange
-        var UPDATED_LOCATION = new Point2D(37, 42);
+        var anchorLocation = new Coordinate2D(37, 42);
+        sut.setAnchorLocation(anchorLocation);
         Updatable updatable = sut.updateLocation();
-        Node node = mock(Node.class, withSettings().withoutAnnotations());
-        Bounds bounds = new BoundingBox(0, 0, 10, 10);
-        when(node.getBoundsInLocal()).thenReturn(bounds);
-        when(motionApplier.updateLocation(any(Point2D.class))).thenReturn(UPDATED_LOCATION);
         when(motionApplier.getSpeed()).thenReturn(1d);
 
-        ((MoveableImpl) sut).setGameNode(node);
         // Act
         updatable.update(TIMESTAMP);
 
         // Assert
-        verify(motionApplier).updateLocation(any(Point2D.class));
+        verify(motionApplier).updateLocation(any(Coordinate2D.class));
     }
 
     @Test
@@ -173,6 +170,7 @@ class MoveableTest {
 
     private class MoveableImpl implements Moveable {
 
+        Coordinate2D anchorLocation;
         DefaultMotionApplier motionApplier;
         Node node;
 
@@ -206,18 +204,28 @@ class MoveableTest {
         }
 
         @Override
-        public void setReferenceX(double x) {
+        public void setAnchorLocationX(double x) {
             // Not required here.
         }
 
         @Override
-        public void setReferenceY(double y) {
+        public void setAnchorLocationY(double y) {
             // Not required here.
+        }
+
+        @Override
+        public void setAnchorLocation(Coordinate2D anchorLocation) {
+            this.anchorLocation = anchorLocation;
+        }
+
+        @Override
+        public Coordinate2D getAnchorLocation() {
+            return anchorLocation;
         }
 
         @Override
         public void transferCoordinatesToNode() {
-
+            // Not required here.
         }
     }
 }

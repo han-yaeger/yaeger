@@ -117,19 +117,18 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     }
 
     @Override
-    public void remove() {
+    public final void remove() {
         imageView.get().setImage(null);
         super.remove();
     }
 
     @Override
-    public void setReferenceX(double x) {
-        imageView.ifPresentOrElse(imageView -> imageView.setX(x), () -> this.x = x);
-    }
-
-    @Override
-    public void setReferenceY(double y) {
-        imageView.ifPresentOrElse(imageView -> imageView.setY(y), () -> this.y = y);
+    public final void setAnchorLocation(Coordinate2D anchorLocation) {
+        super.setAnchorLocation(anchorLocation);
+        imageView.ifPresent(imageView -> {
+            imageView.setX(anchorLocation.getX());
+            imageView.setY(anchorLocation.getY());
+        });
     }
 
     @Inject

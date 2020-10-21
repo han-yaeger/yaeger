@@ -28,6 +28,20 @@ class RectangleEntityTest {
     }
 
     @Test
+    void setAnchorLocationSetsAnchorLocationOnNode() {
+        // Arrange
+        sut.setShape(rectangle);
+        var expected = new Coordinate2D(1.1, 2.2);
+
+        // Act
+        sut.setAnchorLocation(expected);
+
+        // Assert
+        verify(rectangle).setX(expected.getX());
+        verify(rectangle).setY(expected.getY());
+    }
+
+    @Test
     void settingValuesAfterDelegateIsSetDelegatesTheValues() {
         // Arrange
         sut.setShape(rectangle);
@@ -84,36 +98,6 @@ class RectangleEntityTest {
 
         // Assert
         verify(rectangle).setArcHeight(ARC_HEIGHT);
-    }
-
-    @Test
-    void setReferenceXCallsSetXOnShapeAfterInitHasBeenCalled() {
-        // Arrange
-        sut.setShape(rectangle);
-        sut.init(injector);
-
-        var referenceX = 1d;
-
-        // Act
-        sut.setReferenceX(referenceX);
-
-        // Assert
-        verify(rectangle).setX(referenceX);
-    }
-
-    @Test
-    void setReferenceYCallsSetYOnShapeAfterInitHasBeenCalled() {
-        // Arrange
-        sut.setShape(rectangle);
-        sut.init(injector);
-
-        var referenceY = 1d;
-
-        // Act
-        sut.setReferenceY(referenceY);
-
-        // Assert
-        verify(rectangle).setY(referenceY);
     }
 
     private class RectangleEntityImpl extends RectangleEntity {

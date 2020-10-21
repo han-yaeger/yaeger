@@ -27,15 +27,15 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     static final boolean DEFAULT_VISIBILITY = true;
     static final double DEFAULT_OPACITY = 1;
 
-    protected double x;
-    protected double y;
+    private Coordinate2D anchorLocation;
+    private AnchorPoint anchorPoint;
 
     private boolean visible = DEFAULT_VISIBILITY;
     private double opacity = DEFAULT_OPACITY;
 
     private Optional<Cursor> cursor = Optional.empty();
     private List<Timer> timers = new ArrayList<>();
-    private AnchorPoint anchorPoint;
+
     private RotationBuffer rotationBuffer;
 
     /**
@@ -44,8 +44,8 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * @param initialLocation The initial {@link Coordinate2D} of this {@link YaegerEntity}
      */
     public YaegerEntity(final Coordinate2D initialLocation) {
-        this.x = initialLocation.getX();
-        this.y = initialLocation.getY();
+        this.anchorLocation = initialLocation;
+
         this.anchorPoint = AnchorPoint.TOP_LEFT;
         this.rotationBuffer = new RotationBuffer();
     }
@@ -130,7 +130,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * @return The distance as a {@code double}.
      */
     public double distanceTo(final YaegerEntity entity) {
-        return distanceTo(new Coordinate2D(entity.getOriginX(), entity.getOriginY()));
+        return distanceTo(entity.getAnchorLocation());
     }
 
     /**
@@ -141,8 +141,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * @return The distance as a {@code double}.
      */
     public double distanceTo(final Coordinate2D location) {
-        var thisLocation = new Point2D(getOriginX(), getOriginY());
-        return thisLocation.distance(new Point2D(location.getX(), location.getY()));
+        return getAnchorLocation().distance(new Point2D(location.getX(), location.getY()));
     }
 
     /**
@@ -171,7 +170,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
         if (this.equals(entity)) {
             return 0d;
         }
-        return angleTo(new Coordinate2D(entity.getOriginX(), entity.getOriginY()));
+        return angleTo(entity.getAnchorLocation());
     }
 
     /**
@@ -197,13 +196,12 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * @throws NullPointerException if the specified {@code otherLocation} is null.
      */
     public double angleTo(final Coordinate2D otherLocation) {
-        var thisLocation = new Point2D(getOriginX(), getOriginY());
 
-        if (thisLocation.equals(otherLocation)) {
+        if (getAnchorLocation().equals(otherLocation)) {
             return 0d;
         }
 
-        var delta = otherLocation.subtract(thisLocation);
+        var delta = otherLocation.subtract(getAnchorLocation());
         var normalizedDelta = delta.normalize();
         var angle = new Point2D(0, 1).angle(normalizedDelta);
 
@@ -284,9 +282,34 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     }
 
     @Override
-    public void setAnchorPoint(AnchorPoint anchorPoint) {
+    public void setAnchorPoint(final AnchorPoint anchorPoint) {
         this.anchorPoint = anchorPoint;
         applyTranslationsForAnchorPoint();
+    }
+
+    @Override
+    public AnchorPoint getAnchorPoint() {
+        return anchorPoint;
+    }
+
+    @Override
+    public void setAnchorLocation(final Coordinate2D anchorLocation) {
+        this.anchorLocation = anchorLocation;
+    }
+
+    @Override
+    public Coordinate2D getAnchorLocation() {
+        return this.anchorLocation;
+    }
+
+    @Override
+    public void setAnchorLocationX(double x) {
+        setAnchorLocation(new Coordinate2D(x, getAnchorLocation().getY()));
+    }
+
+    @Override
+    public void setAnchorLocationY(double y) {
+        setAnchorLocation(new Coordinate2D(getAnchorLocation().getX(), y));
     }
 
     @Override
@@ -303,15 +326,9 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     }
 
     @Override
-    public AnchorPoint getAnchorPoint() {
-        return anchorPoint;
-    }
-
-    @Override
     public void transferCoordinatesToNode() {
         getNode().ifPresent(node -> {
-            setReferenceX(x);
-            setReferenceY(y);
+            setAnchorLocation(anchorLocation);
         });
     }
 

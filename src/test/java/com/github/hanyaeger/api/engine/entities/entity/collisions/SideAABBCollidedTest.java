@@ -1,6 +1,7 @@
 package com.github.hanyaeger.api.engine.entities.entity.collisions;
 
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
 import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
 import javafx.geometry.BoundingBox;
@@ -204,13 +205,24 @@ class SideAABBCollidedTest {
         }
 
         @Override
-        public void setReferenceX(double x) {
-            // Not required here
+        public void setAnchorLocationX(double x) {
+            // Not required here.
         }
 
         @Override
-        public void setReferenceY(double y) {
-            // Not required here
+        public void setAnchorLocationY(double y) {
+            // Not required here.
+        }
+
+        @Override
+        public void setAnchorLocation(Coordinate2D anchorLocation) {
+            // Not required here.
+        }
+
+        @Override
+        public Coordinate2D getAnchorLocation() {
+            // Not required here.
+            return null;
         }
 
         @Override

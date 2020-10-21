@@ -5,7 +5,6 @@ import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionAppli
 import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
 import com.github.hanyaeger.api.engine.scenes.SceneBorder;
 import javafx.geometry.BoundingBox;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import org.junit.jupiter.api.Assertions;
@@ -41,7 +40,7 @@ class SceneBorderTouchingWatcherTest {
         sut.setGameNode(node);
         sut.setMotionApplier(motionApplier);
 
-        when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(new Point2D(0, 0)));
+        when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(new Coordinate2D(0, 0)));
     }
 
     @Test
@@ -89,7 +88,7 @@ class SceneBorderTouchingWatcherTest {
 
         // Assert
         Assertions.assertEquals(SceneBorder.LEFT, sut.borderTouched);
-        verify(motionApplier, times(3)).getPreviousLocation();
+        verify(motionApplier, times(2)).getPreviousLocation();
     }
 
     @Test
@@ -129,7 +128,7 @@ class SceneBorderTouchingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.RIGHT, sut.borderTouched);
-        verify(motionApplier, times(3)).getPreviousLocation();
+        verify(motionApplier, times(2)).getPreviousLocation();
     }
 
     @Test
@@ -169,7 +168,7 @@ class SceneBorderTouchingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.BOTTOM, sut.borderTouched);
-        verify(motionApplier, times(3)).getPreviousLocation();
+        verify(motionApplier, times(2)).getPreviousLocation();
     }
 
     @Test
@@ -209,7 +208,7 @@ class SceneBorderTouchingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.TOP, sut.borderTouched);
-        verify(motionApplier, times(3)).getPreviousLocation();
+        verify(motionApplier, times(2)).getPreviousLocation();
     }
 
     @Test
@@ -263,23 +262,34 @@ class SceneBorderTouchingWatcherTest {
         }
 
         @Override
-        public void setReferenceX(double x) {
-
+        public void setAnchorLocationX(double x) {
+            // Not required here.
         }
 
         @Override
-        public void setReferenceY(double y) {
+        public void setAnchorLocationY(double y) {
+            // Not required here.
+        }
 
+        @Override
+        public void setAnchorLocation(Coordinate2D anchorLocation) {
+            // Not required here.
+        }
+
+        @Override
+        public Coordinate2D getAnchorLocation() {
+            // Not required here.
+            return null;
         }
 
         @Override
         public void transferCoordinatesToNode() {
-
+            // Not required here.
         }
 
         @Override
         public void setAnchorPoint(AnchorPoint anchorPoint) {
-
+            // Not required here.
         }
 
         @Override

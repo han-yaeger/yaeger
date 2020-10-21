@@ -31,6 +31,20 @@ class EllipseEntityTest {
     }
 
     @Test
+    void setAnchorLocationSetsAnchorLocationOnNode() {
+        // Arrange
+        sut.setShape(ellipse);
+        var expected = new Coordinate2D(1.1, 2.2);
+
+        // Act
+        sut.setAnchorLocation(expected);
+
+        // Assert
+        verify(ellipse).setCenterX(expected.getX());
+        verify(ellipse).setCenterY(expected.getY());
+    }
+
+    @Test
     void getRadiusXWithoutNodeOrBufferedRadiusXReturnsDefault() {
         // Arrange
 
@@ -158,72 +172,6 @@ class EllipseEntityTest {
 
         // Assert
         verify(ellipse).setRadiusY(RADIUS_Y);
-    }
-
-    @Test
-    void getLeftXTakesRadiusIntoAccount() {
-        // Arrange
-        sut.setRadiusX(RADIUS_X);
-        sut.setShape(ellipse);
-        sut.init(injector);
-        var bounds = mock(Bounds.class);
-        when(ellipse.getBoundsInLocal()).thenReturn(bounds);
-        when(bounds.getMinX()).thenReturn(LOCATION.getX());
-
-        // Act
-        var actual = sut.getLeftX();
-
-        // Assert
-        var expected = LOCATION.getX() + RADIUS_X;
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void getTopYTakesRadiusIntoAccount() {
-        // Arrange
-        sut.setRadiusY(RADIUS_Y);
-        sut.setShape(ellipse);
-        sut.init(injector);
-        var bounds = mock(Bounds.class);
-        when(ellipse.getBoundsInLocal()).thenReturn(bounds);
-        when(bounds.getMinY()).thenReturn(LOCATION.getY());
-
-        // Act
-        var actual = sut.getTopY();
-
-        // Assert
-        var expected = LOCATION.getY() + RADIUS_Y;
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void setReferenceXCallsSetXOnShapeAfterInitHasBeenCalled() {
-        // Arrange
-        sut.setShape(ellipse);
-        sut.init(injector);
-
-        var referenceX = 1d;
-
-        // Act
-        sut.setReferenceX(referenceX);
-
-        // Assert
-        verify(ellipse).setCenterX(referenceX);
-    }
-
-    @Test
-    void setReferenceYCallsSetYOnShapeAfterInitHasBeenCalled() {
-        // Arrange
-        sut.setShape(ellipse);
-        sut.init(injector);
-
-        var referenceY = 1d;
-
-        // Act
-        sut.setReferenceY(referenceY);
-
-        // Assert
-        verify(ellipse).setCenterY(referenceY);
     }
 
     private class EllipseEntityImpl extends EllipseEntity {

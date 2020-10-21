@@ -52,6 +52,56 @@ class YaegerEntityTest {
     }
 
     @Test
+    void getAnchorLocationReturnsAnchorLocation() {
+        // Arrange
+
+        // Act
+        var actual = sut.getAnchorLocation();
+
+        // Assert
+        assertEquals(LOCATION, actual);
+    }
+
+    @Test
+    void setAnchorLocationSetsAnchorLocation() {
+        // Arrange
+        var expected = new Coordinate2D(3.7, 4.2);
+
+        sut.setAnchorLocation(expected);
+        // Act
+        var actual = sut.getAnchorLocation();
+
+        // Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void setAnchorLocationXSetsAnchorLocation() {
+        // Arrange
+        var expected = 28;
+
+        sut.setAnchorLocationX(expected);
+        // Act
+        var actual = sut.getAnchorLocation();
+
+        // Assert
+        assertEquals(expected, actual.getX());
+    }
+
+    @Test
+    void setAnchorLocationYSetsAnchorLocation() {
+        // Arrange
+        var expected = 82;
+
+        // Act
+        sut.setAnchorLocationY(expected);
+        var actual = sut.getAnchorLocation();
+
+        // Assert
+        assertEquals(expected, actual.getY());
+    }
+
+    @Test
     void getTimersReturnsAnEmptyCollection() {
         // Arrange
 
@@ -198,7 +248,7 @@ class YaegerEntityTest {
         sut.transferCoordinatesToNode();
 
         // Assert
-        assertEquals(LOCATION.getX(), sut.getOriginX());
+        assertEquals(LOCATION.getX(), sut.getAnchorLocation().getX());
     }
 
     @Test
@@ -210,7 +260,7 @@ class YaegerEntityTest {
         sut.transferCoordinatesToNode();
 
         // Assert
-        assertEquals(LOCATION.getY(), sut.getOriginY());
+        assertEquals(LOCATION.getY(), sut.getAnchorLocation().getY());
     }
 
     @Test
@@ -477,8 +527,9 @@ class YaegerEntityTest {
         // Arrange
         var expected = 9d;
         var other = new Coordinate2D(LOCATION.getX() + expected, LOCATION.getY());
-        sut.init(injector);
+
         sut.transferCoordinatesToNode();
+        sut.applyTranslationsForAnchorPoint();
 
         // Act
         var actual = sut.distanceTo(other);
@@ -725,20 +776,13 @@ class YaegerEntityTest {
         // Arrange
         var expected = 135d;
         var other = new YaegerEntityImpl(new Coordinate2D(LOCATION.getX() + 10, LOCATION.getY() - 10));
-        var otherNode = mock(Node.class, withSettings().withoutAnnotations());
-        other.setNode(Optional.of(otherNode));
-        var otherBoundingBox = mock(BoundingBox.class);
-        when(otherNode.getBoundsInLocal()).thenReturn(otherBoundingBox);
-        when(otherBoundingBox.getWidth()).thenReturn(ENTITY_WIDTH);
-        when(otherBoundingBox.getHeight()).thenReturn(ENTITY_HEIGHT);
-        when(otherNode.getScene()).thenReturn(scene);
-        when(scene.getWidth()).thenReturn(SCENE_WIDTH);
 
         other.init(injector);
         other.transferCoordinatesToNode();
+        other.applyTranslationsForAnchorPoint();
 
-        sut.init(injector);
         sut.transferCoordinatesToNode();
+        sut.applyTranslationsForAnchorPoint();
 
         // Act
         var actual = sut.angleTo(other);
@@ -992,16 +1036,6 @@ class YaegerEntityTest {
 
         public double getOriginY() {
             return testY;
-        }
-
-        @Override
-        public void setReferenceX(double x) {
-            this.testX = x;
-        }
-
-        @Override
-        public void setReferenceY(double y) {
-            this.testY = y;
         }
     }
 }
