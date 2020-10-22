@@ -27,9 +27,8 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     private ImageRepository imageRepository;
     private ImageViewFactory imageViewFactory;
 
-    private int frames;
+    private final int frames;
     private Optional<Integer> spriteIndex = Optional.empty();
-
     protected Optional<ImageView> imageView = Optional.empty();
     protected Optional<SpriteAnimationDelegate> spriteAnimationDelegate = Optional.empty();
 
@@ -118,7 +117,7 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
 
     @Override
     public final void remove() {
-        imageView.get().setImage(null);
+        imageView.ifPresent(imageView -> imageView.setImage(null));
         super.remove();
     }
 
