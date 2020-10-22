@@ -47,7 +47,7 @@ class RotatableTest {
         private RotationBuffer rotationBuffer;
 
         @Override
-        public Optional<Node> getNode() {
+        public Optional<? extends Node> getNode() {
             if (node != null) {
                 return Optional.of(node);
             } else {

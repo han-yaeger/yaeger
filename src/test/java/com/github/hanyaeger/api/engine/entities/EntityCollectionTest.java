@@ -5,17 +5,18 @@ import com.github.hanyaeger.api.engine.annotations.AnnotationProcessor;
 import com.github.hanyaeger.api.engine.debug.Debugger;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
-import com.github.hanyaeger.api.engine.entities.entity.events.EventTypes;
 import com.github.hanyaeger.api.engine.entities.entity.events.userinput.KeyListener;
 import com.google.inject.Injector;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
-import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -24,6 +25,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class EntityCollectionTest {
+
+    private static final Coordinate2D LOCATION = new Coordinate2D(0, 0);
 
     private EntityCollection sut;
     private Injector injector;
@@ -70,235 +73,284 @@ class EntityCollectionTest {
         verify(supplier).clear();
     }
 
-    @Test
-    void suppliersEntitiesAreTransferredAtUpdate() {
-        // Arrange
-        var updatableEntity = mock(UpdatableEntity.class);
-        var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(updatableEntity.getNode()).thenReturn(Optional.of(node));
+    @Nested
+    class TestsWithKeyListeningEntites {
 
-        List<YaegerEntity> updatables = new ArrayList<>();
-        updatables.add(updatableEntity);
-        var supplier = mock(EntitySupplier.class);
-        when(supplier.get()).thenReturn(updatables);
+        private KeyListeningEntityImpl keyListeningEntity;
+        private EntitySupplier entitySupplier;
 
-        var children = mock(ObservableList.class);
-        when(pane.getChildren()).thenReturn(children);
+        @BeforeEach
+        void setup() {
+            keyListeningEntity = new KeyListeningEntityImpl(new Coordinate2D(0, 0));
+            var node = mock(Node.class, withSettings().withoutAnnotations());
+            keyListeningEntity.setNode(node);
+            var scene = mock(Scene.class);
+            when(node.getScene()).thenReturn(scene);
 
-        sut = new EntityCollection(pane);
-        sut.setAnnotationProcessor(annotationProcessor);
-        sut.init(injector);
+            var children = mock(ObservableList.class);
+            when(pane.getChildren()).thenReturn(children);
 
-        // Act
-        sut.registerSupplier(supplier);
-        sut.initialUpdate();
+            entitySupplier = new EntitySupplier();
+            entitySupplier.add(keyListeningEntity);
+        }
 
-        // Assert
-        verify(supplier).get();
-    }
+        @Test
+        void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsEmpty() {
+            // Arrange
+            Set<KeyCode> keycodes = new HashSet<>();
 
-    @Test
-    void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsEmpty() {
-        // Arrange
-        var keyListeningEntity = new KeyListeningEntityImpl(new Coordinate2D(0, 0));
-        var node = mock(Node.class, withSettings().withoutAnnotations());
-        keyListeningEntity.setNode(node);
-        var scene = mock(Scene.class);
-        when(node.getScene()).thenReturn(scene);
+            // Act
+            sut = new EntityCollection(pane);
+            sut.setAnnotationProcessor(annotationProcessor);
+            sut.init(injector);
+            sut.registerSupplier(entitySupplier);
+            sut.update(0);
+            sut.notifyGameObjectsOfPressedKeys(keycodes);
 
-        var children = mock(ObservableList.class);
-        when(pane.getChildren()).thenReturn(children);
+            // Assert
+            assertEquals(keycodes, keyListeningEntity.getPressedKeys());
+        }
 
-        var entitySupplier = new EntitySupplier();
-        entitySupplier.add(keyListeningEntity);
+        @Test
+        void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsFilled() {
+            // Arrange
+            Set<KeyCode> keycodes = new HashSet<>();
+            keycodes.add(KeyCode.Y);
+            keycodes.add(KeyCode.A);
+            keycodes.add(KeyCode.E);
+            keycodes.add(KeyCode.G);
+            keycodes.add(KeyCode.E);
+            keycodes.add(KeyCode.R);
 
-        Set<KeyCode> keycodes = new HashSet<>();
+            // Act
+            sut = new EntityCollection(pane);
+            sut.setAnnotationProcessor(annotationProcessor);
+            sut.init(injector);
+            sut.registerSupplier(entitySupplier);
+            sut.update(0);
+            sut.notifyGameObjectsOfPressedKeys(keycodes);
 
-        // Act
-        sut = new EntityCollection(pane);
-        sut.setAnnotationProcessor(annotationProcessor);
-        sut.init(injector);
-        sut.registerSupplier(entitySupplier);
-        sut.update(0);
-        sut.notifyGameObjectsOfPressedKeys(keycodes);
-
-        // Assert
-        assertEquals(keycodes, keyListeningEntity.getPressedKeys());
-    }
-
-    @Test
-    void keyListeningEntityGetsNotifiedWhenKeyInputChangeAndSetIsFilled() {
-        // Arrange
-        var keyListeningEntity = new KeyListeningEntityImpl(new Coordinate2D(0, 0));
-        var node = mock(Node.class, withSettings().withoutAnnotations());
-        keyListeningEntity.setNode(node);
-        var scene = mock(Scene.class);
-        when(node.getScene()).thenReturn(scene);
-
-        var children = mock(ObservableList.class);
-        when(pane.getChildren()).thenReturn(children);
-
-        var entitySupplier = new EntitySupplier();
-        entitySupplier.add(keyListeningEntity);
-
-        Set<KeyCode> keycodes = new HashSet<>();
-        keycodes.add(KeyCode.Y);
-        keycodes.add(KeyCode.A);
-        keycodes.add(KeyCode.E);
-        keycodes.add(KeyCode.G);
-        keycodes.add(KeyCode.E);
-        keycodes.add(KeyCode.R);
-
-        // Act
-        sut = new EntityCollection(pane);
-        sut.setAnnotationProcessor(annotationProcessor);
-        sut.init(injector);
-        sut.registerSupplier(entitySupplier);
-        sut.update(0);
-        sut.notifyGameObjectsOfPressedKeys(keycodes);
-
-        // Assert
-        assertEquals(keycodes, keyListeningEntity.getPressedKeys());
-    }
-
-    @Test
-    void addDynamicEntityCallsAnnotationProcessor() {
-        // Arrange
-        var updatableEntity = mock(UpdatableEntity.class);
-
-        var children = mock(ObservableList.class);
-        when(pane.getChildren()).thenReturn(children);
-
-        sut = new EntityCollection(pane);
-        sut.setAnnotationProcessor(annotationProcessor);
-        sut.init(injector);
-
-        // Act
-        sut.addDynamicEntity(updatableEntity);
-
-        // Assert
-        verify(annotationProcessor).configureUpdateDelegators(updatableEntity);
-    }
-
-    @Test
-    void addToEntityCollectionIsCalledForEachEntity() {
-        // Arrange
-        var updatableEntity = mock(UpdatableEntity.class);
-        var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(updatableEntity.getNode()).thenReturn(Optional.of(node));
-
-        List<YaegerEntity> updatables = new ArrayList<>();
-        updatables.add(updatableEntity);
-        var supplier = mock(EntitySupplier.class);
-        when(supplier.get()).thenReturn(updatables);
-
-        var children = mock(ObservableList.class);
-        when(pane.getChildren()).thenReturn(children);
-
-        sut = new EntityCollection(pane);
-        sut.setAnnotationProcessor(annotationProcessor);
-        sut.init(injector);
-
-        // Act
-        sut.registerSupplier(supplier);
-        sut.initialUpdate();
-
-        // Assert
-        verify(updatableEntity).addToEntityCollection(sut);
-    }
-
-    @Test
-    void attachEventListerIsCalledForEachEntity() {
-        // Arrange
-        var updatableEntity = mock(UpdatableEntity.class);
-        var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(updatableEntity.getNode()).thenReturn(Optional.of(node));
-
-        List<YaegerEntity> updatables = new ArrayList<>();
-        updatables.add(updatableEntity);
-        var supplier = mock(EntitySupplier.class);
-        when(supplier.get()).thenReturn(updatables);
-
-        var children = mock(ObservableList.class);
-        when(pane.getChildren()).thenReturn(children);
-
-        sut = new EntityCollection(pane);
-        sut.setAnnotationProcessor(annotationProcessor);
-        sut.init(injector);
-
-        // Act
-        sut.registerSupplier(supplier);
-        sut.initialUpdate();
-
-        // Assert
-        verify(updatableEntity).attachEventListener(eq(EventTypes.REMOVE), any());
-    }
-
-    @Test
-    void transferCoordinatesToNodeIsCalledForEachEntity() {
-        // Arrange
-        var updatableEntity = mock(UpdatableEntity.class);
-        var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(updatableEntity.getNode()).thenReturn(Optional.of(node));
-
-        List<YaegerEntity> updatables = new ArrayList<>();
-        updatables.add(updatableEntity);
-        var supplier = mock(EntitySupplier.class);
-        when(supplier.get()).thenReturn(updatables);
-
-        var children = mock(ObservableList.class);
-        when(pane.getChildren()).thenReturn(children);
-
-        sut = new EntityCollection(pane);
-        sut.setAnnotationProcessor(annotationProcessor);
-        sut.init(injector);
-
-        // Act
-        sut.registerSupplier(supplier);
-        sut.initialUpdate();
-
-        // Assert
-        verify(updatableEntity).transferCoordinatesToNode();
-    }
-
-    @Test
-    void applyTranslationsForAnchorPointIsCalledForEachEntity() {
-        // Arrange
-        var updatableEntity = mock(UpdatableEntity.class);
-        var node = mock(Node.class, withSettings().withoutAnnotations());
-        when(updatableEntity.getNode()).thenReturn(Optional.of(node));
-
-        List<YaegerEntity> updatables = new ArrayList<>();
-        updatables.add(updatableEntity);
-        var supplier = mock(EntitySupplier.class);
-        when(supplier.get()).thenReturn(updatables);
-
-        var children = mock(ObservableList.class);
-        when(pane.getChildren()).thenReturn(children);
-
-        sut = new EntityCollection(pane);
-        sut.setAnnotationProcessor(annotationProcessor);
-        sut.init(injector);
-
-        // Act
-        sut.registerSupplier(supplier);
-        sut.initialUpdate();
-
-        // Assert
-        verify(updatableEntity).applyTranslationsForAnchorPoint();
-    }
-
-    private abstract class UpdatableEntity extends YaegerEntity implements Updatable {
-
-        /**
-         * Instantiate a new {@link YaegerEntity} for the given {@link Coordinate2D} and textDelegate.
-         *
-         * @param initialPosition the initial {@link Coordinate2D} of this {@link YaegerEntity}
-         */
-        public UpdatableEntity(Coordinate2D initialPosition) {
-            super(initialPosition);
+            // Assert
+            assertEquals(keycodes, keyListeningEntity.getPressedKeys());
         }
     }
+
+    @Nested
+    class TestsWithUpdatableEntities {
+
+        private UpdatableEntity updatableEntity;
+
+        @BeforeEach
+        void setup() {
+            updatableEntity = new UpdatableEntity(LOCATION);
+            var node = mock(Node.class, withSettings().withoutAnnotations());
+            updatableEntity.setNode(node);
+        }
+
+        @Test
+        void suppliersEntitiesAreTransferredAtUpdate() {
+            // Arrange
+            List<YaegerEntity> updatables = new ArrayList<>();
+            updatables.add(updatableEntity);
+            var supplier = mock(EntitySupplier.class);
+            when(supplier.get()).thenReturn(updatables);
+
+            var children = mock(ObservableList.class);
+            when(pane.getChildren()).thenReturn(children);
+
+            sut = new EntityCollection(pane);
+            sut.setAnnotationProcessor(annotationProcessor);
+            sut.init(injector);
+
+            // Act
+            sut.registerSupplier(supplier);
+            sut.initialUpdate();
+
+            // Assert
+            verify(supplier).get();
+        }
+
+        @Test
+        void addDynamicEntityCallsAnnotationProcessor() {
+            // Arrange
+            var children = mock(ObservableList.class);
+            when(pane.getChildren()).thenReturn(children);
+
+            sut = new EntityCollection(pane);
+            sut.setAnnotationProcessor(annotationProcessor);
+            sut.init(injector);
+
+            // Act
+            sut.addDynamicEntity(updatableEntity);
+
+            // Assert
+            verify(annotationProcessor).configureUpdateDelegators(updatableEntity);
+        }
+
+        @Test
+        void addToEntityCollectionIsCalledForEachEntity() {
+            // Arrange
+            List<YaegerEntity> updatables = new ArrayList<>();
+            updatables.add(updatableEntity);
+            var supplier = mock(EntitySupplier.class);
+            when(supplier.get()).thenReturn(updatables);
+
+            var children = mock(ObservableList.class);
+            when(pane.getChildren()).thenReturn(children);
+
+            sut = new EntityCollection(pane);
+            sut.setAnnotationProcessor(annotationProcessor);
+            sut.init(injector);
+
+            // Act
+            sut.registerSupplier(supplier);
+            sut.initialUpdate();
+
+            // Assert
+            assertTrue(updatableEntity.isAddToEntityCollectionCalled());
+        }
+
+        @Test
+        void attachEventListerIsCalledForEachEntity() {
+            // Arrange
+            List<YaegerEntity> updatables = new ArrayList<>();
+            updatables.add(updatableEntity);
+            var supplier = mock(EntitySupplier.class);
+            when(supplier.get()).thenReturn(updatables);
+
+            var children = mock(ObservableList.class);
+            when(pane.getChildren()).thenReturn(children);
+
+            sut = new EntityCollection(pane);
+            sut.setAnnotationProcessor(annotationProcessor);
+            sut.init(injector);
+
+            // Act
+            sut.registerSupplier(supplier);
+            sut.initialUpdate();
+
+            // Assert
+            assertTrue(updatableEntity.isAttachEventListenerCalled());
+        }
+
+        @Test
+        void transferCoordinatesToNodeIsCalledForEachEntity() {
+            // Arrange
+            List<YaegerEntity> updatables = new ArrayList<>();
+            updatables.add(updatableEntity);
+            var supplier = mock(EntitySupplier.class);
+            when(supplier.get()).thenReturn(updatables);
+
+            var children = mock(ObservableList.class);
+            when(pane.getChildren()).thenReturn(children);
+
+            sut = new EntityCollection(pane);
+            sut.setAnnotationProcessor(annotationProcessor);
+            sut.init(injector);
+
+            // Act
+            sut.registerSupplier(supplier);
+            sut.initialUpdate();
+
+            // Assert
+            assertTrue(updatableEntity.isTransferCoordinatesToNodeCalled());
+        }
+
+        @Test
+        void applyTranslationsForAnchorPointIsCalledForEachEntity() {
+            // Arrange
+            List<YaegerEntity> updatables = new ArrayList<>();
+            updatables.add(updatableEntity);
+            var supplier = mock(EntitySupplier.class);
+            when(supplier.get()).thenReturn(updatables);
+
+            var children = mock(ObservableList.class);
+            when(pane.getChildren()).thenReturn(children);
+
+            sut = new EntityCollection(pane);
+            sut.setAnnotationProcessor(annotationProcessor);
+            sut.init(injector);
+
+            // Act
+            sut.registerSupplier(supplier);
+            sut.initialUpdate();
+
+            // Assert
+            assertTrue(updatableEntity.isApplyTranslationsForAnchorPointCalled());
+        }
+
+        private class UpdatableEntity extends YaegerEntity implements Updatable {
+
+            private Node node;
+            private boolean transferCoordinatesToNodeCalled = false;
+            private boolean applyTranslationsForAnchorPointCalled = false;
+            private boolean attachEventListenerCalled = false;
+            private boolean addToEntityCollectionCalled = false;
+
+            public UpdatableEntity(Coordinate2D initialPosition) {
+                super(initialPosition);
+            }
+
+            @Override
+            public void update(long timestamp) {
+                // Not required here
+            }
+
+            @Override
+            public Optional<? extends Node> getNode() {
+                return Optional.of(node);
+            }
+
+            public void setNode(Node node) {
+                this.node = node;
+            }
+
+            @Override
+            public void addToEntityCollection(EntityCollection collection) {
+                super.addToEntityCollection(collection);
+
+                this.addToEntityCollectionCalled = true;
+            }
+
+            @Override
+            public void attachEventListener(EventType eventType, EventHandler eventHandler) {
+                super.attachEventListener(eventType, eventHandler);
+
+                this.attachEventListenerCalled = true;
+            }
+
+            @Override
+            public void applyTranslationsForAnchorPoint() {
+                super.applyTranslationsForAnchorPoint();
+
+                this.applyTranslationsForAnchorPointCalled = true;
+            }
+
+            @Override
+            public void transferCoordinatesToNode() {
+                super.transferCoordinatesToNode();
+
+                this.transferCoordinatesToNodeCalled = true;
+            }
+
+            public boolean isTransferCoordinatesToNodeCalled() {
+                return transferCoordinatesToNodeCalled;
+            }
+
+            public boolean isApplyTranslationsForAnchorPointCalled() {
+                return applyTranslationsForAnchorPointCalled;
+            }
+
+            public boolean isAttachEventListenerCalled() {
+                return attachEventListenerCalled;
+            }
+
+            public boolean isAddToEntityCollectionCalled() {
+                return addToEntityCollectionCalled;
+            }
+        }
+    }
+
 
     private class KeyListeningEntityImpl extends YaegerEntity implements KeyListener {
 
@@ -315,7 +367,7 @@ class EntityCollectionTest {
         }
 
         @Override
-        public Optional<Node> getNode() {
+        public Optional<? extends Node> getNode() {
             return Optional.of(node);
         }
 

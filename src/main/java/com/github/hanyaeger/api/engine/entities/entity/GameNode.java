@@ -14,5 +14,5 @@ public interface GameNode {
      *
      * @return an {@link Optional} of the {@link Node} that is related to this {@link GameNode}
      */
-    Optional<Node> getNode();
+    Optional<? extends Node> getNode();
 }

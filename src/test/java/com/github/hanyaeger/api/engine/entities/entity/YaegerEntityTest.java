@@ -1022,7 +1022,7 @@ class YaegerEntityTest {
         }
 
         @Override
-        public Optional<Node> getNode() {
+        public Optional<? extends Node> getNode() {
             return node;
         }
 

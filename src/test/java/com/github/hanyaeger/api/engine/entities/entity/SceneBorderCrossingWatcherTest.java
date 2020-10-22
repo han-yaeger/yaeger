@@ -5,10 +5,8 @@ import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionAppli
 import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
 import com.github.hanyaeger.api.engine.scenes.SceneBorder;
 import javafx.geometry.BoundingBox;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -245,7 +243,7 @@ class SceneBorderCrossingWatcherTest {
         }
 
         @Override
-        public Optional<Node> getNode() {
+        public Optional<? extends Node> getNode() {
             return Optional.of(gameNode);
         }
 

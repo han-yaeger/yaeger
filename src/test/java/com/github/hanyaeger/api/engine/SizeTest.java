@@ -12,6 +12,7 @@ class SizeTest {
 
     @Nested
     class TwoParameterConstructor {
+
         @Test
         void widthFromConstructorIsSet() {
             // Arrange
@@ -39,6 +40,7 @@ class SizeTest {
 
     @Nested
     class OneParameterConstructor {
+
         @Test
         void widthFromConstructorIsSet() {
             // Arrange

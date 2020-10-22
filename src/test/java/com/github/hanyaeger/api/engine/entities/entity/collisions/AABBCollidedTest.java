@@ -131,7 +131,7 @@ public class AABBCollidedTest {
         }
 
         @Override
-        public Optional<Node> getNode() {
+        public Optional<? extends Node> getNode() {
             return null;
         }
 
@@ -172,7 +172,7 @@ public class AABBCollidedTest {
         }
 
         @Override
-        public Optional<Node> getNode() {
+        public Optional<? extends Node> getNode() {
             return null;
         }
 
@@ -229,7 +229,7 @@ public class AABBCollidedTest {
     private class TestCollidable extends TestCollided implements AABBCollider, AABBCollided {
 
         @Override
-        public Optional<Node> getNode() {
+        public Optional<? extends Node> getNode() {
             return null;
         }
 

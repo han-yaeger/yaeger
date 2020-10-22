@@ -67,7 +67,7 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
             spriteAnimationDelegate = Optional.of(spriteAnimationDelegateFactory.create(imageView.get(), frames));
         }
 
-        spriteIndex.ifPresent(index -> spriteAnimationDelegate.get().setSpriteIndex(index));
+        spriteIndex.ifPresent(index -> spriteAnimationDelegate.ifPresent(sad -> sad.setSpriteIndex(index)));
 
         super.init(injector);
     }
@@ -107,12 +107,8 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     }
 
     @Override
-    public Optional<Node> getNode() {
-        if (imageView.isPresent()) {
-            return Optional.of(imageView.get());
-        } else {
-            return Optional.empty();
-        }
+    public Optional<? extends Node> getNode() {
+        return imageView;
     }
 
     @Override

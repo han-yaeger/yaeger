@@ -16,7 +16,6 @@ import org.mockito.Mockito;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import static org.mockito.Mockito.mock;
 
@@ -126,7 +125,7 @@ class CollisionDelegateTest {
         }
 
         @Override
-        public Optional<Node> getNode() {
+        public Optional<? extends Node> getNode() {
             return null;
         }
 
@@ -210,7 +209,7 @@ class CollisionDelegateTest {
         }
 
         @Override
-        public Optional<Node> getNode() {
+        public Optional<? extends Node> getNode() {
             return null;
         }
 

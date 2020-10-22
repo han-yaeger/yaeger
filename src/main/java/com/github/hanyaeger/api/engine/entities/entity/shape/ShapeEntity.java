@@ -72,7 +72,7 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
     }
 
     @Override
-    public Optional<Node> getNode() {
+    public Optional<? extends Node> getNode() {
         if (shape.isPresent()) {
             return Optional.of(shape.get());
         }

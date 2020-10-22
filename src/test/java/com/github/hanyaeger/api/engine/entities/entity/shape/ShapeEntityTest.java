@@ -40,7 +40,7 @@ class ShapeEntityTest {
         // Arrange
 
         // Act
-        Optional<Node> gameNode = sut.getNode();
+        var gameNode = sut.getNode();
 
         // Assert
         Assertions.assertTrue(gameNode.isEmpty());

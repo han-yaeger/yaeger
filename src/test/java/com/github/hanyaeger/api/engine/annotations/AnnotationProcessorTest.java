@@ -93,7 +93,7 @@ class AnnotationProcessorTest {
         }
 
         @Override
-        public Optional<Node> getNode() {
+        public Optional<? extends Node> getNode() {
             return null;
         }
 
@@ -134,7 +134,7 @@ class AnnotationProcessorTest {
         }
 
         @Override
-        public Optional<Node> getNode() {
+        public Optional<? extends Node> getNode() {
             return null;
         }
 
@@ -183,7 +183,7 @@ class AnnotationProcessorTest {
         }
 
         @Override
-        public Optional<Node> getNode() {
+        public Optional<? extends Node> getNode() {
             return Optional.of(node);  // Not required here.
         }
 
@@ -227,7 +227,7 @@ class AnnotationProcessorTest {
         }
 
         @Override
-        public Optional<Node> getNode() {
+        public Optional<? extends Node> getNode() {
             return Optional.of(node);  // Not required here.
         }
 

@@ -188,7 +188,7 @@ class BoundedTest {
         private Node node;
 
         @Override
-        public Optional<Node> getNode() {
+        public Optional<? extends Node> getNode() {
             return Optional.of(node);
         }
 
@@ -200,7 +200,7 @@ class BoundedTest {
     private class EmptyGameNodeBoundedImpl implements Bounded {
 
         @Override
-        public Optional<Node> getNode() {
+        public Optional<? extends Node> getNode() {
             return Optional.empty();
         }
     }
