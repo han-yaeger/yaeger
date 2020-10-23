@@ -1,11 +1,13 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape.rectangle;
 
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
+import com.github.hanyaeger.api.engine.entities.entity.shape.ellipse.EllipseEntity;
 import com.google.inject.Injector;
 import javafx.scene.shape.Rectangle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class RectangleEntityTest {
@@ -42,6 +44,158 @@ class RectangleEntityTest {
     }
 
     @Test
+    void getWidthWithoutNodeOrBufferedWidthReturnsDefault() {
+        // Arrange
+
+        // Act
+        var actual = sut.getWidth();
+
+        // Assert
+        assertEquals(RectangleEntity.DEFAULT_WIDTH, actual);
+    }
+
+    @Test
+    void getWidthBeforeNodeIsSetUsesBufferedWidth() {
+        // Arrange
+        sut.setWidth(WIDTH);
+
+        // Act
+        var actual = sut.getWidth();
+
+        // Assert
+        assertEquals(WIDTH, actual);
+    }
+
+    @Test
+    void getWidthAfterNodeIsSetDelegatesTheWidth() {
+        // Arrange
+        sut.setShape(rectangle);
+        sut.init(injector);
+
+        when(rectangle.getWidth()).thenReturn(WIDTH);
+
+        // Act
+        var actual = sut.getWidth();
+
+        // Assert
+        assertEquals(WIDTH, actual);
+    }
+
+    @Test
+    void getHeightWithoutNodeOrBufferedHeightReturnsDefault() {
+        // Arrange
+
+        // Act
+        var actual = sut.getHeight();
+
+        // Assert
+        assertEquals(RectangleEntity.DEFAULT_HEIGHT, actual);
+    }
+
+    @Test
+    void getHeightBeforeNodeIsSetUsesBufferedHeight() {
+        // Arrange
+        sut.setHeight(HEIGHT);
+
+        // Act
+        var actual = sut.getHeight();
+
+        // Assert
+        assertEquals(HEIGHT, actual);
+    }
+
+    @Test
+    void getHeightAfterNodeIsSetDelegatesTheHeight() {
+        // Arrange
+        sut.setShape(rectangle);
+        sut.init(injector);
+
+        when(rectangle.getHeight()).thenReturn(HEIGHT);
+
+        // Act
+        var actual = sut.getHeight();
+
+        // Assert
+        assertEquals(HEIGHT, actual);
+    }
+
+    @Test
+    void getArcWidthWithoutNodeOrBufferedArcWidthReturnsDefault() {
+        // Arrange
+
+        // Act
+        var actual = sut.getArcWidth();
+
+        // Assert
+        assertEquals(RectangleEntity.DEFAULT_ARC, actual);
+    }
+
+    @Test
+    void getArcWidthBeforeNodeIsSetUsesBufferedArcWidth() {
+        // Arrange
+        sut.setArcWidth(ARC_WIDTH);
+
+        // Act
+        var actual = sut.getArcWidth();
+
+        // Assert
+        assertEquals(ARC_WIDTH, actual);
+    }
+
+    @Test
+    void getArcWidthAfterNodeIsSetDelegatesTheArcWidth() {
+        // Arrange
+        sut.setShape(rectangle);
+        sut.init(injector);
+
+        when(rectangle.getArcWidth()).thenReturn(ARC_WIDTH);
+
+        // Act
+        var actual = sut.getArcWidth();
+
+        // Assert
+        assertEquals(ARC_WIDTH, actual);
+    }
+
+    @Test
+    void getArcHeightWithoutNodeOrBufferedArcHeightReturnsDefault() {
+        // Arrange
+
+        // Act
+        var actual = sut.getArcHeight();
+
+        // Assert
+        assertEquals(RectangleEntity.DEFAULT_ARC, actual);
+    }
+
+    @Test
+    void getArcHeightBeforeNodeIsSetUsesBufferedHeight() {
+        // Arrange
+        sut.setArcHeight(ARC_HEIGHT);
+
+        // Act
+        var actual = sut.getArcHeight();
+
+        // Assert
+        assertEquals(ARC_HEIGHT, actual);
+    }
+
+    @Test
+    void getArcHeightAfterNodeIsSetDelegatesTheArcHeight() {
+        // Arrange
+        sut.setShape(rectangle);
+        sut.init(injector);
+
+        when(rectangle.getArcHeight()).thenReturn(ARC_HEIGHT);
+
+        // Act
+        var actual = sut.getArcHeight();
+
+        // Assert
+        assertEquals(ARC_HEIGHT, actual);
+    }
+
+    @Test
     void settingValuesAfterDelegateIsSetDelegatesTheValues() {
         // Arrange
         sut.setShape(rectangle);
@@ -62,7 +216,7 @@ class RectangleEntityTest {
     }
 
     @Test
-    void ifRectangleNotYetSetStrokeHeightIsStoredAndSetAtInit() {
+    void ifNodeNotYetSetStrokeHeightIsStoredAndSetAtInit() {
         // Arrange
 
         // Act
@@ -75,7 +229,7 @@ class RectangleEntityTest {
     }
 
     @Test
-    void ifRectangleNotYetSetArcWidthIsStoredAndSetAtInit() {
+    void ifNodeNotYetSetArcWidthIsStoredAndSetAtInit() {
         // Arrange
         sut.setArcWidth(ARC_WIDTH);
         sut.setShape(rectangle);
@@ -88,7 +242,7 @@ class RectangleEntityTest {
     }
 
     @Test
-    void ifRectangleNotYetSetArcHeightIsStoredAndSetAtInit() {
+    void ifNodeNotYetSetArcHeightIsStoredAndSetAtInit() {
         // Arrange
         sut.setArcHeight(ARC_HEIGHT);
         sut.setShape(rectangle);

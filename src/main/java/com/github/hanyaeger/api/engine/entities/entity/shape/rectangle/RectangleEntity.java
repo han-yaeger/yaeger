@@ -6,18 +6,20 @@ import com.github.hanyaeger.api.engine.entities.entity.shape.ShapeEntity;
 import com.google.inject.Injector;
 import javafx.scene.shape.Rectangle;
 
-import java.util.Optional;
-
 /**
  * A {@link RectangleEntity} provides the option to use a drawable Rectangle as an
  * {@link YaegerEntity}.
  */
 public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
 
-    private Optional<Double> height = Optional.empty();
-    private Optional<Double> width = Optional.empty();
-    private Optional<Double> arcHeight = Optional.empty();
-    private Optional<Double> arcWidth = Optional.empty();
+    static final double DEFAULT_HEIGHT = 1;
+    static final double DEFAULT_WIDTH = 2;
+    static final double DEFAULT_ARC = 0;
+
+    private double height = DEFAULT_HEIGHT;
+    private double width = DEFAULT_WIDTH;
+    private double arcHeight = DEFAULT_ARC;
+    private double arcWidth = DEFAULT_ARC;
 
     /**
      * Create a new {@link RectangleEntity} on the given {@code initialPosition}.
@@ -34,7 +36,7 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
      * @param height The {@code height} of the rectangle as a {@code double}
      */
     public void setHeight(final double height) {
-        shape.ifPresentOrElse(shape -> shape.setHeight(height), () -> this.height = Optional.of(height));
+        shape.ifPresentOrElse(shape -> shape.setHeight(height), () -> this.height = height);
     }
 
     /**
@@ -43,7 +45,33 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
      * @param width The {@code width} of the rectangle as a {@code double}
      */
     public void setWidth(final double width) {
-        shape.ifPresentOrElse(shape -> shape.setWidth(width), () -> this.width = Optional.of(width));
+        shape.ifPresentOrElse(shape -> shape.setWidth(width), () -> this.width = width);
+    }
+
+    /**
+     * Return the {@code height} of this {@link RectangleEntity}.
+     *
+     * @return The {@code height} as a {@code double}.
+     */
+    public double getHeight() {
+        if (shape.isPresent()) {
+            return shape.get().getHeight();
+        } else {
+            return height;
+        }
+    }
+
+    /**
+     * Return the  {@code width} of this {@link RectangleEntity}.
+     *
+     * @return The {@code width} as a {@code double}.
+     */
+    public double getWidth() {
+        if (shape.isPresent()) {
+            return shape.get().getWidth();
+        } else {
+            return width;
+        }
     }
 
     /**
@@ -52,7 +80,7 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
      * @param arcHeight The {@code height} of the arc corner of the rectangle as a {@code double}
      */
     public void setArcHeight(final double arcHeight) {
-        shape.ifPresentOrElse(shape -> shape.setArcHeight(arcHeight), () -> this.arcHeight = Optional.of(arcHeight));
+        shape.ifPresentOrElse(shape -> shape.setArcHeight(arcHeight), () -> this.arcHeight = arcHeight);
     }
 
     /**
@@ -61,7 +89,33 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
      * @param arcWidth The {@code width} of the arc corner of the rectangle as a {@code double}
      */
     public void setArcWidth(final double arcWidth) {
-        shape.ifPresentOrElse(shape -> shape.setArcWidth(arcWidth), () -> this.arcWidth = Optional.of(arcWidth));
+        shape.ifPresentOrElse(shape -> shape.setArcWidth(arcWidth), () -> this.arcWidth = arcWidth);
+    }
+
+    /**
+     * Return the  {@code arcHeight} of this {@link RectangleEntity}.
+     *
+     * @return The {@code arcHeight} as a {@code double}.
+     */
+    public double getArcHeight() {
+        if (shape.isPresent()) {
+            return shape.get().getArcHeight();
+        } else {
+            return arcHeight;
+        }
+    }
+
+    /**
+     * Return the  {@code arcWidth} of this {@link RectangleEntity}.
+     *
+     * @return The {@code arcWidth} as a {@code double}.
+     */
+    public double getArcWidth() {
+        if (shape.isPresent()) {
+            return shape.get().getArcWidth();
+        } else {
+            return arcWidth;
+        }
     }
 
     @Override
@@ -77,9 +131,11 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
     public void init(final Injector injector) {
         super.init(injector);
 
-        height.ifPresent(height -> shape.get().setHeight(height));
-        width.ifPresent(width -> shape.get().setWidth(width));
-        arcHeight.ifPresent(arcHeight -> shape.get().setArcHeight(arcHeight));
-        arcWidth.ifPresent(arcWidth -> shape.get().setArcWidth(arcWidth));
+        shape.ifPresent(shape -> {
+            shape.setHeight(height);
+            shape.setWidth(width);
+            shape.setArcHeight(arcHeight);
+            shape.setArcWidth(arcWidth);
+        });
     }
 }
