@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class TextEntityTest {
@@ -44,6 +45,71 @@ class TextEntityTest {
     }
 
     @Test
+    void getFontWithoutNodeOrBufferedFontReturnsDefault() {
+        // Arrange
+
+        // Act
+        var actual = sut.getFont();
+
+        // Assert
+        assertEquals(TextEntity.DEFAULT_FONT, actual);
+    }
+
+    @Test
+    void getFontBeforeNodeIsSetUsesBufferedFont() {
+        // Arrange
+        sut.setFont(FONT);
+
+        // Act
+        var actual = sut.getFont();
+
+        // Assert
+        assertEquals(FONT, actual);
+    }
+
+    @Test
+    void getFontAfterNodeIsSetDelegatesTheFont() {
+        // Arrange
+        sut.setShape(text);
+        sut.init(injector);
+
+        when(text.getFont()).thenReturn(FONT);
+
+        // Act
+        var actual = sut.getFont();
+
+        // Assert
+        assertEquals(FONT, actual);
+    }
+
+    @Test
+    void getTextBeforeNodeIsSetUsesBufferedText() {
+        // Arrange
+        sut.setText(YAEGER);
+
+        // Act
+        var actual = sut.getText();
+
+        // Assert
+        assertEquals(YAEGER, actual);
+    }
+
+    @Test
+    void getTextAfterNodeIsSetDelegatesTheText() {
+        // Arrange
+        sut.setShape(text);
+        sut.init(injector);
+
+        when(text.getText()).thenReturn(YAEGER);
+
+        // Act
+        var actual = sut.getText();
+
+        // Assert
+        assertEquals(YAEGER, actual);
+    }
+
+    @Test
     void settingDelegateSetsTextOnDelegate() {
         // Setup
 
@@ -55,19 +121,6 @@ class TextEntityTest {
         // Assert
         verify(text).setTextOrigin(VPos.TOP);
         verify(text).setText(YAEGER);
-    }
-
-    @Test
-    void settingDelegateSetsFillOnDelegate() {
-        // Setup
-
-        // Test
-        sut.setFill(COLOR);
-        sut.setShape(text);
-        sut.init(injector);
-
-        // Assert
-        verify(text).setFill(COLOR);
     }
 
     @Test
@@ -104,13 +157,9 @@ class TextEntityTest {
 
         // Test
         sut.setText(YAEGER);
-        sut.setVisible(false);
         sut.setFont(FONT);
-        sut.setFill(COLOR);
 
         // Assert
-        verify(text).setVisible(false);
-        verify(text).setFill(COLOR);
         verify(text).setText(YAEGER);
         verify(text).setFont(FONT);
     }

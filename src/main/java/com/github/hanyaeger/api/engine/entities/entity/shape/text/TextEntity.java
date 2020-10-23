@@ -1,44 +1,43 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape.text;
 
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
-import com.github.hanyaeger.api.engine.entities.entity.motion.RotationBuffer;
 import com.github.hanyaeger.api.engine.entities.entity.shape.ShapeEntity;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import javafx.geometry.VPos;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-import java.util.Optional;
-
 /**
- * A {@code TextEntity} can be used to display a line of text on a {@link YaegerScene}. The text will be placed, using
- * the top left corner as its anchor point.
+ * A {@link TextEntity} can be used to display a line of text on a {@link YaegerScene}.
  */
 public class TextEntity extends ShapeEntity<Text> {
 
-    private Optional<Font> font = Optional.empty();
-    private Optional<String> text;
+    static final Font DEFAULT_FONT = Font.font("roboto", FontWeight.NORMAL, 11);
+
+    private Font font = DEFAULT_FONT;
+    private String text;
 
     /**
-     * Instantiate a new {@code TextEntity} for the given {@link Point2D}.
+     * Create a new empty {@link TextEntity} on the given {@link Coordinate2D}.
      *
-     * @param initialPosition the initial {@link Coordinate2D} of this {@code TextEntity}
+     * @param initialLocation the initial {@link Coordinate2D} of this {@link TextEntity}
      */
-    public TextEntity(final Coordinate2D initialPosition) {
-        this(initialPosition, "");
+    public TextEntity(final Coordinate2D initialLocation) {
+        this(initialLocation, "");
     }
 
     /**
-     * Instantiate a new {@link TextEntity} for the given {@link Point2D} and textDelegate.
+     * Crwate a new {@link TextEntity} on the given {@link Point2D} for the given text.
      *
-     * @param initialPosition the initial {@link Point2D} of this {@code TextEntity}
-     * @param text            a {@link String} containing the initial textDelegate to be displayed
+     * @param initialLocation the initial {@link Coordinate2D} of this {@link TextEntity}
+     * @param text            a {@link String} containing the initial text to be displayed
      */
-    public TextEntity(final Coordinate2D initialPosition, final String text) {
-        super(initialPosition);
-        this.text = Optional.of(text);
+    public TextEntity(final Coordinate2D initialLocation, final String text) {
+        super(initialLocation);
+        this.text = text;
     }
 
     /**
@@ -47,7 +46,20 @@ public class TextEntity extends ShapeEntity<Text> {
      * @param displayText the {@link String} that should be shown
      */
     public void setText(final String displayText) {
-        shape.ifPresentOrElse(text -> text.setText(displayText), () -> this.text = Optional.of(displayText));
+        shape.ifPresentOrElse(text -> text.setText(displayText), () -> this.text = displayText);
+    }
+
+    /**
+     * Return the {@code text} that is being displayed.
+     *
+     * @return the  {@code text}  that is being displayed as a {@link String}
+     */
+    public String getText() {
+        if (shape.isPresent()) {
+            return shape.get().getText();
+        } else {
+            return text;
+        }
     }
 
     /**
@@ -63,11 +75,24 @@ public class TextEntity extends ShapeEntity<Text> {
      * @param font the {@link Font} to be used
      */
     public void setFont(final Font font) {
-        shape.ifPresentOrElse(text -> text.setFont(font), () -> this.font = Optional.of(font));
+        shape.ifPresentOrElse(text -> text.setFont(font), () -> this.font = font);
+    }
+
+    /**
+     * Return the {@link Font} currently used fot this {@link TextEntity}.
+     *
+     * @return the {@link Font} currently used fot this {@link TextEntity}
+     */
+    public Font getFont() {
+        if (shape.isPresent()) {
+            return shape.get().getFont();
+        } else {
+            return font;
+        }
     }
 
     @Override
-    public final void setAnchorLocation(Coordinate2D anchorLocation) {
+    public final void setAnchorLocation(final Coordinate2D anchorLocation) {
         super.setAnchorLocation(anchorLocation);
         shape.ifPresent(text -> {
             text.setX(anchorLocation.getX());
@@ -79,8 +104,10 @@ public class TextEntity extends ShapeEntity<Text> {
     public void init(final Injector injector) {
         super.init(injector);
 
-        shape.get().setTextOrigin(VPos.TOP);
-        font.ifPresent(font1 -> shape.get().setFont(font1));
-        text.ifPresent(text -> shape.get().setText(text));
+        shape.ifPresent(shape -> {
+            shape.setTextOrigin(VPos.TOP);
+            shape.setText(text);
+            shape.setFont(font);
+        });
     }
 }
