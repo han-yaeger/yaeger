@@ -1,9 +1,8 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape;
 
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
+import com.github.hanyaeger.api.engine.entities.entity.shape.rectangle.RectangleEntity;
 import com.google.inject.Injector;
-import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeType;
@@ -11,15 +10,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.mock;
 
 class ShapeEntityTest {
 
     private static final Coordinate2D LOCATION = new Coordinate2D(37, 37);
-    private static final Color COLOR_FILL = Color.DARKBLUE;
+    private static final Color FILL_COLOR = Color.DARKBLUE;
     private static final Color STROKE_COLOR = Color.LIGHTBLUE;
     public static final double STROKE_WIDTH = 4d;
 
@@ -33,6 +31,120 @@ class ShapeEntityTest {
         injector = mock(Injector.class);
 
         sut = new ShapeEntityImpl(LOCATION);
+    }
+
+    @Test
+    void getFillWithoutNodeOrBufferedFillReturnsDefault() {
+        // Arrange
+
+        // Act
+        var actual = sut.getFill();
+
+        // Assert
+        assertEquals(ShapeEntity.DEFAULT_FILL_COLOR, actual);
+    }
+
+    @Test
+    void getFillBeforeNodeIsSetUsesBufferedFill() {
+        // Arrange
+        sut.setFill(FILL_COLOR);
+
+        // Act
+        var actual = sut.getFill();
+
+        // Assert
+        assertEquals(FILL_COLOR, actual);
+    }
+
+    @Test
+    void getFillAfterNodeIsSetDelegatesTheFill() {
+        // Arrange
+        sut.setShape(shape);
+        sut.init(injector);
+
+        when(shape.getFill()).thenReturn(FILL_COLOR);
+
+        // Act
+        var actual = sut.getFill();
+
+        // Assert
+        assertEquals(FILL_COLOR, actual);
+    }
+
+    @Test
+    void getStrokeColorWithoutNodeOrBufferedStrokeColorReturnsDefault() {
+        // Arrange
+
+        // Act
+        var actual = sut.getStrokeColor();
+
+        // Assert
+        assertEquals(ShapeEntity.DEFAULT_STROKE_COLOR, actual);
+    }
+
+    @Test
+    void getStrokeColorBeforeNodeIsSetUsesBufferedStrokeColor() {
+        // Arrange
+        sut.setStrokeColor(STROKE_COLOR);
+
+        // Act
+        var actual = sut.getStrokeColor();
+
+        // Assert
+        assertEquals(STROKE_COLOR, actual);
+    }
+
+    @Test
+    void getStrokeColorAfterNodeIsSetDelegatesTheStrokeColor() {
+        // Arrange
+        sut.setShape(shape);
+        sut.init(injector);
+
+        when(shape.getStroke()).thenReturn(STROKE_COLOR);
+
+        // Act
+        var actual = sut.getStrokeColor();
+
+        // Assert
+        assertEquals(STROKE_COLOR, actual);
+    }
+
+    @Test
+    void getStrokeWidthWithoutNodeOrBufferedStrokeWidthReturnsDefault() {
+        // Arrange
+
+        // Act
+        var actual = sut.getStrokeWidth();
+
+        // Assert
+        assertEquals(ShapeEntity.DEFAULT_STROKE_WIDTH, actual);
+    }
+
+    @Test
+    void getStrokeWidthBeforeNodeIsSetUsesBufferedStrokeWidth() {
+        // Arrange
+        sut.setStrokeWidth(STROKE_WIDTH);
+
+        // Act
+        var actual = sut.getStrokeWidth();
+
+        // Assert
+        assertEquals(STROKE_WIDTH, actual);
+    }
+
+    @Test
+    void getStrokeWidthAfterNodeIsSetDelegatesTheStrokeWidth() {
+        // Arrange
+        sut.setShape(shape);
+        sut.init(injector);
+
+        when(shape.getStrokeWidth()).thenReturn(STROKE_WIDTH);
+
+        // Act
+        var actual = sut.getStrokeWidth();
+
+        // Assert
+        assertEquals(STROKE_WIDTH, actual);
     }
 
     @Test
@@ -112,21 +224,21 @@ class ShapeEntityTest {
 
         // Act
         sut.setStrokeWidth(STROKE_WIDTH);
-        sut.setFill(COLOR_FILL);
+        sut.setFill(FILL_COLOR);
         sut.setStrokeColor(STROKE_COLOR);
 
         // Verify
         verify(shape).setVisible(true);
         verify(shape).setStrokeWidth(STROKE_WIDTH);
         verify(shape).setStroke(STROKE_COLOR);
-        verify(shape).setFill(COLOR_FILL);
+        verify(shape).setFill(FILL_COLOR);
     }
 
     @Test
     void settingValuesBeforeDelegateIsSetSetsValuesAtInit() {
         // Arrange
         sut.setStrokeWidth(STROKE_WIDTH);
-        sut.setFill(COLOR_FILL);
+        sut.setFill(FILL_COLOR);
         sut.setStrokeColor(STROKE_COLOR);
 
         sut.setShape(shape);
@@ -137,7 +249,7 @@ class ShapeEntityTest {
         // Verify
         verify(shape).setStrokeWidth(STROKE_WIDTH);
         verify(shape).setStroke(STROKE_COLOR);
-        verify(shape).setFill(COLOR_FILL);
+        verify(shape).setFill(FILL_COLOR);
     }
 
     private class ShapeEntityImpl extends ShapeEntity<Shape> {
