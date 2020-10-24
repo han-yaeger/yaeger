@@ -16,7 +16,9 @@ import com.github.hanyaeger.api.guice.factories.SpriteAnimationDelegateFactory;
 import java.util.Optional;
 
 /**
- * A {@link SpriteEntity} is a {@link YaegerEntity} that is represented by an Image.
+ * A {@link SpriteEntity} is a {@link YaegerEntity} that is represented by an Image. When creating
+ * a {@link SpriteEntity}, the {@link Size} of the image must be passed through the constructor. After
+ * construction, this {@link Size} can not be changed.
  */
 public abstract class SpriteEntity extends YaegerEntity implements ResourceConsumer {
 
@@ -33,23 +35,23 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     protected Optional<SpriteAnimationDelegate> spriteAnimationDelegate = Optional.empty();
 
     /**
-     * Instantiate a new {@code SpriteEntity} for a given Image.
+     * Instantiate a new {@link SpriteEntity} for a given image.
      *
-     * @param resource The url of the image file. Relative to the resources folder.
-     * @param location the initial {@link Coordinate2D} of this Entity
-     * @param size     The bounding box of this SpriteEntity.
+     * @param resource the url of the image file. Relative to the resources folder
+     * @param location the initial {@link Coordinate2D} of this {@link SpriteEntity}
+     * @param size     The bounding box of this {@link SpriteEntity}
      */
     protected SpriteEntity(final String resource, final Coordinate2D location, final Size size) {
         this(resource, location, size, 1);
     }
 
     /**
-     * Instantiate a new {@code SpriteEntity} for a given Image.
+     * Instantiate a new {@link SpriteEntity} for a given image.
      *
-     * @param resource The url of the image file. Relative to the resources folder.
-     * @param location the initial {@link Coordinate2D} of this Entity
-     * @param size     The bounding box of this SpriteEntity.
-     * @param frames   The number of frames this Image contains. By default the first frame is loaded.
+     * @param resource the url of the image file. Relative to the resources folder
+     * @param location the initial {@link Coordinate2D} of this {@link SpriteEntity}
+     * @param size     The bounding box of this {@link SpriteEntity}
+     * @param frames   The number of frames the image contains. By default the first frame is loaded
      */
     protected SpriteEntity(final String resource, final Coordinate2D location, final Size size, final int frames) {
         super(location);
@@ -72,16 +74,10 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
         super.init(injector);
     }
 
-    private ImageView createImageView(final String resource, final double requestedWidth, final double requestedHeight, final boolean preserveAspectRatio) {
-        var image = imageRepository.get(resource, requestedWidth, requestedHeight, preserveAspectRatio);
-
-        return imageViewFactory.create(image);
-    }
-
     /**
      * Set the current frame index of the Sprite image.
      *
-     * @param index The index that should be shown. The index is zero based and the frame modulo index will be shown.
+     * @param index the index that should be shown. The index is zero based and the frame modulo index will be shown
      */
     public void setCurrentFrameIndex(final int index) {
         spriteAnimationDelegate.ifPresentOrElse(delegate -> delegate.setSpriteIndex(index),
@@ -91,7 +87,7 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     /**
      * Preserve the aspect ration of the width and height of this {@link SpriteEntity}.
      *
-     * @param preserveAspectRatio {@code true} if the ratio should be preserved. {@code false} otherwise.
+     * @param preserveAspectRatio {@code true} if the ratio should be preserved, {@code false} otherwise
      */
     public void setPreserveAspectRatio(boolean preserveAspectRatio) {
         this.preserveAspectRatio = preserveAspectRatio;
@@ -100,10 +96,16 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     /**
      * Return the number of frames comprising this {@link SpriteEntity}.
      *
-     * @return The number of frames as an {@code int}.
+     * @return the number of frames as an {@code int}
      */
     protected int getFrames() {
         return frames;
+    }
+
+    private ImageView createImageView(final String resource, final double requestedWidth, final double requestedHeight, final boolean preserveAspectRatio) {
+        var image = imageRepository.get(resource, requestedWidth, requestedHeight, preserveAspectRatio);
+
+        return imageViewFactory.create(image);
     }
 
     @Override
