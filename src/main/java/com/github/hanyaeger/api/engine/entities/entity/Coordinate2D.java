@@ -10,8 +10,8 @@ public class Coordinate2D extends Point2D {
     /**
      * Creates a new instance of {@link Coordinate2D}.
      *
-     * @param x The x coordinate of the {@link Coordinate2D}.
-     * @param y The y coordinate of the {@link Coordinate2D}.
+     * @param x the x coordinate of the {@link Coordinate2D}
+     * @param y the y coordinate of the {@link Coordinate2D}
      */
     public Coordinate2D(final double x, final double y) {
         super(x, y);
@@ -20,7 +20,7 @@ public class Coordinate2D extends Point2D {
     /**
      * Creates a new instance of a {@link Coordinate2D}.
      *
-     * @param point A {@link Point2D} representation of this {@link Coordinate2D}.
+     * @param point a {@link Point2D} representation of this {@link Coordinate2D}
      */
     public Coordinate2D(final Point2D point) {
         super(point.getX(), point.getY());

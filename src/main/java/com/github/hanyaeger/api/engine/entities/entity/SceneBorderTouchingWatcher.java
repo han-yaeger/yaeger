@@ -17,7 +17,7 @@ public interface SceneBorderTouchingWatcher extends Moveable, Bounded, SceneChil
     /**
      * This method is being called when this {@link SceneBorderTouchingWatcher} touches a border of the {@link YaegerScene}.
      *
-     * @param border The border of the {@link YaegerScene} the {@link YaegerEntity} is touching.
+     * @param border the border of the {@link YaegerScene} the {@link YaegerEntity} is touching
      */
     void notifyBoundaryTouching(final SceneBorder border);
 

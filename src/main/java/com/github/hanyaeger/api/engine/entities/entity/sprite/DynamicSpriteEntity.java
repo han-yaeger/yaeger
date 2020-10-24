@@ -31,10 +31,10 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     /**
      * Create a new {@link DynamicSpriteEntity} for the given image resource on the given {@link Coordinate2D}, with the given {@link Size}.
      *
-     * @param resource        The url of the image file. Relative to the resources folder.
+     * @param resource        the url of the image file. Relative to the resources folder
      * @param initialLocation the initial {@link Coordinate2D} of this Entity
      * @param size            The {@link Size} (width and height) with which the image should be shown. This {@link Size}
-     *                        will also be used as the {@link javafx.geometry.BoundingBox} in case of collision detection.
+     *                        will also be used as the {@link javafx.geometry.BoundingBox} in case of collision detection
      */
     public DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation, final Size size) {
         this(resource, initialLocation, size, 1);
@@ -44,11 +44,11 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      * Create a new {@link DynamicSpriteEntity} for the given image resource on the given {@link Coordinate2D},
      * with the given {@link Size}.
      *
-     * @param resource        The url of the image file. Relative to the resources folder.
+     * @param resource        the url of the image file. Relative to the resources folder
      * @param initialLocation the initial {@link Coordinate2D} of this Entity
-     * @param size            The {@link Size} (width and height) that should be used. The height and width divided by the
+     * @param size            the {@link Size} (width and height) that should be used. The height and width divided by the
      *                        number of frames will be used for displaying the Image and as the {@link javafx.geometry.BoundingBox} in case of collision detection.
-     * @param frames          The number of frames the Image contains. By default the first frame is loaded.
+     * @param frames          the number of frames the Image contains. By default the first frame is loaded
      */
     public DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation, final Size size, final int frames) {
         super(resource, initialLocation, size, frames);
@@ -59,7 +59,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     /**
      * Set the interval at which the sprite should be automatically cycled.
      *
-     * @param interval The interval milli-seconds.
+     * @param interval the interval milli-seconds
      */
     protected void setAutoCycle(final long interval) {
         this.autoCycleInterval = interval;

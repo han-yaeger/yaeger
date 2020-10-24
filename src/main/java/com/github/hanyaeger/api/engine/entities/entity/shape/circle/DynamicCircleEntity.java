@@ -29,7 +29,7 @@ public abstract class DynamicCircleEntity extends CircleEntity implements Update
     /**
      * Create a new {@link DynamicCircleEntity} on the given {@code initialPosition}.
      *
-     * @param initialLocation The initial position at which this {@link DynamicCircleEntity} should be placed
+     * @param initialLocation the initial position at which this {@link DynamicCircleEntity} should be placed
      */
     public DynamicCircleEntity(final Coordinate2D initialLocation) {
         super(initialLocation);

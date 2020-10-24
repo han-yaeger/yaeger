@@ -14,7 +14,7 @@ public interface Bounded extends DimensionsProvider, GameNode {
      * Return the {@link Bounds}, aka Bounding Box after all transformations have been
      * applied.
      *
-     * @return The {@link Bounds}.
+     * @return the {@link Bounds}
      */
     default Bounds getTransformedBounds() {
         if (getNode().isPresent()) {
@@ -27,7 +27,7 @@ public interface Bounded extends DimensionsProvider, GameNode {
     /**
      * Return the {@link Bounds}, aka Bounding Box before all transformations have been applied.
      *
-     * @return The {@link Bounds}.
+     * @return the {@link Bounds}
      */
     default Bounds getNonTransformedBounds() {
         if (getNode().isPresent()) {
@@ -48,42 +48,42 @@ public interface Bounded extends DimensionsProvider, GameNode {
     }
 
     /**
-     * @return A {@code double} of the right side x value.
+     * @return a {@code double} of the right side x value
      */
     default double getRightX() {
         return getNonTransformedBounds().getMaxX();
     }
 
     /**
-     * @return A {@code double} of the left x value.
+     * @return a {@code double} of the left x value
      */
     default double getLeftX() {
         return getNonTransformedBounds().getMinX();
     }
 
     /**
-     * @return A {@code double} of the center x value.
+     * @return a {@code double} of the center x value
      */
     default double getCenterX() {
         return getNonTransformedBounds().getCenterX();
     }
 
     /**
-     * @return A {@code double} of the bottom y value.
+     * @return a {@code double} of the bottom y value
      */
     default double getBottomY() {
         return getNonTransformedBounds().getMaxY();
     }
 
     /**
-     * @return A {@code double} of the top y value.
+     * @return a {@code double} of the top y value
      */
     default double getTopY() {
         return getNonTransformedBounds().getMinY();
     }
 
     /**
-     * @return A {@code double} of the center y value.
+     * @return a {@code double} of the center y value
      */
     default double getCenterY() {
         return getNonTransformedBounds().getCenterY();

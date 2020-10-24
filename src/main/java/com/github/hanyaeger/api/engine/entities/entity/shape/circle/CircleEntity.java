@@ -23,7 +23,7 @@ public abstract class CircleEntity extends CenteredShapeEntity<Circle> {
     /**
      * Create a new {@link CircleEntity} on the given {@code initialPosition}.
      *
-     * @param initialPosition The initial position at which this {@link CircleEntity} should be placed
+     * @param initialPosition the initial position at which this {@link CircleEntity} should be placed
      */
     public CircleEntity(final Coordinate2D initialPosition) {
         super(initialPosition);
@@ -32,7 +32,7 @@ public abstract class CircleEntity extends CenteredShapeEntity<Circle> {
     /**
      * Set the radius of the circle.
      *
-     * @param radius The {@code radius} of the circle as a {@code double}
+     * @param radius the {@code radius} of the circle as a {@code double}
      */
     public void setRadius(final double radius) {
         shape.ifPresentOrElse(circle -> circle.setRadius(radius), () -> this.radius = radius);
@@ -41,7 +41,7 @@ public abstract class CircleEntity extends CenteredShapeEntity<Circle> {
     /**
      * Return the {@code radius} of this {@link CircleEntity}.
      *
-     * @return The {@code radius} as a {@code double}.
+     * @return the {@code radius} as a {@code double}
      */
     public double getRadius() {
         if (shape.isPresent()) {

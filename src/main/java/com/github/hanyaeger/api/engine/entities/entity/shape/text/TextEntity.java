@@ -52,7 +52,7 @@ public class TextEntity extends ShapeEntity<Text> {
     /**
      * Return the {@code text} that is being displayed.
      *
-     * @return the  {@code text}  that is being displayed as a {@link String}
+     * @return the {@code text} that is being displayed as a {@link String}
      */
     public String getText() {
         if (shape.isPresent()) {

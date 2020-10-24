@@ -42,7 +42,7 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
     /**
      * Set the fill color to be used.
      *
-     * @param fill The {@link Color} of the fill
+     * @param fill the {@link Color} of the fill
      */
     public void setFill(final Color fill) {
         shape.ifPresentOrElse(shape -> shape.setFill(fill), () -> this.fill = fill);
@@ -51,7 +51,7 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
     /**
      * Set the color of the stroke to be used.
      *
-     * @param strokeColor The {@link Color} of the stroke
+     * @param strokeColor the {@link Color} of the stroke
      */
     public void setStrokeColor(final Color strokeColor) {
         shape.ifPresentOrElse(shape -> shape.setStroke(strokeColor), () -> this.strokeColor = strokeColor);
@@ -60,7 +60,7 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
     /**
      * Set the width of the stroke to be used.
      *
-     * @param strokeWidth The with of the stroke as a {@code double}
+     * @param strokeWidth the with of the stroke as a {@code double}
      */
     public void setStrokeWidth(final double strokeWidth) {
         shape.ifPresentOrElse(shape -> shape.setStrokeWidth(strokeWidth), () -> this.strokeWidth = strokeWidth);

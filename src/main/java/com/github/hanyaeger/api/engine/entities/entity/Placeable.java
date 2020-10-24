@@ -11,14 +11,14 @@ public interface Placeable extends Bounded, Anchorable {
     /**
      * Set the x-coordinate of the {@code AnchorLocation} of this {@link YaegerEntity};
      *
-     * @param x The x-coordinate as a {@code double}.
+     * @param x the x-coordinate as a {@code double}
      */
     void setAnchorLocationX(final double x);
 
     /**
      * Set the y-coordinate of the {@code AnchorLocation} of this {@link YaegerEntity};
      *
-     * @param y The y-coordinate as a {@code double}.
+     * @param y the y-coordinate as a {@code double}
      */
     void setAnchorLocationY(final double y);
 
@@ -26,7 +26,7 @@ public interface Placeable extends Bounded, Anchorable {
      * Set the {@link Coordinate2D} where the {@link AnchorPoint} of this {@link YaegerEntity} will be placed, within
      * the {@link com.github.hanyaeger.api.engine.scenes.YaegerScene}.
      *
-     * @param anchorLocation The {@link Coordinate2D} that should be used.
+     * @param anchorLocation the {@link Coordinate2D} that should be used
      */
     void setAnchorLocation(final Coordinate2D anchorLocation);
 
@@ -34,7 +34,7 @@ public interface Placeable extends Bounded, Anchorable {
      * Return the {@link Coordinate2D} where the {@link AnchorPoint} of this {@link YaegerEntity} is placed, within
      * the {@link com.github.hanyaeger.api.engine.scenes.YaegerScene}.
      *
-     * @return The {@link Coordinate2D} that is currently being used.
+     * @return the {@link Coordinate2D} that is currently being used
      */
     Coordinate2D getAnchorLocation();
 

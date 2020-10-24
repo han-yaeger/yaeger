@@ -29,7 +29,7 @@ public abstract class DynamicEllipseEntity extends EllipseEntity implements Upda
     /**
      * Create a new {@link DynamicEllipseEntity} on the given {@code initialPosition}.
      *
-     * @param initialPosition The initial position at which this {@link DynamicEllipseEntity} should be placed
+     * @param initialPosition the initial position at which this {@link DynamicEllipseEntity} should be placed
      */
     public DynamicEllipseEntity(final Coordinate2D initialPosition) {
         super(initialPosition);

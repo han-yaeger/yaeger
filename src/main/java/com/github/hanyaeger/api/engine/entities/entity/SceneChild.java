@@ -13,7 +13,7 @@ public interface SceneChild extends GameNode {
      * Return the width of the {@link javafx.scene.Scene} that this {@code Entity}
      * is part of.
      *
-     * @return the width of this {@code Scene} as a {@code double}
+     * @return the width of this {@link YaegerScene} as a {@code double}
      */
     default double getSceneWidth() {
         if (getNode().isPresent()) {
@@ -27,7 +27,7 @@ public interface SceneChild extends GameNode {
      * Return the height of the {@link javafx.scene.Scene} that this {@code Entity}
      * is part of.
      *
-     * @return the height of this {@code Scene} as a {@code double}
+     * @return the height of this {@link YaegerScene} as a {@code double}
      */
     default double getSceneHeight() {
         if (getNode().isPresent()) {

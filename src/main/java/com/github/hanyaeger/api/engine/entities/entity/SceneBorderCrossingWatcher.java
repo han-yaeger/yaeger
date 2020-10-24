@@ -16,7 +16,7 @@ public interface SceneBorderCrossingWatcher extends Bounded, SceneChild, Moveabl
     /**
      * This method is being called when this {@link SceneBorderCrossingWatcher} crosses a border of the {@link YaegerScene}.
      *
-     * @param border The border of the {@link YaegerScene} the {@link YaegerEntity} is crossing.
+     * @param border the border of the {@link YaegerScene} the {@link YaegerEntity} is crossing
      */
     void notifyBoundaryCrossing(final SceneBorder border);
 

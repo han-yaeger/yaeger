@@ -41,7 +41,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     /**
      * Instantiate a new {@link YaegerEntity} on the given {@link Coordinate2D}.
      *
-     * @param initialLocation The initial {@link Coordinate2D} of this {@link YaegerEntity}
+     * @param initialLocation the initial {@link Coordinate2D} of this {@link YaegerEntity}
      */
     public YaegerEntity(final Coordinate2D initialLocation) {
         this.anchorLocation = initialLocation;
@@ -54,7 +54,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * Set the cursor to be shown. This cursor will be applied to the whole
      * {@link com.github.hanyaeger.api.engine.scenes.YaegerScene}.
      *
-     * @param cursor The {@link Cursor} to be shown.
+     * @param cursor the {@link Cursor} to be shown
      */
     public void setCursor(final Cursor cursor) {
         getNode().ifPresentOrElse(node -> {
@@ -67,7 +67,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * or {@code false}. Use the method {@link #setOpacity(double)} to set the transparency of
      * the {@link YaegerEntity}.
      *
-     * @param visible A {@code boolean} repesenting the visibility if the {@link YaegerEntity}.
+     * @param visible a {@code boolean} repesenting the visibility if the {@link YaegerEntity}
      */
     public void setVisible(final boolean visible) {
         getNode().ifPresentOrElse(node -> {
@@ -78,7 +78,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     /**
      * Return the visibility of this {@link YaegerEntity}.
      *
-     * @return The visibility of this {@link YaegerEntity} as a {@code boolean}.
+     * @return the visibility of this {@link YaegerEntity} as a {@code boolean}
      */
     public boolean isVisible() {
         if (getNode().isPresent()) {
@@ -96,7 +96,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * Opacity is specified as a value between 0 and 1. Values less than 0 are
      * treated as 0, values greater than 1 are treated as 1.
      *
-     * @param opacity A {@code double} between 0 and 1.
+     * @param opacity a {@code double} between 0 and 1
      */
     public void setOpacity(final double opacity) {
         getNode().ifPresentOrElse(node -> {
@@ -112,7 +112,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * Opacity is specified as a value between 0 and 1. Values less than 0 are
      * treated as 0, values greater than 1 are treated as 1.
      *
-     * @return The opacity of this {@link YaegerEntity}.
+     * @return the opacity of this {@link YaegerEntity}
      */
     public double getOpacity() {
         if (getNode().isPresent()) {
@@ -126,8 +126,8 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * Calculates the distance to a given {@link YaegerEntity}. This distance
      * is based on the {@link AnchorPoint} of the Entities and not on the shortest distance between them.
      *
-     * @param entity The {@link YaegerEntity} to which the distance should be calculated.
-     * @return The distance as a {@code double}.
+     * @param entity the {@link YaegerEntity} to which the distance should be calculated.
+     * @return The distance as a {@code double}
      */
     public double distanceTo(final YaegerEntity entity) {
         return distanceTo(entity.getAnchorLocation());
@@ -137,8 +137,8 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * Calculates the distance between the {@link AnchorPoint} of this {@link YaegerEntity} and the to a given
      * {@link Coordinate2D}.
      *
-     * @param location The {@link Coordinate2D} to which the distance should be calculated.
-     * @return The distance as a {@code double}.
+     * @param location the {@link Coordinate2D} to which the distance should be calculated
+     * @return the distance as a {@code double}
      */
     public double distanceTo(final Coordinate2D location) {
         return getAnchorLocation().distance(new Point2D(location.getX(), location.getY()));
@@ -161,10 +161,10 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      *          {@link YaegerEntity}, the angle will be 270 degrees.</li>
      * </ul>
      *
-     * @param entity The {@link YaegerEntity} of the other vector.
+     * @param entity the {@link YaegerEntity} of the other vector
      * @return the angle between the two vectors measured in degrees,
-     * {@code NaN} if any of the two vectors is a zero vector.
-     * @throws NullPointerException if the specified {@code location} is null.
+     * {@code NaN} if any of the two vectors is a zero vector
+     * @throws NullPointerException if the specified {@code location} is null
      */
     public double angleTo(final YaegerEntity entity) {
         if (this.equals(entity)) {
@@ -190,10 +190,10 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      *          {@link YaegerEntity}, the angle will be 270 degrees.</li>
      * </ul>
      *
-     * @param otherLocation The {@link Coordinate2D} of the other vector.
+     * @param otherLocation the {@link Coordinate2D} of the other vector
      * @return the angle between the two vectors measured in degrees,
-     * {@code NaN} if any of the two vectors is a zero vector.
-     * @throws NullPointerException if the specified {@code otherLocation} is null.
+     * {@code NaN} if any of the two vectors is a zero vector
+     * @throws NullPointerException if the specified {@code otherLocation} is null
      */
     public double angleTo(final Coordinate2D otherLocation) {
 
@@ -219,7 +219,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      *
      * <b>Note that this method is for internal use only and should not be used when creating a {@link com.github.hanyaeger.api.engine.YaegerGame}</b>
      *
-     * @param collection The {@link EntityCollection} to which this {@link YaegerEntity} should add itself.
+     * @param collection the {@link EntityCollection} to which this {@link YaegerEntity} should add itself
      */
     public void addToEntityCollection(final EntityCollection collection) {
         collection.addStaticEntity(this);
@@ -341,8 +341,8 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * Apply an {@link EntityProcessor} to this {@link YaegerEntity}. An {@link EntityProcessor} is most
      * likely a lambda expression passed by a parent object.
      *
-     * @param processor An instance of {@link EntityProcessor}, most likely a lambda expression that should
-     *                  be called for processing this {@link YaegerEntity}.
+     * @param processor an instance of {@link EntityProcessor}, most likely a lambda expression that should
+     *                  be called for processing this {@link YaegerEntity}
      */
     public void applyEntityProcessor(final EntityProcessor processor) {
         processor.process(this);
@@ -351,8 +351,8 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     /**
      * The {@link Node} encapsulated by this {@link YaegerEntity} should be added to a parent {@link Node}
      *
-     * @param processor An instance of {@link EntityProcessor}, most likely a lambda expression that can be
-     *                  used for adding this node as a child to a parent node.
+     * @param processor an instance of {@link EntityProcessor}, most likely a lambda expression that can be
+     *                  used for adding this node as a child to a parent node
      */
     public void addToParent(final EntityProcessor processor) {
         processor.process(this);

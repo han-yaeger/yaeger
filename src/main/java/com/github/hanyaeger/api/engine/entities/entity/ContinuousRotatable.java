@@ -14,7 +14,7 @@ public interface ContinuousRotatable extends Rotatable {
     /**
      * Return the angle that should be added each update to the rotation of the {@link YaegerEntity}.
      *
-     * @return The rotation angle in degrees as a {@code double}.
+     * @return the rotation angle in degrees as a {@code double}
      */
     double getRotationSpeed();
 
@@ -24,7 +24,7 @@ public interface ContinuousRotatable extends Rotatable {
      * {@link YaegerEntity} counter clockwise, and a negative value rotates
      * the {@link YaegerEntity} clockwise.
      *
-     * @param angle The angle as a {@code double}.
+     * @param angle the angle as a {@code double}
      */
     void setRotationSpeed(final double angle);
 

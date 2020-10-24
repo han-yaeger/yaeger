@@ -27,7 +27,7 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
     /**
      * Create a new {@link EllipseEntity} on the given {@code initialPosition}.
      *
-     * @param initialPosition The initial position at which this {@link EllipseEntity} should be placed
+     * @param initialPosition the initial position at which this {@link EllipseEntity} should be placed
      */
     public EllipseEntity(final Coordinate2D initialPosition) {
         super(initialPosition);
@@ -36,7 +36,7 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
     /**
      * Set the horizontal radius of the ellipse.
      *
-     * @param radiusX The horizontal {@code radius} of the ellipse as a {@code double}
+     * @param radiusX the horizontal {@code radius} of the ellipse as a {@code double}
      */
     public void setRadiusX(final double radiusX) {
         shape.ifPresentOrElse(ellipse -> ellipse.setRadiusX(radiusX), () -> this.radiusX = radiusX);
@@ -45,7 +45,7 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
     /**
      * Set the vertical radius of the ellipse.
      *
-     * @param radiusY The vertical {@code radius} of the ellipse as a {@code double}
+     * @param radiusY the vertical {@code radius} of the ellipse as a {@code double}
      */
     public void setRadiusY(final double radiusY) {
         shape.ifPresentOrElse(ellipse -> ellipse.setRadiusY(radiusY), () -> this.radiusY = radiusY);
@@ -54,7 +54,7 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
     /**
      * Return the horizontal {@code radius} of this {@link EllipseEntity}.
      *
-     * @return The {@code radiusX} as a {@code double}.
+     * @return the {@code radiusX} as a {@code double}
      */
     public double getRadiusX() {
         if (shape.isPresent()) {
@@ -67,7 +67,7 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
     /**
      * Return the vertical {@code radius} of this {@link CircleEntity}.
      *
-     * @return The {@code radiusY} as a {@code double}.
+     * @return the {@code radiusY} as a {@code double}
      */
     public double getRadiusY() {
         if (shape.isPresent()) {

@@ -14,9 +14,9 @@ public interface EventInitiator<T extends Event> {
     /**
      * Attach an {@link EventHandler} for the given {@link EventType}.
      *
-     * @param eventType    The {@link EventType} that should trigger the given {@link EventHandler}.
-     * @param eventHandler The {@link EventHandler} that should be called whenever an event of type {@link EventType}
-     *                     occurs.
+     * @param eventType    the {@link EventType} that should trigger the given {@link EventHandler}
+     * @param eventHandler the {@link EventHandler} that should be called whenever an event of type {@link EventType}
+     *                     occurs
      */
     void attachEventListener(final EventType<T> eventType,
                              final EventHandler<T> eventHandler);

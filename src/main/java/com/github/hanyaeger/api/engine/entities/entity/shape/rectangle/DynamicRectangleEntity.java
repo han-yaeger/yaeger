@@ -29,7 +29,7 @@ public abstract class DynamicRectangleEntity extends RectangleEntity implements 
     /**
      * Create a new {@link DynamicRectangleEntity} on the given {@code initialPosition}.
      *
-     * @param initialPosition The initial position at which this {@link DynamicRectangleEntity} should be placed
+     * @param initialPosition the initial position at which this {@link DynamicRectangleEntity} should be placed
      */
     public DynamicRectangleEntity(final Coordinate2D initialPosition) {
         super(initialPosition);
