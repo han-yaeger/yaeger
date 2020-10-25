@@ -26,9 +26,9 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
 
     protected Optional<T> shape = Optional.empty();
 
-    private Color strokeColor = DEFAULT_STROKE_COLOR;
     private Color fill = DEFAULT_FILL_COLOR;
-    private Double strokeWidth = DEFAULT_STROKE_WIDTH;
+    private Color strokeColor;
+    private Double strokeWidth;
 
     /**
      * Instantiate a new {@link ShapeEntity} for the given {@link Coordinate2D}.
@@ -37,6 +37,9 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
      */
     public ShapeEntity(Coordinate2D initialPosition) {
         super(initialPosition);
+
+        strokeWidth = getDefaultStrokeWidth();
+        strokeColor = getDefaultStrokeColor();
     }
 
     /**
@@ -125,4 +128,11 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
         this.shape = Optional.of(shape);
     }
 
+    protected double getDefaultStrokeWidth() {
+        return DEFAULT_STROKE_WIDTH;
+    }
+
+    protected Color getDefaultStrokeColor() {
+        return DEFAULT_STROKE_COLOR;
+    }
 }

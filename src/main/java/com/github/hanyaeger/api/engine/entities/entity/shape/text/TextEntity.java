@@ -6,6 +6,7 @@ import com.github.hanyaeger.api.engine.scenes.YaegerScene;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import javafx.geometry.VPos;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -16,6 +17,8 @@ import javafx.scene.text.Text;
 public class TextEntity extends ShapeEntity<Text> {
 
     static final Font DEFAULT_FONT = Font.font("roboto", FontWeight.NORMAL, 11);
+    static final double DEFAULT_STROKE_WIDTH = 0;
+    static final Color DEFAULT_STROKE_COLOR = Color.TRANSPARENT;
 
     private Font font = DEFAULT_FONT;
     private String text;
@@ -109,5 +112,15 @@ public class TextEntity extends ShapeEntity<Text> {
             shape.setText(text);
             shape.setFont(font);
         });
+    }
+
+    @Override
+    protected double getDefaultStrokeWidth() {
+        return DEFAULT_STROKE_WIDTH;
+    }
+
+    @Override
+    protected Color getDefaultStrokeColor() {
+        return DEFAULT_STROKE_COLOR;
     }
 }
