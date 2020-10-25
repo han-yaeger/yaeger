@@ -1,19 +1,23 @@
-## Changes in this release
+# Changes in this release
 
-### Configuration
+## Configuration
+
 - Updated JavaFX to 15.0.1
 
-### Refactor
-- Renamed the `setReferenceX(double)` and `setReferenceY(double)` to `setAnchorLocationX(double)` and 
+## Refactor
+
+- Renamed the `setReferenceX(double)` and `setReferenceY(double)` to `setAnchorLocationX(double)` and
 `setAnchorLocationX(double)`. Also introduced a `setAnchorLocation(Coordinate2D)`.
 
-### Features
+## Features
+
 - (#112) Yaeger can now be run with commandline arguments. At this point only the
   `-noSplash` is support, which skips the Splash Screen during startup.
 - (#125) Added a getter for the opacity of each YaegerEntity.
 - (#128) Added getters for all properties of YaegerEntities and its children.
 
-### Bugfixes
+## Bugfixes
+
 - (#120) Fixed Yaeger ignoring calling setRotation() on an Entity, before init() was called.
 - (#126) Fixed a NullPointer if a CircleEntity was created without a radius being set.
 - (#107) Fixed a NullPointer if setCurrentFrameIndex() was called from the constructor of a SpriteEntity.
