@@ -8,7 +8,7 @@
 `setAnchorLocationX(double)`. Also introduced a `setAnchorLocation(Coordinate2D)`.
 
 ### Features
-- (#112) Yaeger can no be run with commandline arguments. At this point only the
+- (#112) Yaeger can now be run with commandline arguments. At this point only the
   `-noSplash` is support, which skips the Splash Screen during startup.
 - (#125) Added a getter for the opacity of each YaegerEntity.
 - (#128) Added getters for all properties of YaegerEntities and its children.
