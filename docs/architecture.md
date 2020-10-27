@@ -1,1 +1,1 @@
-# Yaeger’s Architecture
+# Yaeger’s architecture
