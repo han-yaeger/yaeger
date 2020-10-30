@@ -59,6 +59,11 @@ public abstract class DynamicCircleEntity extends CircleEntity implements Update
     }
 
     @Override
+    public final void update(final long timestamp) {
+        getUpdater().update(timestamp);
+    }
+
+    @Override
     public void setRotationSpeed(final double rotationAngle) {
         this.rotationAngle = rotationAngle;
     }

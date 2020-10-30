@@ -94,6 +94,11 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     }
 
     @Override
+    public final void update(final long timestamp) {
+        getUpdater().update(timestamp);
+    }
+
+    @Override
     public void addToEntityCollection(EntityCollection collection) {
         collection.addDynamicEntity(this);
     }

@@ -18,6 +18,8 @@ import static org.mockito.Mockito.verify;
 
 class DynamicTextEntityTest {
 
+    private final long TIMESTAMP = 0L;
+
     private static final String YAEGER = "Yaeger";
     private final static int X_POSITION = 37;
     private final static int Y_POSITION = 37;
@@ -139,6 +141,19 @@ class DynamicTextEntityTest {
 
         // Assert
         verify(entityCollection).addDynamicEntity(sut);
+    }
+
+    @Test
+    void updateGetsDelegated() {
+        // Arrange
+        var updater = mock(Updater.class);
+        sut.setUpdater(updater);
+
+        // Act
+        sut.update(TIMESTAMP);
+
+        // Assert
+        verify(updater).update(TIMESTAMP);
     }
 
     private class DynamicTextEntityImpl extends DynamicTextEntity {
