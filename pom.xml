@@ -247,7 +247,7 @@
         <dependency>
             <groupId>com.guicedee.services</groupId>
             <artifactId>guice</artifactId>
-            <version>1.0.17.0-jre14</version>
+            <version>1.0.19.13</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
