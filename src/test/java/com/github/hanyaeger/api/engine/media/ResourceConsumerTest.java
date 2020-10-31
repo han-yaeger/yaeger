@@ -14,11 +14,11 @@ public class ResourceConsumerTest {
     static final String RESOURCE_EXISTING = "waterworld/images/sprite-with-two-frames.png";
     static final String RESOURCE_NOT_EXISTING = "unavailable.png";
 
-    ResourceConsumer resourceConsumer;
+    ResourceConsumer sut;
 
     @BeforeEach
     void setup() {
-        resourceConsumer = new ResourceConsumer() {
+        sut = new ResourceConsumer() {
         };
     }
 
@@ -26,33 +26,33 @@ public class ResourceConsumerTest {
     void unavailableResourceReturnsCorrectException() {
         assertThrows(ResourceNotAvailableException.class,
                 () ->
-                        resourceConsumer.createPathForResource(RESOURCE_NOT_EXISTING)
+                        sut.createPathForResource(RESOURCE_NOT_EXISTING)
         );
     }
 
     @Test
     void thrownUnavailableResourceExceptionDisplaysCorrectMessage() {
         Throwable exception = assertThrows(ResourceNotAvailableException.class,
-                () -> resourceConsumer.createPathForResource(RESOURCE_NOT_EXISTING));
+                () -> sut.createPathForResource(RESOURCE_NOT_EXISTING));
     }
 
     @Test
     void emptyResourceParameterReturnsEmptyString() {
-        var path = resourceConsumer.createPathForResource("");
+        var path = sut.createPathForResource("");
 
         assertEquals("", path);
     }
 
     @Test
     void nullResourceParameterReturnsEmptyString() {
-        var path = resourceConsumer.createPathForResource(null);
+        var path = sut.createPathForResource(null);
 
         assertEquals("", path);
     }
 
     @Test
     void availableResourceReturnsExistingPath() {
-        var path = resourceConsumer.createPathForResource(RESOURCE_EXISTING);
+        var path = sut.createPathForResource(RESOURCE_EXISTING);
 
         assertTrue(path.startsWith("file:/"));
         assertTrue(path.endsWith(RESOURCE_EXISTING));
