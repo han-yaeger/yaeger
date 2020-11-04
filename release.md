@@ -12,4 +12,4 @@
 
 ## Bugfixes
 
- - Resolved the problem that caused a performance hit when using TextEntities (#129).
+- Resolved the problem that caused a performance hit when using TextEntities (#129).
