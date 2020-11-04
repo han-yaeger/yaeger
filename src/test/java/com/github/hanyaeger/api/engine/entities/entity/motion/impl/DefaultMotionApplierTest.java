@@ -52,6 +52,18 @@ class DefaultMotionApplierTest {
     }
 
     @Test
+    void setHaltedIsStored() {
+        // Arrange
+        sut.setHalted(true);
+
+        // Act
+        var halted = sut.isHalted();
+
+        // Assert
+        assertTrue(halted);
+    }
+
+    @Test
     void speedWithNoAngleDefaultsToDirectionOfZero() {
         // Arrange
         sut.setMotionTo(1, Direction.DOWN.getValue());
@@ -77,7 +89,7 @@ class DefaultMotionApplierTest {
     }
 
     @Test
-    void motionIsImmutable() {
+    void isMotionImmutable() {
         // Arrange
 
         // Act
@@ -127,7 +139,7 @@ class DefaultMotionApplierTest {
     }
 
     @Test
-    void setSpeedToZeroFreezesMotion() {
+    void setSpeedToZeroFreezesLocationIfPreviousSpeedNotZero() {
         // Arrange
         sut.setMotionTo(1, Direction.UP.getValue());
 
@@ -137,6 +149,21 @@ class DefaultMotionApplierTest {
         // Assert
         assertEquals(DEFAULT_START_LOCATION.getX(), sut.get().getX(), DELTA);
         assertEquals(DEFAULT_START_LOCATION.getY(), sut.get().getY(), DELTA);
+        assertTrue(sut.isHalted());
+    }
+
+    @Test
+    void setSpeedToZeroFreezesLocationButNotHaltedIfPreviousSpeedZero() {
+        // Arrange
+        sut.setMotionTo(0, Direction.UP.getValue());
+
+        // Act
+        sut.setSpeedTo(0);
+
+        // Assert
+        assertEquals(DEFAULT_START_LOCATION.getX(), sut.get().getX(), DELTA);
+        assertEquals(DEFAULT_START_LOCATION.getY(), sut.get().getY(), DELTA);
+        assertFalse(sut.isHalted());
     }
 
     @Test

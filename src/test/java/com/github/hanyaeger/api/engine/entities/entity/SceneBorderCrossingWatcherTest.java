@@ -87,7 +87,6 @@ class SceneBorderCrossingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.LEFT, sut.borderCrossed);
-        verify(motionApplier, times(2)).getPreviousLocation();
     }
 
     @Test
@@ -107,7 +106,6 @@ class SceneBorderCrossingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.LEFT, sut.borderCrossed);
-        verify(motionApplier, times(0)).getPreviousLocation();
     }
 
     @Test
@@ -127,7 +125,6 @@ class SceneBorderCrossingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.RIGHT, sut.borderCrossed);
-        verify(motionApplier, times(2)).getPreviousLocation();
     }
 
     @Test
@@ -147,7 +144,6 @@ class SceneBorderCrossingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.RIGHT, sut.borderCrossed);
-        verify(motionApplier, times(0)).getPreviousLocation();
     }
 
     @Test
@@ -167,7 +163,6 @@ class SceneBorderCrossingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.BOTTOM, sut.borderCrossed);
-        verify(motionApplier, times(2)).getPreviousLocation();
     }
 
     @Test
@@ -187,7 +182,6 @@ class SceneBorderCrossingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.BOTTOM, sut.borderCrossed);
-        verify(motionApplier, times(0)).getPreviousLocation();
     }
 
     @Test
@@ -208,7 +202,6 @@ class SceneBorderCrossingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.TOP, sut.borderCrossed);
-        verify(motionApplier, times(2)).getPreviousLocation();
     }
 
     @Test
@@ -228,7 +221,6 @@ class SceneBorderCrossingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.TOP, sut.borderCrossed);
-        verify(motionApplier, times(0)).getPreviousLocation();
     }
 
     private class SceneBorderCrossingWatcherImpl implements SceneBorderCrossingWatcher {

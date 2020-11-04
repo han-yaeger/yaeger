@@ -88,7 +88,6 @@ class SceneBorderTouchingWatcherTest {
 
         // Assert
         Assertions.assertEquals(SceneBorder.LEFT, sut.borderTouched);
-        verify(motionApplier, times(2)).getPreviousLocation();
     }
 
     @Test
@@ -108,7 +107,6 @@ class SceneBorderTouchingWatcherTest {
 
         // Assert
         Assertions.assertEquals(SceneBorder.LEFT, sut.borderTouched);
-        verify(motionApplier, times(0)).getPreviousLocation();
     }
 
     @Test
@@ -128,7 +126,6 @@ class SceneBorderTouchingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.RIGHT, sut.borderTouched);
-        verify(motionApplier, times(2)).getPreviousLocation();
     }
 
     @Test
@@ -148,7 +145,6 @@ class SceneBorderTouchingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.RIGHT, sut.borderTouched);
-        verify(motionApplier, times(0)).getPreviousLocation();
     }
 
     @Test
@@ -168,7 +164,6 @@ class SceneBorderTouchingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.BOTTOM, sut.borderTouched);
-        verify(motionApplier, times(2)).getPreviousLocation();
     }
 
     @Test
@@ -188,7 +183,6 @@ class SceneBorderTouchingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.BOTTOM, sut.borderTouched);
-        verify(motionApplier, times(0)).getPreviousLocation();
     }
 
     @Test
@@ -208,7 +202,6 @@ class SceneBorderTouchingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.TOP, sut.borderTouched);
-        verify(motionApplier, times(2)).getPreviousLocation();
     }
 
     @Test
@@ -228,7 +221,6 @@ class SceneBorderTouchingWatcherTest {
 
         // Assert
         assertEquals(SceneBorder.TOP, sut.borderTouched);
-        verify(motionApplier, times(0)).getPreviousLocation();
     }
 
     private class SceneBorderTouchingWatcherImpl implements SceneBorderTouchingWatcher {

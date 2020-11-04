@@ -12,14 +12,15 @@ import java.util.Optional;
 public class DefaultMotionApplier implements MotionApplier {
 
     private static final Point2D ZERO_ANGLE_IDENTITY_MOTION = new Point2D(0, 1);
-    private Coordinate2D transformation;
+    private Coordinate2D motion;
     private Optional<Coordinate2D> previousLocation = Optional.empty();
+    private boolean halted = false;
 
     /**
      * Create a new instance of {@link DefaultMotionApplier}.
      */
     public DefaultMotionApplier() {
-        transformation = new Coordinate2D(0, 0);
+        motion = new Coordinate2D();
     }
 
     @Override
@@ -30,10 +31,14 @@ public class DefaultMotionApplier implements MotionApplier {
 
     @Override
     public void setSpeedTo(final double newSpeed) {
-        if (transformation.equals(new Coordinate2D(0, 0))) {
-            transformation = new Coordinate2D(0, newSpeed);
+        // TODO test
+        // Set halted to true if speed was != 0  and is now set to 0;
+        hasBeenHalted(newSpeed);
+
+        if (motion.equals(new Coordinate2D(0, 0))) {
+            motion = new Coordinate2D(0, newSpeed);
         } else {
-            transformation = new Coordinate2D((transformation.normalize().multiply(newSpeed)));
+            motion = new Coordinate2D((motion.normalize().multiply(newSpeed)));
         }
     }
 
@@ -43,22 +48,22 @@ public class DefaultMotionApplier implements MotionApplier {
         final var x = Math.sin(angleInRadians);
         final var y = Math.cos(angleInRadians);
 
-        transformation = new Coordinate2D(new Coordinate2D(x, y).multiply(transformation.magnitude()));
+        motion = new Coordinate2D(new Coordinate2D(x, y).multiply(motion.magnitude()));
     }
 
     @Override
     public double getSpeed() {
-        return transformation.magnitude();
+        return motion.magnitude();
     }
 
     @Override
     public void alterSpeedBy(final double increment) {
-        transformation = transformation.add(transformation.normalize().multiply(increment));
+        motion = motion.add(motion.normalize().multiply(increment));
     }
 
     @Override
     public void multiplySpeedWith(final double multiplication) {
-        transformation = new Coordinate2D(transformation.multiply(multiplication));
+        motion = new Coordinate2D(motion.multiply(multiplication));
     }
 
     @Override
@@ -70,9 +75,9 @@ public class DefaultMotionApplier implements MotionApplier {
 
     @Override
     public double getDirection() {
-        double currentAngle = transformation.angle(ZERO_ANGLE_IDENTITY_MOTION);
+        double currentAngle = motion.angle(ZERO_ANGLE_IDENTITY_MOTION);
 
-        if (transformation.getX() < 0) {
+        if (motion.getX() < 0) {
             currentAngle = 360 - currentAngle;
         }
 
@@ -81,17 +86,31 @@ public class DefaultMotionApplier implements MotionApplier {
 
     @Override
     public Coordinate2D get() {
-        return transformation;
+        return motion;
     }
 
     @Override
     public Coordinate2D updateLocation(final Point2D currentLocation) {
         previousLocation = Optional.of(new Coordinate2D(currentLocation.getX(), currentLocation.getY()));
-        return new Coordinate2D(currentLocation.add(transformation));
+        return new Coordinate2D(currentLocation.add(motion));
     }
 
     @Override
     public Optional<Coordinate2D> getPreviousLocation() {
         return previousLocation;
+    }
+
+    @Override
+    public boolean isHalted() {
+        return halted;
+    }
+
+    @Override
+    public void setHalted(boolean halted) {
+        this.halted = halted;
+    }
+
+    private void hasBeenHalted(double newSpeed) {
+        halted = (newSpeed == 0 && motion.magnitude() != 0);
     }
 }

@@ -136,6 +136,21 @@ class MoveableTest {
     }
 
     @Test
+    void callingTheUpdatableSetsHaltedToFalse() {
+        // Arrange
+        var anchorLocation = new Coordinate2D(37, 42);
+        sut.setAnchorLocation(anchorLocation);
+        Updatable updatable = sut.updateLocation();
+        when(motionApplier.getSpeed()).thenReturn(1d);
+
+        // Act
+        updatable.update(TIMESTAMP);
+
+        // Assert
+        verify(motionApplier).setHalted(false);
+    }
+
+    @Test
     void callingTheUpdatableModifiesLocation() {
         // Arrange
         var anchorLocation = new Coordinate2D(37, 42);
