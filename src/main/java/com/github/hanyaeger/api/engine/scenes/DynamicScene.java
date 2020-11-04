@@ -62,6 +62,11 @@ public abstract class DynamicScene extends StaticScene implements UpdateDelegato
         };
     }
 
+    @Override
+    public final void update(final long timestamp) {
+        getUpdater().update(timestamp);
+    }
+
     private void createGameLoop() {
         animator = this.animationTimerFactory.create(this::update);
     }

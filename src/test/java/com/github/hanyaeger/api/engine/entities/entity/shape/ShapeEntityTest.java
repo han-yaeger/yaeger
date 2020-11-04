@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.mock;
 
@@ -34,14 +35,14 @@ class ShapeEntityTest {
     }
 
     @Test
-    void getFillWithoutNodeOrBufferedFillReturnsDefault() {
+    void getFillWithoutNodeOrBufferedFillReturnsNull() {
         // Arrange
 
         // Act
         var actual = sut.getFill();
 
         // Assert
-        assertEquals(ShapeEntity.DEFAULT_FILL_COLOR, actual);
+        assertNull(actual);
     }
 
     @Test
@@ -72,14 +73,14 @@ class ShapeEntityTest {
     }
 
     @Test
-    void getStrokeColorWithoutNodeOrBufferedStrokeColorReturnsDefault() {
+    void getStrokeColorWithoutNodeOrBufferedStrokeColorReturnsNull() {
         // Arrange
 
         // Act
         var actual = sut.getStrokeColor();
 
         // Assert
-        assertEquals(ShapeEntity.DEFAULT_STROKE_COLOR, actual);
+        assertNull(actual);
     }
 
     @Test
@@ -110,14 +111,14 @@ class ShapeEntityTest {
     }
 
     @Test
-    void getStrokeWidthWithoutNodeOrBufferedStrokeWidthReturnsDefault() {
+    void getStrokeWidthWithoutNodeOrBufferedStrokeWidthReturnsNull() {
         // Arrange
 
         // Act
         var actual = sut.getStrokeWidth();
 
         // Assert
-        assertEquals(ShapeEntity.DEFAULT_STROKE_WIDTH, actual);
+        assertNull(actual);
     }
 
     @Test

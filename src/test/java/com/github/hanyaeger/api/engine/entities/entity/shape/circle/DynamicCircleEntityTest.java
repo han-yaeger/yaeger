@@ -19,6 +19,8 @@ import static org.mockito.Mockito.verify;
 
 class DynamicCircleEntityTest {
 
+    private final long TIMESTAMP = 0L;
+
     private final static int X_POSITION = 37;
     private final static int Y_POSITION = 37;
     private final static Coordinate2D DEFAULT_LOCATION = new Coordinate2D(X_POSITION, Y_POSITION);
@@ -140,6 +142,18 @@ class DynamicCircleEntityTest {
         verify(entityCollection).addDynamicEntity(sut);
     }
 
+    @Test
+    void updateGetsDelegated() {
+        // Arrange
+        var updater = mock(Updater.class);
+        sut.setUpdater(updater);
+
+        // Act
+        sut.update(TIMESTAMP);
+
+        // Assert
+        verify(updater).update(TIMESTAMP);
+    }
 
     private class DynamicCircleEntityImpl extends DynamicCircleEntity {
 

@@ -60,6 +60,11 @@ public abstract class DynamicRectangleEntity extends RectangleEntity implements 
     }
 
     @Override
+    public final void update(final long timestamp) {
+        getUpdater().update(timestamp);
+    }
+
+    @Override
     public void setRotationSpeed(final double rotationAngle) {
         this.rotationAngle = rotationAngle;
     }

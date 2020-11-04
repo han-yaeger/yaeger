@@ -20,15 +20,11 @@ import java.util.Optional;
  * @param <T> The Generic type to be used, which should extend {@link Shape}.
  */
 public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
-    static final Color DEFAULT_FILL_COLOR = Color.rgb(229, 0, 85);
-    static final Color DEFAULT_STROKE_COLOR = Color.BLACK;
-    static final double DEFAULT_STROKE_WIDTH = 1;
-
     protected Optional<T> shape = Optional.empty();
 
-    private Color fill = DEFAULT_FILL_COLOR;
-    private Color strokeColor;
-    private Double strokeWidth;
+    private Optional<Color> fill = Optional.empty();
+    private Optional<Color> strokeColor = Optional.empty();
+    private Optional<Double> strokeWidth = Optional.empty();
 
     /**
      * Instantiate a new {@link ShapeEntity} for the given {@link Coordinate2D}.
@@ -38,8 +34,8 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
     public ShapeEntity(Coordinate2D initialPosition) {
         super(initialPosition);
 
-        strokeWidth = getDefaultStrokeWidth();
-        strokeColor = getDefaultStrokeColor();
+//        strokeWidth = getDefaultStrokeWidth();
+//        strokeColor = getDefaultStrokeColor();
     }
 
     /**
@@ -48,7 +44,7 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
      * @param fill the {@link Color} of the fill
      */
     public void setFill(final Color fill) {
-        shape.ifPresentOrElse(shape -> shape.setFill(fill), () -> this.fill = fill);
+        shape.ifPresentOrElse(shape -> shape.setFill(fill), () -> this.fill = Optional.of(fill));
     }
 
     /**
@@ -57,7 +53,7 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
      * @param strokeColor the {@link Color} of the stroke
      */
     public void setStrokeColor(final Color strokeColor) {
-        shape.ifPresentOrElse(shape -> shape.setStroke(strokeColor), () -> this.strokeColor = strokeColor);
+        shape.ifPresentOrElse(shape -> shape.setStroke(strokeColor), () -> this.strokeColor = Optional.of(strokeColor));
     }
 
     /**
@@ -66,7 +62,7 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
      * @param strokeWidth the with of the stroke as a {@code double}
      */
     public void setStrokeWidth(final double strokeWidth) {
-        shape.ifPresentOrElse(shape -> shape.setStrokeWidth(strokeWidth), () -> this.strokeWidth = strokeWidth);
+        shape.ifPresentOrElse(shape -> shape.setStrokeWidth(strokeWidth), () -> this.strokeWidth = Optional.of(strokeWidth));
     }
 
     /**
@@ -77,8 +73,11 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
     public Color getStrokeColor() {
         if (shape.isPresent()) {
             return (Color) shape.get().getStroke();
+        } else if (strokeColor.isPresent()) {
+            return strokeColor.get();
+        } else {
+            return null;
         }
-        return strokeColor;
     }
 
     /**
@@ -89,8 +88,11 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
     public Color getFill() {
         if (shape.isPresent()) {
             return (Color) shape.get().getFill();
+        } else if (fill.isPresent()) {
+            return fill.get();
+        } else {
+            return null;
         }
-        return fill;
     }
 
     /**
@@ -101,17 +103,20 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
     public Double getStrokeWidth() {
         if (shape.isPresent()) {
             return shape.get().getStrokeWidth();
+        } else if (strokeWidth.isPresent()) {
+            return strokeWidth.get();
+        } else {
+            return null;
         }
-        return strokeWidth;
     }
 
     @Override
     public void init(final Injector injector) {
         super.init(injector);
         shape.ifPresent(shape -> {
-            shape.setFill(fill);
-            shape.setStroke(strokeColor);
-            shape.setStrokeWidth(strokeWidth);
+            fill.ifPresent(fill -> shape.setFill(fill));
+            strokeColor.ifPresent(strokeColor -> shape.setStroke(strokeColor));
+            strokeWidth.ifPresent(strokeWidth -> shape.setStrokeWidth(strokeWidth));
         });
     }
 
@@ -126,13 +131,5 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
         shape.setManaged(false);
         shape.setFocusTraversable(false);
         this.shape = Optional.of(shape);
-    }
-
-    protected double getDefaultStrokeWidth() {
-        return DEFAULT_STROKE_WIDTH;
-    }
-
-    protected Color getDefaultStrokeColor() {
-        return DEFAULT_STROKE_COLOR;
     }
 }

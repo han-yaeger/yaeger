@@ -14,6 +14,7 @@ import org.mockito.Mockito;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -76,7 +77,7 @@ class MoveableTest {
         double speed = sut.getSpeed();
 
         // Assert
-        Assertions.assertEquals(SPEED, speed, DELTA);
+        assertEquals(SPEED, speed, DELTA);
     }
 
     @Test
@@ -121,7 +122,7 @@ class MoveableTest {
         double direction = sut.getDirection();
 
         // Assert
-        Assertions.assertEquals(DIRECTION, direction, DELTA);
+        assertEquals(DIRECTION, direction, DELTA);
     }
 
     @Test
@@ -132,7 +133,22 @@ class MoveableTest {
         Updatable updatable = sut.updateLocation();
 
         // Assert
-        Assertions.assertNotNull(updatable);
+        assertNotNull(updatable);
+    }
+
+    @Test
+    void callingTheUpdatableSetsHaltedToFalse() {
+        // Arrange
+        var anchorLocation = new Coordinate2D(37, 42);
+        sut.setAnchorLocation(anchorLocation);
+        Updatable updatable = sut.updateLocation();
+        when(motionApplier.getSpeed()).thenReturn(1d);
+
+        // Act
+        updatable.update(TIMESTAMP);
+
+        // Assert
+        verify(motionApplier).setHalted(false);
     }
 
     @Test
@@ -166,6 +182,64 @@ class MoveableTest {
 
         // Assert
         verify(motionApplier, never()).updateLocation(any(Point2D.class));
+    }
+
+    @Test
+    void callingUndoUpdateForNonHaltedMotionDoesNotChangeLocation() {
+        // Arrange
+        when(motionApplier.isHalted()).thenReturn(false);
+        sut.setAnchorLocation(null);
+
+        // Act
+        sut.undoUpdate();
+
+        // Assert
+        assertNull(sut.getAnchorLocation());
+    }
+
+    @Test
+    void callingUndoUpdateForHaltedMotionAndSpeedNotZeroDoesNotChangeLocation() {
+        // Arrange
+        when(motionApplier.isHalted()).thenReturn(true);
+        when(motionApplier.getSpeed()).thenReturn(1d);
+        sut.setAnchorLocation(null);
+
+        // Act
+        sut.undoUpdate();
+
+        // Assert
+        assertNull(sut.getAnchorLocation());
+    }
+
+    @Test
+    void callingUndoUpdateForHaltedMotionAndSpeedZeroAndNoPreviousLocationDoesNotChangeLocation() {
+        // Arrange
+        when(motionApplier.isHalted()).thenReturn(true);
+        when(motionApplier.getSpeed()).thenReturn(0d);
+        when(motionApplier.getPreviousLocation()).thenReturn(Optional.empty());
+        sut.setAnchorLocation(null);
+
+        // Act
+        sut.undoUpdate();
+
+        // Assert
+        assertNull(sut.getAnchorLocation());
+    }
+
+    @Test
+    void callingUndoChangesLocation() {
+        // Arrange
+        var expected = new Coordinate2D(3, 4);
+        when(motionApplier.isHalted()).thenReturn(true);
+        when(motionApplier.getSpeed()).thenReturn(0d);
+        when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(expected));
+        sut.setAnchorLocation(null);
+
+        // Act
+        sut.undoUpdate();
+
+        // Assert
+        assertEquals(expected, sut.getAnchorLocation());
     }
 
     private class MoveableImpl implements Moveable {

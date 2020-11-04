@@ -23,6 +23,8 @@ import static org.mockito.Mockito.*;
 
 class DynamicSpriteEntityTest {
 
+    private final long TIMESTAMP = 0L;
+
     private final static String DEFAULT_RESOURCE = "images/bubble.png";
     private final static int X_POSITION = 37;
     private final static int Y_POSITION = 37;
@@ -244,6 +246,19 @@ class DynamicSpriteEntityTest {
 
         // Assert
         verify(entityCollection).addDynamicEntity(sut);
+    }
+
+    @Test
+    void updateGetsDelegated() {
+        // Arrange
+        var updater = mock(Updater.class);
+        sut.setUpdater(updater);
+
+        // Act
+        sut.update(TIMESTAMP);
+
+        // Assert
+        verify(updater).update(TIMESTAMP);
     }
 
     private class DynamicSpriteEntityImpl extends DynamicSpriteEntity {

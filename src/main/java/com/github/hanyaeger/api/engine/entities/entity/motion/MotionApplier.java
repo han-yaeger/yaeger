@@ -31,4 +31,8 @@ public interface MotionApplier extends MotionModifier, LocationUpdater {
      * Entity.
      */
     Optional<Coordinate2D> getPreviousLocation();
+
+    boolean isHalted();
+
+    void setHalted(boolean halted);
 }

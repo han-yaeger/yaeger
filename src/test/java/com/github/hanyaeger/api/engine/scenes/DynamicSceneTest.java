@@ -28,6 +28,8 @@ import static org.mockito.Mockito.*;
 
 class DynamicSceneTest {
 
+    private final long TIMESTAMP = 0L;
+
     private DynamicSceneImpl sut;
     private SceneFactory sceneFactory;
     private Debugger debugger;
@@ -157,6 +159,19 @@ class DynamicSceneTest {
 
         // Verify
         Assertions.assertEquals(updater, u);
+    }
+
+    @Test
+    void updateGetsDelegated() {
+        // Arrange
+        var updater = mock(Updater.class);
+        sut.setUpdater(updater);
+
+        // Act
+        sut.update(TIMESTAMP);
+
+        // Assert
+        verify(updater).update(TIMESTAMP);
     }
 
     private class DynamicSceneImpl extends DynamicScene {

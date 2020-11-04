@@ -73,27 +73,6 @@ public class AABBCollidedTest {
     }
 
     @Test
-    void testCollisionCallsUndoUpdate() {
-        // Arrange
-        var trivialCollider = new CollidingAABBCollider();
-        trivialCollider.setBounds(TEST_COLLIDED_BOUNDINGBOX);
-
-        var previousX = 37d;
-        var previousY = 37d;
-
-        when(motionApplier.getSpeed()).thenReturn(0d);
-        when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(new Coordinate2D(previousX, previousY)));
-
-        List<AABBCollider> testAABBColliders = List.of(trivialCollider);
-
-        // Act
-        sut.checkForCollisions(testAABBColliders);
-
-        // Assert
-        assertTrue(sut.isSetAnchorLocationCalled());
-    }
-
-    @Test
     void testNoCollisionReportNoCollision() {
         // Arrange
         var noCollisionCollider = new CollidingAABBCollider();

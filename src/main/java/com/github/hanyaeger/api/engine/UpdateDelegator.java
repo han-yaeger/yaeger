@@ -1,7 +1,7 @@
 package com.github.hanyaeger.api.engine;
 
 /**
- * An {@link Updatable} that delegates the {@code update} to an {@link Updater}.
+ * An {@link Updatable} that delegates the {@link Updatable#update(long)} to an {@link Updater}.
  */
 public interface UpdateDelegator extends Updatable {
 
@@ -11,9 +11,4 @@ public interface UpdateDelegator extends Updatable {
      * @return an instance of {@link Updater}
      */
     Updater getUpdater();
-
-    @Override
-    default void update(final long timestamp) {
-        getUpdater().update(timestamp);
-    }
 }

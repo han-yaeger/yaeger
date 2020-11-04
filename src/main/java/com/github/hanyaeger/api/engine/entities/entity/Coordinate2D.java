@@ -8,6 +8,13 @@ import javafx.geometry.Point2D;
 public class Coordinate2D extends Point2D {
 
     /**
+     * Creates a new instance of {@link Coordinate2D} at (0,0).
+     */
+    public Coordinate2D() {
+        super(0, 0);
+    }
+
+    /**
      * Creates a new instance of {@link Coordinate2D}.
      *
      * @param x the x coordinate of the {@link Coordinate2D}
