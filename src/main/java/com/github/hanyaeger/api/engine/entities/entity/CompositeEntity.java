@@ -78,6 +78,7 @@ public abstract class CompositeEntity extends YaegerEntity {
             injector.injectMembers(entity);
             entity.init(injector);
             annotationProcessor.invokeActivators(entity);
+            entity.applyTranslationsForAnchorPoint();
         });
     }
 
