@@ -1,4 +1,4 @@
-## Changes in this release
+# Changes in this release
 
 ### Configuration
 - Updated Guice to 1.0.19.13
