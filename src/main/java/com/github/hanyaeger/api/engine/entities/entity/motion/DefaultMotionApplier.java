@@ -24,13 +24,13 @@ public class DefaultMotionApplier implements MotionApplier {
     }
 
     @Override
-    public void setMotionTo(final double speed, final double direction) {
-        setSpeedTo(speed);
-        setDirectionTo(direction);
+    public void setMotion(final double speed, final double direction) {
+        setSpeed(speed);
+        setDirection(direction);
     }
 
     @Override
-    public void setSpeedTo(final double newSpeed) {
+    public void setSpeed(final double newSpeed) {
         hasBeenHalted(newSpeed);
 
         if (motion.equals(new Coordinate2D(0, 0))) {
@@ -41,7 +41,7 @@ public class DefaultMotionApplier implements MotionApplier {
     }
 
     @Override
-    public void setDirectionTo(final double angle) {
+    public void setDirection(final double angle) {
         final var angleInRadians = Math.toRadians(angle);
         final var x = Math.sin(angleInRadians);
         final var y = Math.cos(angleInRadians);
@@ -55,20 +55,20 @@ public class DefaultMotionApplier implements MotionApplier {
     }
 
     @Override
-    public void alterSpeedBy(final double increment) {
+    public void incrementSpeed(final double increment) {
         motion = motion.add(motion.normalize().multiply(increment));
     }
 
     @Override
-    public void multiplySpeedWith(final double multiplication) {
+    public void multiplySpeed(final double multiplication) {
         motion = new Coordinate2D(motion.multiply(multiplication));
     }
 
     @Override
-    public void changeDirectionBy(final double rotation) {
+    public void changeDirection(final double rotation) {
         double currentAngle = getDirection();
 
-        setDirectionTo(rotation + currentAngle);
+        setDirection(rotation + currentAngle);
     }
 
     @Override

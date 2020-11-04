@@ -66,8 +66,8 @@ class DefaultMotionApplierTest {
     @Test
     void speedWithNoAngleDefaultsToDirectionOfZero() {
         // Arrange
-        sut.setMotionTo(1, Direction.DOWN.getValue());
-        sut.multiplySpeedWith(SPEED_MULTIPLACTION_FRACTION);
+        sut.setMotion(1, Direction.DOWN.getValue());
+        sut.multiplySpeed(SPEED_MULTIPLACTION_FRACTION);
 
         // Act
         var updatedLocation = sut.updateLocation(DEFAULT_START_LOCATION);
@@ -82,7 +82,7 @@ class DefaultMotionApplierTest {
         // Arrange
 
         // Act
-        sut.multiplySpeedWith(0);
+        sut.multiplySpeed(0);
 
         // Assert
         assertEquals(0, sut.get().magnitude());
@@ -93,7 +93,7 @@ class DefaultMotionApplierTest {
         // Arrange
 
         // Act
-        sut.multiplySpeedWith(0);
+        sut.multiplySpeed(0);
 
         // Assert
         assertNotSame(DEFAULT_MOVEMENT_UP, sut.get());
@@ -102,10 +102,10 @@ class DefaultMotionApplierTest {
     @Test
     void multiplySpeedOfOneKeepsMotionFromConstructor() {
         // Arrange
-        sut.setMotionTo(1, Direction.DOWN.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Act
-        sut.multiplySpeedWith(1);
+        sut.multiplySpeed(1);
 
         // Assert
         assertEquals(0, sut.get().getX(), DELTA);
@@ -115,10 +115,10 @@ class DefaultMotionApplierTest {
     @Test
     void multiplySpeedOfMinusOneInvertsMotionFromConstructor() {
         // Arrange
-        sut.setMotionTo(1, Direction.DOWN.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Act
-        sut.multiplySpeedWith(-1);
+        sut.multiplySpeed(-1);
 
         // Assert
         assertEquals(0, sut.get().getX(), DELTA);
@@ -128,10 +128,10 @@ class DefaultMotionApplierTest {
     @Test
     void multiplySpeedMultipliesSpeed() {
         // Arrange
-        sut.setMotionTo(0.5, Direction.DOWN.getValue());
+        sut.setMotion(0.5, Direction.DOWN.getValue());
 
         // Act
-        sut.multiplySpeedWith(2);
+        sut.multiplySpeed(2);
 
         // Assert
         assertEquals(0, sut.get().getX(), DELTA);
@@ -141,10 +141,10 @@ class DefaultMotionApplierTest {
     @Test
     void setSpeedToZeroFreezesLocationIfPreviousSpeedNotZero() {
         // Arrange
-        sut.setMotionTo(1, Direction.UP.getValue());
+        sut.setMotion(1, Direction.UP.getValue());
 
         // Act
-        sut.setSpeedTo(0);
+        sut.setSpeed(0);
 
         // Assert
         assertEquals(DEFAULT_START_LOCATION.getX(), sut.get().getX(), DELTA);
@@ -155,10 +155,10 @@ class DefaultMotionApplierTest {
     @Test
     void setSpeedToZeroFreezesLocationButNotHaltedIfPreviousSpeedZero() {
         // Arrange
-        sut.setMotionTo(0, Direction.UP.getValue());
+        sut.setMotion(0, Direction.UP.getValue());
 
         // Act
-        sut.setSpeedTo(0);
+        sut.setSpeed(0);
 
         // Assert
         assertEquals(DEFAULT_START_LOCATION.getX(), sut.get().getX(), DELTA);
@@ -169,10 +169,10 @@ class DefaultMotionApplierTest {
     @Test
     void setSpeedToOneSetsSpeedToOne() {
         // Arrange
-        sut.setMotionTo(1, Direction.DOWN.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Act
-        sut.setSpeedTo(1);
+        sut.setSpeed(1);
 
         // Assert
         assertEquals(0, sut.get().getX(), DELTA);
@@ -182,10 +182,10 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirection180WhenRightChangesToLeft() {
         // Arrange
-        sut.setMotionTo(1, Direction.RIGHT.getValue());
+        sut.setMotion(1, Direction.RIGHT.getValue());
 
         // Act
-        sut.changeDirectionBy(HALF_ROTATION);
+        sut.changeDirection(HALF_ROTATION);
 
         // Assert
         assertEquals(-1, sut.get().getX(), DELTA);
@@ -195,10 +195,10 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirection180WhenLeftChangesToRight() {
         // Arrange
-        sut.setMotionTo(1, Direction.LEFT.getValue());
+        sut.setMotion(1, Direction.LEFT.getValue());
 
         // Act
-        sut.changeDirectionBy(HALF_ROTATION);
+        sut.changeDirection(HALF_ROTATION);
 
         // Assert
         assertEquals(1, sut.get().getX(), DELTA);
@@ -208,11 +208,11 @@ class DefaultMotionApplierTest {
     @Test
     void alterSpeedIncrementsSpeed() {
         // Arrange
-        sut.setMotionTo(1, Direction.UP.getValue());
+        sut.setMotion(1, Direction.UP.getValue());
         var increment = 0.1d;
 
         // Act
-        sut.alterSpeedBy(increment);
+        sut.incrementSpeed(increment);
 
         // Assert
         assertEquals(DEFAULT_START_LOCATION.magnitude() + DEFAULT_MOVEMENT_UP.magnitude() + increment, sut.get().magnitude(), DELTA);
@@ -221,11 +221,11 @@ class DefaultMotionApplierTest {
     @Test
     void alterSpeedWithNegativeValueDecrementsSpeed() {
         // Arrange
-        sut.setMotionTo(1, Direction.UP.getValue());
+        sut.setMotion(1, Direction.UP.getValue());
         var increment = -0.1d;
 
         // Act
-        sut.alterSpeedBy(increment);
+        sut.incrementSpeed(increment);
 
         // Assert
         assertEquals(DEFAULT_START_LOCATION.magnitude() + DEFAULT_MOVEMENT_UP.magnitude() + increment, sut.get().magnitude(), DELTA);
@@ -235,7 +235,7 @@ class DefaultMotionApplierTest {
     void getSpeedReturnsCorrectValue() {
         // Arrange
         var SPEED = 3.7;
-        sut.setMotionTo(SPEED, Direction.UP.getValue());
+        sut.setMotion(SPEED, Direction.UP.getValue());
 
         // Act
         var speed = sut.getSpeed();
@@ -247,10 +247,10 @@ class DefaultMotionApplierTest {
     @Test
     void setDirectionTo90SetsDirectionRight() {
         // Arrange
-        sut.setMotionTo(1, Direction.UP.getValue());
+        sut.setMotion(1, Direction.UP.getValue());
 
         // Act
-        sut.setDirectionTo(Direction.RIGHT.getValue());
+        sut.setDirection(Direction.RIGHT.getValue());
 
         // Assert
         assertEquals(1, sut.get().getX(), DELTA);
@@ -260,10 +260,10 @@ class DefaultMotionApplierTest {
     @Test
     void setDirectionTo180SetsDirectionUp() {
         // Arrange
-        sut.setMotionTo(1, Direction.DOWN.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Act
-        sut.setDirectionTo(Direction.UP.getValue());
+        sut.setDirection(Direction.UP.getValue());
 
         // Assert
         assertEquals(0, sut.get().getX(), DELTA);
@@ -273,10 +273,10 @@ class DefaultMotionApplierTest {
     @Test
     void setDirectionTo270SetsDirectionLeft() {
         // Arrange
-        sut.setMotionTo(1, Direction.UP.getValue());
+        sut.setMotion(1, Direction.UP.getValue());
 
         // Act
-        sut.setDirectionTo(Direction.LEFT.getValue());
+        sut.setDirection(Direction.LEFT.getValue());
 
         // Assert
         assertEquals(-1, sut.get().getX(), DELTA);
@@ -287,7 +287,7 @@ class DefaultMotionApplierTest {
     void getDirectionForDirectionBelow180() {
         // Arrange
         final double DIRECTION = 42;
-        sut.setMotionTo(1, DIRECTION);
+        sut.setMotion(1, DIRECTION);
 
         // Act
         var direction = sut.getDirection();
@@ -300,7 +300,7 @@ class DefaultMotionApplierTest {
     void getDirectionForDirectionAbove180() {
         // Arrange
         final double DIRECTION = 189;
-        sut.setMotionTo(1, DIRECTION);
+        sut.setMotion(1, DIRECTION);
 
         // Act
         var direction = sut.getDirection();
@@ -312,10 +312,10 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirectionWithZeroDoesNotChangeAngle() {
         // Arrange
-        sut.setMotionTo(1, Direction.DOWN.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Act
-        sut.changeDirectionBy(0);
+        sut.changeDirection(0);
 
         // Assert
         assertEquals(0d, DEFAULT_MOVEMENT_UP.angle(sut.get()), DELTA);
@@ -324,10 +324,10 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirectionWithZeroDoesNotChangeSpeed() {
         // Arrange
-        sut.setMotionTo(1, Direction.DOWN.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Act
-        sut.changeDirectionBy(0);
+        sut.changeDirection(0);
 
         // Assert
         assertEquals(DEFAULT_MOVEMENT_UP.getX(), sut.get().getX(), DELTA);
@@ -337,10 +337,10 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirectionChangesTheAngle() {
         // Arrange
-        sut.setMotionTo(1, Direction.DOWN.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Act
-        sut.changeDirectionBy(ANGLE);
+        sut.changeDirection(ANGLE);
 
         // Assert
         assertEquals(ANGLE, DEFAULT_MOVEMENT_UP.angle(sut.get()), DELTA);
@@ -349,10 +349,10 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirectionWithNegativeChangesTheAngle() {
         // Arrange
-        sut.setMotionTo(1, Direction.DOWN.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Act
-        sut.changeDirectionBy(ANGLE_INVERSE_NEGATIVE);
+        sut.changeDirection(ANGLE_INVERSE_NEGATIVE);
 
         // Assert
         assertEquals(Math.abs(ANGLE), DEFAULT_MOVEMENT_UP.angle(sut.get()), DELTA);
@@ -361,10 +361,10 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirectionWithClockwiseEqualsCounterClockwise() {
         // Arrange
-        sut.setMotionTo(1, Direction.DOWN.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Act
-        sut.changeDirectionBy(FULL_ROTATION_MINUS_NEGATIVE_ANGLE);
+        sut.changeDirection(FULL_ROTATION_MINUS_NEGATIVE_ANGLE);
 
         // Assert
         assertEquals(Math.abs(FULL_ROTATION - FULL_ROTATION_MINUS_NEGATIVE_ANGLE), DEFAULT_MOVEMENT_UP.angle(sut.get()), DELTA);
@@ -373,10 +373,10 @@ class DefaultMotionApplierTest {
     @Test
     void changeDirectionZeroDoesNotChangeAngle() {
         // Arrange
-        sut.setMotionTo(1, Direction.DOWN.getValue());
+        sut.setMotion(1, Direction.DOWN.getValue());
 
         // Act
-        sut.changeDirectionBy(0);
+        sut.changeDirection(0);
 
         // Assert
         assertEquals(0d, DEFAULT_MOVEMENT_UP.angle(sut.get()), DELTA);
@@ -386,7 +386,7 @@ class DefaultMotionApplierTest {
     void getPreviousLocationReturnsPreviousLocation() {
         // Arrange
         var expected = new Point2D(37, 42);
-        sut.setMotionTo(4, Direction.DOWN.getValue());
+        sut.setMotion(4, Direction.DOWN.getValue());
 
         // Act
         sut.updateLocation(expected);

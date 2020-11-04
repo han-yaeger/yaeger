@@ -58,7 +58,7 @@ public class EntityMotionInitBuffer implements Initializable {
 
     @Override
     public void init(Injector injector) {
-        motionApplier.setMotionTo(speed, direction);
+        motionApplier.setMotion(speed, direction);
     }
 
     public void setMotionApplier(final DefaultMotionApplier motionApplier) {

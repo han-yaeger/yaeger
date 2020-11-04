@@ -31,7 +31,7 @@ class EntityMotionInitBufferTest {
         sut.init(injector);
 
         // Assert
-        verify(motionApplier).setMotionTo(SPEED, 0d);
+        verify(motionApplier).setMotion(SPEED, 0d);
     }
 
     @Test
@@ -43,7 +43,7 @@ class EntityMotionInitBufferTest {
         sut.init(injector);
 
         // Assert
-        verify(motionApplier).setMotionTo(0d, DIRECTION);
+        verify(motionApplier).setMotion(0d, DIRECTION);
     }
 
     @Test
@@ -55,6 +55,6 @@ class EntityMotionInitBufferTest {
         sut.init(injector);
 
         // Assert
-        verify(motionApplier).setMotionTo(SPEED, DIRECTION);
+        verify(motionApplier).setMotion(SPEED, DIRECTION);
     }
 }

@@ -112,13 +112,13 @@ class DynamicSpriteEntityTest {
         when(spriteAnimationDelegateFactory.create(imageView, 1)).thenReturn(spriteAnimationDelegate);
 
         sut.setMotionApplier(motionApplier);
-        sut.setMotionTo(SPEED, DIRECTION);
+        sut.setMotion(SPEED, DIRECTION);
 
         // Act
         sut.init(injector);
 
         // Assert
-        verify(motionApplier).setMotionTo(SPEED, DIRECTION);
+        verify(motionApplier).setMotion(SPEED, DIRECTION);
     }
 
     @Test

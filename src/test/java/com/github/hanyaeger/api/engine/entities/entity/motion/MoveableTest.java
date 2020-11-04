@@ -7,7 +7,6 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -40,10 +39,10 @@ class MoveableTest {
         // Arrange
 
         // Act
-        sut.setMotionTo(SPEED, DIRECTION);
+        sut.setMotion(SPEED, DIRECTION);
 
         // Assert
-        verify(motionApplier).setMotionTo(SPEED, DIRECTION);
+        verify(motionApplier).setMotion(SPEED, DIRECTION);
     }
 
     @Test
@@ -51,10 +50,10 @@ class MoveableTest {
         // Arrange
 
         // Act
-        sut.multiplySpeedWith(SPEED);
+        sut.multiplySpeed(SPEED);
 
         // Assert
-        verify(motionApplier).multiplySpeedWith(SPEED);
+        verify(motionApplier).multiplySpeed(SPEED);
     }
 
     @Test
@@ -62,10 +61,10 @@ class MoveableTest {
         // Arrange
 
         // Act
-        sut.setSpeedTo(SPEED);
+        sut.setSpeed(SPEED);
 
         // Assert
-        verify(motionApplier).setSpeedTo(SPEED);
+        verify(motionApplier).setSpeed(SPEED);
     }
 
     @Test
@@ -85,10 +84,10 @@ class MoveableTest {
         // Arrange
 
         // Act
-        sut.setDirectionTo(DIRECTION);
+        sut.setDirection(DIRECTION);
 
         // Assert
-        verify(motionApplier).setDirectionTo(DIRECTION);
+        verify(motionApplier).setDirection(DIRECTION);
     }
 
     @Test
@@ -96,10 +95,10 @@ class MoveableTest {
         // Arrange
 
         // Act
-        sut.alterSpeedBy(SPEED);
+        sut.incrementSpeed(SPEED);
 
         // Assert
-        verify(motionApplier).alterSpeedBy(SPEED);
+        verify(motionApplier).incrementSpeed(SPEED);
     }
 
     @Test
@@ -107,10 +106,10 @@ class MoveableTest {
         // Arrange
 
         // Act
-        sut.changeDirectionBy(DIRECTION);
+        sut.changeDirection(DIRECTION);
 
         // Assert
-        verify(motionApplier).changeDirectionBy(DIRECTION);
+        verify(motionApplier).changeDirection(DIRECTION);
     }
 
     @Test

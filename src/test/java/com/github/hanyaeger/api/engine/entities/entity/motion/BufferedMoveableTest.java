@@ -31,7 +31,7 @@ class BufferedMoveableTest {
         // Arrange
 
         // Act
-        sut.setSpeedTo(SPEED);
+        sut.setSpeed(SPEED);
 
         // Assert
         verify(buffer).setSpeedTo(SPEED);
@@ -42,7 +42,7 @@ class BufferedMoveableTest {
         // Arrange
 
         // Act
-        sut.setDirectionTo(DIRECTION);
+        sut.setDirection(DIRECTION);
 
         // Assert
         verify(buffer).setDirectionTo(DIRECTION);
@@ -53,7 +53,7 @@ class BufferedMoveableTest {
         // Arrange
 
         // Act
-        sut.setMotionTo(SPEED, DIRECTION);
+        sut.setMotion(SPEED, DIRECTION);
 
         // Assert
         verify(buffer).setMotionTo(SPEED, DIRECTION);
@@ -66,10 +66,10 @@ class BufferedMoveableTest {
         sut.setMotionApplier(motionApplier);
 
         // Act
-        sut.setSpeedTo(SPEED);
+        sut.setSpeed(SPEED);
 
         // Assert
-        verify(motionApplier).setSpeedTo(SPEED);
+        verify(motionApplier).setSpeed(SPEED);
     }
 
     @Test
@@ -79,10 +79,10 @@ class BufferedMoveableTest {
         sut.setMotionApplier(motionApplier);
 
         // Act
-        sut.setDirectionTo(DIRECTION);
+        sut.setDirection(DIRECTION);
 
         // Assert
-        verify(motionApplier).setDirectionTo(DIRECTION);
+        verify(motionApplier).setDirection(DIRECTION);
     }
 
     @Test
@@ -92,10 +92,10 @@ class BufferedMoveableTest {
         sut.setMotionApplier(motionApplier);
 
         // Act
-        sut.setMotionTo(SPEED, DIRECTION);
+        sut.setMotion(SPEED, DIRECTION);
 
         // Assert
-        verify(motionApplier).setMotionTo(SPEED, DIRECTION);
+        verify(motionApplier).setMotion(SPEED, DIRECTION);
     }
 
     private class BufferedMoveableImpl implements BufferedMoveable {

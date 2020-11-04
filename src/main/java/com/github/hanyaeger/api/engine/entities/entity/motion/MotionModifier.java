@@ -9,37 +9,37 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      * Set the motion with which this {@link com.github.hanyaeger.api.engine.entities.entity.YaegerEntity}
      * is travelling.
      *
-     * @param speed     The speed as a {@code double}.
-     * @param direction The direction in degrees as a {@code double}.
+     * @param speed     the speed as a {@code double}
+     * @param direction the direction in degrees as a {@code double}
      */
-    void setMotionTo(final double speed, final double direction);
+    void setMotion(final double speed, final double direction);
 
     /**
      * Alter the speed through multiplication. Using this method will increase or decrease the current speed. It will multiply the current
      * speed by the provided value.
      * <p>
-     * If it is required to set the speed to a specific value, use the method {@link #setSpeedTo(double)}}.
+     * If it is required to set the speed to a specific value, use the method {@link #setSpeed(double)}}.
      *
-     * @param multiplication A value greater than 1 will mean an increment in speed. A value between 0 and 1 will mean a
+     * @param multiplication a value greater than 1 will mean an increment in speed. A value between 0 and 1 will mean a
      *                       decrement in speed
      */
-    void multiplySpeedWith(final double multiplication);
+    void multiplySpeed(final double multiplication);
 
     /**
      * Alter the speed through addition.  Using this method will increase or decrease the current speed. It will add the provided value
      * to the current speed. Use a negative value to decrease the speed.
      *
-     * @param increment A value greater than 1 will mean an increment in speed. A value between 0 and 1 will mean a
-     *                  decrement in speed.
+     * @param increment a value greater than 1 will mean an increment in speed. A value between 0 and 1 will mean a
+     *                  decrement in speed
      */
-    void alterSpeedBy(final double increment);
+    void incrementSpeed(final double increment);
 
     /**
      * Set the speed.
      *
      * @param speed the speed as a {@code double}
      */
-    void setSpeedTo(final double speed);
+    void setSpeed(final double speed);
 
     /**
      * Set the {@link Direction}. This value is in degrees, where
@@ -53,7 +53,7 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      *
      * @param direction the direction in degrees as a {@code double}
      */
-    void setDirectionTo(final double direction);
+    void setDirection(final double direction);
 
     /**
      * Change the direction by adding a rotation in degrees. A positive value will be added and will result
@@ -62,5 +62,5 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      *
      * @param rotation the rotation as a double
      */
-    void changeDirectionBy(final double rotation);
+    void changeDirection(final double rotation);
 }

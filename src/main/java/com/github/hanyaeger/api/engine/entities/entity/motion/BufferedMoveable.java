@@ -5,18 +5,18 @@ import java.util.Optional;
 public interface BufferedMoveable extends Moveable {
 
     @Override
-    default void setSpeedTo(final double newSpeed) {
-        getBuffer().ifPresentOrElse(eMBuffer -> eMBuffer.setSpeedTo(newSpeed), () -> getMotionApplier().setSpeedTo(newSpeed));
+    default void setSpeed(final double newSpeed) {
+        getBuffer().ifPresentOrElse(eMBuffer -> eMBuffer.setSpeedTo(newSpeed), () -> getMotionApplier().setSpeed(newSpeed));
     }
 
     @Override
-    default void setDirectionTo(final double newDirection) {
-        getBuffer().ifPresentOrElse(eMBuffer -> eMBuffer.setDirectionTo(newDirection), () -> getMotionApplier().setDirectionTo(newDirection));
+    default void setDirection(final double newDirection) {
+        getBuffer().ifPresentOrElse(eMBuffer -> eMBuffer.setDirectionTo(newDirection), () -> getMotionApplier().setDirection(newDirection));
     }
 
     @Override
-    default void setMotionTo(final double speed, final double direction) {
-        getBuffer().ifPresentOrElse(eMBuffer -> eMBuffer.setMotionTo(speed, direction), () -> getMotionApplier().setMotionTo(speed, direction));
+    default void setMotion(final double speed, final double direction) {
+        getBuffer().ifPresentOrElse(eMBuffer -> eMBuffer.setMotionTo(speed, direction), () -> getMotionApplier().setMotion(speed, direction));
     }
 
     Optional<EntityMotionInitBuffer> getBuffer();

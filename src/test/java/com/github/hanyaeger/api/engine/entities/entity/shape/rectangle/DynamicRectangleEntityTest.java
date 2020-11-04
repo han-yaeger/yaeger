@@ -68,19 +68,19 @@ class DynamicRectangleEntityTest {
         // Arrange
         var motionApplier = mock(DefaultMotionApplier.class);
         sut.setMotionApplier(motionApplier);
-        sut.setMotionTo(SPEED, DIRECTION);
+        sut.setMotion(SPEED, DIRECTION);
 
         // Act
         sut.init(injector);
 
         // Assert
-        verify(motionApplier).setMotionTo(SPEED, DIRECTION);
+        verify(motionApplier).setMotion(SPEED, DIRECTION);
     }
 
     @Test
     void initSetsMotionToDesiredSpeed() {
         // Arrange
-        sut.setSpeedTo(SPEED);
+        sut.setSpeed(SPEED);
         var motionApplier = mock(DefaultMotionApplier.class);
         sut.setMotionApplier(motionApplier);
 
@@ -88,7 +88,7 @@ class DynamicRectangleEntityTest {
         sut.init(injector);
 
         // Assert
-        verify(motionApplier).setMotionTo(SPEED, 0d);
+        verify(motionApplier).setMotion(SPEED, 0d);
     }
 
     @Test
