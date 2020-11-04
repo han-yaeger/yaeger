@@ -7,7 +7,7 @@
 ## Refactor
 
 - Made the update() method of a Dynamic Scene and Dynamic Entities final, so it cannot be overwritten by a user. If the update() is required, the UpdateExposer should be implemented.
-- Renamed the methods setMotionTo(), setSpeedTo(), setDirectionTo() to a more standard setMotion(), setSpeed() and setDirection() to create a more uniform API.
+- Renamed the methods with the semi-fluent API from the `MotionModifier` to their more classic form.
 
 ## Features
 
