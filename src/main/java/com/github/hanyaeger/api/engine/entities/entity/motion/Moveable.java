@@ -70,7 +70,7 @@ public interface Moveable extends Placeable, MotionModifier {
     @UpdatableProvider(asFirst = true)
     default Updatable updateLocation() {
         return timestamp -> {
-            getMotionApplier().setHalted(false); // TODO unittest
+            getMotionApplier().setHalted(false);
             if (Double.compare(getSpeed(), 0d) == 0) {
                 return;
             }

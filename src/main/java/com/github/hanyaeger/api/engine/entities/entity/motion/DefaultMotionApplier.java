@@ -31,8 +31,6 @@ public class DefaultMotionApplier implements MotionApplier {
 
     @Override
     public void setSpeedTo(final double newSpeed) {
-        // TODO test
-        // Set halted to true if speed was != 0  and is now set to 0;
         hasBeenHalted(newSpeed);
 
         if (motion.equals(new Coordinate2D(0, 0))) {
