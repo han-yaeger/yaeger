@@ -16,6 +16,7 @@ requires Java 14 or above to work.
 ## Documentation
 
 * API: [https://han-yaeger.github.io/yaeger/](https://han-yaeger.github.io/yaeger/)
+* Manual: [https://han-yaeger.github.io/yaeger/book/](https://han-yaeger.github.io/yaeger/book/)
 * Tutorial: [Yaeger tutorial](https://github.com/han-yaeger/yaeger-tutorial)
 * Showcase: [Yaeger showcase](https://github.com/han-yaeger/yaeger-showcase)
 * Architecture: [Yaeger's architecture](docs/architecture.md)
