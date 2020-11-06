@@ -20,7 +20,7 @@ class TimerContainerTest {
     @BeforeEach
     void setup() {
         sut = new TimerContainerImpl();
-        timers = Mockito.mock(ArrayList.class);
+        timers = mock(ArrayList.class);
         sut.setTimers(timers);
     }
 
