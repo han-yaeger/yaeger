@@ -13,8 +13,11 @@ public interface Initializable {
     void init(final Injector injector);
 
     /**
-     * A default method to be used as a lifecycle hook to be called after initialization has been done.
-     * By default
+     * A default method to be used as a lifecycle hook to be called before a {@link com.github.hanyaeger.api.engine.entities.entity.YaegerEntity}
+     * is initialized and added to the {@link com.github.hanyaeger.api.engine.scenes.YaegerScene}.
+     * <p>
+     * By default this method is empty.
      */
-    default void afterInit(){};
+    default void beforeInitialize() {
+    }
 }

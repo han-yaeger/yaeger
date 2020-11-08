@@ -89,7 +89,9 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
     @Override
     public void init(final Injector injector) {
         super.init(injector);
-        shape.get().setRadiusX(radiusX);
-        shape.get().setRadiusY(radiusY);
+        shape.ifPresent(shape -> {
+            shape.setRadiusX(radiusX);
+            shape.setRadiusY(radiusY);
+        });
     }
 }

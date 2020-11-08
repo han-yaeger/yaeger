@@ -193,15 +193,18 @@ public class EntityCollection implements Initializable {
 
     private void addSuppliedEntities() {
         if (!suppliers.isEmpty()) {
-            suppliers.forEach(supplier -> supplier.get().forEach(this::addToGameLoop));
+            suppliers.forEach(supplier -> supplier.get().forEach(this::initialize));
         }
     }
 
-    private void addToGameLoop(final YaegerEntity entity) {
-        initialize(entity);
-        entity.afterInit();
+    private void initialize(final YaegerEntity entity) {
+        entity.beforeInitialize();
 
-        entity.addToEntityCollection(this);
+        entity.applyEntityProcessor(yaegerEntity -> injector.injectMembers(yaegerEntity));
+        entity.init(injector);
+        entity.applyEntityProcessor(yaegerEntity -> annotationProcessor.invokeActivators(yaegerEntity));
+
+        entity.applyEntityProcessor(yaegerEntity -> yaegerEntity.addToEntityCollection(this));
         entity.attachEventListener(EventTypes.REMOVE, event -> markAsGarbage((Removeable) event.getSource()));
         entity.transferCoordinatesToNode();
         entity.applyTranslationsForAnchorPoint();
@@ -209,12 +212,6 @@ public class EntityCollection implements Initializable {
         entity.applyEntityProcessor(yaegerEntity -> registerKeylistener(yaegerEntity));
         entity.applyEntityProcessor(yaegerEntity -> collisionDelegate.register(yaegerEntity));
         entity.addToParent(yaegerEntity -> addToParentNode(yaegerEntity));
-    }
-
-    private void initialize(final YaegerEntity entity) {
-        injector.injectMembers(entity);
-        entity.init(injector);
-        annotationProcessor.invokeActivators(entity);
     }
 
     /**

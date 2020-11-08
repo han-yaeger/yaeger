@@ -62,7 +62,12 @@ public abstract class DynamicCompositeEntity extends CompositeEntity implements 
     }
 
     @Override
-    public void update(long timestamp) {
+    public void beforeInitialize() {
+        super.beforeInitialize();
+    }
+
+    @Override
+    public void update(final long timestamp) {
         collectGarbage();
         getUpdater().update(timestamp);
     }
@@ -72,8 +77,10 @@ public abstract class DynamicCompositeEntity extends CompositeEntity implements 
             return;
         }
 
-        group.ifPresent(groupNode -> garbage.forEach(yaegerEntity -> groupNode.getChildren().remove(yaegerEntity.getNode())));
-        ;
+        group.ifPresent(groupNode -> garbage.forEach(yaegerEntity ->
+                groupNode.getChildren().remove(yaegerEntity.getNode())
+        ));
+
         entities.removeAll(garbage);
         garbage.clear();
     }
@@ -94,7 +101,7 @@ public abstract class DynamicCompositeEntity extends CompositeEntity implements 
     }
 
     @Override
-    public void addToEntityCollection(EntityCollection collection) {
+    public void addToEntityCollection(final EntityCollection collection) {
         collection.addDynamicEntity(this);
     }
 

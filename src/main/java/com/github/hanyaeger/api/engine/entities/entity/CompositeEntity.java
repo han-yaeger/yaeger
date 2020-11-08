@@ -1,6 +1,5 @@
 package com.github.hanyaeger.api.engine.entities.entity;
 
-import com.github.hanyaeger.api.engine.annotations.AnnotationProcessor;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.EntityProcessor;
 import com.github.hanyaeger.api.engine.entities.EntitySpawner;
@@ -19,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * When a group of Entities are combined to create a single Entity, they are
+ * When a group of Entities are combined to create a single {@link YaegerEntity}, they are
  * a composition and this class should be used to perform that composition.
  * <p>
  * It is possible to add instances of {@link YaegerEntity} to this {@link CompositeEntity},
@@ -28,18 +27,27 @@ import java.util.Optional;
  * {@link YaegerEntity}, but are managed as a whole.
  * </p>
  * <p>
- * Since the child Entities are part of this {@link CompositeEntity}, their event listeners will
- * only be called if their parent {@link CompositeEntity} implements the correct interfaces. The
- * such a case, the parent will be called first, after which it will direct the event to its children.
+ * This means that this {@link CompositeEntity} has its own coordinate system, meaning (0,0) is the
+ * origin of this {@link CompositeEntity}. The width and height is hence calculated, based on its content.
+ * This is done only at initialization, so removing Entities from this {@link CompositeEntity} after
+ * initialization, does nog change its width or height.
+ * </p>
+ * <p>
+ * Removing Entities from this {@link CompositeEntity} removes them as expected. Removing the entire
+ * {@link CompositeEntity}, also removes all Entities that are part of the composition.
+ * </p>
+ * <p>
+ * A {@link CompositeEntity} does not listen to a Game World Update, but its children still can. In such a case
+ * the children receive their {@link com.github.hanyaeger.api.engine.Updatable#update(long)}, and can act accordingly,
+ * but the {@link CompositeEntity} itself will not so. If such behavior is required, use a {@link DynamicCompositeEntity},
+ * which receives its own {@link com.github.hanyaeger.api.engine.Updatable#update(long)}.
  * </p>
  */
 public abstract class CompositeEntity extends YaegerEntity {
 
-    protected List<YaegerEntity> entities = new ArrayList<>();
-    protected List<Removeable> garbage = new ArrayList<>();
-    protected Optional<Group> group = Optional.empty();
-    private Injector injector;
-    private AnnotationProcessor annotationProcessor;
+    List<YaegerEntity> entities = new ArrayList<>();
+    List<Removeable> garbage = new ArrayList<>();
+    Optional<Group> group = Optional.empty();
 
     public CompositeEntity(final Coordinate2D initialLocation) {
         super(initialLocation);
@@ -65,42 +73,51 @@ public abstract class CompositeEntity extends YaegerEntity {
     protected abstract void setupEntities();
 
     @Override
+    public void beforeInitialize() {
+        setupEntities();
+
+        entities.forEach(yaegerEntity -> yaegerEntity.beforeInitialize());
+    }
+
+    @Override
     public void init(final Injector injector) {
         super.init(injector);
 
-        this.injector = injector;
+        entities.forEach(yaegerEntity -> yaegerEntity.init(injector));
     }
 
+    /**
+     * At this stage we only ask the children to apply their transformation. The transformation that should be
+     * applied to this {@link CompositeEntity} can only be applied after its children have been added to the
+     * {@link Group} and the {@link Group} has been added to the {@link javafx.scene.Scene}.
+     */
     @Override
-    public void afterInit() {
-        setupEntities();
-        entities.forEach(entity -> {
-            injector.injectMembers(entity);
-            entity.init(injector);
-            annotationProcessor.invokeActivators(entity);
-            entity.applyTranslationsForAnchorPoint();
-        });
-    }
+    public void applyTranslationsForAnchorPoint() {
+        entities.forEach(yaegerEntity -> yaegerEntity.applyTranslationsForAnchorPoint());
 
-    @Override
-    public void addToEntityCollection(final EntityCollection collection) {
-        super.addToEntityCollection(collection);
-
-        entities.forEach(yaegerEntity -> yaegerEntity.addToEntityCollection(collection));
+        super.applyTranslationsForAnchorPoint();
     }
 
     @Override
     public void applyEntityProcessor(final EntityProcessor processor) {
         super.applyEntityProcessor(processor);
 
-        entities.forEach(entity -> processor.process(entity));
+        entities.forEach(yaegerEntity -> yaegerEntity.applyEntityProcessor(processor));
     }
 
+    /**
+     * Note that this method will become recursive it composition consists of more instance of {@link CompositeEntity}.
+     */
     @Override
     public void addToParent(final EntityProcessor processor) {
+        // First delegate the toParent call to all child Entities
+        entities.forEach(yaegerEntity -> yaegerEntity.addToParent(entity -> addToParentNode(entity)));
+
+        // After all child Entities have been added themself to this parent, add this to its own parent
         super.addToParent(processor);
 
-        group.ifPresent(groupNode -> entities.forEach(entity -> groupNode.getChildren().add(entity.getNode().get())));
+        // The Node hierarchy has been created and the translations can be applied
+        applyTranslationsForAnchorPoint();
     }
 
     @Override
@@ -127,11 +144,6 @@ public abstract class CompositeEntity extends YaegerEntity {
         this.group = Optional.of(group);
     }
 
-    @Inject
-    public void setAnnotationProcessor(final AnnotationProcessor annotationProcessor) {
-        this.annotationProcessor = annotationProcessor;
-    }
-
     @Override
     public void attachEventListener(final EventType eventType, final EventHandler eventHandler) {
         super.attachEventListener(eventType, eventHandler);
@@ -149,9 +161,16 @@ public abstract class CompositeEntity extends YaegerEntity {
      */
     @Override
     public void transferCoordinatesToNode() {
-        entities.forEach(yaegerEntity -> yaegerEntity.transferCoordinatesToNode());
+        entities.forEach(YaegerEntity::transferCoordinatesToNode);
 
         super.transferCoordinatesToNode();
+    }
+
+    @Override
+    public void remove() {
+        entities.forEach(yaegerEntity -> yaegerEntity.remove());
+
+        super.remove();
     }
 
     private void handleEvent(final EventHandler eventHandler, final Event event, final YaegerEntity yaegerEntity) {
@@ -160,5 +179,9 @@ public abstract class CompositeEntity extends YaegerEntity {
         if (event.getEventType().equals(EventTypes.REMOVE)) {
             garbage.add(yaegerEntity);
         }
+    }
+
+    private void addToParentNode(final YaegerEntity entity) {
+        group.ifPresent(group -> entity.getNode().ifPresent(node -> group.getChildren().add(node)));
     }
 }

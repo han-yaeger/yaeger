@@ -64,6 +64,6 @@ public abstract class CircleEntity extends CenteredShapeEntity<Circle> {
     @Override
     public void init(final Injector injector) {
         super.init(injector);
-        shape.get().setRadius(radius);
+        shape.ifPresent(shape -> shape.setRadius(radius));
     }
 }

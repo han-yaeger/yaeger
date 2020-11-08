@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.Node;
 
 import java.util.ArrayList;
@@ -349,7 +350,8 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     }
 
     /**
-     * The {@link Node} encapsulated by this {@link YaegerEntity} should be added to a parent {@link Node}
+     * The {@link Node} encapsulated by this {@link YaegerEntity} should be added to a parent {@link Node} to
+     * be displayed on the screen and become part of the {@link com.github.hanyaeger.api.engine.scenes.YaegerScene}.
      *
      * @param processor an instance of {@link EntityProcessor}, most likely a lambda expression that can be
      *                  used for adding this node as a child to a parent node

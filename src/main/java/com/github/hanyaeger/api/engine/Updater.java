@@ -1,5 +1,7 @@
 package com.github.hanyaeger.api.engine;
 
+import com.github.hanyaeger.api.engine.entities.entity.Removeable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,16 @@ public class Updater implements Updatable, Clearable {
         }
     }
 
+    /**
+     * Remove a {@link Removeable} from this {@link Updater}.
+     * TODO add unittest
+     *
+     * @param removeable the {@link Removeable} that should be removed
+     */
+    public void removeUpdatable(Removeable removeable) {
+        updatables.remove(removeable);
+    }
+
     @Override
     public void update(final long timestamp) {
         if (!clearUpdatables) {
@@ -51,4 +63,6 @@ public class Updater implements Updatable, Clearable {
     public void clear() {
         clearUpdatables = true;
     }
+
+
 }
