@@ -6,11 +6,14 @@
 
 ## Refactor
 
-- Made the update() method of a Dynamic Scene and Dynamic Entities final, so it cannot be overwritten by a user. If the update() is required, the UpdateExposer should be implemented.
+- Made the `update()` method of a Dynamic Scene and Dynamic Entities final, so it cannot be overwritten by a user. If the update() is required, the UpdateExposer should be implemented.
 - Renamed the methods with the semi-fluent API from the `MotionModifier` to their more classic form.
 
 ## Features
 
+- Added a `CompositeEntity` and a `DynamicCompositeEntity`, with which it becomes possible to apply composition to entities (#101)
+
 ## Bugfixes
 
 - Resolved the problem that caused a performance hit when using TextEntities (#129).
+- Resolved the issue where a colliding, but non-moving Entity stayed in place, although `setAnchorLocation()` was called (#122)
