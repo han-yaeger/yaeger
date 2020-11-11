@@ -62,11 +62,6 @@ public abstract class DynamicCompositeEntity extends CompositeEntity implements 
     }
 
     @Override
-    public void beforeInitialize() {
-        super.beforeInitialize();
-    }
-
-    @Override
     public void update(final long timestamp) {
         collectGarbage();
         getUpdater().update(timestamp);

@@ -1,6 +1,5 @@
 package com.github.hanyaeger.api.engine.entities.entity;
 
-import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.Updater;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
@@ -25,7 +24,7 @@ class DynamicCompositeEntityTest {
     public static final double SPEED = 37d;
     public static final double DIRECTION = 42d;
     public static final int ROTATION_SPEED = 37;
-    private static Coordinate2D DEFAULT_LOCATION = new Coordinate2D(0, 0);
+    private static final Coordinate2D DEFAULT_LOCATION = new Coordinate2D(0, 0);
 
     private DynamicCompositeEntityImpl sut;
     private Injector injector;
@@ -187,7 +186,7 @@ class DynamicCompositeEntityTest {
 
         private List<YaegerEntity> entitiesToAdd = new ArrayList<>();
 
-        public DynamicCompositeEntityImpl(Coordinate2D initialLocation) {
+        public DynamicCompositeEntityImpl(final Coordinate2D initialLocation) {
             super(initialLocation);
         }
 
@@ -204,29 +203,12 @@ class DynamicCompositeEntityTest {
             return entities;
         }
 
-        public void addToGarbage(Removeable removeable) {
+        public void addToGarbage(final Removeable removeable) {
             garbage.add(removeable);
         }
 
         public List<Removeable> getGarbage() {
             return garbage;
-        }
-    }
-
-    private class UpdatableYaegerImpl extends YaegerEntity implements Updatable {
-
-        public UpdatableYaegerImpl(Coordinate2D initialLocation) {
-            super(initialLocation);
-        }
-
-        @Override
-        public void update(long timestamp) {
-
-        }
-
-        @Override
-        public Optional<? extends Node> getNode() {
-            return Optional.empty();
         }
     }
 }

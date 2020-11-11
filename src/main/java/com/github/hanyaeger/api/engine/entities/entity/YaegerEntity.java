@@ -271,7 +271,6 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
                     break;
             }
         });
-
     }
 
     @Override

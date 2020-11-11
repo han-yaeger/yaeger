@@ -240,7 +240,7 @@ class YaegerEntityTest {
     }
 
     @Test
-    void placeOnSceneCallsSetXWithInitialLocation() {
+    void transferCoordinatesToNodeCallsSetXWithInitialLocation() {
         // Arrange
         sut.init(injector);
 
@@ -252,7 +252,7 @@ class YaegerEntityTest {
     }
 
     @Test
-    void placeOnSceneCallsSetYWithInitialLocation() {
+    void transferCoordinatesToNodeCallsSetYWithInitialLocation() {
         // Arrange
         sut.init(injector);
 

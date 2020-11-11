@@ -1,6 +1,5 @@
 package com.github.hanyaeger.api.engine.entities.entity;
 
-import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.EntityProcessor;
 import com.github.hanyaeger.api.engine.entities.EntitySpawner;
 import com.github.hanyaeger.api.engine.entities.entity.events.EventTypes;
@@ -121,7 +120,7 @@ public abstract class CompositeEntity extends YaegerEntity {
     }
 
     @Override
-    public void setAnchorLocation(Coordinate2D anchorLocation) {
+    public void setAnchorLocation(final Coordinate2D anchorLocation) {
         super.setAnchorLocation(anchorLocation);
 
         group.ifPresent(group -> {
