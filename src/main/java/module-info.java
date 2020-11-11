@@ -1,3 +1,7 @@
+/**
+ * The main (and only) module for Yaeger. Currently both the public and internal API are part of
+ * this one module. In the future they should be separated which will leave a API-module and a Core-module.
+ */
 module hanyaeger.api {
     requires transitive javafx.base;
     requires transitive javafx.controls;
