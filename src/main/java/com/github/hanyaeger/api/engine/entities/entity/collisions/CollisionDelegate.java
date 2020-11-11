@@ -26,11 +26,11 @@ public class CollisionDelegate {
 
     /**
      * Register an {@link YaegerEntity} to be evaluated for collision detection. The {@link YaegerEntity} will only be added
-     * if
+     * if is an {@link AABBCollider} or {@link AABBCollided}.
      *
      * @param entity the {@link YaegerEntity} that should be registered
      */
-    public void register(YaegerEntity entity) {
+    public void register(final YaegerEntity entity) {
         if (entity instanceof AABBCollider) {
             register((AABBCollider) entity);
         }
@@ -44,7 +44,7 @@ public class CollisionDelegate {
      *
      * @param AABBCollider the {@link AABBCollider} that should be registered
      */
-    public void register(AABBCollider AABBCollider) {
+    public void register(final AABBCollider AABBCollider) {
         colliders.add(AABBCollider);
     }
 
@@ -53,7 +53,7 @@ public class CollisionDelegate {
      *
      * @param collided the {@link AABBCollided} that should be registered
      */
-    public void register(AABBCollided collided) {
+    public void register(final AABBCollided collided) {
         collideds.add(collided);
     }
 
@@ -62,7 +62,7 @@ public class CollisionDelegate {
      *
      * @param removeable The {@link Removeable} that should be removed.
      */
-    public void remove(Removeable removeable) {
+    public void remove(final Removeable removeable) {
         if (removeable instanceof AABBCollider) {
             removeCollider((AABBCollider) removeable);
         }
@@ -78,11 +78,11 @@ public class CollisionDelegate {
         collideds.forEach(collided -> collided.checkForCollisions(colliders));
     }
 
-    private void removeCollider(AABBCollider AABBCollider) {
+    private void removeCollider(final AABBCollider AABBCollider) {
         colliders.remove(AABBCollider);
     }
 
-    private void removeCollided(AABBCollided collided) {
+    private void removeCollided(final AABBCollided collided) {
         collideds.remove(collided);
     }
 }

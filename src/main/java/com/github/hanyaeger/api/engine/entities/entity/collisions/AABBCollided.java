@@ -30,9 +30,9 @@ public interface AABBCollided extends Bounded, Moveable {
     /**
      * This method is called if a collision has occurred.
      *
-     * @param collidingObject The EntityCollection you are colliding with.
+     * @param collidingObject the EntityCollection you are colliding with
      */
-    void onCollision(AABBCollider collidingObject);
+    void onCollision(final AABBCollider collidingObject);
 
     /**
      * Perform collision detection with a {@link Set} of {@link AABBCollider} instances. Only the first collision
@@ -46,9 +46,9 @@ public interface AABBCollided extends Bounded, Moveable {
      * Note that all of this takes place during the same Game World update. The re-rendering takes place after this update
      * completes, meaning the undoing will cause no jitter effect.
      *
-     * @param AABBColliders A {@link Set} of colliders that should be checked for collisions.
+     * @param AABBColliders a {@link Set} of colliders that should be checked for collisions
      */
-    default void checkForCollisions(List<AABBCollider> AABBColliders) {
+    default void checkForCollisions(final List<AABBCollider> AABBColliders) {
         if (AABBColliders == null || AABBColliders.isEmpty()) {
             return;
         }
@@ -62,7 +62,7 @@ public interface AABBCollided extends Bounded, Moveable {
         }
     }
 
-    private boolean collisionHasOccured(AABBCollider AABBCollider) {
+    private boolean collisionHasOccured(final AABBCollider AABBCollider) {
         return !this.equals(AABBCollider) && getTransformedBounds().intersects(AABBCollider.getTransformedBounds());
     }
 }

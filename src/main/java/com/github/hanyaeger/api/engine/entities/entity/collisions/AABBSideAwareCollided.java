@@ -24,8 +24,8 @@ public interface AABBSideAwareCollided extends AABBCollided {
     /**
      * This method is called if a collision has occurred.
      *
-     * @param collidingObject The EntityCollection you are colliding with.
-     * @param side            The side with which a collision has occurred.
+     * @param collidingObject the EntityCollection you are colliding with
+     * @param side            the side with which a collision has occurred
      */
     void onCollision(final AABBCollider collidingObject, final CollisionSide side);
 
