@@ -5,6 +5,7 @@ import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import com.github.hanyaeger.api.engine.entities.entity.Bounded;
 import com.github.hanyaeger.api.engine.entities.entity.motion.Moveable;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
+import javafx.geometry.Bounds;
 
 import java.util.List;
 import java.util.Set;
@@ -46,23 +47,35 @@ public interface AABBCollided extends Bounded, Moveable {
      * Note that all of this takes place during the same Game World update. The re-rendering takes place after this update
      * completes, meaning the undoing will cause no jitter effect.
      *
-     * @param AABBColliders a {@link Set} of colliders that should be checked for collisions
+     * @param aabbColliders a {@link Set} of colliders that should be checked for collisions
      */
-    default void checkForCollisions(final List<AABBCollider> AABBColliders) {
-        if (AABBColliders == null || AABBColliders.isEmpty()) {
+    default void checkForCollisions(final List<AABBCollider> aabbColliders) {
+        if (aabbColliders == null || aabbColliders.isEmpty()) {
             return;
         }
 
-        for (AABBCollider AABBCollider : AABBColliders) {
-            if (collisionHasOccured(AABBCollider)) {
-                onCollision(AABBCollider);
+        for (final AABBCollider aabbCollider : aabbColliders) {
+            if (collisionHasOccured(aabbCollider)) {
+                onCollision(aabbCollider);
                 undoUpdate();
                 break;
             }
         }
     }
 
-    private boolean collisionHasOccured(final AABBCollider AABBCollider) {
-        return !this.equals(AABBCollider) && getTransformedBounds().intersects(AABBCollider.getTransformedBounds());
+    private boolean collisionHasOccured(final AABBCollider aabbCollider) {
+        var transformedBounds = getBoundsInScene();
+        System.out.println("Checking collision: ");
+        printBounds(transformedBounds);
+        var otherTransformedBounds = aabbCollider.getBoundsInScene();
+        printBounds(otherTransformedBounds);
+        var intersects = transformedBounds.intersects(otherTransformedBounds);
+
+        return !this.equals(aabbCollider) && intersects;
+    }
+
+    private void printBounds(Bounds bounds) {
+        System.out.println("Bottom left: (" + bounds.getMinX() + "," + bounds.getMinY() + ")");
+        System.out.println("Top Right: (" + bounds.getMaxX() + "," + bounds.getMaxY() + ")");
     }
 }
