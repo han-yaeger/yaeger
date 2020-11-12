@@ -5,7 +5,6 @@ import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import com.github.hanyaeger.api.engine.entities.entity.Bounded;
 import com.github.hanyaeger.api.engine.entities.entity.motion.Moveable;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
-import javafx.geometry.Bounds;
 
 import java.util.List;
 import java.util.Set;
@@ -55,7 +54,7 @@ public interface AABBCollided extends Bounded, Moveable {
         }
 
         for (final AABBCollider aabbCollider : aabbColliders) {
-            if (collisionHasOccured(aabbCollider)) {
+            if (hasCollidedWith(aabbCollider)) {
                 onCollision(aabbCollider);
                 undoUpdate();
                 break;
@@ -63,19 +62,7 @@ public interface AABBCollided extends Bounded, Moveable {
         }
     }
 
-    private boolean collisionHasOccured(final AABBCollider aabbCollider) {
-        var transformedBounds = getBoundsInScene();
-        System.out.println("Checking collision: ");
-        printBounds(transformedBounds);
-        var otherTransformedBounds = aabbCollider.getBoundsInScene();
-        printBounds(otherTransformedBounds);
-        var intersects = transformedBounds.intersects(otherTransformedBounds);
-
-        return !this.equals(aabbCollider) && intersects;
-    }
-
-    private void printBounds(Bounds bounds) {
-        System.out.println("Bottom left: (" + bounds.getMinX() + "," + bounds.getMinY() + ")");
-        System.out.println("Top Right: (" + bounds.getMaxX() + "," + bounds.getMaxY() + ")");
+    private boolean hasCollidedWith(final AABBCollider aabbCollider) {
+        return !this.equals(aabbCollider) && getBoundsInScene().intersects(aabbCollider.getBoundsInScene());
     }
 }

@@ -48,7 +48,7 @@ public interface Bounded extends DimensionsProvider, GameNode {
      */
     default Bounds getBoundsInScene() {
         if (getNode().isPresent()) {
-            return getNode().get().localToScene(getNode().get().getBoundsInParent(), true);
+            return getNode().get().localToScene(getNode().get().getBoundsInLocal(), true);
         } else {
             return new BoundingBox(0, 0, 0, 0);
         }

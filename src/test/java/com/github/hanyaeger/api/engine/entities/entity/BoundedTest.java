@@ -80,6 +80,33 @@ class BoundedTest {
     }
 
     @Test
+    void getBoundsInSceneReturnsZeroBoundingBoxIfGameNodeIsNotPresent() {
+        // Arrange
+        var sut = new EmptyGameNodeBoundedImpl();
+
+        // Act
+        var boundingBox = sut.getBoundsInScene();
+
+        // Assert
+        Assertions.assertEquals(0, boundingBox.getWidth());
+        Assertions.assertEquals(0, boundingBox.getHeight());
+    }
+
+    @Test
+    void getBoundsInSceneDelegatesToGameNodeIfPresent() {
+        // Arrange
+        var sut = new BoundedImpl();
+        sut.setNode(node);
+
+        // Act
+        sut.getBoundsInScene();
+
+        // Assert
+        Mockito.verify(node).localToScene(any(Bounds.class), eq(true));
+        Mockito.verify(node).getBoundsInLocal();
+    }
+
+    @Test
     void getLeftXReturnValueFromBounds() {
         // Arrange
         var minX = 0.37;

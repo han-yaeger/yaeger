@@ -134,6 +134,11 @@ class SideAABBCollidedTest {
         }
 
         @Override
+        public Bounds getBoundsInScene() {
+            return bounds;
+        }
+
+        @Override
         public Optional<? extends Node> getNode() {
             return null;
         }
@@ -169,7 +174,10 @@ class SideAABBCollidedTest {
             return TEST_COLLIDED_BOUNDINGBOX;
         }
 
-
+        @Override
+        public Bounds getBoundsInScene() {
+            return TEST_COLLIDED_BOUNDINGBOX;
+        }
         @Override
         public Bounds getNonTransformedBounds() {
             return TEST_COLLIDED_BOUNDINGBOX;

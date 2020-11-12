@@ -105,7 +105,7 @@ public class AABBCollidedTest {
         private Bounds bounds;
 
         @Override
-        public Bounds getTransformedBounds() {
+        public Bounds getBoundsInScene() {
             return bounds;
         }
 
@@ -141,8 +141,8 @@ public class AABBCollidedTest {
             lastCollided = collidingObject;
         }
 
-        @Override
-        public Bounds getTransformedBounds() {
+         @Override
+        public Bounds getBoundsInScene() {
             return TEST_COLLIDED_BOUNDINGBOX;
         }
 
