@@ -11,9 +11,10 @@
 
 ## Features
 
-- Added a `CompositeEntity` and a `DynamicCompositeEntity`, with which it becomes possible to apply composition to entities (#101)
+- Added a `CompositeEntity` and a `DynamicCompositeEntity`, with which it becomes possible to apply composition to entities (#101). This also enables the option to create an Entity that uses hit boxes for collision detection.
 
 ## Bugfixes
 
 - Resolved the problem that caused a performance hit when using TextEntities (#129).
 - Resolved the issue where a colliding, but non-moving Entity stayed in place, although `setAnchorLocation()` was called (#122)
+- Resolved an issue that prevented a CompositeEntity to be part of collision detection (#133).
