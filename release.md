@@ -8,6 +8,7 @@
 
 - Made the `update()` method of a Dynamic Scene and Dynamic Entities final, so it cannot be overwritten by a user. If the update() is required, the UpdateExposer should be implemented.
 - Renamed the methods with the semi-fluent API from the `MotionModifier` to their more classic form.
+- Renamed the interfaces `AABBCollided`, `AABBCollider` and `AABBSideAwareCollided` to `Collided`, `Collider` and `SsideAwareCollided`. (#134).
 
 ## Features
 
