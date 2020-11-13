@@ -16,7 +16,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class AABBCollidedTest {
+public class CollidedTest {
 
     private static final Bounds TEST_COLLIDED_BOUNDINGBOX = new BoundingBox(50, 50, 0, 25, 25, 0);
     private static final Bounds TEST_NOT_COLLIDING_BOUNDINGBOX = new BoundingBox(0, 0, 0, 1, 1, 0);
@@ -45,7 +45,7 @@ public class AABBCollidedTest {
     @Test
     void testNoCollidersGivesNoCollisions() {
         // Arrange
-        List<AABBCollider> emptySet = List.of();
+        List<Collider> emptySet = List.of();
 
         // Act
         sut.checkForCollisions(emptySet);
@@ -57,16 +57,16 @@ public class AABBCollidedTest {
     @Test
     void testTrivialCollisionGivesCollision() {
         // Arrange
-        var trivialCollider = new CollidingAABBCollider();
+        var trivialCollider = new CollidingCollider();
         trivialCollider.setBounds(TEST_COLLIDED_BOUNDINGBOX);
 
         when(motionApplier.getSpeed()).thenReturn(0d);
         when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(new Coordinate2D(0, 0)));
 
-        List<AABBCollider> testAABBColliders = List.of(trivialCollider);
+        List<Collider> testColliders = List.of(trivialCollider);
 
         // Act
-        sut.checkForCollisions(testAABBColliders);
+        sut.checkForCollisions(testColliders);
 
         // Assert
         assertEquals(trivialCollider, sut.getLastCollider());
@@ -75,13 +75,13 @@ public class AABBCollidedTest {
     @Test
     void testNoCollisionReportNoCollision() {
         // Arrange
-        var noCollisionCollider = new CollidingAABBCollider();
+        var noCollisionCollider = new CollidingCollider();
         noCollisionCollider.setBounds(TEST_NOT_COLLIDING_BOUNDINGBOX);
 
-        List<AABBCollider> testAABBColliders = List.of(noCollisionCollider);
+        List<Collider> testColliders = List.of(noCollisionCollider);
 
         // Act
-        sut.checkForCollisions(testAABBColliders);
+        sut.checkForCollisions(testColliders);
 
         // Assert
         assertNull(sut.getLastCollider());
@@ -91,16 +91,16 @@ public class AABBCollidedTest {
     void tesCollisionWithSelfReportsNoCollision() {
         // Arrange
         var collidables = new TestCollidable();
-        List<AABBCollider> testAABBColliders = List.of(collidables);
+        List<Collider> testColliders = List.of(collidables);
 
         // Act
-        collidables.checkForCollisions(testAABBColliders);
+        collidables.checkForCollisions(testColliders);
 
         // Assert
         assertNull(collidables.getLastCollider());
     }
 
-    private class CollidingAABBCollider implements AABBCollider {
+    private class CollidingCollider implements Collider {
 
         private Bounds bounds;
 
@@ -129,15 +129,15 @@ public class AABBCollidedTest {
         }
     }
 
-    private class TestCollided implements AABBCollided {
+    private class TestCollided implements Collided {
 
-        private AABBCollider lastCollided;
+        private Collider lastCollided;
         private MotionApplier motionApplier;
         private boolean setAnchorLocationCalled = false;
         private boolean setOriginYcalled = false;
 
         @Override
-        public void onCollision(AABBCollider collidingObject) {
+        public void onCollision(Collider collidingObject) {
             lastCollided = collidingObject;
         }
 
@@ -146,7 +146,7 @@ public class AABBCollidedTest {
             return TEST_COLLIDED_BOUNDINGBOX;
         }
 
-        public AABBCollider getLastCollider() {
+        public Collider getLastCollider() {
             return lastCollided;
         }
 
@@ -205,7 +205,7 @@ public class AABBCollidedTest {
         }
     }
 
-    private class TestCollidable extends TestCollided implements AABBCollider, AABBCollided {
+    private class TestCollidable extends TestCollided implements Collider, Collided {
 
         @Override
         public Optional<? extends Node> getNode() {

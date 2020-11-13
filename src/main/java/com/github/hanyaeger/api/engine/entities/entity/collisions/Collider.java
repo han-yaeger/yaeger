@@ -6,10 +6,10 @@ import com.github.hanyaeger.api.engine.entities.entity.Bounded;
 import com.github.hanyaeger.api.engine.entities.entity.motion.DirectionProvider;
 
 /**
- * A {@link AABBCollider} represents an {@link YaegerEntity} that can be collided with
- * by a {@link AABBCollided}
+ * A {@link Collider} represents an {@link YaegerEntity} that can be collided with
+ * by a {@link Collided}
  * <p>
- * In case of a collision, only the {@link AABBCollided} will be notified.
+ * In case of a collision, only the {@link Collided} will be notified.
  */
-public interface AABBCollider extends Bounded, SpeedProvider, DirectionProvider {
+public interface Collider extends Bounded, SpeedProvider, DirectionProvider {
 }

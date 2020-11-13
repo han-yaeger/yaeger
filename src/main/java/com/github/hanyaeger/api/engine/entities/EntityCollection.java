@@ -5,8 +5,8 @@ import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.annotations.AnnotationProcessor;
 import com.github.hanyaeger.api.engine.debug.StatisticsObserver;
 import com.github.hanyaeger.api.engine.entities.entity.Removeable;
-import com.github.hanyaeger.api.engine.entities.entity.collisions.AABBCollided;
-import com.github.hanyaeger.api.engine.entities.entity.collisions.AABBCollider;
+import com.github.hanyaeger.api.engine.entities.entity.collisions.Collided;
+import com.github.hanyaeger.api.engine.entities.entity.collisions.Collider;
 import com.github.hanyaeger.api.engine.entities.entity.collisions.CollisionDelegate;
 import com.github.hanyaeger.api.engine.entities.entity.events.userinput.KeyListener;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
@@ -126,8 +126,8 @@ public class EntityCollection implements Initializable {
      * </li>
      * <li>
      * <b>Check for collisions</b> Check if collisions have occured between instances of
-     * {@link AABBCollided} and
-     * {@link AABBCollider}. In such a case, the {@link AABBCollided}
+     * {@link Collided} and
+     * {@link Collider}. In such a case, the {@link Collided}
      * will be notified.
      * </li>
      * <li>

@@ -31,8 +31,8 @@ class CollisionDelegateTest {
     @Test
     void onlyCollidedGetsCollisionCheck() {
         // Arrange
-        var collided = mock(AABBCollided.class);
-        var AABBCollider = mock(AABBCollider.class);
+        var collided = mock(Collided.class);
+        var AABBCollider = mock(Collider.class);
 
         collisionDelegate.register(collided);
         collisionDelegate.register(AABBCollider);
@@ -50,8 +50,8 @@ class CollisionDelegateTest {
     @Test
     void entitiesGetCorrectlyAdded() {
         // Arrange
-        YaegerEntity collidedEntity = mock(AABBCollidedImpl.class);
-        YaegerEntity colliderEntity = mock(AABBColliderImpl.class);
+        YaegerEntity collidedEntity = mock(CollidedImpl.class);
+        YaegerEntity colliderEntity = mock(ColliderImpl.class);
 
         collisionDelegate.register(collidedEntity);
         collisionDelegate.register(colliderEntity);
@@ -62,15 +62,15 @@ class CollisionDelegateTest {
         collisionDelegate.checkCollisions();
 
         // Assert
-        Mockito.verify((AABBCollided) collidedEntity).checkForCollisions(argument.capture());
+        Mockito.verify((Collided) collidedEntity).checkForCollisions(argument.capture());
         Assertions.assertEquals(1, argument.getValue().size());
     }
 
     @Test
     void afterRemoveCollidedNoCollisionsAreChecked() {
         // Arrange
-        YaegerEntity collidedEntity = mock(AABBCollidedImpl.class);
-        YaegerEntity colliderEntity = mock(AABBColliderImpl.class);
+        YaegerEntity collidedEntity = mock(CollidedImpl.class);
+        YaegerEntity colliderEntity = mock(ColliderImpl.class);
 
         collisionDelegate.register(collidedEntity);
         collisionDelegate.register(colliderEntity);
@@ -86,8 +86,8 @@ class CollisionDelegateTest {
     @Test
     void afterRemoveColliderNoCollisionsAreReported() {
         // Arrange
-        YaegerEntity collidedEntity = mock(AABBCollidedImpl.class);
-        YaegerEntity colliderEntity = mock(AABBColliderImpl.class);
+        YaegerEntity collidedEntity = mock(CollidedImpl.class);
+        YaegerEntity colliderEntity = mock(ColliderImpl.class);
 
         collisionDelegate.register(collidedEntity);
         collisionDelegate.register(colliderEntity);
@@ -99,23 +99,23 @@ class CollisionDelegateTest {
         collisionDelegate.checkCollisions();
 
         // Assert
-        Mockito.verify((AABBCollided) collidedEntity).checkForCollisions(argument.capture());
+        Mockito.verify((Collided) collidedEntity).checkForCollisions(argument.capture());
         Assertions.assertEquals(0, argument.getValue().size());
     }
 
-    private class AABBCollidedImpl extends YaegerEntity implements AABBCollided {
+    private class CollidedImpl extends YaegerEntity implements Collided {
 
         /**
          * Instantiate a new {@link YaegerEntity} for the given {@link Coordinate2D} and textDelegate.
          *
          * @param initialPosition the initial {@link Coordinate2D} of this {@link YaegerEntity}
          */
-        public AABBCollidedImpl(Coordinate2D initialPosition) {
+        public CollidedImpl(Coordinate2D initialPosition) {
             super(initialPosition);
         }
 
         @Override
-        public void onCollision(AABBCollider collidingObject) {
+        public void onCollision(Collider collidingObject) {
             // Not required here.
         }
 
@@ -192,14 +192,14 @@ class CollisionDelegateTest {
         }
     }
 
-    private class AABBColliderImpl extends YaegerEntity implements AABBCollider {
+    private class ColliderImpl extends YaegerEntity implements Collider {
 
         /**
          * Instantiate a new {@link YaegerEntity} for the given {@link Coordinate2D} and textDelegate.
          *
          * @param initialPosition the initial {@link Coordinate2D} of this {@link YaegerEntity}
          */
-        public AABBColliderImpl(Coordinate2D initialPosition) {
+        public ColliderImpl(Coordinate2D initialPosition) {
             super(initialPosition);
         }
 

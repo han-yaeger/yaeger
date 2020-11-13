@@ -6,20 +6,20 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 
 /**
- * A {@link AABBSideAwareCollided} represents an {@link YaegerEntity} that can be collided with by a
- * {@link AABBCollider} and that is aware of which of its side the {@link AABBCollider} had collided with. In such a case,
- * the {@link AABBSideAwareCollided} is the {@link YaegerEntity} thatgets notified of the collision and of the side.
+ * A {@link SideAwareCollided} represents an {@link YaegerEntity} that can be collided with by a
+ * {@link Collider} and that is aware of which of its side the {@link Collider} had collided with. In such a case,
+ * the {@link SideAwareCollided} is the {@link YaegerEntity} thatgets notified of the collision and of the side.
  *
- * <p>Each Game world Update a {@link AABBSideAwareCollided} is checked against all instances of{@link AABBCollider}. If many instances
- * of {@link AABBCollider} are part of the {@link YaegerScene}, this
+ * <p>Each Game world Update a {@link SideAwareCollided} is checked against all instances of{@link Collider}. If many instances
+ * of {@link Collider} are part of the {@link YaegerScene}, this
  * could lead to many calculations, which could slow down the game and framerate. Thus ensure only those instances of
  * {@link YaegerEntity} that really need to be part of the collision detection implement
- * the {@link AABBSideAwareCollided} or {@link AABBCollider} interfaces.
+ * the {@link SideAwareCollided} or {@link Collider} interfaces.
  * <p>
- * If it is not required to know the side of the collision, implement the {@link AABBCollided} interface, which will save you valuable
+ * If it is not required to know the side of the collision, implement the {@link Collided} interface, which will save you valuable
  * processor time.</p>
  */
-public interface AABBSideAwareCollided extends AABBCollided {
+public interface SideAwareCollided extends Collided {
 
     /**
      * This method is called if a collision has occurred.
@@ -27,13 +27,13 @@ public interface AABBSideAwareCollided extends AABBCollided {
      * @param collidingObject the EntityCollection you are colliding with
      * @param side            the side with which a collision has occurred
      */
-    void onCollision(final AABBCollider collidingObject, final CollisionSide side);
+    void onCollision(final Collider collidingObject, final CollisionSide side);
 
     @Override
-    default void onCollision(final AABBCollider AABBCollider) {
-        var side = findCollisionSide(AABBCollider.getNonTransformedBounds());
+    default void onCollision(final Collider Collider) {
+        var side = findCollisionSide(Collider.getNonTransformedBounds());
 
-        onCollision(AABBCollider, side);
+        onCollision(Collider, side);
     }
 
     private CollisionSide findCollisionSide(final Bounds colliderBounds) {
