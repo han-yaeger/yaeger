@@ -30,6 +30,11 @@ public class DefaultMotionApplier implements MotionApplier {
     }
 
     @Override
+    public void setMotion(double speed, Direction direction) {
+        setMotion(speed, direction.getValue());
+    }
+
+    @Override
     public void setSpeed(final double newSpeed) {
         hasBeenHalted(newSpeed);
 
@@ -41,8 +46,13 @@ public class DefaultMotionApplier implements MotionApplier {
     }
 
     @Override
-    public void setDirection(final double angle) {
-        final var angleInRadians = Math.toRadians(angle);
+    public void setDirection(Direction direction) {
+        setDirection(direction.getValue());
+    }
+
+    @Override
+    public void setDirection(final double direction) {
+        final var angleInRadians = Math.toRadians(direction);
         final var x = Math.sin(angleInRadians);
         final var y = Math.cos(angleInRadians);
 

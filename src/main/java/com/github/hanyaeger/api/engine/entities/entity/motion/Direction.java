@@ -13,8 +13,8 @@ public enum Direction {
     UP(180d),
     LEFT(270d);
 
-    private double value;
-    private static Map<Double, Direction> map = new HashMap<>();
+    private final double value;
+    private static final Map<Double, Direction> map = new HashMap<>();
 
     Direction(final double value) {
         this.value = value;

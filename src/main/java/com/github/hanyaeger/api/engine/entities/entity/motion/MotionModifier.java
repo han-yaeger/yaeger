@@ -15,6 +15,15 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
     void setMotion(final double speed, final double direction);
 
     /**
+     * Set the motion with which this {@link com.github.hanyaeger.api.engine.entities.entity.YaegerEntity}
+     * is travelling.
+     *
+     * @param speed     the speed as a {@code double}
+     * @param direction the direction as a {@link Direction}
+     */
+    void setMotion(final double speed, final Direction direction);
+
+    /**
      * Alter the speed through multiplication. Using this method will increase or decrease the current speed. It will multiply the current
      * speed by the provided value.
      * <p>
@@ -50,10 +59,22 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      * <li>180 means down</li>
      * <li>270 to the left</li>
      * </ul>
+     * <p>
+     * If one of the values above is set, it is more convinient to use the method {@link #setDirection(Direction)},
+     * which accepts a {@link Direction} as its parameter.
      *
      * @param direction the direction in degrees as a {@code double}
      */
     void setDirection(final double direction);
+
+    /**
+     * Set the {@link Direction}, which is in essence a value in degrees, but by using this
+     * method, one can use the enumeration {@link Direction}. If a more specific value is
+     * required, use the method {@link #setDirection(double)}.
+     *
+     * @param direction a {@link Direction}
+     */
+    void setDirection(final Direction direction);
 
     /**
      * Change the direction by adding a rotation in degrees. A positive value will be added and will result

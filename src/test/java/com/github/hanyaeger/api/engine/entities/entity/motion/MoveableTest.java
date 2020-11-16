@@ -25,6 +25,7 @@ class MoveableTest {
     private static final double DELTA = 0.00001d;
     private static final long TIMESTAMP = 0;
     private static final double SPEED = 3.7;
+    private static final Direction DIRECTION_ENUM = Direction.RIGHT;
     private static final double DIRECTION = 42;
 
     @BeforeEach
@@ -43,6 +44,17 @@ class MoveableTest {
 
         // Assert
         verify(motionApplier).setMotion(SPEED, DIRECTION);
+    }
+
+    @Test
+    void setMotionWithEnumDelegatesToMotionApplier() {
+        // Arrange
+
+        // Act
+        sut.setMotion(SPEED, DIRECTION_ENUM);
+
+        // Assert
+        verify(motionApplier).setMotion(SPEED, DIRECTION_ENUM.getValue());
     }
 
     @Test
@@ -88,6 +100,17 @@ class MoveableTest {
 
         // Assert
         verify(motionApplier).setDirection(DIRECTION);
+    }
+
+    @Test
+    void setDirectionEnumDelegatesToMotionApplier() {
+        // Arrange
+
+        // Act
+        sut.setDirection(DIRECTION_ENUM);
+
+        // Assert
+        verify(motionApplier).setDirection(DIRECTION_ENUM.getValue());
     }
 
     @Test

@@ -9,6 +9,12 @@ public interface BufferedMoveable extends Moveable {
         getBuffer().ifPresentOrElse(eMBuffer -> eMBuffer.setSpeedTo(newSpeed), () -> getMotionApplier().setSpeed(newSpeed));
     }
 
+    // TODO unittest
+    @Override
+    default void setDirection(final Direction newDirection) {
+        setDirection(newDirection.getValue());
+    }
+
     @Override
     default void setDirection(final double newDirection) {
         getBuffer().ifPresentOrElse(eMBuffer -> eMBuffer.setDirectionTo(newDirection), () -> getMotionApplier().setDirection(newDirection));
@@ -17,6 +23,12 @@ public interface BufferedMoveable extends Moveable {
     @Override
     default void setMotion(final double speed, final double direction) {
         getBuffer().ifPresentOrElse(eMBuffer -> eMBuffer.setMotionTo(speed, direction), () -> getMotionApplier().setMotion(speed, direction));
+    }
+
+    // TODO unittest
+    @Override
+    default void setMotion(final double speed, final Direction direction) {
+        setMotion(speed, direction.getValue());
     }
 
     Optional<EntityMotionInitBuffer> getBuffer();

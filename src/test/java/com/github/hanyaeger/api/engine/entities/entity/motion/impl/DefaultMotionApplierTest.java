@@ -16,8 +16,9 @@ class DefaultMotionApplierTest {
     private static final Point2D DEFAULT_MOVEMENT_UP = new Point2D(0, 1);
 
     private static final double SPEED_MULTIPLACTION_FRACTION = 0.5;
-    private static final double ANGLE = 6;
-    private static final double ANGLE_INVERSE_NEGATIVE = -6;
+    private static final Direction DIRECTION_ENUM = Direction.RIGHT;
+    private static final double DIRECTION = 6;
+    private static final double DIRECTION_INVERSE_NEGATIVE = -1 * DIRECTION;
     private static final double FULL_ROTATION_MINUS_NEGATIVE_ANGLE = 323;
     private static final double FULL_ROTATION = 360;
     private static final double HALF_ROTATION = 180;
@@ -297,6 +298,31 @@ class DefaultMotionApplierTest {
     }
 
     @Test
+    void getDirectionsReturnsNumericValueWhenEnumIsForDirectionWasUsed() {
+        // Arrange
+        sut.setSpeed(1); // Speed has to be set first, see #41
+        sut.setDirection(DIRECTION_ENUM);
+
+        // Act
+        var direction = sut.getDirection();
+
+        // Assert
+        assertEquals(DIRECTION_ENUM.getValue(), direction, DELTA);
+    }
+
+    @Test
+    void getDirectionsReturnsNumericValueWhenEnumIsForDirectionWasUsedInMotion() {
+        // Arrange
+        sut.setMotion(1, DIRECTION_ENUM);
+
+        // Act
+        var direction = sut.getDirection();
+
+        // Assert
+        assertEquals(DIRECTION_ENUM.getValue(), direction, DELTA);
+    }
+
+    @Test
     void getDirectionForDirectionAbove180() {
         // Arrange
         final double DIRECTION = 189;
@@ -340,10 +366,10 @@ class DefaultMotionApplierTest {
         sut.setMotion(1, Direction.DOWN.getValue());
 
         // Act
-        sut.changeDirection(ANGLE);
+        sut.changeDirection(DIRECTION);
 
         // Assert
-        assertEquals(ANGLE, DEFAULT_MOVEMENT_UP.angle(sut.get()), DELTA);
+        assertEquals(DIRECTION, DEFAULT_MOVEMENT_UP.angle(sut.get()), DELTA);
     }
 
     @Test
@@ -352,10 +378,10 @@ class DefaultMotionApplierTest {
         sut.setMotion(1, Direction.DOWN.getValue());
 
         // Act
-        sut.changeDirection(ANGLE_INVERSE_NEGATIVE);
+        sut.changeDirection(DIRECTION_INVERSE_NEGATIVE);
 
         // Assert
-        assertEquals(Math.abs(ANGLE), DEFAULT_MOVEMENT_UP.angle(sut.get()), DELTA);
+        assertEquals(Math.abs(DIRECTION), DEFAULT_MOVEMENT_UP.angle(sut.get()), DELTA);
     }
 
     @Test
