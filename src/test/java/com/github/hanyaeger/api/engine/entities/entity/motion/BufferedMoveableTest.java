@@ -14,6 +14,7 @@ class BufferedMoveableTest {
 
     public static final int SPEED = 37;
     public static final int DIRECTION = 42;
+    public static final Direction DIRECTION_ENUM = Direction.DOWN;
     private BufferedMoveableImpl sut;
     private EntityMotionInitBuffer buffer;
     private DefaultMotionApplier motionApplier;
@@ -86,6 +87,19 @@ class BufferedMoveableTest {
     }
 
     @Test
+    void ifMotionApplierIsSetMotionApplierIsUsedForDirectionEnum() {
+        // Arrange
+        sut.setBuffer(Optional.empty());
+        sut.setMotionApplier(motionApplier);
+
+        // Act
+        sut.setDirection(DIRECTION_ENUM);
+
+        // Assert
+        verify(motionApplier).setDirection(DIRECTION_ENUM.getValue());
+    }
+
+    @Test
     void ifMotionApplierIsSetMotionApplierIsUsedForMotion() {
         // Arrange
         sut.setBuffer(Optional.empty());
@@ -96,6 +110,19 @@ class BufferedMoveableTest {
 
         // Assert
         verify(motionApplier).setMotion(SPEED, DIRECTION);
+    }
+
+    @Test
+    void ifMotionApplierIsSetMotionApplierIsUsedForMotionWithDirectionEnum() {
+        // Arrange
+        sut.setBuffer(Optional.empty());
+        sut.setMotionApplier(motionApplier);
+
+        // Act
+        sut.setMotion(SPEED, DIRECTION_ENUM);
+
+        // Assert
+        verify(motionApplier).setMotion(SPEED, DIRECTION_ENUM.getValue());
     }
 
     private class BufferedMoveableImpl implements BufferedMoveable {
