@@ -5,8 +5,6 @@ import com.github.hanyaeger.api.engine.entities.entity.events.EventTypes;
 import com.google.inject.Injector;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -14,7 +12,6 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -199,6 +196,35 @@ class CompositeEntityTest {
             verify(entity2).remove();
             verify(entity3).remove();
         }
+
+        @Test
+        void addToParentDelegatesToChildren() {
+            // Arrange
+            var processor = mock(EntityProcessor.class);
+
+            // Act
+            sut.addToParent(processor);
+
+            // Assert
+            verify(entity1).addToParent(any(EntityProcessor.class));
+            verify(entity2).addToParent(any(EntityProcessor.class));
+            verify(entity3).addToParent(any(EntityProcessor.class));
+        }
+
+        @Test
+        void addToParentCallsApplyTranslationsForAnchorPointOnAllChildren() {
+            // Arrange
+            var processor = mock(EntityProcessor.class);
+
+            // Act
+            sut.addToParent(processor);
+
+            // Assert
+            verify(entity1).applyTranslationsForAnchorPoint();
+            verify(entity2).applyTranslationsForAnchorPoint();
+            verify(entity3).applyTranslationsForAnchorPoint();
+        }
+
 
         @Test
         void attachEventListenersDelegatesToChildren() {
