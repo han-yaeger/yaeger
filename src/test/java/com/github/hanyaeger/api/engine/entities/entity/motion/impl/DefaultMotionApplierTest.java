@@ -246,12 +246,12 @@ class DefaultMotionApplierTest {
     }
 
     @Test
-    void setDirectionTo90SetsDirectionRight() {
+    void setDirectionRIGHTForSpeedOneCreatesRightVector() {
         // Arrange
-        sut.setMotion(1, Direction.UP.getValue());
+        sut.setSpeed(1);
 
         // Act
-        sut.setDirection(Direction.RIGHT.getValue());
+        sut.setDirection(Direction.RIGHT);
 
         // Assert
         assertEquals(1, sut.get().getX(), DELTA);
@@ -259,12 +259,12 @@ class DefaultMotionApplierTest {
     }
 
     @Test
-    void setDirectionTo180SetsDirectionUp() {
+    void setDirectionToUPForSpeedOneCreatesUpVector() {
         // Arrange
-        sut.setMotion(1, Direction.DOWN.getValue());
+        sut.setSpeed(1);
 
         // Act
-        sut.setDirection(Direction.UP.getValue());
+        sut.setDirection(Direction.UP);
 
         // Assert
         assertEquals(0, sut.get().getX(), DELTA);
@@ -272,16 +272,82 @@ class DefaultMotionApplierTest {
     }
 
     @Test
-    void setDirectionTo270SetsDirectionLeft() {
+    void setDirectionToLEFTForSpeedOneCreatesLEFTVector() {
         // Arrange
-        sut.setMotion(1, Direction.UP.getValue());
+        sut.setSpeed(1);
 
         // Act
-        sut.setDirection(Direction.LEFT.getValue());
+        sut.setDirection(Direction.LEFT);
 
         // Assert
         assertEquals(-1, sut.get().getX(), DELTA);
         assertEquals(0, sut.get().getY(), DELTA);
+    }
+
+    @Test
+    void setDirectionDOWNForSpeedOneCreatesDownVector() {
+        // Arrange
+        sut.setSpeed(1);
+
+        // Act
+        sut.setDirection(Direction.DOWN);
+
+        // Assert
+        assertEquals(0, sut.get().getX(), DELTA);
+        assertEquals(1, sut.get().getY(), DELTA);
+    }
+
+    @Test
+    void setDirectionWithZeroSpeedCreatesZeroVector(){
+        // Arrange
+
+        // Act
+        sut.setDirection(Direction.LEFT);
+
+        // Assert
+        assertEquals(0, sut.get().getX(), DELTA);
+        assertEquals(0, sut.get().getY(), DELTA);
+    }
+
+    @Test
+    void setSpeedAfterDirectionCreatesCorrectVector(){
+        // Arrange
+        sut.setDirection(Direction.UP);
+
+        // Act
+        sut.setSpeed(1);
+
+        // Assert
+        assertEquals(0, sut.get().getX(), DELTA);
+        assertEquals(-1, sut.get().getY(), DELTA);
+    }
+
+    @Test
+    void setSpeedBeforeDirectionCreatesCorrectVector(){
+        // Arrange
+        sut.setSpeed(1);
+
+        // Act
+        sut.setDirection(Direction.UP);
+
+        // Assert
+        assertEquals(0, sut.get().getX(), DELTA);
+        assertEquals(-1, sut.get().getY(), DELTA);
+    }
+
+    @Test
+    void resetSpeedAfterSpeedHasBeenSetToZeroCreatesCorrectVector(){
+        // Arrange
+        sut.setSpeed(1);
+        sut.setDirection(Direction.UP);
+        sut.setSpeed(0);
+
+        // Act
+        sut.setSpeed(1);
+
+        // Assert
+        assertEquals(0, sut.get().getX(), DELTA);
+        assertEquals(-1, sut.get().getY(), DELTA);
     }
 
     @Test
@@ -300,7 +366,6 @@ class DefaultMotionApplierTest {
     @Test
     void getDirectionsReturnsNumericValueWhenEnumIsForDirectionWasUsed() {
         // Arrange
-        sut.setSpeed(1); // Speed has to be set first, see #41
         sut.setDirection(DIRECTION_ENUM);
 
         // Act

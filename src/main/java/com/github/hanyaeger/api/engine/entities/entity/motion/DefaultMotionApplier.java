@@ -12,6 +12,7 @@ import java.util.Optional;
 public class DefaultMotionApplier implements MotionApplier {
 
     private static final Point2D ZERO_ANGLE_IDENTITY_MOTION = new Point2D(0, 1);
+    private Optional<Double> direction = Optional.empty();
     private Coordinate2D motion;
     private Optional<Coordinate2D> previousLocation = Optional.empty();
     private boolean halted = false;
@@ -38,10 +39,18 @@ public class DefaultMotionApplier implements MotionApplier {
     public void setSpeed(final double newSpeed) {
         hasBeenHalted(newSpeed);
 
+        if (Double.compare(newSpeed, 0d) == 0) {
+            this.direction = Optional.of(motion.angle(new Point2D(0, 1)));
+        }
+
         if (motion.equals(new Coordinate2D(0, 0))) {
             motion = new Coordinate2D(0, newSpeed);
         } else {
             motion = new Coordinate2D((motion.normalize().multiply(newSpeed)));
+        }
+
+        if (direction.isPresent()) {
+            setDirection(direction.get());
         }
     }
 
@@ -52,11 +61,16 @@ public class DefaultMotionApplier implements MotionApplier {
 
     @Override
     public void setDirection(final double direction) {
-        final var angleInRadians = Math.toRadians(direction);
-        final var x = Math.sin(angleInRadians);
-        final var y = Math.cos(angleInRadians);
+        if (Double.compare(0, motion.magnitude()) == 0) {
+            this.direction = Optional.of(direction);
+        } else {
+            final var angleInRadians = Math.toRadians(direction);
+            final var x = Math.sin(angleInRadians);
+            final var y = Math.cos(angleInRadians);
 
-        motion = new Coordinate2D(new Coordinate2D(x, y).multiply(motion.magnitude()));
+            motion = new Coordinate2D(new Coordinate2D(x, y).multiply(motion.magnitude()));
+            this.direction = Optional.empty();
+        }
     }
 
     @Override
@@ -83,13 +97,17 @@ public class DefaultMotionApplier implements MotionApplier {
 
     @Override
     public double getDirection() {
-        double currentAngle = motion.angle(ZERO_ANGLE_IDENTITY_MOTION);
+        if (direction.isPresent()) {
+            return direction.get();
+        } else {
+            double currentAngle = motion.angle(ZERO_ANGLE_IDENTITY_MOTION);
 
-        if (motion.getX() < 0) {
-            currentAngle = 360 - currentAngle;
+            if (motion.getX() < 0) {
+                currentAngle = 360 - currentAngle;
+            }
+
+            return currentAngle;
         }
-
-        return currentAngle;
     }
 
     @Override
