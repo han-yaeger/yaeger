@@ -5,8 +5,8 @@ package com.github.hanyaeger.api.engine;
  */
 public class Size {
 
-    private double width;
-    private double height;
+    private final double width;
+    private final double height;
 
     /**
      * Creates a new instance of {@link Size}, where the {@link Size} is rectangular

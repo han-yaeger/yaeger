@@ -44,7 +44,7 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     private KeyListenerDelegate keyListenerDelegate;
     private BackgroundDelegate backgroundDelegate;
 
-    private List<TileMap> tileMaps = new ArrayList<>();
+    private final List<TileMap> tileMaps = new ArrayList<>();
 
     private Stage stage;
     private Scene scene;
@@ -69,7 +69,7 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
         entityCollection.addStatisticsObserver(debugger);
 
         debugger.setup(pane);
-        keyListenerDelegate.setup(scene, (input) -> onInputChanged(input));
+        keyListenerDelegate.setup(scene, this::onInputChanged);
 
         if (this instanceof KeyListener) {
             entityCollection.registerKeyListener((KeyListener) this);
@@ -94,7 +94,7 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
      * one should be added during the game, a {@link EntitySpawner} should be used.
      * </p>
      *
-     * @param yaegerEntity The {@link YaegerEntity} to be added.
+     * @param yaegerEntity the {@link YaegerEntity} to be added
      */
     protected void addEntity(final YaegerEntity yaegerEntity) {
         entitySupplier.add(yaegerEntity);
@@ -126,12 +126,12 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     }
 
     @Override
-    public void setStage(Stage stage) {
+    public void setStage(final Stage stage) {
         this.stage = stage;
     }
 
     @Override
-    public void setBackgroundColor(Color color) {
+    public void setBackgroundColor(final Color color) {
         backgroundDelegate.setBackgroundColor(color);
     }
 
@@ -147,7 +147,7 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
 
 
     @Override
-    public void setBrightness(double brightness) {
+    public void setBrightness(final double brightness) {
         colorAdjust.setBrightness(brightness);
     }
 
@@ -241,7 +241,7 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     }
 
     @Inject
-    public void setColorAdjust(ColorAdjust colorAdjust) {
+    public void setColorAdjust(final ColorAdjust colorAdjust) {
         this.colorAdjust = colorAdjust;
     }
 }

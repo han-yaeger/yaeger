@@ -19,7 +19,7 @@ public class DebugLabelFactory {
     /**
      * Create a {@link Label} that can be used to display a value on the {@link Debugger}.
      *
-     * @return The {@link Label} with an empty value.
+     * @return the {@link Label} with an empty value
      */
     public Label createValue() {
         return createValue("");
@@ -28,8 +28,8 @@ public class DebugLabelFactory {
     /**
      * Create a {@link Label} that can be used to display a value on the {@link Debugger}.
      *
-     * @param string The {@link String} to be shown.
-     * @return The {@link Label} with the supplied value.
+     * @param string the {@link String} to be shown
+     * @return the {@link Label} with the supplied value
      */
     public Label createValue(final String string) {
         var label = new Label(string);
@@ -44,8 +44,8 @@ public class DebugLabelFactory {
     /**
      * Instantiate a new {@link DebugLabelFactory} without any text value shown.
      *
-     * @param string The {@link String} to be shown.
-     * @return The {@link Label} with the supplied value.
+     * @param string the {@link String} to be shown
+     * @return the {@link Label} with the supplied value
      */
     public Label createLabel(final String string) {
         var label = new Label(string);

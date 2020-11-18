@@ -25,7 +25,7 @@ public interface TimerContainer extends TimerListProvider {
      *
      * @param timer The {@link Timer} that needs to be added.
      */
-    default void addTimer(Timer timer) {
+    default void addTimer(final Timer timer) {
         if (getTimers() != null) {
             getTimers().add(timer);
         } else {

@@ -44,7 +44,7 @@ public abstract class CircleEntity extends CenteredShapeEntity<Circle> {
      * @return the {@code radius} as a {@code double}
      */
     public double getRadius() {
-        return shape.map(circle -> circle.getRadius()).orElse(radius);
+        return shape.map(Circle::getRadius).orElse(radius);
     }
 
 

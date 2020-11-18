@@ -15,7 +15,7 @@ public class AudioRepository implements ResourceConsumer, Destroyable {
 
     private static final String CYCLECOUNT = "-cyclecount-";
 
-    private Map<String, AudioClip> audioMap = new WeakHashMap<>();
+    private final Map<String, AudioClip> audioMap = new WeakHashMap<>();
 
     private static AudioRepository audioRepository;
 

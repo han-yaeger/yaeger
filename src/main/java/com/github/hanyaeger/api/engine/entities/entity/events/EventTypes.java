@@ -5,7 +5,7 @@ import javafx.event.EventType;
 import com.github.hanyaeger.api.engine.entities.entity.events.system.RemoveEntityEvent;
 
 /**
- * {@code EventTypes} contains all available custom Events.
+ * {@link EventTypes} contains all available custom Events.
  */
 public class EventTypes {
 

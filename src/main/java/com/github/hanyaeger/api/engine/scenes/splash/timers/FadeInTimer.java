@@ -7,7 +7,7 @@ public class FadeInTimer extends Timer {
 
     private static final int INTERVAL_IN_MS = 10;
 
-    private YaegerScene yaegerScene;
+    private final YaegerScene yaegerScene;
 
     /**
      * Create a new instance of {@link FadeInTimer}.

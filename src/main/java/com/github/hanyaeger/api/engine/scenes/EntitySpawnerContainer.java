@@ -22,9 +22,9 @@ public interface EntitySpawnerContainer extends EntitySpawnerListProvider, Entit
     /**
      * Use this method to add any {@link EntitySpawner} that is required by the {@link YaegerScene}.
      *
-     * @param entitySpawner The {@link EntitySpawner} that needs to be added.
+     * @param entitySpawner the {@link EntitySpawner} that needs to be added
      */
-    default void addEntitySpawner(EntitySpawner entitySpawner) {
+    default void addEntitySpawner(final EntitySpawner entitySpawner) {
         if (getSpawners() != null) {
             getInjector().injectMembers(entitySpawner);
             getSpawners().add(entitySpawner);

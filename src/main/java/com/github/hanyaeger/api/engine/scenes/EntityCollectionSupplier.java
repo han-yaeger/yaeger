@@ -10,7 +10,7 @@ public interface EntityCollectionSupplier {
     /**
      * Return the {@link EntityCollection} that is provided by this {@link EntityCollectionSupplier#getEntityCollection()}.
      *
-     * @return The {@link EntityCollection} that is provided by this {@link EntityCollectionSupplier#getEntityCollection()}.
+     * @return the {@link EntityCollection} that is provided by this {@link EntityCollectionSupplier#getEntityCollection()}
      */
     EntityCollection getEntityCollection();
 }

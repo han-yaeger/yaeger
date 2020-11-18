@@ -70,11 +70,7 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
     public Color getStrokeColor() {
         if (shape.isPresent()) {
             return (Color) shape.get().getStroke();
-        } else if (strokeColor.isPresent()) {
-            return strokeColor.get();
-        } else {
-            return null;
-        }
+        } else return strokeColor.orElse(null);
     }
 
     /**
@@ -85,11 +81,7 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
     public Color getFill() {
         if (shape.isPresent()) {
             return (Color) shape.get().getFill();
-        } else if (fill.isPresent()) {
-            return fill.get();
-        } else {
-            return null;
-        }
+        } else return fill.orElse(null);
     }
 
     /**
@@ -98,22 +90,16 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
      * @return the {@code strokeWidth} as a {@code double}
      */
     public Double getStrokeWidth() {
-        if (shape.isPresent()) {
-            return shape.get().getStrokeWidth();
-        } else if (strokeWidth.isPresent()) {
-            return strokeWidth.get();
-        } else {
-            return null;
-        }
+        return shape.map(Shape::getStrokeWidth).orElseGet(() -> strokeWidth.orElse(null));
     }
 
     @Override
     public void init(final Injector injector) {
         super.init(injector);
         shape.ifPresent(shape -> {
-            fill.ifPresent(fill -> shape.setFill(fill));
-            strokeColor.ifPresent(strokeColor -> shape.setStroke(strokeColor));
-            strokeWidth.ifPresent(strokeWidth -> shape.setStrokeWidth(strokeWidth));
+            fill.ifPresent(shape::setFill);
+            strokeColor.ifPresent(shape::setStroke);
+            strokeWidth.ifPresent(shape::setStrokeWidth);
         });
     }
 

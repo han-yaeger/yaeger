@@ -56,7 +56,7 @@ public class TextEntity extends ShapeEntity<Text> {
      * @return the {@code text} that is being displayed as a {@link String}
      */
     public String getText() {
-        return shape.map(text -> text.getText()).orElse(text);
+        return shape.map(Text::getText).orElse(text);
     }
 
     /**
@@ -81,7 +81,7 @@ public class TextEntity extends ShapeEntity<Text> {
      * @return the {@link Font} currently used fot this {@link TextEntity}
      */
     public Font getFont() {
-        return shape.map(text -> text.getFont()).orElse(font);
+        return shape.map(Text::getFont).orElse(font);
     }
 
     @Override

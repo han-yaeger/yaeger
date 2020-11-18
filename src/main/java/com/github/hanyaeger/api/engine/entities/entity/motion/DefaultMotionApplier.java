@@ -52,18 +52,12 @@ public class DefaultMotionApplier implements MotionApplier {
             motion = new Coordinate2D((motion.normalize().multiply(newSpeed)));
         }
 
-        if (direction.isPresent()) {
-            setDirection(direction.get());
-        }
+        direction.ifPresent(this::setDirection);
     }
 
     @Override
     public void setDirection(Direction direction) {
         setDirection(direction.getValue());
-
-        List<String> fellowship = new ArrayList<>();
-
-        fellowship.stream().filter(member -> member.contains("P")).collect(Collectors.toList());
     }
 
     @Override
@@ -139,11 +133,11 @@ public class DefaultMotionApplier implements MotionApplier {
     }
 
     @Override
-    public void setHalted(boolean halted) {
+    public void setHalted(final boolean halted) {
         this.halted = halted;
     }
 
-    private void hasBeenHalted(double newSpeed) {
+    private void hasBeenHalted(final double newSpeed) {
         halted = (newSpeed == 0 && motion.magnitude() != 0);
     }
 }

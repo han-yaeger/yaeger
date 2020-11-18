@@ -24,12 +24,12 @@ public class YaegerConfig {
      *
      * @param showSplash A {@code boolean} value.
      */
-    void setShowSplash(boolean showSplash) {
+    void setShowSplash(final boolean showSplash) {
         this.showSplash = showSplash;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         YaegerConfig that = (YaegerConfig) o;

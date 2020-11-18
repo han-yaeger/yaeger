@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class CollisionDelegate {
 
-    private List<Collided> collideds;
-    private List<Collider> colliders;
+    private final List<Collided> collideds;
+    private final List<Collider> colliders;
 
     /**
      * Create a new CollisionDelegate.

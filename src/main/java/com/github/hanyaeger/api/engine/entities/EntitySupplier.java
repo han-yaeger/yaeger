@@ -30,7 +30,7 @@ public class EntitySupplier extends ArrayList<YaegerEntity> implements Clearable
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         return this == o;
     }
 

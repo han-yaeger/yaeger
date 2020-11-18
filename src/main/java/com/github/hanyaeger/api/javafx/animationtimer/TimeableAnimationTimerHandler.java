@@ -6,7 +6,7 @@ package com.github.hanyaeger.api.javafx.animationtimer;
 @FunctionalInterface
 public interface TimeableAnimationTimerHandler {
     /**
-     * Called when a {@link javafx.animation.AnimationTimer} calls its internal {@code handle()}
+     * Called when a {@link javafx.animation.AnimationTimer} calls its internal {@link javafx.animation.AnimationTimer#handle(long)} ()}
      */
     void handle();
 }

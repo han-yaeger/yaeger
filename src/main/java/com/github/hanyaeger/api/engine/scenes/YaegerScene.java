@@ -33,14 +33,14 @@ public interface YaegerScene extends DimensionsProvider, Destroyable, Initializa
      * Set the background color of the {@link YaegerScene}. When both the background color and a background image
      * are set, the color is not visible.
      *
-     * @param color The {@link Color} of the background.
+     * @param color the {@link Color} of the background
      */
     void setBackgroundColor(Color color);
 
     /**
      * Set the background image file.
      *
-     * @param url The name of the image file, including extension. Although many different file types are supported,
+     * @param url the name of the image file, including extension. Although many different file types are supported,
      *            the following types are preferred:
      *            <ul>
      *            <li>jpg, jpeg</li>
@@ -53,21 +53,21 @@ public interface YaegerScene extends DimensionsProvider, Destroyable, Initializa
      * Set the background audio file. Currently only {@code *.mp3} files are supported. The audio file
      * will be looped indefinetly, until the {@link YaegerScene} is destroyed.
      *
-     * @param url The name of the audio file, including extension.
+     * @param url the name of the audio file, including extension
      */
     void setBackgroundAudio(final String url);
 
     /**
      * Return the {@link Scene} that is encapsulated by this {@link YaegerScene}
      *
-     * @return The {@link Scene} that is encapsulated bu this {@link YaegerScene}
+     * @return the {@link Scene} that is encapsulated bu this {@link YaegerScene}
      */
     Scene getScene();
 
     /**
      * Return the {@link Stage} to which this {@link YaegerScene} will be added.
      *
-     * @return The {@link Stage} to which this {@link YaegerScene} will be added.
+     * @return the {@link Stage} to which this {@link YaegerScene} will be added
      */
     Stage getStage();
 
@@ -80,7 +80,7 @@ public interface YaegerScene extends DimensionsProvider, Destroyable, Initializa
      *
      * @param stage The current {@link Stage}.
      */
-    void setStage(Stage stage);
+    void setStage(final Stage stage);
 
     /**
      * Set the Cursor.
@@ -94,7 +94,7 @@ public interface YaegerScene extends DimensionsProvider, Destroyable, Initializa
     /**
      * Return the width of this {@link YaegerScene}.
      *
-     * @return The width of this {@link YaegerScene}.
+     * @return the width of this {@link YaegerScene}
      */
     default double getWidth() {
         getStage();
@@ -105,7 +105,7 @@ public interface YaegerScene extends DimensionsProvider, Destroyable, Initializa
     /**
      * Return the height of this {@link YaegerScene}.
      *
-     * @return The height of this {@link YaegerScene}.
+     * @return the height of this {@link YaegerScene}
      */
     default double getHeight() {
         return getStage().getHeight();

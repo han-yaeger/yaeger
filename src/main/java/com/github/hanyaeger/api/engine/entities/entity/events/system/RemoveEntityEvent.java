@@ -9,14 +9,14 @@ import javafx.event.Event;
  */
 public class RemoveEntityEvent extends Event {
 
-    private transient Removeable removeable;
+    private final transient Removeable removeable;
 
     /**
      * Instantiate a new {@code RemoveEntityEvent}. Pass the {@link Removeable} as an argument.
      *
      * @param removeable the {@link Removeable} that needs to be removed
      */
-    public RemoveEntityEvent(Removeable removeable) {
+    public RemoveEntityEvent(final Removeable removeable) {
         super(EventTypes.REMOVE);
 
         this.removeable = removeable;

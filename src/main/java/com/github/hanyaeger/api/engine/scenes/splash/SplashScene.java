@@ -17,7 +17,7 @@ import com.github.hanyaeger.api.engine.scenes.splash.entities.Logo;
  */
 public class SplashScene extends DynamicScene implements TimerContainer {
 
-    private Runnable runnable;
+    private final Runnable runnable;
 
     /**
      * Create a new instance of {@link SplashScene}.

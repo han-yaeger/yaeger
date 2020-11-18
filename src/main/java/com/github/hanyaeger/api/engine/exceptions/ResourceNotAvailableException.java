@@ -9,7 +9,7 @@ public class ResourceNotAvailableException extends RuntimeException {
     /**
      * Instantiate a new {@code YaegerResourceNotAvailableException} for the given {@code resource}.
      *
-     * @param resource the resource that is requested.
+     * @param resource the resource that is requested
      */
     public ResourceNotAvailableException(final String resource) {
 

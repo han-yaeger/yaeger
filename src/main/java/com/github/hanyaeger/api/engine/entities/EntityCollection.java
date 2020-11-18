@@ -39,7 +39,7 @@ public class EntityCollection implements Initializable {
 
     private final List<StatisticsObserver> statisticsObservers = new ArrayList<>();
 
-    private CollisionDelegate collisionDelegate;
+    private final CollisionDelegate collisionDelegate;
     private AnnotationProcessor annotationProcessor;
 
     /**
@@ -209,9 +209,9 @@ public class EntityCollection implements Initializable {
         entity.transferCoordinatesToNode();
         entity.applyTranslationsForAnchorPoint();
 
-        entity.applyEntityProcessor(yaegerEntity -> registerKeylistener(yaegerEntity));
-        entity.applyEntityProcessor(yaegerEntity -> collisionDelegate.register(yaegerEntity));
-        entity.addToParent(yaegerEntity -> addToParentNode(yaegerEntity));
+        entity.applyEntityProcessor(this::registerKeylistener);
+        entity.applyEntityProcessor(collisionDelegate::register);
+        entity.addToParent(this::addToParentNode);
     }
 
     /**

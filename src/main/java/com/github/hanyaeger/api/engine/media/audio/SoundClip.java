@@ -13,7 +13,7 @@ public class SoundClip {
     private final String path;
     private final int cycleCount;
     private AudioClip audioClip;
-    private AudioRepository audioRepository;
+    private final AudioRepository audioRepository;
 
     /**
      * When instantiating a {@link SoundClip}, the value of the constructor parameter {@code cycleCount} can
@@ -25,7 +25,7 @@ public class SoundClip {
     /**
      * Instantiate a new {@link SoundClip} for the given file, which should be played only once.
      *
-     * @param path The path of the mp3 file, which should be available on the class path.
+     * @param path the path of the mp3 file, which should be available on the class path
      */
     public SoundClip(final String path) {
         this(path, 1);
@@ -35,9 +35,9 @@ public class SoundClip {
      * Instantiate a new {@link SoundClip} for the given file, which should be played for the given amount
      * provided of {@code cycleCount}.
      *
-     * @param path       The path of the mp3 file, which should be available on the class path.
-     * @param cycleCount The number of times the audio file should be played. To loop a file indefinitely, use
-     *                   a cycleCount of {@link #INDEFINITE}.
+     * @param path       the path of the mp3 file, which should be available on the class path.
+     * @param cycleCount the number of times the audio file should be played. To loop a file indefinitely, use
+     *                   a cycleCount of {@link #INDEFINITE}
      */
 
     public SoundClip(final String path, final int cycleCount) {

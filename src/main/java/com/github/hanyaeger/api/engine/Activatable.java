@@ -18,6 +18,4 @@ public interface Activatable {
      */
     default void activate() {
     }
-
-
 }

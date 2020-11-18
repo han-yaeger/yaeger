@@ -16,7 +16,7 @@ import java.util.WeakHashMap;
 @Singleton
 public class ImageRepository implements ResourceConsumer, Destroyable {
 
-    private Map<String, Image> imageMap = new WeakHashMap<>();
+    private final Map<String, Image> imageMap = new WeakHashMap<>();
     private ImageFactory factory;
 
     /**

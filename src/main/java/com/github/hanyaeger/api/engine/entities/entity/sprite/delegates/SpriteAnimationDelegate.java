@@ -15,8 +15,8 @@ public class SpriteAnimationDelegate implements Updatable {
 
     private long previousCycleTime = 0;
     private long autoCycleInterval = 0;
-    private ImageView imageView;
-    private List<Rectangle2D> viewports = new ArrayList<>();
+    private final ImageView imageView;
+    private final List<Rectangle2D> viewports = new ArrayList<>();
     private int currentIndex = 0;
 
     /**
@@ -26,7 +26,7 @@ public class SpriteAnimationDelegate implements Updatable {
      * @param imageView the {@link ImageView} for which the different frames should be created
      * @param frames    the number of frames available
      */
-    public SpriteAnimationDelegate(ImageView imageView, int frames) {
+    public SpriteAnimationDelegate(final ImageView imageView, final int frames) {
         this.imageView = imageView;
 
         createViewPorts(frames);
@@ -39,14 +39,14 @@ public class SpriteAnimationDelegate implements Updatable {
      * @param index the index to select. This index will be applied modulo the total number
      *              of frames
      */
-    public void setSpriteIndex(int index) {
+    public void setSpriteIndex(final int index) {
         var modulus = index % viewports.size();
         imageView.setViewport(viewports.get(modulus));
         currentIndex = index;
     }
 
     @Override
-    public void update(long timestamp) {
+    public void update(final long timestamp) {
         if (autoCycleInterval == 0) {
             return;
         }
@@ -62,7 +62,7 @@ public class SpriteAnimationDelegate implements Updatable {
      *
      * @param interval the interval milli-seconds
      */
-    public void setAutoCycle(long interval) {
+    public void setAutoCycle(final long interval) {
         this.autoCycleInterval = interval * 1000000;
     }
 
@@ -73,18 +73,18 @@ public class SpriteAnimationDelegate implements Updatable {
         setSpriteIndex(++currentIndex);
     }
 
-    private void createViewPorts(int frames) {
+    private void createViewPorts(final int frames) {
         var frameWidth = getFrameWidth(frames);
         var frameHeight = imageView.getImage().getHeight();
 
         IntStream.range(0, frames).forEach(frame -> addViewPort(frame, frameWidth, frameHeight));
     }
 
-    private void addViewPort(int frame, double frameWidth, double frameHeight) {
+    private void addViewPort(final int frame, final double frameWidth, final double frameHeight) {
         viewports.add(new Rectangle2D(frame * frameWidth, 0, frameWidth, frameHeight));
     }
 
-    private double getFrameWidth(int frames) {
+    private double getFrameWidth(final int frames) {
         return imageView.getImage().getWidth() / frames;
     }
 }

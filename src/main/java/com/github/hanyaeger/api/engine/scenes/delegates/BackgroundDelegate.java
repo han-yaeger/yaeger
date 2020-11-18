@@ -54,7 +54,7 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
      *
      * @param color The {@link Color} of the background.
      */
-    public void setBackgroundColor(Color color) {
+    public void setBackgroundColor(final Color color) {
         if (pane != null) {
             pane.setBackground(backgroundFactory.createFillBackground(color));
         }
@@ -99,7 +99,7 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
     }
 
     @Inject
-    public void setBackgroundFactory(BackgroundFactory backgroundFactory) {
+    public void setBackgroundFactory(final BackgroundFactory backgroundFactory) {
         this.backgroundFactory = backgroundFactory;
     }
 }

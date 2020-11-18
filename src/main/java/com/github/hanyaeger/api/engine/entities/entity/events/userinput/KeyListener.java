@@ -16,5 +16,5 @@ public interface KeyListener {
      *
      * @param pressedKeys A {@link Set} of {@code KeyCode} representations of the keys that are currently pressed
      */
-    void onPressedKeysChange(Set<KeyCode> pressedKeys);
+    void onPressedKeysChange(final Set<KeyCode> pressedKeys);
 }

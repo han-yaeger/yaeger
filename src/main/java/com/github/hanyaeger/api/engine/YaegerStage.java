@@ -16,8 +16,8 @@ public class YaegerStage implements Initializable {
 
     private Size size = YaegerGame.DEFAULT_GAME_DIMENSIONS;
 
-    private YaegerGame yaegerGame;
-    private Stage stage;
+    private final YaegerGame yaegerGame;
+    private final Stage stage;
     private final YaegerConfig yaegerConfig;
     private SceneCollectionFactory sceneCollectionFactory;
     private SceneCollection sceneCollection;

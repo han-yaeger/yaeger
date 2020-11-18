@@ -14,17 +14,17 @@ public interface MouseButtonReleasedListener extends GameNode {
     /**
      * Called when the corresponding {@link javafx.scene.Node} receives a mouse released event.
      *
-     * @param button the {@link MouseButton} being released.
-     * @param x      The x-coordinate of the mouse pointer while being released as a {@code double}.
-     * @param y      The y-coordinate of the mouse pointer while being released as a {@code double}.
+     * @param button the {@link MouseButton} being released
+     * @param x      the x-coordinate of the mouse pointer while being released as a {@code double}
+     * @param y      the y-coordinate of the mouse pointer while being released as a {@code double}
      */
-    void onMouseButtonReleased(MouseButton button, double x, double y);
+    void onMouseButtonReleased(final MouseButton button, final double x, final double y);
 
     /**
      * Attach a {@link MouseButtonReleasedListener} to this entity.
      */
     @OnActivation
     default void attachMouseReleasedListener() {
-        getNode().get().setOnMouseReleased(event -> onMouseButtonReleased(event.getButton(), event.getX(), event.getY()));
+        getNode().ifPresent(node -> node.setOnMouseReleased(event -> onMouseButtonReleased(event.getButton(), event.getX(), event.getY())));
     }
 }

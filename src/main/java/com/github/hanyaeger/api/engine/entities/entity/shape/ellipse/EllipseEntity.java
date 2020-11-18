@@ -57,7 +57,7 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
      * @return the {@code radiusX} as a {@code double}
      */
     public double getRadiusX() {
-        return shape.map(ellipse -> ellipse.getRadiusX()).orElse(radiusX);
+        return shape.map(Ellipse::getRadiusX).orElse(radiusX);
     }
 
     /**
@@ -66,7 +66,7 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
      * @return the {@code radiusY} as a {@code double}
      */
     public double getRadiusY() {
-        return shape.map(ellipse -> ellipse.getRadiusY()).orElse(radiusY);
+        return shape.map(Ellipse::getRadiusY).orElse(radiusY);
     }
 
     @Override

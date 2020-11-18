@@ -54,7 +54,7 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
      * @return the {@code height} as a {@code double}
      */
     public double getHeight() {
-        return shape.map(rectangle -> rectangle.getHeight()).orElse(height);
+        return shape.map(Rectangle::getHeight).orElse(height);
     }
 
     /**
@@ -63,7 +63,7 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
      * @return the {@code width} as a {@code double}
      */
     public double getWidth() {
-        return shape.map(rectangle -> rectangle.getWidth()).orElse(width);
+        return shape.map(Rectangle::getWidth).orElse(width);
     }
 
     /**
@@ -90,7 +90,7 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
      * @return the {@code arcHeight} as a {@code double}
      */
     public double getArcHeight() {
-        return shape.map(rectangle -> rectangle.getArcHeight()).orElse(arcHeight);
+        return shape.map(Rectangle::getArcHeight).orElse(arcHeight);
     }
 
     /**
@@ -99,7 +99,7 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
      * @return the {@code arcWidth} as a {@code double}
      */
     public double getArcWidth() {
-        return shape.map(rectangle -> rectangle.getArcWidth()).orElse(arcWidth);
+        return shape.map(Rectangle::getArcWidth).orElse(arcWidth);
     }
 
     @Override

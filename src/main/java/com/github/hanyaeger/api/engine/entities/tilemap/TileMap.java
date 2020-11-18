@@ -26,7 +26,7 @@ import java.util.*;
  */
 public abstract class TileMap extends EntitySupplier implements Anchorable, Activatable {
 
-    private Map<Integer, Class<? extends SpriteEntity>> entities = new HashMap<>();
+    private final Map<Integer, Class<? extends SpriteEntity>> entities = new HashMap<>();
 
     private int[][] map;
     private transient TileFactory tileFactory;
@@ -138,26 +138,17 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
     }
 
     private Coordinate2D getTopLeftLocation(Coordinate2D location, Size size) {
-        switch (anchorPoint) {
-            case TOP_CENTER:
-                return new Coordinate2D(location.getX() - (size.getWidth() / 2), location.getY());
-            case TOP_RIGHT:
-                return new Coordinate2D(location.getX() - size.getWidth(), location.getY());
-            case CENTER_LEFT:
-                return new Coordinate2D(location.getX(), location.getY() - (size.getHeight() / 2));
-            case CENTER_CENTER:
-                return new Coordinate2D(location.getX() - (size.getWidth() / 2), location.getY() - (size.getHeight() / 2));
-            case CENTER_RIGHT:
-                return new Coordinate2D(location.getX() - (size.getWidth()), location.getY() - (size.getHeight() / 2));
-            case BOTTOM_LEFT:
-                return new Coordinate2D(location.getX(), location.getY() - size.getHeight());
-            case BOTTOM_CENTER:
-                return new Coordinate2D(location.getX() - (size.getWidth() / 2), location.getY() - (size.getHeight()));
-            case BOTTOM_RIGHT:
-                return new Coordinate2D(location.getX() - size.getWidth(), location.getY() - size.getHeight());
-            default:
-                return location;
-        }
+        return switch (anchorPoint) {
+            case TOP_CENTER -> new Coordinate2D(location.getX() - (size.getWidth() / 2), location.getY());
+            case TOP_RIGHT -> new Coordinate2D(location.getX() - size.getWidth(), location.getY());
+            case CENTER_LEFT -> new Coordinate2D(location.getX(), location.getY() - (size.getHeight() / 2));
+            case CENTER_CENTER -> new Coordinate2D(location.getX() - (size.getWidth() / 2), location.getY() - (size.getHeight() / 2));
+            case CENTER_RIGHT -> new Coordinate2D(location.getX() - (size.getWidth()), location.getY() - (size.getHeight() / 2));
+            case BOTTOM_LEFT -> new Coordinate2D(location.getX(), location.getY() - size.getHeight());
+            case BOTTOM_CENTER -> new Coordinate2D(location.getX() - (size.getWidth() / 2), location.getY() - (size.getHeight()));
+            case BOTTOM_RIGHT -> new Coordinate2D(location.getX() - size.getWidth(), location.getY() - size.getHeight());
+            default -> location;
+        };
     }
 
     @Override
@@ -176,7 +167,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
      *                           {@link DimensionsProvider#getHeight()} method; most likely an {@link YaegerScene}.
      */
     void setDimensionsProvider(final DimensionsProvider dimensionsProvider) {
-        if (!size.isPresent()) {
+        if (size.isEmpty()) {
             size = Optional.of(new Size(dimensionsProvider.getWidth(), dimensionsProvider.getHeight()));
         }
     }

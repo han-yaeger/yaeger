@@ -12,9 +12,9 @@ public class AnimationTimerFactory {
     /**
      * Create an {@link AnimationTimer} with the given handler.
      *
-     * @param handler An {@link AnimationTimerHandler} that should be called whenever the {@link AnimationTimer} calls its
-     *                {@code handle()} method. By default, this is done 60 times per second.
-     * @return An instance of {@link AnimationTimer}
+     * @param handler an {@link AnimationTimerHandler} that should be called whenever the {@link AnimationTimer} calls its
+     *                {@code handle()} method. By default, this is done 60 times per second
+     * @return an instance of {@link AnimationTimer}
      */
     public AnimationTimer create(final AnimationTimerHandler handler) {
         return
@@ -30,10 +30,10 @@ public class AnimationTimerFactory {
     /**
      * Create an {@link AnimationTimer} with the given handler for the given interval.
      *
-     * @param handler  An {@link AnimationTimerHandler} that should be called whenever the {@link AnimationTimer} calls its
+     * @param handler  an {@link AnimationTimerHandler} that should be called whenever the {@link AnimationTimer} calls its
      *                 {@code handle()} method.
      * @param interval the given interval in milliseconds
-     * @return An instance of {@link AnimationTimer}
+     * @return an instance of {@link AnimationTimer}
      */
     public AnimationTimer createTimeableAnimationTimer(final TimeableAnimationTimerHandler handler, final long interval) {
         return new TimeableAnimationTimer(interval) {

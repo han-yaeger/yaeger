@@ -12,8 +12,8 @@ public class EntityCollectionFactory {
     /**
      * Create a {@link EntityCollection}.
      *
-     * @param pane The {@link Pane} to which all instances of {@link YaegerEntity}s should be added.
-     * @return An instance of {@link EntityCollection}
+     * @param pane the {@link Pane} to which all instances of {@link YaegerEntity}s should be added
+     * @return an instance of {@link EntityCollection}
      */
     public EntityCollection create(final Pane pane) {
         return new EntityCollection(pane);

@@ -11,7 +11,7 @@ import com.github.hanyaeger.api.engine.scenes.YaegerScene;
  */
 public abstract class Timer {
 
-    private long interval;
+    private final long interval;
     private long prevTime = 0;
 
     /**
@@ -43,5 +43,5 @@ public abstract class Timer {
      *
      * @param timestamp The timestamp of the current frame given in nanoseconds.
      */
-    public abstract void onAnimationUpdate(long timestamp);
+    public abstract void onAnimationUpdate(final long timestamp);
 }

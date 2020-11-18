@@ -9,15 +9,17 @@ import javafx.scene.image.Image;
 @Singleton
 public class ImageFactory {
 
+    private static final boolean IMAGE_SMOOTHENING = true;
+
     /**
      * Constructs an {@link Image} with content loaded from the specified
      * url.
      *
      * @param url the string representing the URL to use in fetching the pixel
      *            data
-     * @return An instance of {@link Image}.
-     * @throws NullPointerException     if URL is null.
-     * @throws IllegalArgumentException if URL is invalid or unsupported.
+     * @return an instance of {@link Image}
+     * @throws NullPointerException     if URL is null
+     * @throws IllegalArgumentException if URL is invalid or unsupported
      */
     public Image create(String url) {
         return new Image(url);
@@ -39,6 +41,6 @@ public class ImageFactory {
      */
     public Image create(final String url, final double requestedWidth, final double requestedHeight,
                         boolean preserveRatio) {
-        return new Image(url, requestedWidth, requestedHeight, preserveRatio, true);
+        return new Image(url, requestedWidth, requestedHeight, preserveRatio, IMAGE_SMOOTHENING);
     }
 }

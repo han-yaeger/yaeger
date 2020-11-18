@@ -19,17 +19,17 @@ public abstract class EntitySpawner extends Timer {
      *
      * @param intervalInMs The interval in milleseconds.
      */
-    protected EntitySpawner(long intervalInMs) {
+    protected EntitySpawner(final long intervalInMs) {
         super(intervalInMs);
     }
 
     @Override
-    public void handle(long now) {
+    public void handle(final long now) {
         super.handle(now);
     }
 
     @Override
-    public void onAnimationUpdate(long timestamp) {
+    public void onAnimationUpdate(final long timestamp) {
         spawnEntities();
     }
 
@@ -60,7 +60,7 @@ public abstract class EntitySpawner extends Timer {
     }
 
     @Inject
-    public void setSupplier(EntitySupplier supplier) {
+    public void setSupplier(final EntitySupplier supplier) {
         this.supplier = supplier;
     }
 }

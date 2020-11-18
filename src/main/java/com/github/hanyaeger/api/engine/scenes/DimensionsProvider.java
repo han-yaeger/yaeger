@@ -8,14 +8,14 @@ public interface DimensionsProvider {
     /**
      * Return the width.
      *
-     * @return The width as a {@code double}.
+     * @return the width as a {@code double}
      */
     double getWidth();
 
     /**
      * Return the height.
      *
-     * @return The height as a {@code double}.
+     * @return the height as a {@code double}
      */
     double getHeight();
 }

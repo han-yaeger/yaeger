@@ -11,7 +11,7 @@ public class SceneFactory {
     /**
      * Create a {@link Scene}.
      *
-     * @param pane The {@link Pane} for which a {@link Scene} must be created.
+     * @param pane the {@link Pane} for which a {@link Scene} must be created
      * @return an instance of {@link Scene}
      */
     public Scene create(final Pane pane) {

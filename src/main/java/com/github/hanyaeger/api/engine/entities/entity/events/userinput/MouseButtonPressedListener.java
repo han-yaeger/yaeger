@@ -14,17 +14,17 @@ public interface MouseButtonPressedListener extends GameNode {
     /**
      * Called when the corresponding {@link javafx.scene.Node} receives a mouse pressed event.
      *
-     * @param button the {@link MouseButton} being pressed.
-     * @param x      The x-coordinate of the mouse pointer while being pressed as a {@code double}.
-     * @param y      The y-coordinate of the mouse pointer while being pressed as a {@code double}.
+     * @param button the {@link MouseButton} being pressed
+     * @param x      the x-coordinate of the mouse pointer while being pressed as a {@code double}
+     * @param y      the y-coordinate of the mouse pointer while being pressed as a {@code double}
      */
-    void onMouseButtonPressed(MouseButton button, double x, double y);
+    void onMouseButtonPressed(final MouseButton button, final double x, final double y);
 
     /**
      * Attach a mousePressedListener to this entity.
      */
     @OnActivation
     default void attachMousePressedListener() {
-        getNode().get().setOnMousePressed(event -> onMouseButtonPressed(event.getButton(), event.getX(), event.getY()));
+        getNode().ifPresent(node -> node.setOnMousePressed(event -> onMouseButtonPressed(event.getButton(), event.getX(), event.getY())));
     }
 }

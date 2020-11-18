@@ -30,8 +30,8 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     /**
      * Create a new {@link SceneCollection} for the given {@link Stage} and {@link YaegerConfig}.
      *
-     * @param stage        The {@link Stage} that should be used.
-     * @param yaegerConfig The {@link YaegerConfig} that should be used.
+     * @param stage        the {@link Stage} that should be used
+     * @param yaegerConfig the {@link YaegerConfig} that should be used
      */
     public SceneCollection(final Stage stage, final YaegerConfig yaegerConfig) {
         this.stage = stage;
@@ -42,8 +42,8 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
      * Add a {@link YaegerScene} to the collection of {@link SceneCollection}. A {@link YaegerScene} uses a number ({@link Integer})
      * to be identified. Each number can be only used one time.
      *
-     * @param id    The {@link Integer} identifying the {@link YaegerScene}
-     * @param scene The {@link YaegerScene} to be added
+     * @param id    the {@link Integer} identifying the {@link YaegerScene}
+     * @param scene the {@link YaegerScene} to be added
      */
     public void addScene(final int id, final YaegerScene scene) {
         put(id, scene);
@@ -58,7 +58,7 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     /**
      * Return the {@link YaegerScene} currently active.
      *
-     * @return The {@link YaegerScene} that is currently active.
+     * @return the {@link YaegerScene} that is currently active
      */
     public YaegerScene getActiveScene() {
         return activeScene;
@@ -68,7 +68,7 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
      * Set the {@link YaegerScene} of the given {@code int}. The set {@link YaegerScene} will be shown and if available
      * its {@code GameLoop} and {@code EventListeners} will be active.
      *
-     * @param id The {@link Integer} identifying the {@link YaegerScene}
+     * @param id the {@link Integer} identifying the {@link YaegerScene}
      */
     public void setActive(final int id) {
         if (!finishedSplashScreen) {
