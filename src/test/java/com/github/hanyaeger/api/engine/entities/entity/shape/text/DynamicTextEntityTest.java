@@ -5,16 +5,19 @@ import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
 import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBuffer;
+import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
+import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplierType;
+import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 import com.google.inject.Injector;
 import javafx.scene.text.Text;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class DynamicTextEntityTest {
 
@@ -52,58 +55,68 @@ class DynamicTextEntityTest {
         Assertions.assertTrue(buffer.isPresent());
     }
 
-    @Test
-    void bufferTransfersMotionOnInit() {
-        // Arrange
-        var motionApplier = mock(DefaultMotionApplier.class);
-        sut.setMotionApplier(motionApplier);
-        sut.setMotion(SPEED, DIRECTION);
+    @Nested
+    private class WithMotionApplierSet {
 
-        // Act
-        sut.init(injector);
+        private MotionApplierFactory motionApplierFactory;
+        private MotionApplier motionApplier;
 
-        // Verify
-        verify(motionApplier).setMotion(SPEED, DIRECTION);
-    }
+        @BeforeEach
+        void setup() {
+            motionApplierFactory = mock(MotionApplierFactory.class);
+            motionApplier = mock(MotionApplier.class);
+            when(motionApplierFactory.create(MotionApplierType.DEFAULT)).thenReturn(motionApplier);
+        }
 
-    @Test
-    void bufferIsEmptiedAfterInitIsCalled() {
-        // Arrange
-        var motionApplier = mock(DefaultMotionApplier.class);
-        sut.setMotionApplier(motionApplier);
+        @Test
+        void bufferIsEmptiedAfterInitIsCalled() {
+            // Arrange
+            sut.injectMotionApplierFactory(motionApplierFactory);
 
-        // Act
-        sut.init(injector);
+            // Act
+            sut.init(injector);
 
-        // Verify
-        Assertions.assertFalse(sut.getBuffer().isPresent());
-    }
+            // Assert
+            Assertions.assertFalse(sut.getBuffer().isPresent());
+        }
 
-    @Test
-    void initSetsMotionToDesiredSpeed() {
-        // Arrange
-        sut.setSpeed(SPEED);
-        var motionApplier = mock(DefaultMotionApplier.class);
-        sut.setMotionApplier(motionApplier);
+        @Test
+        void bufferTransfersMotionOnInit() {
+            // Arrange
+            sut.setMotion(SPEED, DIRECTION);
+            sut.injectMotionApplierFactory(motionApplierFactory);
 
-        // Act
-        sut.init(injector);
+            // Act
+            sut.init(injector);
 
-        // Verify
-        verify(motionApplier).setMotion(SPEED, 0d);
-    }
+            // Assert
+            verify(motionApplier).setMotion(SPEED, DIRECTION);
+        }
 
-    @Test
-    void setMotionApplierIsUsed() {
-        // Arrange
-        var motionApplier = mock(DefaultMotionApplier.class);
-        sut.setMotionApplier(motionApplier);
+        @Test
+        void initSetsMotionToDesiredSpeed() {
+            // Arrange
+            sut.setSpeed(SPEED);
+            sut.injectMotionApplierFactory(motionApplierFactory);
 
-        // Act
-        var mA = sut.getMotionApplier();
+            // Act
+            sut.init(injector);
 
-        // Verify
-        Assertions.assertEquals(motionApplier, mA);
+            // Assert
+            verify(motionApplier).setMotion(SPEED, 0d);
+        }
+
+        @Test
+        void setMotionApplierIsUsed() {
+            // Arrange
+            sut.injectMotionApplierFactory(motionApplierFactory);
+
+            // Act
+            var mA = sut.getMotionApplier();
+
+            // Assert
+            Assertions.assertEquals(motionApplier, mA);
+        }
     }
 
     @Test

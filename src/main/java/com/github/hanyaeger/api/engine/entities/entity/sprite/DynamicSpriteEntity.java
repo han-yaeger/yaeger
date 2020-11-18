@@ -1,18 +1,16 @@
 package com.github.hanyaeger.api.engine.entities.entity.sprite;
 
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
-import com.github.hanyaeger.api.engine.entities.entity.motion.BufferedMoveable;
-import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBuffer;
+import com.github.hanyaeger.api.engine.entities.entity.motion.*;
+import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.github.hanyaeger.api.engine.entities.entity.ContinuousRotatable;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
-import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
 import com.github.hanyaeger.api.engine.Size;
 import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.UpdateDelegator;
 import com.github.hanyaeger.api.engine.Updater;
-import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
 
 import java.util.Optional;
 
@@ -22,7 +20,7 @@ import java.util.Optional;
  */
 public abstract class DynamicSpriteEntity extends SpriteEntity implements UpdateDelegator, BufferedMoveable, ContinuousRotatable {
 
-    private DefaultMotionApplier motionApplier;
+    private MotionApplier motionApplier;
     private long autoCycleInterval = 0;
     private Updater updater;
     private Optional<EntityMotionInitBuffer> buffer;
@@ -125,7 +123,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
 
     @Inject
     @Override
-    public void setMotionApplier(final DefaultMotionApplier motionApplier) {
-        this.motionApplier = motionApplier;
+    public void injectMotionApplierFactory(final MotionApplierFactory motionApplierFactory) {
+        this.motionApplier = motionApplierFactory.create(MotionApplierType.DEFAULT);
     }
 }

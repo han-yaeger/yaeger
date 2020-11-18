@@ -3,6 +3,7 @@ package com.github.hanyaeger.api.engine.entities.entity.motion;
 import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
+import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -19,6 +20,7 @@ import static org.mockito.Mockito.*;
 
 class MoveableTest {
 
+    private MotionApplierFactory motionApplierFactory;
     private DefaultMotionApplier motionApplier;
     private Moveable sut;
 
@@ -30,9 +32,13 @@ class MoveableTest {
 
     @BeforeEach
     void setup() {
-        motionApplier = Mockito.mock(DefaultMotionApplier.class);
+        motionApplierFactory = mock(MotionApplierFactory.class);
+        motionApplier = mock(DefaultMotionApplier.class);
+
+        when(motionApplierFactory.create(any(MotionApplierType.class))).thenReturn(motionApplier);
+
         sut = new MoveableImpl();
-        sut.setMotionApplier(motionApplier);
+        sut.injectMotionApplierFactory(motionApplierFactory);
     }
 
     @Test
@@ -267,12 +273,12 @@ class MoveableTest {
     private class MoveableImpl implements Moveable {
 
         Coordinate2D anchorLocation;
-        DefaultMotionApplier motionApplier;
+        MotionApplier motionApplier;
         Node node;
 
         @Override
-        public void setMotionApplier(DefaultMotionApplier motionApplier) {
-            this.motionApplier = motionApplier;
+        public void injectMotionApplierFactory(MotionApplierFactory motionApplierFactory) {
+            this.motionApplier = motionApplierFactory.create(MotionApplierType.DEFAULT);
         }
 
         @Override

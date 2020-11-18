@@ -4,11 +4,16 @@ import com.github.hanyaeger.api.engine.Updater;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
 import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBuffer;
+import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
+import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplierType;
+import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 import com.google.inject.Injector;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -30,19 +35,22 @@ class DynamicCompositeEntityTest {
     private Injector injector;
     private Updater updater;
     private Group group;
-    private DefaultMotionApplier motionApplier;
+    private MotionApplierFactory motionApplierFactory;
+    private MotionApplier motionApplier;
 
     @BeforeEach
     void setup() {
         updater = mock(Updater.class);
         injector = mock(Injector.class);
         group = mock(Group.class);
-        motionApplier = mock(DefaultMotionApplier.class);
+        motionApplierFactory = mock(MotionApplierFactory.class);
+        motionApplier = mock(MotionApplier.class);
+
+        when(motionApplierFactory.create(any(MotionApplierType.class))).thenReturn(motionApplier);
 
         sut = new DynamicCompositeEntityImpl(DEFAULT_LOCATION);
         sut.setUpdater(updater);
         sut.setGroup(group);
-        sut.setMotionApplier(motionApplier);
     }
 
     @Test
@@ -56,11 +64,98 @@ class DynamicCompositeEntityTest {
         assertTrue(buffer.isPresent());
     }
 
+    @Nested
+    class WithMotionApplierSet {
+
+        private MotionApplierFactory motionApplierFactory;
+        private MotionApplier motionApplier;
+
+        @BeforeEach
+        void setup() {
+            motionApplierFactory = mock(MotionApplierFactory.class);
+            motionApplier = mock(MotionApplier.class);
+            when(motionApplierFactory.create(MotionApplierType.DEFAULT)).thenReturn(motionApplier);
+        }
+
+        @Test
+        void bufferIsEmptiedAfterInitIsCalled() {
+            // Arrange
+            sut.injectMotionApplierFactory(motionApplierFactory);
+
+            // Act
+            sut.init(injector);
+
+            // Assert
+            Assertions.assertFalse(sut.getBuffer().isPresent());
+        }
+
+        @Test
+        void bufferTransfersMotionOnInit() {
+            // Arrange
+            sut.setMotion(SPEED, DIRECTION);
+            sut.injectMotionApplierFactory(motionApplierFactory);
+
+            // Act
+            sut.init(injector);
+
+            // Assert
+            verify(motionApplier).setMotion(SPEED, DIRECTION);
+        }
+
+        @Test
+        void initSetsMotionToDesiredSpeed() {
+            // Arrange
+            sut.setSpeed(SPEED);
+            sut.injectMotionApplierFactory(motionApplierFactory);
+
+            // Act
+            sut.init(injector);
+
+            // Assert
+            verify(motionApplier).setMotion(SPEED, 0d);
+        }
+
+        @Test
+        void setMotionApplierIsUsed() {
+            // Arrange
+            sut.injectMotionApplierFactory(motionApplierFactory);
+
+            // Act
+            var mA = sut.getMotionApplier();
+
+            // Assert
+            Assertions.assertEquals(motionApplier, mA);
+        }
+
+        @Test
+        void clearsGarbageOnUpdate() {
+            // Arrange
+            sut.injectMotionApplierFactory(motionApplierFactory);
+
+            var updater = mock(Updater.class);
+            sut.setUpdater(updater);
+
+            ObservableList<Node> children = mock(ObservableList.class);
+            when(group.getChildren()).thenReturn(children);
+
+            var entityToAdd = mock(YaegerEntity.class);
+            sut.addEntityToAdd(entityToAdd);
+
+            sut.init(injector);
+            sut.addToGarbage(entityToAdd);
+
+            // Act
+            sut.update(TIMESTAMP);
+
+            // Assert
+            assertTrue(sut.getGarbage().isEmpty());
+        }
+    }
+
     @Test
     void bufferIsEmptiedAfterInitIsCalled() {
         // Arrange
-        var motionApplier = mock(DefaultMotionApplier.class);
-        sut.setMotionApplier(motionApplier);
+        sut.injectMotionApplierFactory(motionApplierFactory);
 
         // Act
         sut.init(injector);
@@ -72,8 +167,7 @@ class DynamicCompositeEntityTest {
     @Test
     void bufferTransfersMotionOnInit() {
         // Arrange
-        var motionApplier = mock(DefaultMotionApplier.class);
-        sut.setMotionApplier(motionApplier);
+        sut.injectMotionApplierFactory(motionApplierFactory);
         sut.setMotion(SPEED, DIRECTION);
 
         // Act
@@ -87,8 +181,7 @@ class DynamicCompositeEntityTest {
     void initSetsMotionToDesiredSpeed() {
         // Arrange
         sut.setSpeed(SPEED);
-        var motionApplier = mock(DefaultMotionApplier.class);
-        sut.setMotionApplier(motionApplier);
+        sut.injectMotionApplierFactory(motionApplierFactory);
 
         // Act
         sut.init(injector);
@@ -100,8 +193,7 @@ class DynamicCompositeEntityTest {
     @Test
     void setMotionApplierIsUsed() {
         // Arrange
-        var motionApplier = mock(DefaultMotionApplier.class);
-        sut.setMotionApplier(motionApplier);
+        sut.injectMotionApplierFactory(motionApplierFactory);
 
         // Act
         var mA = sut.getMotionApplier();
@@ -160,27 +252,6 @@ class DynamicCompositeEntityTest {
         verify(updater).update(TIMESTAMP);
     }
 
-    @Test
-    void clearsGarbageOnUpdate() {
-        // Arrange
-        var updater = mock(Updater.class);
-        sut.setUpdater(updater);
-
-        ObservableList<Node> children = mock(ObservableList.class);
-        when(group.getChildren()).thenReturn(children);
-
-        var entityToAdd = mock(YaegerEntity.class);
-        sut.addEntityToAdd(entityToAdd);
-
-        sut.init(injector);
-        sut.addToGarbage(entityToAdd);
-
-        // Act
-        sut.update(TIMESTAMP);
-
-        // Assert
-        assertTrue(sut.getGarbage().isEmpty());
-    }
 
     private class DynamicCompositeEntityImpl extends DynamicCompositeEntity {
 

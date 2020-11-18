@@ -61,7 +61,7 @@ public class EntityMotionInitBuffer implements Initializable {
         motionApplier.setMotion(speed, direction);
     }
 
-    public void setMotionApplier(final DefaultMotionApplier motionApplier) {
+    public void setMotionApplier(final MotionApplier motionApplier) {
         this.motionApplier = motionApplier;
     }
 }

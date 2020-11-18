@@ -3,7 +3,9 @@ package com.github.hanyaeger.api.engine.entities.entity;
 import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
 import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
+import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplierType;
 import com.github.hanyaeger.api.engine.scenes.SceneBorder;
+import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 import javafx.geometry.BoundingBox;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -27,17 +29,21 @@ class SceneBorderCrossingWatcherTest {
     private SceneBorderCrossingWatcherImpl sut;
     private Node node;
     private Scene scene;
-    private DefaultMotionApplier motionApplier;
+    private MotionApplierFactory motionApplierFactory;
+    private MotionApplier motionApplier;
 
     @BeforeEach
     void setup() {
         sut = new SceneBorderCrossingWatcherImpl();
         node = mock(Node.class, withSettings().withoutAnnotations());
         scene = mock(Scene.class);
-        motionApplier = mock(DefaultMotionApplier.class);
+        motionApplierFactory = mock(MotionApplierFactory.class);
+        motionApplier = mock(MotionApplier.class);
+
+        when(motionApplierFactory.create(any(MotionApplierType.class))).thenReturn(motionApplier);
 
         sut.setGameNode(node);
-        sut.setMotionApplier(motionApplier);
+        sut.injectMotionApplierFactory(motionApplierFactory);
 
         when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(new Coordinate2D(0, 0)));
     }
@@ -244,8 +250,8 @@ class SceneBorderCrossingWatcherTest {
         }
 
         @Override
-        public void setMotionApplier(DefaultMotionApplier motionApplier) {
-            this.motionApplier = motionApplier;
+        public void injectMotionApplierFactory(MotionApplierFactory motionApplierFactory) {
+            this.motionApplier = motionApplierFactory.create(MotionApplierType.DEFAULT);
         }
 
         @Override

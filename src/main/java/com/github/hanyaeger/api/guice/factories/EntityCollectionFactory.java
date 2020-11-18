@@ -5,7 +5,7 @@ import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import javafx.scene.layout.Pane;
 
 /**
- * A {@link EntityCollectionFactory} can be used to create instances of {@link EntityCollection}.
+ * A {@link EntityCollectionFactory} should be used to create instances of {@link EntityCollection}.
  */
 public class EntityCollectionFactory {
 

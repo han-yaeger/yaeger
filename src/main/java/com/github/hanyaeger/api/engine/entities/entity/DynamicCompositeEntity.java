@@ -3,10 +3,8 @@ package com.github.hanyaeger.api.engine.entities.entity;
 import com.github.hanyaeger.api.engine.UpdateDelegator;
 import com.github.hanyaeger.api.engine.Updater;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
-import com.github.hanyaeger.api.engine.entities.entity.motion.BufferedMoveable;
-import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
-import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBuffer;
-import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
+import com.github.hanyaeger.api.engine.entities.entity.motion.*;
+import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
@@ -29,7 +27,7 @@ import java.util.Optional;
  */
 public abstract class DynamicCompositeEntity extends CompositeEntity implements UpdateDelegator, BufferedMoveable, ContinuousRotatable {
 
-    private DefaultMotionApplier motionApplier;
+    private MotionApplier motionApplier;
     private Updater updater;
     private Optional<EntityMotionInitBuffer> buffer;
     private double rotationAngle;
@@ -102,8 +100,8 @@ public abstract class DynamicCompositeEntity extends CompositeEntity implements 
 
     @Inject
     @Override
-    public void setMotionApplier(final DefaultMotionApplier motionApplier) {
-        this.motionApplier = motionApplier;
+    public void injectMotionApplierFactory(final MotionApplierFactory motionApplierFactory) {
+        this.motionApplier = motionApplierFactory.create(MotionApplierType.DEFAULT);
     }
 
     @Inject

@@ -3,7 +3,10 @@ package com.github.hanyaeger.api.engine.entities.entity.collisions;
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
+import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBuffer;
 import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
+import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplierType;
+import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
@@ -22,13 +25,19 @@ public class CollidedTest {
     private static final Bounds TEST_NOT_COLLIDING_BOUNDINGBOX = new BoundingBox(0, 0, 0, 1, 1, 0);
 
     private TestCollided sut;
-    private DefaultMotionApplier motionApplier;
+
+    private MotionApplierFactory motionApplierFactory;
+    private MotionApplier motionApplier;
 
     @BeforeEach
     void setup() {
         sut = new TestCollided();
+        motionApplierFactory = mock(MotionApplierFactory.class);
         motionApplier = mock(DefaultMotionApplier.class);
-        sut.setMotionApplier(motionApplier);
+
+        when(motionApplierFactory.create(any(MotionApplierType.class))).thenReturn(motionApplier);
+
+        sut.injectMotionApplierFactory(motionApplierFactory);
     }
 
     @Test
@@ -141,7 +150,7 @@ public class CollidedTest {
             lastCollided = collidingObject;
         }
 
-         @Override
+        @Override
         public Bounds getBoundsInScene() {
             return TEST_COLLIDED_BOUNDINGBOX;
         }
@@ -156,8 +165,8 @@ public class CollidedTest {
         }
 
         @Override
-        public void setMotionApplier(DefaultMotionApplier motionApplier) {
-            this.motionApplier = motionApplier;
+        public void injectMotionApplierFactory(MotionApplierFactory motionApplierFactory) {
+            this.motionApplier = motionApplierFactory.create(MotionApplierType.DEFAULT);
         }
 
         @Override
@@ -218,7 +227,7 @@ public class CollidedTest {
         }
 
         @Override
-        public void setMotionApplier(DefaultMotionApplier motionApplier) {
+        public void injectMotionApplierFactory(MotionApplierFactory motionApplierFactory) {
             // Not required here
         }
 

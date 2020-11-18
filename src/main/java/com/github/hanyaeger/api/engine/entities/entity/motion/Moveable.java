@@ -3,6 +3,7 @@ package com.github.hanyaeger.api.engine.entities.entity.motion;
 import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.annotations.UpdatableProvider;
 import com.github.hanyaeger.api.engine.entities.entity.Placeable;
+import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 
 /**
  * When the Interface {@link Moveable} is implemented, an {@link com.github.hanyaeger.api.engine.entities.entity.YaegerEntity}
@@ -14,11 +15,11 @@ import com.github.hanyaeger.api.engine.entities.entity.Placeable;
 public interface Moveable extends Placeable, MotionModifier {
 
     /**
-     * Set the {@link DefaultMotionApplier} that will be used.
+     * Set the {@link MotionApplierFactory} that will be used.
      *
-     * @param motionApplier an instance of {@link DefaultMotionApplier}
+     * @param motionApplierFactory an instance of {@link MotionApplierFactory}
      */
-    void setMotionApplier(final DefaultMotionApplier motionApplier);
+    void injectMotionApplierFactory(final MotionApplierFactory motionApplierFactory);
 
     /**
      * Return the {@link MotionApplier} that should be used.

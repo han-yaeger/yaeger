@@ -4,6 +4,7 @@ import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
 import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
+import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
@@ -178,6 +179,7 @@ class SideCollidedTest {
         public Bounds getBoundsInScene() {
             return TEST_COLLIDED_BOUNDINGBOX;
         }
+
         @Override
         public Bounds getNonTransformedBounds() {
             return TEST_COLLIDED_BOUNDINGBOX;
@@ -197,7 +199,7 @@ class SideCollidedTest {
         }
 
         @Override
-        public void setMotionApplier(DefaultMotionApplier motionApplier) {
+        public void injectMotionApplierFactory(MotionApplierFactory motionApplierFactory) {
             // Not required here
         }
 
