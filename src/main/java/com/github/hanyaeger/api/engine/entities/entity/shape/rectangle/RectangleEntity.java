@@ -54,11 +54,7 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
      * @return the {@code height} as a {@code double}
      */
     public double getHeight() {
-        if (shape.isPresent()) {
-            return shape.get().getHeight();
-        } else {
-            return height;
-        }
+        return shape.map(rectangle -> rectangle.getHeight()).orElse(height);
     }
 
     /**
@@ -67,11 +63,7 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
      * @return the {@code width} as a {@code double}
      */
     public double getWidth() {
-        if (shape.isPresent()) {
-            return shape.get().getWidth();
-        } else {
-            return width;
-        }
+        return shape.map(rectangle -> rectangle.getWidth()).orElse(width);
     }
 
     /**
@@ -98,11 +90,7 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
      * @return the {@code arcHeight} as a {@code double}
      */
     public double getArcHeight() {
-        if (shape.isPresent()) {
-            return shape.get().getArcHeight();
-        } else {
-            return arcHeight;
-        }
+        return shape.map(rectangle -> rectangle.getArcHeight()).orElse(arcHeight);
     }
 
     /**
@@ -111,11 +99,7 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
      * @return the {@code arcWidth} as a {@code double}
      */
     public double getArcWidth() {
-        if (shape.isPresent()) {
-            return shape.get().getArcWidth();
-        } else {
-            return arcWidth;
-        }
+        return shape.map(rectangle -> rectangle.getArcWidth()).orElse(arcWidth);
     }
 
     @Override

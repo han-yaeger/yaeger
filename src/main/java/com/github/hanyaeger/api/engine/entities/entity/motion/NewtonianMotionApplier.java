@@ -6,10 +6,10 @@ import javafx.geometry.Point2D;
 import java.util.Optional;
 
 /**
- * A {@link DefaultMotionApplier} is an implementation of {@link MotionApplier} that does not abide
+ * A {@link NewtonianMotionApplier} is an implementation of {@link MotionApplier} that does not abide
  * the laws of Physics and only provides basis behaviour regarding speed and direction.
  */
-public class DefaultMotionApplier implements MotionApplier {
+public class NewtonianMotionApplier implements MotionApplier {
 
     private static final Point2D ZERO_ANGLE_IDENTITY_MOTION = new Point2D(0, 1);
     private Optional<Double> direction = Optional.empty();
@@ -18,9 +18,9 @@ public class DefaultMotionApplier implements MotionApplier {
     private boolean halted = false;
 
     /**
-     * Create a new instance of {@link DefaultMotionApplier}.
+     * Create a new instance of {@link NewtonianMotionApplier}.
      */
-    public DefaultMotionApplier() {
+    public NewtonianMotionApplier() {
         motion = new Coordinate2D();
     }
 

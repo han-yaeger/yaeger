@@ -3,8 +3,8 @@ package com.github.hanyaeger.api.engine.media;
 import com.github.hanyaeger.api.engine.exceptions.ResourceNotAvailableException;
 
 /**
- * Implementing a {@code ResourceConsumer} exposes a default methode that can be used to acquire the absolute path to a
- * resource available on the class path.
+ * Implementing a {@link ResourceConsumer} exposes a default methode that can be used to acquire the absolute
+ * path to a resource available on the class path.
  */
 public interface ResourceConsumer {
 

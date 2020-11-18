@@ -33,9 +33,6 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
      */
     public ShapeEntity(Coordinate2D initialPosition) {
         super(initialPosition);
-
-//        strokeWidth = getDefaultStrokeWidth();
-//        strokeColor = getDefaultStrokeColor();
     }
 
     /**

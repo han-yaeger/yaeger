@@ -3,7 +3,10 @@ package com.github.hanyaeger.api.engine.entities.entity.motion;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import javafx.geometry.Point2D;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * A {@link DefaultMotionApplier} is an implementation of {@link MotionApplier} that does not abide
@@ -57,6 +60,10 @@ public class DefaultMotionApplier implements MotionApplier {
     @Override
     public void setDirection(Direction direction) {
         setDirection(direction.getValue());
+
+        List<String> fellowship = new ArrayList<>();
+
+        fellowship.stream().filter(member -> member.contains("P")).collect(Collectors.toList());
     }
 
     @Override

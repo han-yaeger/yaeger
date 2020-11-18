@@ -57,11 +57,7 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
      * @return the {@code radiusX} as a {@code double}
      */
     public double getRadiusX() {
-        if (shape.isPresent()) {
-            return shape.get().getRadiusX();
-        } else {
-            return radiusX;
-        }
+        return shape.map(ellipse -> ellipse.getRadiusX()).orElse(radiusX);
     }
 
     /**
@@ -70,15 +66,11 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
      * @return the {@code radiusY} as a {@code double}
      */
     public double getRadiusY() {
-        if (shape.isPresent()) {
-            return shape.get().getRadiusY();
-        } else {
-            return radiusY;
-        }
+        return shape.map(ellipse -> ellipse.getRadiusY()).orElse(radiusY);
     }
 
     @Override
-    public final void setAnchorLocation(Coordinate2D anchorLocation) {
+    public final void setAnchorLocation(final Coordinate2D anchorLocation) {
         super.setAnchorLocation(anchorLocation);
         shape.ifPresent(ellipse -> {
             ellipse.setCenterX(anchorLocation.getX());
