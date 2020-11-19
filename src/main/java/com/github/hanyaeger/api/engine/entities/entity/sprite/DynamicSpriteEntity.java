@@ -124,6 +124,6 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     @Inject
     @Override
     public void injectMotionApplierFactory(final MotionApplierFactory motionApplierFactory) {
-        this.motionApplier = motionApplierFactory.create(MotionApplierType.DEFAULT);
+        this.motionApplier = motionApplierFactory.create(getMotionModifierType());
     }
 }

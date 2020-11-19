@@ -15,6 +15,16 @@ import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 public interface Moveable extends Placeable, MotionModifier {
 
     /**
+     * Return the {@link MotionApplierType} to be used by this {@link Moveable}. By default
+     * {@link MotionApplierType#DEFAULT} will be used.
+     *
+     * @return an instance of {@link MotionApplierType}
+     */
+    default MotionApplierType getMotionModifierType() {
+        return MotionApplierType.DEFAULT;
+    }
+
+    /**
      * Set the {@link MotionApplierFactory} that will be used.
      *
      * @param motionApplierFactory an instance of {@link MotionApplierFactory}

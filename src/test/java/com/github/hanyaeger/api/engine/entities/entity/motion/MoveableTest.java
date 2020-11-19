@@ -8,6 +8,7 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -39,6 +40,17 @@ class MoveableTest {
 
         sut = new MoveableImpl();
         sut.injectMotionApplierFactory(motionApplierFactory);
+    }
+
+    @Test
+    void getMotionModifierTypeReturnsDefault(){
+        // Arrange
+
+        // Act
+        var actual = sut.getMotionModifierType();
+
+        // Assert
+        Assertions.assertEquals(MotionApplierType.DEFAULT, actual);
     }
 
     @Test

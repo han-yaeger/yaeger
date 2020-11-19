@@ -84,7 +84,7 @@ public abstract class DynamicEllipseEntity extends EllipseEntity implements Upda
     @Inject
     @Override
     public void injectMotionApplierFactory(final MotionApplierFactory motionApplierFactory) {
-        this.motionApplier = motionApplierFactory.create(MotionApplierType.DEFAULT);
+        this.motionApplier = motionApplierFactory.create(getMotionModifierType());
     }
 
     @Inject

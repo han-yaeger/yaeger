@@ -11,7 +11,7 @@ import com.github.hanyaeger.api.engine.entities.entity.motion.NewtonianMotionApp
 public class MotionApplierFactory {
 
     /**
-     * Create a correct implementationof {@link MotionApplier}.
+     * Create a correct implementation of {@link MotionApplier}.
      *
      * @param type the {@link MotionApplierType} that is requested
      * @return an implementation of {@link MotionApplier}
