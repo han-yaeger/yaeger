@@ -56,7 +56,7 @@ class DynamicTextEntityTest {
     }
 
     @Nested
-    private class WithMotionApplierSet {
+    class WithMotionApplierSet {
 
         private MotionApplierFactory motionApplierFactory;
         private MotionApplier motionApplier;
