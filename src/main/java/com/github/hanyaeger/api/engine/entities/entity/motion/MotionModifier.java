@@ -24,6 +24,24 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
     void setMotion(final double speed, final Direction direction);
 
     /**
+     * Add a given motion to the current motion. Since motions are essentially vectors, defined by speed
+     * and direction, this method results in the addition of those vectors.
+     *
+     * @param speed     the speed as a {@code double}
+     * @param direction the direction as a {@code double}
+     */
+    void addToMotion(final double speed, final double direction);
+
+    /**
+     * Add a given motion to the current motion. Since motions are essentially vectors, defined by speed
+     * and direction, this method results in the addition of those vectors.
+     *
+     * @param speed     the speed as a {@code double}
+     * @param direction the direction as a {@link Direction}
+     */
+    void addToMotion(final double speed, final Direction direction);
+
+    /**
      * Alter the speed through multiplication. Using this method will increase or decrease the current speed. It will multiply the current
      * speed by the provided value.
      * <p>

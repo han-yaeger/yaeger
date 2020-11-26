@@ -25,7 +25,7 @@ class EntityMotionInitBufferTest {
     @Test
     void settingSpeedBeforeInitAndCallingInitSetsSpeedOnMotionApplier() {
         // Arrange
-        sut.setSpeedTo(SPEED);
+        sut.setSpeed(SPEED);
 
         // Act
         sut.init(injector);
@@ -37,7 +37,7 @@ class EntityMotionInitBufferTest {
     @Test
     void settingDirectionBeforeInitAndCallingInitSetsDirectionOnMotionApplier() {
         // Arrange
-        sut.setDirectionTo(DIRECTION);
+        sut.setDirection(DIRECTION);
 
         // Act
         sut.init(injector);
@@ -49,7 +49,7 @@ class EntityMotionInitBufferTest {
     @Test
     void settingMotionBeforeInitAndCallingInitSetsMotionOnMotionApplier() {
         // Arrange
-        sut.setMotionTo(SPEED, DIRECTION);
+        sut.setMotion(SPEED, DIRECTION);
 
         // Act
         sut.init(injector);

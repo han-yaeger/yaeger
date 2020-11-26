@@ -31,7 +31,7 @@ public class EntityMotionInitBuffer implements Initializable {
      *
      * @param newSpeed the speed as a {@code double}
      */
-    public void setSpeedTo(final double newSpeed) {
+    public void setSpeed(final double newSpeed) {
         speed = newSpeed;
     }
 
@@ -40,7 +40,7 @@ public class EntityMotionInitBuffer implements Initializable {
      *
      * @param newDirection the direction as a {@code double}
      */
-    public void setDirectionTo(final double newDirection) {
+    public void setDirection(final double newDirection) {
         direction = newDirection;
     }
 
@@ -50,7 +50,7 @@ public class EntityMotionInitBuffer implements Initializable {
      * @param newSpeed     the speed as a {@code double}
      * @param newDirection the direction as a {@code double}
      */
-    public void setMotionTo(final double newSpeed, final double newDirection) {
+    public void setMotion(final double newSpeed, final double newDirection) {
 
         this.speed = newSpeed;
         this.direction = newDirection;

@@ -41,7 +41,7 @@ class BufferedMoveableTest {
         sut.setSpeed(SPEED);
 
         // Assert
-        verify(buffer).setSpeedTo(SPEED);
+        verify(buffer).setSpeed(SPEED);
     }
 
     @Test
@@ -52,7 +52,7 @@ class BufferedMoveableTest {
         sut.setDirection(DIRECTION);
 
         // Assert
-        verify(buffer).setDirectionTo(DIRECTION);
+        verify(buffer).setDirection(DIRECTION);
     }
 
     @Test
@@ -63,7 +63,7 @@ class BufferedMoveableTest {
         sut.setMotion(SPEED, DIRECTION);
 
         // Assert
-        verify(buffer).setMotionTo(SPEED, DIRECTION);
+        verify(buffer).setMotion(SPEED, DIRECTION);
     }
 
     @Test

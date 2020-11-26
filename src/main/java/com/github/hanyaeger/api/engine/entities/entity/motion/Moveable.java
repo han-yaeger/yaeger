@@ -49,6 +49,16 @@ public interface Moveable extends Placeable, MotionModifier {
     }
 
     @Override
+    default void addToMotion(final double speed, final Direction direction) {
+        addToMotion(speed, direction.getValue());
+    }
+
+    @Override
+    default void addToMotion(final double speed, final double direction) {
+        getMotionApplier().addToMotion(speed, direction);
+    }
+
+    @Override
     default void multiplySpeed(final double multiplication) {
         getMotionApplier().multiplySpeed(multiplication);
     }

@@ -12,16 +12,19 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class NewtonianTest {
 
-    private Moveable sut;
+    private NewtonianImpl sut;
+    private MotionApplier motionApplier;
 
     @BeforeEach
     void setup() {
         sut = new NewtonianImpl();
+
+        motionApplier = mock(MotionApplier.class);
+        sut.setMotionApplier(motionApplier);
     }
 
     @Test
@@ -32,10 +35,35 @@ class NewtonianTest {
         var actual = sut.getMotionModifierType();
 
         // Assert
-        Assertions.assertEquals(MotionApplierType.NEWTONIAN, actual);
+        assertEquals(MotionApplierType.NEWTONIAN, actual);
+    }
+
+    @Test
+    void setGravitationalPullDelegatesToMotionApplier() {
+        // Arrange
+
+        // Act
+        sut.setGravitationalPull(true);
+
+        // Assert
+        verify(motionApplier).setGravitationalPull(true);
+    }
+
+    @Test
+    void isGravitationalPullDelegatesToMotionApplier() {
+        // Arrange
+        when(motionApplier.isGravitationalPull()).thenReturn(false);
+
+        // Act
+        var actual = sut.isGravitationalPull();
+
+        // Assert
+        assertFalse(actual);
     }
 
     private class NewtonianImpl implements Newtonian {
+
+        private MotionApplier motionApplier;
 
         @Override
         public void injectMotionApplierFactory(MotionApplierFactory motionApplierFactory) {
@@ -44,7 +72,7 @@ class NewtonianTest {
 
         @Override
         public MotionApplier getMotionApplier() {
-            return null;
+            return motionApplier;
         }
 
         @Override
@@ -85,6 +113,20 @@ class NewtonianTest {
         @Override
         public Optional<? extends Node> getNode() {
             return Optional.empty();
+        }
+
+        @Override
+        public void addToMotion(double speed, double direction) {
+            // Not required here
+        }
+
+        @Override
+        public void addToMotion(double speed, Direction direction) {
+            // Not required here
+        }
+
+        public void setMotionApplier(MotionApplier motionApplier) {
+            this.motionApplier = motionApplier;
         }
     }
 }

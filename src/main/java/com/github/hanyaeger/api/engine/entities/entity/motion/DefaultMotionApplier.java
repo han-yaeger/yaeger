@@ -2,6 +2,7 @@ package com.github.hanyaeger.api.engine.entities.entity.motion;
 
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import javafx.geometry.Point2D;
+import javafx.scene.effect.Light;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +35,21 @@ public class DefaultMotionApplier implements MotionApplier {
     }
 
     @Override
-    public void setMotion(double speed, Direction direction) {
+    public void setMotion(final double speed, final Direction direction) {
         setMotion(speed, direction.getValue());
+    }
+
+
+    // TODO unittest
+    @Override
+    public void addToMotion(final double speed, final Direction direction) {
+        addToMotion(speed, direction.getValue());
+    }
+
+    // TODO unittest
+    @Override
+    public void addToMotion(final double speed, final double direction) {
+        motion = motion.add(createVector(speed, direction));
     }
 
     @Override
@@ -56,7 +70,7 @@ public class DefaultMotionApplier implements MotionApplier {
     }
 
     @Override
-    public void setDirection(Direction direction) {
+    public void setDirection(final Direction direction) {
         setDirection(direction.getValue());
     }
 
@@ -65,13 +79,17 @@ public class DefaultMotionApplier implements MotionApplier {
         if (Double.compare(0, motion.magnitude()) == 0) {
             this.direction = Optional.of(direction);
         } else {
-            final var angleInRadians = Math.toRadians(direction);
-            final var x = Math.sin(angleInRadians);
-            final var y = Math.cos(angleInRadians);
-
-            motion = new Coordinate2D(new Coordinate2D(x, y).multiply(motion.magnitude()));
+            motion = createVector(motion.magnitude(), direction);
             this.direction = Optional.empty();
         }
+    }
+
+    private Coordinate2D createVector(final double speed, final double direction) {
+        final var angleInRadians = Math.toRadians(direction);
+        final var x = Math.sin(angleInRadians);
+        final var y = Math.cos(angleInRadians);
+
+        return new Coordinate2D(new Coordinate2D(x, y).multiply(speed));
     }
 
     @Override
