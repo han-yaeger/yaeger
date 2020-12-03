@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class SpriteAnimationDelegateTest implements ResourceConsumer {
@@ -20,6 +21,7 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
 
     private ImageView imageView;
     private Image image;
+    private SpriteAnimationDelegate sut;
 
     @BeforeEach
     void setup() {
@@ -29,6 +31,9 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
 
         when(imageView.getImage()).thenReturn(image);
         when(image.getWidth()).thenReturn(IMAGE_WIDTH);
+        when(image.getHeight()).thenReturn(IMAGE_HEIGHT);
+
+        sut = new SpriteAnimationDelegate(imageView, FRAMES);
     }
 
     @Test
@@ -36,7 +41,6 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
         // Arrange
 
         // Act
-        var spriteAnimationDelegate = new SpriteAnimationDelegate(imageView, FRAMES);
 
         // Assert
         verify(imageView).setViewport(any(Rectangle2D.class));
@@ -45,27 +49,22 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
     @Test
     void viewPortRectangleIsCalculatedCorrectly() {
         // Arrange
-        when(image.getHeight()).thenReturn(IMAGE_HEIGHT);
-
         var argument = ArgumentCaptor.forClass(Rectangle2D.class);
 
         // Act
-        var spriteAnimationDelegate = new SpriteAnimationDelegate(imageView, FRAMES);
 
         // Assert
         verify(imageView).setViewport(argument.capture());
-        Assertions.assertEquals(IMAGE_HEIGHT, argument.getValue().getHeight(), DELTA);
-        Assertions.assertEquals(IMAGE_WIDTH / FRAMES, argument.getValue().getWidth(), DELTA);
+        assertEquals(IMAGE_HEIGHT, argument.getValue().getHeight(), DELTA);
+        assertEquals(IMAGE_WIDTH / FRAMES, argument.getValue().getWidth(), DELTA);
     }
 
     @Test
-    void nextSetsNextSpriteIndex() {
+    void setSpriteIndexDelegatesToImageView() {
         // Arrange
-        when(image.getHeight()).thenReturn(IMAGE_HEIGHT);
 
         // Act
-        var spriteAnimationDelegate = new SpriteAnimationDelegate(imageView, FRAMES);
-        spriteAnimationDelegate.next();
+        sut.setSpriteIndex(1);
 
         // Assert
         var argument = ArgumentCaptor.forClass(Rectangle2D.class);
@@ -75,19 +74,48 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
         var values = argument.getAllValues();
         var nextRectangle = values.get(1);
 
-        Assertions.assertEquals(IMAGE_WIDTH / FRAMES, nextRectangle.getMinX());
+        assertEquals(IMAGE_WIDTH / FRAMES, nextRectangle.getMinX());
+    }
+
+    @Test
+    void getSpriteIndexReturnsLastSetSpriteIndex() {
+        // Arrange
+        var expected = 2;
+        sut.setSpriteIndex(expected);
+
+        // Act
+        var actual = sut.getSpriteIndex();
+
+        // Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void nextSetsNextSpriteIndex() {
+        // Arrange
+
+        // Act
+        sut.next();
+
+        // Assert
+        var argument = ArgumentCaptor.forClass(Rectangle2D.class);
+
+        verify(imageView, atLeastOnce()).setViewport(argument.capture());
+
+        var values = argument.getAllValues();
+        var nextRectangle = values.get(1);
+
+        assertEquals(IMAGE_WIDTH / FRAMES, nextRectangle.getMinX());
     }
 
     @Test
     void autoCycleNotCalledIfUpdateTimeDoesNotExceedCycleTime() {
         // Arrange
-        when(image.getHeight()).thenReturn(IMAGE_HEIGHT);
 
         // Act
-        var spriteAnimationDelegate = new SpriteAnimationDelegate(imageView, FRAMES);
-        spriteAnimationDelegate.setAutoCycle(10);
-        spriteAnimationDelegate.update(11);
-        spriteAnimationDelegate.update(2002);
+        sut.setAutoCycle(10);
+        sut.update(11);
+        sut.update(2002);
 
         // Assert
         verify(imageView).setViewport(any());
@@ -96,13 +124,11 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
     @Test
     void autoCycleCalledIfUpdateTimeExceedsCycleTimeCorrectly() {
         // Arrange
-        when(image.getHeight()).thenReturn(IMAGE_HEIGHT);
 
         // Act
-        var spriteAnimationDelegate = new SpriteAnimationDelegate(imageView, FRAMES);
-        spriteAnimationDelegate.setAutoCycle(10);
-        spriteAnimationDelegate.update(10000001);
-        spriteAnimationDelegate.update(20000002);
+        sut.setAutoCycle(10);
+        sut.update(10000001);
+        sut.update(20000002);
 
         // Assert
         verify(imageView, atLeast(3)).setViewport(any());

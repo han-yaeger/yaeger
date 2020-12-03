@@ -14,10 +14,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class SpriteEntityTest {
@@ -32,6 +34,7 @@ class SpriteEntityTest {
 
     private SpriteAnimationDelegateFactory spriteAnimationDelegateFactory;
     private ImageViewFactory imageViewFactory;
+    private ImageView imageView;
     private SpriteAnimationDelegate spriteAnimationDelegate;
     private ImageRepository imageRepository;
     private Injector injector;
@@ -48,32 +51,6 @@ class SpriteEntityTest {
     }
 
     @Test
-    void setAnchorLocationSetsAnchorLocationOnNode() {
-        // Arrange
-        var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
-        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        sut.setImageRepository(imageRepository);
-        sut.setImageViewFactory(imageViewFactory);
-
-        var image = mock(Image.class);
-        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
-
-        var imageView = mock(ImageView.class);
-        when(imageViewFactory.create(image)).thenReturn(imageView);
-
-        var expected = new Coordinate2D(1.1, 2.2);
-
-        sut.init(injector);
-
-        // Act
-        sut.setAnchorLocation(expected);
-
-        // Assert
-        verify(imageView).setX(expected.getX());
-        verify(imageView).setY(expected.getY());
-    }
-
-    @Test
     void getNodeReturnsEmptyNodeIfNodeNotSet() {
         // Arrange
         var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
@@ -82,172 +59,194 @@ class SpriteEntityTest {
         var gameNode = sut.getNode();
 
         // Assert
-        Assertions.assertTrue(gameNode.isEmpty());
+        assertTrue(gameNode.isEmpty());
     }
 
     @Test
     void instantiatingASpriteEntityWithOneFrameGivesNoSideEffects() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
 
         // Assert
-        Assertions.assertNotNull(sut);
+        assertNotNull(sut);
     }
 
     @Test
     void instantiatingASpriteEntityWithTwoFrameGivesNoSideEffects() {
-        // Setup
+        // Arrange
 
-        // Test
+        // Act
         var sut = new SpriteEntityWithTwoFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 2);
 
         // Assert
-        Assertions.assertNotNull(sut);
+        assertNotNull(sut);
     }
 
-    @Test
-    void callingInitAfterInstantiatingWithSingleFrameImageWiresDelegates() {
-        // Setup
-        var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
-        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        sut.setImageRepository(imageRepository);
-        sut.setImageViewFactory(imageViewFactory);
+    @Nested
+    class OneFrameSprite {
+        private SpriteEntityWithDefaultFramesImpl sut;
 
-        var image = mock(Image.class);
-        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
 
-        var imageView = mock(ImageView.class);
-        when(imageViewFactory.create(image)).thenReturn(imageView);
+        @BeforeEach
+        void setup() {
+            sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
 
-        // Test
-        sut.init(injector);
+            sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+            sut.setImageRepository(imageRepository);
+            sut.setImageViewFactory(imageViewFactory);
 
-        // Assert
-        verifyNoMoreInteractions(spriteAnimationDelegateFactory);
+            var image = mock(Image.class);
+            when(imageRepository.get(anyString(), anyDouble(), anyDouble(), anyBoolean())).thenReturn(image);
+            imageView = mock(ImageView.class);
+            when(imageViewFactory.create(image)).thenReturn(imageView);
+        }
+
+        @Test
+        void callingInitAfterInstantiatingWithSingleFrameImageWiresDelegates() {
+            // Arrange
+
+            // Act
+            sut.init(injector);
+
+            // Assert
+            verifyNoMoreInteractions(spriteAnimationDelegateFactory);
+        }
+
+        @Test
+        void setAnchorLocationSetsAnchorLocationOnNode() {
+            // Arrange
+            var expected = new Coordinate2D(1.1, 2.2);
+            sut.init(injector);
+
+            // Act
+            sut.setAnchorLocation(expected);
+
+            // Assert
+            verify(imageView).setX(expected.getX());
+            verify(imageView).setY(expected.getY());
+        }
+
+        @Test
+        void setPreserveAspectRatioDelegatesToTheImageRepository() {
+            // Arrange
+
+            // Act
+            sut.setPreserveAspectRatio(false);
+            sut.init(injector);
+
+            // Assert
+            verify(imageRepository).get(DEFAULT_RESOURCE, WIDTH, HEIGHT, false);
+        }
+
+        @Test
+        void removingAnEntitySetsImageViewCorrectly() {
+            // Arrange
+            sut.init(injector);
+
+            // Act
+            sut.remove();
+
+            // Assert
+            verify(imageView).setImage(null);
+            verify(imageView).setVisible(false);
+            verify(imageView).fireEvent(any(RemoveEntityEvent.class));
+        }
     }
 
-    @Test
-    void callingInitAfterInstantiatingWithDoubleFrameImageWiresDelegates() {
-        // Setup
-        var spriteEntity = new SpriteEntityWithTwoFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 2);
-        spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        spriteEntity.setImageRepository(imageRepository);
-        spriteEntity.setImageViewFactory(imageViewFactory);
+    @Nested
+    class TwoFramesSprite {
 
-        var image = mock(Image.class);
-        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * 2, HEIGHT, true)).thenReturn(image);
+        private static final int FRAMES = 2;
+        private SpriteEntityWithTwoFramesImpl sut;
 
-        var imageView = mock(ImageView.class);
-        when(imageViewFactory.create(image)).thenReturn(imageView);
+        @BeforeEach
+        void setup() {
+            sut = new SpriteEntityWithTwoFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, FRAMES);
 
-        // Test
-        spriteEntity.init(injector);
+            var image = mock(Image.class);
+            when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * FRAMES, HEIGHT, true)).thenReturn(image);
+            imageView = mock(ImageView.class);
+            when(imageViewFactory.create(image)).thenReturn(imageView);
+            when(spriteAnimationDelegateFactory.create(imageView, FRAMES)).thenReturn(spriteAnimationDelegate);
 
-        // Assert
-        verify(spriteAnimationDelegateFactory).create(imageView, 2);
-    }
+            sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+            sut.setImageRepository(imageRepository);
+            sut.setImageViewFactory(imageViewFactory);
+        }
 
-    @Test
-    void removingAnEntitySetsImageViewCorrectly() {
-        // Setup
-        var spriteEntity = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
-        spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        spriteEntity.setImageRepository(imageRepository);
-        spriteEntity.setImageViewFactory(imageViewFactory);
+        @Test
+        void callingInitAfterInstantiatingWithDoubleFrameImageWiresDelegates() {
+            // Arrange
 
-        var image = mock(Image.class);
-        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
+            // Act
+            sut.init(injector);
 
-        var imageView = mock(ImageView.class);
-        when(imageViewFactory.create(image)).thenReturn(imageView);
-        spriteEntity.init(injector);
+            // Assert
+            verify(spriteAnimationDelegateFactory).create(imageView, 2);
+        }
 
-        // Test
-        spriteEntity.remove();
+        @Test
+        void setFrameIndexBeforeInitCalledBufferesIndexAndDelegatesToSpriteAnimationDelegateAtInit() {
+            // Arrange
 
-        // Assert
-        verify(imageView).setImage(null);
-        verify(imageView).setVisible(false);
-        verify(imageView).fireEvent(any(RemoveEntityEvent.class));
-    }
+            // Act
+            sut.setCurrentFrameIndex(FRAMES);
+            sut.init(injector);
 
-    @Test
-    void setPreserveAspectRatioDelegatesToTheImageRepository() {
-        // Setup
-        var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
-        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        sut.setImageRepository(imageRepository);
-        sut.setImageViewFactory(imageViewFactory);
-
-        var image = mock(Image.class);
-        when(imageRepository.get(anyString(), anyDouble(), anyDouble(), anyBoolean())).thenReturn(image);
-
-        var imageView = mock(ImageView.class);
-        when(imageViewFactory.create(image)).thenReturn(imageView);
-
-        // Test
-        sut.setPreserveAspectRatio(false);
-        sut.init(injector);
-
-        // Assert
-        verify(imageRepository).get(DEFAULT_RESOURCE, WIDTH, HEIGHT, false);
-    }
-
-    @Test
-    void setFrameIndexBeforeInitCalledBufferesIndexAndDelegatesToSpriteAnimationDelegateAtInit() {
-        // Setup
-        var spriteEntity = new SpriteEntityWithTwoFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 2);
-        spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        spriteEntity.setImageRepository(imageRepository);
-        spriteEntity.setImageViewFactory(imageViewFactory);
-
-        var frames = 2;
-        var image = mock(Image.class);
-        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * frames, HEIGHT, true)).thenReturn(image);
-
-        var imageView = mock(ImageView.class);
-        when(imageViewFactory.create(image)).thenReturn(imageView);
+            // Assert
+            verify(spriteAnimationDelegate).setSpriteIndex(FRAMES);
+        }
 
 
-        var spriteAnimationDelegate = mock(SpriteAnimationDelegate.class);
-        when(spriteAnimationDelegateFactory.create(imageView, 2)).thenReturn(spriteAnimationDelegate);
+        @Test
+        void setFrameIndexDelegatesToSpriteAnimationDelegate() {
+            // Arrange
+            sut.init(injector);
 
-        // Test
-        spriteEntity.setCurrentFrameIndex(frames);
-        spriteEntity.init(injector);
+            // Act
+            sut.setCurrentFrameIndex(FRAMES);
 
-        // Assert
-        verify(spriteAnimationDelegate).setSpriteIndex(frames);
-    }
+            // Assert
+            verify(spriteAnimationDelegate).setSpriteIndex(FRAMES);
+        }
 
-    @Test
-    void setFrameIndexDelegatesToSpriteAnimationDelegate() {
-        // Setup
-        var spriteEntity = new SpriteEntityWithTwoFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 2);
-        spriteEntity.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
-        spriteEntity.setImageRepository(imageRepository);
-        spriteEntity.setImageViewFactory(imageViewFactory);
+        @Test
+        void getCurrentFrameIndexDelegatesToSpriteAnimationDelegate() {
+            // Arrange
+            sut.init(injector);
+            sut.setCurrentFrameIndex(FRAMES);
 
-        var frames = 2;
-        var image = mock(Image.class);
-        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * frames, HEIGHT, true)).thenReturn(image);
+            // Act
+            var currentFrameIndex = sut.getCurrentFrameIndex();
 
-        var imageView = mock(ImageView.class);
-        when(imageViewFactory.create(image)).thenReturn(imageView);
+            // Assert
+            verify(spriteAnimationDelegate).getSpriteIndex();
+        }
 
+        @Test
+        void getCurrentFrameIndexBeforeInitCalledReturns0IfNoFrameIndexSet() {
+            // Arrange
 
-        var spriteAnimationDelegate = mock(SpriteAnimationDelegate.class);
-        when(spriteAnimationDelegateFactory.create(imageView, 2)).thenReturn(spriteAnimationDelegate);
+            // Act
+            var currentFrameIndex = sut.getCurrentFrameIndex();
 
-        spriteEntity.init(injector);
+            // Assert
+            assertEquals(0, currentFrameIndex);
+        }
 
-        // Test
-        spriteEntity.setCurrentFrameIndex(frames);
+        @Test
+        void getCurrentFrameIndexBeforeInitCalledReturnsSetFrameIndex() {
+            // Arrange
+            sut.setCurrentFrameIndex(FRAMES);
 
-        // Assert
-        verify(spriteAnimationDelegate).setSpriteIndex(frames);
+            // Act
+            var currentFrameIndex = sut.getCurrentFrameIndex();
+
+            // Assert
+            assertEquals(FRAMES, currentFrameIndex);
+        }
     }
 
     private class SpriteEntityWithDefaultFramesImpl extends SpriteEntity {

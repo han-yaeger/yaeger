@@ -45,6 +45,15 @@ public class SpriteAnimationDelegate implements Updatable {
         currentIndex = index;
     }
 
+    /**
+     * Return the current index of the sprite.
+     *
+     * @return the index of the sprite as an {@code int}
+     */
+    public int getSpriteIndex() {
+        return currentIndex;
+    }
+
     @Override
     public void update(final long timestamp) {
         if (autoCycleInterval == 0) {

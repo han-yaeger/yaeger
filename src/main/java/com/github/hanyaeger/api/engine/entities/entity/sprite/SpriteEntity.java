@@ -85,6 +85,21 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     }
 
     /**
+     * Return the current index of the sprite.
+     *
+     * @return the index of the sprite as an {@code int}
+     */
+    public int getCurrentFrameIndex() {
+        if (spriteAnimationDelegate.isPresent()) {
+            return spriteAnimationDelegate.get().getSpriteIndex();
+        } else if (spriteIndex.isPresent()) {
+            return spriteIndex.get();
+        } else {
+            return 0;
+        }
+    }
+
+    /**
      * Preserve the aspect ration of the width and height of this {@link SpriteEntity}.
      *
      * @param preserveAspectRatio {@code true} if the ratio should be preserved, {@code false} otherwise
