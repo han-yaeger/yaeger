@@ -11,14 +11,14 @@ class EntityMotionInitBufferTest {
     public static final int SPEED = 4;
     public static final int DIRECTION = 37;
     private EntityMotionInitBuffer sut;
-    private DefaultMotionApplier motionApplier;
+    private MotionApplier motionApplier;
     private Injector injector;
 
     @BeforeEach
     void setup() {
         sut = new EntityMotionInitBuffer();
         injector = mock(Injector.class);
-        motionApplier = mock(DefaultMotionApplier.class);
+        motionApplier = mock(MotionApplier.class);
         sut.setMotionApplier(motionApplier);
     }
 

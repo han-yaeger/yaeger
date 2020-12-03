@@ -4,9 +4,7 @@ import com.github.hanyaeger.api.engine.Timer;
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
-import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
 import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
-import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 import com.google.inject.Injector;
 import javafx.scene.Node;
 import org.junit.jupiter.api.Assertions;
@@ -177,8 +175,8 @@ class CollisionDelegateTest {
         }
 
         @Override
-        public void injectMotionApplierFactory(MotionApplierFactory motionApplierFactory) {
-            // Not required here.
+        public void setMotionApplier(final MotionApplier motionApplier) {
+            // Not required here
         }
 
         @Override

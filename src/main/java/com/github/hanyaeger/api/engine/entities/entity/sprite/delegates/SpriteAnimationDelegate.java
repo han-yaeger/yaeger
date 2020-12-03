@@ -50,7 +50,7 @@ public class SpriteAnimationDelegate implements Updatable {
      *
      * @return the index of the sprite as an {@code int}
      */
-    public int getSpriteIndex() {
+    public int getFrameIndex() {
         return currentIndex;
     }
 

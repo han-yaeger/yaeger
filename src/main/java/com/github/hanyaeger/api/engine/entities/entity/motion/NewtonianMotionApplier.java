@@ -4,9 +4,9 @@ package com.github.hanyaeger.api.engine.entities.entity.motion;
  * A {@link NewtonianMotionApplier} is an implementation of {@link MotionApplier} that does not abide
  * the laws of Physics and only provides basis behaviour regarding speed and direction.
  */
-public class NewtonianMotionApplier extends DefaultMotionApplier {
+public class NewtonianMotionApplier extends MotionApplier {
 
-    public static final double DEFAULT_GRAVITATIONAL_CONSTANT = 0.1d;
+    public static final double DEFAULT_GRAVITATIONAL_CONSTANT = 0.2d;
     public static final double DEFAULT_GRAVITATIONAL_DIRECTION = Direction.DOWN.getValue();
 
     private double gravityConstant = DEFAULT_GRAVITATIONAL_CONSTANT;

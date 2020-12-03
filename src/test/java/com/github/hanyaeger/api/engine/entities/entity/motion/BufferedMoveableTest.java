@@ -2,7 +2,6 @@ package com.github.hanyaeger.api.engine.entities.entity.motion;
 
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
-import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 import javafx.scene.Node;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,17 +17,13 @@ class BufferedMoveableTest {
     public static final Direction DIRECTION_ENUM = Direction.DOWN;
     private BufferedMoveableImpl sut;
     private EntityMotionInitBuffer buffer;
-    private MotionApplierFactory motionApplierFactory;
     private MotionApplier motionApplier;
 
     @BeforeEach
     void setup() {
         sut = new BufferedMoveableImpl();
-        motionApplierFactory = mock(MotionApplierFactory.class);
-        motionApplier = mock(DefaultMotionApplier.class);
+        motionApplier = mock(MotionApplier.class);
         buffer = mock(EntityMotionInitBuffer.class);
-
-        when(motionApplierFactory.create(any(MotionApplierType.class))).thenReturn(motionApplier);
 
         sut.setBuffer(Optional.of(buffer));
     }
@@ -70,7 +65,7 @@ class BufferedMoveableTest {
     void ifMotionApplierIsSetMotionApplierIsUsedForSpeed() {
         // Arrange
         sut.setBuffer(Optional.empty());
-        sut.injectMotionApplierFactory(motionApplierFactory);
+        sut.setMotionApplier(motionApplier);
 
         // Act
         sut.setSpeed(SPEED);
@@ -83,7 +78,7 @@ class BufferedMoveableTest {
     void ifMotionApplierIsSetMotionApplierIsUsedForDirection() {
         // Arrange
         sut.setBuffer(Optional.empty());
-        sut.injectMotionApplierFactory(motionApplierFactory);
+        sut.setMotionApplier(motionApplier);
 
         // Act
         sut.setDirection(DIRECTION);
@@ -96,7 +91,7 @@ class BufferedMoveableTest {
     void ifMotionApplierIsSetMotionApplierIsUsedForDirectionEnum() {
         // Arrange
         sut.setBuffer(Optional.empty());
-        sut.injectMotionApplierFactory(motionApplierFactory);
+        sut.setMotionApplier(motionApplier);
 
         // Act
         sut.setDirection(DIRECTION_ENUM);
@@ -109,7 +104,7 @@ class BufferedMoveableTest {
     void ifMotionApplierIsSetMotionApplierIsUsedForMotion() {
         // Arrange
         sut.setBuffer(Optional.empty());
-        sut.injectMotionApplierFactory(motionApplierFactory);
+        sut.setMotionApplier(motionApplier);
 
         // Act
         sut.setMotion(SPEED, DIRECTION);
@@ -122,7 +117,7 @@ class BufferedMoveableTest {
     void ifMotionApplierIsSetMotionApplierIsUsedForMotionWithDirectionEnum() {
         // Arrange
         sut.setBuffer(Optional.empty());
-        sut.injectMotionApplierFactory(motionApplierFactory);
+        sut.setMotionApplier(motionApplier);
 
         // Act
         sut.setMotion(SPEED, DIRECTION_ENUM);
@@ -142,8 +137,8 @@ class BufferedMoveableTest {
         }
 
         @Override
-        public void injectMotionApplierFactory(MotionApplierFactory motionApplierFactory) {
-            this.motionApplier = motionApplierFactory.create(MotionApplierType.DEFAULT);
+        public void setMotionApplier(MotionApplier motionApplier) {
+            this.motionApplier = motionApplier;
         }
 
         @Override

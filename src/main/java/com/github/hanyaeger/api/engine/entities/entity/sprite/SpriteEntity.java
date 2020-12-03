@@ -91,7 +91,7 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      */
     public int getCurrentFrameIndex() {
         if (spriteAnimationDelegate.isPresent()) {
-            return spriteAnimationDelegate.get().getSpriteIndex();
+            return spriteAnimationDelegate.get().getFrameIndex();
         } else if (spriteIndex.isPresent()) {
             return spriteIndex.get();
         } else {

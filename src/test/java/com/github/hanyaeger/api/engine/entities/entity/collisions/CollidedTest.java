@@ -2,11 +2,7 @@ package com.github.hanyaeger.api.engine.entities.entity.collisions;
 
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
-import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
-import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBuffer;
 import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
-import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplierType;
-import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
@@ -25,19 +21,14 @@ public class CollidedTest {
     private static final Bounds TEST_NOT_COLLIDING_BOUNDINGBOX = new BoundingBox(0, 0, 0, 1, 1, 0);
 
     private TestCollided sut;
-
-    private MotionApplierFactory motionApplierFactory;
     private MotionApplier motionApplier;
 
     @BeforeEach
     void setup() {
         sut = new TestCollided();
-        motionApplierFactory = mock(MotionApplierFactory.class);
-        motionApplier = mock(DefaultMotionApplier.class);
 
-        when(motionApplierFactory.create(any(MotionApplierType.class))).thenReturn(motionApplier);
-
-        sut.injectMotionApplierFactory(motionApplierFactory);
+        motionApplier = mock(MotionApplier.class);
+        sut.setMotionApplier(motionApplier);
     }
 
     @Test
@@ -165,8 +156,8 @@ public class CollidedTest {
         }
 
         @Override
-        public void injectMotionApplierFactory(MotionApplierFactory motionApplierFactory) {
-            this.motionApplier = motionApplierFactory.create(MotionApplierType.DEFAULT);
+        public void setMotionApplier(final MotionApplier motionApplierFactory) {
+            this.motionApplier = motionApplierFactory;
         }
 
         @Override
@@ -227,7 +218,7 @@ public class CollidedTest {
         }
 
         @Override
-        public void injectMotionApplierFactory(MotionApplierFactory motionApplierFactory) {
+        public void setMotionApplier(final MotionApplier motionApplier) {
             // Not required here
         }
 

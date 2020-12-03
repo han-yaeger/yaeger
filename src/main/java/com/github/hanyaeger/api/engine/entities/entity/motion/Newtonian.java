@@ -10,17 +10,6 @@ import com.github.hanyaeger.api.engine.annotations.UpdatableProvider;
  */
 public interface Newtonian extends Moveable {
 
-    /**
-     * Return the {@link MotionApplierType} to be used by this {@link Moveable}. In case of a
-     * {@link Newtonian} {@link Moveable}, the {@link MotionApplier} to used is of type
-     * {@link MotionApplierType#NEWTONIAN}.
-     *
-     * @return an instance of {@link MotionApplierType}
-     */
-    default MotionApplierType getMotionModifierType() {
-        return MotionApplierType.NEWTONIAN;
-    }
-
     default void setGravitationalPull(final boolean pull) {
         getMotionApplier().setGravitationalPull(pull);
     }

@@ -4,7 +4,6 @@ import com.github.hanyaeger.api.engine.media.ResourceConsumer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -84,7 +83,7 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
         sut.setSpriteIndex(expected);
 
         // Act
-        var actual = sut.getSpriteIndex();
+        var actual = sut.getFrameIndex();
 
         // Assert
         assertEquals(expected, actual);

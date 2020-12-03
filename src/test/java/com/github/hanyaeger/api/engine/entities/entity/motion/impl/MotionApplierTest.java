@@ -1,6 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.motion.impl;
 
-import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
+import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
 import com.github.hanyaeger.api.engine.entities.entity.motion.Direction;
 import javafx.geometry.Point2D;
 import org.junit.jupiter.api.Assertions;
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DefaultMotionApplierTest {
+class MotionApplierTest {
 
     private static final double DELTA = 0.00001d;
     private static final Point2D DEFAULT_START_LOCATION = new Point2D(0, 0);
@@ -23,11 +23,11 @@ class DefaultMotionApplierTest {
     private static final double FULL_ROTATION = 360;
     private static final double HALF_ROTATION = 180;
 
-    private DefaultMotionApplier sut;
+    private MotionApplier sut;
 
     @BeforeEach
     void setup() {
-        sut = new DefaultMotionApplier();
+        sut = new MotionApplier();
     }
 
     @Test

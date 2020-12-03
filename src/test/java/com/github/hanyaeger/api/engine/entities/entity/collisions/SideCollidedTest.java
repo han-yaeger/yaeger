@@ -2,9 +2,7 @@ package com.github.hanyaeger.api.engine.entities.entity.collisions;
 
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
-import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
 import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
-import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
@@ -199,7 +197,7 @@ class SideCollidedTest {
         }
 
         @Override
-        public void injectMotionApplierFactory(MotionApplierFactory motionApplierFactory) {
+        public void setMotionApplier(final MotionApplier motionApplier) {
             // Not required here
         }
 

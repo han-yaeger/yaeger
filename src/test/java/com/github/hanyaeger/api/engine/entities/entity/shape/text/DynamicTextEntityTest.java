@@ -3,11 +3,8 @@ package com.github.hanyaeger.api.engine.entities.entity.shape.text;
 import com.github.hanyaeger.api.engine.Updater;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
-import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
 import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBuffer;
 import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
-import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplierType;
-import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 import com.google.inject.Injector;
 import javafx.scene.text.Text;
 import org.junit.jupiter.api.Assertions;
@@ -58,20 +55,17 @@ class DynamicTextEntityTest {
     @Nested
     class WithMotionApplierSet {
 
-        private MotionApplierFactory motionApplierFactory;
         private MotionApplier motionApplier;
 
         @BeforeEach
         void setup() {
-            motionApplierFactory = mock(MotionApplierFactory.class);
             motionApplier = mock(MotionApplier.class);
-            when(motionApplierFactory.create(MotionApplierType.DEFAULT)).thenReturn(motionApplier);
         }
 
         @Test
         void bufferIsEmptiedAfterInitIsCalled() {
             // Arrange
-            sut.injectMotionApplierFactory(motionApplierFactory);
+            sut.setMotionApplier(motionApplier);
 
             // Act
             sut.init(injector);
@@ -84,7 +78,7 @@ class DynamicTextEntityTest {
         void bufferTransfersMotionOnInit() {
             // Arrange
             sut.setMotion(SPEED, DIRECTION);
-            sut.injectMotionApplierFactory(motionApplierFactory);
+            sut.setMotionApplier(motionApplier);
 
             // Act
             sut.init(injector);
@@ -97,7 +91,7 @@ class DynamicTextEntityTest {
         void initSetsMotionToDesiredSpeed() {
             // Arrange
             sut.setSpeed(SPEED);
-            sut.injectMotionApplierFactory(motionApplierFactory);
+            sut.setMotionApplier(motionApplier);
 
             // Act
             sut.init(injector);
@@ -109,7 +103,7 @@ class DynamicTextEntityTest {
         @Test
         void setMotionApplierIsUsed() {
             // Arrange
-            sut.injectMotionApplierFactory(motionApplierFactory);
+            sut.setMotionApplier(motionApplier);
 
             // Act
             var mA = sut.getMotionApplier();

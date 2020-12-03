@@ -2,11 +2,8 @@ package com.github.hanyaeger.api.engine.entities.entity;
 
 import com.github.hanyaeger.api.engine.Updater;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
-import com.github.hanyaeger.api.engine.entities.entity.motion.DefaultMotionApplier;
 import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBuffer;
 import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
-import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplierType;
-import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 import com.google.inject.Injector;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
@@ -35,7 +32,6 @@ class DynamicCompositeEntityTest {
     private Injector injector;
     private Updater updater;
     private Group group;
-    private MotionApplierFactory motionApplierFactory;
     private MotionApplier motionApplier;
 
     @BeforeEach
@@ -43,10 +39,7 @@ class DynamicCompositeEntityTest {
         updater = mock(Updater.class);
         injector = mock(Injector.class);
         group = mock(Group.class);
-        motionApplierFactory = mock(MotionApplierFactory.class);
         motionApplier = mock(MotionApplier.class);
-
-        when(motionApplierFactory.create(any(MotionApplierType.class))).thenReturn(motionApplier);
 
         sut = new DynamicCompositeEntityImpl(DEFAULT_LOCATION);
         sut.setUpdater(updater);
@@ -67,20 +60,17 @@ class DynamicCompositeEntityTest {
     @Nested
     class WithMotionApplierSet {
 
-        private MotionApplierFactory motionApplierFactory;
         private MotionApplier motionApplier;
 
         @BeforeEach
         void setup() {
-            motionApplierFactory = mock(MotionApplierFactory.class);
             motionApplier = mock(MotionApplier.class);
-            when(motionApplierFactory.create(MotionApplierType.DEFAULT)).thenReturn(motionApplier);
         }
 
         @Test
         void bufferIsEmptiedAfterInitIsCalled() {
             // Arrange
-            sut.injectMotionApplierFactory(motionApplierFactory);
+            sut.setMotionApplier(motionApplier);
 
             // Act
             sut.init(injector);
@@ -93,7 +83,7 @@ class DynamicCompositeEntityTest {
         void bufferTransfersMotionOnInit() {
             // Arrange
             sut.setMotion(SPEED, DIRECTION);
-            sut.injectMotionApplierFactory(motionApplierFactory);
+            sut.setMotionApplier(motionApplier);
 
             // Act
             sut.init(injector);
@@ -106,7 +96,7 @@ class DynamicCompositeEntityTest {
         void initSetsMotionToDesiredSpeed() {
             // Arrange
             sut.setSpeed(SPEED);
-            sut.injectMotionApplierFactory(motionApplierFactory);
+            sut.setMotionApplier(motionApplier);
 
             // Act
             sut.init(injector);
@@ -118,7 +108,7 @@ class DynamicCompositeEntityTest {
         @Test
         void setMotionApplierIsUsed() {
             // Arrange
-            sut.injectMotionApplierFactory(motionApplierFactory);
+            sut.setMotionApplier(motionApplier);
 
             // Act
             var mA = sut.getMotionApplier();
@@ -130,7 +120,7 @@ class DynamicCompositeEntityTest {
         @Test
         void clearsGarbageOnUpdate() {
             // Arrange
-            sut.injectMotionApplierFactory(motionApplierFactory);
+            sut.setMotionApplier(motionApplier);
 
             var updater = mock(Updater.class);
             sut.setUpdater(updater);
@@ -155,7 +145,7 @@ class DynamicCompositeEntityTest {
     @Test
     void bufferIsEmptiedAfterInitIsCalled() {
         // Arrange
-        sut.injectMotionApplierFactory(motionApplierFactory);
+        sut.setMotionApplier(motionApplier);
 
         // Act
         sut.init(injector);
@@ -167,7 +157,7 @@ class DynamicCompositeEntityTest {
     @Test
     void bufferTransfersMotionOnInit() {
         // Arrange
-        sut.injectMotionApplierFactory(motionApplierFactory);
+        sut.setMotionApplier(motionApplier);
         sut.setMotion(SPEED, DIRECTION);
 
         // Act
@@ -181,7 +171,7 @@ class DynamicCompositeEntityTest {
     void initSetsMotionToDesiredSpeed() {
         // Arrange
         sut.setSpeed(SPEED);
-        sut.injectMotionApplierFactory(motionApplierFactory);
+        sut.setMotionApplier(motionApplier);
 
         // Act
         sut.init(injector);
@@ -193,7 +183,7 @@ class DynamicCompositeEntityTest {
     @Test
     void setMotionApplierIsUsed() {
         // Arrange
-        sut.injectMotionApplierFactory(motionApplierFactory);
+        sut.setMotionApplier(motionApplier);
 
         // Act
         var mA = sut.getMotionApplier();

@@ -7,7 +7,6 @@ import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.entity.ContinuousRotatable;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.motion.*;
-import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
@@ -34,7 +33,6 @@ public abstract class DynamicRectangleEntity extends RectangleEntity implements 
 
         buffer = Optional.of(new EntityMotionInitBuffer());
     }
-
 
     @Override
     public MotionApplier getMotionApplier() {
@@ -84,8 +82,8 @@ public abstract class DynamicRectangleEntity extends RectangleEntity implements 
 
     @Inject
     @Override
-    public void injectMotionApplierFactory(final MotionApplierFactory motionApplierFactory) {
-        this.motionApplier = motionApplierFactory.create(getMotionModifierType());
+    public void setMotionApplier(final MotionApplier motionApplier) {
+        this.motionApplier = motionApplier;
     }
 
     @Inject

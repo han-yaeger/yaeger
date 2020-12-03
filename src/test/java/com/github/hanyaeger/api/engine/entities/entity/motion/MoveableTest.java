@@ -3,7 +3,6 @@ package com.github.hanyaeger.api.engine.entities.entity.motion;
 import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
-import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -11,7 +10,6 @@ import javafx.scene.Node;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.Optional;
 
@@ -21,8 +19,7 @@ import static org.mockito.Mockito.*;
 
 class MoveableTest {
 
-    private MotionApplierFactory motionApplierFactory;
-    private DefaultMotionApplier motionApplier;
+    private MotionApplier motionApplier;
     private Moveable sut;
 
     private static final double DELTA = 0.00001d;
@@ -33,24 +30,10 @@ class MoveableTest {
 
     @BeforeEach
     void setup() {
-        motionApplierFactory = mock(MotionApplierFactory.class);
-        motionApplier = mock(DefaultMotionApplier.class);
-
-        when(motionApplierFactory.create(any(MotionApplierType.class))).thenReturn(motionApplier);
+        motionApplier = mock(MotionApplier.class);
 
         sut = new MoveableImpl();
-        sut.injectMotionApplierFactory(motionApplierFactory);
-    }
-
-    @Test
-    void getMotionModifierTypeReturnsDefault(){
-        // Arrange
-
-        // Act
-        var actual = sut.getMotionModifierType();
-
-        // Assert
-        Assertions.assertEquals(MotionApplierType.DEFAULT, actual);
+        sut.setMotionApplier(motionApplier);
     }
 
     @Test
@@ -289,8 +272,8 @@ class MoveableTest {
         Node node;
 
         @Override
-        public void injectMotionApplierFactory(MotionApplierFactory motionApplierFactory) {
-            this.motionApplier = motionApplierFactory.create(MotionApplierType.DEFAULT);
+        public void setMotionApplier(final MotionApplier motionApplier) {
+            this.motionApplier = motionApplier;
         }
 
         @Override

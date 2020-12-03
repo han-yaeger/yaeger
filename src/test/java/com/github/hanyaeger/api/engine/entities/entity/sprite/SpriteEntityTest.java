@@ -8,16 +8,11 @@ import com.github.hanyaeger.api.engine.media.repositories.ImageRepository;
 import com.github.hanyaeger.api.guice.factories.SpriteAnimationDelegateFactory;
 import com.github.hanyaeger.api.javafx.image.ImageViewFactory;
 import com.google.inject.Injector;
-import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -53,7 +48,7 @@ class SpriteEntityTest {
     @Test
     void getNodeReturnsEmptyNodeIfNodeNotSet() {
         // Arrange
-        var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        var sut = new SpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
 
         // Act
         var gameNode = sut.getNode();
@@ -67,7 +62,7 @@ class SpriteEntityTest {
         // Arrange
 
         // Act
-        var sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        var sut = new SpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
 
         // Assert
         assertNotNull(sut);
@@ -78,7 +73,7 @@ class SpriteEntityTest {
         // Arrange
 
         // Act
-        var sut = new SpriteEntityWithTwoFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 2);
+        var sut = new SpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 2);
 
         // Assert
         assertNotNull(sut);
@@ -86,12 +81,12 @@ class SpriteEntityTest {
 
     @Nested
     class OneFrameSprite {
-        private SpriteEntityWithDefaultFramesImpl sut;
+        private SpriteEntityImpl sut;
 
 
         @BeforeEach
         void setup() {
-            sut = new SpriteEntityWithDefaultFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+            sut = new SpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
 
             sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
             sut.setImageRepository(imageRepository);
@@ -159,11 +154,11 @@ class SpriteEntityTest {
     class TwoFramesSprite {
 
         private static final int FRAMES = 2;
-        private SpriteEntityWithTwoFramesImpl sut;
+        private SpriteEntityImpl sut;
 
         @BeforeEach
         void setup() {
-            sut = new SpriteEntityWithTwoFramesImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, FRAMES);
+            sut = new SpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, FRAMES);
 
             var image = mock(Image.class);
             when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * FRAMES, HEIGHT, true)).thenReturn(image);
@@ -222,7 +217,7 @@ class SpriteEntityTest {
             var currentFrameIndex = sut.getCurrentFrameIndex();
 
             // Assert
-            verify(spriteAnimationDelegate).getSpriteIndex();
+            verify(spriteAnimationDelegate).getFrameIndex();
         }
 
         @Test
@@ -249,16 +244,13 @@ class SpriteEntityTest {
         }
     }
 
-    private class SpriteEntityWithDefaultFramesImpl extends SpriteEntity {
+    private class SpriteEntityImpl extends SpriteEntity {
 
-        SpriteEntityWithDefaultFramesImpl(String resource, Coordinate2D location, Size size) {
+        SpriteEntityImpl(String resource, Coordinate2D location, Size size) {
             super(resource, location, size);
         }
-    }
 
-    private class SpriteEntityWithTwoFramesImpl extends SpriteEntity {
-
-        SpriteEntityWithTwoFramesImpl(String resource, Coordinate2D location, Size size, int frames) {
+        SpriteEntityImpl(String resource, Coordinate2D location, Size size, int frames) {
             super(resource, location, size, frames);
         }
     }

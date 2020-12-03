@@ -4,7 +4,6 @@ import com.github.hanyaeger.api.engine.UpdateDelegator;
 import com.github.hanyaeger.api.engine.Updater;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.entity.motion.*;
-import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
@@ -100,8 +99,8 @@ public abstract class DynamicCompositeEntity extends CompositeEntity implements 
 
     @Inject
     @Override
-    public void injectMotionApplierFactory(final MotionApplierFactory motionApplierFactory) {
-        this.motionApplier = motionApplierFactory.create(MotionApplierType.DEFAULT);
+    public void setMotionApplier(final MotionApplier motionApplier) {
+        this.motionApplier = motionApplier;
     }
 
     @Inject

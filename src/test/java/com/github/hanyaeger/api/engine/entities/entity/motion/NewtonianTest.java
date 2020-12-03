@@ -2,9 +2,7 @@ package com.github.hanyaeger.api.engine.entities.entity.motion;
 
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
-import com.github.hanyaeger.api.guice.factories.MotionApplierFactory;
 import javafx.scene.Node;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,17 +23,6 @@ class NewtonianTest {
 
         motionApplier = mock(MotionApplier.class);
         sut.setMotionApplier(motionApplier);
-    }
-
-    @Test
-    void getMotionModifierTypeReturnsNewtonian() {
-        // Arrange
-
-        // Act
-        var actual = sut.getMotionModifierType();
-
-        // Assert
-        assertEquals(MotionApplierType.NEWTONIAN, actual);
     }
 
     @Test
@@ -66,8 +53,8 @@ class NewtonianTest {
         private MotionApplier motionApplier;
 
         @Override
-        public void injectMotionApplierFactory(MotionApplierFactory motionApplierFactory) {
-            // Not required here
+        public void setMotionApplier(final MotionApplier motionApplier) {
+            this.motionApplier = motionApplier;
         }
 
         @Override
@@ -123,10 +110,6 @@ class NewtonianTest {
         @Override
         public void addToMotion(double speed, Direction direction) {
             // Not required here
-        }
-
-        public void setMotionApplier(MotionApplier motionApplier) {
-            this.motionApplier = motionApplier;
         }
     }
 }
