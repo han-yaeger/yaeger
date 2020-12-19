@@ -9,7 +9,7 @@ import java.util.Optional;
  * A {@link MotionApplier} is an implementation of {@link MotionApplier} that does not abide
  * the laws of Physics and only provides basis behaviour regarding speed and direction.
  */
-public class MotionApplier implements MotionModifier, LocationUpdater {
+public class MotionApplier implements MotionModifier, NewtonianModifier, LocationUpdater {
 
     private static final Point2D ZERO_ANGLE_IDENTITY_MOTION = new Point2D(0, 1);
     private Optional<Double> direction = Optional.empty();
@@ -18,11 +18,14 @@ public class MotionApplier implements MotionModifier, LocationUpdater {
     private boolean halted = false;
 
     public static final double DEFAULT_GRAVITATIONAL_CONSTANT = 0.2d;
+    public static final double DEFAULT_FRICTION_CONSTANT = 0.01d;
     public static final double DEFAULT_GRAVITATIONAL_DIRECTION = Direction.DOWN.getValue();
+
+    private double frictionConstant = DEFAULT_FRICTION_CONSTANT;
     private double gravityConstant = DEFAULT_GRAVITATIONAL_CONSTANT;
     private double gravityDirection = DEFAULT_GRAVITATIONAL_DIRECTION;
 
-    private boolean gravitationalPull = true;
+    private boolean gravitationalPull = false;
 
     /**
      * Create a new instance of {@link MotionApplier}.
@@ -41,7 +44,6 @@ public class MotionApplier implements MotionModifier, LocationUpdater {
     public void setMotion(final double speed, final Direction direction) {
         setMotion(speed, direction.getValue());
     }
-
 
     // TODO unittest
     @Override
@@ -89,48 +91,64 @@ public class MotionApplier implements MotionModifier, LocationUpdater {
 
     /**
      * TODO unittest
-     * Return the gravitational contant used by this {@link NewtonianMotionApplier}.
-     *
-     * @return the gravitational constant as a {@code double}
      */
-    public double getGravityConstant() {
-        return gravityConstant;
+    @Override
+    public void setFrictionConstant(final double frictionConstant) {
+        this.frictionConstant = frictionConstant;
     }
 
     /**
      * TODO unittest
-     * Set the gravitational contant used by this {@link NewtonianMotionApplier}.
-     *
-     * @param gravityConstant the gravitational constant as a {@code double}
      */
+    @Override
+    public double getFrictionConstant() {
+        return frictionConstant;
+    }
+
+    /**
+     * TODO unittest
+     */
+    @Override
     public void setGravityConstant(double gravityConstant) {
         this.gravityConstant = gravityConstant;
     }
 
     /**
      * TODO unittest
-     * Return the gravitational direction used by this {@link NewtonianMotionApplier}.
-     *
-     * @return the gravitational direction as a {@code double}
      */
+    @Override
+    public double getGravityConstant() {
+        return gravityConstant;
+    }
+
+    /**
+     * TODO unittest
+     */
+    @Override
+    public void setGravityDirection(double gravityDirection) {
+        this.gravityDirection = gravityDirection;
+    }
+
+    /**
+     * TODO unittest
+     */
+    @Override
     public double getGravityDirection() {
         return gravityDirection;
     }
 
     /**
      * TODO unittest
-     * Set the gravitational direction used by this {@link NewtonianMotionApplier}.
-     *
-     * @param gravityDirection the gravitational constant as a {@code double}
      */
-    public void setGravityDirection(double gravityDirection) {
-        this.gravityDirection = gravityDirection;
-    }
-
+    @Override
     public void setGravitationalPull(final boolean pull) {
         this.gravitationalPull = pull;
     }
 
+    /**
+     * TODO unittest
+     */
+    @Override
     public boolean isGravitationalPull() {
         return gravitationalPull;
     }
@@ -205,6 +223,8 @@ public class MotionApplier implements MotionModifier, LocationUpdater {
 
     /**
      * Return whether this {@link MotionApplier} has been halted.
+     *
+     * @return whether this {@link MotionApplier} has been halted
      */
     public boolean isHalted() {
         return halted;

@@ -8,23 +8,68 @@ import com.github.hanyaeger.api.engine.annotations.UpdatableProvider;
  * and friction. It should be used for DynamicEntities that should also display some physics behaviour.
  * This physics is rather elemental and should not be compared for fully fledged physics.
  */
-public interface Newtonian extends Moveable {
+public interface Newtonian extends BufferedMoveable, NewtonianModifier {
 
-    default void setGravitationalPull(final boolean pull) {
-        getMotionApplier().setGravitationalPull(pull);
-    }
 
     default boolean isGravitationalPull() {
         return getMotionApplier().isGravitationalPull();
     }
 
+    @Override
+    default void setFrictionConstant(final double frictionConstant) {
+        getBuffer().ifPresentOrElse(eMBuffer -> eMBuffer.setFrictionConstant(frictionConstant), () -> getMotionApplier().setFrictionConstant(frictionConstant));
+    }
+
+    @Override
+    default void setGravityConstant(final double gravityConstant) {
+        getBuffer().ifPresentOrElse(eMBuffer -> eMBuffer.setGravityConstant(gravityConstant), () -> getMotionApplier().setGravityConstant(gravityConstant));
+    }
+
+    @Override
+    default void setGravityDirection(final double gravityDirection) {
+        getBuffer().ifPresentOrElse(eMBuffer -> eMBuffer.setGravityDirection(gravityDirection), () -> getMotionApplier().setGravityDirection(gravityDirection));
+    }
+
+    @Override
+    default void setGravitationalPull(final boolean pull) {
+        getBuffer().ifPresentOrElse(eMBuffer -> eMBuffer.setGravitationalPull(pull), () -> getMotionApplier().setGravitationalPull(pull));
+    }
+
+
+    /**
+     * TODO unittest
+     */
+    @Override
+    default double getGravityConstant() {
+        return getMotionApplier().getGravityConstant();
+    }
+
+
+    /**
+     * TODO unittest
+     */
+    @Override
+    default double getGravityDirection() {
+        return getMotionApplier().getGravityDirection();
+    }
+
+    /**
+     * TODO unittest
+     */
+    @Override
+    default double getFrictionConstant() {
+        return getMotionApplier().getFrictionConstant();
+    }
+
     @UpdatableProvider
-    default Updatable addGravitationalPull() {
+    default Updatable addSimplePhysics() {
         return timestamp -> {
             if (getMotionApplier().isGravitationalPull()) {
-                getMotionApplier().addToMotion(NewtonianMotionApplier.DEFAULT_GRAVITATIONAL_CONSTANT, NewtonianMotionApplier.DEFAULT_GRAVITATIONAL_DIRECTION);
+                getMotionApplier().addToMotion(getMotionApplier().getGravityConstant(), getMotionApplier().getGravityDirection());
+            }
+            if (getSpeed() > 0) {
+                incrementSpeed((-1 * getFrictionConstant()) * getSpeed());
             }
         };
     }
-
 }

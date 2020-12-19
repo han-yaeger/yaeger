@@ -111,5 +111,30 @@ class NewtonianTest {
         public void addToMotion(double speed, Direction direction) {
             // Not required here
         }
+
+        @Override
+        public void setFrictionConstant(double frictionConstant) {
+
+        }
+
+        @Override
+        public double getFrictionConstant() {
+            return 0;
+        }
+
+        @Override
+        public Optional<EntityMotionInitBuffer> getBuffer() {
+            return Optional.empty();
+        }
+
+        @Override
+        public void setGravityConstant(double gravityConstant) {
+
+        }
+
+        @Override
+        public double getGravityDirection() {
+            return 0;
+        }
     }
 }
