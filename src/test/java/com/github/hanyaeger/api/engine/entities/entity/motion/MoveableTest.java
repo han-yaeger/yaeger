@@ -137,6 +137,28 @@ class MoveableTest {
     }
 
     @Test
+    void addToMotionDelegatesToMotionApplier() {
+        // Arrange
+
+        // Act
+        sut.addToMotion(SPEED, DIRECTION);
+
+        // Assert
+        verify(motionApplier).addToMotion(SPEED, DIRECTION);
+    }
+
+    @Test
+    void addToMotionWithEnumDelegatesToMotionApplier() {
+        // Arrange
+
+        // Act
+        sut.addToMotion(SPEED, DIRECTION_ENUM);
+
+        // Assert
+        verify(motionApplier).addToMotion(SPEED, DIRECTION_ENUM.getValue());
+    }
+
+    @Test
     void getDirectionDelegatesToMotionApplier() {
         // Arrange
         when(motionApplier.getDirection()).thenReturn(DIRECTION);
@@ -266,7 +288,6 @@ class MoveableTest {
     }
 
     private class MoveableImpl implements Moveable {
-
         Coordinate2D anchorLocation;
         MotionApplier motionApplier;
         Node node;
