@@ -181,7 +181,6 @@ class NewtonianTest {
         }
     }
 
-
     @BeforeEach
     void setup() {
         sut = new NewtonianImpl();
@@ -259,11 +258,6 @@ class NewtonianTest {
                 return Optional.empty();
             }
             return Optional.of(buffer);
-        }
-
-        @Override
-        public double getGravityDirection() {
-            return 0;
         }
 
         public void setBuffer(final EntityMotionInitBuffer buffer) {
