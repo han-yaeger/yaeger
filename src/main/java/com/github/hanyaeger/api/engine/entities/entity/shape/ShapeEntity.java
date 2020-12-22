@@ -2,7 +2,6 @@ package com.github.hanyaeger.api.engine.entities.entity.shape;
 
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
-import com.github.hanyaeger.api.engine.entities.entity.shape.rectangle.RectangleEntity;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.scene.Node;

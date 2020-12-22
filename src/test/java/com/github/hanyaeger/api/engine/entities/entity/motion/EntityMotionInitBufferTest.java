@@ -8,8 +8,13 @@ import static org.mockito.Mockito.*;
 
 class EntityMotionInitBufferTest {
 
-    public static final int SPEED = 4;
-    public static final int DIRECTION = 37;
+    private static final int SPEED = 4;
+    private static final int DIRECTION = 37;
+    private static final double FRICTION_CONSTANT = 0.37;
+    private static final double GRAVITATIONAL_CONSTANT = 0.42;
+    private static final double GRAVITATIONAL_DIRECTION = Direction.DOWN.getValue();
+    private static final boolean GRAVITATIONAL_PULL = false;
+
     private EntityMotionInitBuffer sut;
     private MotionApplier motionApplier;
     private Injector injector;
@@ -20,6 +25,54 @@ class EntityMotionInitBufferTest {
         injector = mock(Injector.class);
         motionApplier = mock(MotionApplier.class);
         sut.setMotionApplier(motionApplier);
+    }
+
+    @Test
+    void settingGravityConstantBeforeInitAndCallingInitSetsGravityConstantOnMotionApplier() {
+        // Arrange
+        sut.setGravityConstant(GRAVITATIONAL_CONSTANT);
+
+        // Act
+        sut.init(injector);
+
+        // Assert
+        verify(motionApplier).setGravityConstant(GRAVITATIONAL_CONSTANT);
+    }
+
+    @Test
+    void settingGravityDirectionBeforeInitAndCallingInitSetsGravityDirectionOnMotionApplier() {
+        // Arrange
+        sut.setGravityDirection(GRAVITATIONAL_DIRECTION);
+
+        // Act
+        sut.init(injector);
+
+        // Assert
+        verify(motionApplier).setGravityDirection(GRAVITATIONAL_DIRECTION);
+    }
+
+    @Test
+    void settingGravitionalPullBeforeInitAndCallingInitSetsGravitionalPullOnMotionApplier() {
+        // Arrange
+        sut.setGravitationalPull(GRAVITATIONAL_PULL);
+
+        // Act
+        sut.init(injector);
+
+        // Assert
+        verify(motionApplier).setGravitationalPull(GRAVITATIONAL_PULL);
+    }
+
+    @Test
+    void settingFrictionConstantBeforeInitAndCallingInitSetsFrictionConstantOnMotionApplier() {
+        // Arrange
+        sut.setFrictionConstant(FRICTION_CONSTANT);
+
+        // Act
+        sut.init(injector);
+
+        // Assert
+        verify(motionApplier).setFrictionConstant(FRICTION_CONSTANT);
     }
 
     @Test

@@ -45,13 +45,11 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
         setMotion(speed, direction.getValue());
     }
 
-    // TODO unittest
     @Override
     public void addToMotion(final double speed, final Direction direction) {
         addToMotion(speed, direction.getValue());
     }
 
-    // TODO unittest
     @Override
     public void addToMotion(final double speed, final double direction) {
         motion = motion.add(createVector(speed, direction));
@@ -89,65 +87,41 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
         }
     }
 
-    /**
-     * TODO unittest
-     */
     @Override
     public void setFrictionConstant(final double frictionConstant) {
         this.frictionConstant = frictionConstant;
     }
 
-    /**
-     * TODO unittest
-     */
     @Override
     public double getFrictionConstant() {
         return frictionConstant;
     }
 
-    /**
-     * TODO unittest
-     */
     @Override
     public void setGravityConstant(double gravityConstant) {
         this.gravityConstant = gravityConstant;
     }
 
-    /**
-     * TODO unittest
-     */
     @Override
     public double getGravityConstant() {
         return gravityConstant;
     }
 
-    /**
-     * TODO unittest
-     */
     @Override
     public void setGravityDirection(double gravityDirection) {
         this.gravityDirection = gravityDirection;
     }
 
-    /**
-     * TODO unittest
-     */
     @Override
     public double getGravityDirection() {
         return gravityDirection;
     }
 
-    /**
-     * TODO unittest
-     */
     @Override
     public void setGravitationalPull(final boolean pull) {
         this.gravitationalPull = pull;
     }
 
-    /**
-     * TODO unittest
-     */
     @Override
     public boolean isGravitationalPull() {
         return gravitationalPull;

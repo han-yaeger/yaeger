@@ -4,6 +4,7 @@ import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import javafx.scene.Node;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -15,42 +16,182 @@ import static org.mockito.Mockito.*;
 class NewtonianTest {
 
     private NewtonianImpl sut;
-    private MotionApplier motionApplier;
+    private static final double FRICTION_CONSTANT = 0.37;
+    private static final double GRAVITATIONAL_CONSTANT = 0.42;
+    private static final double GRAVITATIONAL_DIRECTION = Direction.DOWN.getValue();
+    private static final boolean GRAVITATIONAL_PULL = false;
+
+    @Nested
+    public class WithoutMotionApplierInjected {
+        private EntityMotionInitBuffer buffer;
+
+        @BeforeEach
+        void setup() {
+            buffer = mock(EntityMotionInitBuffer.class);
+            sut.setBuffer(buffer);
+        }
+
+        @Test
+        void setGravitationConstantDelegatesToBuffer() {
+            // Arrange
+
+            // Act
+            sut.setGravityConstant(GRAVITATIONAL_CONSTANT);
+
+            // Assert
+            verify(buffer).setGravityConstant(GRAVITATIONAL_CONSTANT);
+        }
+
+        @Test
+        void setGravitationDirectionDelegatesToBuffer() {
+            // Arrange
+
+            // Act
+            sut.setGravityDirection(GRAVITATIONAL_DIRECTION);
+
+            // Assert
+            verify(buffer).setGravityDirection(GRAVITATIONAL_DIRECTION);
+        }
+
+
+        @Test
+        void setFrictionConstantlDelegatesToBuffer() {
+            // Arrange
+
+            // Act
+            sut.setFrictionConstant(FRICTION_CONSTANT);
+
+            // Assert
+            verify(buffer).setFrictionConstant(FRICTION_CONSTANT);
+        }
+
+        @Test
+        void setGravitationalPullDelegatesToBuffer() {
+            // Arrange
+
+            // Act
+            sut.setGravitationalPull(GRAVITATIONAL_PULL);
+
+            // Assert
+            verify(buffer).setGravitationalPull(GRAVITATIONAL_PULL);
+        }
+    }
+
+    @Nested
+    public class WithMotionApplierInjected {
+        private MotionApplier motionApplier;
+
+        @BeforeEach
+        void setup() {
+            motionApplier = mock(MotionApplier.class);
+            sut.setMotionApplier(motionApplier);
+        }
+
+        @Test
+        void setGravitationConstantDelegatesToMotionApplier() {
+            // Arrange
+
+            // Act
+            sut.setGravityConstant(GRAVITATIONAL_CONSTANT);
+
+            // Assert
+            verify(motionApplier).setGravityConstant(GRAVITATIONAL_CONSTANT);
+        }
+
+        @Test
+        void setGravitationDirectionDelegatesToMotionApplier() {
+            // Arrange
+
+            // Act
+            sut.setGravityDirection(GRAVITATIONAL_DIRECTION);
+
+            // Assert
+            verify(motionApplier).setGravityDirection(GRAVITATIONAL_DIRECTION);
+        }
+
+
+        @Test
+        void setFrictionConstantlDelegatesToMotionApplier() {
+            // Arrange
+
+            // Act
+            sut.setFrictionConstant(FRICTION_CONSTANT);
+
+            // Assert
+            verify(motionApplier).setFrictionConstant(FRICTION_CONSTANT);
+        }
+
+        @Test
+        void setGravitationalPullDelegatesToMotionApplier() {
+            // Arrange
+
+            // Act
+            sut.setGravitationalPull(GRAVITATIONAL_PULL);
+
+            // Assert
+            verify(motionApplier).setGravitationalPull(GRAVITATIONAL_PULL);
+        }
+
+        @Test
+        void getGravitationConstantDelegatesToMotionApplier() {
+            // Arrange
+            when(motionApplier.getGravityConstant()).thenReturn(GRAVITATIONAL_CONSTANT);
+
+            // Act
+            var actual = sut.getGravityConstant();
+
+            // Assert
+            assertEquals(GRAVITATIONAL_CONSTANT, actual);
+        }
+
+        @Test
+        void getGravitationDirectionDelegatesToMotionApplier() {
+            // Arrange
+            when(motionApplier.getGravityDirection()).thenReturn(GRAVITATIONAL_DIRECTION);
+
+            // Act
+            var actual = sut.getGravityDirection();
+
+            // Assert
+            assertEquals(GRAVITATIONAL_DIRECTION, actual);
+        }
+
+        @Test
+        void getFrictionConstantDelegatesToMotionApplier() {
+            // Arrange
+            when(motionApplier.getFrictionConstant()).thenReturn(FRICTION_CONSTANT);
+
+            // Act
+            var actual = sut.getFrictionConstant();
+
+            // Assert
+            assertEquals(FRICTION_CONSTANT, actual);
+        }
+
+        @Test
+        void isGravitationalPullDelegatesToMotionApplier() {
+            // Arrange
+            when(motionApplier.isGravitationalPull()).thenReturn(GRAVITATIONAL_PULL);
+
+            // Act
+            var actual = sut.isGravitationalPull();
+
+            // Assert
+            assertFalse(actual);
+        }
+    }
+
 
     @BeforeEach
     void setup() {
         sut = new NewtonianImpl();
-
-        motionApplier = mock(MotionApplier.class);
-        sut.setMotionApplier(motionApplier);
     }
 
-    @Test
-    void setGravitationalPullDelegatesToMotionApplier() {
-        // Arrange
-
-        // Act
-        sut.setGravitationalPull(true);
-
-        // Assert
-        verify(motionApplier).setGravitationalPull(true);
-    }
-
-    @Test
-    void isGravitationalPullDelegatesToMotionApplier() {
-        // Arrange
-        when(motionApplier.isGravitationalPull()).thenReturn(false);
-
-        // Act
-        var actual = sut.isGravitationalPull();
-
-        // Assert
-        assertFalse(actual);
-    }
 
     private class NewtonianImpl implements Newtonian {
 
         private MotionApplier motionApplier;
+        private EntityMotionInitBuffer buffer;
 
         @Override
         public void setMotionApplier(final MotionApplier motionApplier) {
@@ -113,28 +254,20 @@ class NewtonianTest {
         }
 
         @Override
-        public void setFrictionConstant(double frictionConstant) {
-
-        }
-
-        @Override
-        public double getFrictionConstant() {
-            return 0;
-        }
-
-        @Override
         public Optional<EntityMotionInitBuffer> getBuffer() {
-            return Optional.empty();
-        }
-
-        @Override
-        public void setGravityConstant(double gravityConstant) {
-
+            if (buffer == null) {
+                return Optional.empty();
+            }
+            return Optional.of(buffer);
         }
 
         @Override
         public double getGravityDirection() {
             return 0;
+        }
+
+        public void setBuffer(final EntityMotionInitBuffer buffer) {
+            this.buffer = buffer;
         }
     }
 }

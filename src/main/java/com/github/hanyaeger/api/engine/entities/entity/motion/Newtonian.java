@@ -5,11 +5,10 @@ import com.github.hanyaeger.api.engine.annotations.UpdatableProvider;
 
 /**
  * A {@link Newtonian} is a special case of a {@link Moveable} that abides the basic laws of gravity
- * and friction. It should be used for DynamicEntities that should also display some physics behaviour.
+ * and friction. It should be used for Dynamic Entities that should also display some physics behaviour.
  * This physics is rather elemental and should not be compared for fully fledged physics.
  */
 public interface Newtonian extends BufferedMoveable, NewtonianModifier {
-
 
     default boolean isGravitationalPull() {
         return getMotionApplier().isGravitationalPull();
@@ -35,27 +34,17 @@ public interface Newtonian extends BufferedMoveable, NewtonianModifier {
         getBuffer().ifPresentOrElse(eMBuffer -> eMBuffer.setGravitationalPull(pull), () -> getMotionApplier().setGravitationalPull(pull));
     }
 
-
-    /**
-     * TODO unittest
-     */
     @Override
     default double getGravityConstant() {
         return getMotionApplier().getGravityConstant();
     }
 
 
-    /**
-     * TODO unittest
-     */
     @Override
     default double getGravityDirection() {
         return getMotionApplier().getGravityDirection();
     }
 
-    /**
-     * TODO unittest
-     */
     @Override
     default double getFrictionConstant() {
         return getMotionApplier().getFrictionConstant();
