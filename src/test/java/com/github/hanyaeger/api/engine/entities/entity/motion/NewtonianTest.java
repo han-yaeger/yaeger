@@ -22,7 +22,7 @@ class NewtonianTest {
     private static final boolean GRAVITATIONAL_PULL = false;
 
     @Nested
-    public class WithoutMotionApplierInjected {
+    class WithoutMotionApplierInjected {
         private EntityMotionInitBuffer buffer;
 
         @BeforeEach
@@ -78,7 +78,7 @@ class NewtonianTest {
     }
 
     @Nested
-    public class WithMotionApplierInjected {
+    class WithMotionApplierInjected {
         private MotionApplier motionApplier;
 
         @BeforeEach
