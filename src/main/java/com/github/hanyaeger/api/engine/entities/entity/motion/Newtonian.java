@@ -54,7 +54,7 @@ public interface Newtonian extends BufferedMoveable, NewtonianModifier {
     default Updatable addSimplePhysics() {
         return timestamp -> {
             if (getMotionApplier().isGravitationalPull()) {
-                getMotionApplier().addToMotion(getMotionApplier().getGravityConstant(), getMotionApplier().getGravityDirection());
+                addToMotion(getMotionApplier().getGravityConstant(), getMotionApplier().getGravityDirection());
             }
             if (getSpeed() > 0) {
                 incrementSpeed((-1 * getFrictionConstant()) * getSpeed());

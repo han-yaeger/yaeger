@@ -21,6 +21,11 @@ class NewtonianTest {
     private static final double GRAVITATIONAL_DIRECTION = Direction.DOWN.getValue();
     private static final boolean GRAVITATIONAL_PULL = false;
 
+    @BeforeEach
+    void setup() {
+        sut = new NewtonianImpl();
+    }
+
     @Nested
     class WithoutMotionApplierInjected {
         private EntityMotionInitBuffer buffer;
@@ -179,13 +184,60 @@ class NewtonianTest {
             // Assert
             assertFalse(actual);
         }
-    }
 
-    @BeforeEach
-    void setup() {
-        sut = new NewtonianImpl();
-    }
+        @Test
+        void updateOnUpdatableDoesNotAddToMotionIfGravitationalPullIsFalse() {
+            // Arrange
+            when(motionApplier.isGravitationalPull()).thenReturn(false);
+            when(motionApplier.getSpeed()).thenReturn(0d);
 
+            var updatable = sut.addSimplePhysics();
+
+            // Act
+            updatable.update(0l);
+
+            // Assert
+            verify(motionApplier).isGravitationalPull();
+        }
+
+        @Test
+        void updateOnUpdatableAddsToMotionIfGravitationalPullIsTrue() {
+            // Arrange
+            when(motionApplier.isGravitationalPull()).thenReturn(true);
+            when(motionApplier.getGravityConstant()).thenReturn(GRAVITATIONAL_CONSTANT);
+            when(motionApplier.getGravityDirection()).thenReturn(GRAVITATIONAL_DIRECTION);
+            when(motionApplier.getSpeed()).thenReturn(0d);
+
+            var updatable = sut.addSimplePhysics();
+
+            // Act
+            updatable.update(0l);
+
+            // Assert
+            verify(motionApplier).isGravitationalPull();
+            verify(motionApplier).getGravityConstant();
+            verify(motionApplier).getGravityDirection();
+            verify(motionApplier).addToMotion(GRAVITATIONAL_CONSTANT, GRAVITATIONAL_DIRECTION);
+        }
+
+        @Test
+        void updateOnUpdatableAddsFrictionIfSpeedGTZero() {
+            // Arrange
+            when(motionApplier.isGravitationalPull()).thenReturn(false);
+            when(motionApplier.getFrictionConstant()).thenReturn(FRICTION_CONSTANT);
+            when(motionApplier.getSpeed()).thenReturn(1d);
+
+            var updatable = sut.addSimplePhysics();
+
+            // Act
+            updatable.update(0l);
+
+            // Assert
+            verify(motionApplier).isGravitationalPull();
+            verify(motionApplier).getFrictionConstant();
+            verify(motionApplier).incrementSpeed(-1 * FRICTION_CONSTANT);
+        }
+    }
 
     private class NewtonianImpl implements Newtonian {
 
@@ -240,16 +292,6 @@ class NewtonianTest {
         @Override
         public Optional<? extends Node> getNode() {
             return Optional.empty();
-        }
-
-        @Override
-        public void addToMotion(double speed, double direction) {
-            // Not required here
-        }
-
-        @Override
-        public void addToMotion(double speed, Direction direction) {
-            // Not required here
         }
 
         @Override
