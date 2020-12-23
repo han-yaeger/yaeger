@@ -14,7 +14,6 @@ public interface Activatable {
     /**
      * Lifecycle method used to perform activation of this Game Object. By default this method is empty, so it should
      * be implemented by the Game Object, if desired.
-     * be implemented by the Game Object, if desired.
      */
     default void activate() {
     }
