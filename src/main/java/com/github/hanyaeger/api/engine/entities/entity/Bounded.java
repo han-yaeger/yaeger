@@ -11,12 +11,12 @@ import javafx.geometry.Bounds;
 public interface Bounded extends DimensionsProvider, GameNode {
 
     /**
-     * Return the {@link Bounds}, (Bounding Box) after all transformations have been
-     * applied.
+     * Return the {@link Bounds} (aka Bounding Box) of the {@link YaegerEntity}. Note that these
+     * {@link Bounds} are always a Axis aligned rectangle.
      *
      * @return the {@link Bounds}
      */
-    default Bounds getTransformedBounds() {
+    default Bounds getBoundingBox() {
         if (getNode().isPresent()) {
             return getNode().get().getBoundsInParent();
         } else {
@@ -39,7 +39,7 @@ public interface Bounded extends DimensionsProvider, GameNode {
 
     /**
      * Return the {@link Bounds} (Bounding Box) within the {@link com.github.hanyaeger.api.engine.scenes.YaegerScene} after
-     * all transformations have been applied. This method differs from {@link Bounded#getTransformedBounds} in the fact
+     * all transformations have been applied. This method differs from {@link Bounded#getBoundingBox} in the fact
      * that this methods threats the {@link javafx.scene.Node} as if it was part of the {@link javafx.scene.Scene}. In the case
      * of a {@link CompositeEntity} the {@link javafx.scene.Node} will be part of a {@link javafx.scene.Group}, meaning we get
      * the {@link Bounds} within that {@link javafx.scene.Group} and not the {@link javafx.scene.Scene}.
@@ -56,53 +56,53 @@ public interface Bounded extends DimensionsProvider, GameNode {
 
     @Override
     default double getWidth() {
-        return getNonTransformedBounds().getWidth();
+        return getBoundingBox().getWidth();
     }
 
     @Override
     default double getHeight() {
-        return getNonTransformedBounds().getHeight();
+        return getBoundingBox().getHeight();
     }
 
     /**
      * @return a {@code double} of the right side x value
      */
     default double getRightX() {
-        return getNonTransformedBounds().getMaxX();
+        return getBoundingBox().getMaxX();
     }
 
     /**
      * @return a {@code double} of the left x value
      */
     default double getLeftX() {
-        return getNonTransformedBounds().getMinX();
+        return getBoundingBox().getMinX();
     }
 
     /**
      * @return a {@code double} of the center x value
      */
     default double getCenterX() {
-        return getNonTransformedBounds().getCenterX();
+        return getBoundingBox().getCenterX();
     }
 
     /**
      * @return a {@code double} of the bottom y value
      */
     default double getBottomY() {
-        return getNonTransformedBounds().getMaxY();
+        return getBoundingBox().getMaxY();
     }
 
     /**
      * @return a {@code double} of the top y value
      */
     default double getTopY() {
-        return getNonTransformedBounds().getMinY();
+        return getBoundingBox().getMinY();
     }
 
     /**
      * @return a {@code double} of the center y value
      */
     default double getCenterY() {
-        return getNonTransformedBounds().getCenterY();
+        return getBoundingBox().getCenterY();
     }
 }

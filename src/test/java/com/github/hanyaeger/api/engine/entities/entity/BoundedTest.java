@@ -25,6 +25,7 @@ class BoundedTest {
         sut = new BoundedImpl();
         sut.setNode(node);
         when(node.getBoundsInLocal()).thenReturn(bounds);
+        when(node.getBoundsInParent()).thenReturn(bounds);
     }
 
     @Test
@@ -59,7 +60,7 @@ class BoundedTest {
         var sut = new EmptyGameNodeBoundedImpl();
 
         // Act
-        var boundingBox = sut.getTransformedBounds();
+        var boundingBox = sut.getBoundingBox();
 
         // Assert
         Assertions.assertEquals(0, boundingBox.getWidth());
@@ -73,7 +74,7 @@ class BoundedTest {
         sut.setNode(node);
 
         // Act
-        sut.getTransformedBounds();
+        sut.getBoundingBox();
 
         // Assert
         Mockito.verify(node).getBoundsInParent();

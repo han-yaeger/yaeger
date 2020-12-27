@@ -123,7 +123,7 @@ class SideCollidedTest {
         private Bounds bounds;
 
         @Override
-        public Bounds getTransformedBounds() {
+        public Bounds getBoundingBox() {
             return bounds;
         }
 
@@ -169,7 +169,7 @@ class SideCollidedTest {
         }
 
         @Override
-        public Bounds getTransformedBounds() {
+        public Bounds getBoundingBox() {
             return TEST_COLLIDED_BOUNDINGBOX;
         }
 

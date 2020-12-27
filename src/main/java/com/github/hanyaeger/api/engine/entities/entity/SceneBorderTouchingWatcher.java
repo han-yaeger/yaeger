@@ -5,7 +5,6 @@ import com.github.hanyaeger.api.engine.annotations.UpdatableProvider;
 import com.github.hanyaeger.api.engine.entities.entity.motion.Moveable;
 import com.github.hanyaeger.api.engine.scenes.SceneBorder;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
-import javafx.scene.layout.Border;
 
 /**
  * Implement this interface to be notified if the {@link YaegerEntity} touches the boundary of the {@link YaegerScene}.
@@ -24,13 +23,13 @@ public interface SceneBorderTouchingWatcher extends Moveable, Bounded, SceneChil
     @UpdatableProvider
     default Updatable watchForBoundaryTouching() {
         return timestamp -> {
-            if (getTransformedBounds().getMinX() <= 0) {
+            if (getBoundingBox().getMinX() <= 0) {
                 handleTouch(SceneBorder.LEFT);
-            } else if (getTransformedBounds().getMinY() <= 0) {
+            } else if (getBoundingBox().getMinY() <= 0) {
                 handleTouch(SceneBorder.TOP);
-            } else if (getTransformedBounds().getMaxY() >= getSceneHeight()) {
+            } else if (getBoundingBox().getMaxY() >= getSceneHeight()) {
                 handleTouch(SceneBorder.BOTTOM);
-            } else if (getTransformedBounds().getMaxX() >= getSceneWidth()) {
+            } else if (getBoundingBox().getMaxX() >= getSceneWidth()) {
                 handleTouch(SceneBorder.RIGHT);
             }
         };

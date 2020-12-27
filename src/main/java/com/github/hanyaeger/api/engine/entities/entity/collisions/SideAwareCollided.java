@@ -38,7 +38,7 @@ public interface SideAwareCollided extends Collided {
 
     private CollisionSide findCollisionSide(final Bounds colliderBounds) {
 
-        var collidedBounds = getTransformedBounds();
+        var collidedBounds = getBoundingBox();
 
         if (colliderBounds.intersects(createTopCollisionBoundingBox(collidedBounds))) {
             return CollisionSide.TOP;

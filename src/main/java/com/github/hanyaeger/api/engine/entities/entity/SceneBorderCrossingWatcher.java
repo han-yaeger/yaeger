@@ -23,13 +23,13 @@ public interface SceneBorderCrossingWatcher extends Bounded, SceneChild, Moveabl
     @UpdatableProvider
     default Updatable watchForBoundaryCrossing() {
         return timestamp -> {
-            if (getTransformedBounds().getMaxX() <= 0) {
+            if (getBoundingBox().getMaxX() <= 0) {
                 handleCrossing(SceneBorder.LEFT);
-            } else if (getTransformedBounds().getMaxY() <= 0) {
+            } else if (getBoundingBox().getMaxY() <= 0) {
                 handleCrossing(SceneBorder.TOP);
-            } else if (getTransformedBounds().getMinY() >= getSceneHeight()) {
+            } else if (getBoundingBox().getMinY() >= getSceneHeight()) {
                 handleCrossing(SceneBorder.BOTTOM);
-            } else if (getTransformedBounds().getMinX() >= getSceneWidth()) {
+            } else if (getBoundingBox().getMinX() >= getSceneWidth()) {
                 handleCrossing(SceneBorder.RIGHT);
             }
         };
