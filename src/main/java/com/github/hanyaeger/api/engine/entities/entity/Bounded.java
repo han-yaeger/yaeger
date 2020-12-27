@@ -63,46 +63,4 @@ public interface Bounded extends DimensionsProvider, GameNode {
     default double getHeight() {
         return getBoundingBox().getHeight();
     }
-
-    /**
-     * @return a {@code double} of the right side x value
-     */
-    default double getRightX() {
-        return getBoundingBox().getMaxX();
-    }
-
-    /**
-     * @return a {@code double} of the left x value
-     */
-    default double getLeftX() {
-        return getBoundingBox().getMinX();
-    }
-
-    /**
-     * @return a {@code double} of the center x value
-     */
-    default double getCenterX() {
-        return getBoundingBox().getCenterX();
-    }
-
-    /**
-     * @return a {@code double} of the bottom y value
-     */
-    default double getBottomY() {
-        return getBoundingBox().getMaxY();
-    }
-
-    /**
-     * @return a {@code double} of the top y value
-     */
-    default double getTopY() {
-        return getBoundingBox().getMinY();
-    }
-
-    /**
-     * @return a {@code double} of the center y value
-     */
-    default double getCenterY() {
-        return getBoundingBox().getCenterY();
-    }
 }

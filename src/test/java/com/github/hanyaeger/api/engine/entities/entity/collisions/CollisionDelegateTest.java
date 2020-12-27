@@ -144,26 +144,6 @@ class CollisionDelegateTest {
         }
 
         @Override
-        public double getRightX() {
-            return 0;
-        }
-
-        @Override
-        public double getLeftX() {
-            return 0;
-        }
-
-        @Override
-        public double getBottomY() {
-            return 0;
-        }
-
-        @Override
-        public double getTopY() {
-            return 0;
-        }
-
-        @Override
         public void init(Injector injector) {
             // Not required here.
         }
@@ -225,26 +205,6 @@ class CollisionDelegateTest {
         @Override
         public void transferCoordinatesToNode() {
             // Not required here.
-        }
-
-        @Override
-        public double getRightX() {
-            return 0;
-        }
-
-        @Override
-        public double getLeftX() {
-            return 0;
-        }
-
-        @Override
-        public double getBottomY() {
-            return 0;
-        }
-
-        @Override
-        public double getTopY() {
-            return 0;
         }
 
         @Override
