@@ -11,7 +11,8 @@ import java.util.Optional;
  */
 public class MotionApplier implements MotionModifier, NewtonianModifier, LocationUpdater {
 
-    private static final Point2D ZERO_ANGLE_IDENTITY_MOTION = new Point2D(0, 1);
+    private static final Point2D IDENTITY_MOTION = new Point2D(0, 1);
+    private static final Point2D NON_MOTION = new Point2D(0, 0);
     private Optional<Double> direction = Optional.empty();
     private Coordinate2D motion;
     private Optional<Coordinate2D> previousLocation = Optional.empty();
@@ -60,16 +61,20 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
         hasBeenHalted(newSpeed);
 
         if (Double.compare(newSpeed, 0d) == 0) {
-            this.direction = Optional.of(motion.angle(new Point2D(0, 1)));
+            if (NON_MOTION.equals(this.motion)) {
+                this.direction = Optional.of(Direction.DOWN.getValue());
+            } else {
+                this.direction = Optional.of(this.motion.angle(new Point2D(0, 1)));
+            }
         }
 
-        if (motion.equals(new Coordinate2D(0, 0))) {
-            motion = new Coordinate2D(0, newSpeed);
+        if (this.motion.equals(new Coordinate2D(0, 0))) {
+            this.motion = new Coordinate2D(0, newSpeed);
         } else {
-            motion = new Coordinate2D((motion.normalize().multiply(newSpeed)));
+            this.motion = new Coordinate2D((this.motion.normalize().multiply(newSpeed)));
         }
 
-        direction.ifPresent(this::setDirection);
+        this.direction.ifPresent(this::setDirection);
     }
 
     @Override
@@ -154,7 +159,7 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
         if (direction.isPresent()) {
             return direction.get();
         } else {
-            double currentAngle = motion.angle(ZERO_ANGLE_IDENTITY_MOTION);
+            double currentAngle = motion.angle(IDENTITY_MOTION);
 
             if (motion.getX() < 0) {
                 currentAngle = 360 - currentAngle;

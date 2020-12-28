@@ -94,13 +94,18 @@ public interface Moveable extends Placeable, MotionModifier {
             if (Double.compare(getSpeed(), 0d) == 0) {
                 return;
             }
-            setAnchorLocation(getMotionApplier().updateLocation(getAnchorLocation()));
+
+            var loc = getMotionApplier().updateLocation(getAnchorLocation());
+            System.out.println("Setting location for: " + loc);
+            setAnchorLocation(loc);
         };
     }
 
     default void undoUpdate() {
         if (getMotionApplier().isHalted() && Double.compare(getSpeed(), 0) == 0 && getMotionApplier().getPreviousLocation().isPresent()) {
-            setAnchorLocation(getMotionApplier().getPreviousLocation().get());
+          var loc = getMotionApplier().getPreviousLocation().get();
+            System.out.println("Undoing update for: " + loc);
+            setAnchorLocation(loc);
         }
     }
 }
