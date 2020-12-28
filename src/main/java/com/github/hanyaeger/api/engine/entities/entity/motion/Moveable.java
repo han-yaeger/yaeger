@@ -96,7 +96,6 @@ public interface Moveable extends Placeable, MotionModifier {
             }
 
             var loc = getMotionApplier().updateLocation(getAnchorLocation());
-            System.out.println("Setting location for: " + loc);
             setAnchorLocation(loc);
         };
     }
@@ -104,7 +103,6 @@ public interface Moveable extends Placeable, MotionModifier {
     default void undoUpdate() {
         if (getMotionApplier().isHalted() && Double.compare(getSpeed(), 0) == 0 && getMotionApplier().getPreviousLocation().isPresent()) {
           var loc = getMotionApplier().getPreviousLocation().get();
-            System.out.println("Undoing update for: " + loc);
             setAnchorLocation(loc);
         }
     }
