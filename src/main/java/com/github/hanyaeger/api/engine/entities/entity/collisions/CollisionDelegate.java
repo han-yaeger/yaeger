@@ -23,18 +23,27 @@ public class CollisionDelegate {
     }
 
     /**
+     * TODO unittest the return value
+     * <p>
      * Register an {@link YaegerEntity} to be evaluated for collision detection. The {@link YaegerEntity} will only be added
      * if is an {@link Collider} or {@link Collided}.
      *
      * @param entity the {@link YaegerEntity} that should be registered
+     * @return a {@code boolean} stated wheter this {@link YaegerEntity} is either a {@link Collider} or a {@link Collided}
      */
-    public void register(final YaegerEntity entity) {
+    public boolean register(final YaegerEntity entity) {
+        var registered = false;
+
         if (entity instanceof Collider) {
             register((Collider) entity);
+            registered = true;
         }
         if (entity instanceof Collided) {
             register((Collided) entity);
+            registered = true;
         }
+
+        return registered;
     }
 
     /**

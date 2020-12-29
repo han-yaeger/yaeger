@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.engine.scenes;
 
+import com.github.hanyaeger.api.engine.YaegerConfig;
 import com.google.inject.Injector;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -126,6 +127,11 @@ class YaegerSceneTest {
         @Override
         public void setStage(Stage stage) {
             this.stage = stage;
+        }
+
+        @Override
+        public void setConfig(YaegerConfig yaegerConfig) {
+            // Not required here
         }
 
         @Override

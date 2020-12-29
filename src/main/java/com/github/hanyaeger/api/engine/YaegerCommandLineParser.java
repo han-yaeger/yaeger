@@ -11,6 +11,8 @@ class YaegerCommandLineParser {
 
     private static final String NO_SPLASH = "--noSplash";
     private static final String NO_SPLASH_EXPLANATION = "Skip the Splash screen during start up";
+    private static final String SHOW_BB = "--showBB";
+    private static final String SHOW_BB_EXPLANATION = "Show the BoundingBox of all Colliders and Collided Entities";
     private static final String HELP = "--help";
     private static final String HELP_SORT_EXPLANATION = "Show this help screen with all commandline options";
 
@@ -29,11 +31,12 @@ class YaegerCommandLineParser {
             printHelpScreen();
         }
 
-        var showSplash = args.contains(NO_SPLASH);
-        var yeagerConfig = new YaegerConfig();
-        yeagerConfig.setShowSplash(!showSplash);
+        var yaegerConfig = new YaegerConfig();
+        
+        yaegerConfig.setShowSplash(!args.contains(NO_SPLASH));
+        yaegerConfig.setShowBoundingBox(args.contains(SHOW_BB));
 
-        return yeagerConfig;
+        return yaegerConfig;
     }
 
     private void printHelpScreen() {
@@ -41,5 +44,7 @@ class YaegerCommandLineParser {
         System.out.format(TABLE_FORMAT, " " + HELP, HELP_SORT_EXPLANATION);
         System.out.print(System.lineSeparator());
         System.out.format(TABLE_FORMAT, " " + NO_SPLASH, NO_SPLASH_EXPLANATION);
+        System.out.print(System.lineSeparator());
+        System.out.format(TABLE_FORMAT, " " + SHOW_BB, SHOW_BB_EXPLANATION);
     }
 }

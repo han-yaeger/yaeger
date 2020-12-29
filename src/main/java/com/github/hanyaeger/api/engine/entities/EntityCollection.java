@@ -2,6 +2,7 @@ package com.github.hanyaeger.api.engine.entities;
 
 import com.github.hanyaeger.api.engine.Initializable;
 import com.github.hanyaeger.api.engine.Updatable;
+import com.github.hanyaeger.api.engine.YaegerConfig;
 import com.github.hanyaeger.api.engine.annotations.AnnotationProcessor;
 import com.github.hanyaeger.api.engine.debug.StatisticsObserver;
 import com.github.hanyaeger.api.engine.entities.entity.Removeable;
@@ -31,6 +32,7 @@ public class EntityCollection implements Initializable {
     private final EntityCollectionStatistics statistics;
     private Injector injector;
     private final Pane pane;
+    private final EntitySupplier boundingBoxes = new EntitySupplier();
     private final List<EntitySupplier> suppliers = new ArrayList<>();
     private final List<YaegerEntity> statics = new ArrayList<>();
     private final List<Updatable> updatables = new ArrayList<>();
@@ -41,6 +43,7 @@ public class EntityCollection implements Initializable {
 
     private final CollisionDelegate collisionDelegate;
     private AnnotationProcessor annotationProcessor;
+    private YaegerConfig config;
 
     /**
      * Instantiate an {@link EntityCollection} for a given {@link Group} and a {@link Set} of {@link YaegerEntity} instances.
@@ -210,8 +213,16 @@ public class EntityCollection implements Initializable {
         entity.applyTranslationsForAnchorPoint();
 
         entity.applyEntityProcessor(this::registerKeylistener);
-        entity.applyEntityProcessor(collisionDelegate::register);
+        entity.applyEntityProcessor(this::registerCollider);
         entity.addToParent(this::addToParentNode);
+    }
+
+    private void registerCollider(final YaegerEntity yaegerEntity) {
+        var collider = collisionDelegate.register(yaegerEntity);
+
+        if (collider && config.isShowBoundingBox()) {
+            boundingBoxes.add(new BoundingBoxVisualizer(yaegerEntity));
+        }
     }
 
     /**
@@ -224,6 +235,19 @@ public class EntityCollection implements Initializable {
     public void addDynamicEntity(final Updatable dynamicEntity) {
         annotationProcessor.configureUpdateDelegators(dynamicEntity);
         updatables.add(dynamicEntity);
+    }
+
+    /**
+     * Set the {@link YaegerConfig} to be used by this {@link EntityCollection}.
+     *
+     * @param config the {@link YaegerConfig} to be used by this {@link EntityCollection}
+     */
+    public void setConfig(final YaegerConfig config) {
+        this.config = config;
+
+        if (config.isShowBoundingBox()) {
+            registerSupplier(boundingBoxes);
+        }
     }
 
     /**

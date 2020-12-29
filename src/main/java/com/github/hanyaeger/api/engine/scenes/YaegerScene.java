@@ -110,4 +110,11 @@ public interface YaegerScene extends DimensionsProvider, Destroyable, Initializa
     default double getHeight() {
         return getStage().getHeight();
     }
+
+    /**
+     * Set the {@link YaegerConfig} to be used by this {@link YaegerScene}.
+     *
+     * @param yaegerConfig the {@link YaegerConfig} to be used by this {@link YaegerScene}
+     */
+    void setConfig(final YaegerConfig yaegerConfig);
 }

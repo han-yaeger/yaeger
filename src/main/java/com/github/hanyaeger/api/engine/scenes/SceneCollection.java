@@ -49,6 +49,7 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
         put(id, scene);
         scene.init(injector);
         scene.setStage(stage);
+        scene.setConfig(yaegerConfig);
 
         if (size() == 1) {
             firstScene = id;

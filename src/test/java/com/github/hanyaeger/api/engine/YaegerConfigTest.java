@@ -1,6 +1,5 @@
 package com.github.hanyaeger.api.engine;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,10 +25,35 @@ class YaegerConfigTest {
 
         // Act
         sut.setShowSplash(false);
-        var showSplash = sut.isShowSplash();
+        var actual = sut.isShowSplash();
 
         // Assert
-        assertFalse(showSplash);
+        assertFalse(actual);
+    }
+
+    @Test
+    void showBoundingBoxDefaultToFalse() {
+        // Arrange
+        var sut = new YaegerConfig();
+
+        // Act
+        var actual = sut.isShowBoundingBox();
+
+        // Assert
+        assertFalse(actual);
+    }
+
+    @Test
+    void showBoundingBoxSetTrueGivesTrue() {
+        // Arrange
+        var sut = new YaegerConfig();
+
+        // Act
+        sut.setShowBoundingBox(true);
+        var actual = sut.isShowBoundingBox();
+
+        // Assert
+        assertTrue(actual);
     }
 
     @Test
