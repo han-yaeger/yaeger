@@ -48,12 +48,18 @@ public class EntityCollection implements Initializable {
     /**
      * Instantiate an {@link EntityCollection} for a given {@link Group} and a {@link Set} of {@link YaegerEntity} instances.
      *
-     * @param pane The {@link Group} to which all instances of {@link YaegerEntity}s should be added.
+     * @param pane   the {@link Group} to which all instances of {@link YaegerEntity}s should be added
+     * @param config the {@link YaegerConfig} that should be used with this {@link EntityCollection}
      */
-    public EntityCollection(final Pane pane) {
+    public EntityCollection(final Pane pane, final YaegerConfig config) {
         this.pane = pane;
+        this.config = config;
         this.collisionDelegate = new CollisionDelegate();
         this.statistics = new EntityCollectionStatistics();
+
+        if (config.isShowBoundingBox()) {
+            registerSupplier(boundingBoxes);
+        }
     }
 
     /**
@@ -235,19 +241,6 @@ public class EntityCollection implements Initializable {
     public void addDynamicEntity(final Updatable dynamicEntity) {
         annotationProcessor.configureUpdateDelegators(dynamicEntity);
         updatables.add(dynamicEntity);
-    }
-
-    /**
-     * Set the {@link YaegerConfig} to be used by this {@link EntityCollection}.
-     *
-     * @param config the {@link YaegerConfig} to be used by this {@link EntityCollection}
-     */
-    public void setConfig(final YaegerConfig config) {
-        this.config = config;
-
-        if (config.isShowBoundingBox()) {
-            registerSupplier(boundingBoxes);
-        }
     }
 
     /**

@@ -66,10 +66,9 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
 
         scene = sceneFactory.create(pane);
 
-        entityCollection = entityCollectionFactory.create(pane);
+        entityCollection = entityCollectionFactory.create(pane, config);
         injector.injectMembers(entityCollection);
         entityCollection.init(injector);
-        entityCollection.setConfig(config);
         entityCollection.addStatisticsObserver(debugger);
 
         debugger.setup(pane);
@@ -134,7 +133,6 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
         this.stage = stage;
     }
 
-    // TODO unittest
     @Override
     public void setConfig(final YaegerConfig yaegerConfig) {
         this.config = yaegerConfig;

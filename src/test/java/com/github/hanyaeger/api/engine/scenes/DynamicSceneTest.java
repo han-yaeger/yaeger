@@ -3,6 +3,7 @@ package com.github.hanyaeger.api.engine.scenes;
 import com.github.hanyaeger.api.engine.Timer;
 import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.Updater;
+import com.github.hanyaeger.api.engine.YaegerConfig;
 import com.github.hanyaeger.api.engine.debug.Debugger;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.EntitySupplier;
@@ -20,6 +21,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ObjectInputFilter;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -44,6 +46,7 @@ class DynamicSceneTest {
     private EntityCollection entityCollection;
     private EntitySupplier entitySupplier;
     private Pane pane;
+    private YaegerConfig config;
     private Scene scene;
     private Updater updater;
 
@@ -62,6 +65,7 @@ class DynamicSceneTest {
         animationTimerFactory = mock(AnimationTimerFactory.class);
         injector = mock(Injector.class);
         updater = mock(Updater.class);
+        config = mock(YaegerConfig.class);
 
         sut.setDebugger(debugger);
         sut.setSceneFactory(sceneFactory);
@@ -72,12 +76,13 @@ class DynamicSceneTest {
         sut.setEntitySupplier(entitySupplier);
         sut.setAnimationTimerFactory(animationTimerFactory);
         sut.setUpdater(updater);
+        sut.setConfig(config);
 
         scene = mock(Scene.class);
         entityCollection = mock(EntityCollection.class);
 
         when(sceneFactory.create(pane)).thenReturn(scene);
-        when(entityCollectionFactory.create(pane)).thenReturn(entityCollection);
+        when(entityCollectionFactory.create(pane, config)).thenReturn(entityCollection);
         when(animationTimerFactory.create(any())).thenReturn(animationTimer);
 
         sut.init(injector);
@@ -90,7 +95,7 @@ class DynamicSceneTest {
         // Act
         List<Timer> timers = sut.getTimers();
 
-        // Verify
+        // Assert
         assertNotNull(timers);
         assertTrue(timers.isEmpty());
     }
@@ -105,7 +110,7 @@ class DynamicSceneTest {
         // Act
         sut.destroy();
 
-        // Verify
+        // Assert
         verify(entityCollection).clear();
     }
 
@@ -120,7 +125,7 @@ class DynamicSceneTest {
         // Act
         sut.destroy();
 
-        // Verify
+        // Assert
         verify(updater).clear();
     }
 
@@ -133,7 +138,7 @@ class DynamicSceneTest {
         // Act
         var updatable = sut.entityCollectionUpdatable();
 
-        // Verify
+        // Assert
         assertTrue(updatable instanceof Updatable);
     }
 
@@ -146,7 +151,7 @@ class DynamicSceneTest {
         // Act
         updatable.update(0L);
 
-        // Verify
+        // Assert
         verify(entityCollection).update(0L);
     }
 
@@ -157,7 +162,7 @@ class DynamicSceneTest {
         // Act
         var u = sut.getUpdater();
 
-        // Verify
+        // Assert
         Assertions.assertEquals(updater, u);
     }
 

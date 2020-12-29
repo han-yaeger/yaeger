@@ -1,6 +1,7 @@
 package com.github.hanyaeger.api.engine.entities;
 
 import com.github.hanyaeger.api.engine.Updatable;
+import com.github.hanyaeger.api.engine.YaegerConfig;
 import com.github.hanyaeger.api.engine.annotations.AnnotationProcessor;
 import com.github.hanyaeger.api.engine.debug.Debugger;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
@@ -31,6 +32,7 @@ class EntityCollectionTest {
     private EntityCollection sut;
     private Injector injector;
     private Pane pane;
+    private YaegerConfig config;
     private AnnotationProcessor annotationProcessor;
 
     @BeforeEach
@@ -38,6 +40,7 @@ class EntityCollectionTest {
         injector = mock(Injector.class);
         annotationProcessor = mock(AnnotationProcessor.class);
         pane = mock(Pane.class);
+        config = mock(YaegerConfig.class);
     }
 
     @Test
@@ -46,7 +49,7 @@ class EntityCollectionTest {
         var debugger = mock(Debugger.class);
 
         // Act
-        sut = new EntityCollection(pane);
+        sut = new EntityCollection(pane, config);
         sut.addStatisticsObserver(debugger);
         sut.setAnnotationProcessor(annotationProcessor);
 
@@ -62,7 +65,7 @@ class EntityCollectionTest {
     void clearClearsSupplier() {
         // Arrange
         var supplier = mock(EntitySupplier.class);
-        sut = new EntityCollection(pane);
+        sut = new EntityCollection(pane, config);
         sut.setAnnotationProcessor(annotationProcessor);
         sut.registerSupplier(supplier);
 
@@ -100,7 +103,7 @@ class EntityCollectionTest {
             Set<KeyCode> keycodes = new HashSet<>();
 
             // Act
-            sut = new EntityCollection(pane);
+            sut = new EntityCollection(pane, config);
             sut.setAnnotationProcessor(annotationProcessor);
             sut.init(injector);
             sut.registerSupplier(entitySupplier);
@@ -123,7 +126,7 @@ class EntityCollectionTest {
             keycodes.add(KeyCode.R);
 
             // Act
-            sut = new EntityCollection(pane);
+            sut = new EntityCollection(pane, config);
             sut.setAnnotationProcessor(annotationProcessor);
             sut.init(injector);
             sut.registerSupplier(entitySupplier);
@@ -158,7 +161,7 @@ class EntityCollectionTest {
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
 
-            sut = new EntityCollection(pane);
+            sut = new EntityCollection(pane, config);
             sut.setAnnotationProcessor(annotationProcessor);
             sut.init(injector);
 
@@ -176,7 +179,7 @@ class EntityCollectionTest {
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
 
-            sut = new EntityCollection(pane);
+            sut = new EntityCollection(pane, config);
             sut.setAnnotationProcessor(annotationProcessor);
             sut.init(injector);
 
@@ -198,7 +201,7 @@ class EntityCollectionTest {
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
 
-            sut = new EntityCollection(pane);
+            sut = new EntityCollection(pane, config);
             sut.setAnnotationProcessor(annotationProcessor);
             sut.init(injector);
 
@@ -221,7 +224,7 @@ class EntityCollectionTest {
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
 
-            sut = new EntityCollection(pane);
+            sut = new EntityCollection(pane, config);
             sut.setAnnotationProcessor(annotationProcessor);
             sut.init(injector);
 
@@ -244,7 +247,7 @@ class EntityCollectionTest {
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
 
-            sut = new EntityCollection(pane);
+            sut = new EntityCollection(pane, config);
             sut.setAnnotationProcessor(annotationProcessor);
             sut.init(injector);
 
@@ -267,7 +270,7 @@ class EntityCollectionTest {
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
 
-            sut = new EntityCollection(pane);
+            sut = new EntityCollection(pane, config);
             sut.setAnnotationProcessor(annotationProcessor);
             sut.init(injector);
 

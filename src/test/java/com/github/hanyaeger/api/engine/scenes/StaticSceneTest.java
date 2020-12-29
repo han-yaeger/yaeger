@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.engine.scenes;
 
+import com.github.hanyaeger.api.engine.YaegerConfig;
 import com.github.hanyaeger.api.engine.debug.Debugger;
 import com.github.hanyaeger.api.engine.entities.EntitySupplier;
 import com.github.hanyaeger.api.engine.scenes.delegates.BackgroundDelegate;
@@ -42,6 +43,7 @@ class StaticSceneTest {
     private Pane pane;
     private Scene scene;
     private Stage stage;
+    private YaegerConfig config;
 
     @BeforeEach
     void setup() {
@@ -56,6 +58,7 @@ class StaticSceneTest {
         entityCollectionFactory = mock(EntityCollectionFactory.class);
         injector = mock(Injector.class);
         stage = mock(Stage.class);
+        config = mock(YaegerConfig.class);
 
         sut.setDebugger(debugger);
         sut.setSceneFactory(sceneFactory);
@@ -65,12 +68,13 @@ class StaticSceneTest {
         sut.setKeyListenerDelegate(keyListenerDelegate);
         sut.setEntitySupplier(entitySupplier);
         sut.setStage(stage);
+        sut.setConfig(config);
 
         scene = mock(Scene.class);
         entityCollection = mock(EntityCollection.class);
 
         when(sceneFactory.create(pane)).thenReturn(scene);
-        when(entityCollectionFactory.create(pane)).thenReturn(entityCollection);
+        when(entityCollectionFactory.create(pane, config)).thenReturn(entityCollection);
 
         sut.init(injector);
     }
@@ -129,7 +133,7 @@ class StaticSceneTest {
         sut.activate();
 
         // Verify
-        verify(entityCollectionFactory).create(pane);
+        verify(entityCollectionFactory).create(pane, config);
     }
 
     @Test
@@ -159,7 +163,7 @@ class StaticSceneTest {
     void configureAddsTheDebuggerAsAStatisticsObserverToTheEntityCollection() {
         // Arrange
         var entityCollection = mock(EntityCollection.class);
-        when(entityCollectionFactory.create(pane)).thenReturn(entityCollection);
+        when(entityCollectionFactory.create(pane, config)).thenReturn(entityCollection);
 
         // Act
         sut.activate();
@@ -224,12 +228,13 @@ class StaticSceneTest {
         sut.setKeyListenerDelegate(keyListenerDelegate);
         sut.setEntitySupplier(entitySupplier);
         sut.setStage(stage);
+        sut.setConfig(config);
 
         scene = mock(Scene.class);
         entityCollection = mock(EntityCollection.class);
 
         when(sceneFactory.create(pane)).thenReturn(scene);
-        when(entityCollectionFactory.create(pane)).thenReturn(entityCollection);
+        when(entityCollectionFactory.create(pane, config)).thenReturn(entityCollection);
 
         sut.init(injector);
 

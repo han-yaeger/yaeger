@@ -16,6 +16,8 @@ import org.mockito.Mockito;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.mock;
 
 class CollisionDelegateTest {
@@ -42,8 +44,8 @@ class CollisionDelegateTest {
         collisionDelegate.checkCollisions();
 
         // Assert
-        Mockito.verify(collided).checkForCollisions(argument.capture());
-        Assertions.assertEquals(1, argument.getValue().size());
+        verify(collided).checkForCollisions(argument.capture());
+        assertEquals(1, argument.getValue().size());
     }
 
     @Test
@@ -61,8 +63,8 @@ class CollisionDelegateTest {
         collisionDelegate.checkCollisions();
 
         // Assert
-        Mockito.verify((Collided) collidedEntity).checkForCollisions(argument.capture());
-        Assertions.assertEquals(1, argument.getValue().size());
+        verify((Collided) collidedEntity).checkForCollisions(argument.capture());
+        assertEquals(1, argument.getValue().size());
     }
 
     @Test
@@ -79,7 +81,7 @@ class CollisionDelegateTest {
         collisionDelegate.checkCollisions();
 
         // Assert
-        Mockito.verifyNoMoreInteractions(collidedEntity);
+        verifyNoMoreInteractions(collidedEntity);
     }
 
     @Test
@@ -98,8 +100,8 @@ class CollisionDelegateTest {
         collisionDelegate.checkCollisions();
 
         // Assert
-        Mockito.verify((Collided) collidedEntity).checkForCollisions(argument.capture());
-        Assertions.assertEquals(0, argument.getValue().size());
+        verify((Collided) collidedEntity).checkForCollisions(argument.capture());
+        assertEquals(0, argument.getValue().size());
     }
 
     private class CollidedImpl extends YaegerEntity implements Collided {

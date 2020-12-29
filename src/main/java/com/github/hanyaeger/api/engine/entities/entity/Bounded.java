@@ -12,7 +12,13 @@ public interface Bounded extends DimensionsProvider, GameNode {
 
     /**
      * Return the {@link Bounds} (aka Bounding Box) of the {@link YaegerEntity}. Note that these
-     * {@link Bounds} are always a Axis aligned rectangle.
+     * {@link Bounds} are always an Axis Aligned rectangle and placed within the coordinate system of its parent.
+     * <p>
+     * This last fact comes into play when a {@link YaegerEntity} is part of a {@link CompositeEntity}. In such a case,
+     * the {@link YaegerEntity} is placed within the coordinate system of the {@link CompositeEntity} and so are its {@link Bounds}.
+     * If the required {@link Bounds} should be relative to the {@link com.github.hanyaeger.api.engine.scenes.YaegerScene},
+     * the method {@link #getBoundsInScene()} should be used.
+     * </p>
      *
      * @return the {@link Bounds}
      */
