@@ -170,24 +170,9 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#yaeger" id="yaeger">Yaeger</a></h1>
-<p><a href="https://github.com/han-yaeger/yaeger/actions?query=workflow%3A%22Java+CI+with+Maven%22"><img src="https://github.com/han-yaeger/yaeger/workflows/Java%20CI%20with%20Maven/badge.svg" alt="Java CI with Maven" /></a>
-<a href="https://codebeat.co/projects/github-com-han-yaeger-yaeger-master"><img src="https://codebeat.co/badges/e5806ed2-598a-4597-b85b-3940650927e3" alt="codebeat badge" /></a>
-<a href="https://www.codefactor.io/repository/github/han-yaeger/yaeger"><img src="https://www.codefactor.io/repository/github/han-yaeger/yaeger/badge" alt="CodeFactor" /></a>
-<a href="https://sonarcloud.io/dashboard?id=han-yaeger_yaeger"><img src="https://sonarcloud.io/api/project_badges/measure?project=han-yaeger_yaeger&amp;metric=alert_status" alt="Quality Gate Status" /></a></p>
-<p><a href="https://maven-badges.herokuapp.com/maven-central/com.github.han-yaeger/yaeger"><img src="https://maven-badges.herokuapp.com/maven-central/com.github.han-yaeger/yaeger/badge.svg" alt="Maven Central" /></a>
-<a href="https://shields.io/"><img src="https://img.shields.io/badge/Java-14-purple.svg" alt="Generic badge" /></a>
-<a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3" /></a></p>
 <p>Yaeger is Another Education Game Engine Runtime and a fully functional 2D game-engine that
 requires only a traditional Object Oriented style of programming. It is based on JavaFX and
 requires Java 14 or above to work.</p>
-<h2><a class="header" href="#documentation" id="documentation">Documentation</a></h2>
-<ul>
-<li>API: <a href="https://han-yaeger.github.io/yaeger/">https://han-yaeger.github.io/yaeger/</a></li>
-<li>Manual: <a href="https://han-yaeger.github.io/yaeger/book/">https://han-yaeger.github.io/yaeger/book/</a></li>
-<li>Tutorial: <a href="https://github.com/han-yaeger/yaeger-tutorial">Yaeger tutorial</a></li>
-<li>Showcase: <a href="https://github.com/han-yaeger/yaeger-showcase">Yaeger showcase</a></li>
-<li>Architecture: <a href="docs/architecture.html">Yaeger's architecture</a></li>
-</ul>
 <h2><a class="header" href="#usage" id="usage">Usage</a></h2>
 <p>Yaeger is available through the Maven Central Repository.</p>
 <pre><code class="language-xml">&lt;dependency&gt;
@@ -196,31 +181,16 @@ requires Java 14 or above to work.</p>
   &lt;version&gt;2020.2021-beta5&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre>
-<h2><a class="header" href="#modern-java-but-an-api-with-only-traditional-object-orientation" id="modern-java-but-an-api-with-only-traditional-object-orientation">Modern Java, but an API with only traditional Object Orientation?</a></h2>
-<p>Yaeger is to be used in a course that is part of the first year at the HAN University of applied sciences. Students
-just learned to master Object Orientation in the traditional sense and therefore the API of Yaeger is only targeted
-towards that use case. Fancy functional aspects (such as Streams and Lambda's) are used within Yaeger itself, but are not
-exposed through it's API.</p>
-<h2><a class="header" href="#versioning" id="versioning">Versioning</a></h2>
-<p>Because Yaeger will be used in an educational context, versioning will be based on school years.
-Thus version 2020.2021 will be used during the school year that start in September 2020 and ends in July 2021.</p>
-<h3><a class="header" href="#breaking-changes" id="breaking-changes">Breaking changes</a></h3>
-<p>It is likely that the API will break between different versions. This is partially intended, since it is to
-be used in an educational context and there is no shame in preventing students from using previous iterations.</p>
-<h2><a class="header" href="#contributions" id="contributions">Contributions</a></h2>
-<p>Contributing to Yaeger is encouraged and we would love to review your Pull Requests. Either
-pick up one of the Issues or implement a feature you've been missing. Ensure that your feature does
-not require modern Java features to be exposed through the API.</p>
-<h2><a class="header" href="#license" id="license">License</a></h2>
-<p>The code and documentation in this project are released under the <a href="LICENSE">GNU General Public License v3.0</a></p>
 <h1><a class="header" href="#adding-entities" id="adding-entities">Adding entities</a></h1>
 <h1><a class="header" href="#adding-scenes" id="adding-scenes">Adding scenes</a></h1>
 <h1><a class="header" href="#yaegers-architecture" id="yaegers-architecture">Yaeger’s architecture</a></h1>
 <h1><a class="header" href="#command-line-arguments" id="command-line-arguments">Command Line Arguments</a></h1>
-<p>When run, Yaeger accepts command line arguments. The following arguments
-are currently supported:</p>
+<p>When run, Yaeger accepts command line arguments. These arguments are primarily meant for debugging your
+game.</p>
+<p>The following arguments are currently supported:</p>
 <table><thead><tr><th align="left">Argument</th><th align="left">Explanation</th></tr></thead><tbody>
 <tr><td align="left">--noSplash</td><td align="left">Skip the Splash screen during start up</td></tr>
+<tr><td align="left">--showBB</td><td align="left">Show the BoundingBox of all instances of <code>YaegerEntity</code> that implement either <code>Collider</code> or <code>Collided</code>.</td></tr>
 <tr><td align="left">--help</td><td align="left">Show this help screen with all commandline options</td></tr>
 </tbody></table>
 <h1><a class="header" href="#creating-a-game" id="creating-a-game">Creating a game</a></h1>
