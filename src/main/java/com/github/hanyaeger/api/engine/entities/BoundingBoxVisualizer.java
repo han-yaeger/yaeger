@@ -8,30 +8,38 @@ import com.github.hanyaeger.api.engine.entities.entity.shape.rectangle.DynamicRe
 import javafx.scene.paint.Color;
 
 /**
- * TODO unittest & document
+ * When a Yaeger Game is run with the commandline option {@code --showBB}, for each {@link YaegerEntity} that implements
+ * either {@link com.github.hanyaeger.api.engine.entities.entity.collisions.Collider} or {@link com.github.hanyaeger.api.engine.entities.entity.collisions.Collided}
+ * an instance of {@link BoundingBoxVisualizer} will be added to the {@link com.github.hanyaeger.api.engine.scenes.YaegerScene}.
+ * <p>
+ * A {@link BoundingBoxVisualizer} will consist of a rectangle with exactly the same dimensions as the BoundingBox of the
+ * {@link YaegerEntity} that is passed to its constructor. This way, it will visualize the dimensions and location of each
+ * {@link com.github.hanyaeger.api.engine.entities.entity.collisions.Collided} and {@link com.github.hanyaeger.api.engine.entities.entity.collisions.Collider}
+ * and help debugging the Yaeger Game.
  */
 class BoundingBoxVisualizer extends DynamicRectangleEntity implements UpdateExposer {
 
     private YaegerEntity yaegerEntity;
 
+    /**
+     * Create a new {@link BoundingBoxVisualizer} for the given {@link YaegerEntity}.
+     *
+     * @param yaegerEntity the {@link YaegerEntity} of  which the BoundingBox should be visualized.
+     */
     BoundingBoxVisualizer(final YaegerEntity yaegerEntity) {
-        super(yaegerEntity.getAnchorLocation());
+        super(new Coordinate2D(yaegerEntity.getBoundsInScene().getMinX(), yaegerEntity.getBoundsInScene().getMinY()));
         this.yaegerEntity = yaegerEntity;
         setFill(Color.TRANSPARENT);
-        setStrokeWidth(1);
+        setStrokeWidth(2);
         setStrokeColor(Color.GREEN);
         yaegerEntity.attachEventListener(EventTypes.REMOVE, (e) -> remove());
     }
 
     @Override
     public void explicitUpdate(long timestamp) {
-        var location = new Coordinate2D(yaegerEntity.getBoundsInScene().getMinX(), yaegerEntity.getBoundsInScene().getMinY());
-        var width = yaegerEntity.getWidth();
-        var height = yaegerEntity.getHeight();
-
-        setAnchorLocation(location);
-        setWidth(width);
-        setHeight(height);
+        setAnchorLocation(new Coordinate2D(yaegerEntity.getBoundsInScene().getMinX(), yaegerEntity.getBoundsInScene().getMinY()));
+        setWidth(yaegerEntity.getWidth());
+        setHeight(yaegerEntity.getHeight());
     }
 }
 

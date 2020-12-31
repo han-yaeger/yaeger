@@ -33,10 +33,10 @@ class CollisionDelegateTest {
     void onlyCollidedGetsCollisionCheck() {
         // Arrange
         var collided = mock(Collided.class);
-        var AABBCollider = mock(Collider.class);
+        var collider = mock(Collider.class);
 
         collisionDelegate.register(collided);
-        collisionDelegate.register(AABBCollider);
+        collisionDelegate.register(collider);
 
         ArgumentCaptor<List> argument = ArgumentCaptor.forClass(List.class);
 
@@ -46,6 +46,42 @@ class CollisionDelegateTest {
         // Assert
         verify(collided).checkForCollisions(argument.capture());
         assertEquals(1, argument.getValue().size());
+    }
+
+    @Test
+    void nonColliderOrCollidedReturnsFalseOnRegister() {
+        // Act
+        var normalEntity = mock(YaegerEntity.class);
+
+        // Arrange
+        boolean register = collisionDelegate.register(normalEntity);
+
+        // Assert
+        assertFalse(register);
+    }
+
+    @Test
+    void colliderReturnsTrueOnRegister() {
+        // Act
+        YaegerEntity collider = mock(ColliderImpl.class);
+
+        // Arrange
+        boolean register = collisionDelegate.register(collider);
+
+        // Assert
+        assertTrue(register);
+    }
+
+    @Test
+    void collidedReturnsTrueOnRegister() {
+        // Act
+        YaegerEntity collided = mock(CollidedImpl.class);
+
+        // Arrange
+        boolean register = collisionDelegate.register(collided);
+
+        // Assert
+        assertTrue(register);
     }
 
     @Test
