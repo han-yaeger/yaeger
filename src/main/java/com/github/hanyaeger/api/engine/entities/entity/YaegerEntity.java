@@ -35,12 +35,12 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     private double opacity = DEFAULT_OPACITY;
 
     private Optional<Cursor> cursor = Optional.empty();
-    private List<Timer> timers = new ArrayList<>();
+    private final List<Timer> timers = new ArrayList<>();
 
-    private RotationBuffer rotationBuffer;
+    private final RotationBuffer rotationBuffer;
 
     /**
-     * Instantiate a new {@link YaegerEntity} on the given {@link Coordinate2D}.
+     * Create a new {@link YaegerEntity} on the given {@link Coordinate2D}.
      *
      * @param initialLocation the initial {@link Coordinate2D} of this {@link YaegerEntity}
      */
@@ -199,7 +199,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     public double angleTo(final Coordinate2D otherLocation) {
 
         if (getAnchorLocation().equals(otherLocation)) {
-            return 0d;
+            return 0D;
         }
 
         var delta = otherLocation.subtract(getAnchorLocation());
