@@ -37,6 +37,5 @@ public interface SceneBorderCrossingWatcher extends Bounded, SceneChild, Moveabl
 
     private void handleCrossing(SceneBorder border) {
         notifyBoundaryCrossing(border);
-        undoUpdate();
     }
 }

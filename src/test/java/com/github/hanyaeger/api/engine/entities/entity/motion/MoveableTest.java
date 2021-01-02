@@ -182,21 +182,6 @@ class MoveableTest {
     }
 
     @Test
-    void callingTheUpdatableSetsHaltedToFalse() {
-        // Arrange
-        var anchorLocation = new Coordinate2D(37, 42);
-        sut.setAnchorLocation(anchorLocation);
-        Updatable updatable = sut.updateLocation();
-        when(motionApplier.getSpeed()).thenReturn(1d);
-
-        // Act
-        updatable.update(TIMESTAMP);
-
-        // Assert
-        verify(motionApplier).setHalted(false);
-    }
-
-    @Test
     void callingTheUpdatableModifiesLocation() {
         // Arrange
         var anchorLocation = new Coordinate2D(37, 42);
@@ -229,64 +214,6 @@ class MoveableTest {
         verify(motionApplier, never()).updateLocation(any(Point2D.class));
     }
 
-    @Test
-    void callingUndoUpdateForNonHaltedMotionDoesNotChangeLocation() {
-        // Arrange
-        when(motionApplier.isHalted()).thenReturn(false);
-        sut.setAnchorLocation(null);
-
-        // Act
-        sut.undoUpdate();
-
-        // Assert
-        assertNull(sut.getAnchorLocation());
-    }
-
-    @Test
-    void callingUndoUpdateForHaltedMotionAndSpeedNotZeroDoesNotChangeLocation() {
-        // Arrange
-        when(motionApplier.isHalted()).thenReturn(true);
-        when(motionApplier.getSpeed()).thenReturn(1d);
-        sut.setAnchorLocation(null);
-
-        // Act
-        sut.undoUpdate();
-
-        // Assert
-        assertNull(sut.getAnchorLocation());
-    }
-
-    @Test
-    void callingUndoUpdateForHaltedMotionAndSpeedZeroAndNoPreviousLocationDoesNotChangeLocation() {
-        // Arrange
-        when(motionApplier.isHalted()).thenReturn(true);
-        when(motionApplier.getSpeed()).thenReturn(0d);
-        when(motionApplier.getPreviousLocation()).thenReturn(Optional.empty());
-        sut.setAnchorLocation(null);
-
-        // Act
-        sut.undoUpdate();
-
-        // Assert
-        assertNull(sut.getAnchorLocation());
-    }
-
-    @Test
-    void callingUndoChangesLocation() {
-        // Arrange
-        var expected = new Coordinate2D(3, 4);
-        when(motionApplier.isHalted()).thenReturn(true);
-        when(motionApplier.getSpeed()).thenReturn(0d);
-        when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(expected));
-        sut.setAnchorLocation(null);
-
-        // Act
-        sut.undoUpdate();
-
-        // Assert
-        assertEquals(expected, sut.getAnchorLocation());
-    }
-
     private class MoveableImpl implements Moveable {
         Coordinate2D anchorLocation;
         MotionApplier motionApplier;
@@ -313,7 +240,7 @@ class MoveableTest {
 
         @Override
         public void setAnchorPoint(AnchorPoint anchorPoint) {
-            // Not required here.
+            // Not required here
         }
 
         @Override
@@ -323,12 +250,12 @@ class MoveableTest {
 
         @Override
         public void setAnchorLocationX(double x) {
-            // Not required here.
+            // Not required here
         }
 
         @Override
         public void setAnchorLocationY(double y) {
-            // Not required here.
+            // Not required here
         }
 
         @Override
@@ -343,7 +270,7 @@ class MoveableTest {
 
         @Override
         public void transferCoordinatesToNode() {
-            // Not required here.
+            // Not required here
         }
     }
 }

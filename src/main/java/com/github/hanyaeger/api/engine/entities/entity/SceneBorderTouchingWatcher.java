@@ -37,6 +37,5 @@ public interface SceneBorderTouchingWatcher extends Moveable, Bounded, SceneChil
 
     private void handleTouch(SceneBorder border) {
         notifyBoundaryTouching(border);
-        undoUpdate();
     }
 }

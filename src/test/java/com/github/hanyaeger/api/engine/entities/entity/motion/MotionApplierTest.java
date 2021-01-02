@@ -1,7 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.motion;
 
 import javafx.geometry.Point2D;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -42,28 +41,6 @@ class MotionApplierTest {
         // Assert
         assertEquals(DEFAULT_START_LOCATION.getX(), updatedLocation.getX(), DELTA);
         assertEquals(DEFAULT_START_LOCATION.getY(), updatedLocation.getY(), DELTA);
-    }
-
-    @Test
-    void newInstanceHasEmptyPreviousLocation() {
-        // Arrange
-
-        // Act
-
-        // Assert
-        assertTrue(sut.getPreviousLocation().isEmpty());
-    }
-
-    @Test
-    void setHaltedIsStored() {
-        // Arrange
-        sut.setHalted(true);
-
-        // Act
-        var halted = sut.isHalted();
-
-        // Assert
-        assertTrue(halted);
     }
 
     @Test
@@ -172,34 +149,6 @@ class MotionApplierTest {
         // Assert
         assertEquals(0, sut.get().getX(), DELTA);
         assertEquals(1, sut.get().getY(), DELTA);
-    }
-
-    @Test
-    void setSpeedToZeroFreezesLocationIfPreviousSpeedNotZero() {
-        // Arrange
-        sut.setMotion(1, Direction.UP.getValue());
-
-        // Act
-        sut.setSpeed(0);
-
-        // Assert
-        assertEquals(DEFAULT_START_LOCATION.getX(), sut.get().getX(), DELTA);
-        assertEquals(DEFAULT_START_LOCATION.getY(), sut.get().getY(), DELTA);
-        assertTrue(sut.isHalted());
-    }
-
-    @Test
-    void setSpeedToZeroFreezesLocationButNotHaltedIfPreviousSpeedZero() {
-        // Arrange
-        sut.setMotion(0, Direction.UP.getValue());
-
-        // Act
-        sut.setSpeed(0);
-
-        // Assert
-        assertEquals(DEFAULT_START_LOCATION.getX(), sut.get().getX(), DELTA);
-        assertEquals(DEFAULT_START_LOCATION.getY(), sut.get().getY(), DELTA);
-        assertFalse(sut.isHalted());
     }
 
     @Test
@@ -542,19 +491,5 @@ class MotionApplierTest {
 
         // Arrange
         assertEquals(2, sut.getSpeed(), DELTA);
-    }
-
-    @Test
-    void getPreviousLocationReturnsPreviousLocation() {
-        // Arrange
-        var expected = new Point2D(37, 42);
-        sut.setMotion(4, Direction.DOWN.getValue());
-
-        // Act
-        sut.updateLocation(expected);
-        var actual = sut.getPreviousLocation().get();
-
-        // Assert
-        Assertions.assertEquals(expected, actual);
     }
 }

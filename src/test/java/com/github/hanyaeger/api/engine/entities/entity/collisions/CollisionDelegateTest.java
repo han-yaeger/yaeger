@@ -153,12 +153,12 @@ class CollisionDelegateTest {
 
         @Override
         public void onCollision(Collider collidingObject) {
-            // Not required here.
+            // Not required here
         }
 
         @Override
         public void remove() {
-            // Not required here.
+            // Not required here
         }
 
         @Override
@@ -168,7 +168,7 @@ class CollisionDelegateTest {
 
         @Override
         public void setAnchorPoint(AnchorPoint anchorPoint) {
-            // Not required here.
+            // Not required here
         }
 
         @Override
@@ -178,17 +178,16 @@ class CollisionDelegateTest {
 
         @Override
         public void transferCoordinatesToNode() {
-            // Not required here.
+            // Not required here
         }
 
         @Override
         public void init(Injector injector) {
-            // Not required here.
+            // Not required here
         }
 
         @Override
         public List<Timer> getTimers() {
-            // Not required here.
             return null;
         }
 
@@ -199,13 +198,7 @@ class CollisionDelegateTest {
 
         @Override
         public MotionApplier getMotionApplier() {
-            // Not required here.
             return null;
-        }
-
-        @Override
-        public void undoUpdate() {
-            // Not required here
         }
     }
 
@@ -222,7 +215,7 @@ class CollisionDelegateTest {
 
         @Override
         public void remove() {
-            // Not required here.
+            // Not required here
         }
 
         @Override
@@ -232,7 +225,7 @@ class CollisionDelegateTest {
 
         @Override
         public void setAnchorPoint(AnchorPoint anchorPoint) {
-            // Not required here.
+            // Not required here
         }
 
         @Override
@@ -242,12 +235,12 @@ class CollisionDelegateTest {
 
         @Override
         public void transferCoordinatesToNode() {
-            // Not required here.
+            // Not required here
         }
 
         @Override
         public void init(Injector injector) {
-            // Not required here.
+            // Not required here
         }
 
         @Override
@@ -263,7 +256,6 @@ class CollisionDelegateTest {
         @Override
         public List<Timer> getTimers() {
             return null;
-            // Not required here.
         }
     }
 }

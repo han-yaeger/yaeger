@@ -207,28 +207,23 @@ class SideCollidedTest {
         }
 
         @Override
-        public void undoUpdate() {
+        public void setAnchorLocationX(double x) {
             // Not required here
         }
 
         @Override
-        public void setAnchorLocationX(double x) {
-            // Not required here.
-        }
-
-        @Override
         public void setAnchorLocationY(double y) {
-            // Not required here.
+            // Not required here
         }
 
         @Override
         public void setAnchorLocation(Coordinate2D anchorLocation) {
-            // Not required here.
+            // Not required here
         }
 
         @Override
         public Coordinate2D getAnchorLocation() {
-            // Not required here.
+            // Not required here
             return null;
         }
 

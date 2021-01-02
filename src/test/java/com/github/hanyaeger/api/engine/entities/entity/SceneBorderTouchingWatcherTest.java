@@ -36,11 +36,8 @@ class SceneBorderTouchingWatcherTest {
         scene = mock(Scene.class);
         motionApplier = mock(MotionApplier.class);
 
-
         sut.setGameNode(node);
         sut.setMotionApplier(motionApplier);
-
-        when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(new Coordinate2D(0, 0)));
     }
 
     @Test
@@ -51,7 +48,7 @@ class SceneBorderTouchingWatcherTest {
         var updatable = sut.watchForBoundaryTouching();
 
         // Assert
-        assertTrue(updatable instanceof Updatable);
+        assertNotNull(updatable);
     }
 
     @Test
@@ -255,33 +252,32 @@ class SceneBorderTouchingWatcherTest {
 
         @Override
         public void setAnchorLocationX(double x) {
-            // Not required here.
+            // Not required here
         }
 
         @Override
         public void setAnchorLocationY(double y) {
-            // Not required here.
+            // Not required here
         }
 
         @Override
         public void setAnchorLocation(Coordinate2D anchorLocation) {
-            // Not required here.
+            // Not required here
         }
 
         @Override
         public Coordinate2D getAnchorLocation() {
-            // Not required here.
             return null;
         }
 
         @Override
         public void transferCoordinatesToNode() {
-            // Not required here.
+            // Not required here
         }
 
         @Override
         public void setAnchorPoint(AnchorPoint anchorPoint) {
-            // Not required here.
+            // Not required here
         }
 
         @Override

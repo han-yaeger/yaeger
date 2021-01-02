@@ -61,7 +61,6 @@ public class CollidedTest {
         trivialCollider.setBounds(TEST_COLLIDED_BOUNDINGBOX);
 
         when(motionApplier.getSpeed()).thenReturn(0d);
-        when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(new Coordinate2D(0, 0)));
 
         List<Collider> testColliders = List.of(trivialCollider);
 
@@ -134,7 +133,7 @@ public class CollidedTest {
         private Collider lastCollided;
         private MotionApplier motionApplier;
         private boolean setAnchorLocationCalled = false;
-        private boolean setOriginYcalled = false;
+        private final boolean setOriginYcalled = false;
 
         @Override
         public void onCollision(Collider collidingObject) {
@@ -167,12 +166,12 @@ public class CollidedTest {
 
         @Override
         public void setAnchorLocationX(double x) {
-            // Not required here.
+            // Not required here
         }
 
         @Override
         public void setAnchorLocationY(double y) {
-            // Not required here.
+            // Not required here
         }
 
         @Override
@@ -187,12 +186,12 @@ public class CollidedTest {
 
         @Override
         public void transferCoordinatesToNode() {
-            // Not required here.
+            // Not required here
         }
 
         @Override
         public void setAnchorPoint(AnchorPoint anchorPoint) {
-            // Not required here.
+            // Not required here
         }
 
         @Override
@@ -232,10 +231,6 @@ public class CollidedTest {
             return 0;
         }
 
-        @Override
-        public void undoUpdate() {
-            // Not required here
-        }
 
         @Override
         public void transferCoordinatesToNode() {

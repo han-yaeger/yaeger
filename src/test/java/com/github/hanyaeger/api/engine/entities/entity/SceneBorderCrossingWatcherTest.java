@@ -37,8 +37,6 @@ class SceneBorderCrossingWatcherTest {
 
         sut.setGameNode(node);
         sut.setMotionApplier(motionApplier);
-
-        when(motionApplier.getPreviousLocation()).thenReturn(Optional.of(new Coordinate2D(0, 0)));
     }
 
     @Test
@@ -254,17 +252,17 @@ class SceneBorderCrossingWatcherTest {
 
         @Override
         public void setAnchorLocationX(double x) {
-            // Not required here.
+            // Not required here
         }
 
         @Override
         public void setAnchorLocationY(double y) {
-            // Not required here.
+            // Not required here
         }
 
         @Override
         public void setAnchorLocation(Coordinate2D anchorLocation) {
-            // Not required here.
+            // Not required here
         }
 
         @Override
@@ -274,12 +272,12 @@ class SceneBorderCrossingWatcherTest {
 
         @Override
         public void transferCoordinatesToNode() {
-
+            // Not required here
         }
 
         @Override
         public void setAnchorPoint(AnchorPoint anchorPoint) {
-
+            // Not required here
         }
 
         @Override

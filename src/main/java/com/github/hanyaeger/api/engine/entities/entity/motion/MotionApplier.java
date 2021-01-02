@@ -15,8 +15,8 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     private static final Point2D NON_MOTION = new Point2D(0, 0);
     private Optional<Double> direction = Optional.empty();
     private Coordinate2D motion;
-    private Optional<Coordinate2D> previousLocation = Optional.empty();
-    private boolean halted = false;
+//    private Optional<Coordinate2D> previousLocation = Optional.empty();
+//    private boolean halted = false;
 
     public static final double DEFAULT_GRAVITATIONAL_CONSTANT = 0.2d;
     public static final double DEFAULT_FRICTION_CONSTANT = 0.01d;
@@ -58,7 +58,7 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
 
     @Override
     public void setSpeed(final double newSpeed) {
-        hasBeenHalted(newSpeed);
+//        hasBeenHalted(newSpeed);
 
         if (Double.compare(newSpeed, 0d) == 0) {
             if (NON_MOTION.equals(this.motion)) {
@@ -180,47 +180,47 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
 
     @Override
     public Coordinate2D updateLocation(final Point2D currentLocation) {
-        previousLocation = Optional.of(new Coordinate2D(currentLocation.getX(), currentLocation.getY()));
+//        previousLocation = Optional.of(new Coordinate2D(currentLocation.getX(), currentLocation.getY()));
         return new Coordinate2D(currentLocation.add(motion));
     }
 
-    /**
-     * Return the previous location. This Object is exposed to resolve an issue with the
-     * fact that collision detection occurs after all Entities are updated. If an
-     * Entity sets its speed to 0 on collision detection, it still received its last motion.
-     * <p>
-     * Because of that it is impossible that halt an Entities movement if the user continues
-     * to press the movement buttons or another system is continuing to set the speed to a positive
-     * value.
-     *
-     * @return an {@link Optional} containing the {@link Coordinate2D} representing the previous location of the
-     * Entity
-     */
-    public Optional<Coordinate2D> getPreviousLocation() {
-        return previousLocation;
-    }
+//    /**
+//     * Return the previous location. This Object is exposed to resolve an issue with the
+//     * fact that collision detection occurs after all Entities are updated. If an
+//     * Entity sets its speed to 0 on collision detection, it still received its last motion.
+//     * <p>
+//     * Because of that it is impossible that halt an Entities movement if the user continues
+//     * to press the movement buttons or another system is continuing to set the speed to a positive
+//     * value.
+//     *
+//     * @return an {@link Optional} containing the {@link Coordinate2D} representing the previous location of the
+//     * Entity
+//     */
+//    public Optional<Coordinate2D> getPreviousLocation() {
+//        return previousLocation;
+//    }
 
-    /**
-     * Return whether this {@link MotionApplier} has been halted.
-     *
-     * @return whether this {@link MotionApplier} has been halted
-     */
-    public boolean isHalted() {
-        return halted;
-    }
+//    /**
+//     * Return whether this {@link MotionApplier} has been halted.
+//     *
+//     * @return whether this {@link MotionApplier} has been halted
+//     */
+//    public boolean isHalted() {
+//        return halted;
+//    }
 
-    /**
-     * Set whether this {@link MotionApplier} has been halted.
-     *
-     * @param halted whether this {@link MotionApplier} has been halted
-     */
-    public void setHalted(final boolean halted) {
-        this.halted = halted;
-    }
+//    /**
+//     * Set whether this {@link MotionApplier} has been halted.
+//     *
+//     * @param halted whether this {@link MotionApplier} has been halted
+//     */
+//    public void setHalted(final boolean halted) {
+//        this.halted = halted;
+//    }
 
-    private void hasBeenHalted(final double newSpeed) {
-        halted = (newSpeed == 0 && motion.magnitude() != 0);
-    }
+//    private void hasBeenHalted(final double newSpeed) {
+//        halted = (newSpeed == 0 && motion.magnitude() != 0);
+//    }
 
     private Coordinate2D createVector(final double speed, final double direction) {
         final var angleInRadians = Math.toRadians(direction);

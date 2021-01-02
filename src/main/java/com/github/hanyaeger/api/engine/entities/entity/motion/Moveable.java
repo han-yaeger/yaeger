@@ -90,20 +90,12 @@ public interface Moveable extends Placeable, MotionModifier {
     @UpdatableProvider(asFirst = true)
     default Updatable updateLocation() {
         return timestamp -> {
-            getMotionApplier().setHalted(false);
-            if (Double.compare(getSpeed(), 0d) == 0) {
+            if (Double.compare(getSpeed(), 0D) == 0) {
                 return;
             }
 
             var loc = getMotionApplier().updateLocation(getAnchorLocation());
             setAnchorLocation(loc);
         };
-    }
-
-    default void undoUpdate() {
-        if (getMotionApplier().isHalted() && Double.compare(getSpeed(), 0) == 0 && getMotionApplier().getPreviousLocation().isPresent()) {
-          var loc = getMotionApplier().getPreviousLocation().get();
-            setAnchorLocation(loc);
-        }
     }
 }

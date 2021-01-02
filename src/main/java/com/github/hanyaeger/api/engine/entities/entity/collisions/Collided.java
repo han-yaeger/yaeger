@@ -38,11 +38,6 @@ public interface Collided extends Bounded, Moveable {
      * Perform collision detection with a {@link Set} of {@link Collider} instances. Only the first collision
      * is detected.
      * <p>
-     * In case of a collision, the event handler {@link #onCollision(Collider)} and {@link #undoUpdate()} are
-     * called. From the {@link #onCollision(Collider)} event handler, it is possible that the speed of the Entity
-     * is set to 0. Because the Entity has already been relocated, this relocation should be undone to keep the Entity
-     * at the same location. Hence {@link #undoUpdate()} is called, which is responsible for undoing the last relocation.
-     * <p>
      * Note that all of this takes place during the same Game World update. The re-rendering takes place after this update
      * completes, meaning the undoing will cause no jitter effect.
      *
@@ -56,7 +51,7 @@ public interface Collided extends Bounded, Moveable {
         for (final Collider collider : colliders) {
             if (hasCollidedWith(collider)) {
                 onCollision(collider);
-                undoUpdate();
+//                undoUpdate();
                 break;
             }
         }

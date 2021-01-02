@@ -51,14 +51,14 @@ public interface NewtonianModifier {
     /**
      * Set whether gravitational pull is being experienced.
      *
-     * @param pull {@code true} if gravitational pull should be experiened, {@code false} otherwise
+     * @param pull {@code true} if gravitational pull should be experienced, {@code false} otherwise
      */
     void setGravitationalPull(final boolean pull);
 
     /**
      * State whether gravitational pull is being experienced
      *
-     * @return {@code true} if gravitational pull should be experienced, {@code false} otherwise
+     * @return {@code true} if gravitational pull should be experienced {@code false} otherwise
      */
     boolean isGravitationalPull();
 }
