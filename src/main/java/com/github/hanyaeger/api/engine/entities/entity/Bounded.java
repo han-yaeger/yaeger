@@ -31,10 +31,13 @@ public interface Bounded extends DimensionsProvider, GameNode {
     }
 
     /**
+     *
+     * TODO remove this method
      * Return the {@link Bounds} (Bounding Box) before all transformations have been applied.
      *
      * @return the {@link Bounds}
      */
+    @Deprecated
     default Bounds getNonTransformedBounds() {
         if (getNode().isPresent()) {
             return getNode().get().getBoundsInLocal();

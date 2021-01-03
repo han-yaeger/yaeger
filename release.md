@@ -6,6 +6,9 @@
 
 - Removed `getLeftX()`, `getRightX()`, `getTopY()` and `getBottomY()` from the `Bounded` interface. These
 properties can be accessed through the `getBoundingBox()` method.
+- Removed the undoUpdate behaviour that undid the last update if the speed of a `YaegerEntity` was
+set to 0. It led to unpredictable behaviour for corner cases.
+- Removed the `SideAwareCollided`, which became absolute with the introduction of `CompositeEntity`.
 
 ## Features
 

@@ -25,12 +25,12 @@ import java.util.Set;
  * the {@link Collided} or {@link Collider} interfaces.
  * </p>
  */
-public interface Collided extends Bounded, Moveable {
+public interface Collided extends Bounded {
 
     /**
      * This method is called if a collision has occurred.
      *
-     * @param collidingObject the EntityCollection you are colliding with
+     * @param collidingObject the {@link Collider} you are colliding with
      */
     void onCollision(final Collider collidingObject);
 
@@ -51,7 +51,6 @@ public interface Collided extends Bounded, Moveable {
         for (final Collider collider : colliders) {
             if (hasCollidedWith(collider)) {
                 onCollision(collider);
-//                undoUpdate();
                 break;
             }
         }

@@ -4,14 +4,11 @@ import com.github.hanyaeger.api.engine.Timer;
 import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
-import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
 import com.google.inject.Injector;
 import javafx.scene.Node;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
 
 import java.util.List;
 import java.util.Optional;
@@ -190,16 +187,6 @@ class CollisionDelegateTest {
         public List<Timer> getTimers() {
             return null;
         }
-
-        @Override
-        public void setMotionApplier(final MotionApplier motionApplier) {
-            // Not required here
-        }
-
-        @Override
-        public MotionApplier getMotionApplier() {
-            return null;
-        }
     }
 
     private class ColliderImpl extends YaegerEntity implements Collider {
@@ -241,16 +228,6 @@ class CollisionDelegateTest {
         @Override
         public void init(Injector injector) {
             // Not required here
-        }
-
-        @Override
-        public double getDirection() {
-            return 0;
-        }
-
-        @Override
-        public double getSpeed() {
-            return 0;
         }
 
         @Override
