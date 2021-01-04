@@ -3,7 +3,6 @@ package com.github.hanyaeger.api.engine.entities.entity.collisions;
 import com.github.hanyaeger.api.engine.entities.entity.motion.Rotatable;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import com.github.hanyaeger.api.engine.entities.entity.Bounded;
-import com.github.hanyaeger.api.engine.entities.entity.motion.Moveable;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
 
 import java.util.List;
@@ -57,6 +56,6 @@ public interface Collided extends Bounded {
     }
 
     private boolean hasCollidedWith(final Collider collider) {
-        return !this.equals(collider) && getBoundsInScene().intersects(collider.getBoundsInScene());
+        return !this.equals(collider) && getBoundingBox().intersects(collider.getBoundingBox());
     }
 }

@@ -441,18 +441,6 @@ class YaegerEntityTest {
     }
 
     @Test
-    void getBoundsDelegatesToNode() {
-        // Arrange
-        when(node.getBoundsInLocal()).thenReturn(BOUNDING_BOX);
-
-        // Act
-        var actual = sut.getNonTransformedBounds();
-
-        // Assert
-        assertEquals(BOUNDING_BOX, actual);
-    }
-
-    @Test
     void addToEntityCollectionCallsAddStaticEntity() {
         // Arrange
         var entityCollection = mock(EntityCollection.class);

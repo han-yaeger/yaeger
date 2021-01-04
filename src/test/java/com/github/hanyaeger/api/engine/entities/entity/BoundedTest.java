@@ -24,34 +24,9 @@ class BoundedTest {
 
         sut = new BoundedImpl();
         sut.setNode(node);
+        when(node.localToScene((Bounds) any(), any(Boolean.class))).thenReturn(bounds);
         when(node.getBoundsInLocal()).thenReturn(bounds);
         when(node.getBoundsInParent()).thenReturn(bounds);
-    }
-
-    @Test
-    void getNonTransformedBoundsReturnsZeroBoundingBoxIfGameNodeIsNotPresent() {
-        // Arrange
-        var sut = new EmptyGameNodeBoundedImpl();
-
-        // Act
-        var boundingBox = sut.getNonTransformedBounds();
-
-        // Assert
-        Assertions.assertEquals(0, boundingBox.getWidth());
-        Assertions.assertEquals(0, boundingBox.getHeight());
-    }
-
-    @Test
-    void getNonTransformedBoundsDelegatesToGameNodeIfPresent() {
-        // Arrange
-        var sut = new BoundedImpl();
-        sut.setNode(node);
-
-        // Act
-        sut.getNonTransformedBounds();
-
-        // Assert
-        Mockito.verify(node).getBoundsInLocal();
     }
 
     @Test
@@ -68,25 +43,12 @@ class BoundedTest {
     }
 
     @Test
-    void getTransformedBoundsDelegatesToGameNodeIfPresent() {
-        // Arrange
-        var sut = new BoundedImpl();
-        sut.setNode(node);
-
-        // Act
-        sut.getBoundingBox();
-
-        // Assert
-        Mockito.verify(node).getBoundsInParent();
-    }
-
-    @Test
     void getBoundsInSceneReturnsZeroBoundingBoxIfGameNodeIsNotPresent() {
         // Arrange
         var sut = new EmptyGameNodeBoundedImpl();
 
         // Act
-        var boundingBox = sut.getBoundsInScene();
+        var boundingBox = sut.getBoundingBox();
 
         // Assert
         Assertions.assertEquals(0, boundingBox.getWidth());
@@ -94,13 +56,13 @@ class BoundedTest {
     }
 
     @Test
-    void getBoundsInSceneDelegatesToGameNodeIfPresent() {
+    void getBoundingBoxDelegatesToGameNodeIfPresent() {
         // Arrange
         var sut = new BoundedImpl();
         sut.setNode(node);
 
         // Act
-        sut.getBoundsInScene();
+        sut.getBoundingBox();
 
         // Assert
         Mockito.verify(node).localToScene(any(Bounds.class), eq(true));

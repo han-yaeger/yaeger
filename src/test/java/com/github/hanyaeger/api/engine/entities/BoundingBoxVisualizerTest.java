@@ -19,7 +19,7 @@ class BoundingBoxVisualizerTest {
     @BeforeEach
     void setup() {
         yaegerEntity = mock(YaegerEntity.class);
-        when(yaegerEntity.getBoundsInScene()).thenReturn(bounds);
+        when(yaegerEntity.getBoundingBox()).thenReturn(bounds);
 
         sut = new BoundingBoxVisualizer(yaegerEntity);
     }

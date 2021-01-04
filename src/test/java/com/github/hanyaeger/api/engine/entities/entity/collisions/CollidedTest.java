@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 public class CollidedTest {
 
@@ -95,7 +94,7 @@ public class CollidedTest {
         private Bounds bounds;
 
         @Override
-        public Bounds getBoundsInScene() {
+        public Bounds getBoundingBox() {
             return bounds;
         }
 
@@ -119,7 +118,7 @@ public class CollidedTest {
         }
 
         @Override
-        public Bounds getBoundsInScene() {
+        public Bounds getBoundingBox() {
             return TEST_COLLIDED_BOUNDINGBOX;
         }
 

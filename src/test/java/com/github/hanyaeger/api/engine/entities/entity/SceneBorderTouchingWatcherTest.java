@@ -4,6 +4,7 @@ import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
 import com.github.hanyaeger.api.engine.scenes.SceneBorder;
 import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import org.junit.jupiter.api.Assertions;
@@ -54,7 +55,7 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryNotTouched() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_IN_SCENE);
+        when(node.localToScene((Bounds) any(), any(Boolean.class))).thenReturn(BOUNDS_IN_SCENE);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
@@ -71,7 +72,7 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryLeftCrossedWithZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_LEFT);
+        when(node.localToScene((Bounds) any(), any(Boolean.class))).thenReturn(BOUNDS_CROSSED_LEFT);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
@@ -90,7 +91,7 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryLeftCrossedWithNonZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_LEFT);
+        when(node.localToScene((Bounds) any(), any(Boolean.class))).thenReturn(BOUNDS_CROSSED_LEFT);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
@@ -109,7 +110,7 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryRightCrossedWithZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_RIGHT);
+        when(node.localToScene((Bounds) any(), any(Boolean.class))).thenReturn(BOUNDS_CROSSED_RIGHT);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
@@ -128,7 +129,7 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryRightCrossedWithNonZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_RIGHT);
+        when(node.localToScene((Bounds) any(), any(Boolean.class))).thenReturn(BOUNDS_CROSSED_RIGHT);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
@@ -147,7 +148,7 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryBottomTouchedWithZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_BOTTOM);
+        when(node.localToScene((Bounds) any(), any(Boolean.class))).thenReturn(BOUNDS_CROSSED_BOTTOM);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
@@ -166,7 +167,7 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryBottomTouchedWithNonZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_BOTTOM);
+        when(node.localToScene((Bounds) any(), any(Boolean.class))).thenReturn(BOUNDS_CROSSED_BOTTOM);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
@@ -185,7 +186,7 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryTopTouchedWithZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_TOP);
+        when(node.localToScene((Bounds) any(), any(Boolean.class))).thenReturn(BOUNDS_CROSSED_TOP);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
@@ -204,7 +205,7 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryTopTouchedWithNonZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_TOP);
+        when(node.localToScene((Bounds) any(), any(Boolean.class))).thenReturn(BOUNDS_CROSSED_TOP);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
         when(scene.getHeight()).thenReturn(SCENE_HEIGHT);

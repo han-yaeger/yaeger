@@ -15,7 +15,7 @@ public class CollisionDelegate {
     private final List<Collider> colliders;
 
     /**
-     * Create a new CollisionDelegate.
+     * Create a new {@link CollisionDelegate}.
      */
     public CollisionDelegate() {
         collideds = new ArrayList<>();

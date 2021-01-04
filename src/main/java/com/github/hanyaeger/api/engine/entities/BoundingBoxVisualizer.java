@@ -27,7 +27,7 @@ class BoundingBoxVisualizer extends DynamicRectangleEntity implements UpdateExpo
      * @param yaegerEntity the {@link YaegerEntity} of  which the BoundingBox should be visualized.
      */
     BoundingBoxVisualizer(final YaegerEntity yaegerEntity) {
-        super(new Coordinate2D(yaegerEntity.getBoundsInScene().getMinX(), yaegerEntity.getBoundsInScene().getMinY()));
+        super(new Coordinate2D(yaegerEntity.getBoundingBox().getMinX(), yaegerEntity.getBoundingBox().getMinY()));
         this.yaegerEntity = yaegerEntity;
         setFill(Color.TRANSPARENT);
         setStrokeWidth(2);
@@ -37,7 +37,7 @@ class BoundingBoxVisualizer extends DynamicRectangleEntity implements UpdateExpo
 
     @Override
     public void explicitUpdate(long timestamp) {
-        setAnchorLocation(new Coordinate2D(yaegerEntity.getBoundsInScene().getMinX(), yaegerEntity.getBoundsInScene().getMinY()));
+        setAnchorLocation(new Coordinate2D(yaegerEntity.getBoundingBox().getMinX(), yaegerEntity.getBoundingBox().getMinY()));
         setWidth(yaegerEntity.getWidth());
         setHeight(yaegerEntity.getHeight());
     }
