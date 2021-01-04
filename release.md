@@ -20,3 +20,5 @@ set to 0. It led to unpredictable behaviour for corner cases.
 ## Bugfixes
 
 - It is now possible to first set the direction of an Entity and then its speed (#41).
+- Extra interface haven been removed from the `Collided` and `Collider`. The gain access to
+their properties (e.g. speed, direction), an explicit cast is now required (#148).
