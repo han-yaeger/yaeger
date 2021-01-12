@@ -26,7 +26,7 @@ import java.util.*;
  */
 public abstract class TileMap extends EntitySupplier implements Anchorable, Activatable {
 
-    private final Map<Integer, Class<? extends SpriteEntity>> entities = new HashMap<>();
+    private final Map<Integer, Class<? extends YaegerEntity>> entities = new HashMap<>();
 
     private int[][] map;
     private transient TileFactory tileFactory;
@@ -89,10 +89,10 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
      * from the lifecycle method {@link TileMap#setupEntities()}.
      *
      * @param identifier  The identifier as an {@code int} to be used from the map.
-     * @param entityClass The {@link Class} of a subclass of {@link SpriteEntity} to be
+     * @param entityClass The {@link Class} of a subclass of {@link YaegerEntity} to be
      *                    used for the given identifier.
      */
-    public void addEntity(final int identifier, final Class<? extends SpriteEntity> entityClass) {
+    public void addEntity(final int identifier, final Class<? extends YaegerEntity> entityClass) {
         entities.put(identifier, entityClass);
     }
 
@@ -137,7 +137,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
         }
     }
 
-    private Coordinate2D getTopLeftLocation(Coordinate2D location, Size size) {
+    private Coordinate2D getTopLeftLocation(final Coordinate2D location, final Size size) {
         return switch (anchorPoint) {
             case TOP_CENTER -> new Coordinate2D(location.getX() - (size.getWidth() / 2), location.getY());
             case TOP_RIGHT -> new Coordinate2D(location.getX() - size.getWidth(), location.getY());
@@ -173,7 +173,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
     }
 
     @Override
-    public void setAnchorPoint(AnchorPoint anchorPoint) {
+    public void setAnchorPoint(final AnchorPoint anchorPoint) {
         this.anchorPoint = anchorPoint;
     }
 
@@ -183,12 +183,12 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
     }
 
     @Inject
-    public void setTileFactory(TileFactory tileFactory) {
+    public void setTileFactory(final TileFactory tileFactory) {
         this.tileFactory = tileFactory;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;

@@ -11,23 +11,23 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * The {@link TileFactory} should be used for creating instances of {@link SpriteEntity} that will be part of a
+ * The {@link TileFactory} should be used for creating instances of {@link YaegerEntity} that will be part of a
  * {@link TileMap}. For such instances, only a {@link Class}, its {@link Coordinate2D} and its {@link Size}
  * will be supplied, after which a {@link TileFactory} will be responsible for creating instances.
  * <p>
- * By default a {@link SpriteEntity} created by the {@link TileFactory} will not preserver the aspect ratio of
- * the sprite.
+ * A {@link YaegerEntity} created by the {@link TileFactory} will most likely n not be square shaped. In case of
+ * a {@link SpriteEntity}, its aspect ratio will not be preserver.
  */
 public class TileFactory {
 
     private static final String MESSAGE_INVALID_CONSTRUCTOR_EXCEPTION = "An Entity used for a Tilemap should have a constructor that accepts" +
-            " exactly two parameters: An instance of Location and of Size.";
-    private static final String MESSAGE_FAILED_TO_INSTANTIATE_ENTITY = "Unable to instantiate an Entity for the entitymap";
+            " exactly two parameters: An instance of Coordinate2D and of Size.";
+    private static final String MESSAGE_FAILED_TO_INSTANTIATE_ENTITY = "Unable to instantiate an Entity for the TileMap";
 
-    public YaegerEntity create(final Class<? extends SpriteEntity> entityClass, final Coordinate2D location, final Size size) {
-        SpriteEntity entity;
+    public YaegerEntity create(final Class<? extends YaegerEntity> entityClass, final Coordinate2D location, final Size size) {
+        YaegerEntity entity;
 
-        Constructor<? extends SpriteEntity> declaredConstructor = null;
+        Constructor<? extends YaegerEntity> declaredConstructor = null;
 
         try {
             declaredConstructor = entityClass.getDeclaredConstructor(Coordinate2D.class, Size.class);
@@ -41,7 +41,10 @@ public class TileFactory {
             throw new FailedToInstantiateEntityException(MESSAGE_FAILED_TO_INSTANTIATE_ENTITY, e);
         }
 
-        entity.setPreserveAspectRatio(false);
+        if (entity instanceof SpriteEntity) {
+            ((SpriteEntity) entity).setPreserveAspectRatio(false);
+        }
+
         return entity;
     }
 }
