@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape.rectangle;
 
+import com.github.hanyaeger.api.engine.Size;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import com.github.hanyaeger.api.engine.entities.entity.shape.ShapeEntity;
@@ -16,10 +17,10 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
     static final double DEFAULT_WIDTH = 2;
     static final double DEFAULT_ARC = 0;
 
-    private double height = DEFAULT_HEIGHT;
     private double width = DEFAULT_WIDTH;
-    private double arcHeight = DEFAULT_ARC;
+    private double height = DEFAULT_HEIGHT;
     private double arcWidth = DEFAULT_ARC;
+    private double arcHeight = DEFAULT_ARC;
 
     /**
      * Create a new {@link RectangleEntity} on the given {@code initialPosition}.
@@ -28,6 +29,20 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
      */
     public RectangleEntity(final Coordinate2D initialPosition) {
         super(initialPosition);
+    }
+
+    /**
+     * Create a new {@link RectangleEntity} on the given {@code initialPosition} with the given {@link Size}.
+     * Using this constructor results in the same situation as using {@link #RectangleEntity(Coordinate2D)},
+     * {@link #setWidth(double)} and {@link #setHeight(double)}.
+     *
+     * @param initialPosition the initial position at which this {@link RectangleEntity} should be placed
+     * @param size            the {@link Size} of this {@link RectangleEntity}
+     */
+    public RectangleEntity(final Coordinate2D initialPosition, final Size size) {
+        super(initialPosition);
+        this.width = size.getWidth();
+        this.height = size.getHeight();
     }
 
     /**

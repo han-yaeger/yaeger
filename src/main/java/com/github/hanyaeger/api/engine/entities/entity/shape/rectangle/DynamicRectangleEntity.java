@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape.rectangle;
 
+import com.github.hanyaeger.api.engine.Size;
 import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.UpdateDelegator;
 import com.github.hanyaeger.api.engine.Updater;
@@ -30,6 +31,20 @@ public abstract class DynamicRectangleEntity extends RectangleEntity implements 
      */
     public DynamicRectangleEntity(final Coordinate2D initialPosition) {
         super(initialPosition);
+
+        buffer = Optional.of(new EntityMotionInitBuffer());
+    }
+
+    /**
+     * Create a new {@link DynamicRectangleEntity} on the given {@code initialPosition} with the given {@link Size}.
+     * Using this constructor results in the same situation as using {@link #DynamicRectangleEntity(Coordinate2D)},
+     * {@link #setWidth(double)} and {@link #setHeight(double)}.
+     *
+     * @param initialPosition the initial position at which this {@link DynamicRectangleEntity} should be placed
+     * @param size            the {@link Size} of this {@link DynamicRectangleEntity}
+     */
+    public DynamicRectangleEntity(final Coordinate2D initialPosition, final Size size) {
+        super(initialPosition, size);
 
         buffer = Optional.of(new EntityMotionInitBuffer());
     }

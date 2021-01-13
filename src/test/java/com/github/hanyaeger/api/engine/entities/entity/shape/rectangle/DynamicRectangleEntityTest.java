@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape.rectangle;
 
+import com.github.hanyaeger.api.engine.Size;
 import com.github.hanyaeger.api.engine.Updater;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
@@ -27,149 +28,187 @@ class DynamicRectangleEntityTest {
     public static final double SPEED = 37d;
     public static final double DIRECTION = 42d;
 
-    private DynamicRectangleEntityImpl sut;
     private Injector injector;
     private Rectangle rectangle;
 
     @BeforeEach
     void setup() {
-        sut = new DynamicRectangleEntityImpl(DEFAULT_LOCATION);
         rectangle = mock(Rectangle.class);
-        sut.setShape(rectangle);
         injector = mock(Injector.class);
     }
 
-    @Test
-    void bufferIsSetInConstructor() {
-        // Arrange
-
-        // Act
-        Optional<EntityMotionInitBuffer> buffer = sut.getBuffer();
-
-        // Assert
-        Assertions.assertTrue(buffer.isPresent());
-    }
-
     @Nested
-    class WithMotionApplierSet {
+    public class OneArgumentConstructor {
 
-        private MotionApplier motionApplier;
+        private DynamicRectangleEntityImpl sut;
 
         @BeforeEach
         void setup() {
-            motionApplier = mock(MotionApplier.class);
+            sut = new DynamicRectangleEntityImpl(DEFAULT_LOCATION);
+            sut.setShape(rectangle);
         }
 
         @Test
-        void bufferIsEmptiedAfterInitIsCalled() {
+        void bufferIsSetInConstructor() {
             // Arrange
-            sut.setMotionApplier(motionApplier);
 
             // Act
-            sut.init(injector);
+            Optional<EntityMotionInitBuffer> buffer = sut.getBuffer();
 
             // Assert
-            Assertions.assertFalse(sut.getBuffer().isPresent());
+            Assertions.assertTrue(buffer.isPresent());
+        }
+
+        @Nested
+        class WithMotionApplierSet {
+
+            private MotionApplier motionApplier;
+
+            @BeforeEach
+            void setup() {
+                motionApplier = mock(MotionApplier.class);
+            }
+
+            @Test
+            void bufferIsEmptiedAfterInitIsCalled() {
+                // Arrange
+                sut.setMotionApplier(motionApplier);
+
+                // Act
+                sut.init(injector);
+
+                // Assert
+                Assertions.assertFalse(sut.getBuffer().isPresent());
+            }
+
+            @Test
+            void bufferTransfersMotionOnInit() {
+                // Arrange
+                sut.setMotion(SPEED, DIRECTION);
+                sut.setMotionApplier(motionApplier);
+
+                // Act
+                sut.init(injector);
+
+                // Assert
+                verify(motionApplier).setMotion(SPEED, DIRECTION);
+            }
+
+            @Test
+            void initSetsMotionToDesiredSpeed() {
+                // Arrange
+                sut.setSpeed(SPEED);
+                sut.setMotionApplier(motionApplier);
+
+                // Act
+                sut.init(injector);
+
+                // Assert
+                verify(motionApplier).setMotion(SPEED, 0d);
+            }
+
+            @Test
+            void setMotionApplierIsUsed() {
+                // Arrange
+                sut.setMotionApplier(motionApplier);
+
+                // Act
+                var mA = sut.getMotionApplier();
+
+                // Assert
+                Assertions.assertEquals(motionApplier, mA);
+            }
         }
 
         @Test
-        void bufferTransfersMotionOnInit() {
+        void setUpdaterIsUsed() {
             // Arrange
-            sut.setMotion(SPEED, DIRECTION);
-            sut.setMotionApplier(motionApplier);
+            var updater = mock(Updater.class);
+            sut.setUpdater(updater);
 
             // Act
-            sut.init(injector);
+            var u = sut.getUpdater();
 
             // Assert
-            verify(motionApplier).setMotion(SPEED, DIRECTION);
+            Assertions.assertEquals(updater, u);
         }
 
         @Test
-        void initSetsMotionToDesiredSpeed() {
+        void setRotationSpeedIsUsed() {
             // Arrange
-            sut.setSpeed(SPEED);
-            sut.setMotionApplier(motionApplier);
+            sut.setRotationSpeed(ROTATION_SPEED);
 
             // Act
-            sut.init(injector);
+            var rS = sut.getRotationSpeed();
 
             // Assert
-            verify(motionApplier).setMotion(SPEED, 0d);
+            Assertions.assertEquals(ROTATION_SPEED, rS);
         }
 
         @Test
-        void setMotionApplierIsUsed() {
+        void addToEntityCollectionCallsAddDynamicEntity() {
             // Arrange
-            sut.setMotionApplier(motionApplier);
+            var entityCollection = mock(EntityCollection.class);
 
             // Act
-            var mA = sut.getMotionApplier();
+            sut.addToEntityCollection(entityCollection);
 
             // Assert
-            Assertions.assertEquals(motionApplier, mA);
+            verify(entityCollection).addDynamicEntity(sut);
+        }
+
+        @Test
+        void updateGetsDelegated() {
+            // Arrange
+            var updater = mock(Updater.class);
+            sut.setUpdater(updater);
+
+            // Act
+            sut.update(TIMESTAMP);
+
+            // Assert
+            verify(updater).update(TIMESTAMP);
+        }
+
+        private class DynamicRectangleEntityImpl extends DynamicRectangleEntity {
+
+            public DynamicRectangleEntityImpl(final Coordinate2D initialPosition) {
+                super(initialPosition);
+            }
         }
     }
 
-    @Test
-    void setUpdaterIsUsed() {
-        // Arrange
-        var updater = mock(Updater.class);
-        sut.setUpdater(updater);
 
-        // Act
-        var u = sut.getUpdater();
+    @Nested
+    public class TwoArgumentConstructor {
 
-        // Assert
-        Assertions.assertEquals(updater, u);
-    }
+        private final Size SIZE = new Size(3D, 5D);
 
-    @Test
-    void setRotationSpeedIsUsed() {
-        // Arrange
-        sut.setRotationSpeed(ROTATION_SPEED);
+        private DynamicRectangleEntityImpl sut;
 
-        // Act
-        var rS = sut.getRotationSpeed();
+        @BeforeEach
+        void setup() {
+            sut = new DynamicRectangleEntityImpl(DEFAULT_LOCATION, SIZE);
+            sut.setShape(rectangle);
+        }
 
-        // Assert
-        Assertions.assertEquals(ROTATION_SPEED, rS);
-    }
+        @Test
+        void bufferIsSetInConstructor() {
+            // Arrange
 
-    @Test
-    void addToEntityCollectionCallsAddDynamicEntity() {
-        // Arrange
-        var entityCollection = mock(EntityCollection.class);
+            // Act
+            Optional<EntityMotionInitBuffer> buffer = sut.getBuffer();
 
-        // Act
-        sut.addToEntityCollection(entityCollection);
+            // Assert
+            Assertions.assertTrue(buffer.isPresent());
+        }
 
-        // Assert
-        verify(entityCollection).addDynamicEntity(sut);
-    }
+        private class DynamicRectangleEntityImpl extends DynamicRectangleEntity {
 
-    @Test
-    void updateGetsDelegated() {
-        // Arrange
-        var updater = mock(Updater.class);
-        sut.setUpdater(updater);
-
-        // Act
-        sut.update(TIMESTAMP);
-
-        // Assert
-        verify(updater).update(TIMESTAMP);
-    }
-
-    private class DynamicRectangleEntityImpl extends DynamicRectangleEntity {
-
-        /**
-         * Create a new {@link DynamicRectangleEntity} on the given {@code initialPosition}.
-         *
-         * @param initialPosition The initial position at which this {@link DynamicRectangleEntity} should be placed
-         */
-        public DynamicRectangleEntityImpl(Coordinate2D initialPosition) {
-            super(initialPosition);
+            public DynamicRectangleEntityImpl(final Coordinate2D initialPosition, final Size size) {
+                super(initialPosition, size);
+            }
         }
     }
+
 }
