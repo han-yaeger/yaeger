@@ -90,7 +90,9 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
      *
      * @param identifier  The identifier as an {@code int} to be used from the map.
      * @param entityClass The {@link Class} of a subclass of {@link YaegerEntity} to be
-     *                    used for the given identifier.
+     *                    used for the given identifier. Note that this {@link YaegerEntity} should have a constructor
+     *                    that accepts exactly two parameters. The first one should be a {@link Coordinate2D} and the second one
+     *                    a {@link Size}. If such a constructor is not present, an {@link YaegerEngineException} will be thrown.
      */
     public void addEntity(final int identifier, final Class<? extends YaegerEntity> entityClass) {
         entities.put(identifier, entityClass);
