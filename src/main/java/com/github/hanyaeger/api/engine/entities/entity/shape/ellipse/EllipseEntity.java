@@ -1,9 +1,11 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape.ellipse;
 
+import com.github.hanyaeger.api.engine.Size;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import com.github.hanyaeger.api.engine.entities.entity.shape.CenteredShapeEntity;
 import com.github.hanyaeger.api.engine.entities.entity.shape.circle.CircleEntity;
+import com.github.hanyaeger.api.engine.entities.entity.shape.rectangle.RectangleEntity;
 import com.google.inject.Injector;
 import javafx.scene.shape.Ellipse;
 
@@ -21,8 +23,8 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
     static final double DEFAULT_RADIUS_X = 1;
     static final double DEFAULT_RADIUS_Y = 1;
 
-    private double radiusX = DEFAULT_RADIUS_X;
-    private double radiusY = DEFAULT_RADIUS_Y;
+    double radiusX = DEFAULT_RADIUS_X;
+    double radiusY = DEFAULT_RADIUS_Y;
 
     /**
      * Create a new {@link EllipseEntity} on the given {@code initialPosition}.
@@ -31,6 +33,21 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
      */
     public EllipseEntity(final Coordinate2D initialPosition) {
         super(initialPosition);
+    }
+
+    /**
+     * Create a new {@link EllipseEntity} on the given {@code initialPosition} with the given {@link Size}.
+     * Using this constructor results in the same situation as using {@link #EllipseEntity(Coordinate2D)},
+     * {@link #setRadiusX(double)} and {@link #setRadiusY(double)}, where both the {@link Size#getWidth()} and
+     * {@link Size#getHeight()} are divided by 2.
+     *
+     * @param initialPosition the initial position at which this {@link EllipseEntity} should be placed
+     * @param size            the {@link Size} of this {@link EllipseEntity}
+     */
+    public EllipseEntity(final Coordinate2D initialPosition, final Size size) {
+        super(initialPosition);
+        this.radiusX = size.getWidth() / 2;
+        this.radiusY = size.getHeight() / 2;
     }
 
     /**

@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class DynamicRectangleEntityTest {
@@ -56,7 +57,7 @@ class DynamicRectangleEntityTest {
             Optional<EntityMotionInitBuffer> buffer = sut.getBuffer();
 
             // Assert
-            Assertions.assertTrue(buffer.isPresent());
+            assertTrue(buffer.isPresent());
         }
 
         @Nested
@@ -78,7 +79,7 @@ class DynamicRectangleEntityTest {
                 sut.init(injector);
 
                 // Assert
-                Assertions.assertFalse(sut.getBuffer().isPresent());
+                assertFalse(sut.getBuffer().isPresent());
             }
 
             @Test
@@ -116,7 +117,7 @@ class DynamicRectangleEntityTest {
                 var mA = sut.getMotionApplier();
 
                 // Assert
-                Assertions.assertEquals(motionApplier, mA);
+                assertEquals(motionApplier, mA);
             }
         }
 
@@ -130,7 +131,7 @@ class DynamicRectangleEntityTest {
             var u = sut.getUpdater();
 
             // Assert
-            Assertions.assertEquals(updater, u);
+            assertEquals(updater, u);
         }
 
         @Test
@@ -142,7 +143,7 @@ class DynamicRectangleEntityTest {
             var rS = sut.getRotationSpeed();
 
             // Assert
-            Assertions.assertEquals(ROTATION_SPEED, rS);
+            assertEquals(ROTATION_SPEED, rS);
         }
 
         @Test
@@ -200,7 +201,7 @@ class DynamicRectangleEntityTest {
             Optional<EntityMotionInitBuffer> buffer = sut.getBuffer();
 
             // Assert
-            Assertions.assertTrue(buffer.isPresent());
+            assertTrue(buffer.isPresent());
         }
 
         private class DynamicRectangleEntityImpl extends DynamicRectangleEntity {

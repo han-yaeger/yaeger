@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape.ellipse;
 
+import com.github.hanyaeger.api.engine.Size;
 import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.UpdateDelegator;
 import com.github.hanyaeger.api.engine.Updater;
@@ -30,6 +31,23 @@ public abstract class DynamicEllipseEntity extends EllipseEntity implements Upda
      */
     public DynamicEllipseEntity(final Coordinate2D initialPosition) {
         super(initialPosition);
+
+        buffer = Optional.of(new EntityMotionInitBuffer());
+    }
+
+    /**
+     * Create a new {@link EllipseEntity} on the given {@code initialPosition} with the given {@link Size}.
+     * Using this constructor results in the same situation as using {@link #DynamicEllipseEntity(Coordinate2D)},
+     * {@link #setRadiusX(double)} and {@link #setRadiusY(double)}, where both the {@link Size#getWidth()} and
+     * {@link Size#getHeight()} are divided by 2.
+     *
+     * @param initialPosition the initial position at which this {@link DynamicEllipseEntity} should be placed
+     * @param size            the {@link Size} of this {@link DynamicEllipseEntity}
+     */
+    public DynamicEllipseEntity(final Coordinate2D initialPosition, final Size size) {
+        super(initialPosition);
+        this.radiusX = size.getWidth() / 2;
+        this.radiusY = size.getHeight() / 2;
 
         buffer = Optional.of(new EntityMotionInitBuffer());
     }

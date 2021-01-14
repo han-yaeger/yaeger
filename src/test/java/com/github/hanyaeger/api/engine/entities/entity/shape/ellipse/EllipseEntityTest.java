@@ -1,12 +1,11 @@
 package com.github.hanyaeger.api.engine.entities.entity.shape.ellipse;
 
+import com.github.hanyaeger.api.engine.Size;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
-import com.github.hanyaeger.api.engine.entities.entity.shape.circle.CircleEntity;
 import com.google.inject.Injector;
-import javafx.geometry.Bounds;
 import javafx.scene.shape.Ellipse;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,164 +19,213 @@ class EllipseEntityTest {
 
     private Ellipse ellipse;
     private Injector injector;
-    private EllipseEntity sut;
 
     @BeforeEach
     void setup() {
         ellipse = mock(Ellipse.class);
         injector = mock(Injector.class);
-
-        sut = new EllipseEntityImpl(LOCATION);
     }
 
-    @Test
-    void setAnchorLocationSetsAnchorLocationOnNode() {
-        // Arrange
-        sut.setShape(ellipse);
-        var expected = new Coordinate2D(1.1, 2.2);
+    @Nested
+    public class OneArgumentConstructor {
 
-        // Act
-        sut.setAnchorLocation(expected);
+        private EllipseEntity sut;
 
-        // Assert
-        verify(ellipse).setCenterX(expected.getX());
-        verify(ellipse).setCenterY(expected.getY());
+        @BeforeEach
+        void setup() {
+            sut = new EllipseEntityImpl(LOCATION);
+        }
+
+        @Test
+        void setAnchorLocationSetsAnchorLocationOnNode() {
+            // Arrange
+            sut.setShape(ellipse);
+            var expected = new Coordinate2D(1.1, 2.2);
+
+            // Act
+            sut.setAnchorLocation(expected);
+
+            // Assert
+            verify(ellipse).setCenterX(expected.getX());
+            verify(ellipse).setCenterY(expected.getY());
+        }
+
+        @Test
+        void getRadiusXWithoutNodeOrBufferedRadiusXReturnsDefault() {
+            // Arrange
+
+            // Act
+            var actual = sut.getRadiusX();
+
+            // Assert
+            assertEquals(EllipseEntity.DEFAULT_RADIUS_X, actual);
+        }
+
+        @Test
+        void getRadiusXBeforeNodeIsSetUsesBufferedRadiusX() {
+            // Arrange
+            sut.setRadiusX(RADIUS_X);
+
+            // Act
+            var actual = sut.getRadiusX();
+
+            // Assert
+            assertEquals(RADIUS_X, actual);
+        }
+
+        @Test
+        void getRadiusXAfterNodeIsSetDelegatesTheRadiusX() {
+            // Arrange
+            sut.setShape(ellipse);
+            sut.init(injector);
+
+            when(ellipse.getRadiusX()).thenReturn(RADIUS_X);
+
+            // Act
+            var actual = sut.getRadiusX();
+
+            // Assert
+            assertEquals(RADIUS_X, actual);
+        }
+
+        @Test
+        void getRadiusYWithoutNodeOrBufferedRadiusYReturnsDefault() {
+            // Arrange
+
+            // Act
+            var actual = sut.getRadiusY();
+
+            // Assert
+            assertEquals(EllipseEntity.DEFAULT_RADIUS_Y, actual);
+        }
+
+        @Test
+        void getRadiusYBeforeNodeIsSetUsesBufferedRadiusY() {
+            // Arrange
+            sut.setRadiusY(RADIUS_Y);
+
+            // Act
+            var actual = sut.getRadiusY();
+
+            // Assert
+            assertEquals(RADIUS_Y, actual);
+        }
+
+        @Test
+        void getRadiusYAfterNodeIsSetDelegatesTheRadiusY() {
+            // Arrange
+            sut.setShape(ellipse);
+            sut.init(injector);
+
+            when(ellipse.getRadiusY()).thenReturn(RADIUS_Y);
+
+            // Act
+            var actual = sut.getRadiusY();
+
+            // Assert
+            assertEquals(RADIUS_Y, actual);
+        }
+
+        @Test
+        void settingRadiusXAfterNodeIsSetDelegatesTheRadiusX() {
+            // Arrange
+            sut.setShape(ellipse);
+            sut.init(injector);
+
+            // Act
+            sut.setRadiusX(RADIUS_X);
+
+            // Assert
+            verify(ellipse).setVisible(true);
+            verify(ellipse).setRadiusX(RADIUS_X);
+        }
+
+        @Test
+        void settingRadiusYAfterNodeIsSetDelegatesTheRadiusY() {
+            // Arrange
+            sut.setShape(ellipse);
+            sut.init(injector);
+
+            // Act
+            sut.setRadiusY(RADIUS_Y);
+
+            // Assert
+            verify(ellipse).setVisible(true);
+            verify(ellipse).setRadiusY(RADIUS_Y);
+        }
+
+        @Test
+        void ifNodeNotYetSetRadiusXIsStoredAndSetAtInit() {
+            // Arrange
+            sut.setRadiusX(RADIUS_X);
+            sut.setShape(ellipse);
+
+            // Act
+            sut.init(injector);
+
+            // Assert
+            verify(ellipse).setRadiusX(RADIUS_X);
+        }
+
+        @Test
+        void ifNodeNotYetSetRadiusYIsStoredAndSetAtInit() {
+            // Arrange
+            sut.setRadiusY(RADIUS_Y);
+            sut.setShape(ellipse);
+
+            // Act
+            sut.init(injector);
+
+            // Assert
+            verify(ellipse).setRadiusY(RADIUS_Y);
+        }
+
+        private class EllipseEntityImpl extends EllipseEntity {
+
+            public EllipseEntityImpl(Coordinate2D initialPosition) {
+                super(initialPosition);
+            }
+        }
     }
 
-    @Test
-    void getRadiusXWithoutNodeOrBufferedRadiusXReturnsDefault() {
-        // Arrange
+    @Nested
+    public class TwoArgumentConstructor {
 
-        // Act
-        var actual = sut.getRadiusX();
+        private final Size SIZE = new Size(RADIUS_X * 2, RADIUS_Y * 2);
 
-        // Assert
-        assertEquals(EllipseEntity.DEFAULT_RADIUS_X, actual);
-    }
+        private EllipseEntity sut;
 
-    @Test
-    void getRadiusXBeforeNodeIsSetUsesBufferedRadiusX() {
-        // Arrange
-        sut.setRadiusX(RADIUS_X);
+        @BeforeEach
+        void setup() {
+            sut = new EllipseEntityImpl(LOCATION, SIZE);
+        }
 
-        // Act
-        var actual = sut.getRadiusX();
+        @Test
+        void getRadiusXReturnsHalfWidthFromConstructor() {
+            // Arrange
 
-        // Assert
-        assertEquals(RADIUS_X, actual);
-    }
+            // Act
+            var actual = sut.getRadiusX();
 
-    @Test
-    void getRadiusXAfterNodeIsSetDelegatesTheRadiusX() {
-        // Arrange
-        sut.setShape(ellipse);
-        sut.init(injector);
+            // Assert
+            assertEquals(SIZE.getWidth() / 2, actual);
+        }
 
-        when(ellipse.getRadiusX()).thenReturn(RADIUS_X);
+        @Test
+        void getRadiusYReturnsHalfHeightFromConstructor() {
+            // Arrange
 
-        // Act
-        var actual = sut.getRadiusX();
+            // Act
+            var actual = sut.getRadiusY();
 
-        // Assert
-        assertEquals(RADIUS_X, actual);
-    }
+            // Assert
+            assertEquals(SIZE.getHeight() / 2, actual);
+        }
 
-    @Test
-    void getRadiusYWithoutNodeOrBufferedRadiusYReturnsDefault() {
-        // Arrange
-
-        // Act
-        var actual = sut.getRadiusY();
-
-        // Assert
-        assertEquals(EllipseEntity.DEFAULT_RADIUS_Y, actual);
-    }
-
-    @Test
-    void getRadiusYBeforeNodeIsSetUsesBufferedRadiusY() {
-        // Arrange
-        sut.setRadiusY(RADIUS_Y);
-
-        // Act
-        var actual = sut.getRadiusY();
-
-        // Assert
-        assertEquals(RADIUS_Y, actual);
-    }
-
-    @Test
-    void getRadiusYAfterNodeIsSetDelegatesTheRadiusY() {
-        // Arrange
-        sut.setShape(ellipse);
-        sut.init(injector);
-
-        when(ellipse.getRadiusY()).thenReturn(RADIUS_Y);
-
-        // Act
-        var actual = sut.getRadiusY();
-
-        // Assert
-        assertEquals(RADIUS_Y, actual);
-    }
-
-    @Test
-    void settingRadiusXAfterNodeIsSetDelegatesTheRadiusX() {
-        // Arrange
-        sut.setShape(ellipse);
-        sut.init(injector);
-
-        // Act
-        sut.setRadiusX(RADIUS_X);
-
-        // Assert
-        verify(ellipse).setVisible(true);
-        verify(ellipse).setRadiusX(RADIUS_X);
-    }
-
-    @Test
-    void settingRadiusYAfterNodeIsSetDelegatesTheRadiusY() {
-        // Arrange
-        sut.setShape(ellipse);
-        sut.init(injector);
-
-        // Act
-        sut.setRadiusY(RADIUS_Y);
-
-        // Assert
-        verify(ellipse).setVisible(true);
-        verify(ellipse).setRadiusY(RADIUS_Y);
-    }
-
-    @Test
-    void ifNodeNotYetSetRadiusXIsStoredAndSetAtInit() {
-        // Arrange
-        sut.setRadiusX(RADIUS_X);
-        sut.setShape(ellipse);
-
-        // Act
-        sut.init(injector);
-
-        // Assert
-        verify(ellipse).setRadiusX(RADIUS_X);
-    }
-
-    @Test
-    void ifNodeNotYetSetRadiusYIsStoredAndSetAtInit() {
-        // Arrange
-        sut.setRadiusY(RADIUS_Y);
-        sut.setShape(ellipse);
-
-        // Act
-        sut.init(injector);
-
-        // Assert
-        verify(ellipse).setRadiusY(RADIUS_Y);
-    }
-
-    private class EllipseEntityImpl extends EllipseEntity {
-
-        public EllipseEntityImpl(Coordinate2D initialPosition) {
-            super(initialPosition);
+        private class EllipseEntityImpl extends EllipseEntity {
+            public EllipseEntityImpl(final Coordinate2D initialPosition, final Size size) {
+                super(initialPosition, size);
+            }
         }
     }
 }
