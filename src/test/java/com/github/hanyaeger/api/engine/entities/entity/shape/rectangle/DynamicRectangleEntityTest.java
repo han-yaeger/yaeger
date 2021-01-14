@@ -8,7 +8,6 @@ import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBu
 import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
 import com.google.inject.Injector;
 import javafx.scene.shape.Rectangle;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -39,7 +38,7 @@ class DynamicRectangleEntityTest {
     }
 
     @Nested
-    public class OneArgumentConstructor {
+    class OneArgumentConstructor {
 
         private DynamicRectangleEntityImpl sut;
 
@@ -181,7 +180,7 @@ class DynamicRectangleEntityTest {
 
 
     @Nested
-    public class TwoArgumentConstructor {
+    class TwoArgumentConstructor {
 
         private final Size SIZE = new Size(3D, 5D);
 

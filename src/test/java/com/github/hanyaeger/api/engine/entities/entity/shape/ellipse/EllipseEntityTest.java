@@ -27,7 +27,7 @@ class EllipseEntityTest {
     }
 
     @Nested
-    public class OneArgumentConstructor {
+    class OneArgumentConstructor {
 
         private EllipseEntity sut;
 
@@ -189,7 +189,7 @@ class EllipseEntityTest {
     }
 
     @Nested
-    public class TwoArgumentConstructor {
+    class TwoArgumentConstructor {
 
         private final Size SIZE = new Size(RADIUS_X * 2, RADIUS_Y * 2);
 

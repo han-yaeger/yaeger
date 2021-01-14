@@ -39,7 +39,7 @@ class DynamicEllipseEntityTest {
     }
 
     @Nested
-    public class OneArgumentConstructor {
+    class OneArgumentConstructor {
 
         private DynamicEllipseEntity sut;
 
@@ -179,9 +179,8 @@ class DynamicEllipseEntityTest {
         }
     }
 
-
     @Nested
-    public class TwoArgumentConstructor {
+    class TwoArgumentConstructor {
 
         public static final double RADIUS_X = 37;
         public static final double RADIUS_Y = 42;

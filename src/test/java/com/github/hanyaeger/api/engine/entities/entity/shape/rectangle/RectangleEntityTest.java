@@ -29,7 +29,7 @@ class RectangleEntityTest {
     }
 
     @Nested
-    public class OneArgumentConstructor {
+    class OneArgumentConstructor {
 
         private RectangleEntityImpl sut;
 
@@ -272,7 +272,7 @@ class RectangleEntityTest {
     }
 
     @Nested
-    public class TwoArgumentConstructor {
+    class TwoArgumentConstructor {
 
         private final Size SIZE = new Size(WIDTH, HEIGHT);
 
