@@ -138,6 +138,7 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
             this.finishedSplashScreen = true;
             activateFirstScene();
         });
+        splash.setConfig(yaegerConfig);
         splash.init(injector);
         splash.setStage(stage);
         activate(splash);
