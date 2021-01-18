@@ -43,6 +43,35 @@ class TimerTest {
         Assertions.assertTrue(timer.updateCalled);
     }
 
+    @Test
+    void handleDoesNotCallOnAnimationUpdateIfTimerIsPaused() {
+        // Arrange
+        var timer = new TimerTest.TimerImpl(1000);
+
+        // Act
+        timer.handle(1);
+        timer.pause();
+        timer.handle(1500 * 1_000_000);
+
+        // Assert
+        Assertions.assertFalse(timer.updateCalled);
+    }
+
+    @Test
+    void handleCallsOnAnimationUpdateIfTimerIsResumed() {
+        // Arrange
+        var timer = new TimerTest.TimerImpl(1000);
+
+        // Act
+        timer.handle(1);
+        timer.pause();
+        timer.resume();
+        timer.handle(1500 * 1_000_000);
+
+        // Assert
+        Assertions.assertTrue(timer.updateCalled);
+    }
+
     private class TimerImpl extends Timer {
 
         private boolean updateCalled = false;

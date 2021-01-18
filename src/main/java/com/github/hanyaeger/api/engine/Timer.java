@@ -13,6 +13,7 @@ public abstract class Timer {
 
     private final long interval;
     private long prevTime = 0;
+    private boolean active = true;
 
     /**
      * Create a new instance of {@link Timer} for the given interval in milliseconds.
@@ -24,6 +25,7 @@ public abstract class Timer {
     }
 
     protected void handle(final long now) {
+        if (!active) return;
 
         if (prevTime == 0) {
             prevTime = now;
@@ -36,6 +38,20 @@ public abstract class Timer {
         prevTime = now;
 
         onAnimationUpdate(now);
+    }
+
+    /**
+     * Pause the timer so it will no longer update with each animation.
+     */
+    public final void pause() {
+        active = false;
+    }
+
+    /**
+     * Resume the timer so it will start updating on each animation again.
+     */
+    public final void resume() {
+        active = true;
     }
 
     /**
