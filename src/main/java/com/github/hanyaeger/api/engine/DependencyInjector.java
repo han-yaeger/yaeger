@@ -11,7 +11,7 @@ public interface DependencyInjector {
     /**
      * Return an {@link Injector} that can be used to inject dependencies into this {@link Object}.
      *
-     * @return An instance of {@link Injector}.
+     * @return an instance of {@link Injector}
      */
     Injector getInjector();
 }
