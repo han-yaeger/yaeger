@@ -1,7 +1,8 @@
 package com.github.hanyaeger.api.engine;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class TimerTest {
 
@@ -14,7 +15,7 @@ class TimerTest {
         timer.handle(500 * 1_000_000);
 
         // Assert
-        Assertions.assertFalse(timer.updateCalled);
+        assertFalse(timer.updateCalled);
     }
 
     @Test
@@ -27,7 +28,7 @@ class TimerTest {
         timer.handle(1500 * 1_000_000);
 
         // Assert
-        Assertions.assertTrue(timer.updateCalled);
+        assertTrue(timer.updateCalled);
     }
 
     @Test
@@ -40,7 +41,7 @@ class TimerTest {
         timer.handle(1001 * 1_000_000);
 
         // Assert
-        Assertions.assertTrue(timer.updateCalled);
+        assertTrue(timer.updateCalled);
     }
 
     @Test
@@ -54,7 +55,7 @@ class TimerTest {
         timer.handle(1500 * 1_000_000);
 
         // Assert
-        Assertions.assertFalse(timer.updateCalled);
+        assertFalse(timer.updateCalled);
     }
 
     @Test
@@ -69,18 +70,13 @@ class TimerTest {
         timer.handle(1500 * 1_000_000);
 
         // Assert
-        Assertions.assertTrue(timer.updateCalled);
+        assertTrue(timer.updateCalled);
     }
 
     private class TimerImpl extends Timer {
 
         private boolean updateCalled = false;
 
-        /**
-         * Create a new instance of {@link Timer} for the given interval in milliseconds.
-         *
-         * @param intervalInMs The interval in milleseconds.
-         */
         public TimerImpl(int intervalInMs) {
             super(intervalInMs);
         }
