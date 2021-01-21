@@ -1,6 +1,8 @@
 package com.github.hanyaeger.api.engine;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The commandline parser will parse the {@code String[]} provided as command line
@@ -8,13 +10,6 @@ import java.util.List;
  * {@link YaegerConfig} will contain the default values.
  */
 class YaegerCommandLineParser {
-
-    private static final String NO_SPLASH = "--noSplash";
-    private static final String NO_SPLASH_EXPLANATION = "Skip the Splash screen during start up";
-    private static final String SHOW_BB = "--showBB";
-    private static final String SHOW_BB_EXPLANATION = "Show the BoundingBox of all Colliders and Collided Entities";
-    private static final String HELP = "--help";
-    private static final String HELP_SORT_EXPLANATION = "Show this help screen with all commandline options";
 
     private static final String TABLE_FORMAT = "%-14s%-50s";
 
@@ -26,25 +21,55 @@ class YaegerCommandLineParser {
      * @return An instance of {@link YaegerConfig} that can be used to initialize a {@link YaegerGame}.
      */
     YaegerConfig parseToConfig(final List<String> args) {
+        var invalidArgs = args.stream().filter(a -> !isValidArgument(a)).collect(Collectors.toList());
+        printInvalidArgumentWarning(invalidArgs);
 
-        if (args.contains(HELP)) {
+        if (args.contains(YaegerCommandLineArgument.HELP.flag) || !invalidArgs.isEmpty()) {
             printHelpScreen();
         }
 
         var yaegerConfig = new YaegerConfig();
-        
-        yaegerConfig.setShowSplash(!args.contains(NO_SPLASH));
-        yaegerConfig.setShowBoundingBox(args.contains(SHOW_BB));
+
+        yaegerConfig.setShowSplash(!args.contains(YaegerCommandLineArgument.NO_SPLASH.flag));
+        yaegerConfig.setShowBoundingBox(args.contains(YaegerCommandLineArgument.SHOW_BB.flag));
 
         return yaegerConfig;
     }
 
     private void printHelpScreen() {
         System.out.println("Yaeger can be run with the following command line options:");
-        System.out.format(TABLE_FORMAT, " " + HELP, HELP_SORT_EXPLANATION);
-        System.out.print(System.lineSeparator());
-        System.out.format(TABLE_FORMAT, " " + NO_SPLASH, NO_SPLASH_EXPLANATION);
-        System.out.print(System.lineSeparator());
-        System.out.format(TABLE_FORMAT, " " + SHOW_BB, SHOW_BB_EXPLANATION);
+        for (var argument : YaegerCommandLineArgument.values()) {
+            System.out.format(TABLE_FORMAT, " " + argument.flag, argument.explanation);
+            System.out.print(System.lineSeparator());
+        }
+    }
+
+    private void printInvalidArgumentWarning(List<String> invalidArgs) {
+        invalidArgs.forEach(
+                arg -> System.out.println("WARNING: Invalid command line argument: " + arg)
+        );
+    }
+
+    private boolean isValidArgument(String argument) {
+        var validArguments = Arrays
+                .stream(YaegerCommandLineArgument.values())
+                .map(a -> a.flag)
+                .collect(Collectors.toList());
+
+        return validArguments.contains(argument);
+    }
+
+    private enum YaegerCommandLineArgument {
+        HELP("--help", "Show this help screen with all commandline options"),
+        SHOW_BB("--showBB", "Show the BoundingBox of all Colliders and Collided Entities"),
+        NO_SPLASH("--noSplash", "Skip the Splash screen during start up");
+
+        private final String flag;
+        private final String explanation;
+
+        YaegerCommandLineArgument(String flag, String explanation) {
+            this.flag = flag;
+            this.explanation = explanation;
+        }
     }
 }

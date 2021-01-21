@@ -54,4 +54,21 @@ class YaegerCommandLineParserTest {
         assertTrue(output.contains("--noSplash"));
         assertTrue(output.contains("--help"));
     }
+
+    @Test
+    void invalidArgumentPrintsWarning() {
+        // Arrange
+        var sut = new YaegerCommandLineParser();
+        var invalidArgs = Arrays.asList("--foo");
+
+        var ba = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(ba));
+
+        // Act
+        var actual = sut.parseToConfig(invalidArgs);
+
+        // Assert
+        String output = ba.toString();
+        assertTrue(output.contains("--foo"));
+    }
 }
