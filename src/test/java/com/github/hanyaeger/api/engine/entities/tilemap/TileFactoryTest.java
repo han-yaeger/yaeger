@@ -2,6 +2,7 @@ package com.github.hanyaeger.api.engine.entities.tilemap;
 
 import com.github.hanyaeger.api.engine.Size;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
+import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import com.github.hanyaeger.api.engine.exceptions.FailedToInstantiateEntityException;
 import com.github.hanyaeger.api.engine.exceptions.InvalidConstructorException;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +26,7 @@ class TileFactoryTest {
     }
 
     @Test
-    void creatingEntityWithInvalidConstructorThrowsinvalidConstructorException() {
+    void creatingEntityWithInvalidConstructorThrowsInvalidConstructorException() {
         // Arrange
 
         // Act
@@ -47,7 +48,18 @@ class TileFactoryTest {
     }
 
     @Test
-    void onCreatedEntityCalledSetPreserveIsCalled() {
+    void createdEntityIsInstanceOfRequestedClass() {
+        // Arrange
+
+        // Act
+        var entity = sut.create(YaegerEntityValidConstructorImpl.class, new Coordinate2D(1, 1), new Size(1, 1));
+
+        //  Assert
+        assertTrue(entity instanceof YaegerEntity);
+    }
+
+    @Test
+    void onCreatedSpriteEntityCalledSetPreserveIsCalled() {
         // Arrange
 
         // Act
