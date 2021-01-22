@@ -27,7 +27,7 @@ class YaegerSceneNotAvailableExceptionTest {
         var sut = new YaegerSceneNotAvailableException(sceneType);
 
         // Assert
-        var returnedType = sut.getType();
+        var returnedType = sut.getId();
 
         Assertions.assertEquals(sceneType, returnedType);
     }

@@ -27,7 +27,7 @@ public interface UpdateExposer {
      * An explicit update that can be used from either a {@link com.github.hanyaeger.api.engine.entities.entity.YaegerEntity}
      * or a {@link com.github.hanyaeger.api.engine.scenes.YaegerScene}.
      *
-     * @param timestamp The timestamp of this update.
+     * @param timestamp the timestamp of this update
      */
     void explicitUpdate(final long timestamp);
 }

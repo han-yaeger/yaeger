@@ -23,7 +23,7 @@ public interface TimerContainer extends TimerListProvider {
      * Use this method to add any {@link Timer} that is required by the {@link YaegerScene}
      * or {@link YaegerEntity} in which it is instantiated.
      *
-     * @param timer The {@link Timer} that needs to be added.
+     * @param timer the {@link Timer} that needs to be added
      */
     default void addTimer(final Timer timer) {
         if (getTimers() != null) {

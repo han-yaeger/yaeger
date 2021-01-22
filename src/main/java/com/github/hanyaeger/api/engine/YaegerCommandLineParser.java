@@ -17,8 +17,8 @@ class YaegerCommandLineParser {
      * Parse the given command line Arguments and create a {@link YaegerConfig} that can be used to
      * initialize a {@link YaegerGame}.
      *
-     * @param args the {@code String[]} that contain the command line arguments.
-     * @return An instance of {@link YaegerConfig} that can be used to initialize a {@link YaegerGame}.
+     * @param args the {@code String[]} that contain the command line arguments
+     * @return an instance of {@link YaegerConfig} that can be used to initialize a {@link YaegerGame}
      */
     YaegerConfig parseToConfig(final List<String> args) {
         var invalidArgs = args.stream().filter(a -> !isValidArgument(a)).collect(Collectors.toList());

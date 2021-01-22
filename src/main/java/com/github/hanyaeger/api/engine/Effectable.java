@@ -20,7 +20,7 @@ public interface Effectable {
      *      Max: +1.0 Fully bright
      * </pre>
      *
-     * @param brightness The brightness as a {@code double}, between 0 and 1.
+     * @param brightness the brightness as a {@code double}, between 0 and 1
      */
     void setBrightness(final double brightness);
 

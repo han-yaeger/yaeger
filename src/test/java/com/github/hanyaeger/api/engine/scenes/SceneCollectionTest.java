@@ -142,7 +142,7 @@ class SceneCollectionTest {
         var yaegerSceneNotAvailableException = Assertions.assertThrows(YaegerSceneNotAvailableException.class, () -> sut.setActive(sceneType));
 
         // Verify
-        Assertions.assertEquals(sceneType, yaegerSceneNotAvailableException.getType());
+        Assertions.assertEquals(sceneType, yaegerSceneNotAvailableException.getId());
     }
 
     @Test

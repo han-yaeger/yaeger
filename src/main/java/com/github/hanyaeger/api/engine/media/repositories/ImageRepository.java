@@ -74,8 +74,8 @@ public class ImageRepository implements ResourceConsumer, Destroyable {
 
     /**
      * Returns the number of key-value mappings in this map.  If the
-     * map contains more than {@code Integer.MAX_VALUE} elements, returns
-     * {@code Integer.MAX_VALUE}.
+     * map contains more than {@link Integer#MAX_VALUE} elements, returns
+     * {@link Integer#MAX_VALUE}.
      *
      * @return the number of key-value mappings in this map
      */

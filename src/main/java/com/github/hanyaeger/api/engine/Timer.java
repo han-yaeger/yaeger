@@ -18,7 +18,7 @@ public abstract class Timer {
     /**
      * Create a new instance of {@link Timer} for the given interval in milliseconds.
      *
-     * @param intervalInMs The interval in milleseconds.
+     * @param intervalInMs the interval in milleseconds
      */
     public Timer(final long intervalInMs) {
         this.interval = intervalInMs * 1_000_000;
@@ -57,7 +57,7 @@ public abstract class Timer {
     /**
      * Implement this method, which will be called each animation update with the given interval.
      *
-     * @param timestamp The timestamp of the current frame given in nanoseconds.
+     * @param timestamp the timestamp of the current frame given in nanoseconds
      */
     public abstract void onAnimationUpdate(final long timestamp);
 }

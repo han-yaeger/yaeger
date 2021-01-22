@@ -32,7 +32,7 @@ public abstract class YaegerGame extends Application {
     /**
      * Set the current active {@link YaegerScene}.
      *
-     * @param id The {@link Integer} identifying the {@link YaegerScene}
+     * @param id the {@link Integer} identifying the {@link YaegerScene}
      */
     public void setActiveScene(final int id) {
         yaegerStage.setActiveScene(id);
@@ -48,7 +48,7 @@ public abstract class YaegerGame extends Application {
     /**
      * Set the {@link Size}, being the {@code width} and {@code height} of the game.
      *
-     * @param size A {@link Size} object that encapsulates the {@code width} and {@code height} of the game.
+     * @param size a {@link Size} object that encapsulates the {@code width} and {@code height} of the game
      */
     protected void setSize(final Size size) {
         yaegerStage.setSize(size);
@@ -57,7 +57,7 @@ public abstract class YaegerGame extends Application {
     /**
      * Set the title of the Game.
      *
-     * @param title A {@link String} containing the title of the Game.
+     * @param title a {@link String} containing the title of the Game
      */
     protected void setGameTitle(final String title) {
         yaegerStage.setTitle(title);
@@ -67,8 +67,8 @@ public abstract class YaegerGame extends Application {
     /**
      * Add a {@link YaegerScene} to the Game.
      *
-     * @param id    The {@link Integer} identifying the {@link YaegerScene}
-     * @param scene The {@link YaegerScene} that should be added
+     * @param id    the {@link Integer} identifying the {@link YaegerScene}
+     * @param scene the {@link YaegerScene} that should be added
      */
     protected void addScene(final int id, final YaegerScene scene) {
         yaegerStage.addScene(id, scene);

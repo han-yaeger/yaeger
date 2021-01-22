@@ -31,7 +31,7 @@ public class YaegerStage implements Initializable {
     /**
      * Set the {@link Size}, being the {@code width} and {@code height} of the game.
      *
-     * @param size A {@link Size} object that encapsulates the {@code width} and {@code height} of the game
+     * @param size a {@link Size} object that encapsulates the {@code width} and {@code height} of the game
      */
     protected void setSize(final Size size) {
         this.size = size;
@@ -65,7 +65,7 @@ public class YaegerStage implements Initializable {
     /**
      * Set the title of the Game.
      *
-     * @param title A {@link String} containing the title of the Game
+     * @param title a {@link String} containing the title of the Game
      */
     protected void setTitle(final String title) {
         stage.setTitle(title);
@@ -74,9 +74,9 @@ public class YaegerStage implements Initializable {
     /**
      * Add a {@link YaegerScene} to the {@link YaegerStage}.
      *
-     * @param id    The number as an {@code int} that identifies the {@link YaegerScene}. By calling the method
-     *              {@link #setActiveScene(int)} the added {@link YaegerScene} can be set as the active one.
-     * @param scene The {@link YaegerScene} that should be added.
+     * @param id    the number as an {@code int} that identifies the {@link YaegerScene}. By calling the method
+     *              {@link #setActiveScene(int)} the added {@link YaegerScene} can be set as the active one
+     * @param scene the {@link YaegerScene} that should be added
      */
     protected void addScene(final int id, final YaegerScene scene) {
         sceneCollection.addScene(id, scene);
@@ -85,7 +85,7 @@ public class YaegerStage implements Initializable {
     /**
      * Set the current active {@link YaegerScene}.
      *
-     * @param id The {@link Integer} identifying the {@link YaegerScene}
+     * @param id the {@link Integer} identifying the {@link YaegerScene}
      */
     protected void setActiveScene(final int id) {
         sceneCollection.setActive(id);

@@ -78,7 +78,7 @@ public interface YaegerScene extends DimensionsProvider, Destroyable, Initializa
      * {@code width} and {@code height} during the {@link YaegerScene#setupEntities()} methods, we need the {@link Stage}
      * at an earlier stage. That is why we actively set the {@link Stage} on each {@link YaegerScene} that is created.
      *
-     * @param stage The current {@link Stage}.
+     * @param stage the current {@link Stage}
      */
     void setStage(final Stage stage);
 

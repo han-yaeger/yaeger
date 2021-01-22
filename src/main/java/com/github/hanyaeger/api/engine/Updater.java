@@ -29,7 +29,7 @@ public class Updater implements Updatable, Clearable {
      * be added to a {@link List}, which will be iterated on each {@code update}.
      *
      * @param updatable the {@link Updatable} to be added
-     * @param asFirst   Add an {@link Updatable} to this {@link Updater} as the first element and thus
+     * @param asFirst   add an {@link Updatable} to this {@link Updater} as the first element and thus
      *                  be execute first during an {@code update}
      */
     public void addUpdatable(final Updatable updatable, boolean asFirst) {

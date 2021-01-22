@@ -22,8 +22,8 @@ public class HanFont implements ResourceConsumer {
     /**
      * Create a {@link Font} for the given size in the HAN default style.
      *
-     * @param size The size of the font as a {@code double}.
-     * @return A {@link Font} of the given size and the HAN default style.
+     * @param size the size of the font as a {@code double}
+     * @return a {@link Font} of the given size and the HAN default style
      */
     public static Font createDefaultFont(final double size) {
         return createDefaultFont(HanFontStyle.REGULAR, size);
@@ -32,9 +32,9 @@ public class HanFont implements ResourceConsumer {
     /**
      * Create a {@link Font} for the given size in the HAN default style.
      *
-     * @param style The {@link HanFontStyle} to be used.
-     * @param size  The size of the font as a {@code double}.
-     * @return A {@link Font} of the given size and the HAN default style.
+     * @param style the {@link HanFontStyle} to be used
+     * @param size  the size of the font as a {@code double}
+     * @return a {@link Font} of the given size and the HAN default style
      */
     public static Font createDefaultFont(final HanFontStyle style, final double size) {
         return Font.loadFont(getInstance().constructUrl(false, style), size);

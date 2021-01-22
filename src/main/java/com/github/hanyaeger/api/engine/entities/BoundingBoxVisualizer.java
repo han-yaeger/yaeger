@@ -37,12 +37,13 @@ class BoundingBoxVisualizer extends DynamicRectangleEntity implements UpdateExpo
 
     @Override
     public void explicitUpdate(long timestamp) {
-        setAnchorLocation(new Coordinate2D(yaegerEntity.getBoundingBox().getMinX(), yaegerEntity.getBoundingBox().getMinY()));
+        var otherX = yaegerEntity.getBoundingBox().getMinX();
+        var otherY = yaegerEntity.getBoundingBox().getMinY();
+        var newLocation = new Coordinate2D(otherX, otherY);
+
+        setAnchorLocation(newLocation);
+
         setWidth(yaegerEntity.getWidth());
         setHeight(yaegerEntity.getHeight());
     }
 }
-
-
-
-
