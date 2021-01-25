@@ -40,6 +40,7 @@ public class EntityCollection implements Initializable {
     private final List<KeyListener> keyListeners = new ArrayList<>();
     private final List<Removeable> garbage = new ArrayList<>();
 
+
     private EntitySupplier boundingBoxVisualizerSupplier;
     private List<Updatable> boundingBoxVisualizers;
 
@@ -62,7 +63,6 @@ public class EntityCollection implements Initializable {
         this.statistics = new EntityCollectionStatistics();
 
         if (config.isShowBoundingBox()) {
-            boundingBoxVisualizerSupplier = new EntitySupplier();
             boundingBoxVisualizers = new ArrayList<>();
         }
     }
@@ -318,5 +318,12 @@ public class EntityCollection implements Initializable {
     @Inject
     public void setAnnotationProcessor(final AnnotationProcessor annotationProcessor) {
         this.annotationProcessor = annotationProcessor;
+    }
+
+    @Inject
+    public void setBoundingBoxVisualizerSupplier(EntitySupplier boundingBoxVisualizerSupplier) {
+        if (config.isShowBoundingBox()) {
+            this.boundingBoxVisualizerSupplier = boundingBoxVisualizerSupplier;
+        }
     }
 }

@@ -35,6 +35,8 @@ class EntityCollectionTest {
     private Pane pane;
     private YaegerConfig config;
     private AnnotationProcessor annotationProcessor;
+    private EntitySupplier entitySupplier;
+    private BoundingBoxVisualizer boundingBoxVisualizer;
 
     @BeforeEach
     void setup() {
@@ -42,6 +44,7 @@ class EntityCollectionTest {
         annotationProcessor = mock(AnnotationProcessor.class);
         pane = mock(Pane.class);
         config = mock(YaegerConfig.class);
+        entitySupplier = new EntitySupplier();
     }
 
     @Test
@@ -81,7 +84,6 @@ class EntityCollectionTest {
     class TestsWithKeyListeningEntites {
 
         private KeyListeningEntityImpl keyListeningEntity;
-        private EntitySupplier entitySupplier;
 
         @BeforeEach
         void setup() {
@@ -94,7 +96,6 @@ class EntityCollectionTest {
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
 
-            entitySupplier = new EntitySupplier();
             entitySupplier.add(keyListeningEntity);
         }
 
@@ -192,41 +193,6 @@ class EntityCollectionTest {
         }
 
         @Test
-        void addBoundingBoxVisualizerCallsAnnotationProcessor() {
-            // Arrange
-            var children = mock(ObservableList.class);
-            when(pane.getChildren()).thenReturn(children);
-            when(config.isShowBoundingBox()).thenReturn(true);
-
-            var boundingBoxVisualizer = mock(BoundingBoxVisualizer.class);
-            sut = new EntityCollection(pane, config);
-            sut.setAnnotationProcessor(annotationProcessor);
-            sut.init(injector);
-
-            // Act
-            sut.addBoundingBoxVisualizer(boundingBoxVisualizer);
-
-            // Assert
-            verify(annotationProcessor).configureUpdateDelegators(boundingBoxVisualizer);
-        }
-
-        @Test
-        void addBoundingBoxVisualizerWithoutConfigSettingThrowsException() {
-            // Arrange
-            var children = mock(ObservableList.class);
-            when(pane.getChildren()).thenReturn(children);
-            when(config.isShowBoundingBox()).thenReturn(false);
-
-            var boundingBoxVisualizer = mock(BoundingBoxVisualizer.class);
-            sut = new EntityCollection(pane, config);
-            sut.setAnnotationProcessor(annotationProcessor);
-            sut.init(injector);
-
-            // Act & Assert
-            assertThrows(YaegerEngineException.class, () -> sut.addBoundingBoxVisualizer(boundingBoxVisualizer));
-        }
-
-        @Test
         void addToEntityCollectionIsCalledForEachEntity() {
             // Arrange
             List<YaegerEntity> updatables = new ArrayList<>();
@@ -318,6 +284,31 @@ class EntityCollectionTest {
             assertTrue(updatableEntity.isApplyTranslationsForAnchorPointCalled());
         }
 
+        @Test
+        void updateGetsDelegatedToAllUpdatables() {
+            // Arrange
+            List<YaegerEntity> updatables = new ArrayList<>();
+            updatables.add(updatableEntity);
+            var supplier = mock(EntitySupplier.class);
+            when(supplier.get()).thenReturn(updatables);
+
+            var children = mock(ObservableList.class);
+            when(pane.getChildren()).thenReturn(children);
+
+            sut = new EntityCollection(pane, config);
+            sut.setAnnotationProcessor(annotationProcessor);
+            sut.init(injector);
+            sut.registerSupplier(supplier);
+            sut.initialUpdate();
+
+            // Act
+            var expected = 37L;
+            sut.update(expected);
+
+            // Assert
+            assertEquals(expected, updatableEntity.getLatestTimestamp());
+        }
+
         private class UpdatableEntity extends YaegerEntity implements Updatable {
 
             private Node node;
@@ -325,6 +316,7 @@ class EntityCollectionTest {
             private boolean applyTranslationsForAnchorPointCalled = false;
             private boolean attachEventListenerCalled = false;
             private boolean addToEntityCollectionCalled = false;
+            private long latestTimestamp;
 
             public UpdatableEntity(Coordinate2D initialPosition) {
                 super(initialPosition);
@@ -332,7 +324,7 @@ class EntityCollectionTest {
 
             @Override
             public void update(long timestamp) {
-                // Not required here
+                latestTimestamp = timestamp;
             }
 
             @Override
@@ -346,7 +338,7 @@ class EntityCollectionTest {
 
             @Override
             public void addToEntityCollection(EntityCollection collection) {
-                super.addToEntityCollection(collection);
+                collection.addDynamicEntity(this);
 
                 this.addToEntityCollectionCalled = true;
             }
@@ -387,6 +379,94 @@ class EntityCollectionTest {
             public boolean isAddToEntityCollectionCalled() {
                 return addToEntityCollectionCalled;
             }
+
+            public long getLatestTimestamp() {
+                return latestTimestamp;
+            }
+        }
+    }
+
+    @Nested
+    public class BoundingBoxVisualizerEntities {
+
+        private EntitySupplier boundingBoxVisualizerSupplier;
+
+        @BeforeEach
+        void setup() {
+            when(config.isShowBoundingBox()).thenReturn(true);
+
+            boundingBoxVisualizer = mock(BoundingBoxVisualizer.class);
+            boundingBoxVisualizerSupplier = mock(EntitySupplier.class);
+        }
+
+        @Test
+        void addBoundingBoxVisualizerWithoutConfigSettingThrowsException() {
+            // Arrange
+            var children = mock(ObservableList.class);
+            when(pane.getChildren()).thenReturn(children);
+            when(config.isShowBoundingBox()).thenReturn(false);
+
+            sut = new EntityCollection(pane, config);
+            sut.setAnnotationProcessor(annotationProcessor);
+            sut.init(injector);
+
+            // Act & Assert
+            assertThrows(YaegerEngineException.class, () -> sut.addBoundingBoxVisualizer(boundingBoxVisualizer));
+        }
+
+        @Test
+        void addBoundingBoxVisualizerCallsAnnotationProcessor() {
+            // Arrange
+            var children = mock(ObservableList.class);
+            when(pane.getChildren()).thenReturn(children);
+
+            sut = new EntityCollection(pane, config);
+            sut.setAnnotationProcessor(annotationProcessor);
+            sut.setBoundingBoxVisualizerSupplier(boundingBoxVisualizerSupplier);
+            sut.init(injector);
+
+            // Act
+            sut.addBoundingBoxVisualizer(boundingBoxVisualizer);
+
+            // Assert
+            verify(annotationProcessor).configureUpdateDelegators(boundingBoxVisualizer);
+        }
+
+        @Test
+        void updateGetsDelegatedToBoundingBoxVisualizer() {
+            // Arrange
+            var children = mock(ObservableList.class);
+            when(pane.getChildren()).thenReturn(children);
+
+            sut = new EntityCollection(pane, config);
+            sut.setAnnotationProcessor(annotationProcessor);
+            sut.setBoundingBoxVisualizerSupplier(boundingBoxVisualizerSupplier);
+            sut.init(injector);
+            sut.addBoundingBoxVisualizer(boundingBoxVisualizer);
+            sut.initialUpdate();
+
+            // Act
+            var expected = 37L;
+            sut.update(expected);
+
+            // Assert
+            verify(boundingBoxVisualizer).update(expected);
+        }
+
+        @Test
+        void clearClearsSupplier() {
+            // Arrange
+            var supplier = mock(EntitySupplier.class);
+            sut = new EntityCollection(pane, config);
+            sut.setAnnotationProcessor(annotationProcessor);
+            sut.setBoundingBoxVisualizerSupplier(boundingBoxVisualizerSupplier);
+            sut.registerSupplier(supplier);
+
+            // Act
+            sut.clear();
+
+            // Assert
+            verify(boundingBoxVisualizerSupplier).clear();
         }
     }
 
