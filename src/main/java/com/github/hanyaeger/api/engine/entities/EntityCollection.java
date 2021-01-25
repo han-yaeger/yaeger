@@ -10,6 +10,7 @@ import com.github.hanyaeger.api.engine.entities.entity.collisions.Collided;
 import com.github.hanyaeger.api.engine.entities.entity.collisions.Collider;
 import com.github.hanyaeger.api.engine.entities.entity.collisions.CollisionDelegate;
 import com.github.hanyaeger.api.engine.entities.entity.events.userinput.KeyListener;
+import com.github.hanyaeger.api.engine.exceptions.YaegerEngineException;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -29,21 +30,24 @@ import java.util.Set;
  */
 public class EntityCollection implements Initializable {
 
+    public static final String NO_SHOW_BB_ERROR = "A BoundingBoxVisualizer can only be added when the Game is run with the commandline argument -showBB.";
     private final EntityCollectionStatistics statistics;
     private Injector injector;
     private final Pane pane;
-    private final EntitySupplier boundingBoxes = new EntitySupplier();
     private final List<EntitySupplier> suppliers = new ArrayList<>();
     private final List<YaegerEntity> statics = new ArrayList<>();
     private final List<Updatable> updatables = new ArrayList<>();
     private final List<KeyListener> keyListeners = new ArrayList<>();
     private final List<Removeable> garbage = new ArrayList<>();
 
+    private EntitySupplier boundingBoxVisualizerSupplier;
+    private List<Updatable> boundingBoxVisualizers;
+
     private final List<StatisticsObserver> statisticsObservers = new ArrayList<>();
 
     private final CollisionDelegate collisionDelegate;
     private AnnotationProcessor annotationProcessor;
-    private YaegerConfig config;
+    private final YaegerConfig config;
 
     /**
      * Instantiate an {@link EntityCollection} for a given {@link Group} and a {@link Set} of {@link YaegerEntity} instances.
@@ -58,14 +62,15 @@ public class EntityCollection implements Initializable {
         this.statistics = new EntityCollectionStatistics();
 
         if (config.isShowBoundingBox()) {
-            registerSupplier(boundingBoxes);
+            boundingBoxVisualizerSupplier = new EntitySupplier();
+            boundingBoxVisualizers = new ArrayList<>();
         }
     }
 
     /**
      * Add a {@link StatisticsObserver}.
      *
-     * @param observer the {@link StatisticsObserver} to be added.
+     * @param observer the {@link StatisticsObserver} to be added
      */
     public void addStatisticsObserver(final StatisticsObserver observer) {
         statisticsObservers.add(observer);
@@ -74,7 +79,7 @@ public class EntityCollection implements Initializable {
     /**
      * Register an {@link EntitySupplier}.
      *
-     * @param supplier The {@link EntitySupplier} to be registered.
+     * @param supplier the {@link EntitySupplier} to be registered
      */
     public void registerSupplier(final EntitySupplier supplier) {
         this.suppliers.add(supplier);
@@ -83,7 +88,7 @@ public class EntityCollection implements Initializable {
     /**
      * Regist a {@link KeyListener}.
      *
-     * @param keyListener The {@link KeyListener} to be registered.
+     * @param keyListener the {@link KeyListener} to be registered
      */
     public void registerKeyListener(final KeyListener keyListener) {
         this.keyListeners.add(keyListener);
@@ -93,7 +98,7 @@ public class EntityCollection implements Initializable {
      * Mark an {@link Removeable} as garbage. After this is done, the {@link Removeable} is set for Garbage Collection and will
      * be collected in the next Garbage Collection cycle.
      *
-     * @param entity The {@link Removeable} to be removed.
+     * @param entity the {@link Removeable} to be removed
      */
     private void markAsGarbage(final Removeable entity) {
         this.garbage.add(entity);
@@ -102,7 +107,7 @@ public class EntityCollection implements Initializable {
     /**
      * Notify all {@link YaegerEntity} that implement the interface {@link KeyListener} that keys are being pressed.
      *
-     * @param input A {@link Set} containing all keys currently pressed.
+     * @param input a {@link Set} containing all keys currently pressed
      */
     public void notifyGameObjectsOfPressedKeys(final Set<KeyCode> input) {
         keyListeners.forEach(gameObject -> gameObject.onPressedKeysChange(input));
@@ -111,7 +116,7 @@ public class EntityCollection implements Initializable {
     /**
      * Return the statistics related to this {@link EntityCollection}.
      *
-     * @return An instance of {@link EntityCollectionStatistics}.
+     * @return an instance of {@link EntityCollectionStatistics}
      */
     public EntityCollectionStatistics getStatistics() {
         return statistics;
@@ -155,11 +160,19 @@ public class EntityCollection implements Initializable {
         updatables.forEach(updatable -> updatable.update(timestamp));
         collisionDelegate.checkCollisions();
 
+        if (config.isShowBoundingBox()) {
+            boundingBoxVisualizers.forEach(updatable -> updatable.update(timestamp));
+        }
+
         addSuppliedEntities();
         updateStatistics();
         notifyStatisticsObservers();
     }
 
+    /**
+     * Perform the initial update, to ensure all available entities are transferred fron their {@link EntitySupplier}
+     * to the actual collections to become part of the {@link EntityCollection}.
+     */
     public void initialUpdate() {
         addSuppliedEntities();
     }
@@ -173,11 +186,54 @@ public class EntityCollection implements Initializable {
         updatables.clear();
         garbage.clear();
         keyListeners.clear();
+
+        if (config.isShowBoundingBox()) {
+            boundingBoxVisualizers.clear();
+        }
+    }
+
+    /**
+     * Add a Dynamic Entity to this {@link EntityCollection}. By definition, a Dynamic Entity
+     * will implement the {@link Updatable} interface.
+     *
+     * @param dynamicEntity a Dynamic Entity, being an Entity that implements the interface
+     *                      {@link Updatable}
+     */
+    public void addDynamicEntity(final Updatable dynamicEntity) {
+        annotationProcessor.configureUpdateDelegators(dynamicEntity);
+        updatables.add(dynamicEntity);
+    }
+
+    /**
+     * Add a {@link BoundingBoxVisualizer} to this {@link EntityCollection}.
+     *
+     * @param boundingBoxVisualizer a {@link BoundingBoxVisualizer}
+     */
+    public void addBoundingBoxVisualizer(final BoundingBoxVisualizer boundingBoxVisualizer) {
+        if (config.isShowBoundingBox()) {
+            annotationProcessor.configureUpdateDelegators(boundingBoxVisualizer);
+            boundingBoxVisualizers.add(boundingBoxVisualizer);
+        } else {
+            throw new YaegerEngineException(NO_SHOW_BB_ERROR);
+        }
+    }
+
+    /**
+     * Add a Static Entity to this {@link EntityCollection}.
+     *
+     * @param staticEntity a Static Entity, being a child of {@link YaegerEntity}
+     */
+    public void addStaticEntity(final YaegerEntity staticEntity) {
+        statics.add(staticEntity);
     }
 
     private void clearSuppliers() {
         suppliers.forEach(EntitySupplier::clear);
         suppliers.clear();
+
+        if (config.isShowBoundingBox()) {
+            boundingBoxVisualizerSupplier.clear();
+        }
     }
 
     private void notifyStatisticsObservers() {
@@ -192,6 +248,7 @@ public class EntityCollection implements Initializable {
         garbage.forEach(this::removeGameObject);
         statics.removeAll(garbage);
         updatables.removeAll(garbage);
+        boundingBoxVisualizers.removeAll(garbage);
         garbage.clear();
     }
 
@@ -203,6 +260,10 @@ public class EntityCollection implements Initializable {
     private void addSuppliedEntities() {
         if (!suppliers.isEmpty()) {
             suppliers.forEach(supplier -> supplier.get().forEach(this::initialize));
+        }
+
+        if (config.isShowBoundingBox() && !boundingBoxVisualizerSupplier.isEmpty()) {
+            boundingBoxVisualizerSupplier.get().forEach(this::initialize);
         }
     }
 
@@ -227,29 +288,8 @@ public class EntityCollection implements Initializable {
         var collider = collisionDelegate.register(yaegerEntity);
 
         if (collider && config.isShowBoundingBox()) {
-            boundingBoxes.add(new BoundingBoxVisualizer(yaegerEntity));
+            boundingBoxVisualizerSupplier.add(new BoundingBoxVisualizer(yaegerEntity));
         }
-    }
-
-    /**
-     * Add a Dynamic Entity to this {@link EntityCollection}. By definition, a Dynamic Entity
-     * will implement the {@link Updatable} interface.
-     *
-     * @param dynamicEntity A Dynamic Entity, being an Entity that implements the interface
-     *                      {@link Updatable}.
-     */
-    public void addDynamicEntity(final Updatable dynamicEntity) {
-        annotationProcessor.configureUpdateDelegators(dynamicEntity);
-        updatables.add(dynamicEntity);
-    }
-
-    /**
-     * Add a Static Entity to this {@link EntityCollection}.
-     *
-     * @param staticEntity A Static Entity, being a child of {@link YaegerEntity}.
-     */
-    public void addStaticEntity(YaegerEntity staticEntity) {
-        statics.add(staticEntity);
     }
 
     private void registerKeylistener(final YaegerEntity entity) {
@@ -259,7 +299,7 @@ public class EntityCollection implements Initializable {
     }
 
     private void addToParentNode(final YaegerEntity entity) {
-        this.pane.getChildren().add(entity.getNode().get());
+        entity.getNode().ifPresent(node -> this.pane.getChildren().add(node));
     }
 
     private void updateStatistics() {

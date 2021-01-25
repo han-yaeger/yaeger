@@ -19,7 +19,10 @@ import javafx.scene.paint.Color;
  */
 class BoundingBoxVisualizer extends DynamicRectangleEntity implements UpdateExposer {
 
-    private YaegerEntity yaegerEntity;
+    private final YaegerEntity yaegerEntity;
+    private static final Color DEFAULT_FILL = Color.TRANSPARENT;
+    private static final Color DEFAULT_STROKE_COLOR = Color.GREEN;
+    private static final double DEFAULT_STROKE_WIDTH = 2;
 
     /**
      * Create a new {@link BoundingBoxVisualizer} for the given {@link YaegerEntity}.
@@ -29,21 +32,23 @@ class BoundingBoxVisualizer extends DynamicRectangleEntity implements UpdateExpo
     BoundingBoxVisualizer(final YaegerEntity yaegerEntity) {
         super(new Coordinate2D(yaegerEntity.getBoundingBox().getMinX(), yaegerEntity.getBoundingBox().getMinY()));
         this.yaegerEntity = yaegerEntity;
-        setFill(Color.TRANSPARENT);
-        setStrokeWidth(2);
-        setStrokeColor(Color.GREEN);
+        setFill(DEFAULT_FILL);
+        setStrokeWidth(DEFAULT_STROKE_WIDTH);
+        setStrokeColor(DEFAULT_STROKE_COLOR);
         yaegerEntity.attachEventListener(EventTypes.REMOVE, (e) -> remove());
     }
 
     @Override
     public void explicitUpdate(long timestamp) {
-        var otherX = yaegerEntity.getBoundingBox().getMinX();
-        var otherY = yaegerEntity.getBoundingBox().getMinY();
-        var newLocation = new Coordinate2D(otherX, otherY);
-
+        final var newLocation = new Coordinate2D(yaegerEntity.getBoundingBox().getMinX(), yaegerEntity.getBoundingBox().getMinY());
         setAnchorLocation(newLocation);
 
         setWidth(yaegerEntity.getWidth());
         setHeight(yaegerEntity.getHeight());
+    }
+
+    @Override
+    public void addToEntityCollection(final EntityCollection collection) {
+        collection.addBoundingBoxVisualizer(this);
     }
 }

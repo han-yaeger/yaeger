@@ -46,7 +46,7 @@ class BoundingBoxVisualizerTest {
     }
 
     @Test
-    void widthFromYaegerEntityIsUsed(){
+    void widthFromYaegerEntityIsUsed() {
         // Arrange
         var expectedWidth = 37D;
         when(yaegerEntity.getWidth()).thenReturn(expectedWidth);
@@ -59,7 +59,7 @@ class BoundingBoxVisualizerTest {
     }
 
     @Test
-    void heightFromYaegerEntityIsUsed(){
+    void heightFromYaegerEntityIsUsed() {
         // Arrange
         var expectedHeight = 42D;
         when(yaegerEntity.getWidth()).thenReturn(expectedHeight);
@@ -69,5 +69,17 @@ class BoundingBoxVisualizerTest {
 
         // Arrange
         assertEquals(expectedHeight, sut.getWidth());
+    }
+
+    @Test
+    void addToEntityCollectionCallsAddBoundingBoxVisualizer() {
+        // Arrange
+        var entityCollection = mock(EntityCollection.class);
+
+        // Act
+        sut.addToEntityCollection(entityCollection);
+
+        // Arrange
+        verify(entityCollection).addBoundingBoxVisualizer(sut);
     }
 }

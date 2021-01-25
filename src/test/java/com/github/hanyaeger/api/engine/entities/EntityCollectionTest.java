@@ -7,6 +7,7 @@ import com.github.hanyaeger.api.engine.debug.Debugger;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import com.github.hanyaeger.api.engine.entities.entity.events.userinput.KeyListener;
+import com.github.hanyaeger.api.engine.exceptions.YaegerEngineException;
 import com.google.inject.Injector;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -188,6 +189,41 @@ class EntityCollectionTest {
 
             // Assert
             verify(annotationProcessor).configureUpdateDelegators(updatableEntity);
+        }
+
+        @Test
+        void addBoundingBoxVisualizerCallsAnnotationProcessor() {
+            // Arrange
+            var children = mock(ObservableList.class);
+            when(pane.getChildren()).thenReturn(children);
+            when(config.isShowBoundingBox()).thenReturn(true);
+
+            var boundingBoxVisualizer = mock(BoundingBoxVisualizer.class);
+            sut = new EntityCollection(pane, config);
+            sut.setAnnotationProcessor(annotationProcessor);
+            sut.init(injector);
+
+            // Act
+            sut.addBoundingBoxVisualizer(boundingBoxVisualizer);
+
+            // Assert
+            verify(annotationProcessor).configureUpdateDelegators(boundingBoxVisualizer);
+        }
+
+        @Test
+        void addBoundingBoxVisualizerWithoutConfigSettingThrowsException() {
+            // Arrange
+            var children = mock(ObservableList.class);
+            when(pane.getChildren()).thenReturn(children);
+            when(config.isShowBoundingBox()).thenReturn(false);
+
+            var boundingBoxVisualizer = mock(BoundingBoxVisualizer.class);
+            sut = new EntityCollection(pane, config);
+            sut.setAnnotationProcessor(annotationProcessor);
+            sut.init(injector);
+
+            // Act & Assert
+            assertThrows(YaegerEngineException.class, () -> sut.addBoundingBoxVisualizer(boundingBoxVisualizer));
         }
 
         @Test
