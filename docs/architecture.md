@@ -1,1 +1,0 @@
-# Yaeger’s architecture
