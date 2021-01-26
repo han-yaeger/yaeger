@@ -124,7 +124,6 @@ class EntityCollectionTest {
             keycodes.add(KeyCode.A);
             keycodes.add(KeyCode.E);
             keycodes.add(KeyCode.G);
-            keycodes.add(KeyCode.E);
             keycodes.add(KeyCode.R);
 
             // Act
