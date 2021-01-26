@@ -1,1 +1,1 @@
-# Adding entities
+# Entities aka Game Objects

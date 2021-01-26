@@ -13,7 +13,14 @@ import javafx.stage.Stage;
 public interface YaegerScene extends DimensionsProvider, Destroyable, Initializable, Activatable, Clearable, Effectable {
 
     /**
-     * Setup the {@link YaegerScene}. Use this method to add background images and/or background audio.
+     * Setup the {@link YaegerScene}. Use this method to setup all properties of the {@link YaegerScene}. The
+     * following methods are available:
+     *
+     * <ul>
+     *     <li>{@link #setBackgroundImage(String)}</li>
+     *     <li>{@link #setBackgroundImage(String)}</></li>
+     *     <li>{@link #setBackgroundAudio(String)}</li>
+     * </ul>
      */
     void setupScene();
 
@@ -35,10 +42,14 @@ public interface YaegerScene extends DimensionsProvider, Destroyable, Initializa
      *
      * @param color the {@link Color} of the background
      */
-    void setBackgroundColor(Color color);
+    void setBackgroundColor(final Color color);
 
     /**
      * Set the background image file.
+     *  <p>
+     * The {@code url} of the image is relative to the {@code resources/} folder, where all
+     * resources should be placed. If the resource is placed in a subfolder of {@code resources/}, this folder should
+     * be opened explicitly from the module descriptor.
      *
      * @param url the name of the image file, including extension. Although many different file types are supported,
      *            the following types are preferred:
@@ -47,11 +58,15 @@ public interface YaegerScene extends DimensionsProvider, Destroyable, Initializa
      *            <li>png</li>
      *            </ul>
      */
-    void setBackgroundImage(String url);
+    void setBackgroundImage(final String url);
 
     /**
      * Set the background audio file. Currently only {@code *.mp3} files are supported. The audio file
-     * will be looped indefinetly, until the {@link YaegerScene} is destroyed.
+     * will be looped indefinitely, until the {@link YaegerScene} is destroyed.
+     * <p>
+     * Set the background image file. The {@code url} of the image is relative to the {@code resources/} folder, where all
+     * resources should be placed. If the resource is placed in a subfolder of {@code resources/}, this folder should
+     * be opened explicitly from the module descriptor.
      *
      * @param url the name of the audio file, including extension
      */
