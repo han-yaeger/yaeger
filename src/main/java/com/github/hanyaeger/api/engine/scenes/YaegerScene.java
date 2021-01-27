@@ -18,7 +18,7 @@ public interface YaegerScene extends DimensionsProvider, Destroyable, Initializa
      *
      * <ul>
      *     <li>{@link #setBackgroundImage(String)}</li>
-     *     <li>{@link #setBackgroundImage(String)}</></li>
+     *     <li>{@link #setBackgroundImage(String)}</li>
      *     <li>{@link #setBackgroundAudio(String)}</li>
      * </ul>
      */
