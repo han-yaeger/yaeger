@@ -9,5 +9,3 @@
 - [Sounds](sounds.md)
 - [Command line arguments](commandline-arguments.md)
 - [FAQ](faq.md)
-
-

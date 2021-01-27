@@ -16,4 +16,3 @@ Since the command line arguments mainly focus on the development cycle, they wil
 of a Yaeger Game. In such a case you will be working in an IDE, which will also be responsible for creating a run
 configuration. Part of such a run configuration will be the (extra) arguments that can be passed to the application. So
 check the documentation of your IDE to see where these arguments can be entered.
-

@@ -20,7 +20,6 @@
 - All children of YaegerEntity can now be used for a TileMap. Previously, this was only possible with children of
   SpriteEntity (#150).
 
-
 ## Bugfixes
 
 - It is now possible to first set the direction of an Entity and then its speed (#41).

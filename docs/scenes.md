@@ -47,7 +47,6 @@ The first method to implement is `setupScene()`, which has the following signatu
 ```java
 @Override
 protected void setupScene(){
-
         }
 ```
 
@@ -65,7 +64,7 @@ public void setupScene(){
 For more information, check the
 [API of setupGame()](https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/scenes/YaegerScene.html#setupScene())
 
-### Adding Entities to the scene, through `setupEntities()`;
+### Adding Entities to the scene, through `setupEntities()`
 
 After `setupScene()` has been called, Yaeger will call `setupEntities()`. This is the second step in the life cycle of a
 YaegerScene, in which it expects the developer to add Entities to the Scene.
@@ -90,7 +89,3 @@ The same rules apply to a `YaegerScene`, as do to a `YaegerGame`. Configuring th
 the `setupScene()` method.
 
 It is however possible to use the constructor for basic wiring of Objects or other commons object-oriented practices.
-
-
-
-
