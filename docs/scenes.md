@@ -72,12 +72,14 @@ YaegerScene, in which it expects the developer to add Entities to the Scene.
 Entities can be added by calling `addEntity(YaegerEntity)`. Since entities can overlap, their placement will follow the
 order in which they are added to the scene. So newly added entities may overlap entities that had been placed earlier.
 
+More on entities in the following chapter of this documentation.
+
 A typical implementation can ook like:
 
 ```java
 @Override
 public void setupEntities(){
-        addEntity(new Hanny(new Coordinate2D(1,1),healthText,bubblesPoppedText,waterworld));
+        addEntity(new Hanny(new Coordinate2D(1,1), waterworld));
         addEntity(new Swordfish(new Coordinate2D(200,300)));
         addEntity(new Sharky(new Coordinate2D(0,100)));
         }

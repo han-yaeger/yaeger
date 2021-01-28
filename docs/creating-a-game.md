@@ -41,7 +41,8 @@ protected void setupGame() {
 ```
 
 For more information, check the
-[API of setupGame()](https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/YaegerGame.html#setupGame())
+[API](https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/YaegerGame.html#setupGame())
+of setupGame()
 
 ### Adding Scenes, through `setupScenes()`
 
@@ -73,5 +74,6 @@ For Plain Old Java Objects (POJO's) the constructor is usually used for configur
 is not always the best approach, since the constructor should be only used for __constructing__ an Object, not
 for __configuring__ it, it will usually still work.
 
-With Yaeger, however, it will usually _not_ work. Configuring a `YsegerGame` should only be done from the
-`setupGame()` method.
+With Yaeger, however, it will usually _not_ work. Configuring a `YaegerGame` should only be done from the
+`setupGame()` method. Furthermore, the constructor of the class that extends `YaegerGame` should be empty,
+since Yaeger will otherwise not know how to make an instance of it.
