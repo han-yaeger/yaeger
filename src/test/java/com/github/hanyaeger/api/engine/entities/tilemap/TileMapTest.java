@@ -133,11 +133,10 @@ class TileMapTest {
 
             @Override
             public int[][] defineMap() {
-                int[][] map = {
+                return new int[][]{
                         {0, 0, 0, 0, 0, 0, 0},
                         {0, 0, 0, 0, 0, 0, 0},
                         {0, 0, 0, 0, 0, 0, 0}};
-                return map;
             }
         };
 
@@ -171,11 +170,10 @@ class TileMapTest {
 
             @Override
             public int[][] defineMap() {
-                int[][] map = {
+                return new int[][]{
                         {0, 0, 0, 0, 0, 0, 0},
                         {0, 0, 0, 1, 0, 0, 0},
                         {0, 0, 0, 0, 0, 0, 0}};
-                return map;
             }
         };
 
@@ -211,11 +209,10 @@ class TileMapTest {
 
             @Override
             public int[][] defineMap() {
-                int[][] map = {
+                return new int[][]{
                         {1, 0, 0, 3, 0, 0, 1},
                         {2, 0, 0, 1, 0, 0, 2},
                         {1, 0, 0, 3, 0, 0, 1}};
-                return map;
             }
         };
 
@@ -249,11 +246,10 @@ class TileMapTest {
 
             @Override
             public int[][] defineMap() {
-                int[][] map = {
+                return new int[][]{
                         {0, 0, 0, 0, 0, 0, 0},
                         {0, 0, 0, KEY, 0, 0, 0},
                         {0, 0, 0, 0, 0, 0, 0}};
-                return map;
             }
         };
 
@@ -269,7 +265,7 @@ class TileMapTest {
         localSut.setTileFactory(tileFactory);
 
         // Act, Assert
-        var entityNotAvailableException = assertThrows(EntityNotAvailableException.class, () -> localSut.activate());
+        var entityNotAvailableException = assertThrows(EntityNotAvailableException.class, localSut::activate);
         assertTrue(entityNotAvailableException.getMessage().contains(Integer.toString(KEY)));
     }
 
@@ -285,10 +281,9 @@ class TileMapTest {
 
             @Override
             public int[][] defineMap() {
-                int[][] map = {
+                return new int[][]{
                         {1}
                 };
-                return map;
             }
         };
 
@@ -333,11 +328,10 @@ class TileMapTest {
 
             @Override
             public int[][] defineMap() {
-                int[][] map = {{0, 0, 0},
+                return new int[][]{{0, 0, 0},
                         {0, 1, 0},
                         {0, 0, 0}
                 };
-                return map;
             }
         };
 
@@ -369,11 +363,10 @@ class TileMapTest {
 
             @Override
             public int[][] defineMap() {
-                int[][] map = {{0, 0, 0},
+                return new int[][]{{0, 0, 0},
                         {1},
                         {0, 0, 0}
                 };
-                return map;
             }
         };
 
@@ -405,11 +398,10 @@ class TileMapTest {
 
             @Override
             public int[][] defineMap() {
-                int[][] map = {{1, 0, 0},
+                return new int[][]{{1, 0, 0},
                         {0, 0, 0},
                         {0, 0, 0}
                 };
-                return map;
             }
         };
 
@@ -443,11 +435,10 @@ class TileMapTest {
 
             @Override
             public int[][] defineMap() {
-                int[][] map = {{1, 0, 0},
+                return new int[][]{{1, 0, 0},
                         {0, 0, 0},
                         {0, 0, 0}
                 };
-                return map;
             }
         };
 
@@ -484,11 +475,10 @@ class TileMapTest {
 
             @Override
             public int[][] defineMap() {
-                int[][] map = {{1, 0, 0},
+                return new int[][]{{1, 0, 0},
                         {0, 0, 0},
                         {0, 0, 0}
                 };
-                return map;
             }
         };
 
@@ -525,11 +515,10 @@ class TileMapTest {
 
             @Override
             public int[][] defineMap() {
-                int[][] map = {{1, 0, 0},
+                return new int[][]{{1, 0, 0},
                         {0, 0, 0},
                         {0, 0, 0}
                 };
-                return map;
             }
         };
 
@@ -567,11 +556,10 @@ class TileMapTest {
 
             @Override
             public int[][] defineMap() {
-                int[][] map = {{1, 0, 0},
+                return new int[][]{{1, 0, 0},
                         {0, 0, 0},
                         {0, 0, 0}
                 };
-                return map;
             }
         };
 
@@ -609,11 +597,10 @@ class TileMapTest {
 
             @Override
             public int[][] defineMap() {
-                int[][] map = {{1, 0, 0},
+                return new int[][]{{1, 0, 0},
                         {0, 0, 0},
                         {0, 0, 0}
                 };
-                return map;
             }
         };
 
@@ -653,11 +640,10 @@ class TileMapTest {
 
             @Override
             public int[][] defineMap() {
-                int[][] map = {{1, 0, 0},
+                return new int[][]{{1, 0, 0},
                         {0, 0, 0},
                         {0, 0, 0}
                 };
-                return map;
             }
         };
 
@@ -695,11 +681,10 @@ class TileMapTest {
 
             @Override
             public int[][] defineMap() {
-                int[][] map = {{1, 0, 0},
+                return new int[][]{{1, 0, 0},
                         {0, 0, 0},
                         {0, 0, 0}
                 };
-                return map;
             }
         };
 
@@ -737,11 +722,10 @@ class TileMapTest {
 
             @Override
             public int[][] defineMap() {
-                int[][] map = {{1, 0, 0},
+                return new int[][]{{1, 0, 0},
                         {0, 0, 0},
                         {0, 0, 0}
                 };
-                return map;
             }
         };
 
@@ -783,8 +767,7 @@ class TileMapTest {
 
             @Override
             public int[][] defineMap() {
-                int[][] map = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
-                return map;
+                return new int[][]{{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
             }
         };
 
@@ -829,8 +812,7 @@ class TileMapTest {
 
             @Override
             public int[][] defineMap() {
-                int[][] map = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
-                return map;
+                return new int[][]{{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
             }
         };
 
@@ -858,7 +840,7 @@ class TileMapTest {
         }
     }
 
-    private class TileMapEmptyConstructorImpl extends TileMap {
+    private static class TileMapEmptyConstructorImpl extends TileMap {
 
         private boolean setupEntitiesCalled;
         private boolean defineMapCalled;
@@ -883,7 +865,7 @@ class TileMapTest {
         }
     }
 
-    private class TileMapFilledConstructorImpl extends TileMap {
+    private static class TileMapFilledConstructorImpl extends TileMap {
 
         public TileMapFilledConstructorImpl(final Coordinate2D location, final Size size) {
             super(location, size);

@@ -298,7 +298,7 @@ class StaticSceneTest {
         double actual = sut.getBrightness();
 
         // Verify
-        assertTrue(Double.compare(actual, brightness) == 0);
+        assertEquals(Double.compare(actual, brightness), 0);
     }
 
     @Test
@@ -402,7 +402,7 @@ class StaticSceneTest {
         verify(debugger).toFront();
     }
 
-    private class StaticSceneImpl extends StaticScene {
+    private static class StaticSceneImpl extends StaticScene {
 
         @Override
         public void setupScene() {
@@ -413,7 +413,7 @@ class StaticSceneTest {
         }
     }
 
-    private class StaticSceneKeyListenerImpl extends StaticScene implements KeyListener {
+    private static class StaticSceneKeyListenerImpl extends StaticScene implements KeyListener {
 
         @Override
         public void onPressedKeysChange(Set<KeyCode> pressedKeys) {

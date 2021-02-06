@@ -31,7 +31,7 @@ public abstract class DynamicCompositeEntity extends CompositeEntity implements 
     private Optional<EntityMotionInitBuffer> buffer;
     private double rotationAngle;
 
-    public DynamicCompositeEntity(final Coordinate2D initialLocation) {
+    protected DynamicCompositeEntity(final Coordinate2D initialLocation) {
         super(initialLocation);
 
         buffer = Optional.of(new EntityMotionInitBuffer());

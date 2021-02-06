@@ -26,7 +26,7 @@ public class TextEntity extends ShapeEntity<Text> {
      *
      * @param initialLocation the initial {@link Coordinate2D} of this {@link TextEntity}
      */
-    public TextEntity(final Coordinate2D initialLocation) {
+    protected TextEntity(final Coordinate2D initialLocation) {
         this(initialLocation, "");
     }
 
@@ -36,7 +36,7 @@ public class TextEntity extends ShapeEntity<Text> {
      * @param initialLocation the initial {@link Coordinate2D} of this {@link TextEntity}
      * @param text            a {@link String} containing the initial text to be displayed
      */
-    public TextEntity(final Coordinate2D initialLocation, final String text) {
+    protected TextEntity(final Coordinate2D initialLocation, final String text) {
         super(initialLocation);
         this.text = text;
     }

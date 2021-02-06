@@ -4,7 +4,6 @@ import com.github.hanyaeger.api.engine.annotations.UpdatableProvider;
 import com.github.hanyaeger.api.javafx.animationtimer.AnimationTimerFactory;
 import com.google.inject.Inject;
 import javafx.animation.AnimationTimer;
-import javafx.scene.input.KeyCode;
 import com.github.hanyaeger.api.engine.TimerListProvider;
 import com.github.hanyaeger.api.engine.Timer;
 import com.github.hanyaeger.api.engine.entities.EntitySpawner;
@@ -14,7 +13,6 @@ import com.github.hanyaeger.api.engine.Updater;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Instantiate a new  {@code DynamicScene}. A {@code DynamicScene} extends a {@link StaticScene}, but adds its

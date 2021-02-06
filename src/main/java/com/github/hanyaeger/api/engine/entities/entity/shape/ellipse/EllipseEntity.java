@@ -31,7 +31,7 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
      *
      * @param initialPosition the initial position at which this {@link EllipseEntity} should be placed
      */
-    public EllipseEntity(final Coordinate2D initialPosition) {
+    protected EllipseEntity(final Coordinate2D initialPosition) {
         super(initialPosition);
     }
 
@@ -44,7 +44,7 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
      * @param initialPosition the initial position at which this {@link EllipseEntity} should be placed
      * @param size            the {@link Size} of this {@link EllipseEntity}
      */
-    public EllipseEntity(final Coordinate2D initialPosition, final Size size) {
+    protected EllipseEntity(final Coordinate2D initialPosition, final Size size) {
         super(initialPosition);
         this.radiusX = size.getWidth() / 2;
         this.radiusY = size.getHeight() / 2;

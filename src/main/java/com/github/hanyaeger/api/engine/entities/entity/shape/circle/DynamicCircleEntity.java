@@ -28,7 +28,7 @@ public abstract class DynamicCircleEntity extends CircleEntity implements Update
      *
      * @param initialLocation the initial position at which this {@link DynamicCircleEntity} should be placed
      */
-    public DynamicCircleEntity(final Coordinate2D initialLocation) {
+    protected DynamicCircleEntity(final Coordinate2D initialLocation) {
         super(initialLocation);
 
         buffer = Optional.of(new EntityMotionInitBuffer());

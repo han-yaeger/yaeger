@@ -3,7 +3,6 @@ package com.github.hanyaeger.api.engine;
 import com.github.hanyaeger.api.engine.exceptions.YaegerEngineException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,7 +111,7 @@ class TimerContainerTest {
         verify(timer2).handle(TIMESTAMP);
     }
 
-    private class TimerContainerImpl implements TimerContainer {
+    private static class TimerContainerImpl implements TimerContainer {
 
         private List<Timer> timers;
         private boolean setupTimersCalled = false;

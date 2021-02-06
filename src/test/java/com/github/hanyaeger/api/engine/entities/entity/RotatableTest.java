@@ -41,7 +41,7 @@ class RotatableTest {
         verify(rotationBuffer).setRotation(DEGREES);
     }
 
-    private class RotatableImpl implements Rotatable {
+    private static class RotatableImpl implements Rotatable {
 
         private Node node;
         private RotationBuffer rotationBuffer;

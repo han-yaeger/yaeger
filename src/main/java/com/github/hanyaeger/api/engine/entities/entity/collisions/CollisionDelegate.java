@@ -47,10 +47,10 @@ public class CollisionDelegate {
     /**
      * Register a {@link Collider} to be evaluated for collision detection.
      *
-     * @param Collider the {@link Collider} that should be registered
+     * @param collider the {@link Collider} that should be registered
      */
-    public void register(final Collider Collider) {
-        colliders.add(Collider);
+    public void register(final Collider collider) {
+        colliders.add(collider);
     }
 
     /**
@@ -83,8 +83,8 @@ public class CollisionDelegate {
         collideds.forEach(collided -> collided.checkForCollisions(colliders));
     }
 
-    private void removeCollider(final Collider Collider) {
-        colliders.remove(Collider);
+    private void removeCollider(final Collider collider) {
+        colliders.remove(collider);
     }
 
     private void removeCollided(final Collided collided) {

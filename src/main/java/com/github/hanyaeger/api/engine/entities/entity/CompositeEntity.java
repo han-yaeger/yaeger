@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity;
 
+import com.github.hanyaeger.api.engine.Initializable;
 import com.github.hanyaeger.api.engine.entities.EntityProcessor;
 import com.github.hanyaeger.api.engine.entities.EntitySpawner;
 import com.github.hanyaeger.api.engine.entities.entity.events.EventTypes;
@@ -48,7 +49,7 @@ public abstract class CompositeEntity extends YaegerEntity {
     List<Removeable> garbage = new ArrayList<>();
     Optional<Group> group = Optional.empty();
 
-    public CompositeEntity(final Coordinate2D initialLocation) {
+    protected CompositeEntity(final Coordinate2D initialLocation) {
         super(initialLocation);
     }
 
@@ -75,7 +76,7 @@ public abstract class CompositeEntity extends YaegerEntity {
     public void beforeInitialize() {
         setupEntities();
 
-        entities.forEach(yaegerEntity -> yaegerEntity.beforeInitialize());
+        entities.forEach(Initializable::beforeInitialize);
     }
 
     @Override
@@ -92,7 +93,7 @@ public abstract class CompositeEntity extends YaegerEntity {
      */
     @Override
     public void applyTranslationsForAnchorPoint() {
-        entities.forEach(yaegerEntity -> yaegerEntity.applyTranslationsForAnchorPoint());
+        entities.forEach(YaegerEntity::applyTranslationsForAnchorPoint);
 
         super.applyTranslationsForAnchorPoint();
     }
@@ -110,7 +111,7 @@ public abstract class CompositeEntity extends YaegerEntity {
     @Override
     public void addToParent(final EntityProcessor processor) {
         // First delegate the toParent call to all child Entities
-        entities.forEach(yaegerEntity -> yaegerEntity.addToParent(entity -> addToParentNode(entity)));
+        entities.forEach(yaegerEntity -> yaegerEntity.addToParent(this::addToParentNode));
 
         // After all child Entities have been added themself to this parent, add this to its own parent
         super.addToParent(processor);
@@ -167,7 +168,7 @@ public abstract class CompositeEntity extends YaegerEntity {
 
     @Override
     public void remove() {
-        entities.forEach(yaegerEntity -> yaegerEntity.remove());
+        entities.forEach(YaegerEntity::remove);
 
         super.remove();
     }

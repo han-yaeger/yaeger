@@ -18,8 +18,8 @@ import static org.mockito.Mockito.*;
 
 class BackgroundDelegateTest {
 
-    private String audioFile = "testAudio.mp3";
-    private String imageFile = "testImage.png";
+    private final String audioFile = "testAudio.mp3";
+    private final String imageFile = "testImage.png";
     private BackgroundDelegate sut;
     private BackgroundFactory backgroundFactory;
     private Pane pane;

@@ -95,7 +95,7 @@ class BoundedTest {
         Assertions.assertEquals(height, returnedHeight);
     }
 
-    private class BoundedImpl implements Bounded {
+    private static class BoundedImpl implements Bounded {
 
         private Node node;
 
@@ -109,7 +109,7 @@ class BoundedTest {
         }
     }
 
-    private class EmptyGameNodeBoundedImpl implements Bounded {
+    private static class EmptyGameNodeBoundedImpl implements Bounded {
 
         @Override
         public Optional<? extends Node> getNode() {

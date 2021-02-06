@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ObjectInputFilter;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -179,7 +178,7 @@ class DynamicSceneTest {
         verify(updater).update(TIMESTAMP);
     }
 
-    private class DynamicSceneImpl extends DynamicScene {
+    private static class DynamicSceneImpl extends DynamicScene {
 
         @Override
         public void setupScene() {

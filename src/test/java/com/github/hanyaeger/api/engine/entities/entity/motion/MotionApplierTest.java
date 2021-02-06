@@ -483,7 +483,7 @@ class MotionApplierTest {
     }
 
     @Nested
-    public class maximizeMotionInDirectionTests {
+    class maximizeMotionInDirectionTests {
 
         @Test
         void motionIsSetToMaximizedValueIfCurrentMotionIsZero() {

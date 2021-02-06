@@ -62,7 +62,7 @@ class YaegerConfigTest {
         var sut = new YaegerConfig();
 
         // Act & Assert
-        assertFalse(sut.equals(null));
+        assertNotEquals(sut, null);
     }
 
     @Test
@@ -73,7 +73,7 @@ class YaegerConfigTest {
         sut.setShowSplash(false);
 
         // Act & Assert
-        assertFalse(sut.equals(sutOther));
+        assertNotEquals(sutOther, sut);
     }
 
     @Test
@@ -84,7 +84,7 @@ class YaegerConfigTest {
         sut.setShowSplash(false);
 
         // Act & Assert
-        assertFalse(sut.equals(sutOther));
+        assertNotEquals(sutOther, sut);
     }
 
     @Test
@@ -93,7 +93,7 @@ class YaegerConfigTest {
         var sut = new YaegerConfig();
 
         // Act & Assert
-        assertTrue(sut.equals(sut));
+        assertEquals(sut, sut);
     }
 
     @Test
@@ -103,7 +103,7 @@ class YaegerConfigTest {
         var sutOther = new YaegerConfig();
 
         // Act & Assert
-        assertTrue(sut.equals(sutOther));
+        assertEquals(sutOther, sut);
     }
 
     @Test

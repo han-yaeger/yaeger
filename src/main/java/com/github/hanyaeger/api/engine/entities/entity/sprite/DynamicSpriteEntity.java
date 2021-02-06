@@ -33,7 +33,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      * @param size            The {@link Size} (width and height) with which the image should be shown. This {@link Size}
      *                        will also be used as the {@link javafx.geometry.BoundingBox} in case of collision detection
      */
-    public DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation, final Size size) {
+    protected DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation, final Size size) {
         this(resource, initialLocation, size, 1);
     }
 
@@ -47,7 +47,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      *                        number of frames will be used for displaying the Image and as the {@link javafx.geometry.BoundingBox} in case of collision detection.
      * @param frames          the number of frames the Image contains. By default the first frame is loaded
      */
-    public DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation, final Size size, final int frames) {
+    protected DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation, final Size size, final int frames) {
         super(resource, initialLocation, size, frames);
 
         buffer = Optional.of(new EntityMotionInitBuffer());

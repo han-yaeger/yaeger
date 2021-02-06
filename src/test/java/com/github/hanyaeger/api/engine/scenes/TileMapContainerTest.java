@@ -95,8 +95,8 @@ class TileMapContainerTest {
         assertThrows(YaegerEngineException.class, () -> sut.addTileMap(entityMap));
     }
 
-    private class TileMapContainerImpl implements TileMapContainer {
-        private List<TileMap> mapsToRegister = new ArrayList<>();
+    private static class TileMapContainerImpl implements TileMapContainer {
+        private final List<TileMap> mapsToRegister = new ArrayList<>();
         private boolean registerEntityMapsCalled = false;
 
         private Injector injector;
@@ -104,7 +104,7 @@ class TileMapContainerTest {
 
         @Override
         public void setupTileMaps() {
-            mapsToRegister.forEach(map -> addTileMap(map));
+            mapsToRegister.forEach(this::addTileMap);
             registerEntityMapsCalled = true;
         }
 
@@ -150,7 +150,7 @@ class TileMapContainerTest {
         }
     }
 
-    private class TileMapImpl extends TileMap {
+    private static class TileMapImpl extends TileMap {
 
         private boolean configureCalled = false;
 

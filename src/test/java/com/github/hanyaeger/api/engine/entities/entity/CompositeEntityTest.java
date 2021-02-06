@@ -242,9 +242,9 @@ class CompositeEntityTest {
         }
     }
 
-    private class CompositeEntityImpl extends CompositeEntity {
+    private static class CompositeEntityImpl extends CompositeEntity {
 
-        private List<YaegerEntity> entitiesToAdd = new ArrayList<>();
+        private final List<YaegerEntity> entitiesToAdd = new ArrayList<>();
 
         public CompositeEntityImpl(Coordinate2D initialLocation) {
             super(initialLocation);
@@ -252,7 +252,7 @@ class CompositeEntityTest {
 
         @Override
         protected void setupEntities() {
-            entitiesToAdd.forEach(yaegerEntity -> addEntity(yaegerEntity));
+            entitiesToAdd.forEach(this::addEntity);
         }
 
         void addEntityToAdd(final YaegerEntity yaegerEntity) {

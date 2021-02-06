@@ -18,9 +18,7 @@ public interface UpdateExposer {
 
     @UpdatableProvider
     default Updatable exposedUpdate() {
-        return timestamp -> {
-            explicitUpdate(timestamp);
-        };
+        return this::explicitUpdate;
     }
 
     /**

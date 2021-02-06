@@ -60,7 +60,7 @@ public class EntityMotionInitBuffer implements Initializable {
     public void init(final Injector injector) {
         motionApplier.setMotion(speed, direction);
         gravityConstant.ifPresent(g -> motionApplier.setGravityConstant(g));
-        gravityDirection.ifPresent(direction -> motionApplier.setGravityDirection(direction));
+        gravityDirection.ifPresent(d -> motionApplier.setGravityDirection(d));
         frictionConstant.ifPresent(fC -> motionApplier.setFrictionConstant(fC));
     }
 

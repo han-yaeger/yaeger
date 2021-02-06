@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 class YaegerLifecycleExceptionTest {
 
     @Test
-    void correctMessageIsContructed() {
+    void correctMessageIsConstructed() {
         // Arrange
         var originalMessage = "Message related to the lifecycle exception.";
 

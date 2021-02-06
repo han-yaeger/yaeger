@@ -28,12 +28,10 @@ class YaegerEntityTest {
     private static final double SCENE_HEIGHT = 42d;
     private static final double ENTITY_WIDTH = 200d;
     private static final double ENTITY_HEIGHT = 100d;
-    private static final BoundingBox BOUNDING_BOX = new BoundingBox(0, 0, 10, 10);
 
     private YaegerEntityImpl sut;
     private Node node;
     private Injector injector;
-    private BoundingBox boundingBox;
     private Scene scene;
 
     @BeforeEach
@@ -43,7 +41,9 @@ class YaegerEntityTest {
         node = mock(Node.class, withSettings().withoutAnnotations());
         sut.setNode(Optional.of(node));
         scene = mock(Scene.class);
-        boundingBox = mock(BoundingBox.class);
+
+        var boundingBox = mock(BoundingBox.class);
+
         when(node.getBoundsInLocal()).thenReturn(boundingBox);
         when(boundingBox.getWidth()).thenReturn(ENTITY_WIDTH);
         when(boundingBox.getHeight()).thenReturn(ENTITY_HEIGHT);
@@ -223,7 +223,7 @@ class YaegerEntityTest {
         var actual = sut.isVisible();
 
         // Assert
-        assertEquals(false, actual);
+        assertFalse(actual);
     }
 
     @Test
@@ -236,7 +236,7 @@ class YaegerEntityTest {
         var actual = sut.isVisible();
 
         // Assert
-        assertEquals(false, actual);
+        assertFalse(actual);
     }
 
     @Test
@@ -479,7 +479,7 @@ class YaegerEntityTest {
         var actual = sut.distanceTo(sut);
 
         // Assert
-        assertTrue(Double.compare(actual, expected) == 0);
+        assertEquals(Double.compare(actual, expected), 0);
     }
 
     @Test
@@ -492,7 +492,7 @@ class YaegerEntityTest {
         var actual = sut.distanceTo(other);
 
         // Assert
-        assertTrue(Double.compare(actual, expected) == 0);
+        assertEquals(Double.compare(actual, expected), 0);
     }
 
     @Test
@@ -507,7 +507,7 @@ class YaegerEntityTest {
         var actual = sut.distanceTo(other);
 
         // Assert
-        assertTrue(Double.compare(actual, expected) == 0);
+        assertEquals(Double.compare(actual, expected), 0);
     }
 
     @Test
@@ -523,7 +523,7 @@ class YaegerEntityTest {
         var actual = sut.distanceTo(other);
 
         // Assert
-        assertTrue(Double.compare(actual, expected) == 0);
+        assertEquals(Double.compare(actual, expected), 0);
     }
 
     @Test
@@ -550,7 +550,7 @@ class YaegerEntityTest {
         var actual = sut.distanceTo(other);
 
         // Assert
-        assertTrue(Double.compare(actual, expected) == 0);
+        assertEquals(Double.compare(actual, expected), 0);
     }
 
     @Test
@@ -577,7 +577,7 @@ class YaegerEntityTest {
         var actual = sut.distanceTo(other);
 
         // Assert
-        assertTrue(Double.compare(actual, expected) == 0);
+        assertEquals(Double.compare(actual, expected), 0);
     }
 
     @Test
@@ -589,7 +589,7 @@ class YaegerEntityTest {
         var actual = sut.angleTo(sut);
 
         // Assert
-        assertTrue(Double.compare(actual, expected) == 0);
+        assertEquals(Double.compare(actual, expected), 0);
     }
 
     @Test
@@ -603,7 +603,7 @@ class YaegerEntityTest {
         var actual = sut.angleTo(LOCATION);
 
         // Assert
-        assertTrue(Double.compare(actual, expected) == 0);
+        assertEquals(Double.compare(actual, expected), 0);
     }
 
     @Test
@@ -999,11 +999,9 @@ class YaegerEntityTest {
         Assertions.assertEquals(sut, entityProcessor.processedEntity);
     }
 
-    private class YaegerEntityImpl extends YaegerEntity {
+    private static class YaegerEntityImpl extends YaegerEntity {
 
         private Optional<Node> node = Optional.empty();
-        private double testX;
-        private double testY;
 
         public YaegerEntityImpl(Coordinate2D initialPosition) {
             super(initialPosition);
@@ -1016,14 +1014,6 @@ class YaegerEntityTest {
 
         public void setNode(Optional<Node> node) {
             this.node = node;
-        }
-
-        public double getOriginX() {
-            return testX;
-        }
-
-        public double getOriginY() {
-            return testY;
         }
     }
 }

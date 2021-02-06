@@ -30,13 +30,12 @@ class DynamicCompositeEntityTest {
 
     private DynamicCompositeEntityImpl sut;
     private Injector injector;
-    private Updater updater;
     private Group group;
     private MotionApplier motionApplier;
 
     @BeforeEach
     void setup() {
-        updater = mock(Updater.class);
+        var updater = mock(Updater.class);
         injector = mock(Injector.class);
         group = mock(Group.class);
         motionApplier = mock(MotionApplier.class);
@@ -243,9 +242,9 @@ class DynamicCompositeEntityTest {
     }
 
 
-    private class DynamicCompositeEntityImpl extends DynamicCompositeEntity {
+    private static class DynamicCompositeEntityImpl extends DynamicCompositeEntity {
 
-        private List<YaegerEntity> entitiesToAdd = new ArrayList<>();
+        private final List<YaegerEntity> entitiesToAdd = new ArrayList<>();
 
         public DynamicCompositeEntityImpl(final Coordinate2D initialLocation) {
             super(initialLocation);
@@ -253,7 +252,7 @@ class DynamicCompositeEntityTest {
 
         @Override
         protected void setupEntities() {
-            entitiesToAdd.forEach(entity -> addEntity(entity));
+            entitiesToAdd.forEach(this::addEntity);
         }
 
         public void addEntityToAdd(YaegerEntity entitiesToAdd) {

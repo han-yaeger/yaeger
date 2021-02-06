@@ -29,7 +29,7 @@ class ContinuousRotatableTest {
         verify(node).setRotate(-37d);
     }
 
-    private class ContinuousRotatableImpl implements ContinuousRotatable {
+    private static class ContinuousRotatableImpl implements ContinuousRotatable {
 
         private double rotationAngle;
 

@@ -237,7 +237,7 @@ class MoveableTest {
     }
 
 
-    private class MoveableImpl implements Moveable {
+    private static class MoveableImpl implements Moveable {
         Coordinate2D anchorLocation;
         MotionApplier motionApplier;
         Node node;

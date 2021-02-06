@@ -58,7 +58,7 @@ class EntitySpawnerTest {
         verify(supplier).add(entity);
     }
 
-    private class EntitySpawnerImpl extends EntitySpawner {
+    private static class EntitySpawnerImpl extends EntitySpawner {
 
         private boolean updateCalled = false;
 

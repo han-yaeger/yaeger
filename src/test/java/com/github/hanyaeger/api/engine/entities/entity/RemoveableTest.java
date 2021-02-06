@@ -24,7 +24,7 @@ class RemoveableTest {
         verify(node).fireEvent(any(RemoveEntityEvent.class));
     }
 
-    private class RemoveableImpl implements Removeable {
+    private static class RemoveableImpl implements Removeable {
 
         private Optional<Node> node;
 

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 class YaegerSceneNotAvailableExceptionTest {
 
     @Test
-    void correctMessageIsContructed() {
+    void correctMessageIsConstructed() {
         // Arrange
 
         // Act

@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
 class EntitySupplierTest {
 
     private static final Coordinate2D DEFAULT_LOCATION = new Coordinate2D(0, 0);
@@ -81,7 +79,7 @@ class EntitySupplierTest {
         Assertions.assertTrue(equals);
     }
 
-    private class TestEntity extends YaegerEntity {
+    private static class TestEntity extends YaegerEntity {
         /**
          * Instantiate a new {@link YaegerEntity} for the given {@link Coordinate2D} and textDelegate.
          *

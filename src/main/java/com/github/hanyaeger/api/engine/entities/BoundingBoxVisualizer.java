@@ -35,7 +35,7 @@ class BoundingBoxVisualizer extends DynamicRectangleEntity implements UpdateExpo
         setFill(DEFAULT_FILL);
         setStrokeWidth(DEFAULT_STROKE_WIDTH);
         setStrokeColor(DEFAULT_STROKE_COLOR);
-        yaegerEntity.attachEventListener(EventTypes.REMOVE, (e) -> remove());
+        yaegerEntity.attachEventListener(EventTypes.REMOVE, e -> remove());
     }
 
     @Override

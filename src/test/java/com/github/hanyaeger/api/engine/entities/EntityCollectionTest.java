@@ -386,7 +386,7 @@ class EntityCollectionTest {
     }
 
     @Nested
-    public class BoundingBoxVisualizerEntities {
+    class BoundingBoxVisualizerEntities {
 
         private EntitySupplier boundingBoxVisualizerSupplier;
 
@@ -470,7 +470,7 @@ class EntityCollectionTest {
     }
 
 
-    private class KeyListeningEntityImpl extends YaegerEntity implements KeyListener {
+    private static class KeyListeningEntityImpl extends YaegerEntity implements KeyListener {
 
         public KeyListeningEntityImpl(Coordinate2D initialPosition) {
             super(initialPosition);

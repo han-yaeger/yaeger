@@ -147,7 +147,7 @@ class YaegerStageTest {
     }
 
     @Test
-    void setTitleDelgatesToStage() {
+    void setTitleDelegatesToStage() {
         // Arrange
 
         // Act

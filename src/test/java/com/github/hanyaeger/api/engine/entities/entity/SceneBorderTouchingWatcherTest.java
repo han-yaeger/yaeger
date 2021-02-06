@@ -1,6 +1,5 @@
 package com.github.hanyaeger.api.engine.entities.entity;
 
-import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
 import com.github.hanyaeger.api.engine.scenes.SceneBorder;
 import javafx.geometry.BoundingBox;
@@ -221,7 +220,7 @@ class SceneBorderTouchingWatcherTest {
         assertEquals(SceneBorder.TOP, sut.borderTouched);
     }
 
-    private class SceneBorderTouchingWatcherImpl implements SceneBorderTouchingWatcher {
+    private static class SceneBorderTouchingWatcherImpl implements SceneBorderTouchingWatcher {
 
         private Node gameNode;
         private MotionApplier motionApplier;

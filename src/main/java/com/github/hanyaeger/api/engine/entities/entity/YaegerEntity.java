@@ -12,7 +12,6 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
-import javafx.scene.Group;
 import javafx.scene.Node;
 
 import java.util.ArrayList;
@@ -44,7 +43,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      *
      * @param initialLocation the initial {@link Coordinate2D} of this {@link YaegerEntity}
      */
-    public YaegerEntity(final Coordinate2D initialLocation) {
+    protected YaegerEntity(final Coordinate2D initialLocation) {
         this.anchorLocation = initialLocation;
 
         this.anchorPoint = AnchorPoint.TOP_LEFT;
@@ -58,9 +57,8 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * @param cursor the {@link Cursor} to be shown
      */
     public void setCursor(final Cursor cursor) {
-        getNode().ifPresentOrElse(node -> {
-            node.getScene().setCursor(cursor);
-        }, () -> this.cursor = Optional.of(cursor));
+        getNode().ifPresentOrElse(node ->
+                node.getScene().setCursor(cursor), () -> this.cursor = Optional.of(cursor));
     }
 
     /**
@@ -328,9 +326,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
 
     @Override
     public void transferCoordinatesToNode() {
-        getNode().ifPresent(node -> {
-            setAnchorLocation(anchorLocation);
-        });
+        getNode().ifPresent(node -> setAnchorLocation(anchorLocation));
     }
 
     @Override

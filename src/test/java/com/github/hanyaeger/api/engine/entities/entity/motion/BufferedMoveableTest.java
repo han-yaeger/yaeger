@@ -26,7 +26,7 @@ class BufferedMoveableTest {
     }
 
     @Nested
-    public class WithBuffer {
+    class WithBuffer {
 
         private EntityMotionInitBuffer buffer;
 
@@ -71,7 +71,7 @@ class BufferedMoveableTest {
     }
 
     @Nested
-    public class WithoutBuffer {
+    class WithoutBuffer {
 
         @BeforeEach
         void setup() {
@@ -135,7 +135,7 @@ class BufferedMoveableTest {
         }
     }
 
-    private class BufferedMoveableImpl implements BufferedMoveable {
+    private static class BufferedMoveableImpl implements BufferedMoveable {
 
         private Optional<EntityMotionInitBuffer> buffer;
         private MotionApplier motionApplier;

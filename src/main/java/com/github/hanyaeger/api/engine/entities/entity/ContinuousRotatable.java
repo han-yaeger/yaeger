@@ -31,11 +31,11 @@ public interface ContinuousRotatable extends Rotatable {
     @UpdatableProvider
     default Updatable applyRotation() {
         return timestamp -> {
-            if (Double.compare(getRotationSpeed(), 0d) != 0) {
-                if (getNode().isPresent()) {
-                    setRotate(-getNode().get().getRotate() + getRotationSpeed());
+            getNode().ifPresent(node -> {
+                if (Double.compare(getRotationSpeed(), 0d) != 0) {
+                    setRotate(-node.getRotate() + getRotationSpeed());
                 }
-            }
+            });
         };
     }
 }

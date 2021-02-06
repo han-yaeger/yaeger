@@ -1,7 +1,5 @@
 package com.github.hanyaeger.api.engine;
 
-import com.github.hanyaeger.api.engine.entities.entity.Removeable;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +9,7 @@ import java.util.List;
  */
 public class Updater implements Updatable, Clearable {
 
-    private List<Updatable> updatables = new ArrayList<>();
+    private final List<Updatable> updatables = new ArrayList<>();
     private boolean clearUpdatables = false;
 
     /**

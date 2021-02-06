@@ -119,7 +119,7 @@ class EntitySpawnerContainerTest {
         verify(spawner2).handle(TIMESTAMP);
     }
 
-    private class EntitySpawnerContainerImpl implements EntitySpawnerContainer {
+    private static class EntitySpawnerContainerImpl implements EntitySpawnerContainer {
 
         private List<EntitySpawner> spawners;
         private boolean setupSpawnersCalled = false;

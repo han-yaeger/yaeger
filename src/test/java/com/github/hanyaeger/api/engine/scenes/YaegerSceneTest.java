@@ -65,7 +65,7 @@ class YaegerSceneTest {
         Assertions.assertEquals(height, returnedHeight);
     }
 
-    private class YaegerSceneImpl implements YaegerScene {
+    private static class YaegerSceneImpl implements YaegerScene {
 
         private Scene scene;
         private Stage stage;

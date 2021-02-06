@@ -7,19 +7,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class UpdateExposerTest {
 
     @Test
-    void callingUpdatableFromUpdateProviderCallsExpliciteUpdate() {
+    void callingUpdatableFromUpdateProviderCallsExplicitUpdate() {
         // Arrange
         var sut = new UpdateExposerImpl();
 
         // Act
         var updatable = sut.exposedUpdate();
-        updatable.update(0l);
+        updatable.update(0L);
 
         // Assert
         assertTrue(sut.called);
     }
 
-    private class UpdateExposerImpl implements UpdateExposer {
+    private static class UpdateExposerImpl implements UpdateExposer {
 
         boolean called = false;
 

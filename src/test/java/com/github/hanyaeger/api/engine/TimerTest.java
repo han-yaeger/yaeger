@@ -37,7 +37,7 @@ class TimerTest {
         var timer = new TimerImpl(1000);
 
         // Act
-        timer.handle(1 * 1_000_000);
+        timer.handle(1_000_000);
         timer.handle(1001 * 1_000_000);
 
         // Assert
@@ -47,7 +47,7 @@ class TimerTest {
     @Test
     void handleDoesNotCallOnAnimationUpdateIfTimerIsPaused() {
         // Arrange
-        var timer = new TimerTest.TimerImpl(1000);
+        var timer = new TimerImpl(1000);
 
         // Act
         timer.handle(1);
@@ -61,7 +61,7 @@ class TimerTest {
     @Test
     void handleCallsOnAnimationUpdateIfTimerIsResumed() {
         // Arrange
-        var timer = new TimerTest.TimerImpl(1000);
+        var timer = new TimerImpl(1000);
 
         // Act
         timer.handle(1);
@@ -73,7 +73,7 @@ class TimerTest {
         assertTrue(timer.updateCalled);
     }
 
-    private class TimerImpl extends Timer {
+    private static class TimerImpl extends Timer {
 
         private boolean updateCalled = false;
 

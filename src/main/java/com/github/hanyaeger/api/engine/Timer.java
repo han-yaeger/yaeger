@@ -20,7 +20,7 @@ public abstract class Timer {
      *
      * @param intervalInMs the interval in milleseconds
      */
-    public Timer(final long intervalInMs) {
+    protected Timer(final long intervalInMs) {
         this.interval = intervalInMs * 1_000_000;
     }
 

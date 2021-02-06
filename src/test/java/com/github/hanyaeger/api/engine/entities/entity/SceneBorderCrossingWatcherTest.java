@@ -1,11 +1,9 @@
 package com.github.hanyaeger.api.engine.entities.entity;
 
-import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
 import com.github.hanyaeger.api.engine.scenes.SceneBorder;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,7 +47,7 @@ class SceneBorderCrossingWatcherTest {
         var updatable = sut.watchForBoundaryCrossing();
 
         // Assert
-        assertTrue(updatable instanceof Updatable);
+        assertNotNull(updatable);
     }
 
     @Test
@@ -222,7 +220,7 @@ class SceneBorderCrossingWatcherTest {
         assertEquals(SceneBorder.TOP, sut.borderCrossed);
     }
 
-    private class SceneBorderCrossingWatcherImpl implements SceneBorderCrossingWatcher {
+    private static class SceneBorderCrossingWatcherImpl implements SceneBorderCrossingWatcher {
 
         private Node gameNode;
         private MotionApplier motionApplier;

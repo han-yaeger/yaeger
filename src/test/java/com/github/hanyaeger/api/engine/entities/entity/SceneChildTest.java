@@ -15,13 +15,12 @@ class SceneChildTest {
     public static final double WIDTH = 37d;
     public static final double HEIGHT = 42d;
     private SceneChildImpl sut;
-    private Node node;
     private Scene scene;
 
     @BeforeEach
     void setup() {
         sut = new SceneChildImpl();
-        node = mock(Node.class, withSettings().withoutAnnotations());
+        var node = mock(Node.class, withSettings().withoutAnnotations());
         scene = mock(Scene.class);
         sut.setNode(Optional.of(node));
 
@@ -79,7 +78,7 @@ class SceneChildTest {
         assertEquals(0, sceneHeight);
     }
 
-    private class SceneChildImpl implements SceneChild {
+    private static class SceneChildImpl implements SceneChild {
 
         private Optional<Node> node;
 
