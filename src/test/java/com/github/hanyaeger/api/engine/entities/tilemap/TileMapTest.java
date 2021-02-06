@@ -39,13 +39,13 @@ class TileMapTest {
         var sut2 = sut;
 
         // Act, Assert
-        assertTrue(sut.equals(sut2));
+        assertEquals(sut2, sut);
     }
 
     @Test
     void tileMapIsNotEqualToNull() {
         // Arrange Act Assert
-        assertFalse(sut.equals(null));
+        assertNotEquals(sut, null);
     }
 
     @Test
@@ -54,7 +54,7 @@ class TileMapTest {
         var sut2 = new TileMapEmptyConstructorImpl();
 
         // Arc, Assert
-        assertFalse(sut.equals(sut2));
+        assertNotEquals(sut2, sut);
     }
 
     @Test
@@ -192,7 +192,7 @@ class TileMapTest {
         localSut.activate();
 
         // Assert
-        assertTrue(localSut.size() == 1);
+        assertEquals(localSut.size(), 1);
     }
 
     @Test

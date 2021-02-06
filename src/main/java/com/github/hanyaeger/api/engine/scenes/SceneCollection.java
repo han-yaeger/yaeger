@@ -19,12 +19,12 @@ import java.util.Objects;
 public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> implements Initializable {
 
     private final transient Stage stage;
-    private final YaegerConfig yaegerConfig;
+    private final transient YaegerConfig yaegerConfig;
     private transient Injector injector;
     private transient AnnotationProcessor annotationProcessor;
     private transient YaegerScene activeScene;
     private int firstScene;
-    private SplashScreenFactory splashScreenFactory;
+    private transient SplashScreenFactory splashScreenFactory;
     private boolean finishedSplashScreen = false;
 
     /**

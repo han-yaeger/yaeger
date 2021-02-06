@@ -286,7 +286,7 @@ class YaegerEntityTest {
     }
 
     @Test
-    void setAnchorPointBedoreNodeIsSetStoresAnchorPoint() {
+    void setAnchorPointBeforeNodeIsSetStoresAnchorPoint() {
         // Arrange
         sut.setNode(Optional.empty());
 
@@ -453,7 +453,7 @@ class YaegerEntityTest {
     }
 
     @Test
-    void distanceToNullCoordinate2DThrowsNullpointerException() {
+    void distanceToNullCoordinate2DThrowsNullPointerException() {
         // Arrange
         Coordinate2D other = null;
 
@@ -462,7 +462,7 @@ class YaegerEntityTest {
     }
 
     @Test
-    void distanceToNullEntityThrowsNullpointerException() {
+    void distanceToNullEntityThrowsNullPointerException() {
         // Arrange
         YaegerEntity other = null;
 
@@ -479,7 +479,7 @@ class YaegerEntityTest {
         var actual = sut.distanceTo(sut);
 
         // Assert
-        assertEquals(Double.compare(actual, expected), 0);
+        assertEquals(actual, expected);
     }
 
     @Test
@@ -492,7 +492,7 @@ class YaegerEntityTest {
         var actual = sut.distanceTo(other);
 
         // Assert
-        assertEquals(Double.compare(actual, expected), 0);
+        assertEquals(actual, expected);
     }
 
     @Test
@@ -507,7 +507,7 @@ class YaegerEntityTest {
         var actual = sut.distanceTo(other);
 
         // Assert
-        assertEquals(Double.compare(actual, expected), 0);
+        assertEquals(actual, expected);
     }
 
     @Test
@@ -523,7 +523,7 @@ class YaegerEntityTest {
         var actual = sut.distanceTo(other);
 
         // Assert
-        assertEquals(Double.compare(actual, expected), 0);
+        assertEquals(actual, expected);
     }
 
     @Test
@@ -550,7 +550,7 @@ class YaegerEntityTest {
         var actual = sut.distanceTo(other);
 
         // Assert
-        assertEquals(Double.compare(actual, expected), 0);
+        assertEquals(actual, expected);
     }
 
     @Test
@@ -577,7 +577,7 @@ class YaegerEntityTest {
         var actual = sut.distanceTo(other);
 
         // Assert
-        assertEquals(Double.compare(actual, expected), 0);
+        assertEquals(actual, expected);
     }
 
     @Test
@@ -603,7 +603,7 @@ class YaegerEntityTest {
         var actual = sut.angleTo(LOCATION);
 
         // Assert
-        assertEquals(Double.compare(actual, expected), 0);
+        assertEquals(actual, expected);
     }
 
     @Test

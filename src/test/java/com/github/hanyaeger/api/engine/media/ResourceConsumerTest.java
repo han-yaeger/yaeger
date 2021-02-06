@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ResourceConsumerTest {
+class ResourceConsumerTest {
 
     static final String RESOURCE_EXISTING = "waterworld/images/sprite-with-two-frames.png";
     static final String RESOURCE_NOT_EXISTING = "unavailable.png";

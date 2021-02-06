@@ -11,7 +11,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CollidedTest {
+class CollidedTest {
 
     private static final Bounds TEST_COLLIDED_BOUNDINGBOX = new BoundingBox(50, 50, 0, 25, 25, 0);
     private static final Bounds TEST_NOT_COLLIDING_BOUNDINGBOX = new BoundingBox(0, 0, 0, 1, 1, 0);
@@ -108,7 +108,7 @@ public class CollidedTest {
         }
     }
 
-    private class TestCollided implements Collided {
+    private static class TestCollided implements Collided {
 
         private Collider lastCollided;
 
@@ -132,7 +132,7 @@ public class CollidedTest {
         }
     }
 
-    private class TestCollidable extends TestCollided implements Collider, Collided {
+    private static class TestCollidable extends TestCollided implements Collider, Collided {
 
         @Override
         public Optional<? extends Node> getNode() {
