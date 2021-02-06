@@ -26,7 +26,7 @@ import java.util.*;
  */
 public abstract class TileMap extends EntitySupplier implements Anchorable, Activatable {
 
-    private final Map<Integer, Class<? extends YaegerEntity>> entities = new HashMap<>();
+    private final Map<Integer, EntityConfiguration> entities = new HashMap<>();
 
     private int[][] map;
     private transient TileFactory tileFactory;
@@ -95,7 +95,11 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
      *                    a {@link Size}. If such a constructor is not present, an {@link YaegerEngineException} will be thrown.
      */
     public void addEntity(final int identifier, final Class<? extends YaegerEntity> entityClass) {
-        entities.put(identifier, entityClass);
+        entities.put(identifier, new EntityConfiguration(entityClass));
+    }
+
+    public <C extends Object> void addEntity(final int identifier, final Class<? extends YaegerEntity> entityClass, C configuration) {
+        entities.put(identifier, new EntityConfiguration(entityClass, configuration));
     }
 
     private void transformMapToEntities() {
@@ -123,13 +127,13 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
                 if (key != 0) {
                     var entityWidth = width / map[i].length;
 
-                    var entityClass = entities.get(key);
+                    var entityConfiguration = entities.get(key);
 
-                    if (entityClass == null) {
+                    if (entityConfiguration == null) {
                         throw new EntityNotAvailableException("An Entity with key \"" + key + "\" has not been added to the TileMap.");
                     }
 
-                    var entity = tileFactory.create(entityClass,
+                    var entity = tileFactory.create(entityConfiguration,
                             new Coordinate2D(Math.round(x + (j * entityWidth)), Math.round(y + entityY)),
                             new Size(Math.ceil(entityWidth), Math.ceil(entityHeight)));
 
@@ -207,4 +211,5 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
         result = 31 * result + Arrays.hashCode(map);
         return result;
     }
+
 }

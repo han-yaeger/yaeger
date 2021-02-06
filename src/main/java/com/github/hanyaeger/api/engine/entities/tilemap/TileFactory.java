@@ -21,22 +21,21 @@ import java.lang.reflect.InvocationTargetException;
 public class TileFactory {
 
     private static final String MESSAGE_INVALID_CONSTRUCTOR_EXCEPTION = "An Entity used for a Tilemap should have a constructor that accepts" +
-            " exactly two parameters: An instance of Coordinate2D and of Size.";
+            " two parameters: An instance of Coordinate2D and of Size. Configurable entities should have a third parameter for the" +
+            " configuration object.";
     private static final String MESSAGE_FAILED_TO_INSTANTIATE_ENTITY = "Unable to instantiate an Entity for the TileMap";
 
-    public YaegerEntity create(final Class<? extends YaegerEntity> entityClass, final Coordinate2D location, final Size size) {
+    public <C extends Object> YaegerEntity create(final EntityConfiguration<C> entityConfiguration, final Coordinate2D location, final Size size) {
         YaegerEntity entity;
 
-        Constructor<? extends YaegerEntity> declaredConstructor = null;
-
+        Constructor<? extends YaegerEntity> declaredConstructor = getDeclaredConstructor(entityConfiguration);
+        C configuration = entityConfiguration.getConfiguration();
         try {
-            declaredConstructor = entityClass.getDeclaredConstructor(Coordinate2D.class, Size.class);
-        } catch (NoSuchMethodException e) {
-            throw new InvalidConstructorException(MESSAGE_INVALID_CONSTRUCTOR_EXCEPTION, e);
-        }
-
-        try {
-            entity = declaredConstructor.newInstance(location, size);
+            if (configuration != null) {
+                entity = declaredConstructor.newInstance(location, size, configuration);
+            } else {
+                entity = declaredConstructor.newInstance(location, size);
+            }
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new FailedToInstantiateEntityException(MESSAGE_FAILED_TO_INSTANTIATE_ENTITY, e);
         }
@@ -46,5 +45,27 @@ public class TileFactory {
         }
 
         return entity;
+    }
+
+    YaegerEntity create(final Class<? extends YaegerEntity> entityClass, final Coordinate2D location, final Size size) {
+        return create(new EntityConfiguration<>(entityClass), location, size);
+    }
+
+    private <C extends Object> Constructor<? extends YaegerEntity> getDeclaredConstructor(EntityConfiguration<C> entityConfiguration) {
+        Class<? extends YaegerEntity> entityClass = entityConfiguration.getEntityClass();
+        C configuration = entityConfiguration.getConfiguration();
+
+        Constructor<? extends YaegerEntity> declaredConstructor = null;
+        try {
+            if (configuration != null) {
+                declaredConstructor = entityClass.getDeclaredConstructor(Coordinate2D.class, Size.class, configuration.getClass());
+            } else {
+                declaredConstructor = entityClass.getDeclaredConstructor(Coordinate2D.class, Size.class);
+            }
+        } catch (NoSuchMethodException e) {
+            throw new InvalidConstructorException(MESSAGE_INVALID_CONSTRUCTOR_EXCEPTION, e);
+        }
+
+        return declaredConstructor;
     }
 }
