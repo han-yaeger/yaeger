@@ -197,7 +197,8 @@ protected void setupGame() {
 }
 </code></pre>
 <p>For more information, check the
-<a href="https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/YaegerGame.html#setupGame()">API of setupGame()</a></p>
+<a href="https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/YaegerGame.html#setupGame()">API</a>
+of setupGame()</p>
 <h3><a class="header" href="#adding-scenes-through-setupscenes" id="adding-scenes-through-setupscenes">Adding Scenes, through <code>setupScenes()</code></a></h3>
 <p>After <code>setupGame()</code> has been called, Yaeger will call <code>setupScenes()</code>. This is the second step in the life cycle of a Yaeger Game, in
 which it expects the developer to add Scenes to the Game. Scenes can be added by calling <code>addScene(int, YaegerScene)</code>. The
@@ -219,8 +220,9 @@ for the details on how to use this method.</p>
 <p>For Plain Old Java Objects (POJO's) the constructor is usually used for configuring your Object. Although it
 is not always the best approach, since the constructor should be only used for <strong>constructing</strong> an Object, not
 for <strong>configuring</strong> it, it will usually still work.</p>
-<p>With Yaeger, however, it will usually <em>not</em> work. Configuring a <code>YsegerGame</code> should only be done from the
-<code>setupGame()</code> method.</p>
+<p>With Yaeger, however, it will usually <em>not</em> work. Configuring a <code>YaegerGame</code> should only be done from the
+<code>setupGame()</code> method. Furthermore, the constructor of the class that extends <code>YaegerGame</code> should be empty,
+since Yaeger will otherwise not know how to make an instance of it.</p>
 
                     </main>
 

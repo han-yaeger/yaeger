@@ -168,6 +168,20 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#entities-aka-game-objects" id="entities-aka-game-objects">Entities aka Game Objects</a></h1>
+<p>Entities are what actually make a game. Anything that can be placed on a scene will
+be an entity and will have to implement the abstract superclass <code>YaegerEntity</code>.</p>
+<h2><a class="header" href="#static-or-dynamic-entities" id="static-or-dynamic-entities">Static or Dynamic Entities</a></h2>
+<p>Just as with scenes, also all entities are available in static and dynamic version.
+The main difference is that a dynamic entity receives a Game World Update,
+where a static does not.</p>
+<p>In general static entities will be typically used for menu-items or non-moving things.
+Dynamic entities are typically used for anything that should move around the scene, or
+should have time-based behaviour in general.</p>
+<h2><a class="header" href="#different-types-of-entities" id="different-types-of-entities">Different types of entities</a></h2>
+<h3><a class="header" href="#shape-entities" id="shape-entities">Shape Entities</a></h3>
+<h3><a class="header" href="#sprite-entities" id="sprite-entities">Sprite Entities</a></h3>
+<h3><a class="header" href="#text-entities" id="text-entities">Text Entities</a></h3>
+<h3><a class="header" href="#composite-entities" id="composite-entities">Composite Entities</a></h3>
 
                     </main>
 
