@@ -2,6 +2,7 @@ package com.github.hanyaeger.api.engine.entities.entity.motion;
 
 import javafx.geometry.Point2D;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,7 +15,6 @@ class MotionApplierTest {
     private static final double FRICTION_CONSTANT = 0.37;
     private static final double GRAVITATIONAL_CONSTANT = 0.42;
     private static final double GRAVITATIONAL_DIRECTION = Direction.DOWN.getValue();
-    private static final boolean GRAVITATIONAL_PULL = false;
 
     private static final double SPEED_MULTIPLACTION_FRACTION = 0.5;
     private static final Direction DIRECTION_ENUM = Direction.RIGHT;
@@ -88,17 +88,6 @@ class MotionApplierTest {
 
         // Assert
         assertEquals(GRAVITATIONAL_DIRECTION, sut.getGravityDirection());
-    }
-
-    @Test
-    void setFGravitationalPullStoresPull() {
-        // Arrange
-
-        // Act
-        sut.setGravitationalPull(GRAVITATIONAL_PULL);
-
-        // Assert
-        assertEquals(GRAVITATIONAL_PULL, sut.isGravitationalPull());
     }
 
     @Test
@@ -465,7 +454,7 @@ class MotionApplierTest {
         // Act
         sut.addToMotion(1, Direction.UP.getValue());
 
-        // Arrange
+        // Assert
         assertEquals(0, sut.getSpeed(), DELTA);
     }
 
@@ -477,7 +466,7 @@ class MotionApplierTest {
         // Act
         sut.addToMotion(1, Direction.UP);
 
-        // Arrange
+        // Assert
         assertEquals(0, sut.getSpeed(), DELTA);
     }
 
@@ -489,7 +478,118 @@ class MotionApplierTest {
         // Act
         sut.addToMotion(1, Direction.UP);
 
-        // Arrange
+        // Assert
         assertEquals(2, sut.getSpeed(), DELTA);
+    }
+
+    @Nested
+    public class maximizeMotionInDirectionTests {
+
+        @Test
+        void motionIsSetToMaximizedValueIfCurrentMotionIsZero() {
+            // Arrange
+            var expectedSpeed = 3.7D;
+            var expectedDirection = Direction.RIGHT;
+
+            sut.setMotion(0, 0);
+
+            // Act
+            sut.maximizeMotionInDirection(expectedDirection, expectedSpeed);
+
+            // Assert
+            assertEquals(expectedDirection.getValue(), sut.getDirection());
+            assertEquals(expectedSpeed, sut.getSpeed());
+        }
+
+        @Test
+        void motionIsSetToMaximizedValueIfDirectionIsSame() {
+            // Arrange
+            var expectedSpeed = 3.7D;
+            var expectedDirection = Direction.RIGHT;
+
+            sut.setMotion(1, Direction.RIGHT);
+
+            // Act
+            sut.maximizeMotionInDirection(expectedDirection, expectedSpeed);
+
+            // Assert
+            assertEquals(expectedDirection.getValue(), sut.getDirection());
+            assertEquals(expectedSpeed, sut.getSpeed());
+        }
+
+        @Test
+        void motionIsSetToMaximizedValueIfDirectionIsInverse() {
+            // Arrange
+            var expectedSpeed = 3.7D;
+            var expectedDirection = Direction.RIGHT;
+
+            sut.setMotion(1, Direction.LEFT);
+
+            // Act
+            sut.maximizeMotionInDirection(expectedDirection, expectedSpeed);
+
+            // Assert
+            assertEquals(expectedDirection.getValue(), sut.getDirection());
+            assertEquals(expectedSpeed, sut.getSpeed());
+        }
+
+        @Test
+        void maximizedMotionOnPythagorianDiagonalDownRight() {
+            // Arrange
+            var currentSpeed = 3;
+            var maximizedSpeed = 4;
+            var expectedSpeed = 5;
+            var expectedDirection = 36.8698976D;
+            var inDirection = Direction.DOWN;
+
+            sut.setMotion(currentSpeed, Direction.RIGHT);
+
+            // Act
+            sut.maximizeMotionInDirection(inDirection, maximizedSpeed);
+
+            // Assert
+            assertEquals(expectedDirection, sut.getDirection(), DELTA);
+            assertEquals(expectedSpeed, sut.getSpeed(), DELTA);
+        }
+
+        @Test
+        void maximizedMotionOnPythagorianDiagonalLeftUp() {
+            // Arrange
+            var currentSpeed = 3;
+            var maximizedSpeed = 4;
+            var expectedSpeed = 5;
+            var expectedDirection = 216.8698976D;
+            var inDirection = Direction.UP;
+
+            sut.setMotion(currentSpeed, Direction.LEFT);
+
+            // Act
+            sut.maximizeMotionInDirection(inDirection, maximizedSpeed);
+
+            // Assert
+            System.out.println(sut.getDirection());
+            assertEquals(expectedDirection, sut.getDirection(), DELTA);
+            assertEquals(expectedSpeed, sut.getSpeed(), DELTA);
+        }
+
+        @Test
+        void maximizedMotionFromOppositeDiagonal() {
+            // Arrange
+            var currentDirection = 225D;
+            var currentSpeed = Math.sqrt(2);
+            var maximizedSpeed = 1;
+            var expectedSpeed = Math.sqrt(2);
+            var expectedDirection = 135;
+            var inDirection = Direction.RIGHT;
+
+            sut.setMotion(currentSpeed, currentDirection);
+
+            // Act
+            sut.maximizeMotionInDirection(inDirection, maximizedSpeed);
+
+            // Assert
+            assertEquals(expectedDirection, sut.getDirection(), DELTA);
+            assertEquals(expectedSpeed, sut.getSpeed(), DELTA);
+        }
     }
 }

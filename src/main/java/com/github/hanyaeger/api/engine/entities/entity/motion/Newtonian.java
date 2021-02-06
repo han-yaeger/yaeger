@@ -10,10 +10,6 @@ import com.github.hanyaeger.api.engine.annotations.UpdatableProvider;
  */
 public interface Newtonian extends BufferedMoveable, NewtonianModifier {
 
-    default boolean isGravitationalPull() {
-        return getMotionApplier().isGravitationalPull();
-    }
-
     @Override
     default void setFrictionConstant(final double frictionConstant) {
         getBuffer().ifPresentOrElse(eMBuffer -> eMBuffer.setFrictionConstant(frictionConstant), () -> getMotionApplier().setFrictionConstant(frictionConstant));
@@ -30,15 +26,9 @@ public interface Newtonian extends BufferedMoveable, NewtonianModifier {
     }
 
     @Override
-    default void setGravitationalPull(final boolean pull) {
-        getBuffer().ifPresentOrElse(eMBuffer -> eMBuffer.setGravitationalPull(pull), () -> getMotionApplier().setGravitationalPull(pull));
-    }
-
-    @Override
     default double getGravityConstant() {
         return getMotionApplier().getGravityConstant();
     }
-
 
     @Override
     default double getGravityDirection() {
@@ -53,9 +43,7 @@ public interface Newtonian extends BufferedMoveable, NewtonianModifier {
     @UpdatableProvider
     default Updatable addSimplePhysics() {
         return timestamp -> {
-            if (getMotionApplier().isGravitationalPull()) {
-                addToMotion(getMotionApplier().getGravityConstant(), getMotionApplier().getGravityDirection());
-            }
+            addToMotion(getMotionApplier().getGravityConstant(), getMotionApplier().getGravityDirection());
             if (getSpeed() > 0) {
                 incrementSpeed((-1 * getFrictionConstant()) * getSpeed());
             }

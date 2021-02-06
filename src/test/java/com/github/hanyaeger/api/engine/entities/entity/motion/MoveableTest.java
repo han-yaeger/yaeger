@@ -171,6 +171,28 @@ class MoveableTest {
     }
 
     @Test
+    void maximizeDelegatesToMotionApplier() {
+        // Arrange
+
+        // Act
+        sut.maximizeMotionInDirection(DIRECTION, SPEED);
+
+        // Assert
+        verify(motionApplier).maximizeMotionInDirection(DIRECTION, SPEED);
+    }
+
+    @Test
+    void maximizeWithEnumDelegatesToMotionApplier() {
+        // Arrange
+
+        // Act
+        sut.maximizeMotionInDirection(DIRECTION_ENUM, SPEED);
+
+        // Assert
+        verify(motionApplier).maximizeMotionInDirection(DIRECTION_ENUM.getValue(), SPEED);
+    }
+
+    @Test
     void updateLocationReturnsAnUpdatable() {
         // Arrange
 
@@ -213,6 +235,7 @@ class MoveableTest {
         // Assert
         verify(motionApplier, never()).updateLocation(any(Point2D.class));
     }
+
 
     private class MoveableImpl implements Moveable {
         Coordinate2D anchorLocation;

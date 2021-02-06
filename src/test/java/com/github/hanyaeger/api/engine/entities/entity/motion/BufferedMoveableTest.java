@@ -4,6 +4,7 @@ import com.github.hanyaeger.api.engine.entities.entity.AnchorPoint;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import javafx.scene.Node;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -16,114 +17,122 @@ class BufferedMoveableTest {
     public static final int DIRECTION = 42;
     public static final Direction DIRECTION_ENUM = Direction.DOWN;
     private BufferedMoveableImpl sut;
-    private EntityMotionInitBuffer buffer;
     private MotionApplier motionApplier;
 
     @BeforeEach
     void setup() {
         sut = new BufferedMoveableImpl();
         motionApplier = mock(MotionApplier.class);
-        buffer = mock(EntityMotionInitBuffer.class);
-
-        sut.setBuffer(Optional.of(buffer));
     }
 
-    @Test
-    void ifMotionApplierIsNotSetBufferIsUsedForSpeed() {
-        // Arrange
+    @Nested
+    public class WithBuffer {
 
-        // Act
-        sut.setSpeed(SPEED);
+        private EntityMotionInitBuffer buffer;
 
-        // Assert
-        verify(buffer).setSpeed(SPEED);
+        @BeforeEach
+        void setup() {
+            buffer = mock(EntityMotionInitBuffer.class);
+            sut.setBuffer(Optional.of(buffer));
+        }
+
+        @Test
+        void ifMotionApplierIsNotSetBufferIsUsedForSpeed() {
+            // Arrange
+
+            // Act
+            sut.setSpeed(SPEED);
+
+            // Assert
+            verify(buffer).setSpeed(SPEED);
+        }
+
+        @Test
+        void ifMotionApplierIsNotSetBufferIsUsedForDirection() {
+            // Arrange
+
+            // Act
+            sut.setDirection(DIRECTION);
+
+            // Assert
+            verify(buffer).setDirection(DIRECTION);
+        }
+
+        @Test
+        void ifMotionApplierIsNotSetBufferIsUsedForMotion() {
+            // Arrange
+
+            // Act
+            sut.setMotion(SPEED, DIRECTION);
+
+            // Assert
+            verify(buffer).setMotion(SPEED, DIRECTION);
+        }
     }
 
-    @Test
-    void ifMotionApplierIsNotSetBufferIsUsedForDirection() {
-        // Arrange
+    @Nested
+    public class WithoutBuffer {
 
-        // Act
-        sut.setDirection(DIRECTION);
+        @BeforeEach
+        void setup() {
+            sut.setBuffer(Optional.empty());
+            sut.setMotionApplier(motionApplier);
+        }
 
-        // Assert
-        verify(buffer).setDirection(DIRECTION);
-    }
+        @Test
+        void ifMotionApplierIsSetMotionApplierIsUsedForSpeed() {
+            // Arrange
 
-    @Test
-    void ifMotionApplierIsNotSetBufferIsUsedForMotion() {
-        // Arrange
+            // Act
+            sut.setSpeed(SPEED);
 
-        // Act
-        sut.setMotion(SPEED, DIRECTION);
+            // Assert
+            verify(motionApplier).setSpeed(SPEED);
+        }
 
-        // Assert
-        verify(buffer).setMotion(SPEED, DIRECTION);
-    }
+        @Test
+        void ifMotionApplierIsSetMotionApplierIsUsedForDirection() {
+            // Arrange
 
-    @Test
-    void ifMotionApplierIsSetMotionApplierIsUsedForSpeed() {
-        // Arrange
-        sut.setBuffer(Optional.empty());
-        sut.setMotionApplier(motionApplier);
+            // Act
+            sut.setDirection(DIRECTION);
 
-        // Act
-        sut.setSpeed(SPEED);
+            // Assert
+            verify(motionApplier).setDirection(DIRECTION);
+        }
 
-        // Assert
-        verify(motionApplier).setSpeed(SPEED);
-    }
+        @Test
+        void ifMotionApplierIsSetMotionApplierIsUsedForDirectionEnum() {
+            // Arrange
 
-    @Test
-    void ifMotionApplierIsSetMotionApplierIsUsedForDirection() {
-        // Arrange
-        sut.setBuffer(Optional.empty());
-        sut.setMotionApplier(motionApplier);
+            // Act
+            sut.setDirection(DIRECTION_ENUM);
 
-        // Act
-        sut.setDirection(DIRECTION);
+            // Assert
+            verify(motionApplier).setDirection(DIRECTION_ENUM.getValue());
+        }
 
-        // Assert
-        verify(motionApplier).setDirection(DIRECTION);
-    }
+        @Test
+        void ifMotionApplierIsSetMotionApplierIsUsedForMotion() {
+            // Arrange
 
-    @Test
-    void ifMotionApplierIsSetMotionApplierIsUsedForDirectionEnum() {
-        // Arrange
-        sut.setBuffer(Optional.empty());
-        sut.setMotionApplier(motionApplier);
+            // Act
+            sut.setMotion(SPEED, DIRECTION);
 
-        // Act
-        sut.setDirection(DIRECTION_ENUM);
+            // Assert
+            verify(motionApplier).setMotion(SPEED, DIRECTION);
+        }
 
-        // Assert
-        verify(motionApplier).setDirection(DIRECTION_ENUM.getValue());
-    }
+        @Test
+        void ifMotionApplierIsSetMotionApplierIsUsedForMotionWithDirectionEnum() {
+            // Arrange
 
-    @Test
-    void ifMotionApplierIsSetMotionApplierIsUsedForMotion() {
-        // Arrange
-        sut.setBuffer(Optional.empty());
-        sut.setMotionApplier(motionApplier);
+            // Act
+            sut.setMotion(SPEED, DIRECTION_ENUM);
 
-        // Act
-        sut.setMotion(SPEED, DIRECTION);
-
-        // Assert
-        verify(motionApplier).setMotion(SPEED, DIRECTION);
-    }
-
-    @Test
-    void ifMotionApplierIsSetMotionApplierIsUsedForMotionWithDirectionEnum() {
-        // Arrange
-        sut.setBuffer(Optional.empty());
-        sut.setMotionApplier(motionApplier);
-
-        // Act
-        sut.setMotion(SPEED, DIRECTION_ENUM);
-
-        // Assert
-        verify(motionApplier).setMotion(SPEED, DIRECTION_ENUM.getValue());
+            // Assert
+            verify(motionApplier).setMotion(SPEED, DIRECTION_ENUM.getValue());
+        }
     }
 
     private class BufferedMoveableImpl implements BufferedMoveable {

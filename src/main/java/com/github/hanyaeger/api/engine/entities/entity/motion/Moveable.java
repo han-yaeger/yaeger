@@ -48,6 +48,16 @@ public interface Moveable extends Placeable, MotionModifier {
     }
 
     @Override
+    default void maximizeMotionInDirection(final Direction direction, final double speed) {
+        maximizeMotionInDirection(direction.getValue(), speed);
+    }
+
+    @Override
+    default void maximizeMotionInDirection(final double direction, final double speed) {
+        getMotionApplier().maximizeMotionInDirection(direction, speed);
+    }
+
+    @Override
     default void multiplySpeed(final double multiplication) {
         getMotionApplier().multiplySpeed(multiplication);
     }

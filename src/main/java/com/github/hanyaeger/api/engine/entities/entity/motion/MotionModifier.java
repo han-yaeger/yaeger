@@ -1,7 +1,11 @@
 package com.github.hanyaeger.api.engine.entities.entity.motion;
 
 /**
- * A {@link MotionModifier} is capable of modifying a motion.
+ * A {@link MotionModifier} is the basic interface that defines the API of all Objects
+ * that capable of modifying the motion of a {@link com.github.hanyaeger.api.engine.entities.entity.YaegerEntity}.
+ * <p>
+ * This interface will be implemented by both the Entities that should expose the API to the user, as the objects
+ * that actually apply the motion.
  */
 public interface MotionModifier extends SpeedProvider, DirectionProvider {
 
@@ -40,6 +44,37 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      * @param direction the direction as a {@link Direction}
      */
     void addToMotion(final double speed, final Direction direction);
+
+    /**
+     * @param direction the {@link Direction} in which the speed of the vector describing the motion, should be
+     *                  maximized
+     * @param speed     the speed as a {@link double} to which the vector should be maximized
+     * @see #maximizeMotionInDirection(double, double)
+     */
+    void maximizeMotionInDirection(final Direction direction, final double speed);
+
+    /**
+     * Since the motion can be described as a vector, such a vector can be decomposed in two perpendicular
+     * components. Calling this methods maximize the vector for the component in the given {@link Direction} to
+     * the given speed.
+     * <p>
+     * <img src="doc-files/maximize-motion-vectors.png" alt="Vector representation of maximizing the motion in a given direction">
+     *
+     * <p> In the image above, let \( \vec{v} \) be the vector associated with the current motion, and \( \vec{r} \) be the
+     * vector that represents the direction and speed that should be maximized, then the resulting vector\( \vec{s}\)
+     * can be calculated by
+     * <p>
+     * \(\vec{s} = \vec{v} - \cfrac{\vec{v}\cdot\vec{r}}{\vec{r}\cdot\vec{r}} \cdot \vec{r} + \vec{r}\)
+     *
+     * <p>
+     * A typical use case would be when an entity has to accelerate to a maximum value into a specific direction,
+     * while gravity (or any other force) should be preserved.
+     *
+     * @param direction the direction as a {@code double} in which the speed of the vector describing the motion, should be
+     *                  maximized
+     * @param speed     the speed as a {@link double} to which the vector should be maximized
+     */
+    void maximizeMotionInDirection(final double direction, final double speed);
 
     /**
      * Alter the speed through multiplication. Using this method will increase or decrease the current speed. It will multiply the current

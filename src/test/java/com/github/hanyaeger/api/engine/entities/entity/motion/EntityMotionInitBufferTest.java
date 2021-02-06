@@ -13,7 +13,6 @@ class EntityMotionInitBufferTest {
     private static final double FRICTION_CONSTANT = 0.37;
     private static final double GRAVITATIONAL_CONSTANT = 0.42;
     private static final double GRAVITATIONAL_DIRECTION = Direction.DOWN.getValue();
-    private static final boolean GRAVITATIONAL_PULL = false;
 
     private EntityMotionInitBuffer sut;
     private MotionApplier motionApplier;
@@ -49,18 +48,6 @@ class EntityMotionInitBufferTest {
 
         // Assert
         verify(motionApplier).setGravityDirection(GRAVITATIONAL_DIRECTION);
-    }
-
-    @Test
-    void settingGravitionalPullBeforeInitAndCallingInitSetsGravitionalPullOnMotionApplier() {
-        // Arrange
-        sut.setGravitationalPull(GRAVITATIONAL_PULL);
-
-        // Act
-        sut.init(injector);
-
-        // Assert
-        verify(motionApplier).setGravitationalPull(GRAVITATIONAL_PULL);
     }
 
     @Test

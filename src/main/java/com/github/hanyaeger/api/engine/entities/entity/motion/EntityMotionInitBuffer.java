@@ -26,7 +26,6 @@ public class EntityMotionInitBuffer implements Initializable {
     private Optional<Double> frictionConstant = Optional.empty();
     private Optional<Double> gravityConstant = Optional.empty();
     private Optional<Double> gravityDirection = Optional.empty();
-    private Optional<Boolean> gravitationalPull = Optional.of(true);
     private double speed;
     private double direction;
     private MotionApplier motionApplier;
@@ -37,10 +36,6 @@ public class EntityMotionInitBuffer implements Initializable {
 
     void setGravityDirection(final double gravityDirection) {
         this.gravityDirection = Optional.of(gravityDirection);
-    }
-
-    void setGravitationalPull(final boolean gravitationalPull) {
-        this.gravitationalPull = Optional.of(gravitationalPull);
     }
 
     void setFrictionConstant(final double frictionConstant) {
@@ -64,7 +59,6 @@ public class EntityMotionInitBuffer implements Initializable {
     @Override
     public void init(final Injector injector) {
         motionApplier.setMotion(speed, direction);
-        gravitationalPull.ifPresent(pull -> motionApplier.setGravitationalPull(pull));
         gravityConstant.ifPresent(g -> motionApplier.setGravityConstant(g));
         gravityDirection.ifPresent(direction -> motionApplier.setGravityDirection(direction));
         frictionConstant.ifPresent(fC -> motionApplier.setFrictionConstant(fC));

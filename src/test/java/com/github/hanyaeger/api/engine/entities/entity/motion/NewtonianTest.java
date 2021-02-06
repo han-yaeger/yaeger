@@ -69,17 +69,6 @@ class NewtonianTest {
             // Assert
             verify(buffer).setFrictionConstant(FRICTION_CONSTANT);
         }
-
-        @Test
-        void setGravitationalPullDelegatesToBuffer() {
-            // Arrange
-
-            // Act
-            sut.setGravitationalPull(GRAVITATIONAL_PULL);
-
-            // Assert
-            verify(buffer).setGravitationalPull(GRAVITATIONAL_PULL);
-        }
     }
 
     @Nested
@@ -127,17 +116,6 @@ class NewtonianTest {
         }
 
         @Test
-        void setGravitationalPullDelegatesToMotionApplier() {
-            // Arrange
-
-            // Act
-            sut.setGravitationalPull(GRAVITATIONAL_PULL);
-
-            // Assert
-            verify(motionApplier).setGravitationalPull(GRAVITATIONAL_PULL);
-        }
-
-        @Test
         void getGravitationConstantDelegatesToMotionApplier() {
             // Arrange
             when(motionApplier.getGravityConstant()).thenReturn(GRAVITATIONAL_CONSTANT);
@@ -173,37 +151,10 @@ class NewtonianTest {
             assertEquals(FRICTION_CONSTANT, actual);
         }
 
-        @Test
-        void isGravitationalPullDelegatesToMotionApplier() {
-            // Arrange
-            when(motionApplier.isGravitationalPull()).thenReturn(GRAVITATIONAL_PULL);
-
-            // Act
-            var actual = sut.isGravitationalPull();
-
-            // Assert
-            assertFalse(actual);
-        }
-
-        @Test
-        void updateOnUpdatableDoesNotAddToMotionIfGravitationalPullIsFalse() {
-            // Arrange
-            when(motionApplier.isGravitationalPull()).thenReturn(false);
-            when(motionApplier.getSpeed()).thenReturn(0d);
-
-            var updatable = sut.addSimplePhysics();
-
-            // Act
-            updatable.update(0l);
-
-            // Assert
-            verify(motionApplier).isGravitationalPull();
-        }
 
         @Test
         void updateOnUpdatableAddsToMotionIfGravitationalPullIsTrue() {
             // Arrange
-            when(motionApplier.isGravitationalPull()).thenReturn(true);
             when(motionApplier.getGravityConstant()).thenReturn(GRAVITATIONAL_CONSTANT);
             when(motionApplier.getGravityDirection()).thenReturn(GRAVITATIONAL_DIRECTION);
             when(motionApplier.getSpeed()).thenReturn(0d);
@@ -214,7 +165,6 @@ class NewtonianTest {
             updatable.update(0l);
 
             // Assert
-            verify(motionApplier).isGravitationalPull();
             verify(motionApplier).getGravityConstant();
             verify(motionApplier).getGravityDirection();
             verify(motionApplier).addToMotion(GRAVITATIONAL_CONSTANT, GRAVITATIONAL_DIRECTION);
@@ -223,7 +173,6 @@ class NewtonianTest {
         @Test
         void updateOnUpdatableAddsFrictionIfSpeedGTZero() {
             // Arrange
-            when(motionApplier.isGravitationalPull()).thenReturn(false);
             when(motionApplier.getFrictionConstant()).thenReturn(FRICTION_CONSTANT);
             when(motionApplier.getSpeed()).thenReturn(1d);
 
@@ -233,7 +182,6 @@ class NewtonianTest {
             updatable.update(0l);
 
             // Assert
-            verify(motionApplier).isGravitationalPull();
             verify(motionApplier).getFrictionConstant();
             verify(motionApplier).incrementSpeed(-1 * FRICTION_CONSTANT);
         }
@@ -304,6 +252,11 @@ class NewtonianTest {
 
         public void setBuffer(final EntityMotionInitBuffer buffer) {
             this.buffer = buffer;
+        }
+
+        @Override
+        public void maximizeMotionInDirection(Direction direction, double speed) {
+            // Not required here
         }
     }
 }

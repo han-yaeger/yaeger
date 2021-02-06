@@ -6,8 +6,8 @@ import javafx.geometry.Point2D;
 import java.util.Optional;
 
 /**
- * A {@link MotionApplier} is an implementation of {@link MotionApplier} that does not abide
- * the laws of Physics and only provides basis behaviour regarding speed and direction.
+ * A {@link MotionApplier} provides basis behaviour regarding speed and direction of a
+ * {@link com.github.hanyaeger.api.engine.entities.entity.YaegerEntity}
  */
 public class MotionApplier implements MotionModifier, NewtonianModifier, LocationUpdater {
 
@@ -16,15 +16,25 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     private Optional<Double> direction = Optional.empty();
     private Coordinate2D motion;
 
+    /**
+     * The default value to be used for the Gravitational constant, if none are set.
+     * This value is set at 0.2.
+     */
     public static final double DEFAULT_GRAVITATIONAL_CONSTANT = 0.2d;
+    /**
+     * The default value to be used for the Friction constant, if none are set.
+     * This value is set at 0.01.
+     */
     public static final double DEFAULT_FRICTION_CONSTANT = 0.01d;
+    /**
+     * The default value to be used for the Gravitational direction, if none are set.
+     * This value is set to {@link Direction#DOWN}.
+     */
     public static final double DEFAULT_GRAVITATIONAL_DIRECTION = Direction.DOWN.getValue();
 
     private double frictionConstant = DEFAULT_FRICTION_CONSTANT;
     private double gravityConstant = DEFAULT_GRAVITATIONAL_CONSTANT;
     private double gravityDirection = DEFAULT_GRAVITATIONAL_DIRECTION;
-
-    private boolean gravitationalPull = false;
 
     /**
      * Create a new instance of {@link MotionApplier}.
@@ -50,9 +60,28 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     }
 
     @Override
+    public void maximizeMotionInDirection(final Direction direction, final double speed) {
+        maximizeMotionInDirection(direction.getValue(), speed);
+    }
+
+    @Override
+    public void maximizeMotionInDirection(final double direction, final double speed) {
+        if (Double.compare(motion.magnitude(), 0) == 0 ||
+                Double.compare(getDirection() % 180, direction % 180) == 0) {
+            setMotion(speed, direction);
+        } else {
+            var maximizedMotion = createVector(speed, direction);
+            var fraction = maximizedMotion.multiply(motion.dotProduct(maximizedMotion) / maximizedMotion.dotProduct(maximizedMotion));
+            var newMotion = motion.subtract(fraction).add(maximizedMotion);
+            setMotion(newMotion.magnitude(), convertVectorToAngle(newMotion));
+        }
+    }
+
+    @Override
     public void addToMotion(final double speed, final double direction) {
         motion = motion.add(createVector(speed, direction));
     }
+
 
     @Override
     public void setSpeed(final double newSpeed) {
@@ -60,7 +89,7 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
             if (NON_MOTION.equals(this.motion)) {
                 this.direction = Optional.of(Direction.DOWN.getValue());
             } else {
-                this.direction = Optional.of(this.motion.angle(new Point2D(0, 1)));
+                this.direction = Optional.of(this.motion.angle(IDENTITY_MOTION));
             }
         }
 
@@ -119,16 +148,6 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     }
 
     @Override
-    public void setGravitationalPull(final boolean pull) {
-        this.gravitationalPull = pull;
-    }
-
-    @Override
-    public boolean isGravitationalPull() {
-        return gravitationalPull;
-    }
-
-    @Override
     public double getSpeed() {
         return motion.magnitude();
     }
@@ -152,17 +171,17 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
 
     @Override
     public double getDirection() {
-        if (direction.isPresent()) {
-            return direction.get();
-        } else {
-            double currentAngle = motion.angle(IDENTITY_MOTION);
+        return direction.orElseGet(() -> convertVectorToAngle(motion));
+    }
 
-            if (motion.getX() < 0) {
-                currentAngle = 360 - currentAngle;
-            }
+    private double convertVectorToAngle(final Point2D vector) {
+        var currentAngle = vector.angle(IDENTITY_MOTION);
 
-            return currentAngle;
+        if (vector.getX() < 0) {
+            currentAngle = 360 - currentAngle;
         }
+
+        return currentAngle;
     }
 
     /**
