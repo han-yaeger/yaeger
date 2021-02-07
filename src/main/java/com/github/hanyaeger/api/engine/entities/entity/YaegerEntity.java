@@ -69,9 +69,9 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * @param visible a {@code boolean} repesenting the visibility if the {@link YaegerEntity}
      */
     public void setVisible(final boolean visible) {
-        getNode().ifPresentOrElse(node -> {
-            node.setVisible(visible);
-        }, () -> this.visible = visible);
+        getNode().ifPresentOrElse(node ->
+                        node.setVisible(visible)
+                , () -> this.visible = visible);
     }
 
     /**
@@ -98,9 +98,9 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * @param opacity a {@code double} between 0 and 1
      */
     public void setOpacity(final double opacity) {
-        getNode().ifPresentOrElse(node -> {
-            node.setOpacity(opacity);
-        }, () -> this.opacity = opacity);
+        getNode().ifPresentOrElse(node ->
+                        node.setOpacity(opacity)
+                , () -> this.opacity = opacity);
     }
 
     /**

@@ -45,7 +45,7 @@ class TileMapTest {
     @Test
     void tileMapIsNotEqualToNull() {
         // Arrange Act Assert
-        assertNotEquals(sut, null);
+        assertNotEquals(null, sut);
     }
 
     @Test
@@ -77,8 +77,8 @@ class TileMapTest {
         assertTrue(sutNonEmptyConstructor.getLocation().isPresent());
         assertTrue(sutNonEmptyConstructor.getSize().isPresent());
 
-        assertEquals(sutNonEmptyConstructor.getLocation().get(), LOCATION);
-        assertEquals(sutNonEmptyConstructor.getSize().get(), SIZE);
+        assertEquals(LOCATION, sutNonEmptyConstructor.getLocation().get());
+        assertEquals(SIZE, sutNonEmptyConstructor.getSize().get());
     }
 
     @Test
@@ -192,7 +192,7 @@ class TileMapTest {
         localSut.activate();
 
         // Assert
-        assertEquals(localSut.size(), 1);
+        assertEquals(1, localSut.size());
     }
 
     @Test

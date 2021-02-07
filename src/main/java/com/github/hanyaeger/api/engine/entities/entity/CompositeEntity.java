@@ -124,9 +124,9 @@ public abstract class CompositeEntity extends YaegerEntity {
     public void setAnchorLocation(final Coordinate2D anchorLocation) {
         super.setAnchorLocation(anchorLocation);
 
-        group.ifPresent(group -> {
-            group.setLayoutX(anchorLocation.getX());
-            group.setLayoutY(anchorLocation.getY());
+        group.ifPresent(g -> {
+            g.setLayoutX(anchorLocation.getX());
+            g.setLayoutY(anchorLocation.getY());
         });
     }
 

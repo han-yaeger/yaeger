@@ -55,9 +55,8 @@ public abstract class DynamicScene extends StaticScene implements UpdateDelegato
 
     @UpdatableProvider
     public Updatable entityCollectionUpdatable() {
-        return timestamp -> {
+        return timestamp ->
             entityCollection.update(timestamp);
-        };
     }
 
     @Override

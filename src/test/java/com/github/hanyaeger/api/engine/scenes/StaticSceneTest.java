@@ -298,7 +298,7 @@ class StaticSceneTest {
         double actual = sut.getBrightness();
 
         // Verify
-        assertEquals(Double.compare(actual, brightness), 0);
+        assertEquals(actual, brightness);
     }
 
     @Test
