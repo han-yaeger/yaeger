@@ -22,7 +22,7 @@ import java.util.Optional;
  * A {@link YaegerEntity} is the base class for all things that can be drawn on a
  * {@link com.github.hanyaeger.api.engine.scenes.YaegerScene}.
  */
-public abstract class YaegerEntity implements Initializable, TimerListProvider, Bounded, Removeable, Placeable, SceneChild, GameNode, Rotatable, EventInitiator {
+public abstract class YaegerEntity implements Initializable, TimerListProvider, Bounded, Removable, Placeable, SceneChild, GameNode, Rotatable, EventInitiator {
 
     static final boolean DEFAULT_VISIBILITY = true;
     static final double DEFAULT_OPACITY = 1;

@@ -263,11 +263,11 @@ class DynamicCompositeEntityTest {
             return entities;
         }
 
-        public void addToGarbage(final Removeable removeable) {
-            garbage.add(removeable);
+        public void addToGarbage(final Removable removable) {
+            garbage.add(removable);
         }
 
-        public List<Removeable> getGarbage() {
+        public List<Removable> getGarbage() {
             return garbage;
         }
     }

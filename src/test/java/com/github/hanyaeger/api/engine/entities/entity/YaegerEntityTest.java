@@ -589,7 +589,7 @@ class YaegerEntityTest {
         var actual = sut.angleTo(sut);
 
         // Assert
-        assertEquals(Double.compare(actual, expected), 0);
+        assertEquals(actual, expected);
     }
 
     @Test

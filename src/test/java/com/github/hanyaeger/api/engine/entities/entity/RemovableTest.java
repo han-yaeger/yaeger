@@ -8,12 +8,12 @@ import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
-class RemoveableTest {
+class RemovableTest {
 
     @Test
     void notifyRemoveCallsFireEventOnNode() {
         // Arrange
-        var sut = new RemoveableImpl();
+        var sut = new RemovableImpl();
         var node = mock(Node.class, withSettings().withoutAnnotations());
         sut.setNode(node);
 
@@ -24,7 +24,7 @@ class RemoveableTest {
         verify(node).fireEvent(any(RemoveEntityEvent.class));
     }
 
-    private static class RemoveableImpl implements Removeable {
+    private static class RemovableImpl implements Removable {
 
         private Optional<Node> node;
 

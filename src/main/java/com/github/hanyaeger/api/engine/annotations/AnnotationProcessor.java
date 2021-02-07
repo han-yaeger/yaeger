@@ -21,7 +21,7 @@ public class AnnotationProcessor {
     /**
      * Invoke all methods annotated with the annotation {@link OnActivation} on the given {@link Object}.
      *
-     * @param gameObject The {@link Object} that should be scanned for the {@link OnActivation} annotation.
+     * @param gameObject the {@link Object} that should be scanned for the {@link OnActivation} annotation
      */
     public void invokeActivators(final Object gameObject) {
         invoke(gameObject, OnActivation.class);
@@ -30,7 +30,7 @@ public class AnnotationProcessor {
     /**
      * Invoke all methods annotated with the annotation {@link OnPostActivation} on the given {@link Object}.
      *
-     * @param gameObject The {@link Object} that should be scanned for the {@link OnPostActivation} annotation.
+     * @param gameObject the {@link Object} that should be scanned for the {@link OnPostActivation} annotation
      */
     public void invokePostActivators(final Object gameObject) {
         invoke(gameObject, OnPostActivation.class);
@@ -52,7 +52,7 @@ public class AnnotationProcessor {
      * When calling this method, the {@link Object} provided als its parameter will be scanned for
      * the annotation {@link UpdatableProvider}, if the {@link Object} is an {@link UpdateDelegator}.
      *
-     * @param gameObject The object that will be scanned for the {@link UpdatableProvider} annotation.
+     * @param gameObject the object that will be scanned for the {@link UpdatableProvider} annotation
      */
     public void configureUpdateDelegators(final Object gameObject) {
         if (gameObject instanceof UpdateDelegator) {

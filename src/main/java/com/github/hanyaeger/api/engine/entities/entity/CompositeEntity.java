@@ -46,7 +46,7 @@ import java.util.Optional;
 public abstract class CompositeEntity extends YaegerEntity {
 
     List<YaegerEntity> entities = new ArrayList<>();
-    List<Removeable> garbage = new ArrayList<>();
+    List<Removable> garbage = new ArrayList<>();
     Optional<Group> group = Optional.empty();
 
     protected CompositeEntity(final Coordinate2D initialLocation) {

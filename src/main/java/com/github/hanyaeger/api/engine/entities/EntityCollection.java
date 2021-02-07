@@ -5,7 +5,7 @@ import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.YaegerConfig;
 import com.github.hanyaeger.api.engine.annotations.AnnotationProcessor;
 import com.github.hanyaeger.api.engine.debug.StatisticsObserver;
-import com.github.hanyaeger.api.engine.entities.entity.Removeable;
+import com.github.hanyaeger.api.engine.entities.entity.Removable;
 import com.github.hanyaeger.api.engine.entities.entity.collisions.Collided;
 import com.github.hanyaeger.api.engine.entities.entity.collisions.Collider;
 import com.github.hanyaeger.api.engine.entities.entity.collisions.CollisionDelegate;
@@ -38,7 +38,7 @@ public class EntityCollection implements Initializable {
     private final List<YaegerEntity> statics = new ArrayList<>();
     private final List<Updatable> updatables = new ArrayList<>();
     private final List<KeyListener> keyListeners = new ArrayList<>();
-    private final List<Removeable> garbage = new ArrayList<>();
+    private final List<Removable> garbage = new ArrayList<>();
 
 
     private EntitySupplier boundingBoxVisualizerSupplier;
@@ -86,7 +86,7 @@ public class EntityCollection implements Initializable {
     }
 
     /**
-     * Regist a {@link KeyListener}.
+     * Register a {@link KeyListener}.
      *
      * @param keyListener the {@link KeyListener} to be registered
      */
@@ -95,12 +95,12 @@ public class EntityCollection implements Initializable {
     }
 
     /**
-     * Mark an {@link Removeable} as garbage. After this is done, the {@link Removeable} is set for Garbage Collection and will
+     * Mark an {@link Removable} as garbage. After this is done, the {@link Removable} is set for Garbage Collection and will
      * be collected in the next Garbage Collection cycle.
      *
-     * @param entity the {@link Removeable} to be removed
+     * @param entity the {@link Removable} to be removed
      */
-    private void markAsGarbage(final Removeable entity) {
+    private void markAsGarbage(final Removable entity) {
         this.garbage.add(entity);
     }
 
@@ -139,7 +139,7 @@ public class EntityCollection implements Initializable {
      * the appropriate collection.
      * </li>
      * <li>
-     * <b>Check for collisions</b> Check if collisions have occured between instances of
+     * <b>Check for collisions</b> Check if collisions have occurred between instances of
      * {@link Collided} and
      * {@link Collider}. In such a case, the {@link Collided}
      * will be notified.
@@ -252,7 +252,7 @@ public class EntityCollection implements Initializable {
         garbage.clear();
     }
 
-    private void removeGameObject(final Removeable entity) {
+    private void removeGameObject(final Removable entity) {
         this.pane.getChildren().remove(entity.getNode());
         this.collisionDelegate.remove(entity);
     }
@@ -275,16 +275,16 @@ public class EntityCollection implements Initializable {
         entity.applyEntityProcessor(yaegerEntity -> annotationProcessor.invokeActivators(yaegerEntity));
 
         entity.applyEntityProcessor(yaegerEntity -> yaegerEntity.addToEntityCollection(this));
-        entity.attachEventListener(EventTypes.REMOVE, event -> markAsGarbage((Removeable) event.getSource()));
+        entity.attachEventListener(EventTypes.REMOVE, event -> markAsGarbage((Removable) event.getSource()));
         entity.transferCoordinatesToNode();
         entity.applyTranslationsForAnchorPoint();
 
-        entity.applyEntityProcessor(this::registerKeylistener);
-        entity.applyEntityProcessor(this::registerCollider);
+        entity.applyEntityProcessor(this::registerIfKeyListener);
+        entity.applyEntityProcessor(this::registerIfCollider);
         entity.addToParent(this::addToParentNode);
     }
 
-    private void registerCollider(final YaegerEntity yaegerEntity) {
+    private void registerIfCollider(final YaegerEntity yaegerEntity) {
         var collider = collisionDelegate.register(yaegerEntity);
 
         if (collider && config.isShowBoundingBox()) {
@@ -292,7 +292,7 @@ public class EntityCollection implements Initializable {
         }
     }
 
-    private void registerKeylistener(final YaegerEntity entity) {
+    private void registerIfKeyListener(final YaegerEntity entity) {
         if (entity instanceof KeyListener) {
             registerKeyListener((KeyListener) entity);
         }
