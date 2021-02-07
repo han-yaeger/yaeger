@@ -25,7 +25,7 @@ public class TextEntity extends ShapeEntity<Text> {
      *
      * @param initialLocation the initial {@link Coordinate2D} of this {@link TextEntity}
      */
-    protected TextEntity(final Coordinate2D initialLocation) {
+    public TextEntity(final Coordinate2D initialLocation) {
         this(initialLocation, "");
     }
 
@@ -35,7 +35,7 @@ public class TextEntity extends ShapeEntity<Text> {
      * @param initialLocation the initial {@link Coordinate2D} of this {@link TextEntity}
      * @param text            a {@link String} containing the initial text to be displayed
      */
-    protected TextEntity(final Coordinate2D initialLocation, final String text) {
+    public TextEntity(final Coordinate2D initialLocation, final String text) {
         super(initialLocation);
         this.text = text;
     }
@@ -46,7 +46,7 @@ public class TextEntity extends ShapeEntity<Text> {
      * @param displayText the {@link String} that should be shown
      */
     public void setText(final String displayText) {
-        shape.ifPresentOrElse(t-> t.setText(displayText), () -> this.text = displayText);
+        shape.ifPresentOrElse(t -> t.setText(displayText), () -> this.text = displayText);
     }
 
     /**
