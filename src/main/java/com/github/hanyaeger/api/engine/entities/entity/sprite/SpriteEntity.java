@@ -90,13 +90,7 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      * @return the index of the sprite as an {@code int}
      */
     public int getCurrentFrameIndex() {
-        if (spriteAnimationDelegate.isPresent()) {
-            return spriteAnimationDelegate.get().getFrameIndex();
-        } else if (spriteIndex.isPresent()) {
-            return spriteIndex.get();
-        } else {
-            return 0;
-        }
+        return spriteAnimationDelegate.map(SpriteAnimationDelegate::getFrameIndex).orElseGet(() -> spriteIndex.orElse(0));
     }
 
     /**
@@ -130,16 +124,16 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
 
     @Override
     public final void remove() {
-        imageView.ifPresent(imageView -> imageView.setImage(null));
+        imageView.ifPresent(iV -> iV.setImage(null));
         super.remove();
     }
 
     @Override
     public final void setAnchorLocation(Coordinate2D anchorLocation) {
         super.setAnchorLocation(anchorLocation);
-        imageView.ifPresent(imageView -> {
-            imageView.setX(anchorLocation.getX());
-            imageView.setY(anchorLocation.getY());
+        imageView.ifPresent(iV -> {
+            iV.setX(anchorLocation.getX());
+            iV.setY(anchorLocation.getY());
         });
     }
 

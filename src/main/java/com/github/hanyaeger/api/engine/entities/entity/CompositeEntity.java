@@ -148,9 +148,8 @@ public abstract class CompositeEntity extends YaegerEntity {
     public void attachEventListener(final EventType eventType, final EventHandler eventHandler) {
         super.attachEventListener(eventType, eventHandler);
 
-        entities.forEach(yaegerEntity -> {
-                    yaegerEntity.attachEventListener(eventType, event -> handleEvent(eventHandler, event, yaegerEntity));
-                }
+        entities.forEach(yaegerEntity ->
+                    yaegerEntity.attachEventListener(eventType, event -> handleEvent(eventHandler, event, yaegerEntity))
         );
     }
 
@@ -182,6 +181,6 @@ public abstract class CompositeEntity extends YaegerEntity {
     }
 
     private void addToParentNode(final YaegerEntity entity) {
-        group.ifPresent(group -> entity.getNode().ifPresent(node -> group.getChildren().add(node)));
+        group.ifPresent(g -> entity.getNode().ifPresent(node -> g.getChildren().add(node)));
     }
 }
