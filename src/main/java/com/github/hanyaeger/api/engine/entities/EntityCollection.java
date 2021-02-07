@@ -38,7 +38,7 @@ public class EntityCollection implements Initializable {
     private final List<YaegerEntity> statics = new ArrayList<>();
     private final List<Updatable> updatables = new ArrayList<>();
     private final List<KeyListener> keyListeners = new ArrayList<>();
-    private final List<Removable> garbage = new ArrayList<>();
+    private final List<YaegerEntity> garbage = new ArrayList<>();
 
 
     private EntitySupplier boundingBoxVisualizerSupplier;
@@ -95,12 +95,12 @@ public class EntityCollection implements Initializable {
     }
 
     /**
-     * Mark an {@link Removable} as garbage. After this is done, the {@link Removable} is set for Garbage Collection and will
+     * Mark an {@link YaegerEntity} as garbage. After this is done, the {@link YaegerEntity} is set for Garbage Collection and will
      * be collected in the next Garbage Collection cycle.
      *
-     * @param entity the {@link Removable} to be removed
+     * @param entity the {@link YaegerEntity} to be removed
      */
-    private void markAsGarbage(final Removable entity) {
+    private void markAsGarbage(final YaegerEntity entity) {
         this.garbage.add(entity);
     }
 
@@ -248,7 +248,9 @@ public class EntityCollection implements Initializable {
         garbage.forEach(this::removeGameObject);
         statics.removeAll(garbage);
         updatables.removeAll(garbage);
-        boundingBoxVisualizers.removeAll(garbage);
+        if (config.isShowBoundingBox()) {
+            boundingBoxVisualizers.removeAll(garbage);
+        }
         garbage.clear();
     }
 
@@ -275,7 +277,7 @@ public class EntityCollection implements Initializable {
         entity.applyEntityProcessor(yaegerEntity -> annotationProcessor.invokeActivators(yaegerEntity));
 
         entity.applyEntityProcessor(yaegerEntity -> yaegerEntity.addToEntityCollection(this));
-        entity.attachEventListener(EventTypes.REMOVE, event -> markAsGarbage((Removable) event.getSource()));
+        entity.attachEventListener(EventTypes.REMOVE, event -> markAsGarbage((YaegerEntity) event.getSource()));
         entity.transferCoordinatesToNode();
         entity.applyTranslationsForAnchorPoint();
 
