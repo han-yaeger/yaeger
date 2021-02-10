@@ -69,9 +69,7 @@ public abstract class DynamicCompositeEntity extends CompositeEntity implements 
             return;
         }
 
-        group.ifPresent(groupNode -> garbage.forEach(yaegerEntity ->
-                groupNode.getChildren().remove(yaegerEntity.getNode())
-        ));
+        group.ifPresent(groupNode -> garbage.forEach(yaegerEntity -> yaegerEntity.getNode().ifPresent(node -> groupNode.getChildren().remove(node))));
 
         entities.removeAll(garbage);
         garbage.clear();
