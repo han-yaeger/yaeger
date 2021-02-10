@@ -30,7 +30,7 @@ public class TextEntity extends ShapeEntity<Text> {
     }
 
     /**
-     * Crwate a new {@link TextEntity} on the given {@link Point2D} for the given text.
+     * Create a new {@link TextEntity} on the given {@link Point2D} for the given text.
      *
      * @param initialLocation the initial {@link Coordinate2D} of this {@link TextEntity}
      * @param text            a {@link String} containing the initial text to be displayed

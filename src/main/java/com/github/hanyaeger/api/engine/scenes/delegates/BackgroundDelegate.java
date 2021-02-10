@@ -14,7 +14,7 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 
 /**
- * A {@link BackgroundDelegate} follows the Delegate pattern and embraces Composition over Inheritence.
+ * A {@link BackgroundDelegate} follows the Delegate pattern and embraces Composition over Inheritance.
  * It can be used to deal with both background audio and background images for a {@link YaegerScene}.
  */
 public class BackgroundDelegate implements ResourceConsumer, Destroyable {

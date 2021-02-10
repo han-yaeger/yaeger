@@ -56,13 +56,13 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
     }
 
     /**
-     * The lifecycle method {@link #setupEntities()} should be used to add the instances of {@link YaegerEntity}
+     * The lifecycle method {@code setupEntities()} should be used to add the instances of {@link YaegerEntity}
      * that should be used in this {@link TileMap}.
      */
     public abstract void setupEntities();
 
     /**
-     * The lifecycle method {@link #defineMap()} should be used to define the map that should be used. It is
+     * The lifecycle method {@code defineMap()} should be used to define the map that should be used. It is
      * represented by a two dimensional array of type {@code int}, where each cell represents an {@link YaegerEntity}
      * on the map. The first array ({@code int[]}) defines the rows. Each entry in this array is itself an array
      * containing the columns of the given row.

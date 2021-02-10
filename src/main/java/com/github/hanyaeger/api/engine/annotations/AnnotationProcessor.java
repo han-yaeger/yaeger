@@ -4,6 +4,7 @@ import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.UpdateDelegator;
 import com.github.hanyaeger.api.engine.exceptions.YaegerEngineException;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -36,7 +37,7 @@ public class AnnotationProcessor {
         invoke(gameObject, OnPostActivation.class);
     }
 
-    private void invoke(final Object gameObject, final Class annotation) {
+    private <T extends Annotation> void invoke(final Object gameObject, final Class<T> annotation) {
         for (var method : gameObject.getClass().getMethods()) {
             if (method.isAnnotationPresent(annotation)) {
                 try {

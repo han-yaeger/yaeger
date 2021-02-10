@@ -66,7 +66,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * or {@code false}. Use the method {@link #setOpacity(double)} to set the transparency of
      * the {@link YaegerEntity}.
      *
-     * @param visible a {@code boolean} repesenting the visibility if the {@link YaegerEntity}
+     * @param visible a {@code boolean} representing the visibility if the {@link YaegerEntity}
      */
     public void setVisible(final boolean visible) {
         getNode().ifPresentOrElse(node ->

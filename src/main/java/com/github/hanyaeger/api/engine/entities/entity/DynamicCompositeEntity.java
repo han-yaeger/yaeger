@@ -24,7 +24,7 @@ import java.util.Optional;
  * such a case, the parent will be called first, after which it will direct the event to its children.
  * </p>
  */
-public abstract class DynamicCompositeEntity extends CompositeEntity implements UpdateDelegator, BufferedMoveable, ContinuousRotatable {
+public abstract class DynamicCompositeEntity extends CompositeEntity implements UpdateDelegator, BufferedMovable, ContinuousRotatable {
 
     private MotionApplier motionApplier;
     private Updater updater;

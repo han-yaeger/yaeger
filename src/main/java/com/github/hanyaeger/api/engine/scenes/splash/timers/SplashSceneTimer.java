@@ -11,7 +11,7 @@ public class SplashSceneTimer extends Timer {
 
     private static final int INTERVAL_IN_MS = 5000;
 
-    private Runnable runnable;
+    private final Runnable runnable;
 
     /**
      * Create a new instance of {@link SplashSceneTimer}.

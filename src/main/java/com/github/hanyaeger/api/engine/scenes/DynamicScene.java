@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Instantiate a new  {@code DynamicScene}. A {@code DynamicScene} extends a {@link StaticScene}, but adds its
- * own {@code Gameloop}.
+ * own Game World Update.
  */
 public abstract class DynamicScene extends StaticScene implements UpdateDelegator, TimerListProvider, EntitySpawnerListProvider {
 

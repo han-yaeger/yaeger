@@ -20,14 +20,14 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class TileFactory {
 
-    private static final String MESSAGE_INVALID_CONSTRUCTOR_EXCEPTION = "An Entity used for a Tilemap should have a constructor that accepts" +
+    private static final String MESSAGE_INVALID_CONSTRUCTOR_EXCEPTION = "An Entity used for a TileMap should have a constructor that accepts" +
             " exactly two parameters: An instance of Coordinate2D and of Size.";
     private static final String MESSAGE_FAILED_TO_INSTANTIATE_ENTITY = "Unable to instantiate an Entity for the TileMap";
 
     public YaegerEntity create(final Class<? extends YaegerEntity> entityClass, final Coordinate2D location, final Size size) {
         YaegerEntity entity;
 
-        Constructor<? extends YaegerEntity> declaredConstructor = null;
+        Constructor<? extends YaegerEntity> declaredConstructor;
 
         try {
             declaredConstructor = entityClass.getDeclaredConstructor(Coordinate2D.class, Size.class);

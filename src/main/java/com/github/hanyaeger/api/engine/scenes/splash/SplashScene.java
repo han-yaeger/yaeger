@@ -44,7 +44,7 @@ public class SplashScene extends DynamicScene implements TimerContainer {
 
     @Override
     public void setupTimers() {
-        addTimer(new SplashSceneTimer(() -> runnable.run()));
+        addTimer(new SplashSceneTimer(runnable));
         addTimer(new FadeInTimer(this));
     }
 }

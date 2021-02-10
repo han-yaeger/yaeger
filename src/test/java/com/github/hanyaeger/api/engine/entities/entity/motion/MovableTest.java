@@ -7,7 +7,6 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,10 +16,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class MoveableTest {
+class MovableTest {
 
     private MotionApplier motionApplier;
-    private Moveable sut;
+    private Movable sut;
 
     private static final double DELTA = 0.00001d;
     private static final long TIMESTAMP = 0;
@@ -32,7 +31,7 @@ class MoveableTest {
     void setup() {
         motionApplier = mock(MotionApplier.class);
 
-        sut = new MoveableImpl();
+        sut = new MovableImpl();
         sut.setMotionApplier(motionApplier);
     }
 
@@ -227,7 +226,7 @@ class MoveableTest {
         when(node.getBoundsInParent()).thenReturn(bounds);
         when(motionApplier.getSpeed()).thenReturn(0d);
 
-        ((MoveableImpl) sut).setGameNode(node);
+        ((MovableImpl) sut).setGameNode(node);
 
         // Act
         updatable.update(TIMESTAMP);
@@ -237,7 +236,7 @@ class MoveableTest {
     }
 
 
-    private static class MoveableImpl implements Moveable {
+    private static class MovableImpl implements Movable {
         Coordinate2D anchorLocation;
         MotionApplier motionApplier;
         Node node;
