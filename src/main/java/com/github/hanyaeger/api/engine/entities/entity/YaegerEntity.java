@@ -136,9 +136,9 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     }
 
     /**
-     * Computes the angle (in degrees) between the unit vector that originates at the reference
-     * point of this {@link YaegerEntity} and the vector with its origin at that same reference point
-     * that points towards the reference point of the specified {@link YaegerEntity}. Note that the unit
+     * Computes the angle (in degrees) between the unit vector that originates at the {@link #getAnchorLocation()}
+     * point of this {@link YaegerEntity} and the vector with its origin at that same  {@link #getAnchorLocation()}
+     * that points towards the {@link #getAnchorLocation()} of the specified {@link YaegerEntity}. Note that the unit
      * vector points downwards, so:
      *
      * <ul>
@@ -155,7 +155,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * @param entity the {@link YaegerEntity} of the other vector
      * @return the angle between the two vectors measured in degrees,
      * {@code NaN} if any of the two vectors is a zero vector
-     * @throws NullPointerException if the specified {@code location} is null
+     * @throws NullPointerException if the specified {@code location} is {@code null}
      */
     public double angleTo(final YaegerEntity entity) {
         if (this.equals(entity)) {
@@ -165,8 +165,8 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     }
 
     /**
-     * Computes the angle (in degrees) between the unit vector that originates at the reference
-     * point of this {@link YaegerEntity} and the vector with its origin at that same reference point
+     * Computes the angle (in degrees) between the unit vector that originates at the {@link #getAnchorLocation()}
+     * of this {@link YaegerEntity} and the vector with its origin at that same {@link #getAnchorLocation()}
      * that points towards the specified {@link Coordinate2D}. Note that the unit vector points downwards,
      * so:
      *
