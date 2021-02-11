@@ -23,16 +23,28 @@ import java.util.Optional;
 public abstract class SpriteEntity extends YaegerEntity implements ResourceConsumer {
 
     private final String resource;
-    private final Size size;
+    private Size size;
     private boolean preserveAspectRatio = true;
     private SpriteAnimationDelegateFactory spriteAnimationDelegateFactory;
     private ImageRepository imageRepository;
     private ImageViewFactory imageViewFactory;
-
     private final int frames;
     private Optional<Integer> spriteIndex = Optional.empty();
     protected Optional<ImageView> imageView = Optional.empty();
     protected Optional<SpriteAnimationDelegate> spriteAnimationDelegate = Optional.empty();
+
+    /**
+     * Instantiate a new {@link SpriteEntity} for a given image.
+     * This sprite entity will use the original dimensions of the image.
+     *
+     * @param resource the url of the image file. Relative to the resources folder
+     * @param location the initial {@link Coordinate2D} of this {@link SpriteEntity}
+     */
+    protected SpriteEntity(final String resource, final Coordinate2D location) {
+        super(location);
+        this.resource = resource;
+        this.frames = 1;
+    }
 
     /**
      * Instantiate a new {@link SpriteEntity} for a given image.
@@ -62,8 +74,12 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
 
     @Override
     public void init(final Injector injector) {
-        var requestedWidth = size.getWidth() * frames;
-        imageView = Optional.of(createImageView(resource, requestedWidth, size.getHeight(), preserveAspectRatio));
+        if (size != null) {
+            var requestedWidth = size.getWidth() * frames;
+            imageView = Optional.of(createImageView(resource, requestedWidth, size.getHeight(), preserveAspectRatio));
+        } else {
+            imageView = Optional.of(createImageView(resource));
+        }
 
         if (frames > 1) {
             spriteAnimationDelegate = Optional.of(spriteAnimationDelegateFactory.create(imageView.get(), frames));
@@ -109,6 +125,13 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      */
     protected int getFrames() {
         return frames;
+    }
+
+    private ImageView createImageView(final String resource) {
+        var image = imageRepository.get(resource);
+        size = new Size(image.getWidth(), image.getHeight());
+
+        return imageViewFactory.create(image);
     }
 
     private ImageView createImageView(final String resource, final double requestedWidth, final double requestedHeight, final boolean preserveAspectRatio) {

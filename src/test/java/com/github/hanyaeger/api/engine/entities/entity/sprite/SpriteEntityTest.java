@@ -30,18 +30,24 @@ class SpriteEntityTest {
     private SpriteAnimationDelegateFactory spriteAnimationDelegateFactory;
     private ImageViewFactory imageViewFactory;
     private ImageView imageView;
+    private Image defaultImage;
     private SpriteAnimationDelegate spriteAnimationDelegate;
     private ImageRepository imageRepository;
     private Injector injector;
 
     @BeforeEach
     void setup() {
+        defaultImage = mock(Image.class);
+        imageView = mock(ImageView.class);
         imageViewFactory = mock(ImageViewFactory.class);
+        when(imageViewFactory.create(defaultImage)).thenReturn(imageView);
         spriteAnimationDelegate = mock(SpriteAnimationDelegate.class);
         spriteAnimationDelegateFactory = mock(SpriteAnimationDelegateFactory.class);
         when(spriteAnimationDelegateFactory.create(any(ImageView.class), anyInt())).thenReturn(spriteAnimationDelegate);
 
         imageRepository = mock(ImageRepository.class);
+        when(imageRepository.get(DEFAULT_RESOURCE)).thenReturn(defaultImage);
+
         injector = mock(Injector.class);
     }
 
@@ -78,6 +84,26 @@ class SpriteEntityTest {
         // Assert
         assertNotNull(sut);
     }
+
+    @Test
+    void instantiatingASpriteWithoutSizeShouldUseOriginalImageDimensions() {
+        // Arrange
+        var sut = new SpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION);
+        when(defaultImage.getWidth()).thenReturn((double) WIDTH);
+        when(defaultImage.getHeight()).thenReturn((double) HEIGHT);
+        sut.setImageRepository(imageRepository);
+        sut.setImageViewFactory(imageViewFactory);
+        sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+
+        // Act
+        sut.init(injector);
+
+        // Assert
+        verify(defaultImage).getWidth();
+        verify(defaultImage).getHeight();
+    }
+
+
 
     @Nested
     class OneFrameSprite {
@@ -245,6 +271,8 @@ class SpriteEntityTest {
     }
 
     private class SpriteEntityImpl extends SpriteEntity {
+
+        SpriteEntityImpl(String resource, Coordinate2D location) { super(resource, location);}
 
         SpriteEntityImpl(String resource, Coordinate2D location, Size size) {
             super(resource, location, size);
