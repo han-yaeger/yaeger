@@ -15,21 +15,21 @@ import java.lang.reflect.InvocationTargetException;
  * {@link TileMap}. For such instances, only a {@link Class}, its {@link Coordinate2D} and its {@link Size}
  * will be supplied, after which a {@link TileFactory} will be responsible for creating instances.
  * <p>
- * A {@link YaegerEntity} created by the {@link TileFactory} will most likely n not be square shaped. In case of
- * a {@link SpriteEntity}, its aspect ratio will not be preserver.
+ * A {@link YaegerEntity} created by the {@link TileFactory} will most likely not be square shaped. In case of
+ * a {@link SpriteEntity}, its aspect ratio will not be preserved.
  */
 public class TileFactory {
 
     private static final String MESSAGE_INVALID_CONSTRUCTOR_EXCEPTION = "An Entity used for a Tilemap should have a constructor that accepts" +
-            " two parameters: An instance of Coordinate2D and of Size. Configurable entities should have a third parameter for the" +
-            " configuration object.";
+            " two parameters: An instance of Coordinate2D and of Size.";
+    private static final String MESSAGE_INVALID_CONFIGURABLE_ENTITY = "Configurable entity %s should also accept an instance of %s as third parameter.";
     private static final String MESSAGE_FAILED_TO_INSTANTIATE_ENTITY = "Unable to instantiate an Entity for the TileMap";
 
-    public <C extends Object> YaegerEntity create(final EntityConfiguration<C> entityConfiguration, final Coordinate2D location, final Size size) {
+    public <C> YaegerEntity create(final EntityConfiguration<C> entityConfiguration, final Coordinate2D location, final Size size) {
         YaegerEntity entity;
 
-        Constructor<? extends YaegerEntity> declaredConstructor = getDeclaredConstructor(entityConfiguration);
-        C configuration = entityConfiguration.getConfiguration();
+        var declaredConstructor = getDeclaredConstructor(entityConfiguration);
+        var configuration = entityConfiguration.getConfiguration();
         try {
             if (configuration != null) {
                 entity = declaredConstructor.newInstance(location, size, configuration);
@@ -51,11 +51,11 @@ public class TileFactory {
         return create(new EntityConfiguration<>(entityClass), location, size);
     }
 
-    private <C extends Object> Constructor<? extends YaegerEntity> getDeclaredConstructor(EntityConfiguration<C> entityConfiguration) {
-        Class<? extends YaegerEntity> entityClass = entityConfiguration.getEntityClass();
-        C configuration = entityConfiguration.getConfiguration();
+    private <C> Constructor<? extends YaegerEntity> getDeclaredConstructor(EntityConfiguration<C> entityConfiguration) {
+        var entityClass = entityConfiguration.getEntityClass();
+        var configuration = entityConfiguration.getConfiguration();
 
-        Constructor<? extends YaegerEntity> declaredConstructor = null;
+        Constructor<? extends YaegerEntity> declaredConstructor;
         try {
             if (configuration != null) {
                 declaredConstructor = entityClass.getDeclaredConstructor(Coordinate2D.class, Size.class, configuration.getClass());
@@ -63,7 +63,11 @@ public class TileFactory {
                 declaredConstructor = entityClass.getDeclaredConstructor(Coordinate2D.class, Size.class);
             }
         } catch (NoSuchMethodException e) {
-            throw new InvalidConstructorException(MESSAGE_INVALID_CONSTRUCTOR_EXCEPTION, e);
+            var message = MESSAGE_INVALID_CONSTRUCTOR_EXCEPTION;
+            if (configuration != null) {
+                message += String.format("\n" + MESSAGE_INVALID_CONFIGURABLE_ENTITY, entityClass.getSimpleName(), configuration.getClass().getSimpleName());
+            }
+            throw new InvalidConstructorException(message, e);
         }
 
         return declaredConstructor;
