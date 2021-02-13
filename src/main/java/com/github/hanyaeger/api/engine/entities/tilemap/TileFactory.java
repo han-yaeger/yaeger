@@ -63,13 +63,18 @@ public class TileFactory {
                 declaredConstructor = entityClass.getDeclaredConstructor(Coordinate2D.class, Size.class);
             }
         } catch (NoSuchMethodException e) {
-            var message = MESSAGE_INVALID_CONSTRUCTOR_EXCEPTION;
-            if (configuration != null) {
-                message += String.format("\n" + MESSAGE_INVALID_CONFIGURABLE_ENTITY, entityClass.getSimpleName(), configuration.getClass().getSimpleName());
-            }
-            throw new InvalidConstructorException(message, e);
+            throw new InvalidConstructorException(getInvalidConstructorMessage(entityConfiguration), e);
         }
 
         return declaredConstructor;
+    }
+
+    private <C> String getInvalidConstructorMessage(EntityConfiguration<C> ec) {
+        var message = MESSAGE_INVALID_CONSTRUCTOR_EXCEPTION;
+        if (ec.getConfiguration() != null) {
+            message += String.format("\n" + MESSAGE_INVALID_CONFIGURABLE_ENTITY,
+                    ec.getClass().getSimpleName(), ec.getConfiguration().getClass().getSimpleName());
+        }
+        return message;
     }
 }
