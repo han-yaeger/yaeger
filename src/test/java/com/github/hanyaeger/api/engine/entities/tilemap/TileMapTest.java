@@ -147,7 +147,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -184,7 +184,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -223,7 +223,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -231,7 +231,7 @@ class TileMapTest {
         localSut.activate();
 
         // Assert
-        verify(tileFactory, times(9)).create(any(), any(), any());
+        verify(tileFactory, times(9)).create(any(EntityConfiguration.class), any(), any());
     }
 
     @Test
@@ -260,7 +260,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -289,7 +289,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -298,7 +298,7 @@ class TileMapTest {
 
         // Assert
         ArgumentCaptor<Size> argument = ArgumentCaptor.forClass(Size.class);
-        verify(tileFactory).create(any(), any(), argument.capture());
+        verify(tileFactory).create(any(EntityConfiguration.class), any(), argument.capture());
         assertEquals(SIZE.getHeight(), argument.getValue().getHeight());
         assertEquals(SIZE.getWidth(), argument.getValue().getWidth());
     }
@@ -337,7 +337,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -346,7 +346,7 @@ class TileMapTest {
 
         // Assert
         ArgumentCaptor<Size> argument = ArgumentCaptor.forClass(Size.class);
-        verify(tileFactory).create(any(), any(), argument.capture());
+        verify(tileFactory).create(any(EntityConfiguration.class), any(), argument.capture());
         assertEquals(Math.ceil(SIZE.getHeight() / 3), argument.getValue().getHeight());
         assertEquals(Math.ceil(SIZE.getWidth() / 3), argument.getValue().getWidth());
     }
@@ -372,7 +372,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -381,7 +381,7 @@ class TileMapTest {
 
         // Assert
         ArgumentCaptor<Size> argument = ArgumentCaptor.forClass(Size.class);
-        verify(tileFactory).create(any(), any(), argument.capture());
+        verify(tileFactory).create(any(EntityConfiguration.class), any(), argument.capture());
         assertEquals(Math.ceil(SIZE.getHeight() / 3), argument.getValue().getHeight());
         assertEquals(SIZE.getWidth(), argument.getValue().getWidth());
     }
@@ -409,7 +409,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -418,7 +418,7 @@ class TileMapTest {
 
         // Assert
         ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
-        verify(tileFactory).create(any(), argument.capture(), any());
+        verify(tileFactory).create(any(EntityConfiguration.class), argument.capture(), any());
         assertEquals(LOCATION.getX(), argument.getValue().getX());
         assertEquals(LOCATION.getY(), argument.getValue().getY());
     }
@@ -446,7 +446,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -455,7 +455,7 @@ class TileMapTest {
 
         // Assert
         ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
-        verify(tileFactory).create(any(), argument.capture(), any());
+        verify(tileFactory).create(any(EntityConfiguration.class), argument.capture(), any());
 
         var expectedX = LOCATION.getX() - SIZE.getWidth() / 2;
 
@@ -486,7 +486,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -495,7 +495,7 @@ class TileMapTest {
 
         // Assert
         ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
-        verify(tileFactory).create(any(), argument.capture(), any());
+        verify(tileFactory).create(any(EntityConfiguration.class), argument.capture(), any());
 
         var expectedX = LOCATION.getX() - SIZE.getWidth();
 
@@ -526,7 +526,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -535,7 +535,7 @@ class TileMapTest {
 
         // Assert
         ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
-        verify(tileFactory).create(any(), argument.capture(), any());
+        verify(tileFactory).create(any(EntityConfiguration.class), argument.capture(), any());
 
         var expectedX = LOCATION.getX();
         var expectedY = LOCATION.getY() - SIZE.getHeight() / 2;
@@ -567,7 +567,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -576,7 +576,7 @@ class TileMapTest {
 
         // Assert
         ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
-        verify(tileFactory).create(any(), argument.capture(), any());
+        verify(tileFactory).create(any(EntityConfiguration.class), argument.capture(), any());
 
         var expectedX = LOCATION.getX() - SIZE.getWidth() / 2;
         var expectedY = LOCATION.getY() - SIZE.getHeight() / 2;
@@ -608,7 +608,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -617,7 +617,7 @@ class TileMapTest {
 
         // Assert
         ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
-        verify(tileFactory).create(any(), argument.capture(), any());
+        verify(tileFactory).create(any(EntityConfiguration.class), argument.capture(), any());
 
         var expectedX = LOCATION.getX() - SIZE.getWidth();
         var expectedY = LOCATION.getY() - SIZE.getHeight() / 2;
@@ -651,7 +651,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -660,7 +660,7 @@ class TileMapTest {
 
         // Assert
         ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
-        verify(tileFactory).create(any(), argument.capture(), any());
+        verify(tileFactory).create(any(EntityConfiguration.class), argument.capture(), any());
 
         var expectedX = LOCATION.getX();
         var expectedY = LOCATION.getY() - SIZE.getHeight();
@@ -692,7 +692,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(EntityConfiguration.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -701,7 +701,7 @@ class TileMapTest {
 
         // Assert
         ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
-        verify(tileFactory).create(any(), argument.capture(), any());
+        verify(tileFactory).create(any(EntityConfiguration.class), argument.capture(), any());
 
         var expectedX = LOCATION.getX() - SIZE.getWidth() / 2;
         var expectedY = LOCATION.getY() - SIZE.getHeight();
@@ -733,7 +733,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -742,7 +742,7 @@ class TileMapTest {
 
         // Assert
         ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
-        verify(tileFactory).create(any(), argument.capture(), any());
+        verify(tileFactory).create(any(EntityConfiguration.class), argument.capture(), any());
 
         var expectedX = LOCATION.getX() - SIZE.getWidth();
         var expectedY = LOCATION.getY() - SIZE.getHeight();
@@ -775,7 +775,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
 
         horizontalSut.setTileFactory(tileFactory);
 
@@ -785,7 +785,7 @@ class TileMapTest {
         // Assert
 
         ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
-        verify(tileFactory, times(15)).create(any(), argument.capture(), any());
+        verify(tileFactory, times(15)).create(any(EntityConfiguration.class), argument.capture(), any());
 
         List<Coordinate2D> capturedCoordinates = argument.getAllValues();
 
@@ -820,7 +820,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
 
         horizontalSut.setTileFactory(tileFactory);
 
@@ -830,7 +830,7 @@ class TileMapTest {
         // Assert
 
         ArgumentCaptor<Size> argument = ArgumentCaptor.forClass(Size.class);
-        verify(tileFactory, times(15)).create(any(), any(), argument.capture());
+        verify(tileFactory, times(15)).create(any(EntityConfiguration.class), any(), argument.capture());
 
         List<Size> capturedSizes = argument.getAllValues();
 
@@ -838,6 +838,35 @@ class TileMapTest {
             assertEquals(expectedWidth, capturedSizes.get(i).getWidth());
             assertEquals(expectedHeight, capturedSizes.get(i).getHeight());
         }
+    }
+
+    @Test
+    void addConfigurableEntityShouldCallTileFactoryWithEntityConfiguration() {
+        // Arrange
+        var configuredTileSut = new TileMap(LOCATION, SIZE) {
+            @Override
+            public void setupEntities() {
+                addEntity(1, YaegerEntity.class, "config");
+            }
+
+            @Override
+            public int[][] defineMap() {
+                return new int[][]{{1}};
+            }
+        };
+
+        var tileFactory = mock(TileFactory.class);
+        configuredTileSut.setTileFactory(tileFactory);
+        ArgumentCaptor<EntityConfiguration> argument = ArgumentCaptor.forClass(EntityConfiguration.class);
+
+        // Act
+        configuredTileSut.activate();
+
+        // Assert
+        verify(tileFactory, times(1)).create(argument.capture(), any(), any());
+        var entityConfiguration = argument.getValue();
+        assertEquals(YaegerEntity.class, entityConfiguration.getEntityClass());
+        assertEquals("config", entityConfiguration.getConfiguration());
     }
 
     private static class TileMapEmptyConstructorImpl extends TileMap {
