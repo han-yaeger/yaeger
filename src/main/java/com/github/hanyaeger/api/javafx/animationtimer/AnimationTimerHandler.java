@@ -1,9 +1,10 @@
 package com.github.hanyaeger.api.javafx.animationtimer;
 
-@FunctionalInterface
+
 /**
  * A Functional Interface to be used for the default handler of a {@link javafx.animation.AnimationTimer}.
  */
+@FunctionalInterface
 public interface AnimationTimerHandler {
     /**
      * Called when a {@link javafx.animation.AnimationTimer} calls its internal {@code handle()}

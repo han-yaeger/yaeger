@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 
 /**
  * A {@link BackgroundFactory} can be used to create instances of {@link javafx.scene.layout.Background}
- * to be used as the background of a {@link Pane}. This can be either an image based background, or a backrgound
+ * to be used as the background of a {@link Pane}. This can be either an image based background, or a background
  * that only contains a fill color.
  */
 public class BackgroundFactory {

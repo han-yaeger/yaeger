@@ -22,7 +22,7 @@ import java.util.Optional;
  * A {@link YaegerEntity} is the base class for all things that can be drawn on a
  * {@link com.github.hanyaeger.api.engine.scenes.YaegerScene}.
  */
-public abstract class YaegerEntity implements Initializable, TimerListProvider, Bounded, Removeable, Placeable, SceneChild, GameNode, Rotatable, EventInitiator {
+public abstract class YaegerEntity implements Initializable, TimerListProvider, Bounded, Removable, Placeable, SceneChild, GameNode, Rotatable, EventInitiator {
 
     static final boolean DEFAULT_VISIBILITY = true;
     static final double DEFAULT_OPACITY = 1;
@@ -66,12 +66,12 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * or {@code false}. Use the method {@link #setOpacity(double)} to set the transparency of
      * the {@link YaegerEntity}.
      *
-     * @param visible a {@code boolean} repesenting the visibility if the {@link YaegerEntity}
+     * @param visible a {@code boolean} representing the visibility if the {@link YaegerEntity}
      */
     public void setVisible(final boolean visible) {
-        getNode().ifPresentOrElse(node -> {
-            node.setVisible(visible);
-        }, () -> this.visible = visible);
+        getNode().ifPresentOrElse(node ->
+                        node.setVisible(visible)
+                , () -> this.visible = visible);
     }
 
     /**
@@ -80,11 +80,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * @return the visibility of this {@link YaegerEntity} as a {@code boolean}
      */
     public boolean isVisible() {
-        if (getNode().isPresent()) {
-            return getNode().get().isVisible();
-        } else {
-            return visible;
-        }
+        return getNode().map(Node::isVisible).orElse(visible);
     }
 
     /**
@@ -98,9 +94,9 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * @param opacity a {@code double} between 0 and 1
      */
     public void setOpacity(final double opacity) {
-        getNode().ifPresentOrElse(node -> {
-            node.setOpacity(opacity);
-        }, () -> this.opacity = opacity);
+        getNode().ifPresentOrElse(node ->
+                        node.setOpacity(opacity)
+                , () -> this.opacity = opacity);
     }
 
     /**
@@ -114,11 +110,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * @return the opacity of this {@link YaegerEntity}
      */
     public double getOpacity() {
-        if (getNode().isPresent()) {
-            return getNode().get().getOpacity();
-        } else {
-            return opacity;
-        }
+        return getNode().map(Node::getOpacity).orElse(opacity);
     }
 
     /**
@@ -144,9 +136,9 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     }
 
     /**
-     * Computes the angle (in degrees) between the unit vector that originates at the reference
-     * point of this {@link YaegerEntity} and the vector with its origin at that same reference point
-     * that points towards the reference point of the specified {@link YaegerEntity}. Note that the unit
+     * Computes the angle (in degrees) between the unit vector that originates at the {@link #getAnchorLocation()}
+     * point of this {@link YaegerEntity} and the vector with its origin at that same  {@link #getAnchorLocation()}
+     * that points towards the {@link #getAnchorLocation()} of the specified {@link YaegerEntity}. Note that the unit
      * vector points downwards, so:
      *
      * <ul>
@@ -163,7 +155,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * @param entity the {@link YaegerEntity} of the other vector
      * @return the angle between the two vectors measured in degrees,
      * {@code NaN} if any of the two vectors is a zero vector
-     * @throws NullPointerException if the specified {@code location} is null
+     * @throws NullPointerException if the specified {@code location} is {@code null}
      */
     public double angleTo(final YaegerEntity entity) {
         if (this.equals(entity)) {
@@ -173,8 +165,8 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     }
 
     /**
-     * Computes the angle (in degrees) between the unit vector that originates at the reference
-     * point of this {@link YaegerEntity} and the vector with its origin at that same reference point
+     * Computes the angle (in degrees) between the unit vector that originates at the {@link #getAnchorLocation()}
+     * of this {@link YaegerEntity} and the vector with its origin at that same {@link #getAnchorLocation()}
      * that points towards the specified {@link Coordinate2D}. Note that the unit vector points downwards,
      * so:
      *

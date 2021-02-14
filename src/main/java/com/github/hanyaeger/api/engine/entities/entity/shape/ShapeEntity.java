@@ -95,10 +95,10 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
     @Override
     public void init(final Injector injector) {
         super.init(injector);
-        shape.ifPresent(shape -> {
-            fill.ifPresent(shape::setFill);
-            strokeColor.ifPresent(shape::setStroke);
-            strokeWidth.ifPresent(shape::setStrokeWidth);
+        shape.ifPresent(s -> {
+            fill.ifPresent(s::setFill);
+            strokeColor.ifPresent(s::setStroke);
+            strokeWidth.ifPresent(s::setStrokeWidth);
         });
     }
 

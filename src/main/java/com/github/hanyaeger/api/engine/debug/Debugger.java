@@ -24,7 +24,7 @@ public class Debugger implements StatisticsObserver {
     private static final String ENTITIES_STATIC = "Static Entities:";
     private static final String SUPPLIERS = "Suppliers:";
     private static final String GARBAGE = "Garbage:";
-    private static final String KEYLISTENERS = "Keylistening Entities:";
+    private static final String KEY_LISTENERS = "Key listening Entities:";
     private static final String AUDIO_FILES = "Audio files";
     private static final String IMAGE_FILES = "Image files";
 
@@ -51,14 +51,14 @@ public class Debugger implements StatisticsObserver {
     }
 
     /**
-     * Ensure that the {@link Debugger} is brought to the top of the viewstack.
+     * Ensure that the {@link Debugger} is brought to the top of the view stack.
      */
     public void toFront() {
         gridpane.toFront();
     }
 
     /**
-     * Toggle the visibillity of the {@link Debugger}.
+     * Toggle the visibility of the {@link Debugger}.
      */
     public void toggle() {
         gridpane.setVisible(!gridpane.isVisible());
@@ -117,7 +117,7 @@ public class Debugger implements StatisticsObserver {
         staticEntities = addDebugLine(ENTITIES_STATIC);
         entitySpawners = addDebugLine(SUPPLIERS);
         garbageEntities = addDebugLine(GARBAGE);
-        keyListeningEntities = addDebugLine(KEYLISTENERS);
+        keyListeningEntities = addDebugLine(KEY_LISTENERS);
     }
 
     private void addResourcesStatistics() {
@@ -131,9 +131,9 @@ public class Debugger implements StatisticsObserver {
 
     private Label addDebugLine(String label, String value) {
         Label debugValue = debugLabelFactory.createValue(value);
-        int nextrow = gridpane.getRowCount() + 1;
-        gridpane.add(debugLabelFactory.createLabel(label), 0, nextrow);
-        gridpane.add(debugValue, 1, nextrow);
+        int nextRow = gridpane.getRowCount() + 1;
+        gridpane.add(debugLabelFactory.createLabel(label), 0, nextRow);
+        gridpane.add(debugValue, 1, nextRow);
 
         return debugValue;
     }

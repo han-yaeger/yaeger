@@ -64,24 +64,6 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
     }
 
     /**
-     * Return the {@code height} of this {@link RectangleEntity}.
-     *
-     * @return the {@code height} as a {@code double}
-     */
-    public double getHeight() {
-        return shape.map(Rectangle::getHeight).orElse(height);
-    }
-
-    /**
-     * Return the  {@code width} of this {@link RectangleEntity}.
-     *
-     * @return the {@code width} as a {@code double}
-     */
-    public double getWidth() {
-        return shape.map(Rectangle::getWidth).orElse(width);
-    }
-
-    /**
      * Set the height of the arc corner of the rectangle.
      *
      * @param arcHeight the {@code height} of the arc corner of the rectangle as a {@code double}
@@ -115,6 +97,16 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
      */
     public double getArcWidth() {
         return shape.map(Rectangle::getArcWidth).orElse(arcWidth);
+    }
+
+    @Override
+    public double getHeight() {
+        return shape.map(Rectangle::getHeight).orElse(height);
+    }
+
+    @Override
+    public double getWidth() {
+        return shape.map(Rectangle::getWidth).orElse(width);
     }
 
     @Override

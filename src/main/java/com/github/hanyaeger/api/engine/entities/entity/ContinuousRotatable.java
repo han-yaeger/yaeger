@@ -30,12 +30,11 @@ public interface ContinuousRotatable extends Rotatable {
 
     @UpdatableProvider
     default Updatable applyRotation() {
-        return timestamp -> {
+        return timestamp ->
             getNode().ifPresent(node -> {
                 if (Double.compare(getRotationSpeed(), 0d) != 0) {
                     setRotate(-node.getRotate() + getRotationSpeed());
                 }
             });
-        };
     }
 }

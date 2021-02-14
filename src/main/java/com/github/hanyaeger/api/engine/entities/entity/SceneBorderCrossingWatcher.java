@@ -2,7 +2,7 @@ package com.github.hanyaeger.api.engine.entities.entity;
 
 import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.annotations.UpdatableProvider;
-import com.github.hanyaeger.api.engine.entities.entity.motion.Moveable;
+import com.github.hanyaeger.api.engine.entities.entity.motion.Movable;
 import com.github.hanyaeger.api.engine.scenes.SceneBorder;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
 
@@ -11,7 +11,7 @@ import com.github.hanyaeger.api.engine.scenes.YaegerScene;
  * In that case, the method {@link SceneBorderCrossingWatcher#notifyBoundaryCrossing(SceneBorder)}
  * will be called.
  */
-public interface SceneBorderCrossingWatcher extends Bounded, SceneChild, Moveable {
+public interface SceneBorderCrossingWatcher extends Bounded, SceneChild, Movable {
 
     /**
      * This method is being called when this {@link SceneBorderCrossingWatcher} crosses a border of the {@link YaegerScene}.

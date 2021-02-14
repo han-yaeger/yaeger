@@ -11,17 +11,17 @@ import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
-class BufferedMoveableTest {
+class BufferedMovableTest {
 
     public static final int SPEED = 37;
     public static final int DIRECTION = 42;
     public static final Direction DIRECTION_ENUM = Direction.DOWN;
-    private BufferedMoveableImpl sut;
+    private BufferedMovableImpl sut;
     private MotionApplier motionApplier;
 
     @BeforeEach
     void setup() {
-        sut = new BufferedMoveableImpl();
+        sut = new BufferedMovableImpl();
         motionApplier = mock(MotionApplier.class);
     }
 
@@ -135,7 +135,7 @@ class BufferedMoveableTest {
         }
     }
 
-    private static class BufferedMoveableImpl implements BufferedMoveable {
+    private static class BufferedMovableImpl implements BufferedMovable {
 
         private Optional<EntityMotionInitBuffer> buffer;
         private MotionApplier motionApplier;

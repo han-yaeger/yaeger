@@ -113,7 +113,7 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      * <li>270 to the left</li>
      * </ul>
      * <p>
-     * If one of the values above is set, it is more convinient to use the method {@link #setDirection(Direction)},
+     * If one of the values above is set, it is more convenient to use the method {@link #setDirection(Direction)},
      * which accepts a {@link Direction} as its parameter.
      *
      * @param direction the direction in degrees as a {@code double}

@@ -3,12 +3,15 @@ package com.github.hanyaeger.api.engine.entities.entity;
 import com.github.hanyaeger.api.engine.scenes.DimensionsProvider;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
+import javafx.scene.Node;
 
 /**
  * Implementing this interface exposes the {@link Bounded#getBoundingBox()} and  method, which returns the bounds, aka
  * Bounding Box, of this Entity.
  */
 public interface Bounded extends DimensionsProvider, GameNode {
+
+    BoundingBox EMPTY_BB = new BoundingBox(0, 0, 0, 0);
 
     /**
      * Return the {@link Bounds} (Bounding Box) within the {@link com.github.hanyaeger.api.engine.scenes.YaegerScene} after
@@ -20,19 +23,11 @@ public interface Bounded extends DimensionsProvider, GameNode {
      * @return the {@link Bounds}
      */
     default Bounds getBoundingBox() {
-        if (getNode().isPresent()) {
-            return getNode().get().localToScene(getNode().get().getBoundsInLocal(), true);
-        } else {
-            return new BoundingBox(0, 0, 0, 0);
-        }
+        return getNode().map(node -> node.localToScene(node.getBoundsInLocal(), true)).orElse(EMPTY_BB);
     }
 
     private Bounds getBounds() {
-        if (getNode().isPresent()) {
-            return getNode().get().getBoundsInParent();
-        } else {
-            return new BoundingBox(0, 0, 0, 0);
-        }
+        return getNode().map(Node::getBoundsInParent).orElse(EMPTY_BB);
     }
 
     @Override

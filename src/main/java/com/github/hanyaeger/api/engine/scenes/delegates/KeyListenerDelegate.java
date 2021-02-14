@@ -8,9 +8,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * A {@link KeyListenerDelegate} follows the Delegate pattern and embraces Composition over Inheritence.
+ * A {@link KeyListenerDelegate} follows the Delegate pattern and embraces Composition over Inheritance.
  * <p>
- * It can be used to attach and remove keyListerners to a {@link Scene}.
+ * It can be used to attach and remove keyListeners to a {@link Scene}.
  */
 public class KeyListenerDelegate {
 

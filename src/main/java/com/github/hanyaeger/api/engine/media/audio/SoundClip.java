@@ -17,7 +17,7 @@ public class SoundClip {
 
     /**
      * When instantiating a {@link SoundClip}, the value of the constructor parameter {@code cycleCount} can
-     * be used to set the number of times the audio file should be played. When the constant {#link {@link #INDEFINITE}
+     * be used to set the number of times the audio file should be played. When the constant {#link #INDEFINITE}
      * is used, the file be played in ann infinite loop.
      */
     public static final int INDEFINITE = AudioClip.INDEFINITE;

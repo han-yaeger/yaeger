@@ -6,7 +6,6 @@ import com.github.hanyaeger.api.engine.scenes.YaegerScene;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import javafx.geometry.VPos;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -26,17 +25,17 @@ public class TextEntity extends ShapeEntity<Text> {
      *
      * @param initialLocation the initial {@link Coordinate2D} of this {@link TextEntity}
      */
-    protected TextEntity(final Coordinate2D initialLocation) {
+    public TextEntity(final Coordinate2D initialLocation) {
         this(initialLocation, "");
     }
 
     /**
-     * Crwate a new {@link TextEntity} on the given {@link Point2D} for the given text.
+     * Create a new {@link TextEntity} on the given {@link Point2D} for the given text.
      *
      * @param initialLocation the initial {@link Coordinate2D} of this {@link TextEntity}
      * @param text            a {@link String} containing the initial text to be displayed
      */
-    protected TextEntity(final Coordinate2D initialLocation, final String text) {
+    public TextEntity(final Coordinate2D initialLocation, final String text) {
         super(initialLocation);
         this.text = text;
     }
@@ -47,7 +46,7 @@ public class TextEntity extends ShapeEntity<Text> {
      * @param displayText the {@link String} that should be shown
      */
     public void setText(final String displayText) {
-        shape.ifPresentOrElse(text -> text.setText(displayText), () -> this.text = displayText);
+        shape.ifPresentOrElse(t -> t.setText(displayText), () -> this.text = displayText);
     }
 
     /**
@@ -72,7 +71,7 @@ public class TextEntity extends ShapeEntity<Text> {
      * @param font the {@link Font} to be used
      */
     public void setFont(final Font font) {
-        shape.ifPresentOrElse(text -> text.setFont(font), () -> this.font = font);
+        shape.ifPresentOrElse(t -> t.setFont(font), () -> this.font = font);
     }
 
     /**
@@ -87,9 +86,9 @@ public class TextEntity extends ShapeEntity<Text> {
     @Override
     public final void setAnchorLocation(final Coordinate2D anchorLocation) {
         super.setAnchorLocation(anchorLocation);
-        shape.ifPresent(text -> {
-            text.setX(anchorLocation.getX());
-            text.setY(anchorLocation.getY());
+        shape.ifPresent(t -> {
+            t.setX(anchorLocation.getX());
+            t.setY(anchorLocation.getY());
         });
     }
 
@@ -97,10 +96,10 @@ public class TextEntity extends ShapeEntity<Text> {
     public void init(final Injector injector) {
         super.init(injector);
 
-        shape.ifPresent(shape -> {
-            shape.setTextOrigin(VPos.TOP);
-            shape.setText(text);
-            shape.setFont(font);
+        shape.ifPresent(t -> {
+            t.setTextOrigin(VPos.TOP);
+            t.setText(text);
+            t.setFont(font);
         });
     }
 }

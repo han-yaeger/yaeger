@@ -1,6 +1,6 @@
 package com.github.hanyaeger.api.engine.entities.entity.collisions;
 
-import com.github.hanyaeger.api.engine.entities.entity.Removeable;
+import com.github.hanyaeger.api.engine.entities.entity.Removable;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 
 import java.util.ArrayList;
@@ -63,16 +63,16 @@ public class CollisionDelegate {
     }
 
     /**
-     * Remove the {@link Removeable} from the list of Objects that are taken into account
+     * Remove the {@link Removable} from the list of Objects that are taken into account
      *
-     * @param removeable The {@link Removeable} that should be removed.
+     * @param removable The {@link Removable} that should be removed.
      */
-    public void remove(final Removeable removeable) {
-        if (removeable instanceof Collider) {
-            removeCollider((Collider) removeable);
+    public void remove(final Removable removable) {
+        if (removable instanceof Collider) {
+            removeCollider((Collider) removable);
         }
-        if (removeable instanceof Collided) {
-            removeCollided((Collided) removeable);
+        if (removable instanceof Collided) {
+            removeCollided((Collided) removable);
         }
     }
 

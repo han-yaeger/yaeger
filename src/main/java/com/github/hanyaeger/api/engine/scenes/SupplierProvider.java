@@ -8,9 +8,9 @@ import com.github.hanyaeger.api.engine.entities.EntitySupplier;
 public interface SupplierProvider {
 
     /**
-     * Return the {@link EntitySupplier} that is provided by this {@link SupplierProvider#getEntitySupplier()}.
+     * Return the {@link EntitySupplier} that is provided by this {@link SupplierProvider}.
      *
-     * @return the {@link EntitySupplier} that is provided by this {@link SupplierProvider#getEntitySupplier()}
+     * @return the {@link EntitySupplier} that is provided by this {@link SupplierProvider}
      */
     EntitySupplier getEntitySupplier();
 }

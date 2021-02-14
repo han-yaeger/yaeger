@@ -8,7 +8,7 @@ import javafx.animation.AnimationTimer;
  */
 public abstract class TimeableAnimationTimer extends AnimationTimer {
 
-    private long interval = 0;
+    private final long interval;
     private long prevTime = 0;
 
     /**

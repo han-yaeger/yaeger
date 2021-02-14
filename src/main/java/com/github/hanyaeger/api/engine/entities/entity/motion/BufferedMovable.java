@@ -3,7 +3,7 @@ package com.github.hanyaeger.api.engine.entities.entity.motion;
 import java.util.Optional;
 
 /**
- * A {@link BufferedMoveable} extends the interface {@link Moveable} and support the use of a buffer.
+ * A {@link BufferedMovable} extends the interface {@link Movable} and support the use of a buffer.
  * With dependency injection, a {@link MotionApplier} is injected into a {@link com.github.hanyaeger.api.engine.entities.entity.YaegerEntity}.
  * The main problem is, however, that this injection takes place after the constructor has been called.
  * Hence it would not be possible to set the speed, direction and physics related properties of a {@link com.github.hanyaeger.api.engine.entities.entity.YaegerEntity}
@@ -12,7 +12,7 @@ import java.util.Optional;
  * This problem is resolved by introduction of a {@link EntityMotionInitBuffer}, which buffers the values set before the
  * dependencies are injected.
  */
-public interface BufferedMoveable extends Moveable {
+public interface BufferedMovable extends Movable {
 
     @Override
     default void setSpeed(final double newSpeed) {
@@ -41,14 +41,14 @@ public interface BufferedMoveable extends Moveable {
 
     /**
      * Return the {@link EntityMotionInitBuffer} encapsulated in an {@link Optional} to
-     * be used by this {@link BufferedMoveable}.
+     * be used by this {@link BufferedMovable}.
      *
      * @return an {@link EntityMotionInitBuffer} encapsulated in an {@link Optional}
      */
     Optional<EntityMotionInitBuffer> getBuffer();
 
     /**
-     * Return the {@link MotionApplier} to be used by this {@link BufferedMoveable}.
+     * Return the {@link MotionApplier} to be used by this {@link BufferedMovable}.
      *
      * @return an instance of {@link MotionApplier}
      */

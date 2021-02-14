@@ -16,11 +16,7 @@ public interface SceneChild extends GameNode {
      * @return the width of this {@link YaegerScene} as a {@code double}
      */
     default double getSceneWidth() {
-        if (getNode().isPresent()) {
-            return getNode().get().getScene().getWidth();
-        } else {
-            return 0;
-        }
+        return getNode().map(node -> node.getScene().getWidth()).orElse(0D);
     }
 
     /**
@@ -30,10 +26,6 @@ public interface SceneChild extends GameNode {
      * @return the height of this {@link YaegerScene} as a {@code double}
      */
     default double getSceneHeight() {
-        if (getNode().isPresent()) {
-            return getNode().get().getScene().getHeight();
-        } else {
-            return 0;
-        }
+        return getNode().map(node -> node.getScene().getHeight()).orElse(0D);
     }
 }

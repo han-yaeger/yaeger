@@ -17,7 +17,7 @@ import java.util.Optional;
  * A {@link DynamicSpriteEntity} extends all behaviour of a {@link SpriteEntity}, but also implements the
  * {@link Updatable} Interface.
  */
-public abstract class DynamicSpriteEntity extends SpriteEntity implements UpdateDelegator, BufferedMoveable, ContinuousRotatable {
+public abstract class DynamicSpriteEntity extends SpriteEntity implements UpdateDelegator, BufferedMovable, ContinuousRotatable {
 
     private MotionApplier motionApplier;
     private long autoCycleInterval = 0;

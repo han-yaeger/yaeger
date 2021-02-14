@@ -16,7 +16,7 @@ import java.util.Optional;
  * An {@link DynamicCircleEntity} extends all behaviour of a {@link CircleEntity}, but also implements the
  * {@link Updatable} Interface.
  */
-public abstract class DynamicCircleEntity extends CircleEntity implements UpdateDelegator, BufferedMoveable, ContinuousRotatable {
+public abstract class DynamicCircleEntity extends CircleEntity implements UpdateDelegator, BufferedMovable, ContinuousRotatable {
 
     private MotionApplier motionApplier;
     private Updater updater;

@@ -62,7 +62,7 @@ class YaegerConfigTest {
         var sut = new YaegerConfig();
 
         // Act & Assert
-        assertNotEquals(sut, null);
+        assertNotEquals(null, sut);
     }
 
     @Test

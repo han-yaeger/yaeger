@@ -13,7 +13,7 @@ import java.util.*;
 @Singleton
 public class AudioRepository implements ResourceConsumer, Destroyable {
 
-    private static final String CYCLECOUNT = "-cyclecount-";
+    private static final String CYCLE_COUNT = "-cyclecount-";
 
     private final Map<String, AudioClip> audioMap = new WeakHashMap<>();
 
@@ -47,7 +47,7 @@ public class AudioRepository implements ResourceConsumer, Destroyable {
     public AudioClip get(final String audiofile, int cycleCount) {
         var key = audiofile;
         if (cycleCount != 0) {
-            key = audiofile + CYCLECOUNT + cycleCount;
+            key = audiofile + CYCLE_COUNT + cycleCount;
         }
         if (audioMap.containsKey(key)) {
             return audioMap.get(key);
