@@ -95,11 +95,11 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
      *                    a {@link Size}. If such a constructor is not present, an {@link YaegerEngineException} will be thrown.
      */
     public void addEntity(final int identifier, final Class<? extends YaegerEntity> entityClass) {
-        entities.put(identifier, new EntityConfiguration(entityClass));
+        entities.put(identifier, new EntityConfiguration<>(entityClass));
     }
 
-    public <C extends Object> void addEntity(final int identifier, final Class<? extends YaegerEntity> entityClass, C configuration) {
-        entities.put(identifier, new EntityConfiguration(entityClass, configuration));
+    public <C> void addEntity(final int identifier, final Class<? extends YaegerEntity> entityClass, C configuration) {
+        entities.put(identifier, new EntityConfiguration<>(entityClass, configuration));
     }
 
     private void transformMapToEntities() {

@@ -4,20 +4,21 @@ import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 
 /**
  * A wrapper class that allows entities to be configured using a generic configuration object.
- *  * This configuration object can be passed to the entity's constructor for custom configuration.
+ * This configuration object can be passed to the entity's constructor for custom configuration.
+ *
  * @param <C> the type of the configuration object
  */
 class EntityConfiguration<C> {
 
-    private Class<? extends YaegerEntity> entityClass;
-    private C configuration;
+    private final Class<? extends YaegerEntity> entityClass;
+    private final C configuration;
 
-    EntityConfiguration(Class<? extends YaegerEntity> entityClass) {
-        this.entityClass = entityClass;
+    EntityConfiguration(final Class<? extends YaegerEntity> entityClass) {
+        this(entityClass, null);
     }
 
-    EntityConfiguration(Class<? extends YaegerEntity> entityClass, C configuration) {
-        this(entityClass);
+    EntityConfiguration(final Class<? extends YaegerEntity> entityClass, final C configuration) {
+        this.entityClass = entityClass;
         this.configuration = configuration;
     }
 
@@ -25,15 +26,7 @@ class EntityConfiguration<C> {
         return entityClass;
     }
 
-    void setEntityClass(Class<? extends YaegerEntity> entityClass) {
-        this.entityClass = entityClass;
-    }
-
     C getConfiguration() {
         return configuration;
-    }
-
-    void setConfiguration(C configuration) {
-        this.configuration = configuration;
     }
 }
