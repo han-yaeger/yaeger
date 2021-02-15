@@ -28,7 +28,8 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     private SpriteAnimationDelegateFactory spriteAnimationDelegateFactory;
     private ImageRepository imageRepository;
     private ImageViewFactory imageViewFactory;
-    private final int frames;
+    private final int rows;
+    private final int columns;
     private Optional<Integer> spriteIndex = Optional.empty();
     protected Optional<ImageView> imageView = Optional.empty();
     protected Optional<SpriteAnimationDelegate> spriteAnimationDelegate = Optional.empty();
@@ -88,14 +89,15 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     @Override
     public void init(final Injector injector) {
         if (size != null) {
-            var requestedWidth = size.getWidth() * frames;
-            imageView = Optional.of(createImageView(resource, requestedWidth, size.getHeight(), preserveAspectRatio));
+            var requestedWidth = size.getWidth() * columns;
+            var requestedHeight = size.getHeight() * rows;
+            imageView = Optional.of(createImageView(resource, requestedWidth, requestedHeight, preserveAspectRatio));
         } else {
             imageView = Optional.of(createImageView(resource));
         }
 
-        if (frames > 1) {
-            spriteAnimationDelegate = Optional.of(spriteAnimationDelegateFactory.create(imageView.get(), frames));
+        if (rows > 1 || columns > 1) {
+            spriteAnimationDelegate = Optional.of(spriteAnimationDelegateFactory.create(imageView.get(), rows, columns));
         }
 
         spriteIndex.ifPresent(index -> spriteAnimationDelegate.ifPresent(sad -> sad.setSpriteIndex(index)));
@@ -137,7 +139,7 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      * @return the number of frames as an {@code int}
      */
     protected int getFrames() {
-        return frames;
+        return rows * columns;
     }
 
     private ImageView createImageView(final String resource) {
