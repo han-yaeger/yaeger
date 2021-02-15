@@ -21,6 +21,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
 
     private MotionApplier motionApplier;
     private long autoCycleInterval = 0;
+    private int cyclingRow = -1;
     private Updater updater;
     private Optional<EntityMotionInitBuffer> buffer;
     private double rotationAngle;
@@ -74,7 +75,20 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      * @param interval the interval milli-seconds
      */
     protected void setAutoCycle(final long interval) {
+        setAutoCycle(interval, -1);
+    }
+
+    /**
+     * Set the interval at which the sprite should be automatically cycled.
+     * The sprite will cycle through one row of sprites, from left to right.
+     *
+     * @param interval the interval milli-seconds
+     * @param row the row to cycle through
+     */
+    protected void setAutoCycle(final long interval, final int row) {
         this.autoCycleInterval = interval;
+        this.cyclingRow = row;
+        spriteAnimationDelegate.ifPresent(delegate -> delegate.setAutoCycle(interval, row));
     }
 
     @Override
@@ -94,7 +108,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
         spriteAnimationDelegate.ifPresent(delegate -> {
             updater.addUpdatable(delegate);
             if (getFrames() > 1 && autoCycleInterval != 0) {
-                delegate.setAutoCycle(autoCycleInterval);
+                delegate.setAutoCycle(autoCycleInterval, cyclingRow);
             }
         });
 

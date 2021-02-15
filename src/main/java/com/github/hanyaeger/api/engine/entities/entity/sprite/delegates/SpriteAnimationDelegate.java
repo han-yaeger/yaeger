@@ -13,11 +13,15 @@ import java.util.stream.IntStream;
  */
 public class SpriteAnimationDelegate implements Updatable {
 
+    private final int rows;
+    private final int columns;
+
     private long previousCycleTime = 0;
     private long autoCycleInterval = 0;
     private final ImageView imageView;
     private final List<Rectangle2D> viewports = new ArrayList<>();
     private int currentIndex = 0;
+    private int cyclingRow = -1;
 
     /**
      * Create a new {@code SpriteAnimationDelegate} for the given {@link ImageView} and number of frames.
@@ -41,6 +45,8 @@ public class SpriteAnimationDelegate implements Updatable {
      */
     public SpriteAnimationDelegate(final ImageView imageView, final int rows, final int columns) {
         this.imageView = imageView;
+        this.rows = rows;
+        this.columns = columns;
 
         createViewPorts(rows, columns);
         setSpriteIndex(0);
@@ -89,10 +95,30 @@ public class SpriteAnimationDelegate implements Updatable {
     }
 
     /**
+     * Set the interval at which the sprite should be automatically cycled
+     * and which row to cycle through.
+     *
+     * @param interval the interval milli-seconds
+     * @param row the row to cycle through (zero-indexed)
+     */
+    public void setAutoCycle(final long interval, final int row) {
+        this.autoCycleInterval = interval * 1000000;
+        this.cyclingRow = row;
+        currentIndex = cyclingRow * columns;
+        // TODO: Throw exception when row doesn't exist
+    }
+
+    /**
      * Set the next index of the sprite.
      */
     public void next() {
-        setSpriteIndex(++currentIndex);
+        System.out.println(String.format("Cycling row: %d, current index: %d", cyclingRow, currentIndex));
+        final int lastIndexOfTheRow = cyclingRow * columns + columns - 1;
+        if (cyclingRow == -1 || currentIndex < lastIndexOfTheRow) {
+            setSpriteIndex(++currentIndex);
+        } else {
+            setSpriteIndex(cyclingRow * columns);
+        }
     }
 
     private void createViewPorts(final int rows, final int columns) {
