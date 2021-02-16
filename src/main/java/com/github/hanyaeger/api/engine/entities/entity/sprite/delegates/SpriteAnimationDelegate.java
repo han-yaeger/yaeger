@@ -48,7 +48,7 @@ public class SpriteAnimationDelegate implements Updatable {
         this.rows = rows;
         this.columns = columns;
 
-        createViewPorts(rows, columns);
+        createViewPorts();
         setSpriteIndex(0);
     }
 
@@ -121,9 +121,9 @@ public class SpriteAnimationDelegate implements Updatable {
         }
     }
 
-    private void createViewPorts(final int rows, final int columns) {
-        var frameWidth = getFrameWidth(columns);
-        var frameHeight = getFrameHeight(rows);
+    private void createViewPorts() {
+        var frameWidth = getFrameWidth();
+        var frameHeight = getFrameHeight();
 
         for (int row = 0; row < rows; row++) {
             for (int column = 0; column < columns; column++) {
@@ -136,11 +136,11 @@ public class SpriteAnimationDelegate implements Updatable {
         viewports.add(new Rectangle2D(column * frameWidth, row * frameHeight, frameWidth, frameHeight));
     }
 
-    private double getFrameWidth(final int columns) {
+    private double getFrameWidth() {
         return imageView.getImage().getWidth() / columns;
     }
 
-    private double getFrameHeight(final int rows) {
+    private double getFrameHeight() {
         return imageView.getImage().getHeight() / rows;
     }
 }
