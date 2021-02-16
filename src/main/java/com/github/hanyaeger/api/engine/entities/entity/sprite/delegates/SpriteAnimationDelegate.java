@@ -27,18 +27,6 @@ public class SpriteAnimationDelegate implements Updatable {
             " this sprite only has %d rows. Rows and columns are zero-indexed.";
 
     /**
-     * Create a new {@code SpriteAnimationDelegate} for the given {@link ImageView} and number of frames.
-     * After construction, the spriteIndex will be set to the first frame.
-     *
-     * @param imageView the {@link ImageView} for which the different frames should be created
-     * @param frames    the number of frames available
-     */
-    @Deprecated
-    public SpriteAnimationDelegate(final ImageView imageView, final int frames) {
-        this(imageView, 1, frames);
-    }
-
-    /**
      * Create a new {@code SpriteAnimationDelegate} for the given {@link ImageView} and number of rows and columns.
      * After construction, the spriteIndex will be set to the first frame (top-left).
      *
@@ -119,7 +107,6 @@ public class SpriteAnimationDelegate implements Updatable {
      * Set the next index of the sprite.
      */
     public void next() {
-        System.out.println(String.format("Cycling row: %d, current index: %d", cyclingRow, currentIndex));
         final int lastIndexOfTheRow = cyclingRow * columns + columns - 1;
         if (cyclingRow == -1 || currentIndex < lastIndexOfTheRow) {
             setSpriteIndex(++currentIndex);

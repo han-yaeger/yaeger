@@ -43,7 +43,7 @@ class SpriteEntityTest {
         when(imageViewFactory.create(defaultImage)).thenReturn(imageView);
         spriteAnimationDelegate = mock(SpriteAnimationDelegate.class);
         spriteAnimationDelegateFactory = mock(SpriteAnimationDelegateFactory.class);
-        when(spriteAnimationDelegateFactory.create(any(ImageView.class), anyInt())).thenReturn(spriteAnimationDelegate);
+        when(spriteAnimationDelegateFactory.create(any(ImageView.class), anyInt(), anyInt())).thenReturn(spriteAnimationDelegate);
 
         imageRepository = mock(ImageRepository.class);
         when(imageRepository.get(DEFAULT_RESOURCE)).thenReturn(defaultImage);
@@ -190,7 +190,7 @@ class SpriteEntityTest {
             when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * FRAMES, HEIGHT, true)).thenReturn(image);
             imageView = mock(ImageView.class);
             when(imageViewFactory.create(image)).thenReturn(imageView);
-            when(spriteAnimationDelegateFactory.create(imageView, FRAMES)).thenReturn(spriteAnimationDelegate);
+            when(spriteAnimationDelegateFactory.create(imageView, 1, FRAMES)).thenReturn(spriteAnimationDelegate);
 
             sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
             sut.setImageRepository(imageRepository);
@@ -205,7 +205,7 @@ class SpriteEntityTest {
             sut.init(injector);
 
             // Assert
-            verify(spriteAnimationDelegateFactory).create(imageView, 2);
+            verify(spriteAnimationDelegateFactory).create(imageView, 1, 2);
         }
 
         @Test
@@ -270,6 +270,41 @@ class SpriteEntityTest {
         }
     }
 
+    @Nested
+    class GridSprite {
+
+        private SpriteEntityImpl sut;
+
+        private static final int ROWS = 3;
+        private static final int COLUMNS = 4;
+
+        @BeforeEach
+        void setup() {
+            sut = new SpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, ROWS, COLUMNS);
+
+            var image = mock(Image.class);
+            when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * COLUMNS, HEIGHT * ROWS, true)).thenReturn(image);
+            imageView = mock(ImageView.class);
+            when(imageViewFactory.create(image)).thenReturn(imageView);
+            when(spriteAnimationDelegateFactory.create(imageView, ROWS, COLUMNS)).thenReturn(spriteAnimationDelegate);
+
+            sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+            sut.setImageRepository(imageRepository);
+            sut.setImageViewFactory(imageViewFactory);
+        }
+
+        @Test
+        void getFramesShouldReturnRowsTimesColumns() {
+            // Arrange
+
+            // Act
+            var result = sut.getFrames();
+
+            // Assert
+            assertEquals(ROWS * COLUMNS, result);
+        }
+    }
+
     private class SpriteEntityImpl extends SpriteEntity {
 
         SpriteEntityImpl(String resource, Coordinate2D location) { super(resource, location);}
@@ -280,6 +315,10 @@ class SpriteEntityTest {
 
         SpriteEntityImpl(String resource, Coordinate2D location, Size size, int frames) {
             super(resource, location, size, frames);
+        }
+
+        SpriteEntityImpl(String resource, Coordinate2D location, Size size, int rows, int columns) {
+            super(resource, location, size, rows, columns);
         }
     }
 }

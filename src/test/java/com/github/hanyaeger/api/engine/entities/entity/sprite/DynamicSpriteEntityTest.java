@@ -84,7 +84,7 @@ class DynamicSpriteEntityTest {
         when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
 
         when(imageViewFactory.create(image)).thenReturn(imageView);
-        when(spriteAnimationDelegateFactory.create(imageView, 1)).thenReturn(spriteAnimationDelegate);
+        when(spriteAnimationDelegateFactory.create(imageView, 1, 1)).thenReturn(spriteAnimationDelegate);
 
         sut.setMotionApplier(motionApplier);
 
@@ -109,7 +109,7 @@ class DynamicSpriteEntityTest {
         when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
 
         when(imageViewFactory.create(image)).thenReturn(imageView);
-        when(spriteAnimationDelegateFactory.create(imageView, 1)).thenReturn(spriteAnimationDelegate);
+        when(spriteAnimationDelegateFactory.create(imageView, 1, 1)).thenReturn(spriteAnimationDelegate);
 
         sut.setMotionApplier(motionApplier);
         sut.setMotion(SPEED, DIRECTION);
@@ -150,7 +150,7 @@ class DynamicSpriteEntityTest {
         when(imageRepository.get(DEFAULT_RESOURCE, WIDTH, HEIGHT, true)).thenReturn(image);
 
         when(imageViewFactory.create(image)).thenReturn(imageView);
-        when(spriteAnimationDelegateFactory.create(imageView, 1)).thenReturn(spriteAnimationDelegate);
+        when(spriteAnimationDelegateFactory.create(imageView, 1, 1)).thenReturn(spriteAnimationDelegate);
 
         sut.setAutoCycle(autocycleValue);
 
@@ -178,13 +178,13 @@ class DynamicSpriteEntityTest {
         when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * frames, HEIGHT, true)).thenReturn(image);
 
         when(imageViewFactory.create(image)).thenReturn(imageView);
-        when(spriteAnimationDelegateFactory.create(imageView, frames)).thenReturn(spriteAnimationDelegate);
+        when(spriteAnimationDelegateFactory.create(imageView, 1, frames)).thenReturn(spriteAnimationDelegate);
 
         // Act
         sut.init(injector);
 
         // Assert
-        verify(spriteAnimationDelegate).setAutoCycle(2);
+        verify(spriteAnimationDelegate).setAutoCycle(2, -1);
     }
 
     @Test
