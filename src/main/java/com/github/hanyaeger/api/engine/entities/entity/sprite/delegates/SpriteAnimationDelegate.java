@@ -23,6 +23,9 @@ public class SpriteAnimationDelegate implements Updatable {
     private int currentIndex = 0;
     private int cyclingRow = -1;
 
+    private static final String INVALID_ROW_EXCEPTION = "Cannot auto-cycle through row %d because" +
+            " this sprite only has %d rows. Rows and columns are zero-indexed.";
+
     /**
      * Create a new {@code SpriteAnimationDelegate} for the given {@link ImageView} and number of frames.
      * After construction, the spriteIndex will be set to the first frame.
@@ -102,10 +105,14 @@ public class SpriteAnimationDelegate implements Updatable {
      * @param row the row to cycle through (zero-indexed)
      */
     public void setAutoCycle(final long interval, final int row) {
+        if (row >= rows) {
+            String message = String.format(INVALID_ROW_EXCEPTION, row, rows);
+            throw new IllegalArgumentException(message);
+        }
+
         this.autoCycleInterval = interval * 1000000;
         this.cyclingRow = row;
         currentIndex = cyclingRow * columns;
-        // TODO: Throw exception when row doesn't exist
     }
 
     /**
