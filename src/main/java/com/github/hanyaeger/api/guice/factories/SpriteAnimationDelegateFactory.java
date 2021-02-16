@@ -6,19 +6,6 @@ import com.github.hanyaeger.api.engine.entities.entity.sprite.delegates.SpriteAn
 public class SpriteAnimationDelegateFactory {
 
     /**
-     * Create a new {@code SpriteAnimationDelegate} for the given {@link ImageView} and number of frames.
-     * After construction, the spriteIndex will be set to the first frame.
-     *
-     * @param imageView the {@link ImageView} for which the different frames should be created
-     * @param frames    the number of frames available
-     * @return an {@link SpriteAnimationDelegate}
-     */
-    @Deprecated
-    public SpriteAnimationDelegate create(final ImageView imageView, final int frames) {
-        return create(imageView, 1, frames);
-    }
-
-    /**
      * Create a new {@code SpriteAnimationDelegate} for the given {@link ImageView} and number of rows and columns.
      * After construction, the spriteIndex will be set to the first frame (top-left image).
      *

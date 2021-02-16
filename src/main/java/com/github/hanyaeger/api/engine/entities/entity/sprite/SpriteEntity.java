@@ -79,7 +79,6 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      */
     protected SpriteEntity(final String resource, final Coordinate2D location, final Size size, final int rows, final int columns) {
         super(location);
-        // TODO: Throw exception when rows or columns is lower than 1
         this.rows = rows;
         this.columns = columns;
         this.resource = resource;
