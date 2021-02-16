@@ -72,7 +72,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     /**
      * Set the interval at which the sprite should be automatically cycled.
      *
-     * @param interval the interval milli-seconds
+     * @param interval the interval in milli-seconds
      */
     protected void setAutoCycle(final long interval) {
         setAutoCycle(interval, -1);
@@ -82,7 +82,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      * Set the interval at which the sprite should be automatically cycled.
      * The sprite will cycle through one row of sprites, from left to right.
      *
-     * @param interval the interval milli-seconds
+     * @param interval the interval in milli-seconds
      * @param row the row to cycle through
      */
     protected void setAutoCycle(final long interval, final int row) {
