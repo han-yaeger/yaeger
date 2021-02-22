@@ -58,13 +58,13 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      * components. Calling this methods maximize the vector for the component in the given {@link Direction} to
      * the given speed.
      * <p>
-     * <img src="doc-files/maximize-motion-vectors.png" alt="Vector representation of maximizing the motion in a given direction">
+     * <img width="30%" src="doc-files/maximize-motion-vectors.svg" alt="Vector representation of maximizing the motion in a given direction">
      *
-     * <p> In the image above, let \( \vec{v} \) be the vector associated with the current motion, and \( \vec{r} \) be the
+     * <p> In the image above, let \( \vec{v} \) be the vector associated with the current motion and \( \vec{r} \) be the
      * vector that represents the direction and speed that should be maximized, then the resulting vector\( \vec{s}\)
      * can be calculated by
      * <p>
-     * \(\vec{s} = \vec{v} - \cfrac{\vec{v}\cdot\vec{r}}{\vec{r}\cdot\vec{r}} \cdot \vec{r} + \vec{r}\)
+     * \(\textbf{p} = \textbf{v} - \cfrac{\textbf{v}\cdot\textbf{b}}{\textbf{b}\cdot\textbf{b}} \cdot \textbf{b} + \textbf{b}\)
      *
      * <p>
      * A typical use case would be when an entity has to accelerate to a maximum value into a specific direction,
@@ -75,6 +75,32 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      * @param speed     the speed as a {@link double} to which the vector should be maximized
      */
     void maximizeMotionInDirection(final double direction, final double speed);
+
+    /**
+     * @param direction the {@link Direction} in which the motion should be negated.
+     * @see #negateMotionInDirection(double)
+     */
+    void negateMotionInDirection(final Direction direction);
+
+    /**
+     * Since the motion can be described as a vector, such a vector can be decomposed in two perpendicular
+     * components. Calling this methods negates one of those two components, leaving the other as the new motion.
+     *
+     * <p>
+     * <img width="30%" src="doc-files/negate-motion-vectors.svg" alt="Vector representation of negating the motion in a given direction">
+     *
+     * <p> In the image above, let <b>v</b> denote the vector associated with the current motion and <b>b</b> be the vector
+     * in the direction that has to be negated, then the resulting vector <b>p</b> van be calculated by
+     * <p>
+     * \( \textbf{p} = \cfrac{\textbf{v}\cdot\textbf{b}}{\textbf{b}\cdot\textbf{b}} \cdot \textbf{b}   \)
+     *
+     * <p>A typical use case would be an entity that jumps with a parabolic motion. At one point it collides with
+     * the ground, which should cancel the vertical downward motion. The vertical motion, however, should not be
+     * canceled. In this case, one should call {@code negateMotionInDirection(Direction.DOWN)}.
+     *
+     * @param direction the direction in which the motion should be negated, as a {@code double}
+     */
+    void negateMotionInDirection(final double direction);
 
     /**
      * Alter the speed through multiplication. Using this method will increase or decrease the current speed. It will multiply the current

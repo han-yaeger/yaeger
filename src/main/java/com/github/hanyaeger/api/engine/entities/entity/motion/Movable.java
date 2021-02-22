@@ -58,6 +58,16 @@ public interface Movable extends Placeable, MotionModifier {
     }
 
     @Override
+    default void negateMotionInDirection(final Direction direction) {
+        negateMotionInDirection(direction.getValue());
+    }
+
+    @Override
+    default void negateMotionInDirection(final double direction) {
+        getMotionApplier().negateMotionInDirection(direction);
+    }
+
+    @Override
     default void multiplySpeed(final double multiplication) {
         getMotionApplier().multiplySpeed(multiplication);
     }

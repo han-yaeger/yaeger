@@ -78,6 +78,16 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     }
 
     @Override
+    public void negateMotionInDirection(final Direction direction) {
+        negateMotionInDirection(direction.getValue());
+    }
+
+    @Override
+    public void negateMotionInDirection(final double direction) {
+        // TODO implement
+    }
+
+    @Override
     public void addToMotion(final double speed, final double direction) {
         motion = motion.add(createVector(speed, direction));
     }
