@@ -164,10 +164,11 @@ class DynamicSpriteEntityTest {
     @Test
     void autocycleGetsDelegatedToSpriteAnimationDelegate() {
         // Arrange
-        var frames = 2;
+        var rows = 1;
+        var columns = 2;
         var image = mock(Image.class);
         var imageView = mock(ImageView.class);
-        var sut = new AutoCyclingDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, frames);
+        var sut = new AutoCyclingDynamicSpriteEntity(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, rows, columns);
         sut.setMotionApplier(motionApplier);
         sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         sut.setImageRepository(imageRepository);
@@ -175,10 +176,10 @@ class DynamicSpriteEntityTest {
         sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
         sut.setUpdater(updater);
 
-        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * frames, HEIGHT, true)).thenReturn(image);
+        when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * columns, HEIGHT * rows, true)).thenReturn(image);
 
         when(imageViewFactory.create(image)).thenReturn(imageView);
-        when(spriteAnimationDelegateFactory.create(imageView, 1, frames)).thenReturn(spriteAnimationDelegate);
+        when(spriteAnimationDelegateFactory.create(imageView, rows, columns)).thenReturn(spriteAnimationDelegate);
 
         // Act
         sut.init(injector);
@@ -190,7 +191,7 @@ class DynamicSpriteEntityTest {
     @Test
     void addedUpdaterIsUsedAsUpdater() {
         // Arrange
-        var sut = new DynamicSpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 1);
+        var sut = new DynamicSpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 1, 1);
         sut.setMotionApplier(motionApplier);
         var updater = mock(Updater.class);
 
@@ -261,15 +262,15 @@ class DynamicSpriteEntityTest {
             super(resource, location, size);
         }
 
-        DynamicSpriteEntityImpl(String resource, Coordinate2D location, Size size, int frames) {
-            super(resource, location, size, frames);
+        DynamicSpriteEntityImpl(String resource, Coordinate2D location, Size size, int rows, int columns) {
+            super(resource, location, size, rows, columns);
         }
     }
 
     private class AutoCyclingDynamicSpriteEntity extends DynamicSpriteEntity {
 
-        AutoCyclingDynamicSpriteEntity(String resource, Coordinate2D location, Size size, int frames) {
-            super(resource, location, size, frames);
+        AutoCyclingDynamicSpriteEntity(String resource, Coordinate2D location, Size size, int rows, int columns) {
+            super(resource, location, size, rows, columns);
             setAutoCycle(2);
         }
     }

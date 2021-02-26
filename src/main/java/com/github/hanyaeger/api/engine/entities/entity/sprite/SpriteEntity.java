@@ -107,7 +107,10 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     /**
      * Set the current frame index of the Sprite image.
      *
-     * @param index the index that should be shown. The index is zero based and the frame modulo index will be shown
+     * @param index the index that should be shown.
+     *              The index is zero based and increases from left to right.
+     *              When the last index is reached, the index will wrap to the next row.
+     *              The frame modulo index will be shown
      */
     public void setCurrentFrameIndex(final int index) {
         spriteAnimationDelegate.ifPresentOrElse(delegate -> delegate.setSpriteIndex(index),

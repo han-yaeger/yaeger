@@ -23,7 +23,7 @@ public class Logo extends DynamicSpriteEntity implements UpdateExposer {
      * @param location The {@link Coordinate2D} at which the {@link Logo} should be placed.
      */
     public Logo(final Coordinate2D location) {
-        super("yaegerimages/logo-yaeger.png", location, new Size(8064, 121), TOTAL_NUMBER_OF_FRAMES);
+        super("yaegerimages/logo-yaeger.png", location, new Size(8064, 121), 1, TOTAL_NUMBER_OF_FRAMES);
     }
 
     @Override

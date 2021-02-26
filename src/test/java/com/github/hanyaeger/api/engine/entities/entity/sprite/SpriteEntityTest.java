@@ -79,7 +79,7 @@ class SpriteEntityTest {
         // Arrange
 
         // Act
-        var sut = new SpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 2);
+        var sut = new SpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, 1, 2);
 
         // Assert
         assertNotNull(sut);
@@ -179,18 +179,19 @@ class SpriteEntityTest {
     @Nested
     class TwoFramesSprite {
 
-        private static final int FRAMES = 2;
+        private static final int ROWS = 1;
+        private static final int COLUMNS = 2;
         private SpriteEntityImpl sut;
 
         @BeforeEach
         void setup() {
-            sut = new SpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, FRAMES);
+            sut = new SpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, ROWS, COLUMNS);
 
             var image = mock(Image.class);
-            when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * FRAMES, HEIGHT, true)).thenReturn(image);
+            when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * COLUMNS, HEIGHT, true)).thenReturn(image);
             imageView = mock(ImageView.class);
             when(imageViewFactory.create(image)).thenReturn(imageView);
-            when(spriteAnimationDelegateFactory.create(imageView, 1, FRAMES)).thenReturn(spriteAnimationDelegate);
+            when(spriteAnimationDelegateFactory.create(imageView, 1, COLUMNS)).thenReturn(spriteAnimationDelegate);
 
             sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
             sut.setImageRepository(imageRepository);
@@ -205,7 +206,7 @@ class SpriteEntityTest {
             sut.init(injector);
 
             // Assert
-            verify(spriteAnimationDelegateFactory).create(imageView, 1, 2);
+            verify(spriteAnimationDelegateFactory).create(imageView, ROWS, COLUMNS);
         }
 
         @Test
@@ -213,11 +214,11 @@ class SpriteEntityTest {
             // Arrange
 
             // Act
-            sut.setCurrentFrameIndex(FRAMES);
+            sut.setCurrentFrameIndex(COLUMNS);
             sut.init(injector);
 
             // Assert
-            verify(spriteAnimationDelegate).setSpriteIndex(FRAMES);
+            verify(spriteAnimationDelegate).setSpriteIndex(COLUMNS);
         }
 
 
@@ -227,17 +228,17 @@ class SpriteEntityTest {
             sut.init(injector);
 
             // Act
-            sut.setCurrentFrameIndex(FRAMES);
+            sut.setCurrentFrameIndex(COLUMNS);
 
             // Assert
-            verify(spriteAnimationDelegate).setSpriteIndex(FRAMES);
+            verify(spriteAnimationDelegate).setSpriteIndex(COLUMNS);
         }
 
         @Test
         void getCurrentFrameIndexDelegatesToSpriteAnimationDelegate() {
             // Arrange
             sut.init(injector);
-            sut.setCurrentFrameIndex(FRAMES);
+            sut.setCurrentFrameIndex(COLUMNS);
 
             // Act
             var currentFrameIndex = sut.getCurrentFrameIndex();
@@ -260,13 +261,13 @@ class SpriteEntityTest {
         @Test
         void getCurrentFrameIndexBeforeInitCalledReturnsSetFrameIndex() {
             // Arrange
-            sut.setCurrentFrameIndex(FRAMES);
+            sut.setCurrentFrameIndex(COLUMNS);
 
             // Act
             var currentFrameIndex = sut.getCurrentFrameIndex();
 
             // Assert
-            assertEquals(FRAMES, currentFrameIndex);
+            assertEquals(COLUMNS, currentFrameIndex);
         }
     }
 
@@ -311,10 +312,6 @@ class SpriteEntityTest {
 
         SpriteEntityImpl(String resource, Coordinate2D location, Size size) {
             super(resource, location, size);
-        }
-
-        SpriteEntityImpl(String resource, Coordinate2D location, Size size, int frames) {
-            super(resource, location, size, frames);
         }
 
         SpriteEntityImpl(String resource, Coordinate2D location, Size size, int rows, int columns) {
