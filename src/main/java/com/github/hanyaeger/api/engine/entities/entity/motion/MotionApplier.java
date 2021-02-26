@@ -78,12 +78,29 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     }
 
     @Override
-    public void negateMotionInDirection(final Direction direction) {
-        negateMotionInDirection(direction.getValue());
+    public void nullifySpeedInDirection(final Direction direction) {
+        nullifySpeedInDirection(direction.getValue());
     }
 
     @Override
-    public void negateMotionInDirection(final double direction) {
+    public void nullifySpeedInDirection(final double direction) {
+        // Nullify direction is same as current direction, so direction can be set to 0
+        if (Double.compare(getDirection(), direction) == 0) {
+            setSpeed(0D);
+        } else {
+            var normalizedVector = createVector(1, direction);
+            var dotProduct = normalizedVector.dotProduct(motion);
+
+            if (dotProduct > 0) {
+                // An actual situation in which the motion should be nullified in the given direction
+                var numerator = motion.dotProduct(normalizedVector);
+                var denominator = normalizedVector.dotProduct(normalizedVector);
+                var result = normalizedVector.multiply(numerator / denominator);
+                var newMotion = motion.subtract(result);
+                setMotion(newMotion.magnitude(), convertVectorToAngle(newMotion));
+            }
+        }
+
         // TODO implement
     }
 
@@ -191,7 +208,7 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
             currentAngle = 360 - currentAngle;
         }
 
-        return currentAngle;
+        return currentAngle % 360;
     }
 
     /**

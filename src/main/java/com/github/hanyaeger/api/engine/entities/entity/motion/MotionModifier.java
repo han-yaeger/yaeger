@@ -78,9 +78,9 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
 
     /**
      * @param direction the {@link Direction} in which the motion should be negated.
-     * @see #negateMotionInDirection(double)
+     * @see #nullifySpeedInDirection(double)
      */
-    void negateMotionInDirection(final Direction direction);
+    void nullifySpeedInDirection(final Direction direction);
 
     /**
      * Since the motion can be described as a vector, such a vector can be decomposed in two perpendicular
@@ -100,7 +100,7 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      *
      * @param direction the direction in which the motion should be negated, as a {@code double}
      */
-    void negateMotionInDirection(final double direction);
+    void nullifySpeedInDirection(final double direction);
 
     /**
      * Alter the speed through multiplication. Using this method will increase or decrease the current speed. It will multiply the current
