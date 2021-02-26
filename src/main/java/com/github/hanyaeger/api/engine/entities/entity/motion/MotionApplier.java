@@ -100,8 +100,6 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
                 setMotion(newMotion.magnitude(), convertVectorToAngle(newMotion));
             }
         }
-
-        // TODO implement
     }
 
     @Override
