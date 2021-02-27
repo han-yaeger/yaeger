@@ -30,6 +30,7 @@ public class TileFactory {
 
         var declaredConstructor = getDeclaredConstructor(entityConfiguration);
         var configuration = entityConfiguration.getConfiguration();
+
         try {
             if (configuration != null) {
                 entity = declaredConstructor.newInstance(location, size, configuration);
