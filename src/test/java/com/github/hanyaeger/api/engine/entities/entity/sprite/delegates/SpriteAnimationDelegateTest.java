@@ -55,7 +55,7 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
 
         // Assert
         verify(imageView).setViewport(argument.capture());
-        assertEquals(IMAGE_HEIGHT, argument.getValue().getHeight(), DELTA);
+        assertEquals(IMAGE_HEIGHT / ROWS, argument.getValue().getHeight(), DELTA);
         assertEquals(IMAGE_WIDTH / COLUMNS, argument.getValue().getWidth(), DELTA);
     }
 
