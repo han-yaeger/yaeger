@@ -6,14 +6,15 @@ import com.github.hanyaeger.api.engine.entities.entity.sprite.delegates.SpriteAn
 public class SpriteAnimationDelegateFactory {
 
     /**
-     * Create a new {@code SpriteAnimationDelegate} for the given {@link ImageView} and number of frames.
-     * After construction, the spriteIndex will be set to the first frame.
+     * Create a new {@code SpriteAnimationDelegate} for the given {@link ImageView} and number of rows and columns.
+     * After construction, the spriteIndex will be set to the first frame (top-left image).
      *
      * @param imageView the {@link ImageView} for which the different frames should be created
-     * @param frames    the number of frames available
+     * @param rows    the number of rows available
+     * @param columns the number of columns available
      * @return an {@link SpriteAnimationDelegate}
      */
-    public SpriteAnimationDelegate create(final ImageView imageView, final int frames) {
-        return new SpriteAnimationDelegate(imageView, frames);
+    public SpriteAnimationDelegate create(final ImageView imageView, final int rows, final int columns) {
+        return new SpriteAnimationDelegate(imageView, rows, columns);
     }
 }

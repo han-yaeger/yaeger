@@ -21,6 +21,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
 
     private MotionApplier motionApplier;
     private long autoCycleInterval = 0;
+    private int cyclingRow = -1;
     private Updater updater;
     private Optional<EntityMotionInitBuffer> buffer;
     private double rotationAngle;
@@ -34,7 +35,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      *                        will also be used as the {@link javafx.geometry.BoundingBox} in case of collision detection
      */
     protected DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation, final Size size) {
-        this(resource, initialLocation, size, 1);
+        this(resource, initialLocation, size, 1, 1);
     }
 
     /**
@@ -44,11 +45,12 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      * @param resource        the url of the image file. Relative to the resources folder
      * @param initialLocation the initial {@link Coordinate2D} of this Entity
      * @param size            the {@link Size} (width and height) that should be used. The height and width divided by the
-     *                        number of frames will be used for displaying the Image and as the {@link javafx.geometry.BoundingBox} in case of collision detection.
-     * @param frames          the number of frames the Image contains. By default the first frame is loaded
+     *                        number of rows and columns will be used for displaying the Image and as the {@link javafx.geometry.BoundingBox} in case of collision detection.
+     * @param rows            the number of rows the Image contains.
+     * @param columns         the number of columns the Image contains.
      */
-    protected DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation, final Size size, final int frames) {
-        super(resource, initialLocation, size, frames);
+    protected DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation, final Size size, final int rows, final int columns) {
+        super(resource, initialLocation, size, rows, columns);
 
         buffer = Optional.of(new EntityMotionInitBuffer());
     }
@@ -56,10 +58,23 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     /**
      * Set the interval at which the sprite should be automatically cycled.
      *
-     * @param interval the interval milli-seconds
+     * @param interval the interval in milli-seconds
      */
     protected void setAutoCycle(final long interval) {
+        setAutoCycle(interval, -1);
+    }
+
+    /**
+     * Set the interval at which the sprite should be automatically cycled.
+     * The sprite will cycle through one row of sprites, from left to right.
+     *
+     * @param interval the interval in milli-seconds
+     * @param row the row to cycle through
+     */
+    protected void setAutoCycle(final long interval, final int row) {
         this.autoCycleInterval = interval;
+        this.cyclingRow = row;
+        spriteAnimationDelegate.ifPresent(delegate -> delegate.setAutoCycle(interval, row));
     }
 
     @Override
@@ -79,7 +94,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
         spriteAnimationDelegate.ifPresent(delegate -> {
             updater.addUpdatable(delegate);
             if (getFrames() > 1 && autoCycleInterval != 0) {
-                delegate.setAutoCycle(autoCycleInterval);
+                delegate.setAutoCycle(autoCycleInterval, cyclingRow);
             }
         });
 
