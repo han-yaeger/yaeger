@@ -101,7 +101,7 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      * <p>
      * A typical use case would be an entity that jumps with a parabolic motion. At one point it collides with
      * the ground, which should cancel the vertical downward motion. The vertical motion, however, should not be
-     * cancelled. In this case, one should call {@code negateMotionInDirection(Direction.DOWN)}.
+     * cancelled. In this case, one should call this method with the parameter {@link Direction#DOWN}.
      *
      * @param direction the direction in which the motion should be negated, as a {@code double}
      */
