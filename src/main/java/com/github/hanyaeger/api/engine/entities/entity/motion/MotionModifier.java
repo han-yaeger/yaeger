@@ -84,19 +84,24 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
 
     /**
      * Since the motion can be described as a vector, such a vector can be decomposed in two perpendicular
-     * components. Calling this methods negates one of those two components, leaving the other as the new motion.
+     * components. Calling this methods nullifies one of those two components, leaving the other as the new motion.
      *
      * <p>
      * <img width="30%" src="doc-files/negate-motion-vectors.svg" alt="Vector representation of negating the motion in a given direction">
      *
      * <p> In the image above, let <b>v</b> denote the vector associated with the current motion and <b>b</b> be the vector
-     * in the direction that has to be negated, then the resulting vector <b>p</b> van be calculated by
+     * in the direction that has to be nullified, then the resulting vector <b>p</b> can be calculated by
      * <p>
      * \( \textbf{p} = \cfrac{\textbf{v}\cdot\textbf{b}}{\textbf{b}\cdot\textbf{b}} \cdot \textbf{b}   \)
      *
-     * <p>A typical use case would be an entity that jumps with a parabolic motion. At one point it collides with
+     * <p>
+     * Note that for this method only the direction of <b>b</b> has to be given. The length of <b>b</b> is automatically
+     * derived.
+     *
+     * <p>
+     * A typical use case would be an entity that jumps with a parabolic motion. At one point it collides with
      * the ground, which should cancel the vertical downward motion. The vertical motion, however, should not be
-     * canceled. In this case, one should call {@code negateMotionInDirection(Direction.DOWN)}.
+     * cancelled. In this case, one should call {@code negateMotionInDirection(Direction.DOWN)}.
      *
      * @param direction the direction in which the motion should be negated, as a {@code double}
      */
