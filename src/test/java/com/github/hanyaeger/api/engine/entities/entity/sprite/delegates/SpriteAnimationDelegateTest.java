@@ -15,7 +15,8 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
 
     private static final double IMAGE_WIDTH = 100d;
     private static final double IMAGE_HEIGHT = 25d;
-    private static final int FRAMES = 4;
+    private static final int ROWS = 4;
+    private static final int COLUMNS = 3;
     private static final double DELTA = 0.00000000000001d;
 
     private ImageView imageView;
@@ -32,7 +33,7 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
         when(image.getWidth()).thenReturn(IMAGE_WIDTH);
         when(image.getHeight()).thenReturn(IMAGE_HEIGHT);
 
-        sut = new SpriteAnimationDelegate(imageView, FRAMES);
+        sut = new SpriteAnimationDelegate(imageView, ROWS, COLUMNS);
     }
 
     @Test
@@ -54,8 +55,8 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
 
         // Assert
         verify(imageView).setViewport(argument.capture());
-        assertEquals(IMAGE_HEIGHT, argument.getValue().getHeight(), DELTA);
-        assertEquals(IMAGE_WIDTH / FRAMES, argument.getValue().getWidth(), DELTA);
+        assertEquals(IMAGE_HEIGHT / ROWS, argument.getValue().getHeight(), DELTA);
+        assertEquals(IMAGE_WIDTH / COLUMNS, argument.getValue().getWidth(), DELTA);
     }
 
     @Test
@@ -73,7 +74,8 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
         var values = argument.getAllValues();
         var nextRectangle = values.get(1);
 
-        assertEquals(IMAGE_WIDTH / FRAMES, nextRectangle.getMinX());
+        assertEquals(IMAGE_WIDTH / COLUMNS, nextRectangle.getMinX());
+        assertEquals(0, nextRectangle.getMinY());
     }
 
     @Test
@@ -104,7 +106,8 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
         var values = argument.getAllValues();
         var nextRectangle = values.get(1);
 
-        assertEquals(IMAGE_WIDTH / FRAMES, nextRectangle.getMinX());
+        assertEquals(IMAGE_WIDTH / COLUMNS, nextRectangle.getMinX());
+        assertEquals(0, nextRectangle.getMinY());
     }
 
     @Test
@@ -131,5 +134,41 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
 
         // Assert
         verify(imageView, atLeast(3)).setViewport(any());
+    }
+
+    @Test
+    void autoCycleGoesToStartOfRow() {
+        // Arrange
+        sut.setSpriteIndex(4);
+
+        // Act
+        sut.setAutoCycle(10, 0);
+
+        // Assert
+        assertEquals(0, sut.getFrameIndex());
+    }
+
+    @Test
+    void autoCycleWrapsToStartOfRowWhenEndOfRowIsReached() {
+        // Arrange
+
+        // Act
+        sut.setAutoCycle(10, 0);
+        sut.update(10000001);
+        sut.update(20000002);
+        assertEquals(2, sut.getFrameIndex());
+        sut.update(30000003);
+
+        // Assert
+        assertEquals(0, sut.getFrameIndex());
+    }
+
+    @Test
+    void autoCyclingThroughNonexistentRowThrowsException() {
+        // Arrange
+
+        // Act, Assert
+        assertThrows(IllegalArgumentException.class,
+                () -> sut.setAutoCycle(10, 4));
     }
 }

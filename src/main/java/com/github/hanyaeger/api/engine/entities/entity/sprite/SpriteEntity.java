@@ -28,7 +28,8 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     private SpriteAnimationDelegateFactory spriteAnimationDelegateFactory;
     private ImageRepository imageRepository;
     private ImageViewFactory imageViewFactory;
-    private final int frames;
+    private final int rows;
+    private final int columns;
     private Optional<Integer> spriteIndex = Optional.empty();
     protected Optional<ImageView> imageView = Optional.empty();
     protected Optional<SpriteAnimationDelegate> spriteAnimationDelegate = Optional.empty();
@@ -41,9 +42,7 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      * @param location the initial {@link Coordinate2D} of this {@link SpriteEntity}
      */
     protected SpriteEntity(final String resource, final Coordinate2D location) {
-        super(location);
-        this.resource = resource;
-        this.frames = 1;
+        this(resource, location, null);
     }
 
     /**
@@ -66,8 +65,22 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      * @param frames   The number of frames the image contains. By default the first frame is loaded
      */
     protected SpriteEntity(final String resource, final Coordinate2D location, final Size size, final int frames) {
+        this(resource, location, size, 1, frames);
+    }
+
+    /**
+     * Instantiate a new {@link SpriteEntity} for a given image.
+     *
+     * @param resource the url of the image file. Relative to the resources folder
+     * @param location the initial {@link Coordinate2D} of this {@link SpriteEntity}
+     * @param size     The bounding box of this {@link SpriteEntity}
+     * @param rows     The number of rows the image contains.
+     * @param columns  The number of columns the image contains.
+     */
+    protected SpriteEntity(final String resource, final Coordinate2D location, final Size size, final int rows, final int columns) {
         super(location);
-        this.frames = frames;
+        this.rows = rows;
+        this.columns = columns;
         this.resource = resource;
         this.size = size;
     }
@@ -75,14 +88,15 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     @Override
     public void init(final Injector injector) {
         if (size != null) {
-            var requestedWidth = size.getWidth() * frames;
-            imageView = Optional.of(createImageView(resource, requestedWidth, size.getHeight(), preserveAspectRatio));
+            var requestedWidth = size.getWidth() * columns;
+            var requestedHeight = size.getHeight() * rows;
+            imageView = Optional.of(createImageView(resource, requestedWidth, requestedHeight, preserveAspectRatio));
         } else {
             imageView = Optional.of(createImageView(resource));
         }
 
-        if (frames > 1) {
-            spriteAnimationDelegate = Optional.of(spriteAnimationDelegateFactory.create(imageView.get(), frames));
+        if (rows > 1 || columns > 1) {
+            spriteAnimationDelegate = Optional.of(spriteAnimationDelegateFactory.create(imageView.get(), rows, columns));
         }
 
         spriteIndex.ifPresent(index -> spriteAnimationDelegate.ifPresent(sad -> sad.setSpriteIndex(index)));
@@ -93,7 +107,10 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     /**
      * Set the current frame index of the Sprite image.
      *
-     * @param index the index that should be shown. The index is zero based and the frame modulo index will be shown
+     * @param index the index that should be shown.
+     *              The index is zero based and increases from left to right.
+     *              When the last index is reached, the index will wrap to the next row.
+     *              The frame modulo index will be shown
      */
     public void setCurrentFrameIndex(final int index) {
         spriteAnimationDelegate.ifPresentOrElse(delegate -> delegate.setSpriteIndex(index),
@@ -124,7 +141,7 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      * @return the number of frames as an {@code int}
      */
     protected int getFrames() {
-        return frames;
+        return rows * columns;
     }
 
     private ImageView createImageView(final String resource) {
