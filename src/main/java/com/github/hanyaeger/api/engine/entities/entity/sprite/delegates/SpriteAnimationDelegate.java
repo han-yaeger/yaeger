@@ -6,7 +6,6 @@ import com.github.hanyaeger.api.engine.Updatable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 /**
  * A {@code SpriteAnimationDelegate} holds all responsibility related to Sprites that contain multiple images.
