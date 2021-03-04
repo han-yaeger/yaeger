@@ -21,7 +21,7 @@ public enum Direction {
     }
 
     static {
-        for (Direction direction : Direction.values()) {
+        for (final var direction : Direction.values()) {
             map.put(direction.value, direction);
         }
     }

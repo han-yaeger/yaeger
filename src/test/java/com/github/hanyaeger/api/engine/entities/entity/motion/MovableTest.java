@@ -192,6 +192,28 @@ class MovableTest {
     }
 
     @Test
+    void nullifyDelegatesToMotionApplier() {
+        // Arrange
+
+        // Act
+        sut.nullifySpeedInDirection(DIRECTION_ENUM.getValue());
+
+        // Assert
+        verify(motionApplier).nullifySpeedInDirection(DIRECTION_ENUM.getValue());
+    }
+
+    @Test
+    void nullifyWithEnumDelegatesToMotionApplier() {
+        // Arrange
+
+        // Act
+        sut.nullifySpeedInDirection(DIRECTION_ENUM);
+
+        // Assert
+        verify(motionApplier).nullifySpeedInDirection(DIRECTION_ENUM.getValue());
+    }
+
+    @Test
     void updateLocationReturnsAnUpdatable() {
         // Arrange
 

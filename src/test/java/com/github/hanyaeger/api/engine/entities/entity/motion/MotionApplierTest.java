@@ -16,7 +16,7 @@ class MotionApplierTest {
     private static final double GRAVITATIONAL_CONSTANT = 0.42;
     private static final double GRAVITATIONAL_DIRECTION = Direction.DOWN.getValue();
 
-    private static final double SPEED_MULTIPLACTION_FRACTION = 0.5;
+    private static final double SPEED_MULTIPLICATION_FRACTION = 0.5;
     private static final Direction DIRECTION_ENUM = Direction.RIGHT;
     private static final double DIRECTION = 6;
     private static final double DIRECTION_INVERSE_NEGATIVE = -1 * DIRECTION;
@@ -47,14 +47,14 @@ class MotionApplierTest {
     void speedWithNoAngleDefaultsToDirectionOfZero() {
         // Arrange
         sut.setMotion(1, Direction.DOWN.getValue());
-        sut.multiplySpeed(SPEED_MULTIPLACTION_FRACTION);
+        sut.multiplySpeed(SPEED_MULTIPLICATION_FRACTION);
 
         // Act
         var updatedLocation = sut.updateLocation(DEFAULT_START_LOCATION);
 
         // Assert
         assertEquals(DEFAULT_START_LOCATION.getY(), updatedLocation.getX(), DELTA);
-        assertEquals(DEFAULT_START_LOCATION.getY() + SPEED_MULTIPLACTION_FRACTION, updatedLocation.getY(), DELTA);
+        assertEquals(DEFAULT_START_LOCATION.getY() + SPEED_MULTIPLICATION_FRACTION, updatedLocation.getY(), DELTA);
     }
 
     @Test
@@ -483,7 +483,7 @@ class MotionApplierTest {
     }
 
     @Nested
-    class maximizeMotionInDirectionTests {
+    class MaximizeMotionInDirectionTests {
 
         @Test
         void motionIsSetToMaximizedValueIfCurrentMotionIsZero() {
@@ -590,6 +590,83 @@ class MotionApplierTest {
             // Assert
             assertEquals(expectedDirection, sut.getDirection(), DELTA);
             assertEquals(expectedSpeed, sut.getSpeed(), DELTA);
+        }
+
+        @Test
+        void nullifyMotionInExactSameDirectionSetsSpeedToZero() {
+            // Arrange
+            var currentSpeed = 3.7;
+            var currentDirection = 37;
+
+            // Act
+            sut.setMotion(currentSpeed, currentDirection);
+            sut.nullifySpeedInDirection(currentDirection);
+
+            // Assert
+            assertEquals(0, sut.getSpeed(), DELTA);
+        }
+    }
+
+    @Nested
+    class NullifySpeedInDirectionTests {
+        @Test
+        void nullifySpeedInOppositeDirectionDoesNothing() {
+            // Arrange
+            var currentSpeed = 3.7;
+            var currentDirection = 37;
+
+            // Act
+            sut.setMotion(currentSpeed, currentDirection);
+            sut.nullifySpeedInDirection(180 + currentDirection);
+
+            // Assert
+            assertEquals(currentSpeed, sut.getSpeed(), DELTA);
+            assertEquals(currentDirection, sut.getDirection(), DELTA);
+        }
+
+        @Test
+        void nullifySpeedInDirectionWithAngleGreaterThat90DoesNothing() {
+            // Arrange
+            var currentSpeed = 3.7;
+            var currentDirection = 37;
+
+            // Act
+            sut.setMotion(currentSpeed, currentDirection);
+            sut.nullifySpeedInDirection(100 + currentDirection);
+
+            // Assert
+            assertEquals(currentSpeed, sut.getSpeed(), DELTA);
+            assertEquals(currentDirection, sut.getDirection(), DELTA);
+        }
+
+        @Test
+        void nullifySpeedInDirectionWithAngle45() {
+            // Arrange
+            var currentSpeed = Math.sqrt(2);
+            var currentDirection = 45;
+
+            // Act
+            sut.setMotion(currentSpeed, currentDirection);
+            sut.nullifySpeedInDirection(Direction.RIGHT);
+
+            // Assert
+            assertEquals(1, sut.getSpeed(), DELTA);
+            assertEquals(Direction.DOWN.getValue(), sut.getDirection(), DELTA);
+        }
+
+        @Test
+        void nullifySpeedInDirectionWithAngleMinus45() {
+            // Arrange
+            var currentSpeed = Math.sqrt(2);
+            var currentDirection = 315;
+
+            // Act
+            sut.setMotion(currentSpeed, currentDirection);
+            sut.nullifySpeedInDirection(Direction.LEFT);
+
+            // Assert
+            assertEquals(1, sut.getSpeed(), DELTA);
+            assertEquals(Direction.DOWN.getValue(), sut.getDirection(), DELTA);
         }
     }
 }
