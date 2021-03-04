@@ -50,10 +50,10 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      *
      * @param resource the url of the image file. Relative to the resources folder
      * @param location the initial {@link Coordinate2D} of this {@link SpriteEntity}
-     * @param size     The bounding box of this {@link SpriteEntity}
+     * @param size     the bounding box of this {@link SpriteEntity}
      */
     protected SpriteEntity(final String resource, final Coordinate2D location, final Size size) {
-        this(resource, location, size, 1);
+        this(resource, location, size, 1, 1);
     }
 
     /**
@@ -61,21 +61,9 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      *
      * @param resource the url of the image file. Relative to the resources folder
      * @param location the initial {@link Coordinate2D} of this {@link SpriteEntity}
-     * @param size     The bounding box of this {@link SpriteEntity}
-     * @param frames   The number of frames the image contains. By default the first frame is loaded
-     */
-    protected SpriteEntity(final String resource, final Coordinate2D location, final Size size, final int frames) {
-        this(resource, location, size, 1, frames);
-    }
-
-    /**
-     * Instantiate a new {@link SpriteEntity} for a given image.
-     *
-     * @param resource the url of the image file. Relative to the resources folder
-     * @param location the initial {@link Coordinate2D} of this {@link SpriteEntity}
-     * @param size     The bounding box of this {@link SpriteEntity}
-     * @param rows     The number of rows the image contains.
-     * @param columns  The number of columns the image contains.
+     * @param size     the bounding box of this {@link SpriteEntity}
+     * @param rows     the number of rows the image contains
+     * @param columns  the number of columns the image contains
      */
     protected SpriteEntity(final String resource, final Coordinate2D location, final Size size, final int rows, final int columns) {
         super(location);
