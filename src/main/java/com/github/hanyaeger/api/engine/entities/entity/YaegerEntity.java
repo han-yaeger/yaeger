@@ -364,7 +364,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
                 .map(node -> node.localToScene(node.getBoundsInLocal(), true))
                 .orElse(EMPTY_BB);
 
-        var absoluteLocation = switch (getAnchorPoint()) {
+        return switch (getAnchorPoint()) {
             case TOP_LEFT -> new Coordinate2D(boundsInScene.getMinX(), boundsInScene.getMinY());
             case TOP_CENTER -> new Coordinate2D(boundsInScene.getCenterX(), boundsInScene.getMinY());
             case TOP_RIGHT -> new Coordinate2D(boundsInScene.getMaxX(), boundsInScene.getMinY());
@@ -375,7 +375,5 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
             case BOTTOM_CENTER -> new Coordinate2D(boundsInScene.getCenterX(), boundsInScene.getMaxY());
             case BOTTOM_RIGHT -> new Coordinate2D(boundsInScene.getMaxX(), boundsInScene.getMaxY());
         };
-
-        return absoluteLocation;
     }
 }
