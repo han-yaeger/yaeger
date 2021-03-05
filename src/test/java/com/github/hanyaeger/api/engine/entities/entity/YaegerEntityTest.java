@@ -14,9 +14,13 @@ import javafx.scene.Scene;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -45,8 +49,11 @@ class YaegerEntityTest {
         var boundingBox = mock(BoundingBox.class);
 
         when(node.getBoundsInLocal()).thenReturn(boundingBox);
+        when(node.localToScene(boundingBox, true)).thenReturn(boundingBox);
         when(boundingBox.getWidth()).thenReturn(ENTITY_WIDTH);
         when(boundingBox.getHeight()).thenReturn(ENTITY_HEIGHT);
+        when(boundingBox.getMinX()).thenReturn(LOCATION.getX());
+        when(boundingBox.getMinY()).thenReturn(LOCATION.getY());
         when(node.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
     }
@@ -624,15 +631,18 @@ class YaegerEntityTest {
         assertThrows(NullPointerException.class, () -> sut.angleTo(other));
     }
 
-    @Test
-    void angleToYaegerEntityVerticallyAboveIs180Degrees() {
+    @ParameterizedTest
+    @MethodSource("provideArgumentsForAngleTo")
+    void testAngleToOtherEntity(Coordinate2D otherLocation, double expectedAngle) {
         // Arrange
-        var expected = Direction.UP.getValue();
-        var other = new YaegerEntityImpl(new Coordinate2D(LOCATION.getX(), LOCATION.getY() - 10));
+        var other = new YaegerEntityImpl(otherLocation);
         var otherNode = mock(Node.class, withSettings().withoutAnnotations());
         other.setNode(Optional.of(otherNode));
         var otherBoundingBox = mock(BoundingBox.class);
+        when(otherNode.localToScene(otherBoundingBox, true)).thenReturn(otherBoundingBox);
         when(otherNode.getBoundsInLocal()).thenReturn(otherBoundingBox);
+        when(otherBoundingBox.getMinX()).thenReturn(otherLocation.getX());
+        when(otherBoundingBox.getMinY()).thenReturn(otherLocation.getY());
         when(otherBoundingBox.getWidth()).thenReturn(ENTITY_WIDTH);
         when(otherBoundingBox.getHeight()).thenReturn(ENTITY_HEIGHT);
         when(otherNode.getScene()).thenReturn(scene);
@@ -648,317 +658,21 @@ class YaegerEntityTest {
         var actual = sut.angleTo(other);
 
         // Assert
-        assertEquals(expected, actual);
+        assertEquals(expectedAngle, actual);
     }
 
-    @Test
-    void angleToYaegerEntityVerticallyBelowIs0Degrees() {
+    @ParameterizedTest
+    @MethodSource("provideArgumentsForAngleTo")
+    void testAngleToOtherLocation(Coordinate2D otherLocation, double expectedAngle) {
         // Arrange
-        var expected = Direction.DOWN.getValue();
-        var other = new YaegerEntityImpl(new Coordinate2D(LOCATION.getX(), LOCATION.getY() + 10));
-        var otherNode = mock(Node.class, withSettings().withoutAnnotations());
-        other.setNode(Optional.of(otherNode));
-        var otherBoundingBox = mock(BoundingBox.class);
-        when(otherNode.getBoundsInLocal()).thenReturn(otherBoundingBox);
-        when(otherBoundingBox.getWidth()).thenReturn(ENTITY_WIDTH);
-        when(otherBoundingBox.getHeight()).thenReturn(ENTITY_HEIGHT);
-        when(otherNode.getScene()).thenReturn(scene);
-        when(scene.getWidth()).thenReturn(SCENE_WIDTH);
-
-        other.init(injector);
-        other.transferCoordinatesToNode();
-
         sut.init(injector);
         sut.transferCoordinatesToNode();
 
         // Act
-        var actual = sut.angleTo(other);
+        var actual = sut.angleTo(otherLocation);
 
         // Assert
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void angleToYaegerEntityHorizontallyLeftIs270Degrees() {
-        // Arrange
-        var expected = Direction.LEFT.getValue();
-        var other = new YaegerEntityImpl(new Coordinate2D(LOCATION.getX() - 10, LOCATION.getY()));
-        var otherNode = mock(Node.class, withSettings().withoutAnnotations());
-        other.setNode(Optional.of(otherNode));
-        var otherBoundingBox = mock(BoundingBox.class);
-        when(otherNode.getBoundsInLocal()).thenReturn(otherBoundingBox);
-        when(otherBoundingBox.getWidth()).thenReturn(ENTITY_WIDTH);
-        when(otherBoundingBox.getHeight()).thenReturn(ENTITY_HEIGHT);
-        when(otherNode.getScene()).thenReturn(scene);
-        when(scene.getWidth()).thenReturn(SCENE_WIDTH);
-
-        other.init(injector);
-        other.transferCoordinatesToNode();
-
-        sut.init(injector);
-        sut.transferCoordinatesToNode();
-
-        // Act
-        var actual = sut.angleTo(other);
-
-        // Assert
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void angleToYaegerEntityHorizontallyRightIs90Degrees() {
-        // Arrange
-        var expected = Direction.RIGHT.getValue();
-        var other = new YaegerEntityImpl(new Coordinate2D(LOCATION.getX() + 10, LOCATION.getY()));
-        var otherNode = mock(Node.class, withSettings().withoutAnnotations());
-        other.setNode(Optional.of(otherNode));
-        var otherBoundingBox = mock(BoundingBox.class);
-        when(otherNode.getBoundsInLocal()).thenReturn(otherBoundingBox);
-        when(otherBoundingBox.getWidth()).thenReturn(ENTITY_WIDTH);
-        when(otherBoundingBox.getHeight()).thenReturn(ENTITY_HEIGHT);
-        when(otherNode.getScene()).thenReturn(scene);
-        when(scene.getWidth()).thenReturn(SCENE_WIDTH);
-
-        other.init(injector);
-        other.transferCoordinatesToNode();
-
-        sut.init(injector);
-        sut.transferCoordinatesToNode();
-
-        // Act
-        var actual = sut.angleTo(other);
-
-        // Assert
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void angleToYaegerEntityLeftAboveIs225Degrees() {
-        // Arrange
-        var expected = 225d;
-        var other = new YaegerEntityImpl(new Coordinate2D(LOCATION.getX() - 10, LOCATION.getY() - 10));
-        var otherNode = mock(Node.class, withSettings().withoutAnnotations());
-        other.setNode(Optional.of(otherNode));
-        var otherBoundingBox = mock(BoundingBox.class);
-        when(otherNode.getBoundsInLocal()).thenReturn(otherBoundingBox);
-        when(otherBoundingBox.getWidth()).thenReturn(ENTITY_WIDTH);
-        when(otherBoundingBox.getHeight()).thenReturn(ENTITY_HEIGHT);
-        when(otherNode.getScene()).thenReturn(scene);
-        when(scene.getWidth()).thenReturn(SCENE_WIDTH);
-
-        other.init(injector);
-        other.transferCoordinatesToNode();
-
-        sut.init(injector);
-        sut.transferCoordinatesToNode();
-
-        // Act
-        var actual = sut.angleTo(other);
-
-        // Assert
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void angleToYaegerEntityRightAboveIs135Degrees() {
-        // Arrange
-        var expected = 135d;
-        var other = new YaegerEntityImpl(new Coordinate2D(LOCATION.getX() + 10, LOCATION.getY() - 10));
-
-        other.init(injector);
-        other.transferCoordinatesToNode();
-        other.applyTranslationsForAnchorPoint();
-
-        sut.transferCoordinatesToNode();
-        sut.applyTranslationsForAnchorPoint();
-
-        // Act
-        var actual = sut.angleTo(other);
-
-        // Assert
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void angleToYaegerEntityLeftBelowIs315Degrees() {
-        // Arrange
-        var expected = 315d;
-        var other = new YaegerEntityImpl(new Coordinate2D(LOCATION.getX() - 10, LOCATION.getY() + 10));
-        var otherNode = mock(Node.class, withSettings().withoutAnnotations());
-        other.setNode(Optional.of(otherNode));
-        var otherBoundingBox = mock(BoundingBox.class);
-        when(otherNode.getBoundsInLocal()).thenReturn(otherBoundingBox);
-        when(otherBoundingBox.getWidth()).thenReturn(ENTITY_WIDTH);
-        when(otherBoundingBox.getHeight()).thenReturn(ENTITY_HEIGHT);
-        when(otherNode.getScene()).thenReturn(scene);
-        when(scene.getWidth()).thenReturn(SCENE_WIDTH);
-
-        other.init(injector);
-        other.transferCoordinatesToNode();
-
-        sut.init(injector);
-        sut.transferCoordinatesToNode();
-
-        // Act
-        var actual = sut.angleTo(other);
-
-        // Assert
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void angleToYaegerEntityRightBelowIs45Degrees() {
-        // Arrange
-        var expected = 45d;
-        var other = new YaegerEntityImpl(new Coordinate2D(LOCATION.getX() + 10, LOCATION.getY() + 10));
-        var otherNode = mock(Node.class, withSettings().withoutAnnotations());
-        other.setNode(Optional.of(otherNode));
-        var otherBoundingBox = mock(BoundingBox.class);
-        when(otherNode.getBoundsInLocal()).thenReturn(otherBoundingBox);
-        when(otherBoundingBox.getWidth()).thenReturn(ENTITY_WIDTH);
-        when(otherBoundingBox.getHeight()).thenReturn(ENTITY_HEIGHT);
-        when(otherNode.getScene()).thenReturn(scene);
-        when(scene.getWidth()).thenReturn(SCENE_WIDTH);
-
-        other.init(injector);
-        other.transferCoordinatesToNode();
-
-        sut.init(injector);
-        sut.transferCoordinatesToNode();
-
-        // Act
-        var actual = sut.angleTo(other);
-
-        // Assert
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void angleToCoordinate2DVerticallyAboveIs180Degrees() {
-        // Arrange
-        var expected = Direction.UP.getValue();
-        var above = new Coordinate2D(LOCATION.getX(), LOCATION.getY() - 10);
-
-        sut.init(injector);
-        sut.transferCoordinatesToNode();
-
-        // Act
-        var actual = sut.angleTo(above);
-
-        // Assert
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void angleToCoordinate2DVerticallyBelowIs0Degrees() {
-        // Arrange
-        var expected = Direction.DOWN.getValue();
-        var below = new Coordinate2D(LOCATION.getX(), LOCATION.getY() + 10);
-
-        sut.init(injector);
-        sut.transferCoordinatesToNode();
-
-        // Act
-        var actual = sut.angleTo(below);
-
-        // Assert
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void angleToCoordinate2DHorizontallyLeftIs270Degrees() {
-        // Arrange
-        var expected = Direction.LEFT.getValue();
-        var left = new Coordinate2D(LOCATION.getX() - 10, LOCATION.getY());
-
-        sut.init(injector);
-        sut.transferCoordinatesToNode();
-
-        // Act
-        var actual = sut.angleTo(left);
-
-        // Assert
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void angleToCoordinate2DHorizontallyRightIs90Degrees() {
-        // Arrange
-        var expected = Direction.RIGHT.getValue();
-        var right = new Coordinate2D(LOCATION.getX() + 10, LOCATION.getY());
-
-        sut.init(injector);
-        sut.transferCoordinatesToNode();
-
-        // Act
-        var actual = sut.angleTo(right);
-
-        // Assert
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void angleToCoordinate2DLeftAboveIs225Degrees() {
-        // Arrange
-        var expected = 225;
-        var leftAbove = new Coordinate2D(LOCATION.getX() - 100, LOCATION.getY() - 100);
-
-        sut.init(injector);
-        sut.transferCoordinatesToNode();
-
-        // Act
-        var actual = sut.angleTo(leftAbove);
-
-        // Assert
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void angleToCoordinate2DRightAboveIs135Degrees() {
-        // Arrange
-        var expected = 135d;
-        var rightAbove = new Coordinate2D(LOCATION.getX() + 10, LOCATION.getY() - 10);
-
-        sut.init(injector);
-        sut.transferCoordinatesToNode();
-
-        // Act
-        var actual = sut.angleTo(rightAbove);
-
-        // Assert
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void angleToCoordinate2DLeftBelowIs315Degrees() {
-        // Arrange
-        var expected = 315d;
-        var leftBelow = new Coordinate2D(LOCATION.getX() - 10, LOCATION.getY() + 10);
-
-        sut.init(injector);
-        sut.transferCoordinatesToNode();
-
-        // Act
-        var actual = sut.angleTo(leftBelow);
-
-        // Assert
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void angleToCoordinate2DRightBelowIs45Degrees() {
-        // Arrange
-        var expected = 45d;
-        var rightBelow = new Coordinate2D(LOCATION.getX() + 10, LOCATION.getY() + 10);
-
-        sut.init(injector);
-        sut.transferCoordinatesToNode();
-
-        // Act
-        var actual = sut.angleTo(rightBelow);
-
-        // Assert
-        assertEquals(expected, actual);
+        assertEquals(expectedAngle, actual);
     }
 
     @Test
@@ -997,6 +711,20 @@ class YaegerEntityTest {
 
         // Assert
         Assertions.assertEquals(sut, entityProcessor.processedEntity);
+    }
+
+    private static Stream<Arguments> provideArgumentsForAngleTo() {
+        return Stream.of(
+                Arguments.of(new Coordinate2D(LOCATION.getX(), LOCATION.getY() - 10), Direction.UP.getValue()),
+                Arguments.of(new Coordinate2D(LOCATION.getX(), LOCATION.getY() + 10), Direction.DOWN.getValue()),
+                Arguments.of(new Coordinate2D(LOCATION.getX() - 10, LOCATION.getY()), Direction.LEFT.getValue()),
+                Arguments.of(new Coordinate2D(LOCATION.getX() + 10, LOCATION.getY()), Direction.RIGHT.getValue()),
+                Arguments.of(new Coordinate2D(LOCATION.getX() - 10, LOCATION.getY() - 10), 225d), // left above
+                Arguments.of(new Coordinate2D(LOCATION.getX() + 10, LOCATION.getY() - 10), 135d), // right above
+                Arguments.of(new Coordinate2D(LOCATION.getX() - 10, LOCATION.getY() + 10), 315d), // left below
+                Arguments.of(new Coordinate2D(LOCATION.getX() + 10, LOCATION.getY() + 10), 45d) // right below
+
+        );
     }
 
     private static class YaegerEntityImpl extends YaegerEntity {
