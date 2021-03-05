@@ -1,4 +1,4 @@
-package com.github.hanyaeger.api.engine.entities.entity.sprite.delegates;
+package com.github.hanyaeger.api.engine.entities.entity.sprite;
 
 import com.github.hanyaeger.api.engine.media.ResourceConsumer;
 import javafx.geometry.Rectangle2D;
@@ -20,14 +20,12 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
     private static final double DELTA = 0.00000000000001d;
 
     private ImageView imageView;
-    private Image image;
     private SpriteAnimationDelegate sut;
 
     @BeforeEach
     void setup() {
-        // Arrange
         imageView = mock(ImageView.class);
-        image = mock(Image.class);
+        var image = mock(Image.class);
 
         when(imageView.getImage()).thenReturn(image);
         when(image.getWidth()).thenReturn(IMAGE_WIDTH);
@@ -167,7 +165,7 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
     void autoCyclingThroughNonexistentRowThrowsException() {
         // Arrange
 
-        // Act, Assert
+        // Act & Assert
         assertThrows(IllegalArgumentException.class,
                 () -> sut.setAutoCycle(10, 4));
     }

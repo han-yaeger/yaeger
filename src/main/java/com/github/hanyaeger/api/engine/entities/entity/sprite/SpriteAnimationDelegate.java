@@ -1,4 +1,4 @@
-package com.github.hanyaeger.api.engine.entities.entity.sprite.delegates;
+package com.github.hanyaeger.api.engine.entities.entity.sprite;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
@@ -30,8 +30,8 @@ public class SpriteAnimationDelegate implements Updatable {
      * After construction, the spriteIndex will be set to the first frame (top-left).
      *
      * @param imageView the {@link ImageView} for which the different frames should be created
-     * @param rows    the number of rows available
-     * @param columns the number of columns available
+     * @param rows      the number of rows available
+     * @param columns   the number of columns available
      */
     public SpriteAnimationDelegate(final ImageView imageView, final int rows, final int columns) {
         this.imageView = imageView;
@@ -48,7 +48,7 @@ public class SpriteAnimationDelegate implements Updatable {
      * @param index the index to select. This index will be applied modulo the total number
      *              of frames
      */
-    public void setSpriteIndex(final int index) {
+    void setSpriteIndex(final int index) {
         var modulus = index % viewports.size();
         imageView.setViewport(viewports.get(modulus));
         currentIndex = index;
@@ -59,7 +59,7 @@ public class SpriteAnimationDelegate implements Updatable {
      *
      * @return the index of the sprite as an {@code int}
      */
-    public int getFrameIndex() {
+    int getFrameIndex() {
         return currentIndex;
     }
 
@@ -80,7 +80,7 @@ public class SpriteAnimationDelegate implements Updatable {
      *
      * @param interval the interval in milli-seconds
      */
-    public void setAutoCycle(final long interval) {
+    void setAutoCycle(final long interval) {
         this.autoCycleInterval = interval * 1000000;
     }
 
@@ -89,9 +89,9 @@ public class SpriteAnimationDelegate implements Updatable {
      * and which row to cycle through.
      *
      * @param interval the interval in milli-seconds
-     * @param row the row to cycle through (zero-indexed)
+     * @param row      the row to cycle through (zero-indexed)
      */
-    public void setAutoCycle(final long interval, final int row) {
+    void setAutoCycle(final long interval, final int row) {
         if (row >= rows) {
             var message = String.format(INVALID_ROW_EXCEPTION, row, rows);
             throw new IllegalArgumentException(message);
@@ -105,7 +105,7 @@ public class SpriteAnimationDelegate implements Updatable {
     /**
      * Set the next index of the sprite.
      */
-    public void next() {
+    void next() {
         final int lastIndexOfTheRow = cyclingRow * columns + columns - 1;
         if (cyclingRow == -1 || currentIndex < lastIndexOfTheRow) {
             setSpriteIndex(++currentIndex);

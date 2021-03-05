@@ -6,7 +6,6 @@ import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.motion.EntityMotionInitBuffer;
 import com.github.hanyaeger.api.engine.entities.entity.motion.MotionApplier;
-import com.github.hanyaeger.api.engine.entities.entity.sprite.delegates.SpriteAnimationDelegate;
 import com.github.hanyaeger.api.engine.media.repositories.ImageRepository;
 import com.github.hanyaeger.api.guice.factories.SpriteAnimationDelegateFactory;
 import com.github.hanyaeger.api.javafx.image.ImageViewFactory;
