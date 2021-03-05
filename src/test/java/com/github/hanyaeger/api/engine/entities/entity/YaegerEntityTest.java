@@ -663,7 +663,7 @@ class YaegerEntityTest {
 
     @ParameterizedTest
     @MethodSource("provideArgumentsForAngleTo")
-    void testAngleToOtherLocation(Coordinate2D otherLocation, double expectedAngle) {
+    void testAngleToOtherLocation(final Coordinate2D otherLocation, final double expectedAngle) {
         // Arrange
         sut.init(injector);
         sut.transferCoordinatesToNode();
@@ -673,6 +673,23 @@ class YaegerEntityTest {
 
         // Assert
         assertEquals(expectedAngle, actual);
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideArgumentsForGetLocationInScene")
+    void testGetLocationInScene(AnchorPoint anchorPoint, double expectedX, double expectedY) {
+        // Arrange
+        var boundingBox = new BoundingBox(LOCATION.getX(), LOCATION.getY(), ENTITY_WIDTH, ENTITY_HEIGHT);
+        when(node.localToScene(boundingBox, true)).thenReturn(boundingBox);
+        when(node.getBoundsInLocal()).thenReturn(boundingBox);
+        sut.setAnchorPoint(anchorPoint);
+        var expected = new Coordinate2D(expectedX, expectedY);
+
+        // Act
+        var actual = sut.getLocationInScene();
+
+        // Assert
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -726,6 +743,21 @@ class YaegerEntityTest {
 
         );
     }
+
+    private static Stream<Arguments> provideArgumentsForGetLocationInScene() {
+        return Stream.of(
+                Arguments.of(AnchorPoint.TOP_LEFT, LOCATION.getX(), LOCATION.getY()),
+                Arguments.of(AnchorPoint.TOP_CENTER, LOCATION.getX() + ENTITY_WIDTH / 2, LOCATION.getY()),
+                Arguments.of(AnchorPoint.TOP_RIGHT, LOCATION.getX() + ENTITY_WIDTH, LOCATION.getY()),
+                Arguments.of(AnchorPoint.CENTER_LEFT, LOCATION.getX(), LOCATION.getY() + ENTITY_HEIGHT / 2),
+                Arguments.of(AnchorPoint.CENTER_CENTER, LOCATION.getX() + ENTITY_WIDTH / 2, LOCATION.getY() + ENTITY_HEIGHT / 2),
+                Arguments.of(AnchorPoint.CENTER_RIGHT, LOCATION.getX() + ENTITY_WIDTH, LOCATION.getY() + ENTITY_HEIGHT / 2),
+                Arguments.of(AnchorPoint.BOTTOM_LEFT, LOCATION.getX(), LOCATION.getY() + ENTITY_HEIGHT),
+                Arguments.of(AnchorPoint.BOTTOM_CENTER, LOCATION.getX() + ENTITY_WIDTH / 2, LOCATION.getY() + ENTITY_HEIGHT),
+                Arguments.of(AnchorPoint.BOTTOM_RIGHT, LOCATION.getX() + ENTITY_WIDTH, LOCATION.getY() + ENTITY_HEIGHT)
+        );
+    }
+
 
     private static class YaegerEntityImpl extends YaegerEntity {
 
