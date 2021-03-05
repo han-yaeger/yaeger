@@ -93,7 +93,7 @@ public class SpriteAnimationDelegate implements Updatable {
      */
     public void setAutoCycle(final long interval, final int row) {
         if (row >= rows) {
-            String message = String.format(INVALID_ROW_EXCEPTION, row, rows);
+            var message = String.format(INVALID_ROW_EXCEPTION, row, rows);
             throw new IllegalArgumentException(message);
         }
 
