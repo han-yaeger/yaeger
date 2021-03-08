@@ -69,12 +69,14 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      * The sprite will cycle through one row of sprites, from left to right.
      *
      * @param interval the interval in milli-seconds
-     * @param row      the row to cycle through
+     * @param row      the row to cycle through. This value is one based; if a value of -1 is used, all sprites are
+     *                 cycled through
      */
     protected void setAutoCycle(final long interval, final int row) {
-        this.autoCycleInterval = interval;
-        this.cyclingRow = row;
-        spriteAnimationDelegate.ifPresent(delegate -> delegate.setAutoCycle(interval, row));
+        spriteAnimationDelegate.ifPresentOrElse(delegate -> delegate.setAutoCycle(interval, row), () -> {
+            this.autoCycleInterval = interval;
+            this.cyclingRow = row;
+        });
     }
 
     @Override

@@ -22,8 +22,6 @@ import static org.mockito.Mockito.*;
 
 class DynamicSpriteEntityTest {
 
-    private final long TIMESTAMP = 0L;
-
     private final static String DEFAULT_RESOURCE = "images/bubble.png";
     private final static int X_POSITION = 37;
     private final static int Y_POSITION = 37;
@@ -133,9 +131,9 @@ class DynamicSpriteEntityTest {
     }
 
     @Test
-    void setAutocycleDoesNotBreakWithOnlyOneFrame() {
+    void setAutoCycleDoesNotBreakWithOnlyOneFrame() {
         // Arrange
-        var autocycleValue = 37;
+        var autoCycleValue = 37;
         var image = mock(Image.class);
         var imageView = mock(ImageView.class);
         var sut = new DynamicSpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
@@ -151,7 +149,7 @@ class DynamicSpriteEntityTest {
         when(imageViewFactory.create(image)).thenReturn(imageView);
         when(spriteAnimationDelegateFactory.create(imageView, 1, 1)).thenReturn(spriteAnimationDelegate);
 
-        sut.setAutoCycle(autocycleValue);
+        sut.setAutoCycle(autoCycleValue);
 
         // Act
         sut.init(injector);
@@ -161,7 +159,7 @@ class DynamicSpriteEntityTest {
     }
 
     @Test
-    void autocycleGetsDelegatedToSpriteAnimationDelegate() {
+    void autoCycleGetsDelegatedToSpriteAnimationDelegate() {
         // Arrange
         var rows = 1;
         var columns = 2;
@@ -249,13 +247,14 @@ class DynamicSpriteEntityTest {
         sut.setUpdater(updater);
 
         // Act
+        long TIMESTAMP = 0L;
         sut.update(TIMESTAMP);
 
         // Assert
         verify(updater).update(TIMESTAMP);
     }
 
-    private class DynamicSpriteEntityImpl extends DynamicSpriteEntity {
+    private static class DynamicSpriteEntityImpl extends DynamicSpriteEntity {
 
         DynamicSpriteEntityImpl(String resource, Coordinate2D location, Size size) {
             super(resource, location, size);
@@ -266,7 +265,7 @@ class DynamicSpriteEntityTest {
         }
     }
 
-    private class AutoCyclingDynamicSpriteEntity extends DynamicSpriteEntity {
+    private static class AutoCyclingDynamicSpriteEntity extends DynamicSpriteEntity {
 
         AutoCyclingDynamicSpriteEntity(String resource, Coordinate2D location, Size size, int rows, int columns) {
             super(resource, location, size, rows, columns);
