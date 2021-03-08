@@ -113,7 +113,7 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
         // Arrange
 
         // Act
-        sut.setAutoCycle(10);
+        sut.setAutoCycle(10, -1);
         sut.update(11);
         sut.update(2002);
 
@@ -126,7 +126,7 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
         // Arrange
 
         // Act
-        sut.setAutoCycle(10);
+        sut.setAutoCycle(10, -1);
         sut.update(10000001);
         sut.update(20000002);
 
@@ -168,5 +168,14 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
         // Act & Assert
         assertThrows(IllegalArgumentException.class,
                 () -> sut.setAutoCycle(10, 4));
+    }
+
+    @Test
+    void autoCyclingThroughNegativetRowThrowsException() {
+        // Arrange
+
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class,
+                () -> sut.setAutoCycle(10, -2));
     }
 }

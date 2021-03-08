@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class SpriteAnimationDelegate implements Updatable {
 
+    public static final int MILLI_TO_NANO_FACTOR = 1000000;
     private final int rows;
     private final int columns;
 
@@ -77,29 +78,27 @@ public class SpriteAnimationDelegate implements Updatable {
 
     /**
      * Set the interval at which the sprite should be automatically cycled
-     *
-     * @param interval the interval in milli-seconds
-     */
-    void setAutoCycle(final long interval) {
-        this.autoCycleInterval = interval * 1000000;
-    }
-
-    /**
-     * Set the interval at which the sprite should be automatically cycled
      * and which row to cycle through.
      *
      * @param interval the interval in milli-seconds
      * @param row      the row to cycle through (zero-indexed)
      */
     void setAutoCycle(final long interval, final int row) {
-        if (row >= rows) {
+        if (row >= rows || row < -1) {
             var message = String.format(INVALID_ROW_EXCEPTION, row, rows);
             throw new IllegalArgumentException(message);
         }
 
-        this.autoCycleInterval = interval * 1000000;
-        this.cyclingRow = row;
-        currentIndex = cyclingRow * columns;
+        if (interval * MILLI_TO_NANO_FACTOR != autoCycleInterval) {
+            this.autoCycleInterval = interval * MILLI_TO_NANO_FACTOR;
+        }
+
+        if (row != cyclingRow) {
+            this.cyclingRow = row;
+            if (row != -1) {
+                currentIndex = cyclingRow * columns;
+            }
+        }
     }
 
     /**
@@ -116,6 +115,7 @@ public class SpriteAnimationDelegate implements Updatable {
 
     private void createViewPorts() {
         var frameWidth = getFrameWidth();
+
         var frameHeight = getFrameHeight();
 
         for (int row = 0; row < rows; row++) {
