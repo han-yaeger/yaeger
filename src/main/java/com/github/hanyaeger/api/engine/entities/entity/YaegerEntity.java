@@ -161,7 +161,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
         if (this.equals(entity)) {
             return 0d;
         }
-        return angleTo(entity.getAnchorLocation());
+        return angleTo(entity.getLocationInScene());
     }
 
     /**
@@ -188,11 +188,11 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      */
     public double angleTo(final Coordinate2D otherLocation) {
 
-        if (getAnchorLocation().equals(otherLocation)) {
+        if (getLocationInScene().equals(otherLocation)) {
             return 0D;
         }
 
-        var delta = otherLocation.subtract(getAnchorLocation());
+        var delta = otherLocation.subtract(getLocationInScene());
         var normalizedDelta = delta.normalize();
         var angle = new Point2D(0, 1).angle(normalizedDelta);
 
@@ -351,5 +351,29 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     @Override
     public RotationBuffer getRotationBuffer() {
         return rotationBuffer;
+    }
+
+    /**
+     * Calculate the absolute location of this {@link YaegerEntity} in the scene.
+     * Because {@link CompositeEntity} uses a relative coordinate system, this method is needed to make calculations
+     * for entities that are part of a {@link CompositeEntity}.
+     * @return a {@link Coordinate2D} with the absolute coordinates of the {@link YaegerEntity}.
+     */
+    protected Coordinate2D getLocationInScene() {
+        var boundsInScene = getNode()
+                .map(node -> node.localToScene(node.getBoundsInLocal(), true))
+                .orElse(EMPTY_BB);
+
+        return switch (getAnchorPoint()) {
+            case TOP_LEFT -> new Coordinate2D(boundsInScene.getMinX(), boundsInScene.getMinY());
+            case TOP_CENTER -> new Coordinate2D(boundsInScene.getCenterX(), boundsInScene.getMinY());
+            case TOP_RIGHT -> new Coordinate2D(boundsInScene.getMaxX(), boundsInScene.getMinY());
+            case CENTER_LEFT -> new Coordinate2D(boundsInScene.getMinX(), boundsInScene.getCenterY());
+            case CENTER_CENTER -> new Coordinate2D(boundsInScene.getCenterX(), boundsInScene.getCenterY());
+            case CENTER_RIGHT -> new Coordinate2D(boundsInScene.getMaxX(), boundsInScene.getCenterY());
+            case BOTTOM_LEFT -> new Coordinate2D(boundsInScene.getMinX(), boundsInScene.getMaxY());
+            case BOTTOM_CENTER -> new Coordinate2D(boundsInScene.getCenterX(), boundsInScene.getMaxY());
+            case BOTTOM_RIGHT -> new Coordinate2D(boundsInScene.getMaxX(), boundsInScene.getMaxY());
+        };
     }
 }
