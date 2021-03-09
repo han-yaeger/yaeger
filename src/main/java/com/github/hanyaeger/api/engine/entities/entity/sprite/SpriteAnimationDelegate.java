@@ -89,15 +89,11 @@ public class SpriteAnimationDelegate implements Updatable {
             throw new IllegalArgumentException(message);
         }
 
-        if (interval * MILLI_TO_NANO_FACTOR != autoCycleInterval) {
-            this.autoCycleInterval = interval * MILLI_TO_NANO_FACTOR;
-        }
+        this.autoCycleInterval = interval * MILLI_TO_NANO_FACTOR;
+        this.cyclingRow = row;
 
-        if (row != cyclingRow) {
-            this.cyclingRow = row;
-            if (row != -1) {
-                currentIndex = cyclingRow * columns;
-            }
+        if (row != -1) {
+            currentIndex = cyclingRow * columns;
         }
     }
 
