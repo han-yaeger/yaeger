@@ -1,4 +1,4 @@
-package com.github.hanyaeger.api.engine.entities.entity.sprite.delegates;
+package com.github.hanyaeger.api.engine.entities.entity.sprite;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class SpriteAnimationDelegate implements Updatable {
 
+    public static final int MILLI_TO_NANO_FACTOR = 1000000;
     private final int rows;
     private final int columns;
 
@@ -30,8 +31,8 @@ public class SpriteAnimationDelegate implements Updatable {
      * After construction, the spriteIndex will be set to the first frame (top-left).
      *
      * @param imageView the {@link ImageView} for which the different frames should be created
-     * @param rows    the number of rows available
-     * @param columns the number of columns available
+     * @param rows      the number of rows available
+     * @param columns   the number of columns available
      */
     public SpriteAnimationDelegate(final ImageView imageView, final int rows, final int columns) {
         this.imageView = imageView;
@@ -48,7 +49,7 @@ public class SpriteAnimationDelegate implements Updatable {
      * @param index the index to select. This index will be applied modulo the total number
      *              of frames
      */
-    public void setSpriteIndex(final int index) {
+    void setSpriteIndex(final int index) {
         var modulus = index % viewports.size();
         imageView.setViewport(viewports.get(modulus));
         currentIndex = index;
@@ -59,7 +60,7 @@ public class SpriteAnimationDelegate implements Updatable {
      *
      * @return the index of the sprite as an {@code int}
      */
-    public int getFrameIndex() {
+    int getFrameIndex() {
         return currentIndex;
     }
 
@@ -77,35 +78,29 @@ public class SpriteAnimationDelegate implements Updatable {
 
     /**
      * Set the interval at which the sprite should be automatically cycled
-     *
-     * @param interval the interval in milli-seconds
-     */
-    public void setAutoCycle(final long interval) {
-        this.autoCycleInterval = interval * 1000000;
-    }
-
-    /**
-     * Set the interval at which the sprite should be automatically cycled
      * and which row to cycle through.
      *
      * @param interval the interval in milli-seconds
-     * @param row the row to cycle through (zero-indexed)
+     * @param row      the row to cycle through (zero-indexed)
      */
-    public void setAutoCycle(final long interval, final int row) {
-        if (row >= rows) {
-            String message = String.format(INVALID_ROW_EXCEPTION, row, rows);
+    void setAutoCycle(final long interval, final int row) {
+        if (row >= rows || row < -1) {
+            var message = String.format(INVALID_ROW_EXCEPTION, row, rows);
             throw new IllegalArgumentException(message);
         }
 
-        this.autoCycleInterval = interval * 1000000;
+        this.autoCycleInterval = interval * MILLI_TO_NANO_FACTOR;
         this.cyclingRow = row;
-        currentIndex = cyclingRow * columns;
+
+        if (row != -1) {
+            currentIndex = cyclingRow * columns;
+        }
     }
 
     /**
      * Set the next index of the sprite.
      */
-    public void next() {
+    void next() {
         final int lastIndexOfTheRow = cyclingRow * columns + columns - 1;
         if (cyclingRow == -1 || currentIndex < lastIndexOfTheRow) {
             setSpriteIndex(++currentIndex);
@@ -116,6 +111,7 @@ public class SpriteAnimationDelegate implements Updatable {
 
     private void createViewPorts() {
         var frameWidth = getFrameWidth();
+
         var frameHeight = getFrameHeight();
 
         for (int row = 0; row < rows; row++) {

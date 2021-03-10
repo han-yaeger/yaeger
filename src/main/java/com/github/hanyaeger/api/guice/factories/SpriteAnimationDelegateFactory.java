@@ -1,7 +1,7 @@
 package com.github.hanyaeger.api.guice.factories;
 
 import javafx.scene.image.ImageView;
-import com.github.hanyaeger.api.engine.entities.entity.sprite.delegates.SpriteAnimationDelegate;
+import com.github.hanyaeger.api.engine.entities.entity.sprite.SpriteAnimationDelegate;
 
 public class SpriteAnimationDelegateFactory {
 

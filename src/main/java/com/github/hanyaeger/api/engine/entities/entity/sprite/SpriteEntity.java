@@ -7,7 +7,6 @@ import javafx.scene.image.ImageView;
 import com.github.hanyaeger.api.engine.Size;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
-import com.github.hanyaeger.api.engine.entities.entity.sprite.delegates.SpriteAnimationDelegate;
 import com.github.hanyaeger.api.engine.media.repositories.ImageRepository;
 import com.github.hanyaeger.api.engine.media.ResourceConsumer;
 import com.github.hanyaeger.api.javafx.image.ImageViewFactory;
