@@ -56,12 +56,13 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      * components, of which one is parallel to the given direction. Calling this methods inverts the vector
      * parallel to the direction and computes a new motion, based on that vector.
      *
-     * <p> TODO
+     * <p>
      * <img width="30%" src="doc-files/invert-motion-vectors.svg" alt="Vector representation of inverting the motion in a given direction">
      * <p>
-     * TODO
+     *
      * <p> In the image above, let <b>v</b> denote the vector associated with the current motion and <b>b</b> be the vector
-     * in the direction that has to be nullified, then the resulting vector <b>p</b> can be calculated by
+     * in the direction that should be inverted. Then <b>b`</b> represents the inverse of <b>b</b> and <b>v`</b> the resulting
+     * vector of the new motion, which can be calculated by: TODO
      * <p>
      * \( \textbf{p} = \cfrac{\textbf{v}\cdot\textbf{b}}{\textbf{b}\cdot\textbf{b}} \cdot \textbf{b}   \)
      *
@@ -121,7 +122,7 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      * leaving the other as the new motion.
      *
      * <p>
-     * <img width="30%" src="doc-files/negate-motion-vectors.svg" alt="Vector representation of negating the motion in a given direction">
+     * <img width="30%" src="doc-files/nullify-motion-vectors.svg" alt="Vector representation of negating the motion in a given direction">
      *
      * <p> In the image above, let <b>v</b> denote the vector associated with the current motion and <b>b</b> be the vector
      * in the direction that has to be nullified, then the resulting vector <b>p</b> can be calculated by
