@@ -188,7 +188,7 @@ class MovableTest {
         sut.maximizeMotionInDirection(DIRECTION_ENUM, SPEED);
 
         // Assert
-        verify(motionApplier).maximizeMotionInDirection(DIRECTION_ENUM.getValue(), SPEED);
+        verify(motionApplier).maximizeMotionInDirection(DIRECTION_ENUM, SPEED);
     }
 
     @Test
@@ -210,7 +210,7 @@ class MovableTest {
         sut.nullifySpeedInDirection(DIRECTION_ENUM);
 
         // Assert
-        verify(motionApplier).nullifySpeedInDirection(DIRECTION_ENUM.getValue());
+        verify(motionApplier).nullifySpeedInDirection(DIRECTION_ENUM);
     }
 
     @Test

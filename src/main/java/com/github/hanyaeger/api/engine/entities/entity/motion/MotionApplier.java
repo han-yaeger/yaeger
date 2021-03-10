@@ -60,6 +60,16 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     }
 
     @Override
+    public void invertSpeedInDirection(Direction direction) {
+        invertSpeedInDirection(direction.getValue());
+    }
+
+    @Override
+    public void invertSpeedInDirection(double direction) {
+        // TODO implement
+    }
+
+    @Override
     public void maximizeMotionInDirection(final Direction direction, final double speed) {
         maximizeMotionInDirection(direction.getValue(), speed);
     }
