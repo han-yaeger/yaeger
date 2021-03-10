@@ -3,7 +3,6 @@ package com.github.hanyaeger.api.engine.entities.entity.sprite;
 import com.github.hanyaeger.api.engine.Size;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.events.system.RemoveEntityEvent;
-import com.github.hanyaeger.api.engine.entities.entity.sprite.delegates.SpriteAnimationDelegate;
 import com.github.hanyaeger.api.engine.media.repositories.ImageRepository;
 import com.github.hanyaeger.api.guice.factories.SpriteAnimationDelegateFactory;
 import com.github.hanyaeger.api.javafx.image.ImageViewFactory;

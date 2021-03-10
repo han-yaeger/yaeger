@@ -16,7 +16,7 @@ import java.util.Optional;
  * is called.
  * </p>
  *
- * <p>It is, however required to set various properties from, or directory after the constructor.
+ * <p>It is, however, required to set various properties from, or directly after the constructor has been called.
  * This  {@link EntityMotionInitBuffer} therefore stores these properties and delegates them to
  * the {@link MotionModifier} when {@link #init(Injector)} gets called.
  * </p>

@@ -31,7 +31,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      *
      * @param resource        the url of the image file. Relative to the resources folder
      * @param initialLocation the initial {@link Coordinate2D} of this Entity
-     * @param size            The {@link Size} (width and height) with which the image should be shown. This {@link Size}
+     * @param size            the {@link Size} (width and height) with which the image should be shown. This {@link Size}
      *                        will also be used as the {@link javafx.geometry.BoundingBox} in case of collision detection
      */
     protected DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation, final Size size) {
@@ -69,12 +69,14 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      * The sprite will cycle through one row of sprites, from left to right.
      *
      * @param interval the interval in milli-seconds
-     * @param row the row to cycle through
+     * @param row      the row to cycle through. This value is zero based; if a value of -1 is used, all sprites are
+     *                 cycled through
      */
     protected void setAutoCycle(final long interval, final int row) {
-        this.autoCycleInterval = interval;
-        this.cyclingRow = row;
-        spriteAnimationDelegate.ifPresent(delegate -> delegate.setAutoCycle(interval, row));
+        spriteAnimationDelegate.ifPresentOrElse(delegate -> delegate.setAutoCycle(interval, row), () -> {
+            this.autoCycleInterval = interval;
+            this.cyclingRow = row;
+        });
     }
 
     @Override
