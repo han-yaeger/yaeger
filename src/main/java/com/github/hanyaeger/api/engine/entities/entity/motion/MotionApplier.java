@@ -103,13 +103,17 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
 
             if (dotProduct > 0) {
                 // An actual situation in which the motion should be nullified in the given direction
-                var numerator = motion.dotProduct(normalizedVector);
-                var denominator = normalizedVector.dotProduct(normalizedVector);
-                var result = normalizedVector.multiply(numerator / denominator);
-                var newMotion = motion.subtract(result);
+                var vectorForDirection = calculateDenormalizedVector(normalizedVector, motion);
+                var newMotion = motion.subtract(vectorForDirection);
                 setMotion(newMotion.magnitude(), convertVectorToAngle(newMotion));
             }
         }
+    }
+
+    private Point2D calculateDenormalizedVector(final Coordinate2D normalizedVector, final Coordinate2D currentMotion) {
+        var numerator = currentMotion.dotProduct(normalizedVector);
+        var denominator = normalizedVector.dotProduct(normalizedVector);
+        return normalizedVector.multiply(numerator / denominator);
     }
 
     @Override

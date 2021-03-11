@@ -58,13 +58,10 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      *
      * <p>
      * <img width="30%" src="doc-files/invert-motion-vectors.svg" alt="Vector representation of inverting the motion in a given direction">
-     * <p>
      *
      * <p> In the image above, let <b>v</b> denote the vector associated with the current motion and <b>b</b> be the vector
      * in the direction that should be inverted. Then <b>b`</b> represents the inverse of <b>b</b> and <b>v`</b> the resulting
-     * vector of the new motion, which can be calculated by: TODO
-     * <p>
-     * \( \textbf{p} = \cfrac{\textbf{v}\cdot\textbf{b}}{\textbf{b}\cdot\textbf{b}} \cdot \textbf{b}   \)
+     * vector of the new motion.
      *
      * <p>
      * Note that for this method only the direction of <b>b</b> has to be given. The length of <b>b</b> is automatically
@@ -94,11 +91,9 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      * <p>
      * <img width="30%" src="doc-files/maximize-motion-vectors.svg" alt="Vector representation of maximizing the motion in a given direction">
      *
-     * <p> In the image above, let \( \vec{v} \) be the vector associated with the current motion and \( \vec{r} \) be the
-     * vector that represents the direction and speed that should be maximized, then the resulting vector\( \vec{s}\)
-     * can be calculated by
-     * <p>
-     * \(\textbf{p} = \textbf{v} - \cfrac{\textbf{v}\cdot\textbf{b}}{\textbf{b}\cdot\textbf{b}} \cdot \textbf{b} + \textbf{b}\)
+     * <p> In the image above, let <b>v</b> be the vector associated with the current motion and <b>r</b> be the
+     * vector that represents the direction and speed that should be maximized, then the resulting vector <b>s</b> represents
+     * the maximized motion.
      *
      * <p>
      * A typical use case would be when an entity has to accelerate to a maximum value into a specific direction,
@@ -125,9 +120,7 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      * <img width="30%" src="doc-files/nullify-motion-vectors.svg" alt="Vector representation of negating the motion in a given direction">
      *
      * <p> In the image above, let <b>v</b> denote the vector associated with the current motion and <b>b</b> be the vector
-     * in the direction that has to be nullified, then the resulting vector <b>p</b> can be calculated by
-     * <p>
-     * \( \textbf{p} = \cfrac{\textbf{v}\cdot\textbf{b}}{\textbf{b}\cdot\textbf{b}} \cdot \textbf{b}   \)
+     * in the direction that has to be nullified, then the resulting vector <b>p</b> represents the new motion.
      *
      * <p>
      * Note that for this method only the direction of <b>b</b> has to be given. The length of <b>b</b> is automatically
