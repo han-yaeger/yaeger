@@ -609,14 +609,15 @@ class MotionApplierTest {
 
     @Nested
     class NullifySpeedInDirectionTests {
+
         @Test
         void nullifySpeedInOppositeDirectionDoesNothing() {
             // Arrange
             var currentSpeed = 3.7;
             var currentDirection = 37;
+            sut.setMotion(currentSpeed, currentDirection);
 
             // Act
-            sut.setMotion(currentSpeed, currentDirection);
             sut.nullifySpeedInDirection(180 + currentDirection);
 
             // Assert
@@ -629,9 +630,10 @@ class MotionApplierTest {
             // Arrange
             var currentSpeed = 3.7;
             var currentDirection = 37;
+            sut.setMotion(currentSpeed, currentDirection);
 
             // Act
-            sut.setMotion(currentSpeed, currentDirection);
+
             sut.nullifySpeedInDirection(100 + currentDirection);
 
             // Assert
@@ -644,9 +646,10 @@ class MotionApplierTest {
             // Arrange
             var currentSpeed = Math.sqrt(2);
             var currentDirection = 45;
+            sut.setMotion(currentSpeed, currentDirection);
 
             // Act
-            sut.setMotion(currentSpeed, currentDirection);
+
             sut.nullifySpeedInDirection(Direction.RIGHT);
 
             // Assert
@@ -659,14 +662,108 @@ class MotionApplierTest {
             // Arrange
             var currentSpeed = Math.sqrt(2);
             var currentDirection = 315;
+            sut.setMotion(currentSpeed, currentDirection);
 
             // Act
-            sut.setMotion(currentSpeed, currentDirection);
+
             sut.nullifySpeedInDirection(Direction.LEFT);
 
             // Assert
             assertEquals(1, sut.getSpeed(), DELTA);
             assertEquals(Direction.DOWN.getValue(), sut.getDirection(), DELTA);
+        }
+
+        @Test
+        void nullifySpeedInSameDirectionSetsSpeedTo0() {
+            // Arrange
+            var currentSpeed = 3.7D;
+            var currentDirection = 37;
+            sut.setMotion(currentSpeed, currentDirection);
+
+            // Act
+            sut.nullifySpeedInDirection(currentDirection);
+
+            // Assert
+            assertEquals(0, sut.getSpeed());
+        }
+    }
+
+    @Nested
+    class InvertSpeedInDirectionTests {
+
+        @Test
+        void invertingSpeedInOppositeDirectionDoesNothing() {
+            // Arrange
+            var currentSpeed = 3.7;
+            var currentDirection = 37;
+
+            // Act
+            sut.setMotion(currentSpeed, currentDirection);
+            sut.invertSpeedInDirection(180 + currentDirection);
+
+            // Assert
+            assertEquals(currentSpeed, sut.getSpeed(), DELTA);
+            assertEquals(currentDirection, sut.getDirection(), DELTA);
+        }
+
+        @Test
+        void invertSpeedInDirectionWithAngleGreaterThat90DoesNothing() {
+            // Arrange
+            var currentSpeed = 3.7;
+            var currentDirection = 37;
+
+            // Act
+            sut.setMotion(currentSpeed, currentDirection);
+            sut.invertSpeedInDirection(100 + currentDirection);
+
+            // Assert
+            assertEquals(currentSpeed, sut.getSpeed(), DELTA);
+            assertEquals(currentDirection, sut.getDirection(), DELTA);
+        }
+
+        @Test
+        void invertSpeedInSameDirectionKeepsSameSpeedButInvertsDirection() {
+            // Arrange
+            var currentSpeed = 3.7D;
+            var currentDirection = 37;
+            sut.setMotion(currentSpeed, currentDirection);
+
+            // Act
+            sut.invertSpeedInDirection(currentDirection);
+
+            // Assert
+            assertEquals(currentSpeed, sut.getSpeed(), DELTA);
+            assertEquals(currentDirection + 180, sut.getDirection(), DELTA);
+        }
+
+        @Test
+        void invertSpeedDirectionRightOn45DegreesGives315Degrees() {
+            // Arrange
+            var currentSpeed = 2;
+            var currentDirection = 45;
+            sut.setMotion(currentSpeed, currentDirection);
+
+            // Act
+            sut.invertSpeedInDirection(Direction.RIGHT);
+
+            // Assert
+            assertEquals(currentSpeed, sut.getSpeed(), DELTA);
+            assertEquals(315, sut.getDirection(), DELTA);
+        }
+
+        @Test
+        void invertSpeedDirectionDownOn45DegreesGives135Degrees() {
+            // Arrange
+            var currentSpeed = 2;
+            var currentDirection = 45;
+            sut.setMotion(currentSpeed, currentDirection);
+
+            // Act
+            sut.invertSpeedInDirection(Direction.DOWN);
+
+            // Assert
+            assertEquals(currentSpeed, sut.getSpeed(), DELTA);
+            assertEquals(135, sut.getDirection(), DELTA);
         }
     }
 }
