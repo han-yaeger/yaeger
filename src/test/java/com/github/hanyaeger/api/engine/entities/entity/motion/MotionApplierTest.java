@@ -689,6 +689,66 @@ class MotionApplierTest {
     }
 
     @Nested
+    class GetSpeedInDirectionTests {
+        @Test
+        void getSpeedInOppositeDirectionGives0() {
+            // Arrange
+            var currentSpeed = 3.7;
+            var currentDirection = 37;
+
+            // Act
+            sut.setMotion(currentSpeed, currentDirection);
+            var speedInDirection = sut.getSpeedInDirection(180 + currentDirection);
+
+            // Assert
+            assertEquals(0, speedInDirection, DELTA);
+        }
+
+        @Test
+        void getSpeedInDirectionWithAngleGreaterThat90Gives0() {
+            // Arrange
+            var currentSpeed = 3.7;
+            var currentDirection = 37;
+            sut.setMotion(currentSpeed, currentDirection);
+
+            // Act
+
+            var speedInDirection = sut.getSpeedInDirection(100 + currentDirection);
+
+            // Assert
+            assertEquals(0, speedInDirection, DELTA);
+        }
+
+        @Test
+        void getSpeedInRightwardDirectionFor45DegreesGives1() {
+            // Arrange
+            var currentSpeed = Math.sqrt(2);
+            var currentDirection = 45D;
+            sut.setMotion(currentSpeed, currentDirection);
+
+            // Act
+            var speedInDirection = sut.getSpeedInDirection(Direction.RIGHT);
+
+            // Assert
+            assertEquals(1, speedInDirection, DELTA);
+        }
+
+        @Test
+        void getSpeedInDownwardDirectionFor45DegreesGives1() {
+            // Arrange
+            var currentSpeed = Math.sqrt(2);
+            var currentDirection = 45D;
+            sut.setMotion(currentSpeed, currentDirection);
+
+            // Act
+            var speedInDirection = sut.getSpeedInDirection(Direction.DOWN);
+
+            // Assert
+            assertEquals(1, speedInDirection, DELTA);
+        }
+    }
+
+    @Nested
     class InvertSpeedInDirectionTests {
 
         @Test

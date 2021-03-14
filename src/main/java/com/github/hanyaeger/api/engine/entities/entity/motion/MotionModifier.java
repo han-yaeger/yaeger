@@ -46,6 +46,23 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
     void addToMotion(final double speed, final Direction direction);
 
     /**
+     * @param direction the {@link Direction} in which the speed should be calculated
+     * @return the speed of the decomposed vector in the specified direction
+     * @see #getSpeedInDirection(double)
+     */
+    double getSpeedInDirection(final Direction direction);
+
+    /**
+     * Since a motion can be described as a vector, such a vector can be decomposed in two perpendicular
+     * components, of which one is parallel to the given direction. Calling this methods returns the
+     * magnitude of that vector, which represents the speed in the given direction.
+     *
+     * @param direction the {@link Direction} in which the speed should be nullified
+     * @return the speed of the decomposed vector in the specified direction
+     */
+    double getSpeedInDirection(final double direction);
+
+    /**
      * @param direction the {@link Direction} in which the speed should be inverted
      * @see #invertSpeedInDirection(double)
      */

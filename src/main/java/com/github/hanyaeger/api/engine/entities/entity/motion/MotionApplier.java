@@ -60,12 +60,31 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     }
 
     @Override
-    public void invertSpeedInDirection(Direction direction) {
+    public double getSpeedInDirection(final Direction direction) {
+        return getSpeedInDirection(direction.getValue());
+    }
+
+    @Override
+    public double getSpeedInDirection(final double direction) {
+        var speed = 0D;
+        if (Double.compare(getDirection(), direction) != 0) {
+            var normalizedVector = createVector(1, direction);
+            var dotProduct = normalizedVector.dotProduct(motion);
+
+            if (dotProduct > 0) {
+                speed = calculateDenormalizedVector(normalizedVector, motion).magnitude();
+            }
+        }
+        return speed;
+    }
+
+    @Override
+    public void invertSpeedInDirection(final Direction direction) {
         invertSpeedInDirection(direction.getValue());
     }
 
     @Override
-    public void invertSpeedInDirection(double direction) {
+    public void invertSpeedInDirection(final double direction) {
         if (Double.compare(getDirection(), direction) == 0) {
             changeDirection(180);
 
@@ -181,7 +200,7 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     }
 
     @Override
-    public void setGravityConstant(double gravityConstant) {
+    public void setGravityConstant(final double gravityConstant) {
         this.gravityConstant = gravityConstant;
     }
 
@@ -191,7 +210,7 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     }
 
     @Override
-    public void setGravityDirection(double gravityDirection) {
+    public void setGravityDirection(final double gravityDirection) {
         this.gravityDirection = gravityDirection;
     }
 
