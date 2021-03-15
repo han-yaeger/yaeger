@@ -170,6 +170,30 @@ class MovableTest {
     }
 
     @Test
+    void getSpeedInDirectionDelegatesToMotionApplier() {
+        // Arrange
+        when(motionApplier.getSpeedInDirection(DIRECTION)).thenReturn(SPEED);
+
+        // Act
+        double speed = sut.getSpeedInDirection(DIRECTION);
+
+        // Assert
+        assertEquals(SPEED, speed, DELTA);
+    }
+
+    @Test
+    void getSpeedInDirectionWithEnumDelegatesToMotionApplier() {
+        // Arrange
+        when(motionApplier.getSpeedInDirection(DIRECTION_ENUM)).thenReturn(SPEED);
+
+        // Act
+        double speed = sut.getSpeedInDirection(DIRECTION_ENUM);
+
+        // Assert
+        assertEquals(SPEED, speed, DELTA);
+    }
+
+    @Test
     void maximizeDelegatesToMotionApplier() {
         // Arrange
 
@@ -211,6 +235,28 @@ class MovableTest {
 
         // Assert
         verify(motionApplier).nullifySpeedInDirection(DIRECTION_ENUM);
+    }
+
+    @Test
+    void invertDelegatesToMotionApplier() {
+        // Arrange
+
+        // Act
+        sut.invertSpeedInDirection(DIRECTION_ENUM.getValue());
+
+        // Assert
+        verify(motionApplier).invertSpeedInDirection(DIRECTION_ENUM.getValue());
+    }
+
+    @Test
+    void invertWithEnumDelegatesToMotionApplier() {
+        // Arrange
+
+        // Act
+        sut.invertSpeedInDirection(DIRECTION_ENUM);
+
+        // Assert
+        verify(motionApplier).invertSpeedInDirection(DIRECTION_ENUM);
     }
 
     @Test
