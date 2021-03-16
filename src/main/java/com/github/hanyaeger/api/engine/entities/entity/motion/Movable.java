@@ -48,8 +48,18 @@ public interface Movable extends Placeable, MotionModifier {
     }
 
     @Override
+    default double getSpeedInDirection(Direction direction) {
+        return getMotionApplier().getSpeedInDirection(direction);
+    }
+
+    @Override
+    default double getSpeedInDirection(double direction) {
+        return getMotionApplier().getSpeedInDirection(direction);
+    }
+
+    @Override
     default void maximizeMotionInDirection(final Direction direction, final double speed) {
-        maximizeMotionInDirection(direction.getValue(), speed);
+        getMotionApplier().maximizeMotionInDirection(direction, speed);
     }
 
     @Override
@@ -59,12 +69,22 @@ public interface Movable extends Placeable, MotionModifier {
 
     @Override
     default void nullifySpeedInDirection(final Direction direction) {
-        nullifySpeedInDirection(direction.getValue());
+        getMotionApplier().nullifySpeedInDirection(direction);
     }
 
     @Override
     default void nullifySpeedInDirection(final double direction) {
         getMotionApplier().nullifySpeedInDirection(direction);
+    }
+
+    @Override
+    default void invertSpeedInDirection(Direction direction) {
+        getMotionApplier().invertSpeedInDirection(direction);
+    }
+
+    @Override
+    default void invertSpeedInDirection(double direction) {
+        getMotionApplier().invertSpeedInDirection(direction);
     }
 
     @Override

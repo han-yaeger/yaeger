@@ -60,6 +60,48 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     }
 
     @Override
+    public double getSpeedInDirection(final Direction direction) {
+        return getSpeedInDirection(direction.getValue());
+    }
+
+    @Override
+    public double getSpeedInDirection(final double direction) {
+        var speed = 0D;
+        if (Double.compare(getDirection(), direction) != 0) {
+            var normalizedVector = createVector(1, direction);
+            var dotProduct = normalizedVector.dotProduct(motion);
+
+            if (dotProduct > 0) {
+                speed = calculateDenormalizedVector(normalizedVector, motion).magnitude();
+            }
+        }
+        return speed;
+    }
+
+    @Override
+    public void invertSpeedInDirection(final Direction direction) {
+        invertSpeedInDirection(direction.getValue());
+    }
+
+    @Override
+    public void invertSpeedInDirection(final double direction) {
+        if (Double.compare(getDirection(), direction) == 0) {
+            changeDirection(180);
+
+        } else {
+            var normalizedVector = createVector(1, direction);
+            var dotProduct = normalizedVector.dotProduct(motion);
+
+            if (dotProduct > 0) {
+                // An actual situation in which the speed should be inverted in the given direction
+                var vectorForDirection = calculateDenormalizedVector(normalizedVector, motion);
+                var newMotion = motion.subtract(vectorForDirection).subtract(vectorForDirection);
+                setMotion(newMotion.magnitude(), convertVectorToAngle(newMotion));
+            }
+        }
+    }
+
+    @Override
     public void maximizeMotionInDirection(final Direction direction, final double speed) {
         maximizeMotionInDirection(direction.getValue(), speed);
     }
@@ -84,7 +126,7 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
 
     @Override
     public void nullifySpeedInDirection(final double direction) {
-        // Nullify direction is same as current direction, so direction can be set to 0
+        // Direction is same as current direction, so direction can be set to 0
         if (Double.compare(getDirection(), direction) == 0) {
             setSpeed(0D);
         } else {
@@ -93,13 +135,18 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
 
             if (dotProduct > 0) {
                 // An actual situation in which the motion should be nullified in the given direction
-                var numerator = motion.dotProduct(normalizedVector);
-                var denominator = normalizedVector.dotProduct(normalizedVector);
-                var result = normalizedVector.multiply(numerator / denominator);
-                var newMotion = motion.subtract(result);
+                var vectorForDirection = calculateDenormalizedVector(normalizedVector, motion);
+                var newMotion = motion.subtract(vectorForDirection);
                 setMotion(newMotion.magnitude(), convertVectorToAngle(newMotion));
             }
         }
+    }
+
+    private Point2D calculateDenormalizedVector(final Coordinate2D normalizedVector,
+                                                final Coordinate2D currentMotion) {
+        var numerator = currentMotion.dotProduct(normalizedVector);
+        var denominator = normalizedVector.dotProduct(normalizedVector);
+        return normalizedVector.multiply(numerator / denominator);
     }
 
     @Override
@@ -153,7 +200,7 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     }
 
     @Override
-    public void setGravityConstant(double gravityConstant) {
+    public void setGravityConstant(final double gravityConstant) {
         this.gravityConstant = gravityConstant;
     }
 
@@ -163,7 +210,7 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     }
 
     @Override
-    public void setGravityDirection(double gravityDirection) {
+    public void setGravityDirection(final double gravityDirection) {
         this.gravityDirection = gravityDirection;
     }
 
