@@ -169,8 +169,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#yaeger_" id="yaeger_">YAEGER_</a></h1>
-<h1><a class="header" href="#creating-a-game" id="creating-a-game">Creating a game</a></h1>
+                        <h1 id="yaeger_"><a class="header" href="#yaeger_">YAEGER_</a></h1>
+<h1 id="creating-a-game"><a class="header" href="#creating-a-game">Creating a game</a></h1>
 <p>To create a new Yaeger Game, a Java Class should be created that</p>
 <ul>
 <li>extends <code>YeagerGame</code></li>
@@ -181,10 +181,10 @@
 }
 </code></pre>
 <p>Such a Game does not have any content yet, but it can be run and will only show the Splash screen.</p>
-<h2><a class="header" href="#lifecycle-methods-of-yeagergame" id="lifecycle-methods-of-yeagergame">Lifecycle methods of <code>YeagerGame</code></a></h2>
+<h2 id="lifecycle-methods-of-yeagergame"><a class="header" href="#lifecycle-methods-of-yeagergame">Lifecycle methods of <code>YeagerGame</code></a></h2>
 <p>By extending <code>YeagerGame</code>, several methods will need to be implemented. These methods are part of the lifecycle of a
 Yaeger Game and will be responsible for setting up the content of the Game.</p>
-<h3><a class="header" href="#setting-up-the-game-through-setupgame" id="setting-up-the-game-through-setupgame">Setting up the game, through <code>setupGame()</code></a></h3>
+<h3 id="setting-up-the-game-through-setupgame"><a class="header" href="#setting-up-the-game-through-setupgame">Setting up the game, through <code>setupGame()</code></a></h3>
 <p>The first method to implement is <code>setupGame()</code>, which has the following signature:</p>
 <pre><code class="language-java">@Override
 protected void setupGame(){
@@ -202,7 +202,7 @@ protected void setupGame() {
 <p>For more information, check the
 <a href="https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/YaegerGame.html#setupGame()">API</a>
 of setupGame()</p>
-<h3><a class="header" href="#adding-scenes-through-setupscenes" id="adding-scenes-through-setupscenes">Adding Scenes, through <code>setupScenes()</code></a></h3>
+<h3 id="adding-scenes-through-setupscenes"><a class="header" href="#adding-scenes-through-setupscenes">Adding Scenes, through <code>setupScenes()</code></a></h3>
 <p>After <code>setupGame()</code> has been called, Yaeger will call <code>setupScenes()</code>. This is the second step in the life cycle of a Yaeger Game, in
 which it expects the developer to add Scenes to the Game. Scenes can be added by calling <code>addScene(int, YaegerScene)</code>. The
 first parameter is the <code>id</code> of the <code>YaegerScene</code>, which can be used to select which <code>YaegerScene</code> will be shown. By default, the first scene
@@ -215,20 +215,20 @@ protected void setupScenes() {
     addScene(2, new GameOverScene(this));
 }
 </code></pre>
-<h2><a class="header" href="#loading-a-scene" id="loading-a-scene">Loading a scene</a></h2>
+<h2 id="loading-a-scene"><a class="header" href="#loading-a-scene">Loading a scene</a></h2>
 <p>When adding scenes to the Yaeger Game, the first added scene will also be the one that gets loaded and becomes
 visible. To load a specific scene, <code>YaegerGame</code> provides the method <code>setActiveScene(int)</code>. Read the <a href="https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/YaegerGame.html#setActiveScene(int)">API</a>
 for the details on how to use this method.</p>
-<h2><a class="header" href="#what-about-the-constructor" id="what-about-the-constructor">What about the constructor?</a></h2>
+<h2 id="what-about-the-constructor"><a class="header" href="#what-about-the-constructor">What about the constructor?</a></h2>
 <p>For Plain Old Java Objects (POJO's) the constructor is usually used for configuring your Object. Although it
 is not always the best approach, since the constructor should be only used for <strong>constructing</strong> an Object, not
 for <strong>configuring</strong> it, it will usually still work.</p>
 <p>With Yaeger, however, it will usually <em>not</em> work. Configuring a <code>YaegerGame</code> should only be done from the
 <code>setupGame()</code> method. Furthermore, the constructor of the class that extends <code>YaegerGame</code> should be empty,
 since Yaeger will otherwise not know how to make an instance of it.</p>
-<h1><a class="header" href="#scenes-aka-levels" id="scenes-aka-levels">Scenes aka Levels</a></h1>
+<h1 id="scenes-aka-levels"><a class="header" href="#scenes-aka-levels">Scenes aka Levels</a></h1>
 <p>After scenes have been added, Yaeger will load the first one. In this chapter we will dive deeper into them.</p>
-<h2><a class="header" href="#what-are-scenes" id="what-are-scenes">What are Scenes?</a></h2>
+<h2 id="what-are-scenes"><a class="header" href="#what-are-scenes">What are Scenes?</a></h2>
 <p>A game is usually comprised of different 'parts', such as levels, menu's or a game-over screen. Some of those are just
 simple images and other are complex levels, with lots of behaviour.</p>
 <p>In Yaeger, all of them implement <code>YaegerScene</code> and will be referred to as a Yaeger Scene. For a simple Yaeger Scene,
@@ -236,7 +236,7 @@ without any moving parts, Yaeger provides the abstract class
 <code>StaticScene</code>. In case of a complex scene, with moving parts and a so-called Game World Update, Yaeger provides
 a <code>DynamicScene</code>. Both can be added to Yaeger, since they both implement <code>YaegerScene</code>. Their behaviour is, however,
 quite different.</p>
-<h3><a class="header" href="#staticscene" id="staticscene">StaticScene</a></h3>
+<h3 id="staticscene"><a class="header" href="#staticscene">StaticScene</a></h3>
 <p>A <code>StaticScene</code> is a scene that is not aware of time. It can contain anything you like, and those things will listen to
 user interaction, but their behaviour will not be based on the concept of time. Typical use cases are:</p>
 <ul>
@@ -244,7 +244,7 @@ user interaction, but their behaviour will not be based on the concept of time. 
 <li>A Game Over scene</li>
 <li>A inventory selection scene</li>
 </ul>
-<h3><a class="header" href="#dynamicscene" id="dynamicscene">DynamicScene</a></h3>
+<h3 id="dynamicscene"><a class="header" href="#dynamicscene">DynamicScene</a></h3>
 <p>A <code>DynamicScene</code> is exactly the same as a <code>StaticScene</code>, but it is also aware of time. A <code>DynamicScene</code> contains a Game
 World Update, that calls a <code>update(long)</code> method on the scene itself and all dynamic parts of the scene. This way, it is
 possible to create movement and add time-based behaviour. Typical use cases are:</p>
@@ -253,14 +253,14 @@ possible to create movement and add time-based behaviour. Typical use cases are:
 <li>A Splash screen</li>
 <li>A scene with any form of animation</li>
 </ul>
-<h2><a class="header" href="#creating-a-scene" id="creating-a-scene">Creating a Scene</a></h2>
+<h2 id="creating-a-scene"><a class="header" href="#creating-a-scene">Creating a Scene</a></h2>
 <p>To create either a <code>StaticScene</code> or <code>DynamicScene</code>, let your own scene extend one of those. As when
 extending <code>YaegerGame</code>, again two methods will need to be implemented:</p>
 <ul>
 <li><code>setupScene()</code>, which should be used for setting all the properties of the scene</li>
 <li><code>setupEntities()</code>, which should be used for adding various Entities (Game Objects) to the Scene</li>
 </ul>
-<h3><a class="header" href="#setting-up-the-scene-through-setupscene" id="setting-up-the-scene-through-setupscene">Setting up the scene, through <code>setupScene()</code></a></h3>
+<h3 id="setting-up-the-scene-through-setupscene"><a class="header" href="#setting-up-the-scene-through-setupscene">Setting up the scene, through <code>setupScene()</code></a></h3>
 <p>The first method to implement is <code>setupScene()</code>, which has the following signature:</p>
 <pre><code class="language-java">@Override
 protected void setupScene(){
@@ -276,7 +276,7 @@ public void setupScene(){
 </code></pre>
 <p>For more information, check the
 <a href="https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/scenes/YaegerScene.html#setupScene()">API of setupGame()</a></p>
-<h3><a class="header" href="#adding-entities-to-the-scene-through-setupentities" id="adding-entities-to-the-scene-through-setupentities">Adding Entities to the scene, through <code>setupEntities()</code></a></h3>
+<h3 id="adding-entities-to-the-scene-through-setupentities"><a class="header" href="#adding-entities-to-the-scene-through-setupentities">Adding Entities to the scene, through <code>setupEntities()</code></a></h3>
 <p>After <code>setupScene()</code> has been called, Yaeger will call <code>setupEntities()</code>. This is the second step in the life cycle of a
 YaegerScene, in which it expects the developer to add Entities to the Scene.</p>
 <p>Entities can be added by calling <code>addEntity(YaegerEntity)</code>. Since entities can overlap, their placement will follow the
@@ -290,29 +290,29 @@ public void setupEntities(){
         addEntity(new Sharky(new Coordinate2D(0,100)));
         }
 </code></pre>
-<h2><a class="header" href="#what-about-the-constructor-1" id="what-about-the-constructor-1">What about the constructor?</a></h2>
+<h2 id="what-about-the-constructor-1"><a class="header" href="#what-about-the-constructor-1">What about the constructor?</a></h2>
 <p>The same rules apply to a <code>YaegerScene</code>, as do to a <code>YaegerGame</code>. Configuring the scene should only be done from
 the <code>setupScene()</code> method.</p>
 <p>It is however possible to use the constructor for basic wiring of Objects or other commons object-oriented practices.</p>
-<h1><a class="header" href="#entities-aka-game-objects" id="entities-aka-game-objects">Entities aka Game Objects</a></h1>
+<h1 id="entities-aka-game-objects"><a class="header" href="#entities-aka-game-objects">Entities aka Game Objects</a></h1>
 <p>Entities are what actually make a game. Anything that can be placed on a scene will
 be an entity and will have to implement the abstract superclass <code>YaegerEntity</code>.</p>
-<h2><a class="header" href="#static-or-dynamic-entities" id="static-or-dynamic-entities">Static or Dynamic Entities</a></h2>
+<h2 id="static-or-dynamic-entities"><a class="header" href="#static-or-dynamic-entities">Static or Dynamic Entities</a></h2>
 <p>Just as with scenes, also all entities are available in static and dynamic version.
 The main difference is that a dynamic entity receives a Game World Update,
 where a static does not.</p>
 <p>In general static entities will be typically used for menu-items or non-moving things.
 Dynamic entities are typically used for anything that should move around the scene, or
 should have time-based behaviour in general.</p>
-<h2><a class="header" href="#different-types-of-entities" id="different-types-of-entities">Different types of entities</a></h2>
-<h3><a class="header" href="#shape-entities" id="shape-entities">Shape Entities</a></h3>
-<h3><a class="header" href="#sprite-entities" id="sprite-entities">Sprite Entities</a></h3>
-<h3><a class="header" href="#text-entities" id="text-entities">Text Entities</a></h3>
-<h3><a class="header" href="#composite-entities" id="composite-entities">Composite Entities</a></h3>
-<h1><a class="header" href="#entity-interactions" id="entity-interactions">Entity interactions</a></h1>
-<h1><a class="header" href="#timing-things" id="timing-things">Timing things</a></h1>
-<h1><a class="header" href="#sounds" id="sounds">Sounds</a></h1>
-<h1><a class="header" href="#command-line-arguments" id="command-line-arguments">Command Line Arguments</a></h1>
+<h2 id="different-types-of-entities"><a class="header" href="#different-types-of-entities">Different types of entities</a></h2>
+<h3 id="shape-entities"><a class="header" href="#shape-entities">Shape Entities</a></h3>
+<h3 id="sprite-entities"><a class="header" href="#sprite-entities">Sprite Entities</a></h3>
+<h3 id="text-entities"><a class="header" href="#text-entities">Text Entities</a></h3>
+<h3 id="composite-entities"><a class="header" href="#composite-entities">Composite Entities</a></h3>
+<h1 id="entity-interactions"><a class="header" href="#entity-interactions">Entity interactions</a></h1>
+<h1 id="timing-things"><a class="header" href="#timing-things">Timing things</a></h1>
+<h1 id="sounds"><a class="header" href="#sounds">Sounds</a></h1>
+<h1 id="command-line-arguments"><a class="header" href="#command-line-arguments">Command Line Arguments</a></h1>
 <p>When run, Yaeger accepts command line arguments. These arguments are primarily meant for debugging your Game.</p>
 <p>The following arguments are currently supported:</p>
 <table><thead><tr><th align="left">Argument</th><th align="left">Explanation</th></tr></thead><tbody>
@@ -320,20 +320,20 @@ should have time-based behaviour in general.</p>
 <tr><td align="left">--showBB</td><td align="left">Show the BoundingBox of all instances of <code>YaegerEntity</code> that implement either <code>Collider</code> or <code>Collided</code>.</td></tr>
 <tr><td align="left">--help</td><td align="left">Show this help screen with all commandline options</td></tr>
 </tbody></table>
-<h2><a class="header" href="#using-command-line-arguments-from-an-ide" id="using-command-line-arguments-from-an-ide">Using command line arguments from an IDE</a></h2>
+<h2 id="using-command-line-arguments-from-an-ide"><a class="header" href="#using-command-line-arguments-from-an-ide">Using command line arguments from an IDE</a></h2>
 <p>Since the command line arguments mainly focus on the development cycle, they will likely only be used during development
 of a Yaeger Game. In such a case you will be working in an IDE, which will also be responsible for creating a run
 configuration. Part of such a run configuration will be the (extra) arguments that can be passed to the application. So
 check the documentation of your IDE to see where these arguments can be entered.</p>
-<h1><a class="header" href="#faq" id="faq">FAQ</a></h1>
+<h1 id="faq"><a class="header" href="#faq">FAQ</a></h1>
 <p>This chapter will sum up known issues and solutions on how to bypass them. The list is likely not complete, so do feel
 free to share your findings.</p>
 <p>Some of the issues noted here can be seen as bugs, but that does not mean they are easily resolved.</p>
-<h2><a class="header" href="#my-mp3-file-is-not-being-played" id="my-mp3-file-is-not-being-played">My MP3 file is not being played</a></h2>
+<h2 id="my-mp3-file-is-not-being-played"><a class="header" href="#my-mp3-file-is-not-being-played">My MP3 file is not being played</a></h2>
 <p>For some reason, not all MP3 files are supported. If playing an MP3 file does not give any exceptions, but you can not
 hear it in game, it might be because the MP3 file is nog supported. To correct this, use
 <a href="https://online-audio-converter.com/">a tool</a> to create an MP3 file that is supported.</p>
-<h2><a class="header" href="#an-entity-behaves-strangely-when-colliding" id="an-entity-behaves-strangely-when-colliding">An Entity behaves strangely when colliding</a></h2>
+<h2 id="an-entity-behaves-strangely-when-colliding"><a class="header" href="#an-entity-behaves-strangely-when-colliding">An Entity behaves strangely when colliding</a></h2>
 <p>Sometimes an Entity behaves unexpected when colliding. For instance, it is set to change its direction on collision, but
 when this happens it doesn't immediately do so. First it seems to stutter a few times, after which it finally behaves as
 expected.</p>

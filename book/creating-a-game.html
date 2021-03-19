@@ -167,7 +167,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#creating-a-game" id="creating-a-game">Creating a game</a></h1>
+                        <h1 id="creating-a-game"><a class="header" href="#creating-a-game">Creating a game</a></h1>
 <p>To create a new Yaeger Game, a Java Class should be created that</p>
 <ul>
 <li>extends <code>YeagerGame</code></li>
@@ -178,10 +178,10 @@
 }
 </code></pre>
 <p>Such a Game does not have any content yet, but it can be run and will only show the Splash screen.</p>
-<h2><a class="header" href="#lifecycle-methods-of-yeagergame" id="lifecycle-methods-of-yeagergame">Lifecycle methods of <code>YeagerGame</code></a></h2>
+<h2 id="lifecycle-methods-of-yeagergame"><a class="header" href="#lifecycle-methods-of-yeagergame">Lifecycle methods of <code>YeagerGame</code></a></h2>
 <p>By extending <code>YeagerGame</code>, several methods will need to be implemented. These methods are part of the lifecycle of a
 Yaeger Game and will be responsible for setting up the content of the Game.</p>
-<h3><a class="header" href="#setting-up-the-game-through-setupgame" id="setting-up-the-game-through-setupgame">Setting up the game, through <code>setupGame()</code></a></h3>
+<h3 id="setting-up-the-game-through-setupgame"><a class="header" href="#setting-up-the-game-through-setupgame">Setting up the game, through <code>setupGame()</code></a></h3>
 <p>The first method to implement is <code>setupGame()</code>, which has the following signature:</p>
 <pre><code class="language-java">@Override
 protected void setupGame(){
@@ -199,7 +199,7 @@ protected void setupGame() {
 <p>For more information, check the
 <a href="https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/YaegerGame.html#setupGame()">API</a>
 of setupGame()</p>
-<h3><a class="header" href="#adding-scenes-through-setupscenes" id="adding-scenes-through-setupscenes">Adding Scenes, through <code>setupScenes()</code></a></h3>
+<h3 id="adding-scenes-through-setupscenes"><a class="header" href="#adding-scenes-through-setupscenes">Adding Scenes, through <code>setupScenes()</code></a></h3>
 <p>After <code>setupGame()</code> has been called, Yaeger will call <code>setupScenes()</code>. This is the second step in the life cycle of a Yaeger Game, in
 which it expects the developer to add Scenes to the Game. Scenes can be added by calling <code>addScene(int, YaegerScene)</code>. The
 first parameter is the <code>id</code> of the <code>YaegerScene</code>, which can be used to select which <code>YaegerScene</code> will be shown. By default, the first scene
@@ -212,11 +212,11 @@ protected void setupScenes() {
     addScene(2, new GameOverScene(this));
 }
 </code></pre>
-<h2><a class="header" href="#loading-a-scene" id="loading-a-scene">Loading a scene</a></h2>
+<h2 id="loading-a-scene"><a class="header" href="#loading-a-scene">Loading a scene</a></h2>
 <p>When adding scenes to the Yaeger Game, the first added scene will also be the one that gets loaded and becomes
 visible. To load a specific scene, <code>YaegerGame</code> provides the method <code>setActiveScene(int)</code>. Read the <a href="https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/YaegerGame.html#setActiveScene(int)">API</a>
 for the details on how to use this method.</p>
-<h2><a class="header" href="#what-about-the-constructor" id="what-about-the-constructor">What about the constructor?</a></h2>
+<h2 id="what-about-the-constructor"><a class="header" href="#what-about-the-constructor">What about the constructor?</a></h2>
 <p>For Plain Old Java Objects (POJO's) the constructor is usually used for configuring your Object. Although it
 is not always the best approach, since the constructor should be only used for <strong>constructing</strong> an Object, not
 for <strong>configuring</strong> it, it will usually still work.</p>
