@@ -35,7 +35,7 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
 
     /**
      * Instantiate a new {@link SpriteEntity} for a given image.
-     * This sprite entity will use the original dimensions of the image.
+     * This {@link SpriteEntity} will use the original dimensions of the image.
      *
      * @param resource the url of the image file. Relative to the resources folder
      * @param location the initial {@link Coordinate2D} of this {@link SpriteEntity}

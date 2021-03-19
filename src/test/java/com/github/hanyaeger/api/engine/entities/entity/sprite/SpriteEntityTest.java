@@ -53,7 +53,7 @@ class SpriteEntityTest {
     @Test
     void getNodeReturnsEmptyNodeIfNodeNotSet() {
         // Arrange
-        var sut = new SpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE);
+        var sut = new SpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION);
 
         // Act
         var gameNode = sut.getNode();
