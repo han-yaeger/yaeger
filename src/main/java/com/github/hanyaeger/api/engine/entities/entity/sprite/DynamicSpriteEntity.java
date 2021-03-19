@@ -54,11 +54,11 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      * with the given {@link Size}.
      *
      * @param resource        the url of the image file. Relative to the resources folder
-     * @param initialLocation the initial {@link Coordinate2D} of this Entity
+     * @param initialLocation the initial {@link Coordinate2D} of this entity
      * @param size            the {@link Size} (width and height) that should be used. The height and width divided by the
      *                        number of rows and columns will be used for displaying the Image and as the {@link javafx.geometry.BoundingBox} in case of collision detection.
-     * @param rows            the number of rows the Image contains.
-     * @param columns         the number of columns the Image contains.
+     * @param rows            the number of rows the Image contains
+     * @param columns         the number of columns the Image contains
      */
     protected DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation, final Size size, final int rows, final int columns) {
         super(resource, initialLocation, size, rows, columns);
