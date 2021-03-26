@@ -40,7 +40,7 @@ public class SpriteAnimationDelegate implements Updatable {
         this.columns = columns;
 
         createViewPorts();
-        setSpriteIndex(0);
+        setFrameIndex(0);
     }
 
     /**
@@ -49,7 +49,7 @@ public class SpriteAnimationDelegate implements Updatable {
      * @param index the index to select. This index will be applied modulo the total number
      *              of frames
      */
-    void setSpriteIndex(final int index) {
+    void setFrameIndex(final int index) {
         var modulus = index % viewports.size();
         imageView.setViewport(viewports.get(modulus));
         currentIndex = index;
@@ -84,14 +84,27 @@ public class SpriteAnimationDelegate implements Updatable {
      * @param row      the row to cycle through (zero-indexed)
      */
     void setAutoCycle(final long interval, final int row) {
+        setAutoCycleRow(row);
+        this.autoCycleInterval = interval * MILLI_TO_NANO_FACTOR;
+        applyNewCurrentIndex(row);
+    }
+
+    /**
+     * Set the row through which the sprite should be automatically cycled.
+     *
+     * @param row the row to cycle through (zero-indexed)
+     */
+    void setAutoCycleRow(final int row) {
         if (row >= rows || row < -1) {
             var message = String.format(INVALID_ROW_EXCEPTION, row, rows);
             throw new IllegalArgumentException(message);
         }
-
-        this.autoCycleInterval = interval * MILLI_TO_NANO_FACTOR;
         this.cyclingRow = row;
 
+        applyNewCurrentIndex(row);
+    }
+
+    private void applyNewCurrentIndex(final int row) {
         if (row != -1) {
             currentIndex = cyclingRow * columns;
         }
@@ -103,9 +116,9 @@ public class SpriteAnimationDelegate implements Updatable {
     void next() {
         final int lastIndexOfTheRow = cyclingRow * columns + columns - 1;
         if (cyclingRow == -1 || currentIndex < lastIndexOfTheRow) {
-            setSpriteIndex(++currentIndex);
+            setFrameIndex(++currentIndex);
         } else {
-            setSpriteIndex(cyclingRow * columns);
+            setFrameIndex(cyclingRow * columns);
         }
     }
 

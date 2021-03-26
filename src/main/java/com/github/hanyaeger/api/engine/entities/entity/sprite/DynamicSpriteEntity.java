@@ -103,6 +103,19 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
         });
     }
 
+    /**
+     * Set the row through which the sprite should be automatically cycled.
+     *
+     * @param row the row to cycle through. This value is zero based; if a value of -1 is used, all sprites are
+     *            cycled through
+     */
+    protected void setAutoCycleRow(final int row) {
+        spriteAnimationDelegate.ifPresentOrElse(delegate -> delegate.setAutoCycleRow(row), () -> {
+            this.cyclingRow = row;
+        });
+    }
+
+
     @Override
     public MotionApplier getMotionApplier() {
         return motionApplier;
@@ -119,7 +132,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
 
         spriteAnimationDelegate.ifPresent(delegate -> {
             updater.addUpdatable(delegate);
-            if (getFrames() > 1 && autoCycleInterval != 0) {
+            if (getFrames() > 1) {
                 delegate.setAutoCycle(autoCycleInterval, cyclingRow);
             }
         });

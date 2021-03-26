@@ -227,7 +227,7 @@ class SpriteEntityTest {
             sut.init(injector);
 
             // Assert
-            verify(spriteAnimationDelegate).setSpriteIndex(COLUMNS);
+            verify(spriteAnimationDelegate).setFrameIndex(COLUMNS);
         }
 
 
@@ -240,7 +240,7 @@ class SpriteEntityTest {
             sut.setCurrentFrameIndex(COLUMNS);
 
             // Assert
-            verify(spriteAnimationDelegate).setSpriteIndex(COLUMNS);
+            verify(spriteAnimationDelegate).setFrameIndex(COLUMNS);
         }
 
         @Test

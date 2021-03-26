@@ -62,7 +62,7 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
         // Arrange
 
         // Act
-        sut.setSpriteIndex(1);
+        sut.setFrameIndex(1);
 
         // Assert
         var argument = ArgumentCaptor.forClass(Rectangle2D.class);
@@ -80,7 +80,7 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
     void getSpriteIndexReturnsLastSetSpriteIndex() {
         // Arrange
         var expected = 2;
-        sut.setSpriteIndex(expected);
+        sut.setFrameIndex(expected);
 
         // Act
         var actual = sut.getFrameIndex();
@@ -137,7 +137,7 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
     @Test
     void autoCycleGoesToStartOfRow() {
         // Arrange
-        sut.setSpriteIndex(4);
+        sut.setFrameIndex(4);
 
         // Act
         sut.setAutoCycle(10, 0);
@@ -162,6 +162,24 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
     }
 
     @Test
+    void setAutoCycleRowThrowsExceptionIfRowIsNonExistent() {
+        // Arrange
+
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class,
+                () -> sut.setAutoCycleRow(4));
+    }
+
+    @Test
+    void setAutoCycleRowThrowsExceptionIfRowHasNegativeValue() {
+        // Arrange
+
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class,
+                () -> sut.setAutoCycleRow(-2));
+    }
+
+    @Test
     void autoCyclingThroughNonexistentRowThrowsException() {
         // Arrange
 
@@ -171,7 +189,7 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
     }
 
     @Test
-    void autoCyclingThroughNegativetRowThrowsException() {
+    void autoCyclingThroughNegativeRowThrowsException() {
         // Arrange
 
         // Act & Assert

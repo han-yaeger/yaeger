@@ -98,7 +98,7 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
             spriteAnimationDelegate = Optional.of(spriteAnimationDelegateFactory.create(imageView.get(), rows, columns));
         }
 
-        spriteIndex.ifPresent(index -> spriteAnimationDelegate.ifPresent(sad -> sad.setSpriteIndex(index)));
+        spriteIndex.ifPresent(index -> spriteAnimationDelegate.ifPresent(sad -> sad.setFrameIndex(index)));
 
         super.init(injector);
     }
@@ -112,7 +112,7 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      *              The frame modulo index will be shown
      */
     public void setCurrentFrameIndex(final int index) {
-        spriteAnimationDelegate.ifPresentOrElse(delegate -> delegate.setSpriteIndex(index),
+        spriteAnimationDelegate.ifPresentOrElse(delegate -> delegate.setFrameIndex(index),
                 () -> spriteIndex = Optional.of(index));
     }
 
