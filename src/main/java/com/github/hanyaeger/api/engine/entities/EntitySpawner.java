@@ -17,7 +17,7 @@ public abstract class EntitySpawner extends Timer {
     /**
      * Create a new instance of {@link EntitySpawner} for the given interval in milliseconds.
      *
-     * @param intervalInMs The interval in milleseconds.
+     * @param intervalInMs The interval in milliseconds.
      */
     protected EntitySpawner(final long intervalInMs) {
         super(intervalInMs);
@@ -34,7 +34,7 @@ public abstract class EntitySpawner extends Timer {
     }
 
     /**
-     * This method is called after each interval in milleseconds as passed through the constructor of this
+     * This method is called after each interval in milliseconds as passed through the constructor of this
      * {@link EntitySpawner}. It's body should be used for calling {@link #spawn(YaegerEntity)} with the required instance
      * of {@link YaegerEntity}.
      */

@@ -3,8 +3,8 @@ package com.github.hanyaeger.api.engine.entities.entity;
 import com.github.hanyaeger.api.engine.entities.entity.events.system.RemoveEntityEvent;
 
 /**
- * A {@code Removeable} denotes an {@code Object}, most likely an {@link YaegerEntity}, that is eligible for
- * removance from its parent.
+ * A {@code Removable} denotes an {@code Object}, most likely an {@link YaegerEntity}, that is eligible for
+ * removing from its parent.
  */
 public interface Removable extends GameNode {
 

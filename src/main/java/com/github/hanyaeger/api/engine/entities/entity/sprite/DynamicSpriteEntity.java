@@ -110,11 +110,8 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      *            cycled through
      */
     protected void setAutoCycleRow(final int row) {
-        spriteAnimationDelegate.ifPresentOrElse(delegate -> delegate.setAutoCycleRow(row), () -> {
-            this.cyclingRow = row;
-        });
+        spriteAnimationDelegate.ifPresentOrElse(delegate -> delegate.setAutoCycleRow(row), () -> this.cyclingRow = row);
     }
-
 
     @Override
     public MotionApplier getMotionApplier() {

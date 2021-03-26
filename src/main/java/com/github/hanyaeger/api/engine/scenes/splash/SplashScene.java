@@ -13,7 +13,7 @@ import com.github.hanyaeger.api.engine.scenes.splash.entities.Logo;
 
 /**
  * A Splash Screen, being an instance of {@link YaegerScene} that
- * will be shown a given number of miliseconds at the start of a {@link YaegerGame}.
+ * will be shown a given number of milliseconds at the start of a {@link YaegerGame}.
  */
 public class SplashScene extends DynamicScene implements TimerContainer {
 
