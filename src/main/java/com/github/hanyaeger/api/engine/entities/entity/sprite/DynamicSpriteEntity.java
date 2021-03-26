@@ -38,6 +38,19 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     }
 
     /**
+     * Create a new {@link DynamicSpriteEntity} for the given image resource on the given {@link Coordinate2D}.
+     * This {@link DynamicSpriteEntity} will use the original dimensions of the image.
+     *
+     * @param resource        the url of the image file. Relative to the resources folder
+     * @param initialLocation the initial {@link Coordinate2D} of this Entity
+     * @param rows            the number of rows the Image contains
+     * @param columns         the number of columns the Image contains
+     */
+    protected DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation, final int rows, final int columns) {
+        this(resource, initialLocation, null, rows, columns);
+    }
+
+    /**
      * Create a new {@link DynamicSpriteEntity} for the given image resource on the given {@link Coordinate2D}, with the given {@link Size}.
      *
      * @param resource        the url of the image file. Relative to the resources folder

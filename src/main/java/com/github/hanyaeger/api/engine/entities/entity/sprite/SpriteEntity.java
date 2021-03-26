@@ -49,6 +49,18 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      *
      * @param resource the url of the image file. Relative to the resources folder
      * @param location the initial {@link Coordinate2D} of this {@link SpriteEntity}
+     * @param rows     the number of rows the image contains
+     * @param columns  the number of columns the image contains
+     */
+    protected SpriteEntity(final String resource, final Coordinate2D location, final int rows, final int columns) {
+        this(resource, location, null, rows, columns);
+    }
+
+    /**
+     * Instantiate a new {@link SpriteEntity} for a given image.
+     *
+     * @param resource the url of the image file. Relative to the resources folder
+     * @param location the initial {@link Coordinate2D} of this {@link SpriteEntity}
      * @param size     the bounding box of this {@link SpriteEntity}
      */
     protected SpriteEntity(final String resource, final Coordinate2D location, final Size size) {

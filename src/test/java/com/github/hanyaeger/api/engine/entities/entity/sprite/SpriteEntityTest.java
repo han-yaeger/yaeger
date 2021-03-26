@@ -85,6 +85,17 @@ class SpriteEntityTest {
     }
 
     @Test
+    void instantiatingASpriteEntityWithTwoFrameAndDefaultSizeGivesNoSideEffects() {
+        // Arrange
+
+        // Act
+        var sut = new SpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, 1, 2);
+
+        // Assert
+        assertNotNull(sut);
+    }
+
+    @Test
     void instantiatingASpriteWithoutSizeShouldUseOriginalImageDimensions() {
         // Arrange
         var sut = new SpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION);
@@ -101,7 +112,6 @@ class SpriteEntityTest {
         verify(defaultImage).getWidth();
         verify(defaultImage).getHeight();
     }
-
 
 
     @Nested
@@ -307,7 +317,13 @@ class SpriteEntityTest {
 
     private class SpriteEntityImpl extends SpriteEntity {
 
-        SpriteEntityImpl(String resource, Coordinate2D location) { super(resource, location);}
+        SpriteEntityImpl(String resource, Coordinate2D location) {
+            super(resource, location);
+        }
+
+        SpriteEntityImpl(String resource, Coordinate2D location, int rows, int columns) {
+            super(resource, location, rows, columns);
+        }
 
         SpriteEntityImpl(String resource, Coordinate2D location, Size size) {
             super(resource, location, size);

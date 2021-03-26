@@ -124,6 +124,22 @@ class DynamicSpriteEntityTest {
             // Assert
             verify(motionApplier).setMotion(SPEED, DIRECTION);
         }
+
+        @Test
+        void addedUpdaterIsUsedAsUpdater() {
+            // Arrange
+            var sut = new DynamicSpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, 1, 1);
+            sut.setMotionApplier(motionApplier);
+            var updater = mock(Updater.class);
+
+            sut.setUpdater(updater);
+
+            // Act
+            Updater updater1 = sut.getUpdater();
+
+            // Assert
+            Assertions.assertEquals(updater, updater1);
+        }
     }
 
     @Nested
@@ -338,6 +354,10 @@ class DynamicSpriteEntityTest {
 
         DynamicSpriteEntityImpl(String resource, Coordinate2D location) {
             super(resource, location);
+        }
+
+        DynamicSpriteEntityImpl(String resource, Coordinate2D location, int rows, int columns) {
+            super(resource, location, rows, columns);
         }
 
         DynamicSpriteEntityImpl(String resource, Coordinate2D location, Size size) {
