@@ -52,10 +52,12 @@ class TileFactoryTest {
     void creatingConfigurableEntityWithInvalidConfigurationTypeThrowsInvalidConstructorException() {
         // Arrange
         var entityConfiguration = new EntityConfiguration<Integer>(YaegerEntityConfigurableConstructorImpl.class, 1); // Type should be String
+        var location = new Coordinate2D(1, 1);
+        var size = new Size(1, 1);
 
         // Act & Assert
-        var invalidConstructorException = assertThrows(InvalidConstructorException.class,
-                () -> sut.create(entityConfiguration, new Coordinate2D(1, 1), new Size(1, 1)));
+        assertThrows(InvalidConstructorException.class,
+                () -> sut.create(entityConfiguration, location, size));
     }
 
     @Test
