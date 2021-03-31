@@ -114,8 +114,9 @@ class StaticSceneTest {
 
 
     @Test
-    void configureSetsUpADebugger() {
+    void configureSetsUpADebuggerIfConfigHasShowDebug() {
         // Arrange
+        when(config.isShowDebug()).thenReturn(true);
 
         // Act
         sut.activate();
@@ -164,6 +165,8 @@ class StaticSceneTest {
         // Arrange
         var entityCollection = mock(EntityCollection.class);
         when(entityCollectionFactory.create(pane, config)).thenReturn(entityCollection);
+
+        when(config.isShowDebug()).thenReturn(true);
 
         // Act
         sut.activate();
@@ -338,40 +341,6 @@ class StaticSceneTest {
     }
 
     @Test
-    void pressingF1TogglesDebugger() {
-        // Arrange
-        var input = new HashSet<KeyCode>();
-        input.add(KeyCode.F1);
-
-        sut.activate();
-        ArgumentCaptor<KeyListener> captor = ArgumentCaptor.forClass(KeyListener.class);
-        verify(keyListenerDelegate, times(1)).setup(any(), captor.capture());
-
-        // Act
-        captor.getValue().onPressedKeysChange(input);
-
-        // Verify
-        verify(debugger).toggle();
-    }
-
-    @Test
-    void pressingF1NotifiesEntityCollection() {
-        // Arrange
-        var input = new HashSet<KeyCode>();
-        input.add(KeyCode.F1);
-
-        sut.activate();
-        ArgumentCaptor<KeyListener> captor = ArgumentCaptor.forClass(KeyListener.class);
-        verify(keyListenerDelegate, times(1)).setup(any(), captor.capture());
-
-        // Act
-        captor.getValue().onPressedKeysChange(input);
-
-        // Verify
-        verify(debugger).toggle();
-    }
-
-    @Test
     void onInputChangeNotifiesEntityCollection() {
         // Arrange
         var input = new HashSet<KeyCode>();
@@ -399,7 +368,6 @@ class StaticSceneTest {
         // Verify
         verify(entityCollection).registerSupplier(any());
         verify(entityCollection).initialUpdate();
-        verify(debugger).toFront();
     }
 
     private static class StaticSceneImpl extends StaticScene {

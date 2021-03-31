@@ -8,6 +8,7 @@ The following arguments are currently supported:
 | :--------- | :------------------------------------------------- |
 | --noSplash | Skip the Splash screen during start up                                                                |
 | --showBB   | Show the BoundingBox of all instances of `YaegerEntity` that implement either `Collider` or `Collided`. |
+| --showDebug | Show a debug window with information about the Scene. |
 | --help     | Show this help screen with all commandline options |
 
 ## Using command line arguments from an IDE

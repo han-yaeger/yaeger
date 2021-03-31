@@ -24,7 +24,9 @@ import javafx.stage.Stage;
  * </pre>
  */
 public abstract class YaegerGame extends Application {
-    public static final KeyCode TOGGLE_DEBUGGER_KEY = KeyCode.F1;
+    /**
+     * As an ode to the old days, the default dimensions of a Yaeger Game is 640x480px.
+     */
     public static final Size DEFAULT_GAME_DIMENSIONS = new Size(640, 480);
 
     private YaegerStage yaegerStage;

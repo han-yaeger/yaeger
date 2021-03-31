@@ -24,8 +24,6 @@ public class DebugGridPaneFactory {
         gridPane.setHgap(5);
         gridPane.setHgap(2);
         gridPane.setMinWidth(120);
-        gridPane.setVisible(false);
-
         return gridPane;
     }
 }

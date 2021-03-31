@@ -57,6 +57,31 @@ class YaegerConfigTest {
     }
 
     @Test
+    void showDebugDefaultToFalse() {
+        // Arrange
+        var sut = new YaegerConfig();
+
+        // Act
+        var actual = sut.isShowDebug();
+
+        // Assert
+        assertFalse(actual);
+    }
+
+    @Test
+    void showDebugSetTrueGivesTrue() {
+        // Arrange
+        var sut = new YaegerConfig();
+
+        // Act
+        sut.setShowDebug(true);
+        var actual = sut.isShowDebug();
+
+        // Assert
+        assertTrue(actual);
+    }
+
+    @Test
     void yaegerConfigIsNotEqualToNull() {
         // Arrange
         var sut = new YaegerConfig();

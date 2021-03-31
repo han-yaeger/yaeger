@@ -58,18 +58,11 @@ public class Debugger implements StatisticsObserver {
     }
 
     /**
-     * Toggle the visibility of the {@link Debugger}.
-     */
-    public void toggle() {
-        gridpane.setVisible(!gridpane.isVisible());
-    }
-
-    /**
      * Update the content of the {@link Debugger}.
      *
-     * @param entityCollectionStatistics An {@link EntityCollectionStatistics} that contains all
+     * @param entityCollectionStatistics an {@link EntityCollectionStatistics} that contains all
      *                                   statistics related to the current state of the
-     *                                   {@link EntityCollection}.
+     *                                   {@link EntityCollection}
      */
     @Override
     public void update(EntityCollectionStatistics entityCollectionStatistics) {
@@ -125,11 +118,11 @@ public class Debugger implements StatisticsObserver {
         imageFiles = addDebugLine(IMAGE_FILES);
     }
 
-    private Label addDebugLine(String label) {
+    private Label addDebugLine(final String label) {
         return addDebugLine(label, "");
     }
 
-    private Label addDebugLine(String label, String value) {
+    private Label addDebugLine(final String label, String value) {
         Label debugValue = debugLabelFactory.createValue(value);
         int nextRow = gridpane.getRowCount() + 1;
         gridpane.add(debugLabelFactory.createLabel(label), 0, nextRow);
@@ -147,22 +140,22 @@ public class Debugger implements StatisticsObserver {
     }
 
     @Inject
-    public void setAudioRepository(AudioRepository audioRepository) {
+    public void setAudioRepository(final AudioRepository audioRepository) {
         this.audioRepository = audioRepository;
     }
 
     @Inject
-    public void setImageRepository(ImageRepository imageRepository) {
+    public void setImageRepository(final ImageRepository imageRepository) {
         this.imageRepository = imageRepository;
     }
 
     @Inject
-    public void setDebugGridPaneFactory(DebugGridPaneFactory debugGridPaneFactory) {
+    public void setDebugGridPaneFactory(final DebugGridPaneFactory debugGridPaneFactory) {
         this.debugGridPaneFactory = debugGridPaneFactory;
     }
 
     @Inject
-    public void setDebugLabelFactory(DebugLabelFactory debugLabelFactory) {
+    public void setDebugLabelFactory(final DebugLabelFactory debugLabelFactory) {
         this.debugLabelFactory = debugLabelFactory;
     }
 }

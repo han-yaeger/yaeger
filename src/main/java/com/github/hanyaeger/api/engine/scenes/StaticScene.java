@@ -16,7 +16,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import com.github.hanyaeger.api.engine.YaegerGame;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.EntitySupplier;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
@@ -52,7 +51,7 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     private Pane pane;
     private ColorAdjust colorAdjust;
     private YaegerConfig config;
-    Debugger debugger;
+    private Debugger debugger;
 
 
     @Override
@@ -69,9 +68,13 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
         entityCollection = entityCollectionFactory.create(pane, config);
         injector.injectMembers(entityCollection);
         entityCollection.init(injector);
-        entityCollection.addStatisticsObserver(debugger);
 
-        debugger.setup(pane);
+
+        if (config.isShowDebug()) {
+            entityCollection.addStatisticsObserver(debugger);
+            debugger.setup(pane);
+        }
+
         keyListenerDelegate.setup(scene, this::onInputChanged);
 
         if (this instanceof KeyListener) {
@@ -87,7 +90,9 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     public void postActivate() {
         entityCollection.registerSupplier(entitySupplier);
         entityCollection.initialUpdate();
-        debugger.toFront();
+        if (config.isShowDebug()) {
+            debugger.toFront();
+        }
     }
 
     /**
@@ -177,9 +182,6 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     }
 
     private void onInputChanged(final Set<KeyCode> input) {
-        if (input.contains(YaegerGame.TOGGLE_DEBUGGER_KEY)) {
-            debugger.toggle();
-        }
         entityCollection.notifyGameObjectsOfPressedKeys(input);
     }
 

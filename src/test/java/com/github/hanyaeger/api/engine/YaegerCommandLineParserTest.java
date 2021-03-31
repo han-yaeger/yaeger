@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,7 +29,7 @@ class YaegerCommandLineParserTest {
     void noSplashReturnsCorrectConfig() {
         // Arrange
         var sut = new YaegerCommandLineParser();
-        var noSplashArgs = Arrays.asList("--noSplash");
+        var noSplashArgs = Collections.singletonList("--noSplash");
 
         // Act
         var actual = sut.parseToConfig(noSplashArgs);
@@ -38,10 +39,36 @@ class YaegerCommandLineParserTest {
     }
 
     @Test
+    void showBBReturnsCorrectConfig() {
+        // Arrange
+        var sut = new YaegerCommandLineParser();
+        var showBBArgs = Collections.singletonList("--showBB");
+
+        // Act
+        var actual = sut.parseToConfig(showBBArgs);
+
+        // Assert
+        assertTrue(actual.isShowBoundingBox());
+    }
+
+    @Test
+    void showDebugReturnsCorrectConfig() {
+        // Arrange
+        var sut = new YaegerCommandLineParser();
+        var showDebugArgs = Collections.singletonList("--showDebug");
+
+        // Act
+        var actual = sut.parseToConfig(showDebugArgs);
+
+        // Assert
+        assertTrue(actual.isShowDebug());
+    }
+
+    @Test
     void helpPrintsHelpScreen() {
         // Arrange
         var sut = new YaegerCommandLineParser();
-        var helpArgs = Arrays.asList("--help");
+        var helpArgs = Collections.singletonList("--help");
 
         var ba = new ByteArrayOutputStream();
         System.setOut(new PrintStream(ba));
@@ -50,7 +77,7 @@ class YaegerCommandLineParserTest {
         var actual = sut.parseToConfig(helpArgs);
 
         // Assert
-        String output = new String(ba.toByteArray());
+        String output = ba.toString();
         assertTrue(output.contains("--noSplash"));
         assertTrue(output.contains("--help"));
     }
@@ -59,7 +86,7 @@ class YaegerCommandLineParserTest {
     void invalidArgumentPrintsWarning() {
         // Arrange
         var sut = new YaegerCommandLineParser();
-        var invalidArgs = Arrays.asList("--foo");
+        var invalidArgs = Collections.singletonList("--foo");
 
         var ba = new ByteArrayOutputStream();
         System.setOut(new PrintStream(ba));

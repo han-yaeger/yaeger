@@ -10,11 +10,12 @@ public class YaegerConfig {
 
     private boolean showSplash = true;
     private boolean showBoundingBox = false;
+    private boolean showDebug = false;
 
     /**
      * Whether the splash screen should be shown during start up.
      *
-     * @return a {@code boolean}, true by default
+     * @return a {@code boolean}, {@code true} by default
      */
     public boolean isShowSplash() {
         return showSplash;
@@ -23,7 +24,7 @@ public class YaegerConfig {
     /**
      * Set whether the Splash Scene should be shown during start up.
      *
-     * @param showSplash A {@code boolean} value
+     * @param showSplash a {@code boolean} value
      */
     void setShowSplash(final boolean showSplash) {
         this.showSplash = showSplash;
@@ -33,7 +34,7 @@ public class YaegerConfig {
      * Whether a BoundingBox should be drawn around every {@link com.github.hanyaeger.api.engine.entities.entity.collisions.Collided}
      * and {@link com.github.hanyaeger.api.engine.entities.entity.collisions.Collider}.
      *
-     * @return a {@code boolean}, false by default
+     * @return a {@code boolean}, {@code false} by default
      */
     public boolean isShowBoundingBox() {
         return showBoundingBox;
@@ -45,8 +46,26 @@ public class YaegerConfig {
      *
      * @param showBoundingBox A {@code boolean} value
      */
-    public void setShowBoundingBox(boolean showBoundingBox) {
+    public void setShowBoundingBox(final boolean showBoundingBox) {
         this.showBoundingBox = showBoundingBox;
+    }
+
+    /**
+     * Whether the debug window should be shown.
+     *
+     * @return a {@code boolean}, {@code false} by default
+     */
+    public boolean isShowDebug() {
+        return showDebug;
+    }
+
+    /**
+     * Set whether the debug window should be shown.
+     *
+     * @param showDebug a {@code boolean} value
+     */
+    public void setShowDebug(final boolean showDebug) {
+        this.showDebug = showDebug;
     }
 
     @Override
@@ -54,12 +73,12 @@ public class YaegerConfig {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         YaegerConfig that = (YaegerConfig) o;
-        return showSplash == that.showSplash && showBoundingBox == that.showBoundingBox;
+        return showSplash == that.showSplash && showBoundingBox == that.showBoundingBox && showDebug == that.showDebug;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(showSplash, showBoundingBox);
+        return Objects.hash(showSplash, showBoundingBox, showDebug);
     }
 
 

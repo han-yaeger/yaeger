@@ -74,17 +74,4 @@ class DebuggerTest {
         // Verify
         verify(gridPane).toFront();
     }
-
-    @Test
-    void toggleChangesVisibillityOfGridPane() {
-        // Setup
-        when(gridPane.isVisible()).thenReturn(true);
-        sut.setup(pane);
-
-        // Test
-        sut.toggle();
-
-        // Verify
-        verify(gridPane).setVisible(false);
-    }
 }
