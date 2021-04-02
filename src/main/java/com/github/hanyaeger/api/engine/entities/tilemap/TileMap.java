@@ -24,9 +24,9 @@ import java.util.*;
  * For this, it will require both tiles to be added, as a map to be defined. Based on those, it will automatically
  * calculate the width, height and placement of all tiles.
  */
-public abstract class TileMap extends EntitySupplier implements Anchorable, Activatable {
+public  abstract class TileMap<D>  extends EntitySupplier implements Anchorable, Activatable {
 
-    private final Map<Integer, EntityConfiguration> entities = new HashMap<>();
+    private final Map<Integer, EntityConfiguration<D>> entities = new HashMap<>();
 
     private int[][] map;
     private transient TileFactory tileFactory;
@@ -98,8 +98,8 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
         entities.put(identifier, new EntityConfiguration<>(entityClass));
     }
 
-    public <C> void addEntity(final int identifier, final Class<? extends YaegerEntity> entityClass, C configuration) {
-        entities.put(identifier, new EntityConfiguration<>(entityClass, configuration));
+    public void addEntity(final int identifier, final Class<? extends YaegerEntity> entityClass, D configuration) {
+        entities.put(identifier, new EntityConfiguration<D>(entityClass, configuration));
     }
 
     private void transformMapToEntities() {
