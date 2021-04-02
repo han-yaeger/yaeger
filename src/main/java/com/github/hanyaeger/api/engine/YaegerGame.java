@@ -6,7 +6,6 @@ import com.github.hanyaeger.api.engine.scenes.YaegerScene;
 import com.github.hanyaeger.api.guice.YaegerModule;
 import com.google.inject.Guice;
 import javafx.application.Application;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 /**
