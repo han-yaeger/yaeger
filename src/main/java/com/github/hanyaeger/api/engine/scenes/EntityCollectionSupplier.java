@@ -8,9 +8,9 @@ import com.github.hanyaeger.api.engine.entities.EntityCollection;
 public interface EntityCollectionSupplier {
 
     /**
-     * Return the {@link EntityCollection} that is provided by this {@link EntityCollectionSupplier}.
+     * Return the {@link EntityCollection} that is provided by this {@code EntityCollectionSupplier}.
      *
-     * @return the {@link EntityCollection} that is provided by this {@link EntityCollectionSupplier}
+     * @return the {@link EntityCollection} that is provided by this {@code EntityCollectionSupplier}
      */
     EntityCollection getEntityCollection();
 }

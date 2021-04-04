@@ -24,7 +24,7 @@ import java.util.*;
  * For this, it will require both tiles to be added, as a map to be defined. Based on those, it will automatically
  * calculate the width, height and placement of all tiles.
  */
-public  abstract class TileMap<D>  extends EntitySupplier implements Anchorable, Activatable {
+public abstract class TileMap<D> extends EntitySupplier implements Anchorable, Activatable {
 
     private final Map<Integer, EntityConfiguration<D>> entities = new HashMap<>();
 
@@ -198,7 +198,7 @@ public  abstract class TileMap<D>  extends EntitySupplier implements Anchorable,
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        TileMap entities1 = (TileMap) o;
+        var entities1 = (TileMap<D>) o;
         return entities.equals(entities1.entities) &&
                 Arrays.equals(map, entities1.map) &&
                 size.equals(entities1.size) &&
@@ -211,5 +211,4 @@ public  abstract class TileMap<D>  extends EntitySupplier implements Anchorable,
         result = 31 * result + Arrays.hashCode(map);
         return result;
     }
-
 }
