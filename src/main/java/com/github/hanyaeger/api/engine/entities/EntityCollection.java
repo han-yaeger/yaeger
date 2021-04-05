@@ -287,7 +287,7 @@ public class EntityCollection implements Initializable {
     }
 
     private void registerIfCollider(final YaegerEntity yaegerEntity) {
-        var collider = collisionDelegate.register(yaegerEntity);
+        final var collider = collisionDelegate.register(yaegerEntity);
 
         if (collider && config.isShowBoundingBox()) {
             boundingBoxVisualizerSupplier.add(new BoundingBoxVisualizer(yaegerEntity));

@@ -47,7 +47,7 @@ public interface Collided extends Bounded {
             return;
         }
 
-        for (final Collider collider : colliders) {
+        for (final var collider : colliders) {
             if (hasCollidedWith(collider)) {
                 onCollision(collider);
                 break;

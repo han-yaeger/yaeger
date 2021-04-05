@@ -96,7 +96,7 @@ public class SpriteAnimationDelegate implements Updatable {
      */
     void setAutoCycleRow(final int row) {
         if (row >= rows || row < -1) {
-            var message = String.format(INVALID_ROW_EXCEPTION, row, rows);
+            final var message = String.format(INVALID_ROW_EXCEPTION, row, rows);
             throw new IllegalArgumentException(message);
         }
         this.cyclingRow = row;
@@ -123,9 +123,8 @@ public class SpriteAnimationDelegate implements Updatable {
     }
 
     private void createViewPorts() {
-        var frameWidth = getFrameWidth();
-
-        var frameHeight = getFrameHeight();
+        final var frameWidth = getFrameWidth();
+        final var frameHeight = getFrameHeight();
 
         for (int row = 0; row < rows; row++) {
             for (int column = 0; column < columns; column++) {

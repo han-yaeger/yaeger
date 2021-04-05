@@ -35,7 +35,7 @@ public interface SceneBorderCrossingWatcher extends Bounded, SceneChild, Movable
         };
     }
 
-    private void handleCrossing(SceneBorder border) {
+    private void handleCrossing(final SceneBorder border) {
         notifyBoundaryCrossing(border);
     }
 }

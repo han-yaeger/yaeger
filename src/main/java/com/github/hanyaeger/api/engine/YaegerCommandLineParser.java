@@ -21,14 +21,14 @@ class YaegerCommandLineParser {
      * @return an instance of {@link YaegerConfig} that can be used to initialize a {@link YaegerGame}
      */
     YaegerConfig parseToConfig(final List<String> args) {
-        var invalidArgs = args.stream().filter(a -> !isValidArgument(a)).collect(Collectors.toList());
+        final var invalidArgs = args.stream().filter(a -> !isValidArgument(a)).collect(Collectors.toList());
         printInvalidArgumentWarning(invalidArgs);
 
         if (args.contains(YaegerCommandLineArgument.HELP.flag) || !invalidArgs.isEmpty()) {
             printHelpScreen();
         }
 
-        var yaegerConfig = new YaegerConfig();
+        final var yaegerConfig = new YaegerConfig();
 
         yaegerConfig.setShowSplash(!args.contains(YaegerCommandLineArgument.NO_SPLASH.flag));
         yaegerConfig.setShowBoundingBox(args.contains(YaegerCommandLineArgument.SHOW_BB.flag));
@@ -39,7 +39,7 @@ class YaegerCommandLineParser {
 
     private void printHelpScreen() {
         System.out.println("Yaeger can be run with the following command line options:");
-        for (var argument : YaegerCommandLineArgument.values()) {
+        for (final var argument : YaegerCommandLineArgument.values()) {
             System.out.format(TABLE_FORMAT, " " + argument.flag, argument.explanation);
             System.out.print(System.lineSeparator());
         }
@@ -52,7 +52,7 @@ class YaegerCommandLineParser {
     }
 
     private boolean isValidArgument(final String argument) {
-        var validArguments = Arrays
+        final var validArguments = Arrays
                 .stream(YaegerCommandLineArgument.values())
                 .map(a -> a.flag)
                 .collect(Collectors.toList());

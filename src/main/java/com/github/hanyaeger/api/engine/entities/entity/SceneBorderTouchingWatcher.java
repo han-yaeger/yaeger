@@ -35,7 +35,7 @@ public interface SceneBorderTouchingWatcher extends Movable, Bounded, SceneChild
         };
     }
 
-    private void handleTouch(SceneBorder border) {
+    private void handleTouch(final SceneBorder border) {
         notifyBoundaryTouching(border);
     }
 }

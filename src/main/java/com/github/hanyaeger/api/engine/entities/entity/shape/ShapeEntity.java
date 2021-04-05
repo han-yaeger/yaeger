@@ -30,7 +30,7 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
      *
      * @param initialPosition the initial {@link Coordinate2D} of this {@link ShapeEntity}
      */
-    protected ShapeEntity(Coordinate2D initialPosition) {
+    protected ShapeEntity(final Coordinate2D initialPosition) {
         super(initialPosition);
     }
 

@@ -147,7 +147,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     }
 
     @Override
-    public void addToEntityCollection(EntityCollection collection) {
+    public void addToEntityCollection(final EntityCollection collection) {
         collection.addDynamicEntity(this);
     }
 

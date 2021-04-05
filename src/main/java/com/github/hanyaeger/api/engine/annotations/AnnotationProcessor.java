@@ -38,7 +38,7 @@ public class AnnotationProcessor {
     }
 
     private <T extends Annotation> void invoke(final Object gameObject, final Class<T> annotation) {
-        for (var method : gameObject.getClass().getMethods()) {
+        for (final var method : gameObject.getClass().getMethods()) {
             if (method.isAnnotationPresent(annotation)) {
                 try {
                     method.invoke(gameObject);

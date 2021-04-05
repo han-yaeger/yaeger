@@ -48,12 +48,12 @@ public interface Movable extends Placeable, MotionModifier {
     }
 
     @Override
-    default double getSpeedInDirection(Direction direction) {
+    default double getSpeedInDirection(final Direction direction) {
         return getMotionApplier().getSpeedInDirection(direction);
     }
 
     @Override
-    default double getSpeedInDirection(double direction) {
+    default double getSpeedInDirection(final double direction) {
         return getMotionApplier().getSpeedInDirection(direction);
     }
 
@@ -78,12 +78,12 @@ public interface Movable extends Placeable, MotionModifier {
     }
 
     @Override
-    default void invertSpeedInDirection(Direction direction) {
+    default void invertSpeedInDirection(final Direction direction) {
         getMotionApplier().invertSpeedInDirection(direction);
     }
 
     @Override
-    default void invertSpeedInDirection(double direction) {
+    default void invertSpeedInDirection(final double direction) {
         getMotionApplier().invertSpeedInDirection(direction);
     }
 
@@ -134,7 +134,7 @@ public interface Movable extends Placeable, MotionModifier {
                 return;
             }
 
-            var loc = getMotionApplier().updateLocation(getAnchorLocation());
+            final var loc = getMotionApplier().updateLocation(getAnchorLocation());
             setAnchorLocation(loc);
         };
     }

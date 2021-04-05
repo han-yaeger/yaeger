@@ -21,7 +21,7 @@ public class RotationBuffer {
      *
      * @param rotation The value of {@code rotation} as a {@code double}.
      */
-    public void setRotation(double rotation) {
+    public void setRotation(final double rotation) {
         this.rotation = rotation;
     }
 }

@@ -72,7 +72,7 @@ public class YaegerConfig {
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        YaegerConfig that = (YaegerConfig) o;
+        final var that = (YaegerConfig) o;
         return showSplash == that.showSplash && showBoundingBox == that.showBoundingBox && showDebug == that.showDebug;
     }
 

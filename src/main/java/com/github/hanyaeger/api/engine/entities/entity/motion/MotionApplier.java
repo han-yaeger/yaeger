@@ -68,8 +68,8 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     public double getSpeedInDirection(final double direction) {
         var speed = 0D;
         if (Double.compare(getDirection(), direction) != 0) {
-            var normalizedVector = createVector(1, direction);
-            var dotProduct = normalizedVector.dotProduct(motion);
+            final var normalizedVector = createVector(1, direction);
+            final var dotProduct = normalizedVector.dotProduct(motion);
 
             if (dotProduct > 0) {
                 speed = calculateDenormalizedVector(normalizedVector, motion).magnitude();
@@ -89,13 +89,13 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
             changeDirection(180);
 
         } else {
-            var normalizedVector = createVector(1, direction);
-            var dotProduct = normalizedVector.dotProduct(motion);
+            final var normalizedVector = createVector(1, direction);
+            final var dotProduct = normalizedVector.dotProduct(motion);
 
             if (dotProduct > 0) {
                 // An actual situation in which the speed should be inverted in the given direction
-                var vectorForDirection = calculateDenormalizedVector(normalizedVector, motion);
-                var newMotion = motion.subtract(vectorForDirection).subtract(vectorForDirection);
+                final var vectorForDirection = calculateDenormalizedVector(normalizedVector, motion);
+                final var newMotion = motion.subtract(vectorForDirection).subtract(vectorForDirection);
                 setMotion(newMotion.magnitude(), convertVectorToAngle(newMotion));
             }
         }
@@ -112,9 +112,9 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
                 Double.compare(getDirection() % 180, direction % 180) == 0) {
             setMotion(speed, direction);
         } else {
-            var maximizedMotion = createVector(speed, direction);
-            var fraction = maximizedMotion.multiply(motion.dotProduct(maximizedMotion) / maximizedMotion.dotProduct(maximizedMotion));
-            var newMotion = motion.subtract(fraction).add(maximizedMotion);
+            final var maximizedMotion = createVector(speed, direction);
+            final var fraction = maximizedMotion.multiply(motion.dotProduct(maximizedMotion) / maximizedMotion.dotProduct(maximizedMotion));
+            final var newMotion = motion.subtract(fraction).add(maximizedMotion);
             setMotion(newMotion.magnitude(), convertVectorToAngle(newMotion));
         }
     }
@@ -130,13 +130,13 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
         if (Double.compare(getDirection(), direction) == 0) {
             setSpeed(0D);
         } else {
-            var normalizedVector = createVector(1, direction);
-            var dotProduct = normalizedVector.dotProduct(motion);
+            final var normalizedVector = createVector(1, direction);
+            final var dotProduct = normalizedVector.dotProduct(motion);
 
             if (dotProduct > 0) {
                 // An actual situation in which the motion should be nullified in the given direction
-                var vectorForDirection = calculateDenormalizedVector(normalizedVector, motion);
-                var newMotion = motion.subtract(vectorForDirection);
+                final var vectorForDirection = calculateDenormalizedVector(normalizedVector, motion);
+                final var newMotion = motion.subtract(vectorForDirection);
                 setMotion(newMotion.magnitude(), convertVectorToAngle(newMotion));
             }
         }
@@ -144,8 +144,8 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
 
     private Point2D calculateDenormalizedVector(final Coordinate2D normalizedVector,
                                                 final Coordinate2D currentMotion) {
-        var numerator = currentMotion.dotProduct(normalizedVector);
-        var denominator = normalizedVector.dotProduct(normalizedVector);
+        final var numerator = currentMotion.dotProduct(normalizedVector);
+        final var denominator = normalizedVector.dotProduct(normalizedVector);
         return normalizedVector.multiply(numerator / denominator);
     }
 
@@ -236,7 +236,7 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
 
     @Override
     public void changeDirection(final double rotation) {
-        double currentAngle = getDirection();
+        final double currentAngle = getDirection();
 
         setDirection(rotation + currentAngle);
     }

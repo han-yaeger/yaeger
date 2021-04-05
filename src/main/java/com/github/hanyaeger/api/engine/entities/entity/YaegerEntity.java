@@ -192,8 +192,8 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
             return 0D;
         }
 
-        var delta = otherLocation.subtract(getLocationInScene());
-        var normalizedDelta = delta.normalize();
+        final var delta = otherLocation.subtract(getLocationInScene());
+        final var normalizedDelta = delta.normalize();
         var angle = new Point2D(0, 1).angle(normalizedDelta);
 
         if (delta.getX() < 0) {
@@ -294,12 +294,12 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     }
 
     @Override
-    public void setAnchorLocationX(double x) {
+    public void setAnchorLocationX(final double x) {
         setAnchorLocation(new Coordinate2D(x, getAnchorLocation().getY()));
     }
 
     @Override
-    public void setAnchorLocationY(double y) {
+    public void setAnchorLocationY(final double y) {
         setAnchorLocation(new Coordinate2D(getAnchorLocation().getX(), y));
     }
 
@@ -357,6 +357,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * Calculate the absolute location of this {@link YaegerEntity} in the scene.
      * Because {@link CompositeEntity} uses a relative coordinate system, this method is needed to make calculations
      * for entities that are part of a {@link CompositeEntity}.
+     *
      * @return a {@link Coordinate2D} with the absolute coordinates of the {@link YaegerEntity}.
      */
     protected Coordinate2D getLocationInScene() {
