@@ -24,9 +24,9 @@ import java.util.*;
  * For this, it will require both tiles to be added, as a map to be defined. Based on those, it will automatically
  * calculate the width, height and placement of all tiles.
  */
-public abstract class TileMap<D> extends EntitySupplier implements Anchorable, Activatable {
+public abstract class TileMap extends EntitySupplier implements Anchorable, Activatable {
 
-    private final Map<Integer, EntityConfiguration<D>> entities = new HashMap<>();
+    private final Map<Integer, EntityConfiguration> entities = new HashMap<>();
 
     private int[][] map;
     private transient TileFactory tileFactory;
@@ -88,8 +88,8 @@ public abstract class TileMap<D> extends EntitySupplier implements Anchorable, A
      * {@link SpriteEntity} {@link Class}must have an identifier for reference from the map. This method should only be called
      * from the lifecycle method {@link TileMap#setupEntities()}.
      *
-     * @param identifier  The identifier as an {@code int} to be used from the map.
-     * @param entityClass The {@link Class} of a subclass of {@link YaegerEntity} to be
+     * @param identifier  the identifier as an {@code int} to be used from the map
+     * @param entityClass the {@link Class} of a subclass of {@link YaegerEntity} to be
      *                    used for the given identifier. Note that this {@link YaegerEntity} should have a constructor
      *                    that accepts exactly two parameters. The first one should be a {@link Coordinate2D} and the second one
      *                    a {@link Size}. If such a constructor is not present, an {@link YaegerEngineException} will be thrown.
@@ -98,21 +98,21 @@ public abstract class TileMap<D> extends EntitySupplier implements Anchorable, A
         entities.put(identifier, new EntityConfiguration<>(entityClass));
     }
 
-    public void addEntity(final int identifier, final Class<? extends YaegerEntity> entityClass, D configuration) {
-        entities.put(identifier, new EntityConfiguration<D>(entityClass, configuration));
+    public <C> void addEntity(final int identifier, final Class<? extends YaegerEntity> entityClass, final C configuration) {
+        entities.put(identifier, new EntityConfiguration<>(entityClass, configuration));
     }
 
     private void transformMapToEntities() {
-        double x;
-        double y;
-        double width;
-        double height;
+        final double x;
+        final double y;
+        final double width;
+        final double height;
 
         if (size.isPresent() && location.isPresent()) {
             width = size.get().getWidth();
             height = size.get().getHeight();
 
-            var topLeftLocation = getTopLeftLocation(location.get(), size.get());
+            final var topLeftLocation = getTopLeftLocation(location.get(), size.get());
             x = topLeftLocation.getX();
             y = topLeftLocation.getY();
         } else {
@@ -120,20 +120,20 @@ public abstract class TileMap<D> extends EntitySupplier implements Anchorable, A
         }
 
         for (int i = 0; i < map.length; i++) {
-            var entityHeight = height / map.length;
-            var entityY = i * entityHeight;
+            final var entityHeight = height / map.length;
+            final var entityY = i * entityHeight;
             for (int j = 0; j < map[i].length; j++) {
-                int key = map[i][j];
+                final int key = map[i][j];
                 if (key != 0) {
-                    var entityWidth = width / map[i].length;
+                    final var entityWidth = width / map[i].length;
 
-                    var entityConfiguration = entities.get(key);
+                    final var entityConfiguration = entities.get(key);
 
                     if (entityConfiguration == null) {
                         throw new EntityNotAvailableException("An Entity with key \"" + key + "\" has not been added to the TileMap.");
                     }
 
-                    var entity = tileFactory.create(entityConfiguration,
+                    final var entity = tileFactory.create(entityConfiguration,
                             new Coordinate2D(Math.round(x + (j * entityWidth)), Math.round(y + entityY)),
                             new Size(Math.ceil(entityWidth), Math.ceil(entityHeight)));
 
@@ -198,7 +198,7 @@ public abstract class TileMap<D> extends EntitySupplier implements Anchorable, A
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        var entities1 = (TileMap<D>) o;
+        var entities1 = (TileMap) o;
         return entities.equals(entities1.entities) &&
                 Arrays.equals(map, entities1.map) &&
                 size.equals(entities1.size) &&
