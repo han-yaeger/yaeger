@@ -17,18 +17,24 @@ public class KeyListenerDelegate {
     protected Set<KeyCode> input = new HashSet<>();
     private KeyListener keyListener;
 
-    public void setup(Scene scene, KeyListener keyListener) {
+    /**
+     * Setup this {@code KeyListenerDelegate} for a specific {@link Scene} and {@link KeyListener}.
+     *
+     * @param scene       the {@link Scene} to which this delegate should be attached
+     * @param keyListener the {@link KeyListener} to which the events should be delegateds
+     */
+    public void setup(final Scene scene, final KeyListener keyListener) {
         this.keyListener = keyListener;
         scene.setOnKeyPressed(
                 e -> {
-                    var code = e.getCode();
+                    final var code = e.getCode();
                     input.add(code);
                     inputChanged(input);
                 });
 
         scene.setOnKeyReleased(
                 e -> {
-                    var code = e.getCode();
+                    final var code = e.getCode();
                     input.remove(code);
                     inputChanged(input);
                 });
