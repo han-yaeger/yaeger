@@ -56,15 +56,13 @@ public class AnnotationProcessor {
      * @param gameObject the object that will be scanned for the {@link UpdatableProvider} annotation
      */
     public void configureUpdateDelegators(final Object gameObject) {
-        if (gameObject instanceof UpdateDelegator) {
-            var updateDelegator = (UpdateDelegator) gameObject;
-            for (var method : gameObject.getClass().getMethods()) {
+        if (gameObject instanceof final UpdateDelegator updateDelegator) {
+            for (final var method : gameObject.getClass().getMethods()) {
                 if (method.isAnnotationPresent(UpdatableProvider.class)) {
                     UpdatableProvider annotation = method.getAnnotation(UpdatableProvider.class);
                     try {
-                        var providedUpdatable = method.invoke(updateDelegator);
-                        if (providedUpdatable instanceof Updatable) {
-                            var delegatedUpdatable = (Updatable) providedUpdatable;
+                        final var providedUpdatable = method.invoke(updateDelegator);
+                        if (providedUpdatable instanceof final Updatable delegatedUpdatable) {
                             updateDelegator.getUpdater().addUpdatable(delegatedUpdatable, annotation.asFirst());
                         }
                     } catch (IllegalAccessException | InvocationTargetException | ClassCastException e) {

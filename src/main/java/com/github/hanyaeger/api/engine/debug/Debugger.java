@@ -46,7 +46,7 @@ public class Debugger implements StatisticsObserver {
     private Label audioFiles;
     private Label imageFiles;
 
-    public void setup(Pane pane) {
+    public void setup(final Pane pane) {
         createGridPane(pane);
     }
 
@@ -123,8 +123,8 @@ public class Debugger implements StatisticsObserver {
     }
 
     private Label addDebugLine(final String label, String value) {
-        Label debugValue = debugLabelFactory.createValue(value);
-        int nextRow = gridpane.getRowCount() + 1;
+        final var debugValue = debugLabelFactory.createValue(value);
+        final int nextRow = gridpane.getRowCount() + 1;
         gridpane.add(debugLabelFactory.createLabel(label), 0, nextRow);
         gridpane.add(debugValue, 1, nextRow);
 
