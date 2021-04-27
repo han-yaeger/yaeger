@@ -4,11 +4,11 @@ import com.github.hanyaeger.api.engine.Initializable;
 import com.github.hanyaeger.api.engine.YaegerConfig;
 import com.github.hanyaeger.api.engine.annotations.AnnotationProcessor;
 import com.github.hanyaeger.api.engine.exceptions.YaegerSceneNotAvailableException;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.stage.Stage;
 import com.github.hanyaeger.api.engine.scenes.splash.SplashScreenFactory;
 
+import javax.inject.Inject;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 

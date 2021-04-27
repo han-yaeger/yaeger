@@ -2,9 +2,9 @@ package com.github.hanyaeger.api.engine.media.repositories;
 
 import com.github.hanyaeger.api.engine.Destroyable;
 import com.github.hanyaeger.api.engine.media.ResourceConsumer;
-import com.google.inject.Singleton;
 import javafx.scene.media.AudioClip;
 
+import javax.inject.Singleton;
 import java.util.*;
 
 /**

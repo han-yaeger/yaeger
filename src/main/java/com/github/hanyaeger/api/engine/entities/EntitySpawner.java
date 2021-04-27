@@ -2,8 +2,9 @@ package com.github.hanyaeger.api.engine.entities;
 
 import com.github.hanyaeger.api.engine.Timer;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
-import com.google.inject.Inject;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
+
+import javax.inject.Inject;
 
 /**
  * An {@link EntitySpawner} is the abstract superclass that should be extended to create an object that

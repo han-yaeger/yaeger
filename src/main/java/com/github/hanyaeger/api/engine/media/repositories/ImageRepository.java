@@ -3,10 +3,10 @@ package com.github.hanyaeger.api.engine.media.repositories;
 import com.github.hanyaeger.api.engine.Destroyable;
 import com.github.hanyaeger.api.engine.media.ResourceConsumer;
 import com.github.hanyaeger.api.javafx.image.ImageFactory;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import javafx.scene.image.Image;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.Map;
 import java.util.WeakHashMap;
 

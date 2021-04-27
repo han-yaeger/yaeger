@@ -2,7 +2,6 @@ package com.github.hanyaeger.api.engine.scenes;
 
 import com.github.hanyaeger.api.engine.annotations.UpdatableProvider;
 import com.github.hanyaeger.api.javafx.animationtimer.AnimationTimerFactory;
-import com.google.inject.Inject;
 import javafx.animation.AnimationTimer;
 import com.github.hanyaeger.api.engine.TimerListProvider;
 import com.github.hanyaeger.api.engine.Timer;
@@ -11,6 +10,7 @@ import com.github.hanyaeger.api.engine.Updatable;
 import com.github.hanyaeger.api.engine.UpdateDelegator;
 import com.github.hanyaeger.api.engine.Updater;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -7,7 +7,6 @@ import com.github.hanyaeger.api.engine.entities.tilemap.TileMap;
 import com.github.hanyaeger.api.engine.entities.tilemap.TileMapListProvider;
 import com.github.hanyaeger.api.guice.factories.EntityCollectionFactory;
 import com.github.hanyaeger.api.guice.factories.SceneFactory;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.github.hanyaeger.api.engine.entities.EntitySpawner;
 import javafx.scene.Scene;
@@ -23,6 +22,7 @@ import com.github.hanyaeger.api.engine.entities.entity.events.userinput.KeyListe
 import com.github.hanyaeger.api.engine.scenes.delegates.BackgroundDelegate;
 import com.github.hanyaeger.api.engine.scenes.delegates.KeyListenerDelegate;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;

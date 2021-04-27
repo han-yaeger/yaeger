@@ -2,10 +2,11 @@ package com.github.hanyaeger.api.engine;
 
 import com.github.hanyaeger.api.engine.scenes.SceneCollection;
 import com.github.hanyaeger.api.guice.factories.SceneCollectionFactory;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.stage.Stage;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
+
+import javax.inject.Inject;
 
 /**
  * A {@link YaegerStage} encapsulates an JavaFX {@link Stage}. It defines the window

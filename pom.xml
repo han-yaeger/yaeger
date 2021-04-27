@@ -255,9 +255,14 @@
             <version>3.4.0</version>
         </dependency>
         <dependency>
-            <groupId>com.guicedee.services</groupId>
+            <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
-            <version>1.0.19.13</version>
+            <version>5.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
