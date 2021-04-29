@@ -1,4 +1,4 @@
-package com.github.hanyaeger.api.engine.scenes.splash.timers;
+package com.github.hanyaeger.api.engine.scenes.splash;
 
 import com.github.hanyaeger.api.engine.Timer;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
