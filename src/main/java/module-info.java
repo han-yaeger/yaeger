@@ -7,8 +7,7 @@ module hanyaeger.api {
     requires transitive javafx.controls;
     requires transitive javafx.media;
     requires transitive javafx.graphics;
-    requires transitive com.google.guice;
-    requires transitive javax.inject;
+    requires com.google.guice;
 
     exports com.github.hanyaeger.api.engine;
     exports com.github.hanyaeger.api.engine.annotations;

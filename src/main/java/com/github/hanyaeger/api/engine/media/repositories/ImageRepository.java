@@ -3,10 +3,10 @@ package com.github.hanyaeger.api.engine.media.repositories;
 import com.github.hanyaeger.api.engine.Destroyable;
 import com.github.hanyaeger.api.engine.media.ResourceConsumer;
 import com.github.hanyaeger.api.javafx.image.ImageFactory;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import javafx.scene.image.Image;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -63,15 +63,6 @@ public class ImageRepository implements ResourceConsumer, Destroyable {
         }
     }
 
-    @Inject
-    public void setFactory(final ImageFactory factory) {
-        this.factory = factory;
-    }
-
-    private String constructKey(final String url, final double requestedWidth, final double requestedHeight, final boolean preserveRatio) {
-        return ((int) requestedWidth) + "-" + ((int) requestedHeight) + "-" + preserveRatio + "-" + url;
-    }
-
     /**
      * Returns the number of key-value mappings in this map.  If the
      * map contains more than {@link Integer#MAX_VALUE} elements, returns
@@ -86,5 +77,14 @@ public class ImageRepository implements ResourceConsumer, Destroyable {
     @Override
     public void destroy() {
         imageMap.clear();
+    }
+
+    private String constructKey(final String url, final double requestedWidth, final double requestedHeight, final boolean preserveRatio) {
+        return ((int) requestedWidth) + "-" + ((int) requestedHeight) + "-" + preserveRatio + "-" + url;
+    }
+
+    @Inject
+    public void setFactory(final ImageFactory factory) {
+        this.factory = factory;
     }
 }

@@ -22,7 +22,7 @@ public class SplashScene extends DynamicScene implements TimerContainer {
      * @param runnable The {@link Runnable} that will be called when the {@link SplashSceneTimer} transmits
      *                 an {@link Timer#onAnimationUpdate(long)}.
      */
-    public SplashScene(final Runnable runnable) {
+    SplashScene(final Runnable runnable) {
         this.runnable = runnable;
     }
 

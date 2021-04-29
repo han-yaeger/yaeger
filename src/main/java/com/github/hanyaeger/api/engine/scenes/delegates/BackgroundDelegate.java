@@ -7,12 +7,11 @@ import com.github.hanyaeger.api.engine.media.repositories.AudioRepository;
 import com.github.hanyaeger.api.engine.media.repositories.ImageRepository;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
 import com.github.hanyaeger.api.javafx.image.BackgroundFactory;
+import com.google.inject.Inject;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
-
-import javax.inject.Inject;
 
 /**
  * A {@link BackgroundDelegate} follows the Delegate pattern and embraces Composition over Inheritance.

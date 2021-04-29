@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.engine.debug;
 
+import com.google.inject.Inject;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import com.github.hanyaeger.api.engine.media.repositories.AudioRepository;
@@ -9,8 +10,6 @@ import com.github.hanyaeger.api.engine.entities.EntityCollectionStatistics;
 import com.github.hanyaeger.api.javafx.debug.DebugGridPaneFactory;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import javafx.scene.layout.Pane;
-
-import javax.inject.Inject;
 
 /**
  * The {@code Debugger} is used to gather and show in game debug information.

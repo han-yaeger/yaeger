@@ -12,6 +12,7 @@ import com.github.hanyaeger.api.engine.entities.entity.collisions.CollisionDeleg
 import com.github.hanyaeger.api.engine.entities.entity.events.userinput.KeyListener;
 import com.github.hanyaeger.api.engine.exceptions.YaegerEngineException;
 import com.github.hanyaeger.api.engine.scenes.YaegerScene;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import javafx.scene.Group;
@@ -19,7 +20,6 @@ import javafx.scene.input.KeyCode;
 import com.github.hanyaeger.api.engine.entities.entity.events.EventTypes;
 import javafx.scene.layout.Pane;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
