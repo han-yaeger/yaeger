@@ -1,0 +1,29 @@
+package com.github.hanyaeger.api.engine.entities.entity.events.userinput;
+
+import com.github.hanyaeger.api.engine.annotations.OnActivation;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
+import com.github.hanyaeger.api.engine.entities.entity.GameNode;
+import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
+import javafx.scene.input.MouseButton;
+
+/**
+ * Being a {@link MouseMovedListener} enables the {@link YaegerEntity} to be notified if the mouse has been moved.
+ * On movement it will receive an event that contains the x and y-coordinate.
+ */
+public interface MouseMovedListener extends GameNode {
+
+    /**
+     * Called when the corresponding {@link javafx.scene.Node} receives a mouse pressed event.
+     *
+     * @param coordinate2D the current coordinate of the mouse pointer
+     */
+    void onMouseMoved(final Coordinate2D coordinate2D);
+
+    /**
+     * Attach a mouseMoved to this entity.
+     */
+    @OnActivation
+    default void attachMouseMovedListener() {
+        getNode().ifPresent(node -> node.setOnMouseMoved(event -> onMouseMoved(new Coordinate2D(event.getX(), event.getY()))));
+    }
+}
