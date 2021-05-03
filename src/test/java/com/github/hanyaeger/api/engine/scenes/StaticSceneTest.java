@@ -9,6 +9,7 @@ import com.github.hanyaeger.api.guice.factories.EntityCollectionFactory;
 import com.github.hanyaeger.api.guice.factories.SceneFactory;
 import com.google.inject.Injector;
 import javafx.collections.ObservableList;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.KeyCode;
@@ -21,6 +22,7 @@ import com.github.hanyaeger.api.engine.entities.entity.events.userinput.KeyListe
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.MockSettings;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -99,6 +101,21 @@ class StaticSceneTest {
 
         // Verify
         assertEquals(actual, stage);
+    }
+
+    @Test
+    void getNodeReturnsOptionalOfParentNode() {
+        // Arrange
+        sut.activate();
+
+        var expected = mock(Parent.class, withSettings().withoutAnnotations());
+        when(sut.getScene().getRoot()).thenReturn(expected);
+
+        // Act
+        var actual = sut.getNode();
+
+        // Assert
+        assertEquals(expected, actual.get());
     }
 
     @Test

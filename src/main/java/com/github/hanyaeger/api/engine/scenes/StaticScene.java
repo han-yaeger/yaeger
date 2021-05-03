@@ -190,6 +190,11 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
         scene = null;
     }
 
+    @Override
+    public Optional<? extends Node> getNode() {
+        return Optional.of(getScene().getRoot());
+    }
+
     /**
      * Set the {@link Pane} to be used. The {@link Pane} will be the root node of the graph that
      * will be constructed for this {@link Scene}.

@@ -3,12 +3,15 @@ package com.github.hanyaeger.api.engine.scenes;
 import com.github.hanyaeger.api.engine.YaegerConfig;
 import com.google.inject.Injector;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verify;
@@ -152,6 +155,11 @@ class YaegerSceneTest {
         @Override
         public void init(Injector injector) {
 
+        }
+
+        @Override
+        public Optional<? extends Node> getNode() {
+            return Optional.empty();
         }
     }
 }

@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 /**
  * A {@code YaegerScene} encapsulates a scene or level from a {@code Yaeger Game}.
  */
-public interface YaegerScene extends DimensionsProvider, Destroyable, Initializable, Activatable, Clearable, Effectable {
+public interface YaegerScene extends GameNode, DimensionsProvider, Destroyable, Initializable, Activatable, Clearable, Effectable {
 
     /**
      * Setup the {@code YaegerScene}. Use this method to setup all properties of the {@code YaegerScene}. The
