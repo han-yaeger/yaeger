@@ -68,11 +68,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * @return the {@link Cursor}
      */
     public Cursor getCursor() {
-        if (getNode().isPresent()) {
-            return getNode().get().getScene().getCursor();
-        } else {
-            return null;
-        }
+        return getNode().map(node -> node.getScene().getCursor()).orElse(null);
     }
 
     /**
