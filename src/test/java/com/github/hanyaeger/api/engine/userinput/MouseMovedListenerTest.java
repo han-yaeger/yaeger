@@ -20,8 +20,9 @@ class MouseMovedListenerTest {
 
     private static final Coordinate2D DEFAULT_LOCATION = new Coordinate2D(0, 0);
 
+
     @Test
-    void attachMouseExitListenerAttachesMouseListenerToEntity() {
+    void attachMouseMovedListenerAttachesMouseListenerToEntity() {
         // Arrange
         var node = mock(Node.class, withSettings().withoutAnnotations());
         var scene = mock(Scene.class);
@@ -38,7 +39,7 @@ class MouseMovedListenerTest {
     }
 
     @Test
-    void attachMouseExitListenerAttachesMouseListenerToScene() {
+    void attachMouseMovedListenerAttachesMouseListenerToScene() {
         // Arrange
         var node = mock(Node.class, withSettings().withoutAnnotations());
         var mouseMovedListener = new MouseMovedListeningSceneImpl();
@@ -49,6 +50,39 @@ class MouseMovedListenerTest {
 
         // Assert
         verify(node).setOnMouseMoved(any());
+    }
+
+    @Test
+    void attachMouseMovedListenerToOtherDoesNothing() {
+        // Arrange
+        var node = mock(Node.class, withSettings().withoutAnnotations());
+        var mouseMovedListener = new MouseMovedListenerImpl();
+        mouseMovedListener.setNode(node);
+
+        // Act
+        mouseMovedListener.attachMouseMovedListener();
+
+        // Assert
+        verifyNoInteractions(node);
+    }
+
+    private class MouseMovedListenerImpl implements MouseMovedListener {
+
+        private Node node;
+
+        public void setNode(Node node) {
+            this.node = node;
+        }
+
+        @Override
+        public Optional<? extends Node> getNode() {
+            return Optional.empty();
+        }
+
+        @Override
+        public void onMouseMoved(Coordinate2D coordinate2D) {
+
+        }
     }
 
     private class MouseMovedListeningSceneImpl implements YaegerScene, MouseMovedListener {
