@@ -40,7 +40,6 @@ public class EntityCollection implements Initializable {
     private final List<KeyListener> keyListeners = new ArrayList<>();
     private final List<YaegerEntity> garbage = new ArrayList<>();
 
-
     private EntitySupplier boundingBoxVisualizerSupplier;
     private List<Updatable> boundingBoxVisualizers;
 
@@ -274,7 +273,6 @@ public class EntityCollection implements Initializable {
 
         entity.applyEntityProcessor(yaegerEntity -> injector.injectMembers(yaegerEntity));
         entity.init(injector);
-        entity.applyEntityProcessor(yaegerEntity -> annotationProcessor.invokeActivators(yaegerEntity));
 
         entity.applyEntityProcessor(yaegerEntity -> yaegerEntity.addToEntityCollection(this));
         entity.attachEventListener(EventTypes.REMOVE, event -> markAsGarbage((YaegerEntity) event.getSource()));
@@ -284,6 +282,8 @@ public class EntityCollection implements Initializable {
         entity.applyEntityProcessor(this::registerIfKeyListener);
         entity.applyEntityProcessor(this::registerIfCollider);
         entity.addToParent(this::addToParentNode);
+
+        entity.applyEntityProcessor(yaegerEntity -> annotationProcessor.invokeActivators(yaegerEntity));
     }
 
     private void registerIfCollider(final YaegerEntity yaegerEntity) {
