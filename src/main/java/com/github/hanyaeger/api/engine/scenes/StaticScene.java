@@ -10,6 +10,7 @@ import com.github.hanyaeger.api.guice.factories.SceneFactory;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.github.hanyaeger.api.engine.entities.EntitySpawner;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.KeyCode;
@@ -25,6 +26,7 @@ import com.github.hanyaeger.api.engine.scenes.delegates.KeyListenerDelegate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -181,10 +183,6 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
         clear();
     }
 
-    private void onInputChanged(final Set<KeyCode> input) {
-        entityCollection.notifyGameObjectsOfPressedKeys(input);
-    }
-
     @Override
     public void clear() {
         pane.getChildren().clear();
@@ -253,5 +251,9 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     @Inject
     public void setColorAdjust(final ColorAdjust colorAdjust) {
         this.colorAdjust = colorAdjust;
+    }
+
+    private void onInputChanged(final Set<KeyCode> input) {
+        entityCollection.notifyGameObjectsOfPressedKeys(input);
     }
 }
