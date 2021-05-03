@@ -4,7 +4,6 @@ import com.github.hanyaeger.api.engine.annotations.OnActivation;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.GameNode;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
-import javafx.scene.input.MouseButton;
 
 /**
  * Being a {@link MouseMovedListener} enables the {@link YaegerEntity} to be notified if the mouse has been moved.
