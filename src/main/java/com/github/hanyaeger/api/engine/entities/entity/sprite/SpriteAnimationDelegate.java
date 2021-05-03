@@ -114,7 +114,7 @@ public class SpriteAnimationDelegate implements Updatable {
      * Set the next index of the sprite.
      */
     void next() {
-        final int lastIndexOfTheRow = cyclingRow * columns + columns - 1;
+        final var lastIndexOfTheRow = cyclingRow * columns + columns - 1;
         if (cyclingRow == -1 || currentIndex < lastIndexOfTheRow) {
             setFrameIndex(++currentIndex);
         } else {
@@ -126,8 +126,8 @@ public class SpriteAnimationDelegate implements Updatable {
         final var frameWidth = getFrameWidth();
         final var frameHeight = getFrameHeight();
 
-        for (int row = 0; row < rows; row++) {
-            for (int column = 0; column < columns; column++) {
+        for (var row = 0; row < rows; row++) {
+            for (var column = 0; column < columns; column++) {
                 addViewPort(row, column, frameWidth, frameHeight);
             }
         }

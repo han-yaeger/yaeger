@@ -124,7 +124,7 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        SceneCollection sceneCollection = (SceneCollection) o;
+        var sceneCollection = (SceneCollection) o;
         return Objects.equals(stage, sceneCollection.stage);
     }
 

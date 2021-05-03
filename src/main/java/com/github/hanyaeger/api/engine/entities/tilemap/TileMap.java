@@ -119,11 +119,11 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
             throw new YaegerEngineException("No Size or Location is set for this TileMap. Has setDimensionProvider been called?");
         }
 
-        for (int i = 0; i < map.length; i++) {
+        for (var i = 0; i < map.length; i++) {
             final var entityHeight = height / map.length;
             final var entityY = i * entityHeight;
-            for (int j = 0; j < map[i].length; j++) {
-                final int key = map[i][j];
+            for (var j = 0; j < map[i].length; j++) {
+                final var key = map[i][j];
                 if (key != 0) {
                     final var entityWidth = width / map[i].length;
 
@@ -200,15 +200,15 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
         if (!super.equals(o)) return false;
         var entities1 = (TileMap) o;
         return entities.equals(entities1.entities) &&
-                Arrays.equals(map, entities1.map) &&
+                Arrays.deepEquals(map, entities1.map) &&
                 size.equals(entities1.size) &&
                 location.equals(entities1.location);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(super.hashCode(), entities, size, location);
-        result = 31 * result + Arrays.hashCode(map);
+        var result = Objects.hash(super.hashCode(), entities, size, location);
+        result = 31 * result + Arrays.deepHashCode(map);
         return result;
     }
 }
