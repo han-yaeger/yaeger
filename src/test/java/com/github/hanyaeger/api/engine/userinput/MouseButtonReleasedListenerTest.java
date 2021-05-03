@@ -1,4 +1,4 @@
-package com.github.hanyaeger.api.engine.entities.entity.events.userinput;
+package com.github.hanyaeger.api.engine.userinput;
 
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
@@ -6,31 +6,28 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class MouseButtonPressedListenerTest {
+class MouseButtonReleasedListenerTest {
 
     @Test
     void attachMousePressedListenerAttachesMouseListener() {
         // Arrange
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        var mouseListeningEntity = new MouseButtonPressedListeningInstancee();
+        var mouseListeningEntity = new MouseButtonReleasedListeningInstancee();
         mouseListeningEntity.setNode(node);
 
         // Act
-        mouseListeningEntity.attachMousePressedListener();
+        mouseListeningEntity.attachMouseReleasedListener();
 
         // Assert
-        verify(node).setOnMousePressed(any());
+        verify(node).setOnMouseReleased(any());
     }
 
-    private class MouseButtonPressedListeningInstancee implements MouseButtonPressedListener {
+    private class MouseButtonReleasedListeningInstancee implements MouseButtonReleasedListener {
 
         private Node node;
-
-        @Override
-        public void onMouseButtonPressed(MouseButton button, double x, double y) {
-        }
 
         @Override
         public Optional<? extends Node> getNode() {
@@ -39,6 +36,11 @@ class MouseButtonPressedListenerTest {
 
         void setNode(Node node) {
             this.node = node;
+        }
+
+        @Override
+        public void onMouseButtonReleased(MouseButton button, double x, double y) {
+
         }
     }
 }

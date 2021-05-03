@@ -1,4 +1,4 @@
-package com.github.hanyaeger.api.engine.entities.entity.events.userinput;
+package com.github.hanyaeger.api.engine.userinput;
 
 import javafx.scene.Node;
 import org.junit.jupiter.api.Test;
@@ -7,28 +7,28 @@ import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
-class MouseExitListenerTest {
+class MouseEnterListenerTest {
 
     @Test
-    void attachMouseExitListenerAttachesMouseListener() {
+    void attachMouseEnterListenerAttachesMouseListener() {
         // Arrange
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        var mouseListeningEntity = new MouseExitListeningInstancee();
+        var mouseListeningEntity = new MouseEnterListeningInstancee();
         mouseListeningEntity.setNode(node);
 
         // Act
-        mouseListeningEntity.attachMouseExitListener();
+        mouseListeningEntity.attachMouseEnterListener();
 
         // Assert
-        verify(node).setOnMouseExited(any());
+        verify(node).setOnMouseEntered(any());
     }
 
-    private class MouseExitListeningInstancee implements MouseExitListener {
+    private class MouseEnterListeningInstancee implements MouseEnterListener {
 
         private Node node;
 
         @Override
-        public void onMouseExited() {
+        public void onMouseEntered() {
         }
 
         @Override

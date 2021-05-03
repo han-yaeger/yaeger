@@ -6,7 +6,7 @@ import com.github.hanyaeger.api.engine.annotations.AnnotationProcessor;
 import com.github.hanyaeger.api.engine.debug.Debugger;
 import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
-import com.github.hanyaeger.api.engine.entities.entity.events.userinput.KeyListener;
+import com.github.hanyaeger.api.engine.userinput.KeyListener;
 import com.github.hanyaeger.api.engine.exceptions.YaegerEngineException;
 import com.google.inject.Injector;
 import javafx.collections.ObservableList;

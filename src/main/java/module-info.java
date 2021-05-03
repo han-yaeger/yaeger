@@ -27,7 +27,7 @@ module hanyaeger.api {
     exports com.github.hanyaeger.api.engine.entities.entity.motion;
     exports com.github.hanyaeger.api.engine.scenes.splash;
     exports com.github.hanyaeger.api.engine.entities.entity.collisions;
-    exports com.github.hanyaeger.api.engine.entities.entity.events.userinput;
+    exports com.github.hanyaeger.api.engine.userinput;
     exports com.github.hanyaeger.api.engine.styles;
     exports com.github.hanyaeger.api.engine.media.audio;
 

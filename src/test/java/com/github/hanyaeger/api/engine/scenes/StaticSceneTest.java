@@ -18,11 +18,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
-import com.github.hanyaeger.api.engine.entities.entity.events.userinput.KeyListener;
+import com.github.hanyaeger.api.engine.userinput.KeyListener;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.MockSettings;
 
 import java.util.HashSet;
 import java.util.Set;

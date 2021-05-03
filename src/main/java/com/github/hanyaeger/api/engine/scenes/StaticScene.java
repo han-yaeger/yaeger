@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 import com.github.hanyaeger.api.engine.entities.EntityCollection;
 import com.github.hanyaeger.api.engine.entities.EntitySupplier;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
-import com.github.hanyaeger.api.engine.entities.entity.events.userinput.KeyListener;
+import com.github.hanyaeger.api.engine.userinput.KeyListener;
 import com.github.hanyaeger.api.engine.scenes.delegates.BackgroundDelegate;
 import com.github.hanyaeger.api.engine.scenes.delegates.KeyListenerDelegate;
 

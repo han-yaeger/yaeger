@@ -1,4 +1,4 @@
-package com.github.hanyaeger.api.engine.entities.entity.events.userinput;
+package com.github.hanyaeger.api.engine.userinput;
 
 import com.github.hanyaeger.api.engine.annotations.OnActivation;
 import com.github.hanyaeger.api.engine.entities.entity.GameNode;

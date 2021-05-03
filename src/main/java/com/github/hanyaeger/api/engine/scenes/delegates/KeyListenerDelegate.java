@@ -2,7 +2,7 @@ package com.github.hanyaeger.api.engine.scenes.delegates;
 
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import com.github.hanyaeger.api.engine.entities.entity.events.userinput.KeyListener;
+import com.github.hanyaeger.api.engine.userinput.KeyListener;
 
 import java.util.HashSet;
 import java.util.Set;
