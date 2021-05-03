@@ -13,6 +13,8 @@
 
 ## Features
 
-* Exposed a `getCursor()` method for all Entities
+* Added a `MouseMovedListener` interface, which gets called whenever the mouse has been moved. As a parameter, the
+  handler receives a `Coordinate2D` that contains the current coordinates of the mouse pointer.
+* Exposed a `getCursor()` method for all Entities.
 
 ## Bugfixes
