@@ -62,6 +62,20 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     }
 
     /**
+     * Return the {@link Cursor} that is currently being used. If this {@code YaegerEntity} is not yet part of a {@link com.github.hanyaeger.api.engine.scenes.YaegerScene},
+     * this method will return {@code null}.
+     *
+     * @return the {@link Cursor}
+     */
+    public Cursor getCursor() {
+        if (getNode().isPresent()) {
+            return getNode().get().getScene().getCursor();
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Change the visibility of this {@link YaegerEntity}. The value can be either {@code true}
      * or {@code false}. Use the method {@link #setOpacity(double)} to set the transparency of
      * the {@link YaegerEntity}.

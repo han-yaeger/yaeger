@@ -13,4 +13,6 @@
 
 ## Features
 
+* Exposed a `getCursor()` method for all Entities
+
 ## Bugfixes

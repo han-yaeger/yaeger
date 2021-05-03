@@ -147,6 +147,31 @@ class YaegerEntityTest {
     }
 
     @Test
+    void getCursorReturnsNullIfInitNotYetCalled() {
+        // Arrange
+
+        // Act
+        var actual = sut.getCursor();
+
+        // Assert
+        assertNull(actual);
+    }
+
+    @Test
+    void getCursorDelegatedToSceneIfInitAlreadyCalled() {
+        // Arrange
+        var expected = Cursor.CROSSHAIR;
+        sut.init(injector);
+        when(scene.getCursor()).thenReturn(expected);
+
+        // Act
+        var actual = sut.getCursor();
+
+        // Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void getOpacityReturnsInitialOpacityIfNodeIsNotSet() {
         // Arrange
         sut = new YaegerEntityImpl(LOCATION);
