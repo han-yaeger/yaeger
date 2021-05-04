@@ -4,6 +4,7 @@
 - [Creating a game](creating-a-game.md)
 - [Scenes aka Levels](scenes.md)
 - [Entities aka Game Objecta](entities.md)
+- [User interaction](user-interaction.md)
 - [Entity interactions](entity-interactions.md)
 - [Timing things](timing-things.md)
 - [Sounds](sounds.md)
