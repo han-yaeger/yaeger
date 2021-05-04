@@ -15,5 +15,5 @@ The table below gives the full list of interfaces that are available. They can b
 | `MouseButtonReleasedListener` | `void onMouseButtonReleased(MouseButton, Coordinate2D)`|
 | `MouseEnterListener`          | `void onMouseEntered()` |
 | `MouseExitListener`           | `void onMouseExited()`|
-| `MouseMovedListener`          | `void onMouseMoved(final Coordinate2D coordinate2D)` |
+| `MouseMovedListener`          | `void onMouseMoved(Coordinate2D)` |
 
