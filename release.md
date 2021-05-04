@@ -13,6 +13,9 @@
 
 * The Mouse and Key related event handlers have been moved from the `entities.entity.userinput` package to `userinput`,
   since they now also apply to an instance of `YaegerScene`.
+* Changed the event handler for the `MouseButtonPressedListener` and `MouseButtonReleasedListener` to use
+  a `Coordinate2D`
+  as a second parameter, instead of `int x, int y`.
 
 ## Features
 

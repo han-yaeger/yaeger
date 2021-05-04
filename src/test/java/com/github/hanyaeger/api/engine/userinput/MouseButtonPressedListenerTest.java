@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.engine.userinput;
 
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,7 @@ class MouseButtonPressedListenerTest {
         private Node node;
 
         @Override
-        public void onMouseButtonPressed(MouseButton button, double x, double y) {
+        public void onMouseButtonPressed(final MouseButton button, final Coordinate2D coordinate2D) {
         }
 
         @Override

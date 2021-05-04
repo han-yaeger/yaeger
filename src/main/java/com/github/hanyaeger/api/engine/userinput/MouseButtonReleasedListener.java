@@ -1,6 +1,7 @@
 package com.github.hanyaeger.api.engine.userinput;
 
 import com.github.hanyaeger.api.engine.annotations.OnActivation;
+import com.github.hanyaeger.api.engine.entities.entity.Coordinate2D;
 import com.github.hanyaeger.api.engine.entities.entity.GameNode;
 import com.github.hanyaeger.api.engine.entities.entity.YaegerEntity;
 import javafx.scene.input.MouseButton;
@@ -14,17 +15,16 @@ public interface MouseButtonReleasedListener extends GameNode {
     /**
      * Called when the corresponding {@link javafx.scene.Node} receives a mouse released event.
      *
-     * @param button the {@link MouseButton} being released
-     * @param x      the x-coordinate of the mouse pointer while being released as a {@code double}
-     * @param y      the y-coordinate of the mouse pointer while being released as a {@code double}
+     * @param button       the {@link MouseButton} being released
+     * @param coordinate2D the current coordinate of the mouse pointer
      */
-    void onMouseButtonReleased(final MouseButton button, final double x, final double y);
+    void onMouseButtonReleased(final MouseButton button, final Coordinate2D coordinate2D);
 
     /**
      * Attach a {@link MouseButtonReleasedListener} to this entity.
      */
     @OnActivation
     default void attachMouseReleasedListener() {
-        getNode().ifPresent(node -> node.setOnMouseReleased(event -> onMouseButtonReleased(event.getButton(), event.getX(), event.getY())));
+        getNode().ifPresent(node -> node.setOnMouseReleased(event -> onMouseButtonReleased(event.getButton(), new Coordinate2D(event.getX(), event.getY()))));
     }
 }
