@@ -1,4 +1,4 @@
-# User Interaction
+# User Input
 
 A Player can interact with both Entities and Scenes by using the keyboard or mouse. To enable this interaction the Scene
 or Entity should implement the appropriate interface, after which an event handler should be implemented.
