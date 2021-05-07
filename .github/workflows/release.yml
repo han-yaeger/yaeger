@@ -35,6 +35,26 @@ jobs:
           publish_dir: ./target/site/apidocs
           keep_files: true
 
+      - name: QA check Markdown content
+        uses: nosborn/github-action-markdown-cli@v1.1.1
+        with:
+          files: .
+
+      - name: Run mdBook
+        uses: peaceiris/actions-mdbook@v1
+        with:
+          mdbook-version: "latest"
+        - run: |
+            mdbook build
+
+      - name: Publish book website
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/docs
+          destination_dir: ./book
+          keep_files: true
+
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v1
         env:
