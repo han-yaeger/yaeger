@@ -44,7 +44,7 @@ jobs:
         uses: peaceiris/actions-mdbook@v1
         with:
           mdbook-version: "latest"
-        - run: |
+        run: |
           mdbook build
 
       - name: Publish book website
