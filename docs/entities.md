@@ -15,17 +15,20 @@ should have time-based behaviour in general.
 
 ## Different types of entities
 
-| Static Entity     | Dynamic Entity            |
-| :---------------- | :------------------------ |
-| `SpriteEntity`    | `DynamicSpriteEntity`     |
-| `CircleEntity`    | `DynamicCircleEntity`      |
-| `EllipseEntity`   | `DynamicEllipseEntity`    |
-| `RectangleEntity` | `DynamicRectangleEntity`  |
-| `TextEntity`      | `DynamicTextEntity`       |
+There are several Entities available, which can be divided over four different types:
 
-### Shape Entities
+| Static Entity     | Dynamic Entity            | Type              |
+| :---------------- | :------------------------ | :---------------- |
+| `SpriteEntity`    | `DynamicSpriteEntity`     | Sprite Entity     |
+| `CircleEntity`    | `DynamicCircleEntity`     | Shape Entity      |
+| `EllipseEntity`   | `DynamicEllipseEntity`    | Shape Entity      |
+| `RectangleEntity` | `DynamicRectangleEntity`  | Shape Entity      |
+| `TextEntity`      | `DynamicTextEntity`       | TextEntity        |
+| `CompositeEntity` | `DynamicCompositeEntity`  | Composite Entity  |
 
 ### Sprite Entities
+
+### Shape Entities
 
 ### Text Entities
 
