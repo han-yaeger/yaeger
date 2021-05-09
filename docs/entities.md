@@ -15,7 +15,7 @@ should have time-based behaviour in general.
 
 ## Different types of entities
 
-There are several Entities available, which can be divided over four different types:
+There are several Entities available, which can be divided into four different types:
 
 | Static Entity     | Dynamic Entity            | Type              |
 | :---------------- | :------------------------ | :---------------- |
