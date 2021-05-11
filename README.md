@@ -8,9 +8,9 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.han-yaeger/yaeger/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.han-yaeger/yaeger)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-Yaeger is Another Education Game Engine Runtime and a fully functional 2D game-engine that
-requires only a traditional Object Oriented style of programming. It is based on JavaFX and
-requires Java 14 or above to work.
+Yaeger is Another Education Game Engine Runtime, and a fully functional 2D game-engine that
+requires only a traditional Object-Oriented style of programming. It is based on JavaFX and
+requires Java 16 or above to work.
 
 ## Documentation
 
@@ -36,7 +36,7 @@ Yaeger is available through the Maven Central Repository.
 Yaeger is to be used in a course that is part of the first year at the HAN University of applied sciences. Students
 just learned to master Object Orientation in the traditional sense and therefore the API of Yaeger is only targeted
 towards that use case. Fancy functional aspects (such as Streams and Lambda's) are used within Yaeger itself, but are not
-exposed through it's API.
+exposed through its API.
 
 ## Versioning
 
