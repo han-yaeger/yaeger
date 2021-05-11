@@ -27,7 +27,7 @@ Yaeger is available through the Maven Central Repository.
 <dependency>
   <groupId>com.github.han-yaeger</groupId>
   <artifactId>yaeger</artifactId>
-  <version>2020.2021-beta6</version>
+  <version>2020.2021-beta7</version>
 </dependency>
 ```
 
