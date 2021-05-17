@@ -19,6 +19,11 @@ public class AudioRepository implements ResourceConsumer, Destroyable {
 
     private static AudioRepository audioRepository;
 
+    /**
+     * Return a singleton instance of this {@code AudioRepository}.
+     *
+     * @return a singleton instance of this {@code AudioRepository}
+     */
     public static AudioRepository getInstance() {
         if (audioRepository == null) {
             audioRepository = new AudioRepository();

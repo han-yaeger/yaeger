@@ -129,6 +129,11 @@ public interface Movable extends Placeable, MotionModifier {
         getMotionApplier().changeDirection(rotation);
     }
 
+    /**
+     * Return the {@link Updatable} to be called on each Game World Update.
+     *
+     * @return an {@link Updatable} to be called
+     */
     @UpdatableProvider(asFirst = true)
     default Updatable updateLocation() {
         return timestamp -> {

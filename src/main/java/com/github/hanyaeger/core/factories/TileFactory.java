@@ -27,6 +27,15 @@ public class TileFactory {
     private static final String MESSAGE_INVALID_CONFIGURABLE_ENTITY = "Configurable entity %s should also accept an instance of %s as third parameter.";
     private static final String MESSAGE_FAILED_TO_INSTANTIATE_ENTITY = "Unable to instantiate an Entity for the TileMap";
 
+    /**
+     * Create an instance of {@link YaegerEntity} with an {@link EntityConfiguration} of the given type {@link C} with the given parameters.
+     *
+     * @param entityConfiguration the {@link EntityConfiguration} to be used as a parameter for the constructor of the created Entity
+     * @param location            the location as a {@link Coordinate2D} at which the new Entity should be created
+     * @param size                the size as a {@link Size} of the Entity that will be created
+     * @param <C>                 the type of the {@link EntityConfiguration} to be passed to the constructor of the created Entity
+     * @return an instance of {@link C} on the given location, with the given size and with the given {@link EntityConfiguration}
+     */
     public <C> YaegerEntity create(final EntityConfiguration<C> entityConfiguration, final Coordinate2D location, final Size size) {
         YaegerEntity entity;
 
@@ -50,6 +59,14 @@ public class TileFactory {
         return entity;
     }
 
+    /**
+     * Create an instance of {@link YaegerEntity} with the given parameters.
+     *
+     * @param entityClass the class
+     * @param location    the location as a {@link Coordinate2D} at which the new Entity should be created
+     * @param size        the size as a {@link Size} of the Entity that will be created
+     * @return an instance of entityClass on the given location, with the given size
+     */
     public YaegerEntity create(final Class<? extends YaegerEntity> entityClass, final Coordinate2D location, final Size size) {
         return create(new EntityConfiguration<>(entityClass), location, size);
     }

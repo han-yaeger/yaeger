@@ -83,6 +83,10 @@ public class ImageRepository implements ResourceConsumer, Destroyable {
         return ((int) requestedWidth) + "-" + ((int) requestedHeight) + "-" + preserveRatio + "-" + url;
     }
 
+
+    /**
+     * @param factory the {@link ImageFactory} to be used
+     */
     @Inject
     public void setFactory(final ImageFactory factory) {
         this.factory = factory;

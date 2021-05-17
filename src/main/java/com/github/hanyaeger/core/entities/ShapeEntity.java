@@ -19,6 +19,10 @@ import java.util.Optional;
  * @param <T> The Generic type to be used, which should extend {@link Shape}.
  */
 public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
+
+    /**
+     * The actual {@link Shape} of type {@link T} to be used
+     */
     protected Optional<T> shape = Optional.empty();
 
     private Optional<Color> fill = Optional.empty();
@@ -107,6 +111,11 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
         return shape;
     }
 
+    /**
+     * Set the actual {@link Shape} of type {@link T}.
+     *
+     * @param shape the {@link Shape} of type {@link T}
+     */
     @Inject
     public void setShape(final T shape) {
         shape.setStrokeType(StrokeType.INSIDE);
