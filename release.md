@@ -14,8 +14,10 @@
 * The Mouse and Key related event handlers have been moved from the `entities.entity.userinput` package to `userinput`,
   since they now also apply to an instance of `YaegerScene`.
 * Changed the event handler for the `MouseButtonPressedListener` and `MouseButtonReleasedListener` to use
-  a `Coordinate2D`
-  as a second parameter, instead of `int x, int y`.
+  a `Coordinate2D` as a second parameter, instead of `int x, int y`.
+* Changed the package structure for better encapsulation of the internal api. This is a major refactorings and breaks
+  all current implementations (#181).
+* Renamed the module from `hanyaeger.api` to `hanyaeger` (#181).
 
 ## Features
 
@@ -23,7 +25,6 @@
   handler receives a `Coordinate2D` that contains the current coordinates of the mouse pointer.
 * Exposed a `getCursor()` method for all Entities.
 * Generalized the mouse event handlers to also be applicable to a `YaegerScene`. This way, both instances
-  of `YaegerEntity`
-  and `YawegerScene` can implement them and receive Mouse events.
+  of `YaegerEntity`and `YawegerScene` can implement them and receive Mouse events.
 
 ## Bugfixes
