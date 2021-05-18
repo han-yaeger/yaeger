@@ -20,8 +20,6 @@ module hanyaeger {
     exports com.github.hanyaeger.api.entities.impl.circle;
     exports com.github.hanyaeger.api.entities.impl.ellipse;
 
-    exports com.github.hanyaeger.core.styles;
-
     exports com.github.hanyaeger.core.factories.animationtimer to com.google.guice;
     exports com.github.hanyaeger.core.factories.debug to com.google.guice;
     exports com.github.hanyaeger.core.debug to com.google.guice;
@@ -35,7 +33,5 @@ module hanyaeger {
     exports com.github.hanyaeger.core.entities to com.google.guice;
     exports com.github.hanyaeger.core.entities.motion to com.google.guice;
 
-    opens yaegerfonts.avenirnext;
-    opens yaegerfonts.avenirnextcondensed;
     opens yaegerimages;
 }
