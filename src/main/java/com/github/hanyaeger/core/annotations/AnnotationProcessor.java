@@ -56,7 +56,7 @@ public class AnnotationProcessor {
      * @param gameObject the object that will be scanned for the {@link UpdatableProvider} annotation
      */
     public void configureUpdateDelegators(final Object gameObject) {
-        if (gameObject instanceof final UpdateDelegator updateDelegator) {
+        if (gameObject instanceof UpdateDelegator updateDelegator) {
             for (final var method : gameObject.getClass().getMethods()) {
                 if (method.isAnnotationPresent(UpdatableProvider.class)) {
                     UpdatableProvider annotation = method.getAnnotation(UpdatableProvider.class);
