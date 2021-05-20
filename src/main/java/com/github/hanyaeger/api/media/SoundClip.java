@@ -61,6 +61,8 @@ public class SoundClip {
      * Stop playing the file.
      */
     public void stop() {
-        audioClip.stop();
+        if (audioClip != null) {
+            audioClip.stop();
+        }
     }
 }
