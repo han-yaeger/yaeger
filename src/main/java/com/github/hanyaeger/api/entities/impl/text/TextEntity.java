@@ -59,6 +59,16 @@ public class TextEntity extends ShapeEntity<Text> {
     }
 
     /**
+     * Set the {@link CustomFont} to be used.
+     *
+     * @param customFont the {@link CustomFont} to be used
+     */
+    public void setFont(final CustomFont customFont) {
+        shape.ifPresentOrElse(t -> t.setFont(customFont.getFont()),
+                () -> this.font = customFont.getFont());
+    }
+
+    /**
      * Set the {@link Font} to be used. A {@link Font} encapsulates multiple properties.
      *
      * <p>
@@ -71,8 +81,10 @@ public class TextEntity extends ShapeEntity<Text> {
      * @param font the {@link Font} to be used
      */
     public void setFont(final Font font) {
-        shape.ifPresentOrElse(t -> t.setFont(font), () -> this.font = font);
+        shape.ifPresentOrElse(t -> t.setFont(font),
+                () -> this.font = font);
     }
+
 
     /**
      * Return the {@link Font} currently used fot this {@link TextEntity}.

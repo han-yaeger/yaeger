@@ -3,7 +3,6 @@ package com.github.hanyaeger.api.entities.impl.text;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.google.inject.Injector;
 import javafx.geometry.VPos;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -18,7 +17,8 @@ class TextEntityTest {
     private static final String YAEGER = "Yaeger";
     private static final Coordinate2D LOCATION = new Coordinate2D(37, 37);
     private static final Font FONT = Font.font("palatino", FontWeight.BOLD, 240);
-    private static final Color COLOR = Color.DARKBLUE;
+    private static final CustomFont CUSTOM_FONT = new CustomFont("fonts/pixelfont.ttf", 12);
+
     private Text text;
     private Injector injector;
     private TextEntity sut;
@@ -134,6 +134,19 @@ class TextEntityTest {
 
         // Assert
         verify(text).setFont(FONT);
+    }
+
+    @Test
+    void settingDelegateSetsFontOnDelegateForCustomFont() {
+        // Setup
+
+        // Test
+        sut.setFont(CUSTOM_FONT);
+        sut.setShape(text);
+        sut.init(injector);
+
+        // Assert
+        verify(text).setFont(CUSTOM_FONT.getFont());
     }
 
     @Test

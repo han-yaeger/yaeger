@@ -25,7 +25,8 @@ public class SoundClip {
     /**
      * Instantiate a new {@link SoundClip} for the given file, which should be played only once.
      *
-     * @param path the path of the mp3 file, which should be available on the class path
+     * @param path the path of the mp3 file. Note that this font file should be available on the Class
+     *             Path and should be opened through the module descriptor.
      */
     public SoundClip(final String path) {
         this(path, 1);
@@ -35,7 +36,8 @@ public class SoundClip {
      * Instantiate a new {@link SoundClip} for the given file, which should be played for the given amount
      * provided of {@code cycleCount}.
      *
-     * @param path       the path of the mp3 file, which should be available on the class path.
+     * @param path       the path of the mp3 file.  Note that this font file should be available on the Class Path
+     *                   and should be opened through the module descriptor.
      * @param cycleCount the number of times the audio file should be played. To loop a file indefinitely, use
      *                   a cycleCount of {@link #INDEFINITE}
      */
