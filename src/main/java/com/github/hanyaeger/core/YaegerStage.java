@@ -4,6 +4,8 @@ import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.YaegerGame;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import com.github.hanyaeger.core.scenes.YaegerScene;
 
@@ -45,8 +47,13 @@ public class YaegerStage implements Initializable {
         sceneCollection.init(injector);
 
         yaegerGame.setupGame();
-        stage.setWidth(size.getWidth());
-        stage.setHeight(size.getHeight());
+
+        Scene scene = new Scene(new Group(), size.getWidth(), size.getHeight());
+        stage.setScene(scene);
+        stage.show();
+
+        stage.setWidth(stage.getWidth());
+        stage.setHeight(stage.getHeight());
 
         yaegerGame.setupScenes();
         sceneCollection.postSetupScenes();

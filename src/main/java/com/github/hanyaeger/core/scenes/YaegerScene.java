@@ -113,9 +113,7 @@ public interface YaegerScene extends GameNode, DimensionsProvider, Destroyable, 
      * @return the width of this {@code YaegerScene}
      */
     default double getWidth() {
-        getStage();
-
-        return getStage().getWidth();
+        return getStage().getScene().getWidth();
     }
 
     /**
@@ -124,7 +122,7 @@ public interface YaegerScene extends GameNode, DimensionsProvider, Destroyable, 
      * @return the height of this {@code YaegerScene}
      */
     default double getHeight() {
-        return getStage().getHeight();
+        return getStage().getScene().getHeight();
     }
 
     /**
