@@ -48,8 +48,7 @@ public class YaegerStage implements Initializable {
 
         yaegerGame.setupGame();
 
-        Scene scene = new Scene(new Group(), size.getWidth(), size.getHeight());
-        stage.setScene(scene);
+        stage.setScene(new Scene(new Group(), size.getWidth(), size.getHeight()));
         stage.show();
 
         stage.setWidth(stage.getWidth());
