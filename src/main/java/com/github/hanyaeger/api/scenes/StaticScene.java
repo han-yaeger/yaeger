@@ -6,7 +6,6 @@ import com.github.hanyaeger.core.debug.Debugger;
 import com.github.hanyaeger.core.scenes.EntityCollectionSupplier;
 import com.github.hanyaeger.core.scenes.SupplierProvider;
 import com.github.hanyaeger.core.scenes.TileMapListProvider;
-import com.github.hanyaeger.core.scenes.YaegerScene;
 import com.github.hanyaeger.core.factories.EntityCollectionFactory;
 import com.github.hanyaeger.core.factories.SceneFactory;
 import com.google.inject.Inject;

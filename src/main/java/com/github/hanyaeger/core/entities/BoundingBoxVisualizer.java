@@ -5,6 +5,7 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.YaegerEntity;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.entities.events.EventTypes;
 import com.github.hanyaeger.api.entities.impl.rectangle.DynamicRectangleEntity;
 import javafx.scene.paint.Color;
@@ -12,7 +13,7 @@ import javafx.scene.paint.Color;
 /**
  * When a Yaeger Game is run with the commandline option {@code --showBB}, for each {@link YaegerEntity} that implements
  * either {@link Collider} or {@link Collided}
- * an instance of {@link BoundingBoxVisualizer} will be added to the {@link com.github.hanyaeger.core.scenes.YaegerScene}.
+ * an instance of {@link BoundingBoxVisualizer} will be added to the {@link YaegerScene}.
  * <p>
  * A {@link BoundingBoxVisualizer} will consist of a rectangle with exactly the same dimensions as the BoundingBox of the
  * {@link YaegerEntity} that is passed to its constructor. This way, it will visualize the dimensions and location of each

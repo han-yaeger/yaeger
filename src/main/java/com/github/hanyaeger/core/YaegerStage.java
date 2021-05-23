@@ -5,7 +5,7 @@ import com.github.hanyaeger.api.YaegerGame;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.stage.Stage;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 
 /**
  * A {@link YaegerStage} encapsulates an JavaFX {@link Stage}. It defines the window

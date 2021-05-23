@@ -2,7 +2,7 @@ package com.github.hanyaeger.api.entities.impl.text;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.core.entities.ShapeEntity;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
 import javafx.geometry.VPos;

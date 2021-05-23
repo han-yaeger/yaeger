@@ -1,6 +1,6 @@
 package com.github.hanyaeger.core.scenes.splash;
 
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 
 /**
  * The factory to be used for creating instances of {@link SplashScene}.

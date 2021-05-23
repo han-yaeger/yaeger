@@ -4,11 +4,12 @@ import com.github.hanyaeger.core.annotations.OnActivation;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.core.entities.GameNode;
 import com.github.hanyaeger.api.entities.YaegerEntity;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 
 /**
- * Being a {@link MouseMovedListener} enables the {@link YaegerEntity} to be notified if the mouse has been moved.
- * On movement it will receive an event that contains the x and y-coordinate.
+ * Being a {@link MouseMovedListener} enables the {@link YaegerEntity} or {@link YaegerScene} to be
+ * notified if the mouse has been moved. On movement it will receive an event that contains a {@link Coordinate2D}
+ * of the x and y-coordinate.
  */
 public interface MouseMovedListener extends GameNode {
 

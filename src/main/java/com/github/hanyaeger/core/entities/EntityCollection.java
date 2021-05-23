@@ -9,7 +9,7 @@ import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import com.github.hanyaeger.core.exceptions.YaegerEngineException;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.github.hanyaeger.api.entities.YaegerEntity;

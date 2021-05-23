@@ -1,6 +1,6 @@
 package com.github.hanyaeger.core.entities;
 
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 
 /**
  * A {@link SceneChild} is part of a {@link YaegerScene}

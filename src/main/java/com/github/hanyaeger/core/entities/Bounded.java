@@ -1,6 +1,7 @@
 package com.github.hanyaeger.core.entities;
 
 import com.github.hanyaeger.api.entities.CompositeEntity;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.scenes.DimensionsProvider;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
@@ -15,7 +16,7 @@ public interface Bounded extends DimensionsProvider, GameNode {
     BoundingBox EMPTY_BB = new BoundingBox(0, 0, 0, 0);
 
     /**
-     * Return the {@link Bounds} (Bounding Box) within the {@link com.github.hanyaeger.core.scenes.YaegerScene} after
+     * Return the {@link Bounds} (Bounding Box) within the {@link YaegerScene} after
      * all transformations have been applied. This method treats each {@link javafx.scene.Node} as if it was part of the
      * {@link javafx.scene.Scene}. In the case of a {@link CompositeEntity} the {@link javafx.scene.Node} will be part of a
      * {@link javafx.scene.Group}, meaning we get the {@link Bounds} within that {@link javafx.scene.Group} and not the

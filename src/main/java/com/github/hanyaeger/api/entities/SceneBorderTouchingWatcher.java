@@ -6,7 +6,7 @@ import com.github.hanyaeger.core.Updatable;
 import com.github.hanyaeger.core.annotations.UpdatableProvider;
 import com.github.hanyaeger.core.entities.motion.Movable;
 import com.github.hanyaeger.api.scenes.SceneBorder;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 
 /**
  * Implement this interface to be notified if the {@link YaegerEntity} touches the boundary of the {@link YaegerScene}.

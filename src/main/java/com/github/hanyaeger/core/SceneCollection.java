@@ -2,7 +2,7 @@ package com.github.hanyaeger.core;
 
 import com.github.hanyaeger.core.annotations.AnnotationProcessor;
 import com.github.hanyaeger.core.exceptions.YaegerSceneNotAvailableException;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.stage.Stage;

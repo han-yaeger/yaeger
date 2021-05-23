@@ -1,8 +1,9 @@
-package com.github.hanyaeger.core.scenes;
+package com.github.hanyaeger.api.scenes;
 
 import com.github.hanyaeger.core.YaegerConfig;
 import com.github.hanyaeger.core.*;
 import com.github.hanyaeger.core.entities.GameNode;
+import com.github.hanyaeger.core.scenes.DimensionsProvider;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;

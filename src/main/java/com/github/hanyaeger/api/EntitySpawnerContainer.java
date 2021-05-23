@@ -8,7 +8,7 @@ import com.github.hanyaeger.core.exceptions.YaegerEngineException;
 import com.github.hanyaeger.api.entities.EntitySpawner;
 import com.github.hanyaeger.core.scenes.EntityCollectionSupplier;
 import com.github.hanyaeger.core.scenes.EntitySpawnerListProvider;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 
 /**
  * When implementing this interface, the {@link #setupEntitySpawners()} method needs to be implemented.

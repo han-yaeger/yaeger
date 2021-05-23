@@ -7,8 +7,9 @@ import com.github.hanyaeger.api.entities.YaegerEntity;
 import javafx.scene.input.MouseButton;
 
 /**
- * Being a {@link MouseButtonReleasedListener} enables the {@link YaegerEntity} to be notified if a {@link MouseButton} has been
- * released while the mouse pointer is on the {@link YaegerEntity}.
+ * Being a {@link MouseButtonReleasedListener} enables the {@link YaegerEntity} or {@link com.github.hanyaeger.api.scenes.YaegerScene}
+ * to be notified if a {@link MouseButton} has been released while the mouse pointer is on the {@link YaegerEntity} or
+ * {@link com.github.hanyaeger.api.scenes.YaegerScene}.
  */
 public interface MouseButtonReleasedListener extends GameNode {
 
@@ -21,7 +22,7 @@ public interface MouseButtonReleasedListener extends GameNode {
     void onMouseButtonReleased(final MouseButton button, final Coordinate2D coordinate2D);
 
     /**
-     * Attach a {@link MouseButtonReleasedListener} to this entity.
+     * Attach a {@link MouseButtonReleasedListener} to this {@link YaegerEntity} or {@link com.github.hanyaeger.api.scenes.YaegerScene}.
      */
     @OnActivation
     default void attachMouseReleasedListener() {

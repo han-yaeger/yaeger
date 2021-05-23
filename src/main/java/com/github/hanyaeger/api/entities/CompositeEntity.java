@@ -5,7 +5,7 @@ import com.github.hanyaeger.core.Initializable;
 import com.github.hanyaeger.core.entities.events.EventTypes;
 import com.github.hanyaeger.core.Updatable;
 import com.github.hanyaeger.core.entities.EntityProcessor;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.event.Event;
@@ -24,7 +24,7 @@ import java.util.Optional;
  * <p>
  * It is possible to add instances of {@link YaegerEntity} to this {@link CompositeEntity},
  * which ensures their behavior is managed by this {@link CompositeEntity}. They are still
- * part of the {@link com.github.hanyaeger.core.scenes.YaegerScene} as any other
+ * part of the {@link YaegerScene} as any other
  * {@link YaegerEntity}, but are managed as a whole.
  * </p>
  * <p>

@@ -14,7 +14,6 @@ import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.core.exceptions.EntityNotAvailableException;
 import com.github.hanyaeger.core.exceptions.YaegerEngineException;
 import com.github.hanyaeger.core.scenes.DimensionsProvider;
-import com.github.hanyaeger.core.scenes.YaegerScene;
 
 import java.util.*;
 

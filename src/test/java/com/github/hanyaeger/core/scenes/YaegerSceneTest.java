@@ -1,5 +1,6 @@
 package com.github.hanyaeger.core.scenes;
 
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.YaegerConfig;
 import com.google.inject.Injector;
 import javafx.scene.Cursor;

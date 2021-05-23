@@ -7,7 +7,6 @@ import com.github.hanyaeger.core.exceptions.YaegerEngineException;
 import com.github.hanyaeger.core.scenes.DimensionsProvider;
 import com.github.hanyaeger.core.scenes.SupplierProvider;
 import com.github.hanyaeger.core.scenes.TileMapListProvider;
-import com.github.hanyaeger.core.scenes.YaegerScene;
 
 /**
  * Implementing this interface exposes the {@link #addTileMap(TileMap)} method. An {@link TileMap} that is

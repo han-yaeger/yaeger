@@ -3,7 +3,7 @@ package com.github.hanyaeger.api.userinput;
 import com.github.hanyaeger.core.YaegerConfig;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.YaegerEntity;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.google.inject.Injector;
 import javafx.scene.Node;
 import javafx.scene.Scene;

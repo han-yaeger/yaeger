@@ -6,7 +6,7 @@ import com.github.hanyaeger.core.Updatable;
 import com.github.hanyaeger.core.annotations.OnActivation;
 import com.github.hanyaeger.core.annotations.UpdatableProvider;
 import com.github.hanyaeger.core.exceptions.YaegerEngineException;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 
 /**
  * When implementing this interface, the {@link #setupTimers()} method needs to be implemented.

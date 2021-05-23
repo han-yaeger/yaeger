@@ -1,12 +1,13 @@
 package com.github.hanyaeger.api;
 
 import com.github.hanyaeger.api.entities.YaegerEntity;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.Updatable;
 import com.github.hanyaeger.core.annotations.UpdatableProvider;
 
 /**
  * The interface {@link UpdateExposer} can be applied to any dynamic {@link YaegerEntity}
- * or {@link com.github.hanyaeger.core.scenes.YaegerScene}. By default, both of those hide their
+ * or {@link YaegerScene}. By default, both of those hide their
  * {@link Updatable#update(long)} method.
  * <p>
  * When implementing {@link UpdateExposer}, the {@link Updatable#update(long)} becomes exposed.
@@ -25,7 +26,7 @@ public interface UpdateExposer {
 
     /**
      * An explicit update that can be used from either a {@link YaegerEntity}
-     * or a {@link com.github.hanyaeger.core.scenes.YaegerScene}.
+     * or a {@link YaegerScene}.
      *
      * @param timestamp the timestamp of this update
      */

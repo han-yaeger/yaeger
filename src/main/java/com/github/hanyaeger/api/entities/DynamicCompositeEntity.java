@@ -1,6 +1,7 @@
 package com.github.hanyaeger.api.entities;
 
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.UpdateDelegator;
 import com.github.hanyaeger.core.Updater;
 import com.github.hanyaeger.core.entities.motion.*;
@@ -16,7 +17,7 @@ import java.util.Optional;
  * <p>
  * It is possible to add instances of {@link YaegerEntity} to this {@link DynamicCompositeEntity},
  * which ensures their behavior is managed by this {@link DynamicCompositeEntity}. They are still
- * part of the {@link com.github.hanyaeger.core.scenes.YaegerScene} as any other
+ * part of the {@link YaegerScene} as any other
  * {@link YaegerEntity}, but are managed as a whole.
  * </p>
  * <p>

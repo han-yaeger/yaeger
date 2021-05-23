@@ -2,13 +2,14 @@ package com.github.hanyaeger.core.entities.motion;
 
 import com.github.hanyaeger.api.entities.Direction;
 import com.github.hanyaeger.api.entities.YaegerEntity;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.Updatable;
 import com.github.hanyaeger.core.annotations.UpdatableProvider;
 import com.github.hanyaeger.core.entities.Placeable;
 
 /**
  * When the Interface {@link Movable} is implemented, an {@link YaegerEntity}
- * is able to move around the {@link com.github.hanyaeger.core.scenes.YaegerScene} on each Game World Update.
+ * is able to move around the {@link YaegerScene} on each Game World Update.
  * <p>
  * This behaviour required a delegate object, a {@link MotionApplier} that performs all the actual computations
  * of the new location, based on the {@code speed} and {@code direction}.

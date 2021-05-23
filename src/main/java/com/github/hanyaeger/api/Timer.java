@@ -1,7 +1,7 @@
 package com.github.hanyaeger.api;
 
 import com.github.hanyaeger.api.entities.YaegerEntity;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 
 /**
  * Abstract superclass of all timers that are available for both a {@link YaegerScene}
@@ -18,7 +18,7 @@ public abstract class Timer {
     /**
      * Create a new instance of {@link Timer} for the given interval in milliseconds.
      *
-     * @param intervalInMs the interval in milleseconds
+     * @param intervalInMs the interval in milliseconds
      */
     protected Timer(final long intervalInMs) {
         this.interval = intervalInMs * 1_000_000;

@@ -6,7 +6,7 @@ import com.github.hanyaeger.core.YaegerConfig;
 import com.github.hanyaeger.core.YaegerStage;
 import com.google.inject.Injector;
 import javafx.stage.Stage;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
