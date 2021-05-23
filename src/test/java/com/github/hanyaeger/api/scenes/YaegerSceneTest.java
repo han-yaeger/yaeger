@@ -1,6 +1,5 @@
-package com.github.hanyaeger.core.scenes;
+package com.github.hanyaeger.api.scenes;
 
-import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.YaegerConfig;
 import com.google.inject.Injector;
 import javafx.scene.Cursor;
@@ -47,7 +46,8 @@ class YaegerSceneTest {
     void getWidthReturnValueFromStage() {
         // Arrange
         var width = 37d;
-        when(stage.getWidth()).thenReturn(width);
+        when(stage.getScene()).thenReturn(scene);
+        when(scene.getWidth()).thenReturn(width);
 
         // Act
         var returnedWidth = sut.getWidth();
@@ -60,7 +60,8 @@ class YaegerSceneTest {
     void getHeightReturnValueFromStage() {
         // Arrange
         var height = 0.42;
-        when(stage.getHeight()).thenReturn(height);
+        when(stage.getScene()).thenReturn(scene);
+        when(scene.getHeight()).thenReturn(height);
 
         // Act
         double returnedHeight = sut.getHeight();

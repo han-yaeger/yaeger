@@ -1,10 +1,14 @@
-package com.github.hanyaeger.api;
+package com.github.hanyaeger.core;
 
+import com.github.hanyaeger.api.Size;
+import com.github.hanyaeger.api.YaegerGame;
 import com.github.hanyaeger.core.SceneCollection;
 import com.github.hanyaeger.core.SceneCollectionFactory;
 import com.github.hanyaeger.core.YaegerConfig;
 import com.github.hanyaeger.core.YaegerStage;
+import com.github.hanyaeger.core.factories.SceneFactory;
 import com.google.inject.Injector;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,22 +27,28 @@ class YaegerStageTest {
     private YaegerConfig yaegerConfig;
     private Injector injector;
     private YaegerStage sut;
+    private Scene scene;
     private SceneCollectionFactory sceneCollectionFactory;
+    private SceneFactory sceneFactory;
     private SceneCollection sceneCollection;
 
     @BeforeEach
     void setUp() {
         yaegerGame = mock(YaegerGame.class);
         stage = mock(Stage.class);
+        scene = mock(Scene.class);
         injector = mock(Injector.class);
         yaegerConfig = new YaegerConfig();
         sceneCollectionFactory = mock(SceneCollectionFactory.class);
+        sceneFactory = mock(SceneFactory.class);
         sceneCollection = mock(SceneCollection.class);
 
         sut = new YaegerStage(yaegerGame, stage, yaegerConfig);
         sut.setSceneCollectionFactory(sceneCollectionFactory);
+        sut.setSceneFactory(sceneFactory);
 
         when(sceneCollectionFactory.create(stage, yaegerConfig)).thenReturn(sceneCollection);
+        when(sceneFactory.createEmptyForSize(any(Size.class))).thenReturn(scene);
     }
 
     @Test
@@ -53,16 +63,16 @@ class YaegerStageTest {
     }
 
     @Test
-    void atInitializationSetSizeIsUsed() {
+    void atInitializationEmptySceneIsCreated() {
         // Arrange
-        sut.setSize(new Size(WIDTH, HEIGHT));
+        var expected = new Size(WIDTH, HEIGHT);
+        sut.setSize(expected);
 
         // Act
         sut.init(injector);
 
         // Assert
-        verify(stage).setWidth(WIDTH);
-        verify(stage).setHeight(HEIGHT);
+        verify(sceneFactory).createEmptyForSize(expected);
     }
 
     @Test
