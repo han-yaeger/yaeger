@@ -26,5 +26,6 @@
 * Exposed a `getCursor()` method for all Entities.
 * Generalized the mouse event handlers to also be applicable to a `YaegerScene`. This way, both instances
   of `YaegerEntity`and `YawegerScene` can implement them and receive Mouse events.
+* Added a `CustomFont` class, which can be used for using a custom font, based on a font file (#184).
 
 ## Bugfixes
