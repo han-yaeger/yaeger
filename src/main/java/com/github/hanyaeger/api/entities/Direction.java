@@ -8,9 +8,21 @@ import java.util.Map;
  */
 public enum Direction {
 
+    /**
+     * The downward direction, of which the numeric value is 0 degrees.
+     */
     DOWN(0d),
+    /**
+     * The direction to the right, of which the numeric value is 90 degrees.
+     */
     RIGHT(90d),
+    /**
+     * The direction to the left, of which the numeric value is 180 degrees.
+     */
     UP(180d),
+    /**
+     * The upward direction, of which the numeric value is 270 degrees.
+     */
     LEFT(270d);
 
     private final double value;
