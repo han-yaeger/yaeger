@@ -37,16 +37,16 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
     /**
      * Create a new {@link EllipseEntity} on the given {@code initialPosition} with the given {@link Size}.
      * Using this constructor results in the same situation as using {@link #EllipseEntity(Coordinate2D)},
-     * {@link #setRadiusX(double)} and {@link #setRadiusY(double)}, where both the {@link Size#getWidth()} and
-     * {@link Size#getHeight()} are divided by 2.
+     * {@link #setRadiusX(double)} and {@link #setRadiusY(double)}, where both the {@link Size#width()} and
+     * {@link Size#height()} are divided by 2.
      *
      * @param initialPosition the initial position at which this {@link EllipseEntity} should be placed
      * @param size            the {@link Size} of this {@link EllipseEntity}
      */
     protected EllipseEntity(final Coordinate2D initialPosition, final Size size) {
         super(initialPosition);
-        this.radiusX = size.getWidth() / 2;
-        this.radiusY = size.getHeight() / 2;
+        this.radiusX = size.width() / 2;
+        this.radiusY = size.height() / 2;
     }
 
     /**

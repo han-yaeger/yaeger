@@ -41,8 +41,8 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
      */
     protected RectangleEntity(final Coordinate2D initialPosition, final Size size) {
         super(initialPosition);
-        this.width = size.getWidth();
-        this.height = size.getHeight();
+        this.width = size.width();
+        this.height = size.height();
     }
 
     /**

@@ -27,7 +27,7 @@ public class SceneFactory {
      * @return an instance of {@link Scene} of the requested {@link Size}
      */
     public Scene createEmptyForSize(final Size size) {
-        return new Scene(new Group(), size.getWidth(), size.getHeight());
+        return new Scene(new Group(), size.width(), size.height());
     }
 
 }

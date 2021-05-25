@@ -110,8 +110,8 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
         final double height;
 
         if (size.isPresent() && location.isPresent()) {
-            width = size.get().getWidth();
-            height = size.get().getHeight();
+            width = size.get().width();
+            height = size.get().height();
 
             final var topLeftLocation = getTopLeftLocation(location.get(), size.get());
             x = topLeftLocation.getX();
@@ -146,14 +146,14 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
 
     private Coordinate2D getTopLeftLocation(final Coordinate2D location, final Size size) {
         return switch (anchorPoint) {
-            case TOP_CENTER -> new Coordinate2D(location.getX() - (size.getWidth() / 2), location.getY());
-            case TOP_RIGHT -> new Coordinate2D(location.getX() - size.getWidth(), location.getY());
-            case CENTER_LEFT -> new Coordinate2D(location.getX(), location.getY() - (size.getHeight() / 2));
-            case CENTER_CENTER -> new Coordinate2D(location.getX() - (size.getWidth() / 2), location.getY() - (size.getHeight() / 2));
-            case CENTER_RIGHT -> new Coordinate2D(location.getX() - (size.getWidth()), location.getY() - (size.getHeight() / 2));
-            case BOTTOM_LEFT -> new Coordinate2D(location.getX(), location.getY() - size.getHeight());
-            case BOTTOM_CENTER -> new Coordinate2D(location.getX() - (size.getWidth() / 2), location.getY() - (size.getHeight()));
-            case BOTTOM_RIGHT -> new Coordinate2D(location.getX() - size.getWidth(), location.getY() - size.getHeight());
+            case TOP_CENTER -> new Coordinate2D(location.getX() - (size.width() / 2), location.getY());
+            case TOP_RIGHT -> new Coordinate2D(location.getX() - size.width(), location.getY());
+            case CENTER_LEFT -> new Coordinate2D(location.getX(), location.getY() - (size.height() / 2));
+            case CENTER_CENTER -> new Coordinate2D(location.getX() - (size.width() / 2), location.getY() - (size.height() / 2));
+            case CENTER_RIGHT -> new Coordinate2D(location.getX() - (size.width()), location.getY() - (size.height() / 2));
+            case BOTTOM_LEFT -> new Coordinate2D(location.getX(), location.getY() - size.height());
+            case BOTTOM_CENTER -> new Coordinate2D(location.getX() - (size.width() / 2), location.getY() - (size.height()));
+            case BOTTOM_RIGHT -> new Coordinate2D(location.getX() - size.width(), location.getY() - size.height());
             default -> location;
         };
     }

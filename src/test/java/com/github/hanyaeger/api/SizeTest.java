@@ -19,7 +19,7 @@ class SizeTest {
             var sut = new Size(WIDTH, HEIGHT);
 
             // Act
-            var actual = sut.getWidth();
+            var actual = sut.width();
 
             // Assert
             assertEquals(WIDTH, actual);
@@ -31,7 +31,7 @@ class SizeTest {
             var sut = new Size(WIDTH, HEIGHT);
 
             // Act
-            var actual = sut.getHeight();
+            var actual = sut.height();
 
             // Assert
             assertEquals(HEIGHT, actual);
@@ -47,7 +47,7 @@ class SizeTest {
             var sut = new Size(WIDTH);
 
             // Act
-            var actual = sut.getWidth();
+            var actual = sut.width();
 
             // Assert
             assertEquals(WIDTH, actual);
@@ -59,7 +59,7 @@ class SizeTest {
             var sut = new Size(HEIGHT);
 
             // Act
-            var actual = sut.getHeight();
+            var actual = sut.height();
 
             // Assert
             assertEquals(HEIGHT, actual);
