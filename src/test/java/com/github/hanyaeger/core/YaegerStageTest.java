@@ -2,10 +2,6 @@ package com.github.hanyaeger.core;
 
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.YaegerGame;
-import com.github.hanyaeger.core.SceneCollection;
-import com.github.hanyaeger.core.SceneCollectionFactory;
-import com.github.hanyaeger.core.YaegerConfig;
-import com.github.hanyaeger.core.YaegerStage;
 import com.github.hanyaeger.core.factories.SceneFactory;
 import com.google.inject.Injector;
 import javafx.scene.Scene;
