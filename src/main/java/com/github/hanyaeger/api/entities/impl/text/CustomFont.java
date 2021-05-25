@@ -5,7 +5,7 @@ import com.github.hanyaeger.core.exceptions.ResourceNotAvailableException;
 import javafx.scene.text.Font;
 
 /**
- * Although manu fonts are already available through the underlying technology JavaFX,
+ * Although many fonts are already available through the underlying technology JavaFX,
  * it is also possible to use custom fonts. To use such a custom font (*.ttf), the font file
  * should be available on the Class-path, preferably in the {@code resources/} folder.
  */
