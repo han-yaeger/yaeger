@@ -23,6 +23,8 @@
 
 * Added a `MouseMovedListener` interface, which gets called whenever the mouse has been moved. As a parameter, the
   handler receives a `Coordinate2D` that contains the current coordinates of the mouse pointer.
+* Added a `MouseDraggedListener` interface, which gets called whenever an Entity is being dragged. As a parameter, the
+  handler receives a `Coordinate2D` that contains the current coordinates of the mouse pointer.
 * Exposed a `getCursor()` method for all Entities.
 * Generalized the mouse event handlers to also be applicable to a `YaegerScene`. This way, both instances
   of `YaegerEntity`and `YawegerScene` can implement them and receive Mouse events.
