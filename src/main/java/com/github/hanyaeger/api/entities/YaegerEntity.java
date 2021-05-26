@@ -3,6 +3,7 @@ package com.github.hanyaeger.api.entities;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.YaegerGame;
+import com.github.hanyaeger.core.Effectable;
 import com.github.hanyaeger.core.Initializable;
 import com.github.hanyaeger.api.Timer;
 import com.github.hanyaeger.core.TimerListProvider;
@@ -14,6 +15,7 @@ import javafx.event.EventType;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.effect.ColorAdjust;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ import java.util.Optional;
  * A {@link YaegerEntity} is the base class for all things that can be drawn on a
  * {@link com.github.hanyaeger.core.scenes.YaegerScene}.
  */
-public abstract class YaegerEntity implements Initializable, TimerListProvider, Bounded, Removable, Placeable, SceneChild, GameNode, Rotatable, EventInitiator {
+public abstract class YaegerEntity implements Initializable, TimerListProvider, Bounded, Removable, Placeable, SceneChild, GameNode, Rotatable, EventInitiator, Effectable {
 
     static final boolean DEFAULT_VISIBILITY = true;
     static final double DEFAULT_OPACITY = 1;
@@ -38,6 +40,8 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     private final List<Timer> timers = new ArrayList<>();
 
     private final RotationBuffer rotationBuffer;
+
+    private final ColorAdjust colorAdjust = new ColorAdjust();
 
     /**
      * Create a new {@link YaegerEntity} on the given {@link Coordinate2D}.
@@ -277,6 +281,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
 
     @Override
     public void init(final Injector injector) {
+        getNode().ifPresent(Node -> getNode().get().setEffect(colorAdjust));
         setVisible(visible);
         setOpacity(opacity);
         cursor.ifPresent(this::setCursor);
@@ -312,6 +317,46 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     @Override
     public void setAnchorLocationY(final double y) {
         setAnchorLocation(new Coordinate2D(getAnchorLocation().getX(), y));
+    }
+
+    @Override
+    public void setBrightness(final double brightness) {
+        colorAdjust.setBrightness(brightness);
+    }
+
+    @Override
+    public void setContrast(final double contrast) {
+        colorAdjust.setContrast(contrast);
+    }
+
+    @Override
+    public void setHue(final double hue) {
+        colorAdjust.setHue(hue);
+    }
+
+    @Override
+    public void setSaturation(final double saturation) {
+        colorAdjust.setSaturation(saturation);
+    }
+
+    @Override
+    public double getBrightness() {
+        return colorAdjust.getBrightness();
+    }
+
+    @Override
+    public double getContrast() {
+        return colorAdjust.getContrast();
+    }
+
+    @Override
+    public double getHue() {
+        return colorAdjust.getHue();
+    }
+
+    @Override
+    public double getSaturation() {
+        return colorAdjust.getSaturation();
     }
 
     @Override

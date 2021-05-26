@@ -162,15 +162,44 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
         backgroundDelegate.setBackgroundAudio(url);
     }
 
-
     @Override
     public void setBrightness(final double brightness) {
         colorAdjust.setBrightness(brightness);
     }
 
     @Override
+    public void setContrast(final double contrast) {
+        colorAdjust.setContrast(contrast);
+    }
+
+    @Override
+    public void setHue(final double hue) {
+        colorAdjust.setHue(hue);
+    }
+
+    @Override
+    public void setSaturation(final double saturation) {
+        colorAdjust.setSaturation(saturation);
+    }
+
+    @Override
     public double getBrightness() {
         return colorAdjust.getBrightness();
+    }
+
+    @Override
+    public double getContrast() {
+        return colorAdjust.getContrast();
+    }
+
+    @Override
+    public double getHue() {
+        return colorAdjust.getHue();
+    }
+
+    @Override
+    public double getSaturation() {
+        return colorAdjust.getSaturation();
     }
 
     @Override
