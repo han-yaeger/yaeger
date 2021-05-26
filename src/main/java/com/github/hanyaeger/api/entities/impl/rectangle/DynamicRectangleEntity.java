@@ -29,7 +29,7 @@ public abstract class DynamicRectangleEntity extends RectangleEntity implements 
      *
      * @param initialPosition the initial position at which this {@link DynamicRectangleEntity} should be placed
      */
-    protected DynamicRectangleEntity(final Coordinate2D initialPosition) {
+    public DynamicRectangleEntity(final Coordinate2D initialPosition) {
         super(initialPosition);
 
         buffer = Optional.of(new EntityMotionInitBuffer());
@@ -43,7 +43,7 @@ public abstract class DynamicRectangleEntity extends RectangleEntity implements 
      * @param initialPosition the initial position at which this {@link DynamicRectangleEntity} should be placed
      * @param size            the {@link Size} of this {@link DynamicRectangleEntity}
      */
-    protected DynamicRectangleEntity(final Coordinate2D initialPosition, final Size size) {
+    public DynamicRectangleEntity(final Coordinate2D initialPosition, final Size size) {
         super(initialPosition, size);
 
         buffer = Optional.of(new EntityMotionInitBuffer());

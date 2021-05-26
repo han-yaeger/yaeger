@@ -27,7 +27,7 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
      *
      * @param initialPosition the initial position at which this {@link RectangleEntity} should be placed
      */
-    protected RectangleEntity(final Coordinate2D initialPosition) {
+    public RectangleEntity(final Coordinate2D initialPosition) {
         super(initialPosition);
     }
 
@@ -39,7 +39,7 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
      * @param initialPosition the initial position at which this {@link RectangleEntity} should be placed
      * @param size            the {@link Size} of this {@link RectangleEntity}
      */
-    protected RectangleEntity(final Coordinate2D initialPosition, final Size size) {
+    public RectangleEntity(final Coordinate2D initialPosition, final Size size) {
         super(initialPosition);
         this.width = size.width();
         this.height = size.height();

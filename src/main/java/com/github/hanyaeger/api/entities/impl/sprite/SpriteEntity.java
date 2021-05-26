@@ -41,7 +41,7 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      * @param resource the url of the image file. Relative to the resources folder
      * @param location the initial {@link Coordinate2D} of this {@link SpriteEntity}
      */
-    protected SpriteEntity(final String resource, final Coordinate2D location) {
+    public SpriteEntity(final String resource, final Coordinate2D location) {
         this(resource, location, null);
     }
 
@@ -53,7 +53,7 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      * @param rows     the number of rows the image contains
      * @param columns  the number of columns the image contains
      */
-    protected SpriteEntity(final String resource, final Coordinate2D location, final int rows, final int columns) {
+    public SpriteEntity(final String resource, final Coordinate2D location, final int rows, final int columns) {
         this(resource, location, null, rows, columns);
     }
 
@@ -64,7 +64,7 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      * @param location the initial {@link Coordinate2D} of this {@link SpriteEntity}
      * @param size     the bounding box of this {@link SpriteEntity}
      */
-    protected SpriteEntity(final String resource, final Coordinate2D location, final Size size) {
+    public SpriteEntity(final String resource, final Coordinate2D location, final Size size) {
         this(resource, location, size, 1, 1);
     }
 
@@ -77,7 +77,7 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      * @param rows     the number of rows the image contains
      * @param columns  the number of columns the image contains
      */
-    protected SpriteEntity(final String resource, final Coordinate2D location, final Size size, final int rows, final int columns) {
+    public SpriteEntity(final String resource, final Coordinate2D location, final Size size, final int rows, final int columns) {
         super(location);
         this.rows = rows;
         this.columns = columns;
