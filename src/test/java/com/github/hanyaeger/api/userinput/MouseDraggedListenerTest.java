@@ -1,35 +1,34 @@
 package com.github.hanyaeger.api.userinput;
 
+import com.github.hanyaeger.api.Coordinate2D;
 import javafx.scene.Node;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
 
-class MouseEnterListenerTest {
+class MouseDraggedListenerTest {
 
     @Test
     void attachMouseEnterListenerAttachesMouseListener() {
         // Arrange
         var node = mock(Node.class, withSettings().withoutAnnotations());
-        var mouseListeningEntity = new MouseEnterListeningImpl();
+        var mouseListeningEntity = new MouseDraggedListeningImpl();
         mouseListeningEntity.setNode(node);
 
         // Act
-        mouseListeningEntity.attachMouseEnterListener();
+        mouseListeningEntity.attachMouseDraggedListener();
 
         // Assert
-        verify(node).setOnMouseEntered(any());
+        verify(node).setOnMouseDragged(any());
     }
 
-    private class MouseEnterListeningImpl implements MouseEnterListener {
+    private class MouseDraggedListeningImpl implements MouseDraggedListener {
 
         private Node node;
-
-        @Override
-        public void onMouseEntered() {
-        }
 
         @Override
         public Optional<? extends Node> getNode() {
@@ -39,5 +38,11 @@ class MouseEnterListenerTest {
         void setNode(Node node) {
             this.node = node;
         }
+
+        @Override
+        public void onMouseDragged(Coordinate2D coordinate2D) {
+
+        }
     }
+
 }

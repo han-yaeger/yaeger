@@ -66,7 +66,7 @@ class MouseMovedListenerTest {
         verifyNoInteractions(node);
     }
 
-    private class MouseMovedListenerImpl implements MouseMovedListener {
+    private static class MouseMovedListenerImpl implements MouseMovedListener {
 
         private Node node;
 
@@ -85,7 +85,7 @@ class MouseMovedListenerTest {
         }
     }
 
-    private class MouseMovedListeningSceneImpl implements YaegerScene, MouseMovedListener {
+    private static class MouseMovedListeningSceneImpl implements YaegerScene, MouseMovedListener {
 
         private Node node;
 
@@ -179,7 +179,7 @@ class MouseMovedListenerTest {
         }
     }
 
-    private class MouseMovedListeningEntityImpl extends YaegerEntity implements MouseMovedListener {
+    private static class MouseMovedListeningEntityImpl extends YaegerEntity implements MouseMovedListener {
 
         private Node node;
 
