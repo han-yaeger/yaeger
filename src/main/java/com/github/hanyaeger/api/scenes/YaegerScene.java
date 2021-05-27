@@ -2,6 +2,7 @@ package com.github.hanyaeger.api.scenes;
 
 import com.github.hanyaeger.core.YaegerConfig;
 import com.github.hanyaeger.core.*;
+import com.github.hanyaeger.core.entities.DragRepositoryAccessor;
 import com.github.hanyaeger.core.entities.GameNode;
 import com.github.hanyaeger.core.scenes.DimensionsProvider;
 import javafx.scene.Cursor;
@@ -12,7 +13,7 @@ import javafx.stage.Stage;
 /**
  * A {@code YaegerScene} encapsulates a scene or level from a {@code Yaeger Game}.
  */
-public interface YaegerScene extends GameNode, DimensionsProvider, Destroyable, Initializable, Activatable, Clearable, Effectable {
+public interface YaegerScene extends GameNode, DimensionsProvider, Destroyable, Initializable, Activatable, Clearable, Effectable, DragRepositoryAccessor {
 
     /**
      * Setup the {@code YaegerScene}. Use this method to setup all properties of the {@code YaegerScene}. The

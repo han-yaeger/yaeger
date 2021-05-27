@@ -21,6 +21,9 @@ public interface MouseExitListener extends GameNode {
      */
     @OnActivation
     default void attachMouseExitListener() {
-        getNode().ifPresent(node -> node.setOnMouseExited(mouseEvent -> onMouseExited()));
+        getNode().ifPresent(node -> node.setOnMouseExited(event -> {
+            onMouseExited();
+            event.consume();
+        }));
     }
 }

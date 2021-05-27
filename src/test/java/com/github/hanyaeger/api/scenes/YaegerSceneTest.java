@@ -1,6 +1,7 @@
 package com.github.hanyaeger.api.scenes;
 
 import com.github.hanyaeger.core.YaegerConfig;
+import com.github.hanyaeger.core.repositories.DragNDropRepository;
 import com.google.inject.Injector;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -162,6 +163,16 @@ class YaegerSceneTest {
         @Override
         public Optional<? extends Node> getNode() {
             return Optional.empty();
+        }
+
+        @Override
+        public void setDragNDropRepository(DragNDropRepository dragNDropRepository) {
+
+        }
+
+        @Override
+        public DragNDropRepository getDragNDropRepository() {
+            return null;
         }
     }
 }

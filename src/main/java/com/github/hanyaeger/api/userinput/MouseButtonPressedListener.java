@@ -26,6 +26,9 @@ public interface MouseButtonPressedListener extends GameNode {
      */
     @OnActivation
     default void attachMousePressedListener() {
-        getNode().ifPresent(node -> node.setOnMousePressed(event -> onMouseButtonPressed(event.getButton(), new Coordinate2D(event.getX(), event.getY()))));
+        getNode().ifPresent(node -> node.setOnMousePressed(event -> {
+            onMouseButtonPressed(event.getButton(), new Coordinate2D(event.getX(), event.getY()));
+            event.consume();
+        }));
     }
 }

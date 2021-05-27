@@ -26,6 +26,8 @@ public interface MouseButtonReleasedListener extends GameNode {
      */
     @OnActivation
     default void attachMouseReleasedListener() {
-        getNode().ifPresent(node -> node.setOnMouseReleased(event -> onMouseButtonReleased(event.getButton(), new Coordinate2D(event.getX(), event.getY()))));
+        getNode().ifPresent(node -> node.setOnMouseReleased(event ->
+                onMouseButtonReleased(event.getButton(), new Coordinate2D(event.getX(), event.getY()))
+        ));
     }
 }

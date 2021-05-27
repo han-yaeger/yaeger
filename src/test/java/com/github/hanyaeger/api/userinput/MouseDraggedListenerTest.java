@@ -1,29 +1,72 @@
 package com.github.hanyaeger.api.userinput;
 
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.core.exceptions.YaegerEngineException;
+import com.github.hanyaeger.core.repositories.DragNDropRepository;
 import javafx.scene.Node;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verify;
 
 class MouseDraggedListenerTest {
 
+    private static final Coordinate2D LOCATION = new Coordinate2D(0, 0);
+    private MouseDraggingEntity sut;
+    private Node node;
+
+    @BeforeEach
+    void setup() {
+        sut = new MouseDraggingEntity(LOCATION);
+        node = mock(Node.class, withSettings().withoutAnnotations());
+
+        sut.setNode(node);
+    }
+
     @Test
-    void attachMouseEnterListenerAttachesMouseListener() {
+    void attachMouseEnterListenerThrowsExceptionWhenNotAttachedToEntity() {
         // Arrange
-        var node = mock(Node.class, withSettings().withoutAnnotations());
-        var mouseListeningEntity = new MouseDraggedListeningImpl();
-        mouseListeningEntity.setNode(node);
+        var mouseListeningImpl = new MouseDraggedListeningImpl();
+        mouseListeningImpl.setNode(node);
+
+        // Act & Assert
+        Assertions.assertThrows(YaegerEngineException.class, () -> mouseListeningImpl.attachMouseDraggedListener());
+    }
+
+    @Test
+    void attachMouseEnterListenerOnEntityAttachesSetOnDragDetected() {
+        // Arrange
 
         // Act
-        mouseListeningEntity.attachMouseDraggedListener();
+        sut.attachMouseDraggedListener();
 
-        // Assert
+        // Arrange
+        verify(node).setOnDragDetected(any());
+    }
+
+    @Test
+    void attachMouseEnterListenerOnEntityAttachesSetOnDragged() {
+        // Arrange
+
+        // Act
+        sut.attachMouseDraggedListener();
+
+        // Arrange
         verify(node).setOnMouseDragged(any());
+    }
+
+    @Test
+    void attachMouseEnterListenerOnEntityAttachesSetOnMouseReleased() {
+        // Arrange
+
+        // Act
+        sut.attachMouseDraggedListener();
+
+        // Arrange
+        verify(node).setOnMouseReleased(any());
     }
 
     private class MouseDraggedListeningImpl implements MouseDraggedListener {
@@ -40,9 +83,23 @@ class MouseDraggedListenerTest {
         }
 
         @Override
-        public void onMouseDragged(Coordinate2D coordinate2D) {
+        public void onDragged(Coordinate2D coordinate2D) {
 
         }
-    }
 
+        @Override
+        public void onDropped(Coordinate2D coordinate2D) {
+
+        }
+
+        @Override
+        public void setDragNDropRepository(DragNDropRepository dragNDropRepository) {
+
+        }
+
+        @Override
+        public DragNDropRepository getDragNDropRepository() {
+            return null;
+        }
+    }
 }

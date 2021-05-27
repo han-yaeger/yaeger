@@ -9,6 +9,8 @@ import com.github.hanyaeger.api.Timer;
 import com.github.hanyaeger.core.TimerListProvider;
 import com.github.hanyaeger.core.entities.*;
 import com.github.hanyaeger.core.entities.motion.RotationBuffer;
+import com.github.hanyaeger.core.repositories.DragNDropRepository;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -24,7 +26,7 @@ import java.util.Optional;
  * A {@link YaegerEntity} is the base class for all things that can be drawn on a
  * {@link YaegerScene}.
  */
-public abstract class YaegerEntity implements Initializable, TimerListProvider, Bounded, Removable, Placeable, SceneChild, GameNode, Rotatable, EventInitiator {
+public abstract class YaegerEntity implements Initializable, TimerListProvider, Bounded, Removable, Placeable, SceneChild, GameNode, Rotatable, EventInitiator, DragRepositoryAccessor {
 
     static final boolean DEFAULT_VISIBILITY = true;
     static final double DEFAULT_OPACITY = 1;
@@ -39,6 +41,8 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     private final List<Timer> timers = new ArrayList<>();
 
     private final RotationBuffer rotationBuffer;
+
+    private DragNDropRepository dragNDropRepository;
 
     /**
      * Create a new {@link YaegerEntity} on the given {@link Coordinate2D}.
@@ -388,5 +392,15 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
             case BOTTOM_CENTER -> new Coordinate2D(boundsInScene.getCenterX(), boundsInScene.getMaxY());
             case BOTTOM_RIGHT -> new Coordinate2D(boundsInScene.getMaxX(), boundsInScene.getMaxY());
         };
+    }
+
+    @Inject
+    public void setDragNDropRepository(DragNDropRepository dragNDropRepository) {
+        this.dragNDropRepository = dragNDropRepository;
+    }
+
+    @Override
+    public DragNDropRepository getDragNDropRepository() {
+        return dragNDropRepository;
     }
 }

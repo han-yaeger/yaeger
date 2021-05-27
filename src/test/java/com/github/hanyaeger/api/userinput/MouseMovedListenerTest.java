@@ -4,6 +4,7 @@ import com.github.hanyaeger.core.YaegerConfig;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.scenes.YaegerScene;
+import com.github.hanyaeger.core.repositories.DragNDropRepository;
 import com.google.inject.Injector;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -176,6 +177,16 @@ class MouseMovedListenerTest {
         @Override
         public void onMouseMoved(Coordinate2D coordinate2D) {
 
+        }
+
+        @Override
+        public void setDragNDropRepository(DragNDropRepository dragNDropRepository) {
+            
+        }
+
+        @Override
+        public DragNDropRepository getDragNDropRepository() {
+            return null;
         }
     }
 
