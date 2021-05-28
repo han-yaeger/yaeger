@@ -39,17 +39,17 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
      * Create a new {@link TileMap} that takes up the full width and height of the
      * {@link YaegerScene}.
      */
-    public TileMap() {
+    protected TileMap() {
         this(new Coordinate2D(0, 0), null);
     }
 
     /**
      * Create a new {@link TileMap} with the given width and height, placed on the given x and y.
      *
-     * @param location The {@link Coordinate2D} of the top-left corner of the {@link TileMap}.
-     * @param size     The {@link Size} of the {@link TileMap}.
+     * @param location the {@link Coordinate2D} of the top-left corner of the {@link TileMap}
+     * @param size     the {@link Size} of the {@link TileMap}
      */
-    public TileMap(final Coordinate2D location, final Size size) {
+    protected TileMap(final Coordinate2D location, final Size size) {
         this.location = Optional.of(location);
         if (size != null) {
             this.size = Optional.of(size);
@@ -170,7 +170,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
      * and height of the {@link YaegerScene} to calculate the placement
      * of the individual instances of {@link YaegerEntity}.
      *
-     * @param dimensionsProvider The {@link DimensionsProvider} that provides a {@link DimensionsProvider#getWidth()} and
+     * @param dimensionsProvider the {@link DimensionsProvider} that provides a {@link DimensionsProvider#getWidth()} and
      *                           {@link DimensionsProvider#getHeight()} method; most likely an {@link YaegerScene}.
      */
     void setDimensionsProvider(final DimensionsProvider dimensionsProvider) {
