@@ -70,7 +70,7 @@ class TileMapTest {
     }
 
     @Test
-    void sizeAndPositionOfTilemapWithNonEmptyConstructorIsUsed() {
+    void sizeAndPositionOfTileMapWithNonEmptyConstructorIsUsed() {
         // Arrange
 
         // Act
@@ -302,8 +302,8 @@ class TileMapTest {
         // Assert
         ArgumentCaptor<Size> argument = ArgumentCaptor.forClass(Size.class);
         verify(tileFactory).create(any(EntityConfiguration.class), any(), argument.capture());
-        assertEquals(SIZE.getHeight(), argument.getValue().getHeight());
-        assertEquals(SIZE.getWidth(), argument.getValue().getWidth());
+        assertEquals(SIZE.height(), argument.getValue().height());
+        assertEquals(SIZE.width(), argument.getValue().width());
     }
 
     @Test
@@ -350,8 +350,8 @@ class TileMapTest {
         // Assert
         ArgumentCaptor<Size> argument = ArgumentCaptor.forClass(Size.class);
         verify(tileFactory).create(any(EntityConfiguration.class), any(), argument.capture());
-        assertEquals(Math.ceil(SIZE.getHeight() / 3), argument.getValue().getHeight());
-        assertEquals(Math.ceil(SIZE.getWidth() / 3), argument.getValue().getWidth());
+        assertEquals(Math.ceil(SIZE.height() / 3), argument.getValue().height());
+        assertEquals(Math.ceil(SIZE.width() / 3), argument.getValue().width());
     }
 
     @Test
@@ -385,8 +385,8 @@ class TileMapTest {
         // Assert
         ArgumentCaptor<Size> argument = ArgumentCaptor.forClass(Size.class);
         verify(tileFactory).create(any(EntityConfiguration.class), any(), argument.capture());
-        assertEquals(Math.ceil(SIZE.getHeight() / 3), argument.getValue().getHeight());
-        assertEquals(SIZE.getWidth(), argument.getValue().getWidth());
+        assertEquals(Math.ceil(SIZE.height() / 3), argument.getValue().height());
+        assertEquals(SIZE.width(), argument.getValue().width());
     }
 
     @Test
@@ -460,7 +460,7 @@ class TileMapTest {
         ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
         verify(tileFactory).create(any(EntityConfiguration.class), argument.capture(), any());
 
-        var expectedX = LOCATION.getX() - SIZE.getWidth() / 2;
+        var expectedX = LOCATION.getX() - SIZE.width() / 2;
 
         assertEquals(expectedX, argument.getValue().getX());
         assertEquals(LOCATION.getY(), argument.getValue().getY());
@@ -500,7 +500,7 @@ class TileMapTest {
         ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
         verify(tileFactory).create(any(EntityConfiguration.class), argument.capture(), any());
 
-        var expectedX = LOCATION.getX() - SIZE.getWidth();
+        var expectedX = LOCATION.getX() - SIZE.width();
 
         assertEquals(expectedX, argument.getValue().getX());
         assertEquals(LOCATION.getY(), argument.getValue().getY());
@@ -541,7 +541,7 @@ class TileMapTest {
         verify(tileFactory).create(any(EntityConfiguration.class), argument.capture(), any());
 
         var expectedX = LOCATION.getX();
-        var expectedY = LOCATION.getY() - SIZE.getHeight() / 2;
+        var expectedY = LOCATION.getY() - SIZE.height() / 2;
 
         assertEquals(expectedX, argument.getValue().getX());
         assertEquals(expectedY, argument.getValue().getY());
@@ -581,8 +581,8 @@ class TileMapTest {
         ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
         verify(tileFactory).create(any(EntityConfiguration.class), argument.capture(), any());
 
-        var expectedX = LOCATION.getX() - SIZE.getWidth() / 2;
-        var expectedY = LOCATION.getY() - SIZE.getHeight() / 2;
+        var expectedX = LOCATION.getX() - SIZE.width() / 2;
+        var expectedY = LOCATION.getY() - SIZE.height() / 2;
 
         assertEquals(expectedX, argument.getValue().getX());
         assertEquals(expectedY, argument.getValue().getY());
@@ -622,8 +622,8 @@ class TileMapTest {
         ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
         verify(tileFactory).create(any(EntityConfiguration.class), argument.capture(), any());
 
-        var expectedX = LOCATION.getX() - SIZE.getWidth();
-        var expectedY = LOCATION.getY() - SIZE.getHeight() / 2;
+        var expectedX = LOCATION.getX() - SIZE.width();
+        var expectedY = LOCATION.getY() - SIZE.height() / 2;
 
         assertEquals(expectedX, argument.getValue().getX());
         assertEquals(expectedY, argument.getValue().getY());
@@ -666,7 +666,7 @@ class TileMapTest {
         verify(tileFactory).create(any(EntityConfiguration.class), argument.capture(), any());
 
         var expectedX = LOCATION.getX();
-        var expectedY = LOCATION.getY() - SIZE.getHeight();
+        var expectedY = LOCATION.getY() - SIZE.height();
 
         assertEquals(expectedX, argument.getValue().getX());
         assertEquals(expectedY, argument.getValue().getY());
@@ -706,8 +706,8 @@ class TileMapTest {
         ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
         verify(tileFactory).create(any(EntityConfiguration.class), argument.capture(), any());
 
-        var expectedX = LOCATION.getX() - SIZE.getWidth() / 2;
-        var expectedY = LOCATION.getY() - SIZE.getHeight();
+        var expectedX = LOCATION.getX() - SIZE.width() / 2;
+        var expectedY = LOCATION.getY() - SIZE.height();
 
         assertEquals(expectedX, argument.getValue().getX());
         assertEquals(expectedY, argument.getValue().getY());
@@ -747,8 +747,8 @@ class TileMapTest {
         ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
         verify(tileFactory).create(any(EntityConfiguration.class), argument.capture(), any());
 
-        var expectedX = LOCATION.getX() - SIZE.getWidth();
-        var expectedY = LOCATION.getY() - SIZE.getHeight();
+        var expectedX = LOCATION.getX() - SIZE.width();
+        var expectedY = LOCATION.getY() - SIZE.height();
 
         assertEquals(expectedX, argument.getValue().getX());
         assertEquals(expectedY, argument.getValue().getY());
@@ -838,8 +838,8 @@ class TileMapTest {
         List<Size> capturedSizes = argument.getAllValues();
 
         for (int i = 0; i < 15; i++) {
-            assertEquals(expectedWidth, capturedSizes.get(i).getWidth());
-            assertEquals(expectedHeight, capturedSizes.get(i).getHeight());
+            assertEquals(expectedWidth, capturedSizes.get(i).width());
+            assertEquals(expectedHeight, capturedSizes.get(i).height());
         }
     }
 

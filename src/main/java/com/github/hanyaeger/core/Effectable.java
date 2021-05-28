@@ -1,7 +1,7 @@
 package com.github.hanyaeger.core;
 
 import com.github.hanyaeger.api.entities.YaegerEntity;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 
 /**
  * By implementing the interface {@link Effectable}, it is possible to applies

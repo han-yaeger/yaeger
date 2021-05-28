@@ -2,12 +2,12 @@ package com.github.hanyaeger.core;
 
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.YaegerGame;
+import com.github.hanyaeger.core.factories.SceneFactory;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 
 /**
  * A {@link YaegerStage} encapsulates an JavaFX {@link Stage}. It defines the window
@@ -21,9 +21,20 @@ public class YaegerStage implements Initializable {
     private final YaegerGame yaegerGame;
     private final Stage stage;
     private final YaegerConfig yaegerConfig;
+    private SceneFactory sceneFactory;
     private SceneCollectionFactory sceneCollectionFactory;
     private SceneCollection sceneCollection;
 
+    /**
+     * Create a new {@code YaegerStage} with the given parameters. A {@code YaegerStage} encapsulates a {@link Stage},
+     * which is the representation of the window. The {@link Scene}, which is encapsulated by the {@link YaegerScene}
+     * will then represent the content of the window.
+     *
+     * @param yaegerGame   the {@link YaegerGame} for which this {@code YaegerStage is created}
+     * @param stage        the {@link Stage} that should be encapsulated. This {@link Stage} is created by JavaFX whenever a
+     *                     JavaFX is created
+     * @param yaegerConfig the {@link YaegerConfig} that contains runtime configurations for this {@link YaegerGame}
+     */
     public YaegerStage(final YaegerGame yaegerGame, final Stage stage, final YaegerConfig yaegerConfig) {
         this.yaegerGame = yaegerGame;
         this.stage = stage;
@@ -48,7 +59,7 @@ public class YaegerStage implements Initializable {
 
         yaegerGame.setupGame();
 
-        stage.setScene(new Scene(new Group(), size.getWidth(), size.getHeight()));
+        stage.setScene(sceneFactory.createEmptyForSize(size));
         stage.show();
 
         stage.setWidth(stage.getWidth());
@@ -96,8 +107,23 @@ public class YaegerStage implements Initializable {
         sceneCollection.setActive(id);
     }
 
+    /**
+     * Set the {@link SceneCollectionFactory} to be used whenever a {@link SceneCollection} has to be created.
+     *
+     * @param sceneCollectionFactory the {@link SceneCollectionFactory}
+     */
     @Inject
     public void setSceneCollectionFactory(final SceneCollectionFactory sceneCollectionFactory) {
         this.sceneCollectionFactory = sceneCollectionFactory;
+    }
+
+    /**
+     * Set the {@link SceneFactory} to be used whenever a {@link Scene} has to be created.
+     *
+     * @param sceneFactory the {@link SceneFactory}
+     */
+    @Inject
+    public void setSceneFactory(final SceneFactory sceneFactory) {
+        this.sceneFactory = sceneFactory;
     }
 }

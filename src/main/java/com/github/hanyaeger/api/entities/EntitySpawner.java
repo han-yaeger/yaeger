@@ -2,7 +2,7 @@ package com.github.hanyaeger.api.entities;
 
 import com.github.hanyaeger.api.Timer;
 import com.github.hanyaeger.core.entities.EntitySupplier;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.google.inject.Inject;
 
 /**

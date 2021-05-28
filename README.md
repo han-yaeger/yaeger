@@ -21,7 +21,7 @@ requires Java 16 or above to work.
 
 ## Usage
 
-Yaeger is available through the Maven Central Repository.
+Yaeger requires JDK16, and is available through the Maven Central Repository.
 
 ```xml
 <dependency>

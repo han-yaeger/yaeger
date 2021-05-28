@@ -1,6 +1,6 @@
 package com.github.hanyaeger.core.exceptions;
 
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.api.scenes.StaticScene;
 
 /**

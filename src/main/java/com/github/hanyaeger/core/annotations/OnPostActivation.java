@@ -1,7 +1,7 @@
 package com.github.hanyaeger.core.annotations;
 
 import com.github.hanyaeger.api.entities.YaegerEntity;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

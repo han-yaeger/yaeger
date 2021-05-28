@@ -1,7 +1,7 @@
 package com.github.hanyaeger.core.scenes.splash;
 
 import com.github.hanyaeger.api.Timer;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 
 public class FadeInTimer extends Timer {
 

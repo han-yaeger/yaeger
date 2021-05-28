@@ -3,10 +3,10 @@ package com.github.hanyaeger.api.scenes;
 import com.github.hanyaeger.core.DependencyInjector;
 import com.github.hanyaeger.core.YaegerConfig;
 import com.github.hanyaeger.core.debug.Debugger;
+import com.github.hanyaeger.core.repositories.DragNDropRepository;
 import com.github.hanyaeger.core.scenes.EntityCollectionSupplier;
 import com.github.hanyaeger.core.scenes.SupplierProvider;
 import com.github.hanyaeger.core.scenes.TileMapListProvider;
-import com.github.hanyaeger.core.scenes.YaegerScene;
 import com.github.hanyaeger.core.factories.EntityCollectionFactory;
 import com.github.hanyaeger.core.factories.SceneFactory;
 import com.google.inject.Inject;
@@ -56,6 +56,8 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     private ColorAdjust colorAdjust;
     private YaegerConfig config;
     private Debugger debugger;
+
+    private DragNDropRepository dragNDropRepository;
 
 
     @Override
@@ -287,6 +289,16 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     @Inject
     public void setColorAdjust(final ColorAdjust colorAdjust) {
         this.colorAdjust = colorAdjust;
+    }
+
+    @Inject
+    public void setDragNDropRepository(DragNDropRepository dragNDropRepository) {
+        this.dragNDropRepository = dragNDropRepository;
+    }
+
+    @Override
+    public DragNDropRepository getDragNDropRepository() {
+        return dragNDropRepository;
     }
 
     private void onInputChanged(final Set<KeyCode> input) {

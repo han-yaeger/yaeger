@@ -5,7 +5,7 @@ import com.github.hanyaeger.core.ResourceConsumer;
 import com.github.hanyaeger.api.media.SoundClip;
 import com.github.hanyaeger.core.repositories.AudioRepository;
 import com.github.hanyaeger.core.repositories.ImageRepository;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.factories.BackgroundFactory;
 import com.google.inject.Inject;
 import javafx.scene.Scene;

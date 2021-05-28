@@ -1,6 +1,7 @@
-package com.github.hanyaeger.core.scenes;
+package com.github.hanyaeger.api.scenes;
 
 import com.github.hanyaeger.core.YaegerConfig;
+import com.github.hanyaeger.core.repositories.DragNDropRepository;
 import com.google.inject.Injector;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -46,7 +47,8 @@ class YaegerSceneTest {
     void getWidthReturnValueFromStage() {
         // Arrange
         var width = 37d;
-        when(stage.getWidth()).thenReturn(width);
+        when(stage.getScene()).thenReturn(scene);
+        when(scene.getWidth()).thenReturn(width);
 
         // Act
         var returnedWidth = sut.getWidth();
@@ -59,7 +61,8 @@ class YaegerSceneTest {
     void getHeightReturnValueFromStage() {
         // Arrange
         var height = 0.42;
-        when(stage.getHeight()).thenReturn(height);
+        when(stage.getScene()).thenReturn(scene);
+        when(scene.getHeight()).thenReturn(height);
 
         // Act
         double returnedHeight = sut.getHeight();
@@ -160,6 +163,16 @@ class YaegerSceneTest {
         @Override
         public Optional<? extends Node> getNode() {
             return Optional.empty();
+        }
+
+        @Override
+        public void setDragNDropRepository(DragNDropRepository dragNDropRepository) {
+
+        }
+
+        @Override
+        public DragNDropRepository getDragNDropRepository() {
+            return null;
         }
     }
 }

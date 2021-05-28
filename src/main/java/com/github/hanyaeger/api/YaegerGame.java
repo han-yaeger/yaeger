@@ -4,7 +4,7 @@ import com.github.hanyaeger.api.scenes.DynamicScene;
 import com.github.hanyaeger.api.scenes.StaticScene;
 import com.github.hanyaeger.core.YaegerCommandLineParser;
 import com.github.hanyaeger.core.YaegerStage;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.guice.YaegerModule;
 import com.google.inject.Guice;
 import javafx.application.Application;

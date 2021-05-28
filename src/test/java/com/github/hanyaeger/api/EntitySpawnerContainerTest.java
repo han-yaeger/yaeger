@@ -1,4 +1,4 @@
-package com.github.hanyaeger.core.scenes;
+package com.github.hanyaeger.api;
 
 import com.github.hanyaeger.api.EntitySpawnerContainer;
 import com.github.hanyaeger.core.Updatable;

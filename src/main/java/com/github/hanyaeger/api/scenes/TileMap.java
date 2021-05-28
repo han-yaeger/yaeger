@@ -14,7 +14,6 @@ import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.core.exceptions.EntityNotAvailableException;
 import com.github.hanyaeger.core.exceptions.YaegerEngineException;
 import com.github.hanyaeger.core.scenes.DimensionsProvider;
-import com.github.hanyaeger.core.scenes.YaegerScene;
 
 import java.util.*;
 
@@ -40,17 +39,17 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
      * Create a new {@link TileMap} that takes up the full width and height of the
      * {@link YaegerScene}.
      */
-    public TileMap() {
+    protected TileMap() {
         this(new Coordinate2D(0, 0), null);
     }
 
     /**
      * Create a new {@link TileMap} with the given width and height, placed on the given x and y.
      *
-     * @param location The {@link Coordinate2D} of the top-left corner of the {@link TileMap}.
-     * @param size     The {@link Size} of the {@link TileMap}.
+     * @param location the {@link Coordinate2D} of the top-left corner of the {@link TileMap}
+     * @param size     the {@link Size} of the {@link TileMap}
      */
-    public TileMap(final Coordinate2D location, final Size size) {
+    protected TileMap(final Coordinate2D location, final Size size) {
         this.location = Optional.of(location);
         if (size != null) {
             this.size = Optional.of(size);
@@ -111,8 +110,8 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
         final double height;
 
         if (size.isPresent() && location.isPresent()) {
-            width = size.get().getWidth();
-            height = size.get().getHeight();
+            width = size.get().width();
+            height = size.get().height();
 
             final var topLeftLocation = getTopLeftLocation(location.get(), size.get());
             x = topLeftLocation.getX();
@@ -147,14 +146,14 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
 
     private Coordinate2D getTopLeftLocation(final Coordinate2D location, final Size size) {
         return switch (anchorPoint) {
-            case TOP_CENTER -> new Coordinate2D(location.getX() - (size.getWidth() / 2), location.getY());
-            case TOP_RIGHT -> new Coordinate2D(location.getX() - size.getWidth(), location.getY());
-            case CENTER_LEFT -> new Coordinate2D(location.getX(), location.getY() - (size.getHeight() / 2));
-            case CENTER_CENTER -> new Coordinate2D(location.getX() - (size.getWidth() / 2), location.getY() - (size.getHeight() / 2));
-            case CENTER_RIGHT -> new Coordinate2D(location.getX() - (size.getWidth()), location.getY() - (size.getHeight() / 2));
-            case BOTTOM_LEFT -> new Coordinate2D(location.getX(), location.getY() - size.getHeight());
-            case BOTTOM_CENTER -> new Coordinate2D(location.getX() - (size.getWidth() / 2), location.getY() - (size.getHeight()));
-            case BOTTOM_RIGHT -> new Coordinate2D(location.getX() - size.getWidth(), location.getY() - size.getHeight());
+            case TOP_CENTER -> new Coordinate2D(location.getX() - (size.width() / 2), location.getY());
+            case TOP_RIGHT -> new Coordinate2D(location.getX() - size.width(), location.getY());
+            case CENTER_LEFT -> new Coordinate2D(location.getX(), location.getY() - (size.height() / 2));
+            case CENTER_CENTER -> new Coordinate2D(location.getX() - (size.width() / 2), location.getY() - (size.height() / 2));
+            case CENTER_RIGHT -> new Coordinate2D(location.getX() - (size.width()), location.getY() - (size.height() / 2));
+            case BOTTOM_LEFT -> new Coordinate2D(location.getX(), location.getY() - size.height());
+            case BOTTOM_CENTER -> new Coordinate2D(location.getX() - (size.width() / 2), location.getY() - (size.height()));
+            case BOTTOM_RIGHT -> new Coordinate2D(location.getX() - size.width(), location.getY() - size.height());
             default -> location;
         };
     }
@@ -171,7 +170,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
      * and height of the {@link YaegerScene} to calculate the placement
      * of the individual instances of {@link YaegerEntity}.
      *
-     * @param dimensionsProvider The {@link DimensionsProvider} that provides a {@link DimensionsProvider#getWidth()} and
+     * @param dimensionsProvider the {@link DimensionsProvider} that provides a {@link DimensionsProvider#getWidth()} and
      *                           {@link DimensionsProvider#getHeight()} method; most likely an {@link YaegerScene}.
      */
     void setDimensionsProvider(final DimensionsProvider dimensionsProvider) {

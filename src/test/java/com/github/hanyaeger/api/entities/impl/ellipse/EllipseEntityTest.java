@@ -208,7 +208,7 @@ class EllipseEntityTest {
             var actual = sut.getRadiusX();
 
             // Assert
-            assertEquals(SIZE.getWidth() / 2, actual);
+            assertEquals(SIZE.width() / 2, actual);
         }
 
         @Test
@@ -219,7 +219,7 @@ class EllipseEntityTest {
             var actual = sut.getRadiusY();
 
             // Assert
-            assertEquals(SIZE.getHeight() / 2, actual);
+            assertEquals(SIZE.height() / 2, actual);
         }
 
         private class EllipseEntityImpl extends EllipseEntity {

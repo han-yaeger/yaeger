@@ -4,11 +4,14 @@ import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.YaegerGame;
 import com.github.hanyaeger.core.Effectable;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.Initializable;
 import com.github.hanyaeger.api.Timer;
 import com.github.hanyaeger.core.TimerListProvider;
 import com.github.hanyaeger.core.entities.*;
 import com.github.hanyaeger.core.entities.motion.RotationBuffer;
+import com.github.hanyaeger.core.repositories.DragNDropRepository;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -23,9 +26,10 @@ import java.util.Optional;
 
 /**
  * A {@link YaegerEntity} is the base class for all things that can be drawn on a
- * {@link com.github.hanyaeger.core.scenes.YaegerScene}.
+ * {@link YaegerScene}.
  */
-public abstract class YaegerEntity implements Initializable, TimerListProvider, Bounded, Removable, Placeable, SceneChild, GameNode, Rotatable, EventInitiator, Effectable {
+
+public abstract class YaegerEntity implements Initializable, TimerListProvider, Bounded, Removable, Placeable, SceneChild, GameNode, Rotatable, EventInitiator, DragRepositoryAccessor, Effectable {
 
     static final boolean DEFAULT_VISIBILITY = true;
     static final double DEFAULT_OPACITY = 1;
@@ -41,8 +45,10 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
 
     private final RotationBuffer rotationBuffer;
 
-    private final ColorAdjust colorAdjust = new ColorAdjust();
 
+    private final ColorAdjust colorAdjust = new ColorAdjust();
+    private DragNDropRepository dragNDropRepository;
+  
     /**
      * Create a new {@link YaegerEntity} on the given {@link Coordinate2D}.
      *
@@ -57,7 +63,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
 
     /**
      * Set the cursor to be shown. This cursor will be applied to the whole
-     * {@link com.github.hanyaeger.core.scenes.YaegerScene}.
+     * {@link YaegerScene}.
      *
      * @param cursor the {@link Cursor} to be shown
      */
@@ -67,7 +73,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     }
 
     /**
-     * Return the {@link Cursor} that is currently being used. If this {@code YaegerEntity} is not yet part of a {@link com.github.hanyaeger.core.scenes.YaegerScene},
+     * Return the {@link Cursor} that is currently being used. If this {@code YaegerEntity} is not yet part of a {@link YaegerScene},
      * this method will return {@code null}.
      *
      * @return the {@link Cursor}
@@ -395,7 +401,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
 
     /**
      * The {@link Node} encapsulated by this {@link YaegerEntity} should be added to a parent {@link Node} to
-     * be displayed on the screen and become part of the {@link com.github.hanyaeger.core.scenes.YaegerScene}.
+     * be displayed on the screen and become part of the {@link YaegerScene}.
      *
      * @param processor an instance of {@link EntityProcessor}, most likely a lambda expression that can be
      *                  used for adding this node as a child to a parent node
@@ -432,5 +438,15 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
             case BOTTOM_CENTER -> new Coordinate2D(boundsInScene.getCenterX(), boundsInScene.getMaxY());
             case BOTTOM_RIGHT -> new Coordinate2D(boundsInScene.getMaxX(), boundsInScene.getMaxY());
         };
+    }
+
+    @Inject
+    public void setDragNDropRepository(DragNDropRepository dragNDropRepository) {
+        this.dragNDropRepository = dragNDropRepository;
+    }
+
+    @Override
+    public DragNDropRepository getDragNDropRepository() {
+        return dragNDropRepository;
     }
 }

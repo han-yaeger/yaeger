@@ -88,8 +88,8 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     @Override
     public void init(final Injector injector) {
         if (size != null) {
-            final var requestedWidth = size.getWidth() * columns;
-            final var requestedHeight = size.getHeight() * rows;
+            final var requestedWidth = size.width() * columns;
+            final var requestedHeight = size.height() * rows;
             imageView = Optional.of(createImageView(resource, requestedWidth, requestedHeight, preserveAspectRatio));
         } else {
             imageView = Optional.of(createImageView(resource));

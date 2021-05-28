@@ -4,7 +4,7 @@ import com.github.hanyaeger.api.Timer;
 import com.github.hanyaeger.api.TimerContainer;
 import com.github.hanyaeger.api.YaegerGame;
 import com.github.hanyaeger.api.scenes.DynamicScene;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 

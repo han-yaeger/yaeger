@@ -3,7 +3,7 @@ package com.github.hanyaeger.core.entities;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.YaegerEntity;
-import com.github.hanyaeger.core.scenes.YaegerScene;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 
 /**
  * A {@link Placeable} has a methods that can be used to place it at a different x,y-coordinates
@@ -27,7 +27,7 @@ public interface Placeable extends Bounded, Anchorable {
 
     /**
      * Set the {@link Coordinate2D} where the {@link AnchorPoint} of this {@link YaegerEntity} will be placed, within
-     * the {@link com.github.hanyaeger.core.scenes.YaegerScene}.
+     * the {@link YaegerScene}.
      *
      * @param anchorLocation the {@link Coordinate2D} that should be used
      */
@@ -35,7 +35,7 @@ public interface Placeable extends Bounded, Anchorable {
 
     /**
      * Return the {@link Coordinate2D} where the {@link AnchorPoint} of this {@link YaegerEntity} is placed, within
-     * the {@link com.github.hanyaeger.core.scenes.YaegerScene}.
+     * the {@link YaegerScene}.
      *
      * @return the {@link Coordinate2D} that is currently being used
      */

@@ -7,8 +7,9 @@ import com.github.hanyaeger.api.entities.YaegerEntity;
 import javafx.scene.input.MouseButton;
 
 /**
- * Being a {@link MouseButtonPressedListener} enables the {@link YaegerEntity} to be notified if a {@link MouseButton} has been clicked
- * while the mouse pointer is on the {@link YaegerEntity}.
+ * Being a {@link MouseButtonPressedListener} enables the {@link YaegerEntity} or {@link com.github.hanyaeger.api.scenes.YaegerScene}
+ * to be notified if a {@link MouseButton} has been clicked while the mouse pointer is on the {@link YaegerEntity} or
+ * {@link com.github.hanyaeger.api.scenes.YaegerScene}.
  */
 public interface MouseButtonPressedListener extends GameNode {
 
@@ -21,10 +22,13 @@ public interface MouseButtonPressedListener extends GameNode {
     void onMouseButtonPressed(final MouseButton button, final Coordinate2D coordinate2D);
 
     /**
-     * Attach a mousePressedListener to this entity.
+     * Attach a mousePressedListener to this {@link YaegerEntity} or {@link com.github.hanyaeger.api.scenes.YaegerScene}.
      */
     @OnActivation
     default void attachMousePressedListener() {
-        getNode().ifPresent(node -> node.setOnMousePressed(event -> onMouseButtonPressed(event.getButton(), new Coordinate2D(event.getX(), event.getY()))));
+        getNode().ifPresent(node -> node.setOnMousePressed(event -> {
+            onMouseButtonPressed(event.getButton(), new Coordinate2D(event.getX(), event.getY()));
+            event.consume();
+        }));
     }
 }
