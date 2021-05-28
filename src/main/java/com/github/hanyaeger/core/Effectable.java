@@ -12,7 +12,7 @@ import com.github.hanyaeger.api.scenes.YaegerScene;
 public interface Effectable {
 
     /**
-     * Set the brightness of the whole {@link YaegerScene}. The value should be a value between
+     * Set the brightness of the {@link YaegerScene} or {@link YaegerEntity}. The value should be a value between
      * -1 and 1, inclusive.
      * <p>
      * The brightness adjustment value.
@@ -21,12 +21,12 @@ public interface Effectable {
      *      Max: +1.0 Fully bright
      * </pre>
      *
-     * @param brightness the brightness as a {@code double}, between 0 and 1
+     * @param brightness the brightness as a {@code double}, between -1 and 1
      */
     void setBrightness(final double brightness);
 
     /**
-     * Return the brightness level of this scene. Brightness is a {@code double}
+     * Return the brightness level of this {@link YaegerScene} or {@link YaegerEntity}. Brightness is a {@code double}
      * between -1 and 1, where
      * <pre>
      *      Min: -1.0 Completely dark
@@ -36,4 +36,82 @@ public interface Effectable {
      * @return The brightness as a {@code double}.
      */
     double getBrightness();
+
+    /**
+     * Set the contrast of the {@link YaegerScene} or {@link YaegerEntity}. The value should be a value between
+     * -1 and 1, inclusive.
+     * <p>
+     * The contrast adjustment value.
+     * <pre>
+     *      Min: -1.0 No contrast
+     *      Max: +1.0 Maximum contrast
+     * </pre>
+     *
+     * @param contrast the contrast as a {@code double}, between -1 and 1
+     */
+    void setContrast(final double contrast);
+
+    /**
+     * Return the contrast level of this {@link YaegerScene} or {@link YaegerEntity}. Contrast is a {@code double}
+     * between -1 and 1, where
+     * <pre>
+     *      Min: -1.0 No contrast
+     *      Max: +1.0 Maximum contrast
+     * </pre>
+     *
+     * @return The contrast as a {@code double}.
+     */
+    double getContrast();
+
+    /**
+     * Set the hue of the {@link YaegerScene} or {@link YaegerEntity}. The value should be a value between
+     * -1 and 1, inclusive.
+     * <p>
+     * The contrast adjustment value.
+     * <pre>
+     *      Min: -1.0 Minimum hue
+     *      Max: +1.0 Maximum hue
+     * </pre>
+     *
+     * @param hue the hue as a {@code double}, between -1 and 1
+     */
+    void setHue(final double hue);
+
+    /**
+     * Return the contrast level of this {@link YaegerScene} or {@link YaegerEntity}. Hue is a {@code double}
+     * between -1 and 1, where
+     * <pre>
+     *      Min: -1.0 Minimum hue
+     *      Max: +1.0 Maximum hue
+     * </pre>
+     *
+     * @return The contrast as a {@code double}.
+     */
+    double getHue();
+
+    /**
+     * Set the saturation of the {@link YaegerScene} or {@link YaegerEntity}. The value should be a value between
+     * -1 and 1, inclusive.
+     * <p>
+     * The contrast adjustment value.
+     * <pre>
+     *      Min: -1.0 Minimum saturation
+     *      Max: +1.0 Maximum saturation
+     * </pre>
+     *
+     * @param saturation the saturation as a {@code double}, between -1 and 1
+     */
+    void setSaturation(final double saturation);
+
+    /**
+     * Return the saturation level of this {@link YaegerScene} or {@link YaegerEntity}. Saturation is a {@code double}
+     * between -1 and 1, where
+     * <pre>
+     *      Min: -1.0 Minimum saturation
+     *      Max: +1.0 Maximum saturation
+     * </pre>
+     *
+     * @return The saturation as a {@code double}.
+     */
+    double getSaturation();
 }
