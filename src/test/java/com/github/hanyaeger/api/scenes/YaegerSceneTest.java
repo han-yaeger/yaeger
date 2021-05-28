@@ -121,6 +121,36 @@ class YaegerSceneTest {
         }
 
         @Override
+        public void setContrast(double contrast) {
+
+        }
+
+        @Override
+        public double getContrast() {
+            return 0;
+        }
+
+        @Override
+        public void setHue(double hue) {
+
+        }
+
+        @Override
+        public double getHue() {
+            return 0;
+        }
+
+        @Override
+        public void setSaturation(double saturation) {
+
+        }
+
+        @Override
+        public double getSaturation() {
+            return 0;
+        }
+
+        @Override
         public Scene getScene() {
             return scene;
         }
