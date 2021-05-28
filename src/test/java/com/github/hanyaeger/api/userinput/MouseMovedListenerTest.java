@@ -6,14 +6,20 @@ import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.repositories.DragNDropRepository;
 import com.google.inject.Injector;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -21,42 +27,113 @@ class MouseMovedListenerTest {
 
     private static final Coordinate2D DEFAULT_LOCATION = new Coordinate2D(0, 0);
 
+    private Node node;
 
-    @Test
-    void attachMouseMovedListenerAttachesMouseListenerToEntity() {
-        // Arrange
-        var node = mock(Node.class, withSettings().withoutAnnotations());
-        var scene = mock(Scene.class);
-        var mouseMovedListener = new MouseMovedListeningEntityImpl(DEFAULT_LOCATION);
-        mouseMovedListener.setNode(node);
-
-        when(node.getScene()).thenReturn(scene);
-
-        // Act
-        mouseMovedListener.attachMouseMovedListener();
-
-        // Assert
-        verify(scene).setOnMouseMoved(any());
+    @BeforeEach
+    void setup() {
+        node = mock(Node.class, withSettings().withoutAnnotations());
     }
 
-    @Test
-    void attachMouseMovedListenerAttachesMouseListenerToScene() {
-        // Arrange
-        var node = mock(Node.class, withSettings().withoutAnnotations());
-        var mouseMovedListener = new MouseMovedListeningSceneImpl();
-        mouseMovedListener.setNode(node);
+    @Nested
+    class MouseMovedListeningEntity {
 
-        // Act
-        mouseMovedListener.attachMouseMovedListener();
+        private MouseMovedListeningEntityImpl sut;
+        private Scene scene;
 
-        // Assert
-        verify(node).setOnMouseMoved(any());
+        @BeforeEach
+        void setup() {
+
+            scene = mock(Scene.class);
+            sut = new MouseMovedListeningEntityImpl(DEFAULT_LOCATION);
+            sut.setNode(node);
+
+            when(node.getScene()).thenReturn(scene);
+        }
+
+        @Test
+        void attachMouseMovedListenerAttachesMouseListenerToEntity() {
+            // Arrange
+
+            // Act
+            sut.attachMouseMovedListener();
+
+            // Assert
+            verify(scene).setOnMouseMoved(any());
+        }
+
+        @Test
+        void callingEventFromEventHandlerCallsonMouseButtonPressedWithCorrectCoordinates() {
+            // Arrange
+            ArgumentCaptor<EventHandler> eventHandlerArgumentCaptor = ArgumentCaptor.forClass(EventHandler.class);
+            sut.attachMouseMovedListener();
+            verify(scene).setOnMouseMoved(eventHandlerArgumentCaptor.capture());
+
+            var x = 37D;
+            var y = 42D;
+
+            var mouseEvent = mock(MouseEvent.class);
+            when(mouseEvent.getX()).thenReturn(x);
+            when(mouseEvent.getY()).thenReturn(y);
+
+            // Act
+            eventHandlerArgumentCaptor.getValue().handle(mouseEvent);
+
+            // Assert
+            assertEquals(x, sut.getCoordinate().getX());
+            assertEquals(y, sut.getCoordinate().getY());
+        }
+    }
+
+    @Nested
+    class MouseMovedListeningScene {
+
+        private MouseMovedListeningSceneImpl sut;
+
+        @BeforeEach
+        void setup() {
+
+            sut = new MouseMovedListeningSceneImpl();
+            sut.setNode(node);
+        }
+
+        @Test
+        void attachMouseMovedListenerAttachesMouseListenerToScene() {
+            // Arrange
+
+
+            // Act
+            sut.attachMouseMovedListener();
+
+            // Assert
+            verify(node).setOnMouseMoved(any());
+        }
+
+        @Test
+        void callingEventFromEventHandlerCallsonMouseButtonPressedWithCorrectCoordinates() {
+            // Arrange
+            ArgumentCaptor<EventHandler> eventHandlerArgumentCaptor = ArgumentCaptor.forClass(EventHandler.class);
+            sut.attachMouseMovedListener();
+            verify(node).setOnMouseMoved(eventHandlerArgumentCaptor.capture());
+
+            var x = 37D;
+            var y = 42D;
+
+            var mouseEvent = mock(MouseEvent.class);
+            when(mouseEvent.getX()).thenReturn(x);
+            when(mouseEvent.getY()).thenReturn(y);
+
+            // Act
+            eventHandlerArgumentCaptor.getValue().handle(mouseEvent);
+
+            // Assert
+            assertEquals(x, sut.getCoordinate().getX());
+            assertEquals(y, sut.getCoordinate().getY());
+        }
     }
 
     @Test
     void attachMouseMovedListenerToOtherDoesNothing() {
         // Arrange
-        var node = mock(Node.class, withSettings().withoutAnnotations());
         var mouseMovedListener = new MouseMovedListenerImpl();
         mouseMovedListener.setNode(node);
 
@@ -70,6 +147,7 @@ class MouseMovedListenerTest {
     private static class MouseMovedListenerImpl implements MouseMovedListener {
 
         private Node node;
+        private Coordinate2D releasedCoordinates;
 
         public void setNode(Node node) {
             this.node = node;
@@ -89,6 +167,7 @@ class MouseMovedListenerTest {
     private static class MouseMovedListeningSceneImpl implements YaegerScene, MouseMovedListener {
 
         private Node node;
+        private Coordinate2D coordinate;
 
         @Override
         public void clear() {
@@ -176,29 +255,29 @@ class MouseMovedListenerTest {
 
         @Override
         public void onMouseMoved(Coordinate2D coordinate2D) {
-
+            this.coordinate = coordinate2D;
         }
 
         @Override
         public void setDragNDropRepository(DragNDropRepository dragNDropRepository) {
-            
+
         }
 
         @Override
         public DragNDropRepository getDragNDropRepository() {
             return null;
         }
+
+        public Coordinate2D getCoordinate() {
+            return coordinate;
+        }
     }
 
     private static class MouseMovedListeningEntityImpl extends YaegerEntity implements MouseMovedListener {
 
         private Node node;
+        private Coordinate2D coordinate;
 
-        /**
-         * Create a new {@link YaegerEntity} on the given {@link Coordinate2D}.
-         *
-         * @param initialLocation the initial {@link Coordinate2D} of this {@link YaegerEntity}
-         */
         protected MouseMovedListeningEntityImpl(Coordinate2D initialLocation) {
             super(initialLocation);
         }
@@ -214,7 +293,11 @@ class MouseMovedListenerTest {
 
         @Override
         public void onMouseMoved(Coordinate2D coordinate2D) {
+            this.coordinate = coordinate2D;
+        }
 
+        public Coordinate2D getCoordinate() {
+            return coordinate;
         }
     }
 }

@@ -9,24 +9,21 @@ import java.util.Optional;
 public class MouseDraggingEntity extends YaegerEntity implements MouseDraggedListener {
 
     private Node node;
+    private Coordinate2D draggedLocation;
+    private Coordinate2D droppedLocation;
 
-    /**
-     * Create a new {@link YaegerEntity} on the given {@link Coordinate2D}.
-     *
-     * @param initialLocation the initial {@link Coordinate2D} of this {@link YaegerEntity}
-     */
     protected MouseDraggingEntity(Coordinate2D initialLocation) {
         super(initialLocation);
     }
 
     @Override
     public void onDragged(Coordinate2D coordinate2D) {
-
+        draggedLocation = coordinate2D;
     }
 
     @Override
     public void onDropped(Coordinate2D coordinate2D) {
-
+        droppedLocation = coordinate2D;
     }
 
     public void setNode(Node node) {
@@ -35,5 +32,13 @@ public class MouseDraggingEntity extends YaegerEntity implements MouseDraggedLis
 
     public Optional<? extends Node> getNode() {
         return Optional.of(node);
+    }
+
+    public Coordinate2D getDraggedLocation() {
+        return draggedLocation;
+    }
+
+    public Coordinate2D getDroppedLocation() {
+        return droppedLocation;
     }
 }
