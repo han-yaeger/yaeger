@@ -29,7 +29,7 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
      *
      * @param initialPosition the initial {@link Coordinate2D} of this {@link DynamicTextEntity}
      */
-    public DynamicTextEntity(final Coordinate2D initialPosition) {
+    protected DynamicTextEntity(final Coordinate2D initialPosition) {
         this(initialPosition, "");
     }
 
@@ -39,7 +39,7 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
      * @param initialPosition the initial {@link Coordinate2D} of this {@link DynamicTextEntity}
      * @param text            a {@link String} containing the initial textDelegate to be displayed
      */
-    public DynamicTextEntity(final Coordinate2D initialPosition, final String text) {
+    protected DynamicTextEntity(final Coordinate2D initialPosition, final String text) {
         super(initialPosition, text);
 
         buffer = Optional.of(new EntityMotionInitBuffer());

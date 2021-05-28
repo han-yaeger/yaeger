@@ -33,7 +33,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      * @param resource        the url of the image file. Relative to the resources folder
      * @param initialLocation the initial {@link Coordinate2D} of this Entity
      */
-    public DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation) {
+    protected DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation) {
         this(resource, initialLocation, null, 1, 1);
     }
 
@@ -46,7 +46,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      * @param rows            the number of rows the Image contains
      * @param columns         the number of columns the Image contains
      */
-    public DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation, final int rows, final int columns) {
+    protected DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation, final int rows, final int columns) {
         this(resource, initialLocation, null, rows, columns);
     }
 
@@ -58,7 +58,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      * @param size            the {@link Size} (width and height) with which the image should be shown. This {@link Size}
      *                        will also be used as the {@link javafx.geometry.BoundingBox} in case of collision detection
      */
-    public DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation, final Size size) {
+    protected DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation, final Size size) {
         this(resource, initialLocation, size, 1, 1);
     }
 
@@ -73,7 +73,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      * @param rows            the number of rows the Image contains
      * @param columns         the number of columns the Image contains
      */
-    public DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation, final Size size, final int rows, final int columns) {
+    protected DynamicSpriteEntity(final String resource, final Coordinate2D initialLocation, final Size size, final int rows, final int columns) {
         super(resource, initialLocation, size, rows, columns);
 
         buffer = Optional.of(new EntityMotionInitBuffer());

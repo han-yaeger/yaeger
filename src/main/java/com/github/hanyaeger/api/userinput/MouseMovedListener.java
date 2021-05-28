@@ -27,13 +27,13 @@ public interface MouseMovedListener extends GameNode {
     @OnActivation
     default void attachMouseMovedListener() {
         if (this instanceof YaegerEntity) {
-            getNode().ifPresent(node -> node.getScene().setOnMouseMoved(event -> {
-                onMouseMoved(new Coordinate2D(event.getX(), event.getY()));
-            }));
+            getNode().ifPresent(node -> node.getScene().setOnMouseMoved(event ->
+                    onMouseMoved(new Coordinate2D(event.getX(), event.getY()))
+            ));
         } else if (this instanceof YaegerScene) {
-            getNode().ifPresent(node -> node.setOnMouseMoved(event -> {
-                onMouseMoved(new Coordinate2D(event.getX(), event.getY()));
-            }));
+            getNode().ifPresent(node -> node.setOnMouseMoved(event ->
+                    onMouseMoved(new Coordinate2D(event.getX(), event.getY()))
+            ));
         }
     }
 }

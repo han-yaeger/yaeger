@@ -50,7 +50,7 @@ public abstract class CompositeEntity extends YaegerEntity {
     List<YaegerEntity> garbage = new ArrayList<>();
     Optional<Group> group = Optional.empty();
 
-    public CompositeEntity(final Coordinate2D initialLocation) {
+    protected CompositeEntity(final Coordinate2D initialLocation) {
         super(initialLocation);
     }
 
@@ -63,7 +63,7 @@ public abstract class CompositeEntity extends YaegerEntity {
      *
      * @param yaegerEntity The {@link YaegerEntity} to be added.
      */
-    public void addEntity(final YaegerEntity yaegerEntity) {
+    protected void addEntity(final YaegerEntity yaegerEntity) {
         entities.add(yaegerEntity);
     }
 

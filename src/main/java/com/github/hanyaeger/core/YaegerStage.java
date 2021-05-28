@@ -5,7 +5,6 @@ import com.github.hanyaeger.api.YaegerGame;
 import com.github.hanyaeger.core.factories.SceneFactory;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import com.github.hanyaeger.api.scenes.YaegerScene;

@@ -29,7 +29,7 @@ public abstract class DynamicEllipseEntity extends EllipseEntity implements Upda
      *
      * @param initialPosition the initial position at which this {@link DynamicEllipseEntity} should be placed
      */
-    public DynamicEllipseEntity(final Coordinate2D initialPosition) {
+    protected DynamicEllipseEntity(final Coordinate2D initialPosition) {
         super(initialPosition);
 
         buffer = Optional.of(new EntityMotionInitBuffer());
@@ -44,7 +44,7 @@ public abstract class DynamicEllipseEntity extends EllipseEntity implements Upda
      * @param initialPosition the initial position at which this {@link DynamicEllipseEntity} should be placed
      * @param size            the {@link Size} of this {@link DynamicEllipseEntity}
      */
-    public DynamicEllipseEntity(final Coordinate2D initialPosition, final Size size) {
+    protected DynamicEllipseEntity(final Coordinate2D initialPosition, final Size size) {
         super(initialPosition);
         this.radiusX = size.width() / 2;
         this.radiusY = size.height() / 2;

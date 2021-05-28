@@ -25,7 +25,7 @@ public abstract class CircleEntity extends CenteredShapeEntity<Circle> {
      *
      * @param initialPosition the initial position at which this {@link CircleEntity} should be placed
      */
-    public CircleEntity(final Coordinate2D initialPosition) {
+    protected CircleEntity(final Coordinate2D initialPosition) {
         super(initialPosition);
     }
 
