@@ -48,7 +48,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
 
     private final ColorAdjust colorAdjust = new ColorAdjust();
     private DragNDropRepository dragNDropRepository;
-  
+
     /**
      * Create a new {@link YaegerEntity} on the given {@link Coordinate2D}.
      *
@@ -287,7 +287,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
 
     @Override
     public void init(final Injector injector) {
-        getNode().ifPresent(Node -> getNode().get().setEffect(colorAdjust));
+        getNode().ifPresent(node -> node.setEffect(colorAdjust));
         setVisible(visible);
         setOpacity(opacity);
         cursor.ifPresent(this::setCursor);
