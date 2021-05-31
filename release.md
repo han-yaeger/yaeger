@@ -34,5 +34,6 @@
     * `MouseDragEnterListener`
     * `MouseDragExitListener`
     * `MouseDropListener`
+* Added methods to both `YaegerEntity` and `YaegerScene` to set the *contrast*, *hue* and *saturation* (#92).
 
 ## Bugfixes
