@@ -4,10 +4,8 @@ import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 
 /**
- * By implementing the interface {@link Effectable}, it is possible to applies
- * various effects on a {@link javafx.scene.Node} from a {@link YaegerScene}. This
- * can be either the {@link YaegerScene} itself, or the instances of {@link YaegerEntity}
- * that populate the {@link YaegerScene}.
+ * By implementing the interface {@link Effectable}, it is possible to apply
+ * various effects on both a {@link YaegerScene} and a {@link YaegerEntity}.
  */
 public interface Effectable {
 
