@@ -20,6 +20,7 @@ import com.github.hanyaeger.core.entities.EntityCollection;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -289,38 +290,6 @@ class StaticSceneTest {
     }
 
     @Test
-    void setBrightnessDelegatesToTheColorAdjust() {
-        // Arrange
-        var brightness = -0.37;
-        var colorAdjust = mock(ColorAdjust.class);
-
-        sut.setColorAdjust(colorAdjust);
-
-        // Act
-        sut.setBrightness(brightness);
-
-        // Verify
-        verify(colorAdjust).setBrightness(brightness);
-    }
-
-    @Test
-    void getBrightnessDelegatesToTheColorAdjust() {
-        // Arrange
-        var brightness = -0.37;
-        var colorAdjust = mock(ColorAdjust.class);
-
-        sut.setColorAdjust(colorAdjust);
-
-        when(colorAdjust.getBrightness()).thenReturn(brightness);
-
-        // Act
-        double actual = sut.getBrightness();
-
-        // Verify
-        assertEquals(actual, brightness);
-    }
-
-    @Test
     void getSceneReturnsExpectedScene() {
         // Arrange
         sut.activate();
@@ -384,6 +353,123 @@ class StaticSceneTest {
         // Verify
         verify(entityCollection).registerSupplier(any());
         verify(entityCollection).initialUpdate();
+    }
+
+    @Nested
+    class EffectableTests {
+
+        private static final double BRIGHTNESS = 0.37D;
+        private static final double CONTRAST = 0.314159D;
+        private static final double HUE = 0.42D;
+        private static final double SATURATION = 0.27D;
+
+        @Test
+        void setBrightnessDelegatesToTheColorAdjust() {
+            // Arrange
+            var colorAdjust = mock(ColorAdjust.class);
+            sut.setColorAdjust(colorAdjust);
+
+            // Act
+            sut.setBrightness(BRIGHTNESS);
+
+            // Verify
+            verify(colorAdjust).setBrightness(BRIGHTNESS);
+        }
+
+        @Test
+        void getBrightnessDelegatesToTheColorAdjust() {
+            // Arrange
+            var colorAdjust = mock(ColorAdjust.class);
+            sut.setColorAdjust(colorAdjust);
+            when(colorAdjust.getBrightness()).thenReturn(BRIGHTNESS);
+
+            // Act
+            double actual = sut.getBrightness();
+
+            // Verify
+            assertEquals(actual, BRIGHTNESS);
+        }
+
+        @Test
+        void setContrastDelegatesToTheColorAdjust() {
+            // Arrange
+            var colorAdjust = mock(ColorAdjust.class);
+            sut.setColorAdjust(colorAdjust);
+
+            // Act
+            sut.setContrast(CONTRAST);
+
+            // Verify
+            verify(colorAdjust).setContrast(CONTRAST);
+        }
+
+        @Test
+        void getConstrastDelegatesToTheColorAdjust() {
+            // Arrange
+            var colorAdjust = mock(ColorAdjust.class);
+            sut.setColorAdjust(colorAdjust);
+            when(colorAdjust.getContrast()).thenReturn(CONTRAST);
+
+            // Act
+            double actual = sut.getContrast();
+
+            // Verify
+            assertEquals(actual, CONTRAST);
+        }
+
+        @Test
+        void setHueDelegatesToTheColorAdjust() {
+            // Arrange
+            var colorAdjust = mock(ColorAdjust.class);
+            sut.setColorAdjust(colorAdjust);
+
+            // Act
+            sut.setHue(HUE);
+
+            // Verify
+            verify(colorAdjust).setHue(HUE);
+        }
+
+        @Test
+        void getHueDelegatesToTheColorAdjust() {
+            // Arrange
+            var colorAdjust = mock(ColorAdjust.class);
+            sut.setColorAdjust(colorAdjust);
+            when(colorAdjust.getHue()).thenReturn(HUE);
+
+            // Act
+            double actual = sut.getHue();
+
+            // Verify
+            assertEquals(actual, HUE);
+        }
+
+        @Test
+        void setSaturationDelegatesToTheColorAdjust() {
+            // Arrange
+            var colorAdjust = mock(ColorAdjust.class);
+            sut.setColorAdjust(colorAdjust);
+
+            // Act
+            sut.setSaturation(SATURATION);
+
+            // Verify
+            verify(colorAdjust).setSaturation(SATURATION);
+        }
+
+        @Test
+        void getSaturationDelegatesToTheColorAdjust() {
+            // Arrange
+            var colorAdjust = mock(ColorAdjust.class);
+            sut.setColorAdjust(colorAdjust);
+            when(colorAdjust.getSaturation()).thenReturn(SATURATION);
+
+            // Act
+            double actual = sut.getSaturation();
+
+            // Verify
+            assertEquals(actual, SATURATION);
+        }
     }
 
     private static class StaticSceneImpl extends StaticScene {

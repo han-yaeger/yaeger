@@ -14,12 +14,15 @@ import javafx.geometry.BoundingBox;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.effect.ColorAdjust;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.ArgumentCaptor;
 
 import java.util.List;
 import java.util.Optional;
@@ -786,6 +789,85 @@ class YaegerEntityTest {
         );
     }
 
+    @Nested
+    class EffectableTests {
+
+        private static final double BRIGHTNESS = 0.37D;
+        private static final double CONTRAST = 0.314159D;
+        private static final double HUE = 0.42D;
+        private static final double SATURATION = 0.27D;
+
+        @Test
+        void initSetsEffectsAdjustOnNode() {
+            // Arrange
+
+            // Act
+            sut.init(injector);
+
+            // Assert
+            verify(node).setEffect(any(ColorAdjust.class));
+        }
+
+        @Test
+        void brightnessIsSetOnColorAdjust() {
+            // Arrange
+            ArgumentCaptor<ColorAdjust> colorAdjustArgumentCaptor = ArgumentCaptor.forClass(ColorAdjust.class);
+            sut.init(injector);
+            verify(node).setEffect(colorAdjustArgumentCaptor.capture());
+
+            // Act
+            sut.setBrightness(BRIGHTNESS);
+
+            // Assert
+            var actualBrightness = colorAdjustArgumentCaptor.getValue().getBrightness();
+            assertEquals(BRIGHTNESS, actualBrightness);
+        }
+
+        @Test
+        void contrastIsSetOnColorAdjust() {
+            // Arrange
+            ArgumentCaptor<ColorAdjust> colorAdjustArgumentCaptor = ArgumentCaptor.forClass(ColorAdjust.class);
+            sut.init(injector);
+            verify(node).setEffect(colorAdjustArgumentCaptor.capture());
+
+            // Act
+            sut.setContrast(CONTRAST);
+
+            // Assert
+            var actualContrast = colorAdjustArgumentCaptor.getValue().getContrast();
+            assertEquals(CONTRAST, actualContrast);
+        }
+
+        @Test
+        void hueIsSetOnColorAdjust() {
+            // Arrange
+            ArgumentCaptor<ColorAdjust> colorAdjustArgumentCaptor = ArgumentCaptor.forClass(ColorAdjust.class);
+            sut.init(injector);
+            verify(node).setEffect(colorAdjustArgumentCaptor.capture());
+
+            // Act
+            sut.setHue(HUE);
+
+            // Assert
+            var actualHue = colorAdjustArgumentCaptor.getValue().getHue();
+            assertEquals(HUE, actualHue);
+        }
+
+        @Test
+        void saturationIsSetOnColorAdjust() {
+            // Arrange
+            ArgumentCaptor<ColorAdjust> colorAdjustArgumentCaptor = ArgumentCaptor.forClass(ColorAdjust.class);
+            sut.init(injector);
+            verify(node).setEffect(colorAdjustArgumentCaptor.capture());
+
+            // Act
+            sut.setSaturation(SATURATION);
+
+            // Assert
+            var actualSaturation = colorAdjustArgumentCaptor.getValue().getSaturation();
+            assertEquals(SATURATION, actualSaturation);
+        }
+    }
 
     private static class YaegerEntityImpl extends YaegerEntity {
 
