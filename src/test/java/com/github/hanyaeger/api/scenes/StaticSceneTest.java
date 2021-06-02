@@ -387,7 +387,7 @@ class StaticSceneTest {
             double actual = sut.getBrightness();
 
             // Verify
-            assertEquals(actual, BRIGHTNESS);
+            assertEquals(BRIGHTNESS, actual);
         }
 
         @Test
@@ -414,7 +414,7 @@ class StaticSceneTest {
             double actual = sut.getContrast();
 
             // Verify
-            assertEquals(actual, CONTRAST);
+            assertEquals(CONTRAST, actual);
         }
 
         @Test
@@ -441,7 +441,7 @@ class StaticSceneTest {
             double actual = sut.getHue();
 
             // Verify
-            assertEquals(actual, HUE);
+            assertEquals(HUE, actual);
         }
 
         @Test
@@ -468,7 +468,7 @@ class StaticSceneTest {
             double actual = sut.getSaturation();
 
             // Verify
-            assertEquals(actual, SATURATION);
+            assertEquals(SATURATION, actual);
         }
     }
 
