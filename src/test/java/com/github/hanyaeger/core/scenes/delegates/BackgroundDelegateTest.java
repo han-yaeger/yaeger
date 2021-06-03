@@ -19,6 +19,7 @@ import static org.mockito.Mockito.*;
 class BackgroundDelegateTest {
 
     private final String audioFile = "testAudio.mp3";
+    private final String secondAudioFile = "secondTestAudio.mp3";
     private final String imageFile = "testImage.png";
     private BackgroundDelegate sut;
     private BackgroundFactory backgroundFactory;
@@ -71,6 +72,25 @@ class BackgroundDelegateTest {
 
         // Verify
         verify(audioClip).play();
+    }
+
+    @Test
+    void setBackgroundAudioStopsPreviousChoseAudioFile() {
+        // Arrange
+        var audioClip = mock(AudioClip.class);
+        var secondAudioClip = mock(AudioClip.class);
+
+        var audioRepository = mock(AudioRepository.class);
+        sut.setAudioRepository(audioRepository);
+        when(audioRepository.get(audioFile, SoundClip.INDEFINITE)).thenReturn(audioClip);
+        when(audioRepository.get(secondAudioFile, SoundClip.INDEFINITE)).thenReturn(secondAudioClip);
+        sut.setBackgroundAudio(audioFile);
+
+        // Act
+        sut.setBackgroundAudio(secondAudioFile);
+
+        // Verify
+        verify(audioClip).stop();
     }
 
     @Test

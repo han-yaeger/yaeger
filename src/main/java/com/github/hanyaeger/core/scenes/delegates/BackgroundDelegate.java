@@ -44,6 +44,10 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
     public void setBackgroundAudio(final String backgroundAudioUrl) {
         if (backgroundAudioUrl != null) {
 
+            if (backgroundAudio != null) {
+                backgroundAudio.stop();
+            }
+
             backgroundAudio = audioRepository.get(backgroundAudioUrl, SoundClip.INDEFINITE);
             backgroundAudio.play();
         }

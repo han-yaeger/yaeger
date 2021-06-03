@@ -37,3 +37,5 @@
 * Added methods to both `YaegerEntity` and `YaegerScene` to set the *contrast*, *hue* and *saturation* (#92).
 
 ## Bugfixes
+
+* When a new background audio is set, the previous background audio is first stopped (#192).
