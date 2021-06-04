@@ -31,6 +31,12 @@ import java.util.Optional;
 
 public abstract class YaegerEntity implements Initializable, TimerListProvider, Bounded, Removable, Placeable, SceneChild, GameNode, Rotatable, EventInitiator, DragRepositoryAccessor, Effectable {
 
+    /**
+     * The default value for the viewOrder for instances of {@link YaegerEntity} that are
+     * part of an {@link com.github.hanyaeger.api.scenes.TileMap}.
+     */
+    public static final double VIEW_ORDER_DEFAULT_BEHIND = 100D;
+
     static final boolean DEFAULT_VISIBILITY = true;
     static final double DEFAULT_OPACITY = 1;
 
@@ -39,6 +45,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
 
     private boolean visible = DEFAULT_VISIBILITY;
     private double opacity = DEFAULT_OPACITY;
+    private double viewOrder = -1;
 
     private Optional<Cursor> cursor = Optional.empty();
     private final List<Timer> timers = new ArrayList<>();
@@ -288,6 +295,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     @Override
     public void init(final Injector injector) {
         getNode().ifPresent(node -> node.setEffect(colorAdjust));
+        getNode().ifPresent(node -> node.setViewOrder(viewOrder)); // TODO test
         setVisible(visible);
         setOpacity(opacity);
         cursor.ifPresent(this::setCursor);
@@ -448,5 +456,24 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     @Override
     public DragNDropRepository getDragNDropRepository() {
         return dragNDropRepository;
+    }
+
+    /**
+     * Set the viewOrder of this {@link YaegerEntity}. The viewOrder defines the rendering order
+     * of this {@link YaegerEntity} within the {@link YaegerScene}. The lower the viewOrder, the closer
+     * the {@link YaegerEntity} is to the front of the {@link YaegerScene}.
+     * <p>
+     * A {@link YaegerEntity} that is part of an {@link com.github.hanyaeger.api.scenes.TileMap} will default
+     * to the value 100 to ensure it is placed behind other Entities.
+     * <p><
+     * If no viewOrder is explicitly set, it will default to 0.
+     * <p>
+     * TODO test
+     *
+     * @param viewOrder the value of viewOrder as a {@code double}
+     */
+    public void setViewOrder(final double viewOrder) {
+        getNode().ifPresentOrElse(node -> node.setViewOrder(viewOrder),
+                () -> this.viewOrder = viewOrder);
     }
 }
