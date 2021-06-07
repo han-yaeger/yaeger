@@ -51,6 +51,13 @@ public interface TimerContainer extends TimerListProvider {
      */
     void setupTimers();
 
+    /**
+     * Return an {@link Updatable} that, when called, call all the timers that were
+     * added to this {@code TimerContainer}.
+     *
+     * @return an {@link Updatable} that delegates the {@link Updatable#update(long)} to
+     * all timers
+     */
     @UpdatableProvider
     default Updatable callTimers() {
         return timestamp -> {

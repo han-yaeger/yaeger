@@ -10,7 +10,8 @@ public interface DragRepositoryAccessor {
 
     /**
      * Set the {@link DragNDropRepository}
-     * @param dragNDropRepository
+     *
+     * @param dragNDropRepository the {@link DragNDropRepository} to be used
      */
     void setDragNDropRepository(DragNDropRepository dragNDropRepository);
 

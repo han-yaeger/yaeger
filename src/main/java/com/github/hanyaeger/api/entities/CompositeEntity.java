@@ -140,6 +140,14 @@ public abstract class CompositeEntity extends YaegerEntity {
         return Optional.empty();
     }
 
+    /**
+     * Set the {@link Group} that is used within this {@code CompositeEntity}. All
+     * instances of {@link YaegerEntity} that are added to this {@code CompositeEntity}
+     * are packaged together within this {@link Group}. Within it, they have their own
+     * coordinate-space and can be placed as a whole on the {@link YaegerScene}.
+     *
+     * @param group the {@link Group} to be used
+     */
     @Inject
     public void setGroup(final Group group) {
         this.group = Optional.of(group);
