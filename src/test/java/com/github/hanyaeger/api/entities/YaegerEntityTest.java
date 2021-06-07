@@ -3,8 +3,6 @@ package com.github.hanyaeger.api.entities;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Timer;
-import com.github.hanyaeger.api.entities.Direction;
-import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.core.entities.EntityCollection;
 import com.github.hanyaeger.core.entities.EntityProcessor;
 import com.google.inject.Injector;
@@ -124,6 +122,45 @@ class YaegerEntityTest {
         // Assert
         assertNotNull(timers);
         assertTrue(timers.isEmpty());
+    }
+
+    @Test
+    void initCallsSetViewOrderWithDefaultValueIfNoViewOrderHasBeenSet() {
+        // Arrange
+
+        // Act
+        sut.init(injector);
+
+        // Assert
+        verify(node).setViewOrder(YaegerEntity.VIEW_ORDER_DEFAULT);
+    }
+
+    @Test
+    void initCallsSetViewOrderWithSetValue() {
+        // Arrange
+        var expected = 42D;
+        sut.setViewOrder(expected);
+
+        // Act
+        sut.init(injector);
+
+        // Assert
+        verify(node).setViewOrder(expected);
+    }
+
+    @Test
+    void getViewOrderReturnsSetViewOrderBeforeNodeIsSet() {
+        // Arrange
+        sut.setNode(Optional.empty());
+
+        var expected = 42D;
+        sut.setViewOrder(expected);
+
+        // Act
+        var actual = sut.getViewOrder();
+
+        // Assert
+        assertEquals(actual, expected);
     }
 
     @Test

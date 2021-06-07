@@ -37,6 +37,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      */
     public static final double VIEW_ORDER_DEFAULT_BEHIND = 100D;
 
+    static final double VIEW_ORDER_DEFAULT = 37D;
     static final boolean DEFAULT_VISIBILITY = true;
     static final double DEFAULT_OPACITY = 1;
 
@@ -45,13 +46,12 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
 
     private boolean visible = DEFAULT_VISIBILITY;
     private double opacity = DEFAULT_OPACITY;
-    private double viewOrder = -1;
+    private double viewOrder = VIEW_ORDER_DEFAULT;
 
     private Optional<Cursor> cursor = Optional.empty();
     private final List<Timer> timers = new ArrayList<>();
 
     private final RotationBuffer rotationBuffer;
-
 
     private final ColorAdjust colorAdjust = new ColorAdjust();
     private DragNDropRepository dragNDropRepository;
@@ -295,7 +295,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     @Override
     public void init(final Injector injector) {
         getNode().ifPresent(node -> node.setEffect(colorAdjust));
-        getNode().ifPresent(node -> node.setViewOrder(viewOrder)); // TODO test
+        getNode().ifPresent(node -> node.setViewOrder(viewOrder));
         setVisible(visible);
         setOpacity(opacity);
         cursor.ifPresent(this::setCursor);
@@ -463,17 +463,31 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * of this {@link YaegerEntity} within the {@link YaegerScene}. The lower the viewOrder, the closer
      * the {@link YaegerEntity} is to the front of the {@link YaegerScene}.
      * <p>
+     * By default a {@link YaegerEntity} will receive the viewOrder of {@link #VIEW_ORDER_DEFAULT}.
      * A {@link YaegerEntity} that is part of an {@link com.github.hanyaeger.api.scenes.TileMap} will default
      * to the value 100 to ensure it is placed behind other Entities.
-     * <p><
-     * If no viewOrder is explicitly set, it will default to 0.
-     * <p>
-     * TODO test
      *
      * @param viewOrder the value of viewOrder as a {@code double}
      */
     public void setViewOrder(final double viewOrder) {
         getNode().ifPresentOrElse(node -> node.setViewOrder(viewOrder),
                 () -> this.viewOrder = viewOrder);
+    }
+
+    /**
+     * Return the viewOrder of this {@link YaegerEntity}. The viewOrder defines the rendering order
+     * of this {@link YaegerEntity} within the {@link YaegerScene}. The lower the viewOrder, the closer
+     * the {@link YaegerEntity} is to the front of the {@link YaegerScene}.
+     * <p>
+     * By default a {@link YaegerEntity} will receive the viewOrder of {@link #VIEW_ORDER_DEFAULT}.
+     * A {@link YaegerEntity} that is part of an {@link com.github.hanyaeger.api.scenes.TileMap} will default
+     * to the value 100 to ensure it is placed behind other Entities.
+     *
+     * @return the value of viewOrder as a {@code double}
+     */
+    public double getViewOrder() {
+        return getNode()
+                .map(Node::getViewOrder)
+                .orElse(viewOrder);
     }
 }

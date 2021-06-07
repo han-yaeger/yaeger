@@ -92,16 +92,31 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
         pane = null;
     }
 
+    /**
+     * Set the {@link ImageRepository} to be used for this {@code BackgroundDelegate}.
+     *
+     * @param imageRepository the {@link ImageRepository} to be used
+     */
     @Inject
     public void setImageRepository(final ImageRepository imageRepository) {
         this.imageRepository = imageRepository;
     }
 
+    /**
+     * Set the {@link AudioRepository} to be used for this {@code BackgroundDelegate}.
+     *
+     * @param audioRepository the {@link AudioRepository} to be used
+     */
     @Inject
     public void setAudioRepository(final AudioRepository audioRepository) {
         this.audioRepository = audioRepository;
     }
 
+    /**
+     * Set the {@link BackgroundFactory} to be used for this {@code BackgroundDelegate}.
+     *
+     * @param backgroundFactory the {@link BackgroundFactory} to be used
+     */
     @Inject
     public void setBackgroundFactory(final BackgroundFactory backgroundFactory) {
         this.backgroundFactory = backgroundFactory;

@@ -56,8 +56,8 @@ public class TileFactory {
             ((SpriteEntity) entity).setPreserveAspectRatio(false);
         }
 
-        // TODO test
         entity.setViewOrder(YaegerEntity.VIEW_ORDER_DEFAULT_BEHIND);
+
         return entity;
     }
 

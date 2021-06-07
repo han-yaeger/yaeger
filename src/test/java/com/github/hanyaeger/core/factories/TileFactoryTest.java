@@ -84,6 +84,17 @@ class TileFactoryTest {
     }
 
     @Test
+    void onCreatedEntityViewOrderIsSetToDefaultBehind() {
+        // Arrange
+
+        // Act
+        var entity = sut.create(SpriteEntityValidConstructorImpl.class, new Coordinate2D(1, 1), new Size(1, 1));
+
+        // Assert
+        assertEquals(YaegerEntity.VIEW_ORDER_DEFAULT_BEHIND, entity.getViewOrder());
+    }
+
+    @Test
     void entityWithConfigurationObjectShouldCallOverloadedConstructor() {
         // Arrange
         var entityConfiguration = new EntityConfiguration<String>(YaegerEntityConfigurableConstructorImpl.class, "sprite");

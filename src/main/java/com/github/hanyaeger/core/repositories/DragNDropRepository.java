@@ -31,6 +31,9 @@ public class DragNDropRepository {
         this.draggedObject = draggedObject;
     }
 
+    /**
+     * Clear the content of this repository. To be used the unset any {@link MouseDraggedListener}.
+     */
     public void clear() {
         this.draggedObject = null;
     }
