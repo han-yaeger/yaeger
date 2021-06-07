@@ -35,7 +35,13 @@
     * `MouseDragExitListener`
     * `MouseDropListener`
 * Added methods to both `YaegerEntity` and `YaegerScene` to set the *contrast*, *hue* and *saturation* (#92).
+* Added the option to set the `viewOrder` of a `YaegerEntity`. This enables the option to decide the rendering order of
+  all instances of `YaegerEntity` within a `YaegerScene`. By default, a new instance of `YaegerEntity` will receive
+  a `viewOrder` of 37. If the instance was created through a `TileMap` it receives a `viewOrder` of 100, placing it
+  behind other entities (#178).
 
 ## Bugfixes
 
 * When a new background audio is set, the previous background audio is first stopped (#192).
+* Through the exposure of the `setViewOrder(double)` method tile-maps no longer appear in front of regular entities
+  (#190).
