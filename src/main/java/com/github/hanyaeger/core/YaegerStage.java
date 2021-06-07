@@ -2,6 +2,7 @@ package com.github.hanyaeger.core;
 
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.YaegerGame;
+import com.github.hanyaeger.core.factories.SceneCollectionFactory;
 import com.github.hanyaeger.core.factories.SceneFactory;
 import com.google.inject.Inject;
 import com.google.inject.Injector;

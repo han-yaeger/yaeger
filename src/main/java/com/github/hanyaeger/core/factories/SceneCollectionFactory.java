@@ -1,5 +1,7 @@
-package com.github.hanyaeger.core;
+package com.github.hanyaeger.core.factories;
 
+import com.github.hanyaeger.core.SceneCollection;
+import com.github.hanyaeger.core.YaegerConfig;
 import javafx.stage.Stage;
 
 /**
