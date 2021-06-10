@@ -1,5 +1,8 @@
 # YAEGER_
 
+Yaeger is Another Education Game Engine Runtime, and a fully functional 2D game-engine that
+requires only a traditional Object-Oriented style of programming.
+
 ## Required Java version
 
 ## Howto read this manual

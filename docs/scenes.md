@@ -47,7 +47,7 @@ The first method to implement is `setupScene()`, which has the following signatu
 ```java
 @Override
 protected void setupScene(){
-        }
+}
 ```
 
 This method will be called first and must be used to set up the background image, background color and background audio
@@ -56,9 +56,9 @@ of the scene A typical implementation can look like:
 ```java
 @Override
 public void setupScene(){
-        setBackgroundAudio("audio/ocean.mp3");
-        setBackgroundImage("backgrounds/background1.jpg");
-        }
+    setBackgroundAudio("audio/ocean.mp3");
+    setBackgroundImage("backgrounds/background1.jpg");
+}
 ```
 
 For more information, check the
@@ -79,10 +79,10 @@ A typical implementation can ook like:
 ```java
 @Override
 public void setupEntities(){
-        addEntity(new Hanny(new Coordinate2D(1,1), waterworld));
-        addEntity(new Swordfish(new Coordinate2D(200,300)));
-        addEntity(new Sharky(new Coordinate2D(0,100)));
-        }
+    addEntity(new Hanny(new Coordinate2D(1,1), waterworld));
+    addEntity(new Swordfish(new Coordinate2D(200,300)));
+    addEntity(new Sharky(new Coordinate2D(0,100)));
+}
 ```
 
 ## What about the constructor?
