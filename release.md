@@ -34,6 +34,7 @@
     * `MouseDragEnterListener`
     * `MouseDragExitListener`
     * `MouseDropListener`
+    * `MouseMovedWhileDraggingListener`
 * Added methods to both `YaegerEntity` and `YaegerScene` to set the *contrast*, *hue* and *saturation* (#92).
 * Added the option to set the `viewOrder` of a `YaegerEntity`. This enables the option to decide the rendering order of
   all instances of `YaegerEntity` within a `YaegerScene`. By default, a new instance of `YaegerEntity` will receive

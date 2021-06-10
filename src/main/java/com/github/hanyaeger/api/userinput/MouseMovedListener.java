@@ -9,7 +9,8 @@ import com.github.hanyaeger.api.scenes.YaegerScene;
 /**
  * Being a {@link MouseMovedListener} enables the {@link YaegerEntity} or {@link YaegerScene} to be
  * notified if the mouse has been moved. On movement it will receive an event that contains a {@link Coordinate2D}
- * of the x and y-coordinate.
+ * of the x and y-coordinate. Note that this listener is only notified of mouse movement if the user is not dragging a
+ * {@link YaegerEntity} that implements {@link MouseDraggedListener}.
  */
 public interface MouseMovedListener extends GameNode {
 
