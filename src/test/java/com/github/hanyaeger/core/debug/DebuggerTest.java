@@ -1,6 +1,5 @@
 package com.github.hanyaeger.core.debug;
 
-import com.github.hanyaeger.core.repositories.AudioRepository;
 import com.github.hanyaeger.core.repositories.ImageRepository;
 import com.github.hanyaeger.core.factories.debug.DebugGridPaneFactory;
 import com.github.hanyaeger.core.factories.debug.DebugLabelFactory;
@@ -18,7 +17,6 @@ class DebuggerTest {
     private Pane pane;
 
     private ImageRepository imageRepository;
-    private AudioRepository audioRepository;
 
     private GridPane gridPane;
 
@@ -34,7 +32,6 @@ class DebuggerTest {
         when(pane.getChildren()).thenReturn(children);
 
         imageRepository = mock(ImageRepository.class);
-        audioRepository = mock(AudioRepository.class);
 
         gridPane = mock(GridPane.class);
         debugGridPaneFactory = mock(DebugGridPaneFactory.class);
@@ -43,7 +40,6 @@ class DebuggerTest {
         debugLabelFactory = mock(DebugLabelFactory.class);
 
         sut = new Debugger();
-        sut.setAudioRepository(audioRepository);
         sut.setImageRepository(imageRepository);
         sut.setDebugGridPaneFactory(debugGridPaneFactory);
         sut.setDebugLabelFactory(debugLabelFactory);

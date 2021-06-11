@@ -34,6 +34,8 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
      */
     public void setup(final Pane pane) {
         this.pane = pane;
+
+        this.audioRepository = AudioRepository.getInstance();
     }
 
     /**
@@ -100,16 +102,6 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
     @Inject
     public void setImageRepository(final ImageRepository imageRepository) {
         this.imageRepository = imageRepository;
-    }
-
-    /**
-     * Set the {@link AudioRepository} to be used for this {@code BackgroundDelegate}.
-     *
-     * @param audioRepository the {@link AudioRepository} to be used
-     */
-    @Inject
-    public void setAudioRepository(final AudioRepository audioRepository) {
-        this.audioRepository = audioRepository;
     }
 
     /**

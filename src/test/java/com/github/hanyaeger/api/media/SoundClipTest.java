@@ -10,7 +10,7 @@ import static org.mockito.Mockito.*;
 
 class SoundClipTest {
 
-    private final String DEFAULT_PATH = "waterworld/audio/ocean.mp3";
+    private final String DEFAULT_PATH = "audio/testaudio.mp3";
     private final int DEFAULT_CYCLE_COUNT = 1;
     private final int CUSTOM_CYCLE_COUNT = 37;
 

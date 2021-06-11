@@ -48,6 +48,8 @@ public class Debugger implements StatisticsObserver {
 
     public void setup(final Pane pane) {
         createGridPane(pane);
+
+        this.audioRepository = AudioRepository.getInstance();
     }
 
     /**
@@ -139,10 +141,10 @@ public class Debugger implements StatisticsObserver {
         return String.valueOf(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory());
     }
 
-    @Inject
-    public void setAudioRepository(final AudioRepository audioRepository) {
-        this.audioRepository = audioRepository;
-    }
+//    @Inject
+//    public void setAudioRepository(final AudioRepository audioRepository) {
+//        this.audioRepository = audioRepository;
+//    }
 
     @Inject
     public void setImageRepository(final ImageRepository imageRepository) {

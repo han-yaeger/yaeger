@@ -9,4 +9,5 @@
 - [Timing things](timing-things.md)
 - [Sounds](sounds.md)
 - [Command line arguments](commandline-arguments.md)
+- [Debugging](debugging.md)
 - [FAQ](faq.md)

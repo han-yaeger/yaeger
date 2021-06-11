@@ -32,7 +32,7 @@ class AudioRepositoryTest {
         audioRepository.destroy();
 
         // Act
-        AudioClip audioClip = audioRepository.get("waterworld/audio/waterworld.mp3");
+        AudioClip audioClip = audioRepository.get("audio/testaudio2.mp3");
 
         // Assert
         Assertions.assertNotNull(audioClip);
@@ -45,8 +45,8 @@ class AudioRepositoryTest {
         audioRepository.destroy();
 
         // Act
-        AudioClip audioClip1 = audioRepository.get("waterworld/audio/waterworld.mp3");
-        AudioClip audioClip2 = audioRepository.get("waterworld/audio/waterworld.mp3");
+        AudioClip audioClip1 = audioRepository.get("audio/testaudio2.mp3");
+        AudioClip audioClip2 = audioRepository.get("audio/testaudio2.mp3");
 
         // Assert
         Assertions.assertSame(audioClip1, audioClip2);
@@ -59,8 +59,8 @@ class AudioRepositoryTest {
         audioRepository.destroy();
 
         // Act
-        AudioClip audioClip1 = audioRepository.get("waterworld/audio/ocean.mp3");
-        AudioClip audioClip2 = audioRepository.get("waterworld/audio/waterworld.mp3");
+        AudioClip audioClip1 = audioRepository.get("audio/testaudio.mp3");
+        AudioClip audioClip2 = audioRepository.get("audio/testaudio2.mp3");
 
         // Assert
         Assertions.assertNotSame(audioClip1, audioClip2);
@@ -73,7 +73,7 @@ class AudioRepositoryTest {
         audioRepository.destroy();
 
         // Act
-        AudioClip audioClip = audioRepository.get("waterworld/audio/waterworld.mp3", 2);
+        AudioClip audioClip = audioRepository.get("audio/testaudio2.mp3", 2);
 
         // Assert
         Assertions.assertNotNull(audioClip);
@@ -86,8 +86,8 @@ class AudioRepositoryTest {
         audioRepository.destroy();
 
         // Act
-        AudioClip audioClip1 = audioRepository.get("waterworld/audio/waterworld.mp3");
-        AudioClip audioClip2 = audioRepository.get("waterworld/audio/waterworld.mp3", 3);
+        AudioClip audioClip1 = audioRepository.get("audio/testaudio2.mp3");
+        AudioClip audioClip2 = audioRepository.get("audio/testaudio2.mp3", 3);
 
         // Assert
         Assertions.assertNotSame(audioClip1, audioClip2);

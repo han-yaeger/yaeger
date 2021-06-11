@@ -10,7 +10,7 @@ public class ResourceNotAvailableException extends RuntimeException {
      * The error message to be shown when this exception occurs.
      */
     static final String MESSAGE = "Resource %s can not be found. Ensure that it is placed in resources/ folder. If it has" +
-            "been placed in a sub-folder of the resource folder, ensure that this folder has been opened through the module-descriptor";
+            " been placed in a sub-folder of the resource folder, ensure that this folder has been opened through the module-descriptor";
 
     /**
      * Instantiate a new {@code YaegerResourceNotAvailableException} for the given {@code resource}.

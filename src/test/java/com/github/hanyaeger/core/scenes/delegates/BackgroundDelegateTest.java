@@ -11,15 +11,17 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 
 
 import static org.mockito.Mockito.*;
 
 class BackgroundDelegateTest {
 
-    private final String audioFile = "testAudio.mp3";
-    private final String secondAudioFile = "secondTestAudio.mp3";
+    private final String audioFile = "audio/testaudio.mp3";
+    private final String secondAudioFile = "audio/testaudio2.mp3";
     private final String imageFile = "testImage.png";
     private BackgroundDelegate sut;
     private BackgroundFactory backgroundFactory;
@@ -29,127 +31,166 @@ class BackgroundDelegateTest {
     void setup() {
         pane = mock(Pane.class);
         backgroundFactory = mock(BackgroundFactory.class);
-
-        sut = new BackgroundDelegate();
-        sut.setBackgroundFactory(backgroundFactory);
-        sut.setup(pane);
     }
 
-    @Test
-    void destroyClearsBackgroundFill() {
-        // Arrange
+    @Nested
+    class AudioHandling {
 
-        // Act
-        sut.destroy();
-        // Verify
-        verify(pane).setBackground(null);
+        @BeforeEach
+        void setup() {
+            sut = new BackgroundDelegate();
+            sut.setBackgroundFactory(backgroundFactory);
+        }
+
+        @Test
+        void setNullBackgroundAudioDoesNotBreak() {
+            var audioRepository = mock(AudioRepository.class);
+
+            try (MockedStatic<AudioRepository> utilities = mockStatic(AudioRepository.class)) {
+                utilities.when(AudioRepository::getInstance).thenReturn(audioRepository);
+
+                // Arrange
+                sut.setup(pane);
+
+                // Act
+                sut.setBackgroundAudio(null);
+
+                // Assert
+                verifyNoInteractions(audioRepository);
+            }
+        }
+
+        @Test
+        void setBackgroundAudioPlaysAudioFile() {
+            // Arrange
+            var audioClip = mock(AudioClip.class);
+            var audioRepository = mock(AudioRepository.class);
+            when(audioRepository.get(audioFile, SoundClip.INDEFINITE)).thenReturn(audioClip);
+
+            try (MockedStatic<AudioRepository> utilities = mockStatic(AudioRepository.class)) {
+                utilities.when(AudioRepository::getInstance).thenReturn(audioRepository);
+
+                // Arrange
+                sut.setup(pane);
+
+                // Act
+                sut.setBackgroundAudio(audioFile);
+
+                // Assert
+                verify(audioClip).play();
+            }
+        }
+
+        @Test
+        void setBackgroundAudioStopsPreviousChoseAudioFile() {
+            // Arrange
+            var audioClip = mock(AudioClip.class);
+            var secondAudioClip = mock(AudioClip.class);
+
+            var audioRepository = mock(AudioRepository.class);
+            when(audioRepository.get(audioFile, SoundClip.INDEFINITE)).thenReturn(audioClip);
+            when(audioRepository.get(secondAudioFile, SoundClip.INDEFINITE)).thenReturn(secondAudioClip);
+
+            try (MockedStatic<AudioRepository> utilities = mockStatic(AudioRepository.class)) {
+                utilities.when(AudioRepository::getInstance).thenReturn(audioRepository);
+
+                // Arrange
+                sut.setup(pane);
+                sut.setBackgroundAudio(audioFile);
+
+                // Act
+                sut.setBackgroundAudio(secondAudioFile);
+
+                // Assert
+                verify(audioClip).stop();
+            }
+        }
+
+        @Test
+        void destroyStopsAudioFile() {
+            // Arrange
+            var audioClip = mock(AudioClip.class);
+            var audioRepository = mock(AudioRepository.class);
+            when(audioRepository.get(audioFile, SoundClip.INDEFINITE)).thenReturn(audioClip);
+
+            try (MockedStatic<AudioRepository> utilities = mockStatic(AudioRepository.class)) {
+                utilities.when(AudioRepository::getInstance).thenReturn(audioRepository);
+
+                // Arrange
+                sut.setup(pane);
+                sut.setBackgroundAudio(audioFile);
+
+                // Act
+                sut.destroy();
+
+                // Assert
+                verify(audioClip).stop();
+            }
+        }
     }
 
-    @Test
-    void setNullBackgroundAudioDoesNotBreak() {
-        // Arrange
-        var audioRepository = mock(AudioRepository.class);
-        sut.setAudioRepository(audioRepository);
+    @Nested
+    class ImageHandling {
 
-        // Act
-        sut.setBackgroundAudio(null);
+        @BeforeEach
+        void setup() {
+            sut = new BackgroundDelegate();
+            sut.setBackgroundFactory(backgroundFactory);
+            sut.setup(pane);
+        }
 
-        // Verify
-        verifyNoInteractions(audioRepository);
-    }
+        @Test
+        void destroyClearsBackgroundFill() {
+            // Arrange
 
-    @Test
-    void setBackgroundAudioPlaysAudioFile() {
-        // Arrange
-        var audioClip = mock(AudioClip.class);
+            // Act
+            sut.destroy();
 
-        var audioRepository = mock(AudioRepository.class);
-        sut.setAudioRepository(audioRepository);
-        when(audioRepository.get(audioFile, SoundClip.INDEFINITE)).thenReturn(audioClip);
+            // Assert
+            verify(pane).setBackground(null);
+        }
 
-        // Act
-        sut.setBackgroundAudio(audioFile);
+        @Test
+        void setBackgroundColorWithNullPaneDoesNotBreak() {
+            // Arrange
+            var paneIsNullSut = new BackgroundDelegate();
+            var color = Color.YELLOW;
 
-        // Verify
-        verify(audioClip).play();
-    }
+            // Act & Assert
+            Assertions.assertAll(() -> paneIsNullSut.setBackgroundColor(color));
+        }
 
-    @Test
-    void setBackgroundAudioStopsPreviousChoseAudioFile() {
-        // Arrange
-        var audioClip = mock(AudioClip.class);
-        var secondAudioClip = mock(AudioClip.class);
+        @Test
+        void setBackgroundColorDelegatesToScene() {
+            // Arrange
+            var color = Color.YELLOW;
 
-        var audioRepository = mock(AudioRepository.class);
-        sut.setAudioRepository(audioRepository);
-        when(audioRepository.get(audioFile, SoundClip.INDEFINITE)).thenReturn(audioClip);
-        when(audioRepository.get(secondAudioFile, SoundClip.INDEFINITE)).thenReturn(secondAudioClip);
-        sut.setBackgroundAudio(audioFile);
+            var background = mock(Background.class);
+            when(backgroundFactory.createFillBackground(color)).thenReturn(background);
 
-        // Act
-        sut.setBackgroundAudio(secondAudioFile);
+            // Act
+            sut.setBackgroundColor(color);
 
-        // Verify
-        verify(audioClip).stop();
-    }
+            // Assert
+            verify(pane).setBackground(background);
+        }
 
-    @Test
-    void setBackgroundColorWithNullPaneDoesNotBreak() {
-        // Arrange
-        var paneIsNullSut = new BackgroundDelegate();
-        var color = Color.YELLOW;
+        @Test
+        void setBackgroundImageSetImageOnScene() {
+            // Arrange
+            var image = mock(Image.class);
 
-        // Assert & Act
-        Assertions.assertAll(() -> paneIsNullSut.setBackgroundColor(color));
-    }
+            var imageRepository = mock(ImageRepository.class);
+            var background = mock(Background.class);
+            sut.setImageRepository(imageRepository);
+            when(imageRepository.get(imageFile)).thenReturn(image);
+            when(backgroundFactory.createImageBackground(image)).thenReturn(background);
 
-    @Test
-    void setBackgroundColorDelegatesToScene() {
-        // Arrange
-        var color = Color.YELLOW;
+            // Act
+            sut.setBackgroundImage(imageFile);
 
-        var background = mock(Background.class);
-        when(backgroundFactory.createFillBackground(color)).thenReturn(background);
-
-        // Act
-        sut.setBackgroundColor(color);
-
-        // Assert
-        verify(pane).setBackground(background);
-    }
-
-    @Test
-    void setBackgroundImageSetImageOnScene() {
-        // Arrange
-        var image = mock(Image.class);
-
-        var imageRepository = mock(ImageRepository.class);
-        var background = mock(Background.class);
-        sut.setImageRepository(imageRepository);
-        when(imageRepository.get(imageFile)).thenReturn(image);
-        when(backgroundFactory.createImageBackground(image)).thenReturn(background);
-
-        // Act
-        sut.setBackgroundImage(imageFile);
-
-        // Verify
-        verify(pane).setBackground(background);
-    }
-
-    @Test
-    void destroyStopsAudioFile() {
-        // Arrange
-        var audioClip = mock(AudioClip.class);
-
-        var audioRepository = mock(AudioRepository.class);
-        sut.setAudioRepository(audioRepository);
-        when(audioRepository.get(audioFile, SoundClip.INDEFINITE)).thenReturn(audioClip);
-        sut.setBackgroundAudio(audioFile);
-
-        // Act
-        sut.destroy();
-
-        // Verify
-        verify(audioClip).stop();
+            // Assert
+            verify(pane).setBackground(background);
+        }
     }
 }
