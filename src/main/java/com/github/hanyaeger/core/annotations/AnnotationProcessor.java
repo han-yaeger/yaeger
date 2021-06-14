@@ -62,7 +62,7 @@ public class AnnotationProcessor {
                     UpdatableProvider annotation = method.getAnnotation(UpdatableProvider.class);
                     try {
                         final var providedUpdatable = method.invoke(updateDelegator);
-                        if (providedUpdatable instanceofgit sta Updatable delegatedUpdatable) {
+                        if (providedUpdatable instanceof Updatable delegatedUpdatable) {
                             updateDelegator.getUpdater().addUpdatable(delegatedUpdatable, annotation.asFirst());
                         }
                     } catch (IllegalAccessException | InvocationTargetException | ClassCastException e) {
