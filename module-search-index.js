@@ -1,1 +1,1 @@
-moduleSearchIndex = [{"l":"hanyaeger.api"}]
+moduleSearchIndex = [{"l":"hanyaeger"}];updateSearchResults();
