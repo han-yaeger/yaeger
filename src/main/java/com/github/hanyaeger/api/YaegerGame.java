@@ -78,7 +78,8 @@ public abstract class YaegerGame extends Application {
     }
 
     /**
-     * Use this method to setup the Game. The following methods are available:
+     * Use this method to call the methods responsible for setting up the Yaeger Game. The following methods are
+     * available:
      *
      * <ul>
      *     <li>{@link #setSize(Size)}</li>

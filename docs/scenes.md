@@ -20,7 +20,7 @@ user interaction, but their behaviour will not be based on the concept of time. 
 
 * A Menu
 * A Game Over scene
-* A inventory selection scene
+* An inventory selection scene
 
 ### DynamicScene
 
