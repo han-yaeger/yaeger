@@ -74,7 +74,7 @@ order in which they are added to the scene. So newly added entities may overlap 
 
 More on entities in the following chapter of this documentation.
 
-A typical implementation can ook like:
+A typical implementation can look like:
 
 ```java
 @Override
