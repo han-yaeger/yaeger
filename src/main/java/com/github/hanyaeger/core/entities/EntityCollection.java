@@ -4,7 +4,6 @@ import com.github.hanyaeger.core.Initializable;
 import com.github.hanyaeger.core.Updatable;
 import com.github.hanyaeger.core.YaegerConfig;
 import com.github.hanyaeger.core.annotations.AnnotationProcessor;
-import com.github.hanyaeger.core.debug.StatisticsObserver;
 import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.userinput.KeyListener;

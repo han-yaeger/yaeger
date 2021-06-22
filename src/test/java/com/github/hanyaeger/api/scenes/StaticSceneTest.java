@@ -1,7 +1,7 @@
 package com.github.hanyaeger.api.scenes;
 
 import com.github.hanyaeger.core.YaegerConfig;
-import com.github.hanyaeger.core.debug.Debugger;
+import com.github.hanyaeger.core.entities.Debugger;
 import com.github.hanyaeger.core.entities.EntitySupplier;
 import com.github.hanyaeger.core.scenes.delegates.BackgroundDelegate;
 import com.github.hanyaeger.core.scenes.delegates.KeyListenerDelegate;

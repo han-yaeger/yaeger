@@ -4,7 +4,7 @@ package com.github.hanyaeger.core.entities;
  * An {@code EntityCollectionStatistics} is a DTO (Data Transfer Object) that contains
  * all current values from an {@link EntityCollection}.
  */
-public class EntityCollectionStatistics {
+class EntityCollectionStatistics {
 
     private int spawners;
     private int updatables;
@@ -12,43 +12,43 @@ public class EntityCollectionStatistics {
     private int garbage;
     private int statics;
 
-    public void setSuppliers(final int spawners) {
+    void setSuppliers(final int spawners) {
         this.spawners = spawners;
     }
 
-    public void setStatics(final int statics) {
+    void setStatics(final int statics) {
         this.statics = statics;
     }
 
-    public void setUpdatables(final int updatables) {
+    void setUpdatables(final int updatables) {
         this.updatables = updatables;
     }
 
-    public void setKeyListeners(final int keyListeners) {
+    void setKeyListeners(final int keyListeners) {
         this.keyListeners = keyListeners;
     }
 
-    public void setGarbage(final int garbage) {
+    void setGarbage(final int garbage) {
         this.garbage = garbage;
     }
 
-    public int getSuppliers() {
+    int getSuppliers() {
         return spawners;
     }
 
-    public int getStatics() {
+    int getStatics() {
         return statics;
     }
 
-    public int getUpdatables() {
+    int getUpdatables() {
         return updatables;
     }
 
-    public int getKeyListeners() {
+    int getKeyListeners() {
         return keyListeners;
     }
 
-    public int getGarbage() {
+    int getGarbage() {
         return garbage;
     }
 }

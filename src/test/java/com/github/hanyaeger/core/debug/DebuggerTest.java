@@ -1,5 +1,6 @@
 package com.github.hanyaeger.core.debug;
 
+import com.github.hanyaeger.core.entities.Debugger;
 import com.github.hanyaeger.core.repositories.ImageRepository;
 import com.github.hanyaeger.core.factories.debug.DebugGridPaneFactory;
 import com.github.hanyaeger.core.factories.debug.DebugLabelFactory;

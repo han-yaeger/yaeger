@@ -22,7 +22,6 @@ module hanyaeger {
 
     exports com.github.hanyaeger.core.factories.animationtimer to com.google.guice;
     exports com.github.hanyaeger.core.factories.debug to com.google.guice;
-    exports com.github.hanyaeger.core.debug to com.google.guice;
     exports com.github.hanyaeger.core.factories.image to com.google.guice;
     exports com.github.hanyaeger.core.repositories to com.google.guice;
     exports com.github.hanyaeger.core.annotations to com.google.guice;

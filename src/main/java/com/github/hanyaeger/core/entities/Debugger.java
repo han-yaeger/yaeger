@@ -1,4 +1,4 @@
-package com.github.hanyaeger.core.debug;
+package com.github.hanyaeger.core.entities;
 
 import com.google.inject.Inject;
 import javafx.scene.control.Label;
@@ -6,9 +6,7 @@ import javafx.scene.layout.GridPane;
 import com.github.hanyaeger.core.repositories.AudioRepository;
 import com.github.hanyaeger.core.repositories.ImageRepository;
 import com.github.hanyaeger.core.factories.debug.DebugLabelFactory;
-import com.github.hanyaeger.core.entities.EntityCollectionStatistics;
 import com.github.hanyaeger.core.factories.debug.DebugGridPaneFactory;
-import com.github.hanyaeger.core.entities.EntityCollection;
 import javafx.scene.layout.Pane;
 
 /**

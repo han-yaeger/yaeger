@@ -4,7 +4,7 @@ import com.github.hanyaeger.api.Timer;
 import com.github.hanyaeger.core.Updatable;
 import com.github.hanyaeger.core.Updater;
 import com.github.hanyaeger.core.YaegerConfig;
-import com.github.hanyaeger.core.debug.Debugger;
+import com.github.hanyaeger.core.entities.Debugger;
 import com.github.hanyaeger.core.entities.EntityCollection;
 import com.github.hanyaeger.core.entities.EntitySupplier;
 import com.github.hanyaeger.core.scenes.delegates.BackgroundDelegate;

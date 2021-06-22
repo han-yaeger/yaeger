@@ -2,7 +2,7 @@ package com.github.hanyaeger.api.scenes;
 
 import com.github.hanyaeger.core.DependencyInjector;
 import com.github.hanyaeger.core.YaegerConfig;
-import com.github.hanyaeger.core.debug.Debugger;
+import com.github.hanyaeger.core.entities.Debugger;
 import com.github.hanyaeger.core.repositories.DragNDropRepository;
 import com.github.hanyaeger.core.scenes.EntityCollectionSupplier;
 import com.github.hanyaeger.core.scenes.SupplierProvider;

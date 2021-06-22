@@ -3,7 +3,6 @@ package com.github.hanyaeger.core.entities;
 import com.github.hanyaeger.core.Updatable;
 import com.github.hanyaeger.core.YaegerConfig;
 import com.github.hanyaeger.core.annotations.AnnotationProcessor;
-import com.github.hanyaeger.core.debug.Debugger;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.userinput.KeyListener;

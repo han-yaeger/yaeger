@@ -1,6 +1,6 @@
 package com.github.hanyaeger.core.factories.debug;
 
-import com.github.hanyaeger.core.debug.Debugger;
+import com.github.hanyaeger.core.entities.Debugger;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
