@@ -49,12 +49,12 @@ jobs:
           MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
 
       - name: Create GitHub Release
-          uses: ncipollo/release-action@v1
-          with:
-            artifacts: "target/*.jar"
-            bodyFile: "release.md"
-            prerelease: true
-            token: ${{ secrets.GITHUB_TOKEN }}
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "target/*.jar"
+          bodyFile: "release.md"
+          prerelease: true
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: QA check Markdown content
         uses: nosborn/github-action-markdown-cli@v1.1.1
