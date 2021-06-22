@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="creating-a-game.html"><strong aria-hidden="true">2.</strong> Creating a game</a></li><li class="chapter-item expanded "><a href="scenes.html"><strong aria-hidden="true">3.</strong> Scenes aka Levels</a></li><li class="chapter-item expanded "><a href="entities.html"><strong aria-hidden="true">4.</strong> Entities aka Game Objecta</a></li><li class="chapter-item expanded "><a href="user-input.html"><strong aria-hidden="true">5.</strong> Handling user input</a></li><li class="chapter-item expanded "><a href="entity-interactions.html"><strong aria-hidden="true">6.</strong> Entity interactions</a></li><li class="chapter-item expanded "><a href="timing-things.html"><strong aria-hidden="true">7.</strong> Timing things</a></li><li class="chapter-item expanded "><a href="sounds.html"><strong aria-hidden="true">8.</strong> Sounds</a></li><li class="chapter-item expanded "><a href="commandline-arguments.html"><strong aria-hidden="true">9.</strong> Command line arguments</a></li><li class="chapter-item expanded "><a href="debugging.html"><strong aria-hidden="true">10.</strong> Debugging</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">11.</strong> FAQ</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="creating-a-game.html"><strong aria-hidden="true">2.</strong> Creating a game</a></li><li class="chapter-item expanded "><a href="scenes.html"><strong aria-hidden="true">3.</strong> Scenes aka Levels</a></li><li class="chapter-item expanded "><a href="entities.html"><strong aria-hidden="true">4.</strong> Entities aka Game Objects</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="creating-entities.html"><strong aria-hidden="true">4.1.</strong> Creating Entities</a></li><li class="chapter-item expanded "><a href="entity-interactions.html"><strong aria-hidden="true">4.2.</strong> Entity interactions</a></li><li class="chapter-item expanded "><a href="physics.html"><strong aria-hidden="true">4.3.</strong> Applying physics</a></li><li class="chapter-item expanded "><a href="sounds.html"><strong aria-hidden="true">4.4.</strong> Sounds</a></li></ol></li><li class="chapter-item expanded "><a href="user-input.html"><strong aria-hidden="true">5.</strong> Handling user input</a></li><li class="chapter-item expanded "><a href="timing-things.html"><strong aria-hidden="true">6.</strong> Timing things</a></li><li class="chapter-item expanded "><a href="commandline-arguments.html"><strong aria-hidden="true">7.</strong> Command line arguments</a></li><li class="chapter-item expanded "><a href="debugging.html"><strong aria-hidden="true">8.</strong> Debugging</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">9.</strong> FAQ</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -148,13 +148,16 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="yaeger_"><a class="header" href="#yaeger_">YAEGER_</a></h1>
-<p>Yaeger is Another Education Game Engine Runtime, and a fully functional 2D game-engine that
-requires only a traditional Object-Oriented style of programming.</p>
+<p>Yaeger is Another Education Game Engine Runtime, and a fully functional 2D game-engine that requires only a traditional
+Object-Oriented style of programming.</p>
+<p>Its API is based on inheritance and composition and can be seen as a layer of abstraction on top of JavaFX.</p>
 <h2 id="required-java-version"><a class="header" href="#required-java-version">Required Java version</a></h2>
+<p>Although Yaeger only exposes a traditional Object Oriented API, internally its based on modern Java. To see which
+specific version is required, please read the <a href="https://github.com/han-yaeger/yaeger">readme</a>
+on the project GitHub.</p>
 <h2 id="howto-read-this-manual"><a class="header" href="#howto-read-this-manual">Howto read this manual</a></h2>
-<p>This manual is only meant to give a high-level overview. It will paint a picture of how a game
-can be created and what kind of objects are available.
-The details and specifics will not be part of this manual. They can be found in the
+<p>This manual is only meant to give a high-level overview. It will paint a picture of how a game can be created and what
+kind of objects are available. The details and specifics will not be part of this manual. They can be found in the
 <a href="https://han-yaeger.github.io/yaeger/">JavaDoc API</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="creating-a-game"><a class="header" href="#creating-a-game">Creating a game</a></h1>
 <p>To create a new Yaeger Game, a Java Class should be created that</p>
@@ -163,10 +166,12 @@ The details and specifics will not be part of this manual. They can be found in 
 <li>contains the following method:</li>
 </ul>
 <pre><code class="language-java">public static void main(String[]args){
-    launch(args);
-}
+        launch(args);
+        }
 </code></pre>
-<p>Such a Game does not have any content yet, but it can be run and will only show the Splash screen.</p>
+<p>Such a Game does not have any content yet, but it can be run and will only show the Splash screen. This Splash screen
+will be shown before each Yaeger Game. It can, however, be disabled by adding a commandline argument when running your
+game. More information on this can be found <a href="commandline-arguments.html">here</a>.</p>
 <h2 id="lifecycle-methods-of-yeagergame"><a class="header" href="#lifecycle-methods-of-yeagergame">Lifecycle methods of <code>YeagerGame</code></a></h2>
 <p>By extending <code>YeagerGame</code>, several methods will need to be implemented. These methods are part of the lifecycle of a
 Yaeger Game and will be responsible for setting up the content of the Game.</p>
@@ -175,43 +180,44 @@ Yaeger Game and will be responsible for setting up the content of the Game.</p>
 <pre><code class="language-java">@Override
 protected void setupGame(){
 
-}
+        }
 </code></pre>
-<p>This method will be called first and must be used to set up the width/height and
-title of the Game. A typical implementation can ook like:</p>
+<p>This method will be called first and must be used to set up the width/height and title of the Game. A typical
+implementation can look like:</p>
 <pre><code class="language-java">@Override
-protected void setupGame() {
-    setGameTitle(&quot;Waterworld&quot;);
-    setSize(new Size(800, 600));
-}
+protected void setupGame(){
+        setGameTitle(&quot;Waterworld&quot;);
+        setSize(new Size(800,600));
+        }
 </code></pre>
 <p>For more information, check the
 <a href="https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/YaegerGame.html#setupGame()">API</a>
 of setupGame()</p>
 <h3 id="adding-scenes-through-setupscenes"><a class="header" href="#adding-scenes-through-setupscenes">Adding Scenes, through <code>setupScenes()</code></a></h3>
-<p>After <code>setupGame()</code> has been called, Yaeger will call <code>setupScenes()</code>. This is the second step in the life cycle of a Yaeger Game, in
-which it expects the developer to add Scenes to the Game. Scenes can be added by calling <code>addScene(int, YaegerScene)</code>. The
-first parameter is the <code>id</code> of the <code>YaegerScene</code>, which can be used to select which <code>YaegerScene</code> will be shown. By default, the first scene
-that is added, will be the first scene that is shown.</p>
+<p>After <code>setupGame()</code> has been called, Yaeger will call <code>setupScenes()</code>. This is the second step in the life cycle of a
+Yaeger Game, in which it expects the developer to add Scenes to the Game. Scenes can be added by
+calling <code>addScene(int, YaegerScene)</code>. The first parameter is the <code>id</code> of the <code>YaegerScene</code>, which can be used to select
+which <code>YaegerScene</code> will be shown. By default, the first scene that is added, will be the first scene that is shown.</p>
 <p>A typical implementation can ook like:</p>
 <pre><code class="language-java">@Override
-protected void setupScenes() {
-    addScene(0, new TitleScene(this));
-    addScene(1, new GameLevel(this));
-    addScene(2, new GameOverScene(this));
-}
+protected void setupScenes(){
+        addScene(0,new TitleScene(this));
+        addScene(1,new GameLevel(this));
+        addScene(2,new GameOverScene(this));
+        }
 </code></pre>
 <h2 id="loading-a-scene"><a class="header" href="#loading-a-scene">Loading a scene</a></h2>
-<p>When adding scenes to the Yaeger Game, the first added scene will also be the one that gets loaded and becomes
-visible. To load a specific scene, <code>YaegerGame</code> provides the method <code>setActiveScene(int)</code>. Read the <a href="https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/YaegerGame.html#setActiveScene(int)">API</a>
+<p>When adding scenes to the Yaeger Game, the first added scene will also be the one that gets loaded and becomes visible.
+To load a specific scene, <code>YaegerGame</code> provides the method <code>setActiveScene(int)</code>. Read
+the <a href="https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/YaegerGame.html#setActiveScene(int)">API</a>
 for the details on how to use this method.</p>
 <h2 id="what-about-the-constructor"><a class="header" href="#what-about-the-constructor">What about the constructor?</a></h2>
-<p>For Plain Old Java Objects (POJO's) the constructor is usually used for configuring your Object. Although it
-is not always the best approach, since the constructor should be only used for <strong>constructing</strong> an Object, not
-for <strong>configuring</strong> it, it will usually still work.</p>
+<p>For Plain Old Java Objects (POJO's) the constructor is usually used for configuring your Object. Although it is not
+always the best approach, since the constructor should be only used for <strong>constructing</strong> an Object, not for __
+configuring__ it, it will usually still work.</p>
 <p>With Yaeger, however, it will usually <em>not</em> work. Configuring a <code>YaegerGame</code> should only be done from the
-<code>setupGame()</code> method. Furthermore, the constructor of the class that extends <code>YaegerGame</code> should be empty,
-since Yaeger will otherwise not know how to make an instance of it.</p>
+<code>setupGame()</code> method. Furthermore, the constructor of the class that extends <code>YaegerGame</code> should be empty, since Yaeger
+will otherwise not know how to make an instance of it.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="scenes-aka-levels"><a class="header" href="#scenes-aka-levels">Scenes aka Levels</a></h1>
 <p>After scenes have been added, Yaeger will load the first one. In this chapter we will dive deeper into them.</p>
 <h2 id="what-are-scenes"><a class="header" href="#what-are-scenes">What are Scenes?</a></h2>
@@ -228,7 +234,7 @@ user interaction, but their behaviour will not be based on the concept of time. 
 <ul>
 <li>A Menu</li>
 <li>A Game Over scene</li>
-<li>A inventory selection scene</li>
+<li>An inventory selection scene</li>
 </ul>
 <h3 id="dynamicscene"><a class="header" href="#dynamicscene">DynamicScene</a></h3>
 <p>A <code>DynamicScene</code> is exactly the same as a <code>StaticScene</code>, but it is also aware of time. A <code>DynamicScene</code> contains a Game
@@ -268,7 +274,7 @@ YaegerScene, in which it expects the developer to add Entities to the Scene.</p>
 <p>Entities can be added by calling <code>addEntity(YaegerEntity)</code>. Since entities can overlap, their placement will follow the
 order in which they are added to the scene. So newly added entities may overlap entities that had been placed earlier.</p>
 <p>More on entities in the following chapter of this documentation.</p>
-<p>A typical implementation can ook like:</p>
+<p>A typical implementation can look like:</p>
 <pre><code class="language-java">@Override
 public void setupEntities(){
     addEntity(new Hanny(new Coordinate2D(1,1), waterworld));
@@ -313,6 +319,8 @@ rendered on the scene. The lower the value, the closer the entity is placed to t
 file would be a file with the extension <em>ttf</em>, which should be placed in the <code>resources/</code> folder of your project. If you
 place this file in a sub-folder of <code>resource/</code> do not forget to open it up through the module descriptor.</p>
 <h3 id="composite-entities"><a class="header" href="#composite-entities">Composite Entities</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="entity-interactions"><a class="header" href="#entity-interactions">Entity interactions</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="sounds"><a class="header" href="#sounds">Sounds</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="user-input"><a class="header" href="#user-input">User Input</a></h1>
 <p>A Player can interact with both Entities and Scenes by using the keyboard or mouse. To enable this interaction the Scene
 or Entity should implement the appropriate interface, after which an event handler should be implemented.</p>
@@ -333,16 +341,14 @@ and <code>YaegerScene</code>, only the <code>MouseDraggedListener</code> can onl
 <tr><td align="left"><code>MouseDragExitListener</code></td><td align="left"><code>void onDragExited(Coordinate2D, MouseDraggedListener)</code></td></tr>
 <tr><td align="left"><code>MouseDropListener</code></td><td align="left"><code>void onDrop(Coordinate2D, MouseDraggedListener)</code></td></tr>
 </tbody></table>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="entity-interactions"><a class="header" href="#entity-interactions">Entity interactions</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="timing-things"><a class="header" href="#timing-things">Timing things</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="sounds"><a class="header" href="#sounds">Sounds</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="command-line-arguments"><a class="header" href="#command-line-arguments">Command Line Arguments</a></h1>
 <p>When run, Yaeger accepts command line arguments. These arguments are primarily meant for debugging your Game.</p>
 <p>The following arguments are currently supported:</p>
 <table><thead><tr><th align="left">Argument</th><th align="left">Explanation</th></tr></thead><tbody>
 <tr><td align="left">--noSplash</td><td align="left">Skip the Splash screen during start up</td></tr>
 <tr><td align="left">--showBB</td><td align="left">Show the BoundingBox of all instances of <code>YaegerEntity</code> that implement either <code>Collider</code> or <code>Collided</code>.</td></tr>
-<tr><td align="left">--showDebug</td><td align="left">Show a debug window with information about the Scene.</td></tr>
+<tr><td align="left">--showDebug</td><td align="left">Show a debug window with information about the Scene. More information on the debug window can be found <a href="debugging.html">here</a>.</td></tr>
 <tr><td align="left">--help</td><td align="left">Show this help screen with all commandline options</td></tr>
 </tbody></table>
 <h2 id="using-command-line-arguments-from-an-ide"><a class="header" href="#using-command-line-arguments-from-an-ide">Using command line arguments from an IDE</a></h2>

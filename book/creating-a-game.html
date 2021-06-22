@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="creating-a-game.html" class="active"><strong aria-hidden="true">2.</strong> Creating a game</a></li><li class="chapter-item expanded "><a href="scenes.html"><strong aria-hidden="true">3.</strong> Scenes aka Levels</a></li><li class="chapter-item expanded "><a href="entities.html"><strong aria-hidden="true">4.</strong> Entities aka Game Objecta</a></li><li class="chapter-item expanded "><a href="user-input.html"><strong aria-hidden="true">5.</strong> Handling user input</a></li><li class="chapter-item expanded "><a href="entity-interactions.html"><strong aria-hidden="true">6.</strong> Entity interactions</a></li><li class="chapter-item expanded "><a href="timing-things.html"><strong aria-hidden="true">7.</strong> Timing things</a></li><li class="chapter-item expanded "><a href="sounds.html"><strong aria-hidden="true">8.</strong> Sounds</a></li><li class="chapter-item expanded "><a href="commandline-arguments.html"><strong aria-hidden="true">9.</strong> Command line arguments</a></li><li class="chapter-item expanded "><a href="debugging.html"><strong aria-hidden="true">10.</strong> Debugging</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">11.</strong> FAQ</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="creating-a-game.html" class="active"><strong aria-hidden="true">2.</strong> Creating a game</a></li><li class="chapter-item expanded "><a href="scenes.html"><strong aria-hidden="true">3.</strong> Scenes aka Levels</a></li><li class="chapter-item expanded "><a href="entities.html"><strong aria-hidden="true">4.</strong> Entities aka Game Objects</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="creating-entities.html"><strong aria-hidden="true">4.1.</strong> Creating Entities</a></li><li class="chapter-item expanded "><a href="entity-interactions.html"><strong aria-hidden="true">4.2.</strong> Entity interactions</a></li><li class="chapter-item expanded "><a href="physics.html"><strong aria-hidden="true">4.3.</strong> Applying physics</a></li><li class="chapter-item expanded "><a href="sounds.html"><strong aria-hidden="true">4.4.</strong> Sounds</a></li></ol></li><li class="chapter-item expanded "><a href="user-input.html"><strong aria-hidden="true">5.</strong> Handling user input</a></li><li class="chapter-item expanded "><a href="timing-things.html"><strong aria-hidden="true">6.</strong> Timing things</a></li><li class="chapter-item expanded "><a href="commandline-arguments.html"><strong aria-hidden="true">7.</strong> Command line arguments</a></li><li class="chapter-item expanded "><a href="debugging.html"><strong aria-hidden="true">8.</strong> Debugging</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">9.</strong> FAQ</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -153,10 +153,12 @@
 <li>contains the following method:</li>
 </ul>
 <pre><code class="language-java">public static void main(String[]args){
-    launch(args);
-}
+        launch(args);
+        }
 </code></pre>
-<p>Such a Game does not have any content yet, but it can be run and will only show the Splash screen.</p>
+<p>Such a Game does not have any content yet, but it can be run and will only show the Splash screen. This Splash screen
+will be shown before each Yaeger Game. It can, however, be disabled by adding a commandline argument when running your
+game. More information on this can be found <a href="commandline-arguments.html">here</a>.</p>
 <h2 id="lifecycle-methods-of-yeagergame"><a class="header" href="#lifecycle-methods-of-yeagergame">Lifecycle methods of <code>YeagerGame</code></a></h2>
 <p>By extending <code>YeagerGame</code>, several methods will need to be implemented. These methods are part of the lifecycle of a
 Yaeger Game and will be responsible for setting up the content of the Game.</p>
@@ -165,43 +167,44 @@ Yaeger Game and will be responsible for setting up the content of the Game.</p>
 <pre><code class="language-java">@Override
 protected void setupGame(){
 
-}
+        }
 </code></pre>
-<p>This method will be called first and must be used to set up the width/height and
-title of the Game. A typical implementation can ook like:</p>
+<p>This method will be called first and must be used to set up the width/height and title of the Game. A typical
+implementation can look like:</p>
 <pre><code class="language-java">@Override
-protected void setupGame() {
-    setGameTitle(&quot;Waterworld&quot;);
-    setSize(new Size(800, 600));
-}
+protected void setupGame(){
+        setGameTitle(&quot;Waterworld&quot;);
+        setSize(new Size(800,600));
+        }
 </code></pre>
 <p>For more information, check the
 <a href="https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/YaegerGame.html#setupGame()">API</a>
 of setupGame()</p>
 <h3 id="adding-scenes-through-setupscenes"><a class="header" href="#adding-scenes-through-setupscenes">Adding Scenes, through <code>setupScenes()</code></a></h3>
-<p>After <code>setupGame()</code> has been called, Yaeger will call <code>setupScenes()</code>. This is the second step in the life cycle of a Yaeger Game, in
-which it expects the developer to add Scenes to the Game. Scenes can be added by calling <code>addScene(int, YaegerScene)</code>. The
-first parameter is the <code>id</code> of the <code>YaegerScene</code>, which can be used to select which <code>YaegerScene</code> will be shown. By default, the first scene
-that is added, will be the first scene that is shown.</p>
+<p>After <code>setupGame()</code> has been called, Yaeger will call <code>setupScenes()</code>. This is the second step in the life cycle of a
+Yaeger Game, in which it expects the developer to add Scenes to the Game. Scenes can be added by
+calling <code>addScene(int, YaegerScene)</code>. The first parameter is the <code>id</code> of the <code>YaegerScene</code>, which can be used to select
+which <code>YaegerScene</code> will be shown. By default, the first scene that is added, will be the first scene that is shown.</p>
 <p>A typical implementation can ook like:</p>
 <pre><code class="language-java">@Override
-protected void setupScenes() {
-    addScene(0, new TitleScene(this));
-    addScene(1, new GameLevel(this));
-    addScene(2, new GameOverScene(this));
-}
+protected void setupScenes(){
+        addScene(0,new TitleScene(this));
+        addScene(1,new GameLevel(this));
+        addScene(2,new GameOverScene(this));
+        }
 </code></pre>
 <h2 id="loading-a-scene"><a class="header" href="#loading-a-scene">Loading a scene</a></h2>
-<p>When adding scenes to the Yaeger Game, the first added scene will also be the one that gets loaded and becomes
-visible. To load a specific scene, <code>YaegerGame</code> provides the method <code>setActiveScene(int)</code>. Read the <a href="https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/YaegerGame.html#setActiveScene(int)">API</a>
+<p>When adding scenes to the Yaeger Game, the first added scene will also be the one that gets loaded and becomes visible.
+To load a specific scene, <code>YaegerGame</code> provides the method <code>setActiveScene(int)</code>. Read
+the <a href="https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/YaegerGame.html#setActiveScene(int)">API</a>
 for the details on how to use this method.</p>
 <h2 id="what-about-the-constructor"><a class="header" href="#what-about-the-constructor">What about the constructor?</a></h2>
-<p>For Plain Old Java Objects (POJO's) the constructor is usually used for configuring your Object. Although it
-is not always the best approach, since the constructor should be only used for <strong>constructing</strong> an Object, not
-for <strong>configuring</strong> it, it will usually still work.</p>
+<p>For Plain Old Java Objects (POJO's) the constructor is usually used for configuring your Object. Although it is not
+always the best approach, since the constructor should be only used for <strong>constructing</strong> an Object, not for __
+configuring__ it, it will usually still work.</p>
 <p>With Yaeger, however, it will usually <em>not</em> work. Configuring a <code>YaegerGame</code> should only be done from the
-<code>setupGame()</code> method. Furthermore, the constructor of the class that extends <code>YaegerGame</code> should be empty,
-since Yaeger will otherwise not know how to make an instance of it.</p>
+<code>setupGame()</code> method. Furthermore, the constructor of the class that extends <code>YaegerGame</code> should be empty, since Yaeger
+will otherwise not know how to make an instance of it.</p>
 
                     </main>
 

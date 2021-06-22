@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="creating-a-game.html"><strong aria-hidden="true">2.</strong> Creating a game</a></li><li class="chapter-item expanded "><a href="scenes.html" class="active"><strong aria-hidden="true">3.</strong> Scenes aka Levels</a></li><li class="chapter-item expanded "><a href="entities.html"><strong aria-hidden="true">4.</strong> Entities aka Game Objecta</a></li><li class="chapter-item expanded "><a href="user-input.html"><strong aria-hidden="true">5.</strong> Handling user input</a></li><li class="chapter-item expanded "><a href="entity-interactions.html"><strong aria-hidden="true">6.</strong> Entity interactions</a></li><li class="chapter-item expanded "><a href="timing-things.html"><strong aria-hidden="true">7.</strong> Timing things</a></li><li class="chapter-item expanded "><a href="sounds.html"><strong aria-hidden="true">8.</strong> Sounds</a></li><li class="chapter-item expanded "><a href="commandline-arguments.html"><strong aria-hidden="true">9.</strong> Command line arguments</a></li><li class="chapter-item expanded "><a href="debugging.html"><strong aria-hidden="true">10.</strong> Debugging</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">11.</strong> FAQ</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="creating-a-game.html"><strong aria-hidden="true">2.</strong> Creating a game</a></li><li class="chapter-item expanded "><a href="scenes.html" class="active"><strong aria-hidden="true">3.</strong> Scenes aka Levels</a></li><li class="chapter-item expanded "><a href="entities.html"><strong aria-hidden="true">4.</strong> Entities aka Game Objects</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="creating-entities.html"><strong aria-hidden="true">4.1.</strong> Creating Entities</a></li><li class="chapter-item expanded "><a href="entity-interactions.html"><strong aria-hidden="true">4.2.</strong> Entity interactions</a></li><li class="chapter-item expanded "><a href="physics.html"><strong aria-hidden="true">4.3.</strong> Applying physics</a></li><li class="chapter-item expanded "><a href="sounds.html"><strong aria-hidden="true">4.4.</strong> Sounds</a></li></ol></li><li class="chapter-item expanded "><a href="user-input.html"><strong aria-hidden="true">5.</strong> Handling user input</a></li><li class="chapter-item expanded "><a href="timing-things.html"><strong aria-hidden="true">6.</strong> Timing things</a></li><li class="chapter-item expanded "><a href="commandline-arguments.html"><strong aria-hidden="true">7.</strong> Command line arguments</a></li><li class="chapter-item expanded "><a href="debugging.html"><strong aria-hidden="true">8.</strong> Debugging</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">9.</strong> FAQ</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -162,7 +162,7 @@ user interaction, but their behaviour will not be based on the concept of time. 
 <ul>
 <li>A Menu</li>
 <li>A Game Over scene</li>
-<li>A inventory selection scene</li>
+<li>An inventory selection scene</li>
 </ul>
 <h3 id="dynamicscene"><a class="header" href="#dynamicscene">DynamicScene</a></h3>
 <p>A <code>DynamicScene</code> is exactly the same as a <code>StaticScene</code>, but it is also aware of time. A <code>DynamicScene</code> contains a Game
@@ -202,7 +202,7 @@ YaegerScene, in which it expects the developer to add Entities to the Scene.</p>
 <p>Entities can be added by calling <code>addEntity(YaegerEntity)</code>. Since entities can overlap, their placement will follow the
 order in which they are added to the scene. So newly added entities may overlap entities that had been placed earlier.</p>
 <p>More on entities in the following chapter of this documentation.</p>
-<p>A typical implementation can ook like:</p>
+<p>A typical implementation can look like:</p>
 <pre><code class="language-java">@Override
 public void setupEntities(){
     addEntity(new Hanny(new Coordinate2D(1,1), waterworld));
