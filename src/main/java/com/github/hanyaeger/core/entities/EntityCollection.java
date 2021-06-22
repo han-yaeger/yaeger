@@ -58,7 +58,7 @@ public class EntityCollection implements Initializable {
         this.collisionDelegate = new CollisionDelegate();
         this.statistics = new EntityCollectionStatistics();
 
-        if (config.isShowBoundingBox()) {
+        if (config.showBoundingBox()) {
             boundingBoxVisualizers = new ArrayList<>();
         }
     }
@@ -156,7 +156,7 @@ public class EntityCollection implements Initializable {
         updatables.forEach(updatable -> updatable.update(timestamp));
         collisionDelegate.checkCollisions();
 
-        if (config.isShowBoundingBox()) {
+        if (config.showBoundingBox()) {
             boundingBoxVisualizers.forEach(updatable -> updatable.update(timestamp));
         }
 
@@ -183,7 +183,7 @@ public class EntityCollection implements Initializable {
         garbage.clear();
         keyListeners.clear();
 
-        if (config.isShowBoundingBox()) {
+        if (config.showBoundingBox()) {
             boundingBoxVisualizers.clear();
         }
     }
@@ -206,7 +206,7 @@ public class EntityCollection implements Initializable {
      * @param boundingBoxVisualizer a {@link BoundingBoxVisualizer}
      */
     public void addBoundingBoxVisualizer(final BoundingBoxVisualizer boundingBoxVisualizer) {
-        if (config.isShowBoundingBox()) {
+        if (config.showBoundingBox()) {
             annotationProcessor.configureUpdateDelegators(boundingBoxVisualizer);
             boundingBoxVisualizers.add(boundingBoxVisualizer);
         } else {
@@ -227,7 +227,7 @@ public class EntityCollection implements Initializable {
         suppliers.forEach(EntitySupplier::clear);
         suppliers.clear();
 
-        if (config.isShowBoundingBox()) {
+        if (config.showBoundingBox()) {
             boundingBoxVisualizerSupplier.clear();
         }
     }
@@ -244,7 +244,7 @@ public class EntityCollection implements Initializable {
         garbage.forEach(this::removeGameObject);
         statics.removeAll(garbage);
         updatables.removeAll(garbage);
-        if (config.isShowBoundingBox()) {
+        if (config.showBoundingBox()) {
             boundingBoxVisualizers.removeAll(garbage);
         }
         garbage.clear();
@@ -260,7 +260,7 @@ public class EntityCollection implements Initializable {
             suppliers.forEach(supplier -> supplier.get().forEach(this::initialize));
         }
 
-        if (config.isShowBoundingBox() && !boundingBoxVisualizerSupplier.isEmpty()) {
+        if (config.showBoundingBox() && !boundingBoxVisualizerSupplier.isEmpty()) {
             boundingBoxVisualizerSupplier.get().forEach(this::initialize);
         }
     }
@@ -286,7 +286,7 @@ public class EntityCollection implements Initializable {
     private void registerIfCollider(final YaegerEntity yaegerEntity) {
         final var collider = collisionDelegate.register(yaegerEntity);
 
-        if (collider && config.isShowBoundingBox()) {
+        if (collider && config.showBoundingBox()) {
             boundingBoxVisualizerSupplier.add(new BoundingBoxVisualizer(yaegerEntity));
         }
     }
@@ -321,7 +321,7 @@ public class EntityCollection implements Initializable {
 
     @Inject
     public void setBoundingBoxVisualizerSupplier(EntitySupplier boundingBoxVisualizerSupplier) {
-        if (config.isShowBoundingBox()) {
+        if (config.showBoundingBox()) {
             this.boundingBoxVisualizerSupplier = boundingBoxVisualizerSupplier;
         }
     }

@@ -391,7 +391,7 @@ class EntityCollectionTest {
 
         @BeforeEach
         void setup() {
-            when(config.isShowBoundingBox()).thenReturn(true);
+            when(config.showBoundingBox()).thenReturn(true);
 
             boundingBoxVisualizer = mock(BoundingBoxVisualizer.class);
             boundingBoxVisualizerSupplier = mock(EntitySupplier.class);
@@ -402,7 +402,7 @@ class EntityCollectionTest {
             // Arrange
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
-            when(config.isShowBoundingBox()).thenReturn(false);
+            when(config.showBoundingBox()).thenReturn(false);
 
             sut = new EntityCollection(pane, config);
             sut.setAnnotationProcessor(annotationProcessor);

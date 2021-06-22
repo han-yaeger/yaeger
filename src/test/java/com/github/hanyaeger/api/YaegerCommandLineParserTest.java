@@ -17,7 +17,7 @@ class YaegerCommandLineParserTest {
     void emptyArgumentsReturnsDefaultConfig() {
         // Arrange
         var sut = new YaegerCommandLineParser();
-        var expected = new YaegerConfig();
+        var expected = new YaegerConfig(true, false, false);
 
         // Act
         var actual = sut.parseToConfig(new ArrayList<>());
@@ -36,7 +36,7 @@ class YaegerCommandLineParserTest {
         var actual = sut.parseToConfig(noSplashArgs);
 
         // Assert
-        assertFalse(actual.isShowSplash());
+        assertFalse(actual.showSplash());
     }
 
     @Test
@@ -49,7 +49,7 @@ class YaegerCommandLineParserTest {
         var actual = sut.parseToConfig(showBBArgs);
 
         // Assert
-        assertTrue(actual.isShowBoundingBox());
+        assertTrue(actual.showBoundingBox());
     }
 
     @Test
@@ -62,7 +62,7 @@ class YaegerCommandLineParserTest {
         var actual = sut.parseToConfig(showDebugArgs);
 
         // Assert
-        assertTrue(actual.isShowDebug());
+        assertTrue(actual.showDebug());
     }
 
     @Test

@@ -139,16 +139,31 @@ public class Debugger implements StatisticsObserver {
         return String.valueOf(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory());
     }
 
+    /**
+     * Set the {@link ImageRepository}.
+     *
+     * @param imageRepository the {@link ImageRepository}
+     */
     @Inject
     public void setImageRepository(final ImageRepository imageRepository) {
         this.imageRepository = imageRepository;
     }
 
+    /**
+     * Set the {@link DebugGridPaneFactory}.
+     *
+     * @param debugGridPaneFactory the {@link DebugGridPaneFactory}
+     */
     @Inject
     public void setDebugGridPaneFactory(final DebugGridPaneFactory debugGridPaneFactory) {
         this.debugGridPaneFactory = debugGridPaneFactory;
     }
 
+    /**
+     * Set the {@link DebugLabelFactory}.
+     *
+     * @param debugLabelFactory the {@link DebugLabelFactory}
+     */
     @Inject
     public void setDebugLabelFactory(final DebugLabelFactory debugLabelFactory) {
         this.debugLabelFactory = debugLabelFactory;

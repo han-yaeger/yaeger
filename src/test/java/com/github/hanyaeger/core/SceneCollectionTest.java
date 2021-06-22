@@ -35,7 +35,7 @@ class SceneCollectionTest {
         splashScene = mock(SplashScene.class);
 
         yaegerConfig = mock(YaegerConfig.class);
-        when(yaegerConfig.isShowSplash()).thenReturn(true);
+        when(yaegerConfig.showSplash()).thenReturn(true);
 
         loadFirstSceneCallBack = ArgumentCaptor.forClass(Runnable.class);
         when(splashScreenFactory.create(loadFirstSceneCallBack.capture())).thenReturn(splashScene);
@@ -48,7 +48,7 @@ class SceneCollectionTest {
     @Test
     void postSetupSceneDoesNotCreatesTheSplashScreenForNoSplashConfig() {
         // Arrange
-        when(yaegerConfig.isShowSplash()).thenReturn(false);
+        when(yaegerConfig.showSplash()).thenReturn(false);
         // Act
         sut.postSetupScenes();
 

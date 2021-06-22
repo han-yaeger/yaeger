@@ -30,13 +30,11 @@ public class YaegerCommandLineParser {
             printHelpScreen();
         }
 
-        final var yaegerConfig = new YaegerConfig();
-
-        yaegerConfig.setShowSplash(!args.contains(YaegerCommandLineArgument.NO_SPLASH.flag));
-        yaegerConfig.setShowBoundingBox(args.contains(YaegerCommandLineArgument.SHOW_BB.flag));
-        yaegerConfig.setShowDebug(args.contains(YaegerCommandLineArgument.SHOW_DEBUG.flag));
-
-        return yaegerConfig;
+        return new YaegerConfig(
+                !args.contains(YaegerCommandLineArgument.NO_SPLASH.flag),
+                args.contains(YaegerCommandLineArgument.SHOW_BB.flag),
+                args.contains(YaegerCommandLineArgument.SHOW_DEBUG.flag)
+        );
     }
 
     private void printHelpScreen() {

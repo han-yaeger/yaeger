@@ -111,7 +111,7 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     }
 
     public void postSetupScenes() {
-        if (yaegerConfig.isShowSplash()) {
+        if (yaegerConfig.showSplash()) {
             addSplashScreen();
         } else {
             activateFirstScene();

@@ -133,7 +133,7 @@ class StaticSceneTest {
     @Test
     void configureSetsUpADebuggerIfConfigHasShowDebug() {
         // Arrange
-        when(config.isShowDebug()).thenReturn(true);
+        when(config.showDebug()).thenReturn(true);
 
         // Act
         sut.activate();
@@ -183,7 +183,7 @@ class StaticSceneTest {
         var entityCollection = mock(EntityCollection.class);
         when(entityCollectionFactory.create(pane, config)).thenReturn(entityCollection);
 
-        when(config.isShowDebug()).thenReturn(true);
+        when(config.showDebug()).thenReturn(true);
 
         // Act
         sut.activate();
