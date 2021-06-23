@@ -19,6 +19,11 @@ import com.github.hanyaeger.core.annotations.UpdatableProvider;
  */
 public interface UpdateExposer {
 
+    /**
+     * Delegates the {@link Updatable#update(long)} to the {@link UpdateExposer#explicitUpdate(long)}.
+     *
+     * @return an {@link Updatable}
+     */
     @UpdatableProvider
     default Updatable exposedUpdate() {
         return this::explicitUpdate;

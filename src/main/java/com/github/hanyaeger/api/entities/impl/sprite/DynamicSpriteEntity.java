@@ -161,14 +161,19 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
         this.rotationAngle = rotationAngle;
     }
 
-    @Inject
-    public void setUpdater(final Updater updater) {
-        this.updater = updater;
-    }
-
     @Override
     public double getRotationSpeed() {
         return rotationAngle;
+    }
+
+    /**
+     * Set the {@link Updater} to be used.
+     *
+     * @param updater an instance of {@link Updater}
+     */
+    @Inject
+    public void setUpdater(final Updater updater) {
+        this.updater = updater;
     }
 
     @Inject

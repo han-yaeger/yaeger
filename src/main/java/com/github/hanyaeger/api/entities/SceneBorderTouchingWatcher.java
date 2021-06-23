@@ -22,6 +22,12 @@ public interface SceneBorderTouchingWatcher extends Movable, Bounded, SceneChild
      */
     void notifyBoundaryTouching(final SceneBorder border);
 
+    /**
+     * Return an {@link Updatable} that checks if any of the boundaries has been touched
+     * on each {@link Updatable#update(long)}
+     *
+     * @return an instance of {@link Updatable}
+     */
     @UpdatableProvider
     default Updatable watchForBoundaryTouching() {
         return timestamp -> {

@@ -24,6 +24,12 @@ public abstract class Timer {
         this.interval = intervalInMs * 1_000_000;
     }
 
+    /**
+     * Handle an update. This method is called on each interval as passed to the constructor of
+     * this {@code Timer}.
+     *
+     * @param now the current timestamp
+     */
     protected void handle(final long now) {
         if (!active) return;
 

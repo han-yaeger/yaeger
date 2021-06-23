@@ -3,10 +3,12 @@ package com.github.hanyaeger.core.scenes.splash;
 import com.github.hanyaeger.api.Timer;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 
+/**
+ * A {@link Timer} that is to be used for creating the fade-in effect of the {@link SplashScene}.
+ */
 public class FadeInTimer extends Timer {
 
     private static final int INTERVAL_IN_MS = 10;
-
     private final YaegerScene yaegerScene;
 
     /**

@@ -40,9 +40,8 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     private EntityCollectionFactory entityCollectionFactory;
     private SceneFactory sceneFactory;
 
-    protected Injector injector;
-
-    protected EntityCollection entityCollection;
+    Injector injector;
+    EntityCollection entityCollection;
 
     private EntitySupplier entitySupplier;
     private KeyListenerDelegate keyListenerDelegate;
@@ -58,7 +57,6 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     private Debugger debugger;
 
     private DragNDropRepository dragNDropRepository;
-
 
     @Override
     public void init(final Injector injector) {
@@ -224,6 +222,11 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     }
 
     @Override
+    public DragNDropRepository getDragNDropRepository() {
+        return dragNDropRepository;
+    }
+
+    @Override
     public Optional<? extends Node> getNode() {
         return Optional.of(getScene().getRoot());
     }
@@ -271,34 +274,54 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
         this.debugger = debugger;
     }
 
+    /**
+     * Set the {@link BackgroundDelegate} that should be used.
+     *
+     * @param backgroundDelegate the {@link BackgroundDelegate} to be used
+     */
     @Inject
     public void setBackgroundDelegate(final BackgroundDelegate backgroundDelegate) {
         this.backgroundDelegate = backgroundDelegate;
     }
 
+    /**
+     * Set the {@link EntityCollectionFactory} that should be used.
+     *
+     * @param entityCollectionFactory the {@link EntityCollectionFactory} to be used
+     */
     @Inject
     public void setEntityCollectionFactory(final EntityCollectionFactory entityCollectionFactory) {
         this.entityCollectionFactory = entityCollectionFactory;
     }
 
+    /**
+     * Set the {@link EntitySupplier} that should be used.
+     *
+     * @param entitySupplier the {@link EntitySupplier} to be used
+     */
     @Inject
     public void setEntitySupplier(final EntitySupplier entitySupplier) {
         this.entitySupplier = entitySupplier;
     }
 
+    /**
+     * Set the {@link ColorAdjust} that should be used.
+     *
+     * @param colorAdjust the {@link ColorAdjust} to be used
+     */
     @Inject
     public void setColorAdjust(final ColorAdjust colorAdjust) {
         this.colorAdjust = colorAdjust;
     }
 
+    /**
+     * Set the {@link DragNDropRepository} that should be used.
+     *
+     * @param dragNDropRepository the {@link DragNDropRepository} to be used
+     */
     @Inject
     public void setDragNDropRepository(DragNDropRepository dragNDropRepository) {
         this.dragNDropRepository = dragNDropRepository;
-    }
-
-    @Override
-    public DragNDropRepository getDragNDropRepository() {
-        return dragNDropRepository;
     }
 
     private void onInputChanged(final Set<KeyCode> input) {

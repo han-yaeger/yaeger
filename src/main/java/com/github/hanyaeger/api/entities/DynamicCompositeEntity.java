@@ -1,6 +1,7 @@
 package com.github.hanyaeger.api.entities;
 
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.entities.impl.circle.CircleEntity;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.UpdateDelegator;
 import com.github.hanyaeger.core.Updater;
@@ -33,6 +34,11 @@ public abstract class DynamicCompositeEntity extends CompositeEntity implements 
     private Optional<EntityMotionInitBuffer> buffer;
     private double rotationAngle;
 
+    /**
+     * Create a new {@code DynamicCompositeEntity} on the given {@code initialLocation}.
+     *
+     * @param initialLocation the initial position at which this {@link DynamicCompositeEntity} should be placed
+     */
     protected DynamicCompositeEntity(final Coordinate2D initialLocation) {
         super(initialLocation);
 
@@ -103,6 +109,11 @@ public abstract class DynamicCompositeEntity extends CompositeEntity implements 
         this.motionApplier = motionApplier;
     }
 
+    /**
+     * Set the {@link Updater} to be used.
+     *
+     * @param updater an instance of {@link Updater}
+     */
     @Inject
     public void setUpdater(final Updater updater) {
         this.updater = updater;

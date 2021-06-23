@@ -27,12 +27,12 @@ import java.util.*;
  */
 public abstract class TileMap extends EntitySupplier implements Anchorable, Activatable {
 
-    private final Map<Integer, EntityConfiguration> entities = new HashMap<>();
+    private final Map<Integer, EntityConfiguration> entities;
 
     private int[][] map;
     private transient TileFactory tileFactory;
-    protected transient Optional<Size> size = Optional.empty();
-    protected final transient Optional<Coordinate2D> location;
+    transient Optional<Size> size = Optional.empty();
+    final transient Optional<Coordinate2D> location;
     private transient AnchorPoint anchorPoint = AnchorPoint.TOP_LEFT;
 
     /**
@@ -50,6 +50,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
      * @param size     the {@link Size} of the {@link TileMap}
      */
     protected TileMap(final Coordinate2D location, final Size size) {
+        entities = new HashMap<>();
         this.location = Optional.of(location);
         if (size != null) {
             this.size = Optional.of(size);
@@ -99,8 +100,36 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
         entities.put(identifier, new EntityConfiguration<>(entityClass));
     }
 
+    /**
+     * Add the {@link Class} of an {@link SpriteEntity} that can be used in this {@link TileMap}. Each added
+     * {@link SpriteEntity} {@link Class}must have an identifier for reference from the map. This method should only be called
+     * from the lifecycle method {@link TileMap#setupEntities()}.
+     *
+     * @param <C>           the type of the {@code configuration}
+     * @param identifier    the identifier as an {@code int} to be used from the map
+     * @param entityClass   the {@link Class} of a subclass of {@link YaegerEntity} to be
+     *                      used for the given identifier. Note that this {@link YaegerEntity} should have a constructor
+     *                      that accepts exactly two parameters. The first one should be a {@link Coordinate2D} and the second one
+     *                      a {@link Size}. If such a constructor is not present, an {@link YaegerEngineException} will be thrown.
+     * @param configuration an instance of type {@link C} that is passed to the constructor of the created instance of {@link YaegerEntity}
+     *                      for configuration purposes
+     */
     public <C> void addEntity(final int identifier, final Class<? extends YaegerEntity> entityClass, final C configuration) {
         entities.put(identifier, new EntityConfiguration<>(entityClass, configuration));
+    }
+
+    /**
+     * A {@link DimensionsProvider} is required because the {@link TileMap} will need info on the width
+     * and height of the {@link YaegerScene} to calculate the placement
+     * of the individual instances of {@link YaegerEntity}.
+     *
+     * @param dimensionsProvider the {@link DimensionsProvider} that provides a {@link DimensionsProvider#getWidth()} and
+     *                           {@link DimensionsProvider#getHeight()} method; most likely an {@link YaegerScene}.
+     */
+    void setDimensionsProvider(final DimensionsProvider dimensionsProvider) {
+        if (size.isEmpty()) {
+            size = Optional.of(new Size(dimensionsProvider.getWidth(), dimensionsProvider.getHeight()));
+        }
     }
 
     private void transformMapToEntities() {
@@ -165,20 +194,6 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
         transformMapToEntities();
     }
 
-    /**
-     * A {@link DimensionsProvider} is required because the {@link TileMap} will need info on the width
-     * and height of the {@link YaegerScene} to calculate the placement
-     * of the individual instances of {@link YaegerEntity}.
-     *
-     * @param dimensionsProvider the {@link DimensionsProvider} that provides a {@link DimensionsProvider#getWidth()} and
-     *                           {@link DimensionsProvider#getHeight()} method; most likely an {@link YaegerScene}.
-     */
-    void setDimensionsProvider(final DimensionsProvider dimensionsProvider) {
-        if (size.isEmpty()) {
-            size = Optional.of(new Size(dimensionsProvider.getWidth(), dimensionsProvider.getHeight()));
-        }
-    }
-
     @Override
     public void setAnchorPoint(final AnchorPoint anchorPoint) {
         this.anchorPoint = anchorPoint;
@@ -189,6 +204,11 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
         return anchorPoint;
     }
 
+    /**
+     * Set the {@link TileFactory} to be used.
+     *
+     * @param tileFactory an instance of {@link TileFactory}
+     */
     @Inject
     public void setTileFactory(final TileFactory tileFactory) {
         this.tileFactory = tileFactory;

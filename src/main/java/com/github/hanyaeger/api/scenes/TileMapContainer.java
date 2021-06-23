@@ -20,6 +20,9 @@ public interface TileMapContainer extends SupplierProvider, TileMapListProvider,
      */
     void setupTileMaps();
 
+    /**
+     * Initialize all instances of {@link TileMap} that were added to this {@link TileMapContainer}.
+     */
     @OnActivation
     default void initTileMaps() {
         getTileMaps().clear();

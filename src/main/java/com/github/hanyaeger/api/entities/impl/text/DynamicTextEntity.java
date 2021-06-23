@@ -7,6 +7,7 @@ import com.github.hanyaeger.core.entities.EntityCollection;
 import com.github.hanyaeger.api.entities.ContinuousRotatable;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.core.entities.motion.*;
+import com.github.hanyaeger.core.factories.image.ImageViewFactory;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
@@ -97,6 +98,11 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
         this.motionApplier = motionApplier;
     }
 
+    /**
+     * Set the {@link Updater} to be used.
+     *
+     * @param updater an instance of {@link Updater}
+     */
     @Inject
     public void setUpdater(final Updater updater) {
         this.updater = updater;

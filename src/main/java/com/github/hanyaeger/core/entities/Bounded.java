@@ -13,8 +13,6 @@ import javafx.scene.Node;
  */
 public interface Bounded extends DimensionsProvider, GameNode {
 
-    BoundingBox EMPTY_BB = new BoundingBox(0, 0, 0, 0);
-
     /**
      * Return the {@link Bounds} (Bounding Box) within the {@link YaegerScene} after
      * all transformations have been applied. This method treats each {@link javafx.scene.Node} as if it was part of the
@@ -25,11 +23,11 @@ public interface Bounded extends DimensionsProvider, GameNode {
      * @return the {@link Bounds}
      */
     default Bounds getBoundingBox() {
-        return getNode().map(node -> node.localToScene(node.getBoundsInLocal(), true)).orElse(EMPTY_BB);
+        return getNode().map(node -> node.localToScene(node.getBoundsInLocal(), true)).orElse(new BoundingBox(0, 0, 0, 0));
     }
 
     private Bounds getBounds() {
-        return getNode().map(Node::getBoundsInParent).orElse(EMPTY_BB);
+        return getNode().map(Node::getBoundsInParent).orElse(new BoundingBox(0, 0, 0, 0));
     }
 
     @Override

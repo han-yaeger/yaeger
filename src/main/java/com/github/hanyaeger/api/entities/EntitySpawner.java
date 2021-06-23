@@ -59,6 +59,11 @@ public abstract class EntitySpawner extends Timer {
         return supplier;
     }
 
+    /**
+     * Set the {@link EntitySupplier} to be used.
+     *
+     * @param supplier an instance of {@link EntitySupplier}
+     */
     @Inject
     public void setSupplier(final EntitySupplier supplier) {
         this.supplier = supplier;

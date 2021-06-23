@@ -27,13 +27,18 @@ public interface ContinuousRotatable extends Rotatable {
      */
     void setRotationSpeed(final double angle);
 
+    /**
+     * Return an {@link Updatable} that applies the rotation on each {@link Updatable#update(long)}.
+     *
+     * @return an {@link Updatable}
+     */
     @UpdatableProvider
     default Updatable applyRotation() {
         return timestamp ->
-            getNode().ifPresent(node -> {
-                if (Double.compare(getRotationSpeed(), 0d) != 0) {
-                    setRotate(-node.getRotate() + getRotationSpeed());
-                }
-            });
+                getNode().ifPresent(node -> {
+                    if (Double.compare(getRotationSpeed(), 0d) != 0) {
+                        setRotate(-node.getRotate() + getRotationSpeed());
+                    }
+                });
     }
 }

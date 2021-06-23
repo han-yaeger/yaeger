@@ -18,5 +18,12 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface UpdatableProvider {
+    /**
+     * State whether the {@link Updatable} returned by the method annotated with this annotation should be added
+     * to the front of the list of instances of {@link Updatable}. By default it is placed at the end of the list,
+     * which also means it is called last.
+     *
+     * @return a {@code boolean} that states whether the {@link Updatable} should be added at the front of the list
+     */
     boolean asFirst() default false;
 }

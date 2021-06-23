@@ -110,7 +110,7 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
         this.injector = injector;
     }
 
-    public void postSetupScenes() {
+    void postSetupScenes() {
         if (yaegerConfig.showSplash()) {
             addSplashScreen();
         } else {
@@ -151,11 +151,21 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
         }
     }
 
+    /**
+     * Set the {@link AnnotationProcessor} to be used.
+     *
+     * @param annotationProcessor the {@link AnnotationProcessor}
+     */
     @Inject
     public void setAnnotationProcessor(final AnnotationProcessor annotationProcessor) {
         this.annotationProcessor = annotationProcessor;
     }
 
+    /**
+     * Set the {@link SplashScreenFactory} to be used.
+     *
+     * @param splashScreenFactory the {@link SplashScreenFactory}
+     */
     @Inject
     public void setSplashScreenFactory(final SplashScreenFactory splashScreenFactory) {
         this.splashScreenFactory = splashScreenFactory;

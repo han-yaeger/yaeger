@@ -9,11 +9,16 @@ import com.github.hanyaeger.core.repositories.DragNDropRepository;
 public interface DragRepositoryAccessor {
 
     /**
-     * Set the {@link DragNDropRepository}
+     * Set the {@link DragNDropRepository}.
      *
      * @param dragNDropRepository the {@link DragNDropRepository} to be used
      */
     void setDragNDropRepository(DragNDropRepository dragNDropRepository);
 
+    /**
+     * Return the {@link DragNDropRepository} that was set on this {@code DragRepositoryAccessor}.
+     *
+     * @return the instance of {@link DragNDropRepository}
+     */
     DragNDropRepository getDragNDropRepository();
 }

@@ -36,6 +36,9 @@ public interface EntitySpawnerContainer extends EntitySpawnerListProvider, Entit
         }
     }
 
+    /**
+     * Initialize all instances of {@link EntitySpawner} that were added to this {@link EntitySpawnerContainer}.
+     */
     @OnPostActivation
     default void initSpawners() {
         getSpawners().clear();
@@ -43,6 +46,9 @@ public interface EntitySpawnerContainer extends EntitySpawnerListProvider, Entit
         registerEntitySpawners();
     }
 
+    /**
+     * Register all instances of {@link EntitySpawner} that were added to this {@link EntitySpawnerContainer}.
+     */
     default void registerEntitySpawners() {
         getSpawners().forEach(spawner -> getEntityCollection().registerSupplier(spawner.getSupplier()));
     }
@@ -53,6 +59,12 @@ public interface EntitySpawnerContainer extends EntitySpawnerListProvider, Entit
      */
     void setupEntitySpawners();
 
+    /**
+     * Call the {@link Updatable#update(long)} of all intances of {@link EntitySpawner} that
+     * were added to this {@link EntitySpawnerContainer}.
+     *
+     * @return an {@link Updatable} that delegates the {@link Updatable#update(long)}
+     */
     @UpdatableProvider
     default Updatable callEntitySpawners() {
         return timestamp -> {

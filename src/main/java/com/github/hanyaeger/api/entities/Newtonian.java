@@ -43,6 +43,12 @@ public interface Newtonian extends BufferedMovable, NewtonianModifier {
         return getMotionApplier().getFrictionConstant();
     }
 
+    /**
+     * Return an {@link Updatable} that applies simple rules of physics on each call
+     * to {@link Updatable#update(long)}.
+     *
+     * @return an instance of {@link Updatable}
+     */
     @UpdatableProvider
     default Updatable addSimplePhysics() {
         return timestamp -> {

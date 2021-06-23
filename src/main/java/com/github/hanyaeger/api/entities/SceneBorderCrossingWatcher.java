@@ -22,6 +22,12 @@ public interface SceneBorderCrossingWatcher extends Bounded, SceneChild, Movable
      */
     void notifyBoundaryCrossing(final SceneBorder border);
 
+    /**
+     * Return an {@link Updatable} that checks if any of the boundaries has been crossed
+     * on each {@link Updatable#update(long)}
+     *
+     * @return an instance of {@link Updatable}
+     */
     @UpdatableProvider
     default Updatable watchForBoundaryCrossing() {
         return timestamp -> {

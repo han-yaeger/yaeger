@@ -15,6 +15,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -423,36 +424,6 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
         return rotationBuffer;
     }
 
-    /**
-     * Calculate the absolute location of this {@link YaegerEntity} in the scene.
-     * Because {@link CompositeEntity} uses a relative coordinate system, this method is needed to make calculations
-     * for entities that are part of a {@link CompositeEntity}.
-     *
-     * @return a {@link Coordinate2D} with the absolute coordinates of the {@link YaegerEntity}.
-     */
-    protected Coordinate2D getLocationInScene() {
-        var boundsInScene = getNode()
-                .map(node -> node.localToScene(node.getBoundsInLocal(), true))
-                .orElse(EMPTY_BB);
-
-        return switch (getAnchorPoint()) {
-            case TOP_LEFT -> new Coordinate2D(boundsInScene.getMinX(), boundsInScene.getMinY());
-            case TOP_CENTER -> new Coordinate2D(boundsInScene.getCenterX(), boundsInScene.getMinY());
-            case TOP_RIGHT -> new Coordinate2D(boundsInScene.getMaxX(), boundsInScene.getMinY());
-            case CENTER_LEFT -> new Coordinate2D(boundsInScene.getMinX(), boundsInScene.getCenterY());
-            case CENTER_CENTER -> new Coordinate2D(boundsInScene.getCenterX(), boundsInScene.getCenterY());
-            case CENTER_RIGHT -> new Coordinate2D(boundsInScene.getMaxX(), boundsInScene.getCenterY());
-            case BOTTOM_LEFT -> new Coordinate2D(boundsInScene.getMinX(), boundsInScene.getMaxY());
-            case BOTTOM_CENTER -> new Coordinate2D(boundsInScene.getCenterX(), boundsInScene.getMaxY());
-            case BOTTOM_RIGHT -> new Coordinate2D(boundsInScene.getMaxX(), boundsInScene.getMaxY());
-        };
-    }
-
-    @Inject
-    public void setDragNDropRepository(DragNDropRepository dragNDropRepository) {
-        this.dragNDropRepository = dragNDropRepository;
-    }
-
     @Override
     public DragNDropRepository getDragNDropRepository() {
         return dragNDropRepository;
@@ -489,5 +460,40 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
         return getNode()
                 .map(Node::getViewOrder)
                 .orElse(viewOrder);
+    }
+
+    /**
+     * Calculate the absolute location of this {@link YaegerEntity} in the scene.
+     * Because {@link CompositeEntity} uses a relative coordinate system, this method is needed to make calculations
+     * for entities that are part of a {@link CompositeEntity}.
+     *
+     * @return a {@link Coordinate2D} with the absolute coordinates of the {@link YaegerEntity}.
+     */
+    protected Coordinate2D getLocationInScene() {
+        var boundsInScene = getNode()
+                .map(node -> node.localToScene(node.getBoundsInLocal(), true))
+                .orElse(new BoundingBox(0, 0, 0, 0));
+
+        return switch (getAnchorPoint()) {
+            case TOP_LEFT -> new Coordinate2D(boundsInScene.getMinX(), boundsInScene.getMinY());
+            case TOP_CENTER -> new Coordinate2D(boundsInScene.getCenterX(), boundsInScene.getMinY());
+            case TOP_RIGHT -> new Coordinate2D(boundsInScene.getMaxX(), boundsInScene.getMinY());
+            case CENTER_LEFT -> new Coordinate2D(boundsInScene.getMinX(), boundsInScene.getCenterY());
+            case CENTER_CENTER -> new Coordinate2D(boundsInScene.getCenterX(), boundsInScene.getCenterY());
+            case CENTER_RIGHT -> new Coordinate2D(boundsInScene.getMaxX(), boundsInScene.getCenterY());
+            case BOTTOM_LEFT -> new Coordinate2D(boundsInScene.getMinX(), boundsInScene.getMaxY());
+            case BOTTOM_CENTER -> new Coordinate2D(boundsInScene.getCenterX(), boundsInScene.getMaxY());
+            case BOTTOM_RIGHT -> new Coordinate2D(boundsInScene.getMaxX(), boundsInScene.getMaxY());
+        };
+    }
+
+    /**
+     * Set the {@link DragNDropRepository} to be used.
+     *
+     * @param dragNDropRepository the {@link DragNDropRepository} to be used
+     */
+    @Inject
+    public void setDragNDropRepository(final DragNDropRepository dragNDropRepository) {
+        this.dragNDropRepository = dragNDropRepository;
     }
 }

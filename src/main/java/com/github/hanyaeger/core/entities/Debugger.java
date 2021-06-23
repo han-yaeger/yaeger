@@ -44,6 +44,11 @@ public class Debugger implements StatisticsObserver {
     private Label audioFiles;
     private Label imageFiles;
 
+    /**
+     * Setup the {@code Debugger} on the given {@link Pane}.
+     *
+     * @param pane the {@link Pane} that should be used when creating this {@code Debugger}.
+     */
     public void setup(final Pane pane) {
         createGridPane(pane);
 
@@ -83,7 +88,7 @@ public class Debugger implements StatisticsObserver {
         imageFiles.setText(String.valueOf(imageRepository.size()));
     }
 
-    private void createGridPane(Pane pane) {
+    private void createGridPane(final Pane pane) {
         gridpane = debugGridPaneFactory.create();
 
         addHeader();
@@ -122,7 +127,7 @@ public class Debugger implements StatisticsObserver {
         return addDebugLine(label, "");
     }
 
-    private Label addDebugLine(final String label, String value) {
+    private Label addDebugLine(final String label, final String value) {
         final var debugValue = debugLabelFactory.createValue(value);
         final int nextRow = gridpane.getRowCount() + 1;
         gridpane.add(debugLabelFactory.createLabel(label), 0, nextRow);

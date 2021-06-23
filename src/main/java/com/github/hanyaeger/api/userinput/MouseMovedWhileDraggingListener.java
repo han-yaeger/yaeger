@@ -13,7 +13,6 @@ import com.github.hanyaeger.core.entities.GameNode;
  * differs from a {@link MouseMovedListener}, which does not receive those events if the button is down.
  * <p>
  * On movement it will receive an event that contains a {@link Coordinate2D} of the x and y-coordinate.
- * <p>
  */
 public interface MouseMovedWhileDraggingListener extends GameNode {
 
@@ -25,8 +24,9 @@ public interface MouseMovedWhileDraggingListener extends GameNode {
     void onMouseMovedWhileDragging(final Coordinate2D coordinate2D);
 
     /**
-     * Attach a mouse moved while dragged Listener to this entity. Note that the listener gets attached to the {@link javafx.scene.Scene}, which
-     * results in the fact that this listener is called whenever the mouse is moved within the {@link javafx.scene.Scene}.
+     * Attach a mouse moved while dragged Listener to this entity. Note that the listener gets attached to the
+     * {@link javafx.scene.Scene}, which results in the fact that this listener is called whenever the mouse is
+     * moved within the {@link javafx.scene.Scene}.
      */
     @OnActivation
     default void attachMouseMovedWhileDraggedListener() {

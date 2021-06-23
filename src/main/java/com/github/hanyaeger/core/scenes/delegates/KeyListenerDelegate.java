@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public class KeyListenerDelegate {
 
-    protected Set<KeyCode> input = new HashSet<>();
+    Set<KeyCode> input = new HashSet<>();
     private KeyListener keyListener;
 
     /**
@@ -40,6 +40,11 @@ public class KeyListenerDelegate {
                 });
     }
 
+    /**
+     * Tear down this {@code KeyListenerDelegate} by removing the listeners from the {@link Scene}.
+     *
+     * @param scene the {@link Scene} from which the listeners should be removed
+     */
     public void tearDown(final Scene scene) {
         keyListener = null;
         scene.setOnKeyPressed(null);

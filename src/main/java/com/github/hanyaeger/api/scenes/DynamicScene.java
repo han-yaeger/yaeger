@@ -54,6 +54,12 @@ public abstract class DynamicScene extends StaticScene implements UpdateDelegato
         animator = null;
     }
 
+    /**
+     * Return an {@link Updatable} that delegates the {@link Updatable#update(long)} to
+     * {@link com.github.hanyaeger.core.entities.EntityCollection#update(long)}.
+     *
+     * @return an instance of {@link Updatable}
+     */
     @UpdatableProvider
     public Updatable entityCollectionUpdatable() {
         return timestamp ->
@@ -84,11 +90,21 @@ public abstract class DynamicScene extends StaticScene implements UpdateDelegato
         return spawners;
     }
 
+    /**
+     * Set the {@link AnimationTimerFactory} that should be used.
+     *
+     * @param animationTimerFactory the {@link AnimationTimerFactory}
+     */
     @Inject
     public void setAnimationTimerFactory(final AnimationTimerFactory animationTimerFactory) {
         this.animationTimerFactory = animationTimerFactory;
     }
 
+    /**
+     * Set the {@link Updater} that should be used.
+     *
+     * @param updater the {@link Updater}
+     */
     @Inject
     public void setUpdater(final Updater updater) {
         this.updater = updater;

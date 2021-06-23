@@ -38,6 +38,14 @@ public class Coordinate2D extends Point2D {
         return new Coordinate2D(super.add(point2D));
     }
 
+    /**
+     * Returns a {@code Coordinate2D} with the coordinates of the specified point added to the coordinates of this
+     * {@code Coordinate2D}.
+     *
+     * @param location the {@code Coordinate2D} those coordinates are to be added
+     * @return the {@code Coordinate2D} with the added coordinates
+     * throws {@link NullPointerException} if the specified {@code Coordinate2D} is null
+     */
     public Coordinate2D add(final Coordinate2D location) {
         return new Coordinate2D(super.add(location));
     }

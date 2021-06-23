@@ -104,6 +104,11 @@ public abstract class DynamicEllipseEntity extends EllipseEntity implements Upda
         this.motionApplier = motionApplier;
     }
 
+    /**
+     * Set the {@link Updater} to be used.
+     *
+     * @param updater an instance of {@link Updater}
+     */
     @Inject
     public void setUpdater(final Updater updater) {
         this.updater = updater;

@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.entities.impl.sprite;
 
+import com.github.hanyaeger.core.Updater;
 import com.github.hanyaeger.core.entities.SpriteAnimationDelegate;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -31,8 +32,8 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     private final int rows;
     private final int columns;
     private Optional<Integer> spriteIndex = Optional.empty();
-    protected Optional<ImageView> imageView = Optional.empty();
-    protected Optional<SpriteAnimationDelegate> spriteAnimationDelegate = Optional.empty();
+    Optional<ImageView> imageView = Optional.empty();
+    Optional<SpriteAnimationDelegate> spriteAnimationDelegate = Optional.empty();
 
     /**
      * Instantiate a new {@link SpriteEntity} for a given image.
@@ -177,16 +178,31 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
         });
     }
 
+    /**
+     * Set the {@link SpriteAnimationDelegateFactory} to be used.
+     *
+     * @param spriteAnimationDelegateFactory an instance of {@link SpriteAnimationDelegateFactory}
+     */
     @Inject
     public void setSpriteAnimationDelegateFactory(final SpriteAnimationDelegateFactory spriteAnimationDelegateFactory) {
         this.spriteAnimationDelegateFactory = spriteAnimationDelegateFactory;
     }
 
+    /**
+     * Set the {@link ImageRepository} to be used.
+     *
+     * @param imageRepository an instance of {@link ImageRepository}
+     */
     @Inject
     public void setImageRepository(final ImageRepository imageRepository) {
         this.imageRepository = imageRepository;
     }
 
+    /**
+     * Set the {@link ImageViewFactory} to be used.
+     *
+     * @param imageViewFactory an instance of {@link ImageViewFactory}
+     */
     @Inject
     public void setImageViewFactory(final ImageViewFactory imageViewFactory) {
         this.imageViewFactory = imageViewFactory;

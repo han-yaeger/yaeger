@@ -50,6 +50,11 @@ public abstract class CompositeEntity extends YaegerEntity {
     List<YaegerEntity> garbage = new ArrayList<>();
     Optional<Group> group = Optional.empty();
 
+    /**
+     * Create a new {@code CompositeEntity} on the given {@code initialLocation}.
+     *
+     * @param initialLocation the initial position at which this {@link CompositeEntity} should be placed
+     */
     protected CompositeEntity(final Coordinate2D initialLocation) {
         super(initialLocation);
     }

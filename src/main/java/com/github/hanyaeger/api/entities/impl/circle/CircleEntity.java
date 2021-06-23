@@ -21,12 +21,12 @@ public abstract class CircleEntity extends CenteredShapeEntity<Circle> {
     private double radius = DEFAULT_RADIUS;
 
     /**
-     * Create a new {@link CircleEntity} on the given {@code initialPosition}.
+     * Create a new {@link CircleEntity} on the given {@code initialLocation}.
      *
-     * @param initialPosition the initial position at which this {@link CircleEntity} should be placed
+     * @param initialLocation the initial position at which this {@link CircleEntity} should be placed
      */
-    protected CircleEntity(final Coordinate2D initialPosition) {
-        super(initialPosition);
+    protected CircleEntity(final Coordinate2D initialLocation) {
+        super(initialLocation);
     }
 
     /**

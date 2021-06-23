@@ -12,7 +12,8 @@ import java.util.List;
  */
 public class SpriteAnimationDelegate implements Updatable {
 
-    public static final int MILLI_TO_NANO_FACTOR = 1000000;
+    private static final int MILLI_TO_NANO_FACTOR = 1000000;
+
     private final int rows;
     private final int columns;
 

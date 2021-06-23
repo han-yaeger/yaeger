@@ -27,7 +27,7 @@ import java.util.Set;
  */
 public class EntityCollection implements Initializable {
 
-    public static final String NO_SHOW_BB_ERROR = "A BoundingBoxVisualizer can only be added when the Game is run with the commandline argument -showBB.";
+    private static final String NO_SHOW_BB_ERROR = "A BoundingBoxVisualizer can only be added when the Game is run with the commandline argument -showBB.";
     private final EntityCollectionStatistics statistics;
     private Injector injector;
     private final Pane pane;
@@ -314,13 +314,23 @@ public class EntityCollection implements Initializable {
         this.injector = injector;
     }
 
+    /**
+     * Set the {@link AnnotationProcessor} to be used
+     *
+     * @param annotationProcessor the {@link AnnotationProcessor} to be used
+     */
     @Inject
     public void setAnnotationProcessor(final AnnotationProcessor annotationProcessor) {
         this.annotationProcessor = annotationProcessor;
     }
 
+    /**
+     * Set the {@link EntitySupplier} that should be used for the bounding-box visualizers.
+     *
+     * @param boundingBoxVisualizerSupplier the {@link EntitySupplier} to be used
+     */
     @Inject
-    public void setBoundingBoxVisualizerSupplier(EntitySupplier boundingBoxVisualizerSupplier) {
+    public void setBoundingBoxVisualizerSupplier(final EntitySupplier boundingBoxVisualizerSupplier) {
         if (config.showBoundingBox()) {
             this.boundingBoxVisualizerSupplier = boundingBoxVisualizerSupplier;
         }
