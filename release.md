@@ -40,7 +40,9 @@
   all instances of `YaegerEntity` within a `YaegerScene`. By default, a new instance of `YaegerEntity` will receive
   a `viewOrder` of 37. If the instance was created through a `TileMap` it receives a `viewOrder` of 100, placing it
   behind other entities (#178).
-
+* Added the option to remove a `Timer` from a `TimerContainer` (either a `YaegerEntity` or `YaegerScene`). Previously
+  a `Timer` could only be paused; now it is possible to completely remove it (#197).
+* Added a method `isActive()` which states whether the `Timer` is currently active (e.g. not paused).
 ## Bugfixes
 
 * When a new background audio is set, the previous background audio is first stopped (#192).

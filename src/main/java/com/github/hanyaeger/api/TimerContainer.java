@@ -62,6 +62,9 @@ public interface TimerContainer extends TimerListProvider {
     default Updatable callTimers() {
         return timestamp -> {
             if (getTimers() != null && !getTimers().isEmpty()) {
+                // remove all timers that have been marked as garbage
+                getTimers().removeIf(timer -> timer.isGarbage());
+                // call handle on all timers
                 getTimers().forEach(timer -> timer.handle(timestamp));
             }
         };

@@ -112,6 +112,27 @@ class TimerContainerTest {
         verify(timer2).handle(TIMESTAMP);
     }
 
+    @Test
+    void invokingTheUpdatableRemovesGarbage() {
+        // Arrange
+        sut.setTimers(new ArrayList<>());
+        var timer1 = mock(Timer.class);
+        var timer2 = mock(Timer.class);
+        sut.addTimer(timer1);
+        sut.addTimer(timer2);
+
+        when(timer1.isGarbage()).thenReturn(true);
+
+        var updatable = sut.callTimers();
+
+        // Act
+        updatable.update(TIMESTAMP);
+
+        // Assert
+        assertEquals(1, sut.getTimers().size());
+        verify(timer2).handle(TIMESTAMP);
+    }
+
     private static class TimerContainerImpl implements TimerContainer {
 
         private List<Timer> timers;
