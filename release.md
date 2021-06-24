@@ -43,6 +43,7 @@
 * Added the option to remove a `Timer` from a `TimerContainer` (either a `YaegerEntity` or `YaegerScene`). Previously
   a `Timer` could only be paused; now it is possible to completely remove it (#197).
 * Added a method `isActive()` which states whether the `Timer` is currently active (e.g. not paused).
+
 ## Bugfixes
 
 * When a new background audio is set, the previous background audio is first stopped (#192).
