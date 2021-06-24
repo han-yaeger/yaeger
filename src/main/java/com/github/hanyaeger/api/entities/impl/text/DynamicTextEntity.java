@@ -7,7 +7,6 @@ import com.github.hanyaeger.core.entities.EntityCollection;
 import com.github.hanyaeger.api.entities.ContinuousRotatable;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.core.entities.motion.*;
-import com.github.hanyaeger.core.factories.image.ImageViewFactory;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.geometry.Point2D;
@@ -30,7 +29,7 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
      *
      * @param initialPosition the initial {@link Coordinate2D} of this {@link DynamicTextEntity}
      */
-    protected DynamicTextEntity(final Coordinate2D initialPosition) {
+    public DynamicTextEntity(final Coordinate2D initialPosition) {
         this(initialPosition, "");
     }
 
@@ -40,7 +39,7 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
      * @param initialPosition the initial {@link Coordinate2D} of this {@link DynamicTextEntity}
      * @param text            a {@link String} containing the initial textDelegate to be displayed
      */
-    protected DynamicTextEntity(final Coordinate2D initialPosition, final String text) {
+    public DynamicTextEntity(final Coordinate2D initialPosition, final String text) {
         super(initialPosition, text);
 
         buffer = Optional.of(new EntityMotionInitBuffer());

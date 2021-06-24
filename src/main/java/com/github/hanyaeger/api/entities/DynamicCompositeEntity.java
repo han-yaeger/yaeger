@@ -1,7 +1,6 @@
 package com.github.hanyaeger.api.entities;
 
 import com.github.hanyaeger.api.Coordinate2D;
-import com.github.hanyaeger.api.entities.impl.circle.CircleEntity;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.UpdateDelegator;
 import com.github.hanyaeger.core.Updater;

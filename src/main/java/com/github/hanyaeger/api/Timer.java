@@ -2,7 +2,6 @@ package com.github.hanyaeger.api;
 
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.scenes.YaegerScene;
-import com.github.hanyaeger.core.entities.Removable;
 
 /**
  * Abstract superclass of all timers that are available for both a {@link YaegerScene}

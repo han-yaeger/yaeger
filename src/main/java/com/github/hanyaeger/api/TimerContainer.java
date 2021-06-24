@@ -63,7 +63,7 @@ public interface TimerContainer extends TimerListProvider {
         return timestamp -> {
             if (getTimers() != null && !getTimers().isEmpty()) {
                 // remove all timers that have been marked as garbage
-                getTimers().removeIf(timer -> timer.isGarbage());
+                getTimers().removeIf(Timer::isGarbage);
                 // call handle on all timers
                 getTimers().forEach(timer -> timer.handle(timestamp));
             }

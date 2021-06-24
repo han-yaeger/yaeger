@@ -64,12 +64,22 @@ public interface EntitySpawnerContainer extends EntitySpawnerListProvider, Entit
      * were added to this {@link EntitySpawnerContainer}.
      *
      * @return an {@link Updatable} that delegates the {@link Updatable#update(long)}
+     * TODO test
      */
     @UpdatableProvider
     default Updatable callEntitySpawners() {
         return timestamp -> {
             if (getSpawners() != null && !getSpawners().isEmpty()) {
-                getSpawners().forEach(entitySpawner -> entitySpawner.handle(timestamp));
+                // remove the suppliers from garbage-spawners from the entityCollection
+                getSpawners().stream().filter(Timer::isGarbage).forEach(
+                        entitySpawner ->
+                                getEntityCollection().removeSupplier(entitySpawner.getSupplier()));
+                // remove all spawners that have been marked as garbage
+                getSpawners().removeIf(Timer::isGarbage);
+                // call handle on all spawners
+                getSpawners().forEach(
+                        entitySpawner ->
+                                entitySpawner.handle(timestamp));
             }
         };
     }
