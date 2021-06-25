@@ -70,7 +70,7 @@ public class Debugger implements StatisticsObserver {
      *                                   {@link EntityCollection}
      */
     @Override
-    public void update(EntityCollectionStatistics entityCollectionStatistics) {
+    public void update(final EntityCollectionStatistics entityCollectionStatistics) {
         if (!gridpane.isVisible()) {
             return;
         }
