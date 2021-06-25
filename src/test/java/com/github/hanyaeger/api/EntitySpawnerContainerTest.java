@@ -1,9 +1,9 @@
 package com.github.hanyaeger.api;
 
-import com.github.hanyaeger.api.EntitySpawnerContainer;
 import com.github.hanyaeger.core.Updatable;
 import com.github.hanyaeger.core.entities.EntityCollection;
 import com.github.hanyaeger.api.entities.EntitySpawner;
+import com.github.hanyaeger.core.entities.EntitySupplier;
 import com.github.hanyaeger.core.exceptions.YaegerEngineException;
 import com.google.inject.Injector;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class EntitySpawnerContainerTest {
 
@@ -65,6 +64,25 @@ class EntitySpawnerContainerTest {
 
         // Assert
         assertEquals(spawner, sut.getSpawners().get(0));
+    }
+
+    @Test
+    void addSpawnerAddTheSupplierToEntityCollectionIfActivationComplete() {
+        // Arrange
+        var entityCollection = mock(EntityCollection.class);
+        sut.setActivationComplete(true);
+        sut.setSpawners(new ArrayList<>());
+        sut.setEntityCollection(entityCollection);
+
+        var spawner = mock(EntitySpawner.class);
+        var supplier = mock(EntitySupplier.class);
+        when(spawner.getSupplier()).thenReturn(supplier);
+
+        // Act
+        sut.addEntitySpawner(spawner);
+
+        // Assert
+        verify(entityCollection).registerSupplier(spawner.getSupplier());
     }
 
     @Test
@@ -120,12 +138,65 @@ class EntitySpawnerContainerTest {
         verify(spawner2).handle(TIMESTAMP);
     }
 
+    @Test
+    void invokingTheUpdatableRemovesGarbageFromEntityCollection() {
+        // Arrange
+        sut.setSpawners(new ArrayList<>());
+        var spawner1 = mock(EntitySpawner.class);
+        var spawner2 = mock(EntitySpawner.class);
+        var supplier = mock(EntitySupplier.class);
+
+        when(spawner2.isGarbage()).thenReturn(true);
+        when(spawner2.getSupplier()).thenReturn(supplier);
+
+        sut.addEntitySpawner(spawner1);
+        sut.addEntitySpawner(spawner2);
+
+        var entityCollection = mock(EntityCollection.class);
+        sut.setEntityCollection(entityCollection);
+
+        var updatable = sut.callEntitySpawners();
+
+        // Act
+        updatable.update(TIMESTAMP);
+
+        // Assert
+        verify(entityCollection).removeSupplier(supplier);
+    }
+
+    @Test
+    void invokingTheUpdatableRemovesGarbageFromSpawners() {
+        // Arrange
+        sut.setSpawners(new ArrayList<>());
+        var spawner1 = mock(EntitySpawner.class);
+        var spawner2 = mock(EntitySpawner.class);
+        var supplier = mock(EntitySupplier.class);
+
+        when(spawner2.isGarbage()).thenReturn(true);
+        when(spawner2.getSupplier()).thenReturn(supplier);
+
+        sut.addEntitySpawner(spawner1);
+        sut.addEntitySpawner(spawner2);
+
+        var entityCollection = mock(EntityCollection.class);
+        sut.setEntityCollection(entityCollection);
+
+        var updatable = sut.callEntitySpawners();
+
+        // Act
+        updatable.update(TIMESTAMP);
+
+        // Assert
+        assertEquals(1, sut.getSpawners().size());
+    }
+
     private static class EntitySpawnerContainerImpl implements EntitySpawnerContainer {
 
         private List<EntitySpawner> spawners;
         private boolean setupSpawnersCalled = false;
         private Injector injector;
-
+        private boolean activationComplete = false;
+        private EntityCollection entityCollection;
 
         @Override
         public void setupEntitySpawners() {
@@ -139,7 +210,7 @@ class EntitySpawnerContainerTest {
 
         @Override
         public EntityCollection getEntityCollection() {
-            return null;
+            return entityCollection;
         }
 
         @Override
@@ -157,6 +228,19 @@ class EntitySpawnerContainerTest {
 
         public void setInjector(Injector injector) {
             this.injector = injector;
+        }
+
+        @Override
+        public boolean isActivationComplete() {
+            return activationComplete;
+        }
+
+        public void setActivationComplete(boolean activationComplete) {
+            this.activationComplete = activationComplete;
+        }
+
+        public void setEntityCollection(EntityCollection entityCollection) {
+            this.entityCollection = entityCollection;
         }
     }
 }

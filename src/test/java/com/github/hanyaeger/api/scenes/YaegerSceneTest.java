@@ -172,22 +172,22 @@ class YaegerSceneTest {
 
         @Override
         public void clear() {
-
+            // Not required here
         }
 
         @Override
         public void activate() {
-
+            // Not required here
         }
 
         @Override
         public void destroy() {
-
+            // Not required here
         }
 
         @Override
         public void init(Injector injector) {
-
+            // Not required here
         }
 
         @Override
@@ -197,7 +197,7 @@ class YaegerSceneTest {
 
         @Override
         public void setDragNDropRepository(DragNDropRepository dragNDropRepository) {
-
+            // Not required here
         }
 
         @Override

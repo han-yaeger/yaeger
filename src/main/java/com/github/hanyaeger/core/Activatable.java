@@ -1,5 +1,6 @@
 package com.github.hanyaeger.core;
 
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.google.inject.Injector;
 
 /**
@@ -16,5 +17,14 @@ public interface Activatable {
      * be implemented by the Game Object, if desired.
      */
     default void activate() {
+    }
+
+    /**
+     * Return whether this {@link YaegerScene} has completed activation.
+     *
+     * @return a {@code boolean} value that states whether this {@link YaegerScene} has finished activation
+     */
+    default boolean isActivationComplete() {
+        return false;
     }
 }

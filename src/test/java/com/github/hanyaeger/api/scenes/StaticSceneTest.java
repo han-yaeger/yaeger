@@ -119,7 +119,7 @@ class StaticSceneTest {
     }
 
     @Test
-    void configureCreatesAScene() {
+    void activateCreatesAScene() {
         // Arrange
 
         // Act
@@ -131,7 +131,7 @@ class StaticSceneTest {
 
 
     @Test
-    void configureSetsUpADebuggerIfConfigHasShowDebug() {
+    void activateSetsUpADebuggerIfConfigHasShowDebug() {
         // Arrange
         when(config.showDebug()).thenReturn(true);
 
@@ -144,7 +144,7 @@ class StaticSceneTest {
 
 
     @Test
-    void configureCreatesAnEntityCollection() {
+    void activateCreatesAnEntityCollection() {
         // Arrange
 
         // Act
@@ -155,7 +155,7 @@ class StaticSceneTest {
     }
 
     @Test
-    void configureInjectDependenciesIntoEntityCollection() {
+    void activateInjectDependenciesIntoEntityCollection() {
         // Arrange
 
         // Act
@@ -166,7 +166,7 @@ class StaticSceneTest {
     }
 
     @Test
-    void configureSetsUpAKeyListenerDelegate() {
+    void activateSetsUpAKeyListenerDelegate() {
         // Arrange
 
         // Act
@@ -176,9 +176,8 @@ class StaticSceneTest {
         verify(keyListenerDelegate).setup(any(Scene.class), any(KeyListener.class));
     }
 
-
     @Test
-    void configureAddsTheDebuggerAsAStatisticsObserverToTheEntityCollection() {
+    void activateAddsTheDebuggerAsAStatisticsObserverToTheEntityCollection() {
         // Arrange
         var entityCollection = mock(EntityCollection.class);
         when(entityCollectionFactory.create(pane, config)).thenReturn(entityCollection);
@@ -353,6 +352,18 @@ class StaticSceneTest {
         // Verify
         verify(entityCollection).registerSupplier(any());
         verify(entityCollection).initialUpdate();
+    }
+
+    @Test
+    void postActivateSetsIsActivationCompleteToTrue(){
+        // Arrange
+        sut.activate();
+
+        // Act
+        sut.postActivate();
+
+        // Verify
+        assertTrue(sut.isActivationComplete());
     }
 
     @Nested

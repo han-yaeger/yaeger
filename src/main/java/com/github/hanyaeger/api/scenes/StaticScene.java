@@ -58,6 +58,8 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
 
     private DragNDropRepository dragNDropRepository;
 
+    private boolean activationComplete;
+
     @Override
     public void init(final Injector injector) {
         this.injector = injector;
@@ -97,6 +99,7 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
         if (config.showDebug()) {
             debugger.toFront();
         }
+        activationComplete = true;
     }
 
     /**
@@ -231,6 +234,11 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
         return Optional.of(getScene().getRoot());
     }
 
+    @Override
+    public boolean isActivationComplete() {
+        return activationComplete;
+    }
+
     /**
      * Set the {@link Pane} to be used. The {@link Pane} will be the root node of the graph that
      * will be constructed for this {@link Scene}.
@@ -327,4 +335,6 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     private void onInputChanged(final Set<KeyCode> input) {
         entityCollection.notifyGameObjectsOfPressedKeys(input);
     }
+
+
 }

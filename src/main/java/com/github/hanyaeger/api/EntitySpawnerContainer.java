@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api;
 
+import com.github.hanyaeger.core.Activatable;
 import com.github.hanyaeger.core.DependencyInjector;
 import com.github.hanyaeger.core.Updatable;
 import com.github.hanyaeger.core.annotations.OnPostActivation;
@@ -20,7 +21,7 @@ import com.github.hanyaeger.api.scenes.YaegerScene;
  * <p>
  * A {@link EntitySpawner} that is instantiated, but not added in this way, will not work.
  */
-public interface EntitySpawnerContainer extends EntitySpawnerListProvider, EntityCollectionSupplier, DependencyInjector {
+public interface EntitySpawnerContainer extends EntitySpawnerListProvider, EntityCollectionSupplier, DependencyInjector, Activatable {
 
     /**
      * Use this method to add any {@link EntitySpawner} that is required by the {@link YaegerScene}.
@@ -31,6 +32,10 @@ public interface EntitySpawnerContainer extends EntitySpawnerListProvider, Entit
         if (getSpawners() != null) {
             getInjector().injectMembers(entitySpawner);
             getSpawners().add(entitySpawner);
+
+            if (isActivationComplete()) {
+                getEntityCollection().registerSupplier(entitySpawner.getSupplier());
+            }
         } else {
             throw new YaegerEngineException("getSpawners() returns null, please return an instance of ArrayList<>");
         }
@@ -64,7 +69,6 @@ public interface EntitySpawnerContainer extends EntitySpawnerListProvider, Entit
      * were added to this {@link EntitySpawnerContainer}.
      *
      * @return an {@link Updatable} that delegates the {@link Updatable#update(long)}
-     * TODO test
      */
     @UpdatableProvider
     default Updatable callEntitySpawners() {

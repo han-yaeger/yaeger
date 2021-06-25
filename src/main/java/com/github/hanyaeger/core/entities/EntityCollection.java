@@ -85,9 +85,9 @@ public class EntityCollection implements Initializable {
      * Remove the given {@link EntitySupplier} from the list of suppliers.
      *
      * @param supplier the {@link EntitySupplier} to be removed
-     *                 TODO test
      */
     public void removeSupplier(final EntitySupplier supplier) {
+        supplier.clear();
         this.suppliers.remove(supplier);
     }
 

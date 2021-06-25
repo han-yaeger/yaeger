@@ -42,10 +42,15 @@
   behind other entities (#178).
 * Added the option to remove a `Timer` from a `TimerContainer` (either a `YaegerEntity` or `YaegerScene`). Previously
   a `Timer` could only be paused; now it is possible to completely remove it (#197).
-* Added a method `isActive()` which states whether the `Timer` is currently active (e.g. not paused).
+* Added a method `isActive()` which states whether the `Timer` is currently active (e.g. not paused). Since
+  a `EntitySpawner` extends `Timer`, this method is also available for `EntitySpawner`.
+* Added the option to remove a `EntitySpawner` from an `EntitySpawnerContainer`. Previously an `EntitySpawner` could
+  only be paused; now it is possible to completely remove it (#195).
 
 ## Bugfixes
 
 * When a new background audio is set, the previous background audio is first stopped (#192).
 * Through the exposure of the `setViewOrder(double)` method tile-maps no longer appear in front of regular entities
   (#190).
+* Both `EntitySpawner` and `Timer` can now be added outside, respectively, the `setupEntitySpawners()` and
+  `setupTimers()` method.

@@ -65,6 +65,21 @@ class EntityCollectionTest {
     }
 
     @Test
+    void removeSupplierClearsRemovedSupplier() {
+        // Arrange
+        var supplier = mock(EntitySupplier.class);
+        sut = new EntityCollection(pane, config);
+        sut.setAnnotationProcessor(annotationProcessor);
+        sut.registerSupplier(supplier);
+
+        // Act
+        sut.removeSupplier(supplier);
+
+        // Assert
+        verify(supplier).clear();
+    }
+
+    @Test
     void clearClearsSupplier() {
         // Arrange
         var supplier = mock(EntitySupplier.class);
@@ -80,7 +95,7 @@ class EntityCollectionTest {
     }
 
     @Nested
-    class TestsWithKeyListeningEntites {
+    class TestsWithKeyListeningEntities {
 
         private KeyListeningEntityImpl keyListeningEntity;
 

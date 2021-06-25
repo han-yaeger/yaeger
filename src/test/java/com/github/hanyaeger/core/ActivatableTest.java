@@ -16,5 +16,9 @@ class ActivatableTest {
 
     private static class ActivatableImpl implements Activatable {
 
+        @Override
+        public boolean isActivationComplete() {
+            return false;
+        }
     }
 }
