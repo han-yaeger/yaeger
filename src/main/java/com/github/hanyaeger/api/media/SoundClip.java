@@ -10,6 +10,11 @@ import javafx.scene.media.AudioClip;
  */
 public class SoundClip {
 
+    /**
+     * The default volume is 1.0.
+     */
+    private double volume = 1D;
+
     private final String path;
     private final int cycleCount;
     private AudioClip audioClip;
@@ -56,6 +61,7 @@ public class SoundClip {
     public void play() {
         audioClip = audioRepository.get(path);
         audioClip.setCycleCount(cycleCount);
+        audioClip.setVolume(volume);
         audioClip.play();
     }
 
@@ -65,6 +71,32 @@ public class SoundClip {
     public void stop() {
         if (audioClip != null) {
             audioClip.stop();
+        }
+    }
+
+    /**
+     * Set the default volume level. The new setting will only take effect on subsequent plays.
+     *
+     * @param volume new default volume level for this clip
+     */
+    public void setVolume(final double volume) {
+        if (audioClip != null) {
+            audioClip.setVolume(volume);
+        } else {
+            this.volume = volume;
+        }
+    }
+
+    /**
+     * Get the default volume level.
+     *
+     * @return the default volume level for this clip
+     */
+    public double getVolume() {
+        if (audioClip != null) {
+            return audioClip.getVolume();
+        } else {
+            return 0D;
         }
     }
 }
