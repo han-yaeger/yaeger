@@ -5,8 +5,10 @@
 module hanyaeger {
     requires transitive javafx.base;
     requires transitive javafx.controls;
-    requires transitive javafx.media;
     requires transitive javafx.graphics;
+
+    requires javafx.media;
+
     requires com.google.guice;
 
     exports com.github.hanyaeger.api;
