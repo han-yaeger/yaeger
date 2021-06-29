@@ -289,6 +289,43 @@ class StaticSceneTest {
     }
 
     @Test
+    void stopBackgroundAudioVolumeDelegatesToBackgroundDelegate() {
+        // Arrange
+
+        // Act
+        sut.stopBackgroundAudio();
+
+        // Verify
+        verify(backgroundDelegate).stopBackgroundAudio();
+    }
+
+    @Test
+    void setBackgroundAudioVolumeDelegatesToBackgroundDelegate() {
+        // Arrange
+        final var expected = 0.37D;
+
+        // Act
+        sut.setBackgroundAudioVolume(expected);
+
+        // Verify
+        verify(backgroundDelegate).setVolume(expected);
+    }
+
+    @Test
+    void getBackgroundAudioVolumeDelegatesToBackgroundDelegate() {
+        // Arrange
+        final var expected = 0.37D;
+
+        when(backgroundDelegate.getVolume()).thenReturn(expected);
+
+        // Act
+        var actual = sut.getBackgroundAudioVolume();
+
+        // Verify
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void getSceneReturnsExpectedScene() {
         // Arrange
         sut.activate();
@@ -355,7 +392,7 @@ class StaticSceneTest {
     }
 
     @Test
-    void postActivateSetsIsActivationCompleteToTrue(){
+    void postActivateSetsIsActivationCompleteToTrue() {
         // Arrange
         sut.activate();
 

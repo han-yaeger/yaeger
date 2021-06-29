@@ -23,6 +23,8 @@ public interface YaegerScene extends GameNode, DimensionsProvider, Destroyable, 
      *     <li>{@link #setBackgroundImage(String)}</li>
      *     <li>{@link #setBackgroundImage(String)}</li>
      *     <li>{@link #setBackgroundAudio(String)}</li>
+     *     <li>{@link #setBackgroundAudioVolume(double)}</li>
+     *     <li>{@link #getBackgroundAudioVolume()}</li>
      * </ul>
      */
     void setupScene();
@@ -74,6 +76,26 @@ public interface YaegerScene extends GameNode, DimensionsProvider, Destroyable, 
      * @param url the name of the audio file, including extension
      */
     void setBackgroundAudio(final String url);
+
+    /**
+     * Set the playback volume of the background audio.
+     *
+     * @param volume the volume
+     */
+    void setBackgroundAudioVolume(final double volume);
+
+    /**
+     * Return the playback volume of the background audio. This is a value between [0, 1.0],
+     * where 0 means it is not audible and 1.0 it is played at its original volume level.
+     *
+     * @return the volume as a {@code double}
+     */
+    double getBackgroundAudioVolume();
+
+    /**
+     * Stop playing the background audio.
+     */
+    void stopBackgroundAudio();
 
     /**
      * Return the {@link Scene} that is encapsulated by this {@code YaegerScene}

@@ -1,40 +1,39 @@
 package com.github.hanyaeger.core.scenes.delegates;
 
-import com.github.hanyaeger.api.media.SoundClip;
-import com.github.hanyaeger.core.repositories.AudioRepository;
+import com.github.hanyaeger.core.media.BackgroundAudioMediaPlayer;
 import com.github.hanyaeger.core.repositories.ImageRepository;
 import com.github.hanyaeger.core.factories.BackgroundFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
 
 
 import static org.mockito.Mockito.*;
 
 class BackgroundDelegateTest {
 
-    private final String audioFile = "audio/testaudio.mp3";
-    private final String secondAudioFile = "audio/testaudio2.mp3";
-    private final String imageFile = "testImage.png";
+    private static final String URL_AUDIO = "audio/testaudio.mp3";
+    private static final String URL_AUDIO_2 = "audio/testaudio2.mp3";
+    private static final String URL_IMAGE = "testImage.png";
     private BackgroundDelegate sut;
     private BackgroundFactory backgroundFactory;
+    private BackgroundAudioMediaPlayer backgroundAudioMediaPlayer;
     private Pane pane;
 
     @BeforeEach
     void setup() {
         pane = mock(Pane.class);
         backgroundFactory = mock(BackgroundFactory.class);
+        backgroundAudioMediaPlayer = mock(BackgroundAudioMediaPlayer.class);
     }
 
     @Nested
-    class AudioHandling {
+    class UninitializedAudioHandling {
 
         @BeforeEach
         void setup() {
@@ -43,89 +42,98 @@ class BackgroundDelegateTest {
         }
 
         @Test
-        void setNullBackgroundAudioDoesNotBreak() {
-            var audioRepository = mock(AudioRepository.class);
+        void setVolumeDoeNotBreak() {
+            // Arrange
+            var volume = 0.37D;
 
-            try (MockedStatic<AudioRepository> utilities = mockStatic(AudioRepository.class)) {
-                utilities.when(AudioRepository::getInstance).thenReturn(audioRepository);
+            // Act
+            sut.setVolume(volume);
 
-                // Arrange
-                sut.setup(pane);
-
-                // Act
-                sut.setBackgroundAudio(null);
-
-                // Assert
-                verifyNoInteractions(audioRepository);
-            }
+            // Assert
+            verifyNoInteractions(backgroundAudioMediaPlayer);
         }
 
         @Test
-        void setBackgroundAudioPlaysAudioFile() {
+        void getVolumeReturns0() {
             // Arrange
-            var audioClip = mock(AudioClip.class);
-            var audioRepository = mock(AudioRepository.class);
-            when(audioRepository.get(audioFile, SoundClip.INDEFINITE)).thenReturn(audioClip);
+            var expected = 0D;
 
-            try (MockedStatic<AudioRepository> utilities = mockStatic(AudioRepository.class)) {
-                utilities.when(AudioRepository::getInstance).thenReturn(audioRepository);
+            // Act
+            var actual = sut.getVolume();
 
-                // Arrange
-                sut.setup(pane);
+            // Assert
+            Assertions.assertEquals(expected, actual);
+        }
+    }
 
-                // Act
-                sut.setBackgroundAudio(audioFile);
+    @Nested
+    class InitializedAudioHandling {
 
-                // Assert
-                verify(audioClip).play();
-            }
+        @BeforeEach
+        void setup() {
+            sut = new BackgroundDelegate();
+            sut.setBackgroundFactory(backgroundFactory);
+            sut.setBackgroundAudioMediaPlayer(backgroundAudioMediaPlayer);
         }
 
         @Test
-        void setBackgroundAudioStopsPreviousChoseAudioFile() {
+        void setBackgroundAudioCallsBackgroundAudioPlayer() {
             // Arrange
-            var audioClip = mock(AudioClip.class);
-            var secondAudioClip = mock(AudioClip.class);
 
-            var audioRepository = mock(AudioRepository.class);
-            when(audioRepository.get(audioFile, SoundClip.INDEFINITE)).thenReturn(audioClip);
-            when(audioRepository.get(secondAudioFile, SoundClip.INDEFINITE)).thenReturn(secondAudioClip);
+            // Act
+            sut.setBackgroundAudio(URL_AUDIO);
 
-            try (MockedStatic<AudioRepository> utilities = mockStatic(AudioRepository.class)) {
-                utilities.when(AudioRepository::getInstance).thenReturn(audioRepository);
+            // Assert
+            verify(backgroundAudioMediaPlayer).playBackgroundAudio(URL_AUDIO);
+        }
 
-                // Arrange
-                sut.setup(pane);
-                sut.setBackgroundAudio(audioFile);
+        @Test
+        void stopBackgroundAudioCallsBackgroundAudioPlayer() {
+            // Arrange
 
-                // Act
-                sut.setBackgroundAudio(secondAudioFile);
+            // Act
+            sut.stopBackgroundAudio();
 
-                // Assert
-                verify(audioClip).stop();
-            }
+            // Assert
+            verify(backgroundAudioMediaPlayer).stopBackgroundAudio();
         }
 
         @Test
         void destroyStopsAudioFile() {
             // Arrange
-            var audioClip = mock(AudioClip.class);
-            var audioRepository = mock(AudioRepository.class);
-            when(audioRepository.get(audioFile, SoundClip.INDEFINITE)).thenReturn(audioClip);
+            sut.setup(pane);
+            sut.setBackgroundAudio(URL_AUDIO);
 
-            try (MockedStatic<AudioRepository> utilities = mockStatic(AudioRepository.class)) {
-                utilities.when(AudioRepository::getInstance).thenReturn(audioRepository);
+            // Act
+            sut.destroy();
 
-                // Arrange
-                sut.setup(pane);
-                sut.setBackgroundAudio(audioFile);
+            // Assert
+            verify(backgroundAudioMediaPlayer).destroy();
+        }
 
-                // Act
-                sut.destroy();
+        @Test
+        void setVolumeDelegatesToBackgroundAudioPlayer() {
+            // Arrange
+            var volume = 0.37D;
 
-                // Assert
-                verify(audioClip).stop();
-            }
+            // Act
+            sut.setVolume(volume);
+
+            // Assert
+            verify(backgroundAudioMediaPlayer).setVolume(volume);
+        }
+
+        @Test
+        void getVolumeDelegatesToBackgroundAudioPlayer() {
+            // Arrange
+            var expected = 0.37D;
+            when(backgroundAudioMediaPlayer.getVolume()).thenReturn(expected);
+
+            // Act
+            var actual = sut.getVolume();
+
+            // Assert
+            Assertions.assertEquals(expected, actual);
         }
     }
 
@@ -136,6 +144,7 @@ class BackgroundDelegateTest {
         void setup() {
             sut = new BackgroundDelegate();
             sut.setBackgroundFactory(backgroundFactory);
+            sut.setBackgroundAudioMediaPlayer(backgroundAudioMediaPlayer);
             sut.setup(pane);
         }
 
@@ -183,11 +192,11 @@ class BackgroundDelegateTest {
             var imageRepository = mock(ImageRepository.class);
             var background = mock(Background.class);
             sut.setImageRepository(imageRepository);
-            when(imageRepository.get(imageFile)).thenReturn(image);
+            when(imageRepository.get(URL_IMAGE)).thenReturn(image);
             when(backgroundFactory.createImageBackground(image)).thenReturn(background);
 
             // Act
-            sut.setBackgroundImage(imageFile);
+            sut.setBackgroundImage(URL_IMAGE);
 
             // Assert
             verify(pane).setBackground(background);

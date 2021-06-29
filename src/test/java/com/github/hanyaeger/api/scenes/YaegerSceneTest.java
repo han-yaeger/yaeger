@@ -111,6 +111,21 @@ class YaegerSceneTest {
         }
 
         @Override
+        public void setBackgroundAudioVolume(double volume) {
+            // Not required here
+        }
+
+        @Override
+        public double getBackgroundAudioVolume() {
+            return 0;
+        }
+
+        @Override
+        public void stopBackgroundAudio() {
+            // Not required here
+        }
+
+        @Override
         public void setBrightness(double brightness) {
             // Not required here
         }

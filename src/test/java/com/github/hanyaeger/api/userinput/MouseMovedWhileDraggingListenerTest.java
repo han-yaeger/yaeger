@@ -257,32 +257,47 @@ class MouseMovedWhileDraggingListenerTest {
 
         @Override
         public void setupScene() {
-
+            // Not required here
         }
 
         @Override
         public void setupEntities() {
-
+            // Not required here
         }
 
         @Override
         public void postActivate() {
-
+            // Not required here
         }
 
         @Override
         public void setBackgroundColor(Color color) {
-
+            // Not required here
         }
 
         @Override
         public void setBackgroundImage(String url) {
-
+            // Not required here
         }
 
         @Override
         public void setBackgroundAudio(String url) {
+            // Not required here
+        }
 
+        @Override
+        public void setBackgroundAudioVolume(double volume) {
+            // Not required here
+        }
+
+        @Override
+        public double getBackgroundAudioVolume() {
+            return 0;
+        }
+
+        @Override
+        public void stopBackgroundAudio() {
+            // Not required here
         }
 
         @Override
@@ -297,12 +312,12 @@ class MouseMovedWhileDraggingListenerTest {
 
         @Override
         public void setStage(Stage stage) {
-
+            // Not required here
         }
 
         @Override
         public void setConfig(YaegerConfig yaegerConfig) {
-
+            // Not required here
         }
 
         @Override
@@ -312,7 +327,7 @@ class MouseMovedWhileDraggingListenerTest {
 
         @Override
         public void setDragNDropRepository(DragNDropRepository dragNDropRepository) {
-
+            // Not required here
         }
 
         @Override

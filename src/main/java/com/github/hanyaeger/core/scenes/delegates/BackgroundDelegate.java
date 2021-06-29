@@ -3,6 +3,7 @@ package com.github.hanyaeger.core.scenes.delegates;
 import com.github.hanyaeger.core.Destroyable;
 import com.github.hanyaeger.core.ResourceConsumer;
 import com.github.hanyaeger.api.media.SoundClip;
+import com.github.hanyaeger.core.media.BackgroundAudioMediaPlayer;
 import com.github.hanyaeger.core.repositories.AudioRepository;
 import com.github.hanyaeger.core.repositories.ImageRepository;
 import com.github.hanyaeger.api.scenes.YaegerScene;
@@ -11,6 +12,8 @@ import com.google.inject.Inject;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 
 /**
@@ -22,10 +25,9 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
     private Pane pane;
 
     private ImageRepository imageRepository;
-    private AudioRepository audioRepository;
     private BackgroundFactory backgroundFactory;
 
-    private AudioClip backgroundAudio;
+    private BackgroundAudioMediaPlayer backgroundAudioMediaPlayer;
 
     /**
      * Setup the {@link Pane} belonging to this  {@link BackgroundDelegate}.
@@ -34,8 +36,6 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
      */
     public void setup(final Pane pane) {
         this.pane = pane;
-
-        this.audioRepository = AudioRepository.getInstance();
     }
 
     /**
@@ -44,15 +44,7 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
      * @param backgroundAudioUrl the url of the audio file
      */
     public void setBackgroundAudio(final String backgroundAudioUrl) {
-        if (backgroundAudioUrl != null) {
-
-            if (backgroundAudio != null) {
-                backgroundAudio.stop();
-            }
-
-            backgroundAudio = audioRepository.get(backgroundAudioUrl, SoundClip.INDEFINITE);
-            backgroundAudio.play();
-        }
+        backgroundAudioMediaPlayer.playBackgroundAudio(backgroundAudioUrl);
     }
 
     /**
@@ -80,16 +72,45 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
         }
     }
 
-    private void stopBackgroundAudio() {
-        if (backgroundAudio != null) {
-            backgroundAudio.stop();
-            backgroundAudio = null;
+    /**
+     * Stop playing the background audio.
+     */
+    public void stopBackgroundAudio() {
+        if (backgroundAudioMediaPlayer != null) {
+            backgroundAudioMediaPlayer.stopBackgroundAudio();
+        }
+    }
+
+    /**
+     * Set the volume of the background audio.
+     *
+     * @param volume the volume
+     */
+    public void setVolume(final double volume) {
+        if (backgroundAudioMediaPlayer != null) {
+            backgroundAudioMediaPlayer.setVolume(volume);
+        }
+    }
+
+    /**
+     * Retrieves the background audio playback volume.
+     *
+     * @return the audio volume
+     */
+    public double getVolume() {
+        if (backgroundAudioMediaPlayer != null) {
+            return backgroundAudioMediaPlayer.getVolume();
+        } else {
+            return 0D;
         }
     }
 
     @Override
     public void destroy() {
-        stopBackgroundAudio();
+        backgroundAudioMediaPlayer.destroy();
+
+        backgroundAudioMediaPlayer = null;
+
         pane.setBackground(null);
         pane = null;
     }
@@ -112,5 +133,15 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
     @Inject
     public void setBackgroundFactory(final BackgroundFactory backgroundFactory) {
         this.backgroundFactory = backgroundFactory;
+    }
+
+    /**
+     * TSet the {@link BackgroundAudioMediaPlayer} to be used for this {@code BackgroundDelegate}.
+     *
+     * @param backgroundAudioMediaPlayer the {@link BackgroundAudioMediaPlayer} to be used
+     */
+    @Inject
+    public void setBackgroundAudioMediaPlayer(final BackgroundAudioMediaPlayer backgroundAudioMediaPlayer) {
+        this.backgroundAudioMediaPlayer = backgroundAudioMediaPlayer;
     }
 }
