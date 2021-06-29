@@ -75,6 +75,21 @@ class BackgroundAudioMediaPlayerTest {
     }
 
     @Test
+    void playBackgroundAudioSetsCycleCountToIndefinite() {
+        // Arrange
+        try (MockedStatic<MediaFactory> factory = Mockito.mockStatic(MediaFactory.class)) {
+            factory.when(() -> MediaFactory.createMedia(anyString())).thenReturn(media);
+            factory.when(() -> MediaFactory.createMediaPlayer(any(Media.class))).thenReturn(mediaPlayer);
+
+            // Act
+            sut.playBackgroundAudio(URL);
+
+            // Assert
+            verify(mediaPlayer).setCycleCount(MediaPlayer.INDEFINITE);
+        }
+    }
+
+    @Test
     void stopBackgroundAudioCallsStopOnMediaPlayer() {
         // Arrange
         try (MockedStatic<MediaFactory> factory = Mockito.mockStatic(MediaFactory.class)) {

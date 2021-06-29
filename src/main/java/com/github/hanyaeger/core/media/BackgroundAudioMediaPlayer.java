@@ -30,6 +30,7 @@ public class BackgroundAudioMediaPlayer implements ResourceConsumer, Destroyable
 
             mediaPlayer = MediaFactory.createMediaPlayer(media);
             mediaPlayer.setVolume(volume);
+            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
             mediaPlayer.play();
         }
     }
