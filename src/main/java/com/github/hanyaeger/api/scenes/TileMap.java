@@ -30,10 +30,13 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
     private transient final Map<Integer, EntityConfiguration> entities;
 
     private int[][] map;
+
     private transient TileFactory tileFactory;
+    private transient AnchorPoint anchorPoint = AnchorPoint.TOP_LEFT;
+
     transient Optional<Size> size = Optional.empty();
     final transient Optional<Coordinate2D> location;
-    private transient AnchorPoint anchorPoint = AnchorPoint.TOP_LEFT;
+
 
     /**
      * Create a new {@link TileMap} that takes up the full width and height of the

@@ -2,18 +2,13 @@ package com.github.hanyaeger.core.scenes.delegates;
 
 import com.github.hanyaeger.core.Destroyable;
 import com.github.hanyaeger.core.ResourceConsumer;
-import com.github.hanyaeger.api.media.SoundClip;
 import com.github.hanyaeger.core.media.BackgroundAudioMediaPlayer;
-import com.github.hanyaeger.core.repositories.AudioRepository;
 import com.github.hanyaeger.core.repositories.ImageRepository;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.factories.BackgroundFactory;
 import com.google.inject.Inject;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 
 /**

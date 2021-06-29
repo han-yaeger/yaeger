@@ -8,7 +8,6 @@ import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.guice.YaegerModule;
 import com.github.hanyaeger.core.media.BackgroundAudioMediaPlayer;
 import com.google.inject.Guice;
-import com.google.inject.Inject;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
