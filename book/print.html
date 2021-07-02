@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="creating-a-game.html"><strong aria-hidden="true">2.</strong> Creating a game</a></li><li class="chapter-item expanded "><a href="scenes.html"><strong aria-hidden="true">3.</strong> Scenes aka Levels</a></li><li class="chapter-item expanded "><a href="entities.html"><strong aria-hidden="true">4.</strong> Entities aka Game Objects</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="creating-entities.html"><strong aria-hidden="true">4.1.</strong> Creating Entities</a></li><li class="chapter-item expanded "><a href="entity-interactions.html"><strong aria-hidden="true">4.2.</strong> Entity interactions</a></li><li class="chapter-item expanded "><a href="physics.html"><strong aria-hidden="true">4.3.</strong> Applying physics</a></li><li class="chapter-item expanded "><a href="sounds.html"><strong aria-hidden="true">4.4.</strong> Sounds</a></li></ol></li><li class="chapter-item expanded "><a href="user-input.html"><strong aria-hidden="true">5.</strong> Handling user input</a></li><li class="chapter-item expanded "><a href="timing-things.html"><strong aria-hidden="true">6.</strong> Timing things</a></li><li class="chapter-item expanded "><a href="commandline-arguments.html"><strong aria-hidden="true">7.</strong> Command line arguments</a></li><li class="chapter-item expanded "><a href="debugging.html"><strong aria-hidden="true">8.</strong> Debugging</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">9.</strong> FAQ</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="creating-a-game.html"><strong aria-hidden="true">2.</strong> Creating a game</a></li><li class="chapter-item expanded "><a href="scenes.html"><strong aria-hidden="true">3.</strong> Scenes aka Levels</a></li><li class="chapter-item expanded "><a href="entities.html"><strong aria-hidden="true">4.</strong> Entities aka Game Objects</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="creating-entities.html"><strong aria-hidden="true">4.1.</strong> Creating Entities</a></li><li class="chapter-item expanded "><a href="entity-interactions.html"><strong aria-hidden="true">4.2.</strong> Entity interactions</a></li><li class="chapter-item expanded "><a href="physics.html"><strong aria-hidden="true">4.3.</strong> Applying physics</a></li></ol></li><li class="chapter-item expanded "><a href="user-input.html"><strong aria-hidden="true">5.</strong> Handling user input</a></li><li class="chapter-item expanded "><a href="sounds.html"><strong aria-hidden="true">6.</strong> Sounds</a></li><li class="chapter-item expanded "><a href="timing-things.html"><strong aria-hidden="true">7.</strong> Timing things</a></li><li class="chapter-item expanded "><a href="commandline-arguments.html"><strong aria-hidden="true">8.</strong> Command line arguments</a></li><li class="chapter-item expanded "><a href="debugging.html"><strong aria-hidden="true">9.</strong> Debugging</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">10.</strong> FAQ</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -319,9 +319,10 @@ rendered on the scene. The lower the value, the closer the entity is placed to t
 file would be a file with the extension <em>ttf</em>, which should be placed in the <code>resources/</code> folder of your project. If you
 place this file in a sub-folder of <code>resource/</code> do not forget to open it up through the module descriptor.</p>
 <h3 id="composite-entities"><a class="header" href="#composite-entities">Composite Entities</a></h3>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="entity-interactions"><a class="header" href="#entity-interactions">Entity interactions</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="sounds"><a class="header" href="#sounds">Sounds</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="user-input"><a class="header" href="#user-input">User Input</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="creating-entities"><a class="header" href="#creating-entities">Creating Entities</a></h1>
+<h2 id="spawning-entities-at-a-regular-time-interval"><a class="header" href="#spawning-entities-at-a-regular-time-interval">Spawning Entities at a regular time-interval</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="entity-interactions"><a class="header" href="#entity-interactions">Entity interactions</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="user-input"><a class="header" href="#user-input">User Input</a></h1>
 <p>A Player can interact with both Entities and Scenes by using the keyboard or mouse. To enable this interaction the Scene
 or Entity should implement the appropriate interface, after which an event handler should be implemented.</p>
 <h2 id="available-interactions"><a class="header" href="#available-interactions">Available interactions</a></h2>
@@ -341,7 +342,37 @@ and <code>YaegerScene</code>, only the <code>MouseDraggedListener</code> can onl
 <tr><td align="left"><code>MouseDragExitListener</code></td><td align="left"><code>void onDragExited(Coordinate2D, MouseDraggedListener)</code></td></tr>
 <tr><td align="left"><code>MouseDropListener</code></td><td align="left"><code>void onDrop(Coordinate2D, MouseDraggedListener)</code></td></tr>
 </tbody></table>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sounds"><a class="header" href="#sounds">Sounds</a></h1>
+<p>Sound are usually an important part of any game. A sound can be either an effect that is part of the game, or an
+audio-fragment that is being played at the background. Both cases are supported by Yaeger, but both require a different
+way to make them happen.</p>
+<h2 id="background-audio"><a class="header" href="#background-audio">Background audio</a></h2>
+<p>Background audio can be set on either the <code>YaegerGame</code> or <code>YaegerScene</code>. In both cases the audio will loop indefinitely
+until respectively the <code>YaegerGame</code> has ended or a different <code>YaegerScene</code> is loaded. This way it is possible to set
+background that will be used throughout the game, or is specific to a <code>YaegerScene</code>.</p>
+<h2 id="sound-effects"><a class="header" href="#sound-effects">Sound effects</a></h2>
+<p>When a sound effect should be played, a <code>SoundClip</code> can be used. It will only be played once and as soon as it has
+finished it becomes eligible for garbage collection. Although the volume of a <code>SoundClip</code> can be set, note that it is
+only applied to the next time it is played. Thus, the volume has to be set before <code>play()</code> is called.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="timing-things"><a class="header" href="#timing-things">Timing things</a></h1>
+<p>As can be read in <a href="scenes.html">Scenes aka Levels</a>, there are two different implementations of <code>YaegerScene</code> available:
+a <code>StaticScene</code> and a <code>DynamicScene</code>. Their main difference resides in the fact that a <code>DynamicScene</code> contains a Game
+World Update (GWA) to which all instances of <code>DynamicEntity</code> added to the scene will listen.</p>
+<p>This chapter will discuss the different ways in the GWA can be used within Yaeger. It will start by discussing how the
+GWA gets delegated to all Objects, after which different ways to use in within your Scene of Entity.</p>
+<h2 id="how-the-gwa-is-delegated-to-all-objects"><a class="header" href="#how-the-gwa-is-delegated-to-all-objects">How the GWA is delegated to all Objects</a></h2>
+<p>The GWA is initiated by the <code>DynamicScene</code>, and handed down to all Dynamic Entities that were added to the Scene. This
+is done in the same order as in which they were added to the Scene.</p>
+<p><img src="images/update-delegation.png" alt="Update Delegation" /></p>
+<h2 id="using-a-timer-to-create-time-based-events"><a class="header" href="#using-a-timer-to-create-time-based-events">Using a <code>Timer</code> to create time-based events</a></h2>
+<p>On both Dynamic Scenes and Dynamic Entities one or more timers can be used to create time based events. To use such a
+<code>Timer</code> the Scene or Entity should implement the interface <code>TimerContainer</code>. After doing so, the method <code>setupTimers()</code>
+should be implemented and the method <code>addTimer(Timer)</code> can be called to add an instance of <code>Timer</code>.</p>
+<h2 id="exposing-the-gwa-to-scenes-and-entities"><a class="header" href="#exposing-the-gwa-to-scenes-and-entities">Exposing the GWA to Scenes and Entities</a></h2>
+<p>The GWA is kept internal on all Entities and Scenes and gets delegated downwards. It is, however, possible to expose the
+GWA to an Entity or Scene by implementing the interface
+<code>UpdateExposer</code>, which exposes an <code>explicitUpdate(long)</code> method. The value passed to this method represents a timestamp
+of the current time and can be used to keep track of time.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="command-line-arguments"><a class="header" href="#command-line-arguments">Command Line Arguments</a></h1>
 <p>When run, Yaeger accepts command line arguments. These arguments are primarily meant for debugging your Game.</p>
 <p>The following arguments are currently supported:</p>
