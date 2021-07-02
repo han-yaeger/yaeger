@@ -1,3 +1,3 @@
-## Creating Entities
+# Creating Entities
 
-### Spawning Entities at a regular time-interval
+## Spawning Entities at a regular time-interval
