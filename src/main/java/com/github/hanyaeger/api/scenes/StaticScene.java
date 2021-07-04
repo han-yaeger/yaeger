@@ -97,7 +97,7 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
         entityCollection.registerSupplier(entitySupplier);
         entityCollection.initialUpdate();
         if (config.showDebug()) {
-            debugger.toFront();
+            debugger.postActivation();
         }
         activationComplete = true;
     }

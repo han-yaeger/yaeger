@@ -10,7 +10,7 @@ import com.github.hanyaeger.core.factories.debug.DebugGridPaneFactory;
 import javafx.scene.layout.Pane;
 
 /**
- * The {@code Debugger} is used to gather and show in game debug information.
+ * The {@code Debugger} is used to gather and show in-game debug information.
  */
 public class Debugger implements StatisticsObserver {
 
@@ -18,6 +18,8 @@ public class Debugger implements StatisticsObserver {
     private static final String PROCESSORS_AMOUNT = "Available processors:";
     private static final String MEMORY_ALLOCATED = "Total allocated memory:";
     private static final String MEMORY_USED = "Total used memory:";
+    private static final String WINDOW_DIMENSIONS = "Window dimensions:";
+    private static final String GAME_DIMENSIONS = "Game dimensions:";
     private static final String ENTITIES_DYNAMIC = "Dynamic Entities:";
     private static final String ENTITIES_STATIC = "Static Entities:";
     private static final String SUPPLIERS = "Suppliers:";
@@ -33,6 +35,8 @@ public class Debugger implements StatisticsObserver {
     private DebugLabelFactory debugLabelFactory;
 
     private GridPane gridpane;
+    private Label windowDimensions;
+    private Label gameDimensions;
     private Label dynamicEntities;
     private Label staticEntities;
     private Label entitySpawners;
@@ -43,6 +47,7 @@ public class Debugger implements StatisticsObserver {
 
     private Label audioFiles;
     private Label imageFiles;
+
 
     /**
      * Setup the {@code Debugger} on the given {@link Pane}.
@@ -58,8 +63,12 @@ public class Debugger implements StatisticsObserver {
     /**
      * Ensure that the {@link Debugger} is brought to the top of the view stack.
      */
-    public void toFront() {
+    public void postActivation() {
+        windowDimensions.setText(String.format("%.0f x %.0f", gridpane.getScene().getWindow().getWidth(), gridpane.getScene().getWindow().getHeight()));
+        gameDimensions.setText(String.format("%.0f x %.0f", gridpane.getScene().getWidth(), gridpane.getScene().getHeight()));
+        gridpane.setViewOrder(1);
         gridpane.toFront();
+
     }
 
     /**
@@ -108,6 +117,9 @@ public class Debugger implements StatisticsObserver {
 
         allocatedMemory = addDebugLine(MEMORY_ALLOCATED, getTotalMemory());
         usedMemory = addDebugLine(MEMORY_USED, getUsedMemory());
+
+        windowDimensions = addDebugLine(WINDOW_DIMENSIONS);
+        gameDimensions = addDebugLine(GAME_DIMENSIONS);
     }
 
     private void addEntityStatistics() {
