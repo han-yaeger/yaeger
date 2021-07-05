@@ -22,10 +22,44 @@ import java.util.List;
 public abstract class DynamicScene extends StaticScene implements UpdateDelegator, TimerListProvider, EntitySpawnerListProvider {
 
     private Updater updater;
+    private boolean activeGWU;
     private AnimationTimer animator;
     private AnimationTimerFactory animationTimerFactory;
     private final List<Timer> timers = new ArrayList<>();
     private final List<EntitySpawner> spawners = new ArrayList<>();
+
+    /**
+     * Pause the Game World Update (GWU) of this {@link YaegerScene}. After the GWU has been paused,
+     * all Dynamic Entities and instances of {@link EntitySpawner} and {@link Timer} will no longer
+     * receive their GWA, meaning the Game comes to a pause.
+     * <p>
+     * To resume the Game, call {@link #resume()}.
+     */
+    public void pause() {
+        animator.stop();
+        activeGWU = false;
+    }
+
+    /**
+     * Resume a Game that has been paused (the {@link #pause()}) method has been called. After calling the
+     * method GWA will start and all Dynamic Entities and instances of {@link EntitySpawner} and {@link Timer} will
+     * again receive a Game World Update.
+     */
+    public void resume() {
+        animator.start();
+        activeGWU = true;
+    }
+
+    /**
+     * Returns whether the Game World Update is active or not. By default the GWU is active. After
+     * calling {@link #pause()} this method will return {@code false}. To reactivate the GWA, use
+     * {@link #resume()}.
+     *
+     * @return a {@code boolean} value that states whether the GWA is active
+     */
+    public boolean isActiveGWU() {
+        return activeGWU;
+    }
 
     @Override
     public void activate() {
@@ -46,11 +80,11 @@ public abstract class DynamicScene extends StaticScene implements UpdateDelegato
     }
 
     private void startGameLoop() {
-        animator.start();
+        resume();
     }
 
     private void stopGameLoop() {
-        animator.stop();
+        pause();
         animator = null;
     }
 

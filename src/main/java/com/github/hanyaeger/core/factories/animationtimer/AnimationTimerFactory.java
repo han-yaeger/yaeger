@@ -40,9 +40,7 @@ public class AnimationTimerFactory {
 
             @Override
             public void handle() {
-
                 handler.handle();
-
             }
         };
     }

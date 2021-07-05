@@ -14,6 +14,11 @@ is done in the same order as in which they were added to the Scene.
 
 ![Update Delegation](images/update-delegation.png)
 
+### Pausing and resuming the GWA
+
+Since the GWA gets initiated at the level of the `DynamicScene`, and then passed down, it is possible to pause all
+Objects that are called by this GWA. For this a `DynamicScene` provides a method to pause and resume the GWA.
+
 ## Using a `Timer` to create time-based events
 
 On both Dynamic Scenes and Dynamic Entities one or more timers can be used to create time based events. To use such a

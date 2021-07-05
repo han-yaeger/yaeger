@@ -23,8 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class DynamicSceneTest {
@@ -176,6 +175,32 @@ class DynamicSceneTest {
 
         // Assert
         verify(updater).update(TIMESTAMP);
+    }
+
+    @Test
+    void pauseCallsStopOnTimer() {
+        // Arrange
+        sut.activate();
+
+        // Act
+        sut.pause();
+
+        // Assert
+        assertFalse(sut.isActiveGWU());
+        verify(animationTimer).stop();
+    }
+
+    @Test
+    void resumeCallsStartOnTimer() {
+        // Arrange
+        sut.activate();
+
+        // Act
+        sut.resume();
+
+        // Assert
+        assertTrue(sut.isActiveGWU());
+        verify(animationTimer, times(2)).start();
     }
 
     private static class DynamicSceneImpl extends DynamicScene {
