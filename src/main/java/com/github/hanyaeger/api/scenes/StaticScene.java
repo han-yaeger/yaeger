@@ -83,8 +83,8 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
 
         keyListenerDelegate.setup(scene, this::onInputChanged);
 
-        if (this instanceof KeyListener) {
-            entityCollection.registerKeyListener((KeyListener) this);
+        if (this instanceof KeyListener keyListener) {
+            entityCollection.registerKeyListener(keyListener);
         }
         backgroundDelegate.setup(pane);
 

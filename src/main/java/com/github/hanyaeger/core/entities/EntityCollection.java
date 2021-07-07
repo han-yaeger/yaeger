@@ -302,8 +302,8 @@ public class EntityCollection implements Initializable {
     }
 
     private void registerIfKeyListener(final YaegerEntity entity) {
-        if (entity instanceof KeyListener) {
-            registerKeyListener((KeyListener) entity);
+        if (entity instanceof KeyListener keyListener) {
+            registerKeyListener(keyListener);
         }
     }
 

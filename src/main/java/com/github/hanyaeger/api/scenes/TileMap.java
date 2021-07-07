@@ -27,10 +27,9 @@ import java.util.*;
  */
 public abstract class TileMap extends EntitySupplier implements Anchorable, Activatable {
 
-    private transient final Map<Integer, EntityConfiguration> entities;
-
     private int[][] map;
 
+    private transient final Map<Integer, EntityConfiguration> entities;
     private transient TileFactory tileFactory;
     private transient AnchorPoint anchorPoint = AnchorPoint.TOP_LEFT;
 

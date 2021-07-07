@@ -33,12 +33,12 @@ public class CollisionDelegate {
     public boolean register(final YaegerEntity entity) {
         var registered = false;
 
-        if (entity instanceof Collider) {
-            register((Collider) entity);
+        if (entity instanceof Collider collider) {
+            register(collider);
             registered = true;
         }
-        if (entity instanceof Collided) {
-            register((Collided) entity);
+        if (entity instanceof Collided collided) {
+            register(collided);
             registered = true;
         }
 
@@ -69,11 +69,11 @@ public class CollisionDelegate {
      * @param removable The {@link Removable} that should be removed.
      */
     public void remove(final Removable removable) {
-        if (removable instanceof Collider) {
-            removeCollider((Collider) removable);
+        if (removable instanceof Collider collider) {
+            removeCollider(collider);
         }
-        if (removable instanceof Collided) {
-            removeCollided((Collided) removable);
+        if (removable instanceof Collided collided) {
+            removeCollided(collided);
         }
     }
 
