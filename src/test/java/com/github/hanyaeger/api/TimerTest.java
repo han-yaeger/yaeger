@@ -7,11 +7,36 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TimerTest {
 
+    private static final long INTERVAL_IN_MS = 1000L;
     private TimerImpl sut;
 
     @BeforeEach
     void setup() {
-        sut = new TimerImpl(1000);
+        sut = new TimerImpl(INTERVAL_IN_MS);
+    }
+
+    @Test
+    void intervalInMsFromConstructorIsUsed(){
+        // Arrange
+
+        // Act
+        var actual = sut.getIntervalInMs();
+
+        // Assert
+        assertEquals(INTERVAL_IN_MS, actual);
+    }
+
+    @Test
+    void setIntervalInMsFromConstructorOverridesConstructorValue(){
+        // Arrange
+        var expected = 37L;
+        sut.setIntervalInMs(expected);
+
+        // Act
+        var actual = sut.getIntervalInMs();
+
+        // Assert
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -122,7 +147,7 @@ class TimerTest {
 
         private boolean updateCalled = false;
 
-        public TimerImpl(int intervalInMs) {
+        public TimerImpl(long intervalInMs) {
             super(intervalInMs);
         }
 

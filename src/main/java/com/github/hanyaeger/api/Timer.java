@@ -11,7 +11,7 @@ import com.github.hanyaeger.api.scenes.YaegerScene;
  */
 public abstract class Timer {
 
-    private final long interval;
+    private long intervalInMs;
     private long prevTime = 0;
 
     private boolean active = true;
@@ -23,7 +23,7 @@ public abstract class Timer {
      * @param intervalInMs the interval in milliseconds
      */
     protected Timer(final long intervalInMs) {
-        this.interval = intervalInMs * 1_000_000;
+        this.intervalInMs = intervalInMs;
     }
 
     /**
@@ -39,7 +39,7 @@ public abstract class Timer {
             prevTime = now;
         }
 
-        if ((now - prevTime) < interval) {
+        if ((now - prevTime) < intervalInMs * 1_000_000) {
             return;
         }
 
@@ -94,5 +94,23 @@ public abstract class Timer {
      */
     public boolean isActive() {
         return active;
+    }
+
+    /**
+     * Return the interval in ms that is being used by this {@code Timer}.
+     *
+     * @return the interval in ms as a {@code long}
+     */
+    public long getIntervalInMs() {
+        return intervalInMs;
+    }
+
+    /**
+     * Set the interval in ms that should be used by this {@code Timer}.
+     *
+     * @param intervalInMs the interval in ms as a {@code long}
+     */
+    public void setIntervalInMs(final long intervalInMs) {
+        this.intervalInMs = intervalInMs;
     }
 }
