@@ -364,6 +364,9 @@ GWA gets delegated to all Objects, after which different ways to use in within y
 <p>The GWA is initiated by the <code>DynamicScene</code>, and handed down to all Dynamic Entities that were added to the Scene. This
 is done in the same order as in which they were added to the Scene.</p>
 <p><img src="images/update-delegation.png" alt="Update Delegation" /></p>
+<h3 id="pausing-and-resuming-the-gwa"><a class="header" href="#pausing-and-resuming-the-gwa">Pausing and resuming the GWA</a></h3>
+<p>Since the GWA gets initiated at the level of the <code>DynamicScene</code>, and then passed down, it is possible to pause all
+Objects that are called by this GWA. For this a <code>DynamicScene</code> provides a method to pause and resume the GWA.</p>
 <h2 id="using-a-timer-to-create-time-based-events"><a class="header" href="#using-a-timer-to-create-time-based-events">Using a <code>Timer</code> to create time-based events</a></h2>
 <p>On both Dynamic Scenes and Dynamic Entities one or more timers can be used to create time based events. To use such a
 <code>Timer</code> the Scene or Entity should implement the interface <code>TimerContainer</code>. After doing so, the method <code>setupTimers()</code>
