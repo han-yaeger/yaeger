@@ -29,12 +29,12 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
 
     private int[][] map;
 
-    private transient final Map<Integer, EntityConfiguration> entities;
+    private final transient Map<Integer, EntityConfiguration> entities;
     private transient TileFactory tileFactory;
     private transient AnchorPoint anchorPoint = AnchorPoint.TOP_LEFT;
 
-    transient Optional<Size> size = Optional.empty();
     final transient Optional<Coordinate2D> location;
+    transient Optional<Size> size = Optional.empty();
 
 
     /**

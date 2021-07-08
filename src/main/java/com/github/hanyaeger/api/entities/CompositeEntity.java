@@ -55,7 +55,7 @@ public abstract class CompositeEntity extends YaegerEntity {
      *
      * @param initialLocation the initial position at which this {@link CompositeEntity} should be placed
      */
-    public CompositeEntity(final Coordinate2D initialLocation) {
+    protected CompositeEntity(final Coordinate2D initialLocation) {
         super(initialLocation);
     }
 
