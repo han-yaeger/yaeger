@@ -259,6 +259,11 @@ class MouseMovedListenerTest {
         }
 
         @Override
+        public void setBackgroundImage(String url, boolean fullscreen) {
+            // Not required here
+        }
+
+        @Override
         public void setBackgroundAudio(String url) {
             // Not required here
         }

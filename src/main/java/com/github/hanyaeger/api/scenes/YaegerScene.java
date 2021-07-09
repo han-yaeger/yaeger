@@ -21,7 +21,7 @@ public interface YaegerScene extends GameNode, DimensionsProvider, Destroyable, 
      *
      * <ul>
      *     <li>{@link #setBackgroundImage(String)}</li>
-     *     <li>{@link #setBackgroundImage(String)}</li>
+     *     <li>{@link #setBackgroundImage(String, boolean)}</li>
      *     <li>{@link #setBackgroundAudio(String)}</li>
      *     <li>{@link #setBackgroundAudioVolume(double)}</li>
      *     <li>{@link #getBackgroundAudioVolume()}</li>
@@ -32,6 +32,12 @@ public interface YaegerScene extends GameNode, DimensionsProvider, Destroyable, 
     /**
      * Use this method to setup all instances of {@code YaegerEntity} that should
      * be added to the {@code YaegerScene} before activation.
+     * <p>
+     * If not only instances of {@link com.github.hanyaeger.api.entities.YaegerEntity}, but also of
+     * {@link com.github.hanyaeger.api.entities.EntitySpawner} or {@link com.github.hanyaeger.api.Timer} should be added
+     * to the {@link YaegerScene}, respectively the interface {@link com.github.hanyaeger.api.EntitySpawnerContainer} and
+     * {@link com.github.hanyaeger.api.TimerContainer} should be implemented. These two interface will provide their own
+     * setup methods. Note that the order in which these methods are called is not deterministic.
      */
     void setupEntities();
 
@@ -50,7 +56,8 @@ public interface YaegerScene extends GameNode, DimensionsProvider, Destroyable, 
     void setBackgroundColor(final Color color);
 
     /**
-     * Set the background image file.
+     * Set the background image file. This image full be placed as the background for the entire {@link YaegerScene} and
+     * thus stretched horizontally and vertically, if necessary.
      * <p>
      * The {@code url} of the image is relative to the {@code resources/} folder, where all
      * resources should be placed. If the resource is placed in a subfolder of {@code resources/}, this folder should
@@ -64,6 +71,25 @@ public interface YaegerScene extends GameNode, DimensionsProvider, Destroyable, 
      *            </ul>
      */
     void setBackgroundImage(final String url);
+
+    /**
+     * Set the background image file.
+     * <p>
+     * The {@code url} of the image is relative to the {@code resources/} folder, where all
+     * resources should be placed. If the resource is placed in a subfolder of {@code resources/}, this folder should
+     * be opened explicitly from the module descriptor.
+     *
+     * @param url        the name of the image file, including extension. Although many different file types are supported,
+     *                   the following types are preferred:
+     *                   <ul>
+     *                   <li>jpg, jpeg</li>
+     *                   <li>png</li>
+     *                   </ul>
+     * @param fullscreen a {@code boolean} that states whether the provided image should be displayed as fullscreen or
+     *                   tiled. If fullscreen is set to {@code false} the image will be its original size and tiled both
+     *                   horizontally and vertically.
+     */
+    void setBackgroundImage(final String url, final boolean fullscreen);
 
     /**
      * Set the background audio file. Currently only {@code *.mp3} files are supported. The audio file

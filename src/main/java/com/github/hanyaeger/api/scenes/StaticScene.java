@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -157,7 +158,12 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
 
     @Override
     public void setBackgroundImage(final String url) {
-        backgroundDelegate.setBackgroundImage(url);
+        setBackgroundImage(url, true);
+    }
+
+    @Override
+    public void setBackgroundImage(final String url, final boolean fullscreen) {
+        backgroundDelegate.setBackgroundImage(url, fullscreen);
     }
 
     @Override

@@ -185,7 +185,7 @@ class BackgroundDelegateTest {
         }
 
         @Test
-        void setBackgroundImageSetImageOnScene() {
+        void setBackgroundImageTiledSetsTiledImageOnScene() {
             // Arrange
             var image = mock(Image.class);
 
@@ -193,10 +193,28 @@ class BackgroundDelegateTest {
             var background = mock(Background.class);
             sut.setImageRepository(imageRepository);
             when(imageRepository.get(URL_IMAGE)).thenReturn(image);
-            when(backgroundFactory.createImageBackground(image)).thenReturn(background);
+            when(backgroundFactory.createImageBackground(image, false)).thenReturn(background);
 
             // Act
-            sut.setBackgroundImage(URL_IMAGE);
+            sut.setBackgroundImage(URL_IMAGE, false);
+
+            // Assert
+            verify(pane).setBackground(background);
+        }
+
+        @Test
+        void setBackgroundImageFullscreenSetsFullscreenImageOnScene() {
+            // Arrange
+            var image = mock(Image.class);
+
+            var imageRepository = mock(ImageRepository.class);
+            var background = mock(Background.class);
+            sut.setImageRepository(imageRepository);
+            when(imageRepository.get(URL_IMAGE)).thenReturn(image);
+            when(backgroundFactory.createImageBackground(image, true)).thenReturn(background);
+
+            // Act
+            sut.setBackgroundImage(URL_IMAGE, true);
 
             // Assert
             verify(pane).setBackground(background);

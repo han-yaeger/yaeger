@@ -277,7 +277,7 @@ class StaticSceneTest {
     }
 
     @Test
-    void setBackgroundImageDelegatesToBackgroundDelegate() {
+    void setBackgroundImageDelegatesToBackgroundDelegateFullscreen() {
         // Arrange
         final var IMAGE_STRING = "Hello World";
 
@@ -285,7 +285,31 @@ class StaticSceneTest {
         sut.setBackgroundImage(IMAGE_STRING);
 
         // Verify
-        verify(backgroundDelegate).setBackgroundImage(IMAGE_STRING);
+        verify(backgroundDelegate).setBackgroundImage(IMAGE_STRING, true);
+    }
+
+    @Test
+    void setFullscreenBackgroundImageDelegatesToBackgroundDelegateFullscreen() {
+        // Arrange
+        final var IMAGE_STRING = "Hello World";
+
+        // Act
+        sut.setBackgroundImage(IMAGE_STRING, true);
+
+        // Verify
+        verify(backgroundDelegate).setBackgroundImage(IMAGE_STRING, true);
+    }
+
+    @Test
+    void setTiledBackgroundImageDelegatesToBackgroundDelegateTiled() {
+        // Arrange
+        final var IMAGE_STRING = "Hello World";
+
+        // Act
+        sut.setBackgroundImage(IMAGE_STRING, false);
+
+        // Verify
+        verify(backgroundDelegate).setBackgroundImage(IMAGE_STRING, false);
     }
 
     @Test

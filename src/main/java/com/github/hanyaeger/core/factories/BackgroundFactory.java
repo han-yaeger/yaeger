@@ -22,12 +22,44 @@ public class BackgroundFactory {
     }
 
     /**
-     * Create a {@link Background} with the specified image.
+     * Create a {@link Background} with the specified image. The created {@link Background} will be either a
+     * fullscreen version, or a tiled version.
      *
-     * @param image the {@link Image} to be used
+     * @param image      the {@link Image} to be used
+     * @param fullscreen a {@code boolean} that states whether the {@link Image} should be fullscreen. If {@code false}
+     *                   the {@link Image} will be horizontally and vertically tiled.
      * @return a {@link Background} that encapsulates an {@link BackgroundImage} with the given {@link Image}
      */
-    public Background createImageBackground(final Image image) {
-        return new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, new BackgroundSize(1.0, 1.0, true, true, false, false)));
+
+    public Background createImageBackground(final Image image, final boolean fullscreen) {
+        var repeat = BackgroundRepeat.REPEAT;
+        var size =  BackgroundSize.DEFAULT;
+
+        if (fullscreen){
+            repeat = BackgroundRepeat.NO_REPEAT;
+            size = new BackgroundSize(1.0, 1.0, true, true, false, false);
+        }
+
+        return new Background(new BackgroundImage(image, repeat, repeat, BackgroundPosition.DEFAULT, size));
     }
+
+//    /** TODO
+//     * Create a {@link Background} with the specified image.
+//     *
+//     * @param image the {@link Image} to be used
+//     * @return a {@link Background} that encapsulates an {@link BackgroundImage} with the given {@link Image}
+//     */
+//    public Background createImageBackground(final Image image) {
+//        return createImageBackground(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, new BackgroundSize(1.0, 1.0, true, true, false, false));
+//    }
+//
+//    /**
+//     * Create a {@link Background} with the specified image.
+//     *
+//     * @param image the {@link Image} to be used
+//     * @return a {@link Background} that encapsulates an {@link BackgroundImage} with the given {@link Image}
+//     */
+//    public Background createImageBackground(final Image image, final BackgroundRepeat repeatX, final BackgroundRepeat repeatY, final BackgroundSize backgroundSize) {
+//        return new Background(new BackgroundImage(image, repeatX, repeatY, BackgroundPosition.DEFAULT, backgroundSize));
+//    }
 }

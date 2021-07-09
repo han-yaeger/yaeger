@@ -8,6 +8,9 @@ import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.factories.BackgroundFactory;
 import com.google.inject.Inject;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -59,11 +62,13 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
      *
      * @param backgroundImageUrl The url of the image file. This is relative to the resource/
      *                           folder.
+     * @param fullscreen         a {@code boolean} that states whether the image should be fullscreen. If {@code false}
+     *                           the image will be horizontally and vertically tiled.
      */
-    public void setBackgroundImage(final String backgroundImageUrl) {
+    public void setBackgroundImage(final String backgroundImageUrl, final boolean fullscreen) {
         if (backgroundImageUrl != null && pane != null) {
             var image = imageRepository.get(backgroundImageUrl);
-            pane.setBackground(backgroundFactory.createImageBackground(image));
+            pane.setBackground(backgroundFactory.createImageBackground(image, fullscreen));
         }
     }
 
