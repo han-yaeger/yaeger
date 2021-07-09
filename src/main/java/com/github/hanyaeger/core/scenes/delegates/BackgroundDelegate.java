@@ -8,9 +8,6 @@ import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.factories.BackgroundFactory;
 import com.google.inject.Inject;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
