@@ -3,6 +3,7 @@ package com.github.hanyaeger.api.scenes;
 import com.github.hanyaeger.core.YaegerConfig;
 import com.github.hanyaeger.core.entities.Debugger;
 import com.github.hanyaeger.core.entities.EntitySupplier;
+import com.github.hanyaeger.core.repositories.DragNDropRepository;
 import com.github.hanyaeger.core.scenes.delegates.BackgroundDelegate;
 import com.github.hanyaeger.core.scenes.delegates.KeyListenerDelegate;
 import com.github.hanyaeger.core.factories.EntityCollectionFactory;
@@ -37,6 +38,7 @@ class StaticSceneTest {
 
     private KeyListenerDelegate keyListenerDelegate;
     private BackgroundDelegate backgroundDelegate;
+    private DragNDropRepository dragNDropRepository;
     private Debugger debugger;
     private Injector injector;
 
@@ -54,6 +56,7 @@ class StaticSceneTest {
         pane = mock(Pane.class, withSettings().withoutAnnotations());
         backgroundDelegate = mock(BackgroundDelegate.class);
         keyListenerDelegate = mock(KeyListenerDelegate.class);
+        dragNDropRepository = mock(DragNDropRepository.class);
         debugger = mock(Debugger.class);
         entitySupplier = mock(EntitySupplier.class);
         sceneFactory = mock(SceneFactory.class);
@@ -65,6 +68,7 @@ class StaticSceneTest {
         sut.setDebugger(debugger);
         sut.setSceneFactory(sceneFactory);
         sut.setEntityCollectionFactory(entityCollectionFactory);
+        sut.setDragNDropRepository(dragNDropRepository);
         sut.setPane(pane);
         sut.setBackgroundDelegate(backgroundDelegate);
         sut.setKeyListenerDelegate(keyListenerDelegate);
@@ -101,6 +105,29 @@ class StaticSceneTest {
 
         // Verify
         assertEquals(actual, stage);
+    }
+
+    @Test
+    void getDragNDropRepositoryReturnsDragNDropRepository() {
+        // Arrange
+
+        // Act
+        var actual = sut.getDragNDropRepository();
+
+        // Assert
+        assertEquals(actual, dragNDropRepository);
+    }
+
+    @Test
+    void getEntityCollectionReturnsEntityCollection() {
+        // Arrange
+        sut.activate();
+
+        // Act
+        var actual = sut.getEntityCollection();
+
+        // Assert
+        assertEquals(actual, entityCollection);
     }
 
     @Test
@@ -413,6 +440,19 @@ class StaticSceneTest {
         // Verify
         verify(entityCollection).registerSupplier(any());
         verify(entityCollection).initialUpdate();
+    }
+
+    @Test
+    void postActivationCalssPostActivationOnDebugger() {
+        // Arrange
+        sut.activate();
+        when(config.showDebug()).thenReturn(true);
+
+        // Act
+        sut.postActivate();
+
+        // Verify
+        verify(debugger).postActivation();
     }
 
     @Test
