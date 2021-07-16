@@ -30,7 +30,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
 
     private int[][] classMap;
 
-    private YaegerEntity[][] instanceMap;
+    private transient YaegerEntity[][] instanceMap;
 
     private final transient Map<Integer, EntityConfiguration> entities;
     private transient TileFactory tileFactory;
