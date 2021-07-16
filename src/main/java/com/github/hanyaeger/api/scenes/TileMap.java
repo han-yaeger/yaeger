@@ -3,6 +3,7 @@ package com.github.hanyaeger.api.scenes;
 import com.github.hanyaeger.core.Activatable;
 import com.github.hanyaeger.api.entities.impl.sprite.SpriteEntity;
 import com.github.hanyaeger.core.entities.EntityConfiguration;
+import com.github.hanyaeger.core.entities.events.EventTypes;
 import com.github.hanyaeger.core.factories.TileFactory;
 import com.google.inject.Inject;
 import com.github.hanyaeger.api.Size;
@@ -27,7 +28,9 @@ import java.util.*;
  */
 public abstract class TileMap extends EntitySupplier implements Anchorable, Activatable {
 
-    private int[][] map;
+    private int[][] classMap;
+
+    private YaegerEntity[][] instanceMap;
 
     private final transient Map<Integer, EntityConfiguration> entities;
     private transient TileFactory tileFactory;
@@ -134,65 +137,11 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
         }
     }
 
-    private void transformMapToEntities() {
-        final double x;
-        final double y;
-        final double width;
-        final double height;
-
-        if (size.isPresent() && location.isPresent()) {
-            width = size.get().width();
-            height = size.get().height();
-
-            final var topLeftLocation = getTopLeftLocation(location.get(), size.get());
-            x = topLeftLocation.getX();
-            y = topLeftLocation.getY();
-        } else {
-            throw new YaegerEngineException("No Size or Location is set for this TileMap. Has setDimensionProvider been called?");
-        }
-
-        for (var i = 0; i < map.length; i++) {
-            final var entityHeight = height / map.length;
-            final var entityY = i * entityHeight;
-            for (var j = 0; j < map[i].length; j++) {
-                final var key = map[i][j];
-                if (key != 0) {
-                    final var entityWidth = width / map[i].length;
-
-                    final var entityConfiguration = entities.get(key);
-
-                    if (entityConfiguration == null) {
-                        throw new EntityNotAvailableException("An Entity with key \"" + key + "\" has not been added to the TileMap.");
-                    }
-
-                    final var entity = tileFactory.create(entityConfiguration,
-                            new Coordinate2D(Math.round(x + (j * entityWidth)), Math.round(y + entityY)),
-                            new Size(Math.ceil(entityWidth), Math.ceil(entityHeight)));
-
-                    add(entity);
-                }
-            }
-        }
-    }
-
-    private Coordinate2D getTopLeftLocation(final Coordinate2D location, final Size size) {
-        return switch (anchorPoint) {
-            case TOP_CENTER -> new Coordinate2D(location.getX() - (size.width() / 2), location.getY());
-            case TOP_RIGHT -> new Coordinate2D(location.getX() - size.width(), location.getY());
-            case CENTER_LEFT -> new Coordinate2D(location.getX(), location.getY() - (size.height() / 2));
-            case CENTER_CENTER -> new Coordinate2D(location.getX() - (size.width() / 2), location.getY() - (size.height() / 2));
-            case CENTER_RIGHT -> new Coordinate2D(location.getX() - (size.width()), location.getY() - (size.height() / 2));
-            case BOTTOM_LEFT -> new Coordinate2D(location.getX(), location.getY() - size.height());
-            case BOTTOM_CENTER -> new Coordinate2D(location.getX() - (size.width() / 2), location.getY() - (size.height()));
-            case BOTTOM_RIGHT -> new Coordinate2D(location.getX() - size.width(), location.getY() - size.height());
-            default -> location;
-        };
-    }
-
     @Override
     public void activate() {
         setupEntities();
-        map = defineMap();
+        classMap = defineMap();
+        instanceMap = new YaegerEntity[classMap.length][classMap[0].length];
         transformMapToEntities();
     }
 
@@ -216,6 +165,23 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
         this.tileFactory = tileFactory;
     }
 
+    /**
+     * Return a two dimensional array of instances of {@link YaegerEntity} that contains the instances
+     * created by this {@code TileMap}. This way, this {@code TileMap} provides access to the instances
+     * it has created.
+     * <p>
+     * The location within the two-dimensional array reflects the location in the two-dimensional array that was
+     * required in the {@link #defineMap()} method.
+     * <p>
+     * Whenever a {@link YaegerEntity} gets removed from the scene, through calling {@link YaegerEntity#remove()},
+     * it will also be removed from this {@code TileMap}, and no longer accessible through this method.
+     *
+     * @return a two dimensional array that contains all instances of {@link YaegerEntity} created by this {@code TileMap}
+     */
+    public YaegerEntity[][] getInstanceMap() {
+        return instanceMap;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
@@ -223,7 +189,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
         if (!super.equals(o)) return false;
         var entities1 = (TileMap) o;
         return entities.equals(entities1.entities) &&
-                Arrays.deepEquals(map, entities1.map) &&
+                Arrays.deepEquals(classMap, entities1.classMap) &&
                 size.equals(entities1.size) &&
                 location.equals(entities1.location);
     }
@@ -231,7 +197,74 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
     @Override
     public int hashCode() {
         var result = Objects.hash(super.hashCode(), entities, size, location);
-        result = 31 * result + Arrays.deepHashCode(map);
+        result = 31 * result + Arrays.deepHashCode(classMap);
         return result;
+    }
+
+    private Coordinate2D getTopLeftLocation(final Coordinate2D location, final Size size) {
+        return switch (anchorPoint) {
+            case TOP_CENTER -> new Coordinate2D(location.getX() - (size.width() / 2), location.getY());
+            case TOP_RIGHT -> new Coordinate2D(location.getX() - size.width(), location.getY());
+            case CENTER_LEFT -> new Coordinate2D(location.getX(), location.getY() - (size.height() / 2));
+            case CENTER_CENTER -> new Coordinate2D(location.getX() - (size.width() / 2), location.getY() - (size.height() / 2));
+            case CENTER_RIGHT -> new Coordinate2D(location.getX() - (size.width()), location.getY() - (size.height() / 2));
+            case BOTTOM_LEFT -> new Coordinate2D(location.getX(), location.getY() - size.height());
+            case BOTTOM_CENTER -> new Coordinate2D(location.getX() - (size.width() / 2), location.getY() - (size.height()));
+            case BOTTOM_RIGHT -> new Coordinate2D(location.getX() - size.width(), location.getY() - size.height());
+            default -> location;
+        };
+    }
+
+    private void transformMapToEntities() {
+        final double x;
+        final double y;
+        final double width;
+        final double height;
+
+        if (size.isPresent() && location.isPresent()) {
+            width = size.get().width();
+            height = size.get().height();
+
+            final var topLeftLocation = getTopLeftLocation(location.get(), size.get());
+            x = topLeftLocation.getX();
+            y = topLeftLocation.getY();
+        } else {
+            throw new YaegerEngineException("No Size or Location is set for this TileMap. Has setDimensionProvider been called?");
+        }
+
+        for (var i = 0; i < classMap.length; i++) {
+            final var entityHeight = height / classMap.length;
+            final var entityY = i * entityHeight;
+            for (var j = 0; j < classMap[i].length; j++) {
+                final var key = classMap[i][j];
+                if (key != 0) {
+                    final var entityWidth = width / classMap[i].length;
+
+                    final var entityConfiguration = entities.get(key);
+
+                    if (entityConfiguration == null) {
+                        throw new EntityNotAvailableException("An Entity with key \"" + key + "\" has not been added to the TileMap.");
+                    }
+
+                    final var entity = tileFactory.create(entityConfiguration,
+                            new Coordinate2D(Math.round(x + (j * entityWidth)), Math.round(y + entityY)),
+                            new Size(Math.ceil(entityWidth), Math.ceil(entityHeight)));
+
+                    instanceMap[i][j] = entity;
+                    entity.attachEventListener(EventTypes.REMOVE, event -> remove((YaegerEntity) event.getSource()));
+                    add(entity);
+                }
+            }
+        }
+    }
+
+    private void remove(final YaegerEntity entity) {
+        for (var i = 0; i < instanceMap.length; i++) {
+            for (var j = 0; j < instanceMap[i].length; j++) {
+                if (entity.equals(instanceMap[i][j])) {
+                    instanceMap[i][j] = null;
+                }
+            }
+        }
     }
 }

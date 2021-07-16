@@ -477,13 +477,27 @@ class YaegerEntityTest {
     }
 
     @Test
-    void attachEventListenerDelegatesToNode() {
+    void attachEventListenerDelegatesToNodeAfterInit() {
         // Arrange
         var eventType = mock(EventType.class);
         var eventHandler = mock(EventHandler.class);
 
         // Act
         sut.attachEventListener(eventType, eventHandler);
+
+        // Assert
+        verify(node).addEventHandler(eventType, eventHandler);
+    }
+
+    @Test
+    void attachEventListenerDelegatesIsBufferedBeforeInit() {
+        // Arrange
+        var eventType = mock(EventType.class);
+        var eventHandler = mock(EventHandler.class);
+
+        // Act
+        sut.attachEventListener(eventType, eventHandler);
+        sut.init(injector);
 
         // Assert
         verify(node).addEventHandler(eventType, eventHandler);

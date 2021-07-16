@@ -187,7 +187,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(EntityConfiguration.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -226,7 +226,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(EntityConfiguration.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -235,6 +235,53 @@ class TileMapTest {
 
         // Assert
         verify(tileFactory, times(9)).create(any(EntityConfiguration.class), any(), any());
+    }
+
+    @Test
+    void tileMapCreatesACorrectInstanceMap() {
+        // Arrange
+        var localSut = new TileMap() {
+
+            @Override
+            public void setupEntities() {
+                addEntity(1, SpriteEntityOne.class);
+                addEntity(2, SpriteEntityTwo.class);
+                addEntity(3, SpriteEntityThree.class);
+            }
+
+            @Override
+            public int[][] defineMap() {
+                return new int[][]{
+                        {1, 0, 0, 3, 0, 0, 1},
+                        {2, 0, 0, 1, 0, 0, 2},
+                        {1, 0, 0, 3, 0, 0, 1}};
+            }
+        };
+
+        var dimensionsProvider = mock(DimensionsProvider.class);
+        when(dimensionsProvider.getWidth()).thenReturn(WIDTH);
+        when(dimensionsProvider.getHeight()).thenReturn(HEIGHT);
+        localSut.setDimensionsProvider(dimensionsProvider);
+
+        var entity = mock(YaegerEntity.class);
+        var tileFactory = mock(TileFactory.class);
+        when(tileFactory.create(any(EntityConfiguration.class), any(), any())).thenReturn(entity);
+
+        localSut.setTileFactory(tileFactory);
+
+        // Act
+        localSut.activate();
+
+        // Assert
+        assertNotNull(localSut.getInstanceMap()[0][0]);
+        assertNotNull(localSut.getInstanceMap()[0][3]);
+        assertNotNull(localSut.getInstanceMap()[0][6]);
+        assertNotNull(localSut.getInstanceMap()[1][0]);
+        assertNotNull(localSut.getInstanceMap()[1][3]);
+        assertNotNull(localSut.getInstanceMap()[1][6]);
+        assertNotNull(localSut.getInstanceMap()[2][0]);
+        assertNotNull(localSut.getInstanceMap()[2][3]);
+        assertNotNull(localSut.getInstanceMap()[2][6]);
     }
 
     @Test
@@ -292,7 +339,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(EntityConfiguration.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -340,7 +387,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(EntityConfiguration.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -375,7 +422,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(EntityConfiguration.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -412,7 +459,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(EntityConfiguration.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -449,7 +496,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(EntityConfiguration.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -489,7 +536,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(EntityConfiguration.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -529,7 +576,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(EntityConfiguration.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -570,7 +617,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(EntityConfiguration.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -611,7 +658,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(EntityConfiguration.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -654,7 +701,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(EntityConfiguration.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -736,7 +783,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(EntityConfiguration.class), any(), any())).thenReturn(entity);
 
         localSut.setTileFactory(tileFactory);
 
@@ -778,7 +825,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(EntityConfiguration.class), any(), any())).thenReturn(entity);
 
         horizontalSut.setTileFactory(tileFactory);
 
@@ -823,7 +870,7 @@ class TileMapTest {
 
         var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
-        when(tileFactory.create(any(Class.class), any(), any())).thenReturn(entity);
+        when(tileFactory.create(any(EntityConfiguration.class), any(), any())).thenReturn(entity);
 
         horizontalSut.setTileFactory(tileFactory);
 
@@ -858,7 +905,10 @@ class TileMapTest {
             }
         };
 
+        var entity = mock(YaegerEntity.class);
         var tileFactory = mock(TileFactory.class);
+        when(tileFactory.create(any(EntityConfiguration.class), any(), any())).thenReturn(entity);
+
         configuredTileSut.setTileFactory(tileFactory);
         ArgumentCaptor<EntityConfiguration> argument = ArgumentCaptor.forClass(EntityConfiguration.class);
 
@@ -885,7 +935,7 @@ class TileMapTest {
         @Override
         public int[][] defineMap() {
             defineMapCalled = true;
-            return new int[0][];
+            return new int[1][1];
         }
 
         public boolean isSetupEntitiesCalled() {

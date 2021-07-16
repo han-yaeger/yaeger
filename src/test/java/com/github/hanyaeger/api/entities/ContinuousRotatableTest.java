@@ -1,6 +1,6 @@
 package com.github.hanyaeger.api.entities;
 
-import com.github.hanyaeger.core.entities.motion.RotationBuffer;
+import com.github.hanyaeger.core.entities.motion.InitializationBuffer;
 import javafx.scene.Node;
 import org.junit.jupiter.api.Test;
 
@@ -55,7 +55,7 @@ class ContinuousRotatableTest {
         }
 
         @Override
-        public RotationBuffer getRotationBuffer() {
+        public InitializationBuffer getInitializationBuffer() {
             return null;
         }
     }

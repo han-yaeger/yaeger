@@ -1,6 +1,6 @@
 package com.github.hanyaeger.api.entities;
 
-import com.github.hanyaeger.core.entities.motion.RotationBuffer;
+import com.github.hanyaeger.core.entities.motion.InitializationBuffer;
 import javafx.scene.Node;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +30,7 @@ class RotatableTest {
     void setRotateDelegatesToRotationBufferIfNodeNotAvailable() {
         // Arrange
         var sut = new RotatableImpl();
-        var rotationBuffer = mock(RotationBuffer.class);
+        var rotationBuffer = mock(InitializationBuffer.class);
         sut.setRotationBuffer(rotationBuffer);
 
         // Act
@@ -43,7 +43,7 @@ class RotatableTest {
     private static class RotatableImpl implements Rotatable {
 
         private Node node;
-        private RotationBuffer rotationBuffer;
+        private InitializationBuffer initializationBuffer;
 
         @Override
         public Optional<? extends Node> getNode() {
@@ -59,12 +59,12 @@ class RotatableTest {
         }
 
         @Override
-        public RotationBuffer getRotationBuffer() {
-            return rotationBuffer;
+        public InitializationBuffer getInitializationBuffer() {
+            return initializationBuffer;
         }
 
-        public void setRotationBuffer(RotationBuffer rotationBuffer) {
-            this.rotationBuffer = rotationBuffer;
+        public void setRotationBuffer(InitializationBuffer initializationBuffer) {
+            this.initializationBuffer = initializationBuffer;
         }
     }
 

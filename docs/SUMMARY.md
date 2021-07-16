@@ -7,6 +7,7 @@
     - [Creating Entities](creating-entities.md)
     - [Entity interactions](entity-interactions.md)
     - [Applying physics](physics.md)
+    - [Adding many Entities at one](tilemaps.md)
 - [Handling user input](user-input.md)
 - [Sounds](sounds.md)
 - [Timing things](timing-things.md)

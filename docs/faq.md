@@ -25,3 +25,15 @@ second collision the Entity will again change its direction and this cycle can r
 collides.
 
 A workaround could be to use a `CompositeEntity` with a smaller hit box.
+
+## I use TileMaps, Timers and Entities on the same Scene, why not add everything in the `setupEntities()` method?
+
+Each `YaegerScene` exposes the method `setupEntities()`, which should be used to add instances of
+`YaegerEntity` to the Scene. When TileMaps are required, the Scene should implement the interface `TileMapContainer`,
+after which the method `setupTileMaps()` gets exposed and the method `addTileMap(TileMap)` becomes available. The same
+goes for Timers through the interface `TimerContainer`.
+
+In a Scene where either TileMaps or Timers are required, it is very well possible to ignore the `setupTileMaps()` or
+`setupTimers()` methods and add TileMaps or Timers from the `setupEntities()` method. It is however preferable to
+use the appropriate method, to maximize readability. Scenes can grow rather large and to find specific Entities, TileMaps
+or Timers, it can help to group them within their specific methods.

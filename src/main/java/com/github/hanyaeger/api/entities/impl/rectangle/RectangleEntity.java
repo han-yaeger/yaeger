@@ -17,8 +17,8 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
     static final double DEFAULT_WIDTH = 2;
     static final double DEFAULT_ARC = 0;
 
-    private double width = DEFAULT_WIDTH;
-    private double height = DEFAULT_HEIGHT;
+    private double width;
+    private double height;
     private double arcWidth = DEFAULT_ARC;
     private double arcHeight = DEFAULT_ARC;
 
@@ -28,7 +28,7 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
      * @param initialPosition the initial position at which this {@link RectangleEntity} should be placed
      */
     protected RectangleEntity(final Coordinate2D initialPosition) {
-        super(initialPosition);
+        this(initialPosition, new Size(DEFAULT_WIDTH, DEFAULT_HEIGHT));
     }
 
     /**
@@ -110,7 +110,7 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
     }
 
     @Override
-    public final void setAnchorLocation(Coordinate2D anchorLocation) {
+    public final void setAnchorLocation(final Coordinate2D anchorLocation) {
         super.setAnchorLocation(anchorLocation);
         shape.ifPresent(rectangle -> {
             rectangle.setX(anchorLocation.getX());

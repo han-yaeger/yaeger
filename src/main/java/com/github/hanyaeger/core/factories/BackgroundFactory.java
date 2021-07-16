@@ -33,33 +33,13 @@ public class BackgroundFactory {
 
     public Background createImageBackground(final Image image, final boolean fullscreen) {
         var repeat = BackgroundRepeat.REPEAT;
-        var size =  BackgroundSize.DEFAULT;
+        var size = BackgroundSize.DEFAULT;
 
-        if (fullscreen){
+        if (fullscreen) {
             repeat = BackgroundRepeat.NO_REPEAT;
             size = new BackgroundSize(1.0, 1.0, true, true, false, false);
         }
 
         return new Background(new BackgroundImage(image, repeat, repeat, BackgroundPosition.DEFAULT, size));
     }
-
-//    /** TODO
-//     * Create a {@link Background} with the specified image.
-//     *
-//     * @param image the {@link Image} to be used
-//     * @return a {@link Background} that encapsulates an {@link BackgroundImage} with the given {@link Image}
-//     */
-//    public Background createImageBackground(final Image image) {
-//        return createImageBackground(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, new BackgroundSize(1.0, 1.0, true, true, false, false));
-//    }
-//
-//    /**
-//     * Create a {@link Background} with the specified image.
-//     *
-//     * @param image the {@link Image} to be used
-//     * @return a {@link Background} that encapsulates an {@link BackgroundImage} with the given {@link Image}
-//     */
-//    public Background createImageBackground(final Image image, final BackgroundRepeat repeatX, final BackgroundRepeat repeatY, final BackgroundSize backgroundSize) {
-//        return new Background(new BackgroundImage(image, repeatX, repeatY, BackgroundPosition.DEFAULT, backgroundSize));
-//    }
 }

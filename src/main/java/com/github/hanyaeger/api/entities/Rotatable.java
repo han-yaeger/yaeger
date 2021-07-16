@@ -1,7 +1,7 @@
 package com.github.hanyaeger.api.entities;
 
 import com.github.hanyaeger.core.entities.GameNode;
-import com.github.hanyaeger.core.entities.motion.RotationBuffer;
+import com.github.hanyaeger.core.entities.motion.InitializationBuffer;
 
 /**
  * Implementing the interface {@link Rotatable} will result in de availability of the {@link Rotatable#setRotate(double)}
@@ -17,14 +17,14 @@ public interface Rotatable extends GameNode {
      * @param degrees The rotation in degrees as a {@code double}.
      */
     default void setRotate(final double degrees) {
-        getNode().ifPresentOrElse(node -> node.setRotate(-degrees), () -> getRotationBuffer().setRotation(degrees));
+        getNode().ifPresentOrElse(node -> node.setRotate(-degrees), () -> getInitializationBuffer().setRotation(degrees));
     }
 
     /**
-     * Return an instance of {@link RotationBuffer} to be used whenever a {@link javafx.scene.Node} is unavailable
+     * Return an instance of {@link InitializationBuffer} to be used whenever a {@link javafx.scene.Node} is unavailable
      * to apply the rotation.
      *
-     * @return An instance of {@link RotationBuffer}.
+     * @return An instance of {@link InitializationBuffer}.
      */
-    RotationBuffer getRotationBuffer();
+    InitializationBuffer getInitializationBuffer();
 }

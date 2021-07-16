@@ -9,7 +9,8 @@ import com.github.hanyaeger.core.Initializable;
 import com.github.hanyaeger.api.Timer;
 import com.github.hanyaeger.core.TimerListProvider;
 import com.github.hanyaeger.core.entities.*;
-import com.github.hanyaeger.core.entities.motion.RotationBuffer;
+import com.github.hanyaeger.core.entities.events.EventTypes;
+import com.github.hanyaeger.core.entities.motion.InitializationBuffer;
 import com.github.hanyaeger.core.repositories.DragNDropRepository;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -52,7 +53,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     private Optional<Cursor> cursor = Optional.empty();
     private final List<Timer> timers = new ArrayList<>();
 
-    private final RotationBuffer rotationBuffer;
+    private final InitializationBuffer initializationBuffer;
 
     private final ColorAdjust colorAdjust = new ColorAdjust();
     private DragNDropRepository dragNDropRepository;
@@ -66,7 +67,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
         this.anchorLocation = initialLocation;
 
         this.anchorPoint = AnchorPoint.TOP_LEFT;
-        this.rotationBuffer = new RotationBuffer();
+        this.initializationBuffer = new InitializationBuffer();
     }
 
     /**
@@ -299,8 +300,10 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
         getNode().ifPresent(node -> node.setViewOrder(viewOrder));
         setVisible(visible);
         setOpacity(opacity);
+
+        setRotate(getInitializationBuffer().getRotation());
         cursor.ifPresent(this::setCursor);
-        setRotate(getRotationBuffer().getRotation());
+        initializationBuffer.getRemoveHandlers().forEach(handler -> attachEventListener(EventTypes.REMOVE, handler));
     }
 
     @Override
@@ -394,7 +397,10 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
 
     @Override
     public void attachEventListener(final EventType eventType, final EventHandler eventHandler) {
-        getNode().ifPresent(node -> node.addEventHandler(eventType, eventHandler));
+        getNode().ifPresentOrElse(
+                node -> node.addEventHandler(eventType, eventHandler),
+                () -> initializationBuffer.addRemoveHandler(eventHandler)
+        );
     }
 
     /**
@@ -420,8 +426,8 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     }
 
     @Override
-    public RotationBuffer getRotationBuffer() {
-        return rotationBuffer;
+    public InitializationBuffer getInitializationBuffer() {
+        return initializationBuffer;
     }
 
     @Override
