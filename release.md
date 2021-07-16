@@ -46,6 +46,9 @@
   a `EntitySpawner` extends `Timer`, this method is also available for `EntitySpawner`.
 * Added the option to remove a `EntitySpawner` from an `EntitySpawnerContainer`. Previously an `EntitySpawner` could
   only be paused; now it is possible to completely remove it (#195).
+* Added the option to access the instances of `YaegerEntity`, created by a `TileMap`. If a reference to the
+  `TileMap` is still available, it can be used to call `getInstanceMap()`, which returns a two dimensional array of
+  all instances created by the `TileMap` (#202).
 
 ## Bugfixes
 
