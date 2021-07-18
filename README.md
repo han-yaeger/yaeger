@@ -27,7 +27,7 @@ Yaeger requires JDK16, and is available through the Maven Central Repository.
 <dependency>
   <groupId>com.github.han-yaeger</groupId>
   <artifactId>yaeger</artifactId>
-  <version>2020.2021-beta7</version>
+  <version>2021.2022-beta1</version>
 </dependency>
 ```
 
