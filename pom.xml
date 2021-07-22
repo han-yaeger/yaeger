@@ -213,7 +213,6 @@
                 <version>3.2.0</version>
                 <configuration>
                     <source>${java.version}</source>
-                    <stylesheetfile>yaegerstylesheets/javadoc_stylesheet.css</stylesheetfile>
                     <docfilessubdirs>true</docfilessubdirs>
                 </configuration>
                 <executions>
