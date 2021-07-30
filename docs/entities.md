@@ -24,27 +24,14 @@ There are several Entities available, which can be divided into four different t
 
 | Static Entity     | Dynamic Entity            | Type              |
 | :---------------- | :------------------------ | :---------------- |
-| `SpriteEntity`    | `DynamicSpriteEntity`     | Sprite Entity     |
-| `CircleEntity`    | `DynamicCircleEntity`     | Shape Entity      |
-| `EllipseEntity`   | `DynamicEllipseEntity`    | Shape Entity      |
-| `RectangleEntity` | `DynamicRectangleEntity`  | Shape Entity      |
-| `TextEntity`      | `DynamicTextEntity`       | TextEntity        |
-| `CompositeEntity` | `DynamicCompositeEntity`  | Composite Entity  |
+| `SpriteEntity`    | `DynamicSpriteEntity`     | Sprite entity     |
+| `CircleEntity`    | `DynamicCircleEntity`     | Shape entity      |
+| `EllipseEntity`   | `DynamicEllipseEntity`    | Shape entity      |
+| `RectangleEntity` | `DynamicRectangleEntity`  | Shape entity      |
+| `TextEntity`      | `DynamicTextEntity`       | Text entity        |
+| `CompositeEntity` | `DynamicCompositeEntity`  | Composite entity  |
 
-### Sprite Entities
+The sprite, shape and text-entity are basic entities. The composite entity
+is of a different type. It should be used whenever the entity should
+actually consist of several smaller entities.
 
-### Shape Entities
-
-### Text Entities
-
-As can be expected, `TextEntities` are all about displaying a text on the Scene.
-
-#### Using a build in font
-
-#### Using a custom font
-
-For using custom fonts, Yaeger provides the Class `CustomFont`, which requires a font file, and a font size. This font
-file would be a file with the extension *ttf*, which should be placed in the `resources/` folder of your project. If you
-place this file in a sub-folder of `resource/` do not forget to open it up through the module descriptor.
-
-### Composite Entities
