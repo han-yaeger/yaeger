@@ -1,4 +1,4 @@
-package com.github.hanyaeger.api.entities.impl.circle;
+package com.github.hanyaeger.api.entities.impl;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.YaegerEntity;
@@ -9,7 +9,7 @@ import javafx.scene.shape.Circle;
 /**
  * A {@link CircleEntity} provides the option to use a drawable Circle as an
  * {@link YaegerEntity}. As opposed to some of the other shapes
- * ({@link com.github.hanyaeger.api.entities.impl.rectangle.RectangleEntity}, for instance),
+ * ({@link RectangleEntity}, for instance),
  * the reference point of a {@link CircleEntity} is its center.
  * <p>
  * For a {@link CircleEntity} it is possible to set the radius, through the methods {@link CircleEntity#setRadius(double)}.

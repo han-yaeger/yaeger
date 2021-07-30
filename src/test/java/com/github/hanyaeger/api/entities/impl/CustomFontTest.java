@@ -1,4 +1,4 @@
-package com.github.hanyaeger.api.entities.impl.text;
+package com.github.hanyaeger.api.entities.impl;
 
 import javafx.scene.text.Font;
 import org.junit.jupiter.api.Assertions;

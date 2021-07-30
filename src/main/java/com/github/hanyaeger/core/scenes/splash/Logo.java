@@ -2,8 +2,8 @@ package com.github.hanyaeger.core.scenes.splash;
 
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.UpdateExposer;
-import com.github.hanyaeger.api.entities.impl.sprite.DynamicSpriteEntity;
-import com.github.hanyaeger.api.entities.impl.sprite.SpriteEntity;
+import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
+import com.github.hanyaeger.api.entities.impl.SpriteEntity;
 import com.github.hanyaeger.api.Coordinate2D;
 
 /**

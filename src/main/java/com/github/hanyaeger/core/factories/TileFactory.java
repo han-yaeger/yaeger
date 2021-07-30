@@ -1,6 +1,6 @@
 package com.github.hanyaeger.core.factories;
 
-import com.github.hanyaeger.api.entities.impl.sprite.SpriteEntity;
+import com.github.hanyaeger.api.entities.impl.SpriteEntity;
 import com.github.hanyaeger.api.scenes.TileMap;
 import com.github.hanyaeger.core.entities.EntityConfiguration;
 import com.github.hanyaeger.core.exceptions.InvalidConstructorException;

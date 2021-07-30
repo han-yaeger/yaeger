@@ -1,4 +1,4 @@
-package com.github.hanyaeger.api.entities.impl.rectangle;
+package com.github.hanyaeger.api.entities.impl;
 
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.core.Updater;

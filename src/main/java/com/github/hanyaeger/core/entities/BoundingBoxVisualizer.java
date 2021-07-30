@@ -7,7 +7,7 @@ import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.entities.events.EventTypes;
-import com.github.hanyaeger.api.entities.impl.rectangle.DynamicRectangleEntity;
+import com.github.hanyaeger.api.entities.impl.DynamicRectangleEntity;
 import javafx.scene.paint.Color;
 
 /**

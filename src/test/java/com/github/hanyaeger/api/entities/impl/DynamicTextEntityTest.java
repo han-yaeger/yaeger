@@ -1,13 +1,12 @@
-package com.github.hanyaeger.api.entities.impl.circle;
+package com.github.hanyaeger.api.entities.impl;
 
 import com.github.hanyaeger.core.Updater;
 import com.github.hanyaeger.core.entities.EntityCollection;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.core.entities.motion.EntityMotionInitBuffer;
 import com.github.hanyaeger.core.entities.motion.MotionApplier;
-import com.github.hanyaeger.api.entities.impl.rectangle.DynamicRectangleEntity;
 import com.google.inject.Injector;
-import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -17,8 +16,11 @@ import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
-class DynamicCircleEntityTest {
+class DynamicTextEntityTest {
 
+    private final long TIMESTAMP = 0L;
+
+    private static final String YAEGER = "Yaeger";
     private final static int X_POSITION = 37;
     private final static int Y_POSITION = 37;
     private final static Coordinate2D DEFAULT_LOCATION = new Coordinate2D(X_POSITION, Y_POSITION);
@@ -26,15 +28,16 @@ class DynamicCircleEntityTest {
     public static final double SPEED = 37d;
     public static final double DIRECTION = 42d;
 
-    private DynamicCircleEntityImpl sut;
+    private DynamicTextEntityImpl sut;
     private Injector injector;
-    private Circle circle;
+    private Text text;
 
     @BeforeEach
     void setup() {
-        sut = new DynamicCircleEntityImpl(DEFAULT_LOCATION);
-        circle = mock(Circle.class);
-        sut.setShape(circle);
+        sut = new DynamicTextEntityImpl(DEFAULT_LOCATION);
+        text = mock(Text.class);
+        sut.setText(YAEGER);
+        sut.setShape(text);
         injector = mock(Injector.class);
     }
 
@@ -45,7 +48,7 @@ class DynamicCircleEntityTest {
         // Act
         Optional<EntityMotionInitBuffer> buffer = sut.getBuffer();
 
-        // Assert
+        // Verify
         Assertions.assertTrue(buffer.isPresent());
     }
 
@@ -119,7 +122,7 @@ class DynamicCircleEntityTest {
         // Act
         var u = sut.getUpdater();
 
-        // Assert
+        // Verify
         Assertions.assertEquals(updater, u);
     }
 
@@ -131,7 +134,7 @@ class DynamicCircleEntityTest {
         // Act
         var rS = sut.getRotationSpeed();
 
-        // Assert
+        // Verify
         Assertions.assertEquals(ROTATION_SPEED, rS);
     }
 
@@ -154,22 +157,17 @@ class DynamicCircleEntityTest {
         sut.setUpdater(updater);
 
         // Act
-        long TIMESTAMP = 0L;
         sut.update(TIMESTAMP);
 
         // Assert
         verify(updater).update(TIMESTAMP);
     }
 
-    private class DynamicCircleEntityImpl extends DynamicCircleEntity {
-
-        /**
-         * Create a new {@link DynamicRectangleEntity} on the given {@code initialPosition}.
-         *
-         * @param initialPosition The initial position at which this {@link DynamicRectangleEntity} should be placed
-         */
-        public DynamicCircleEntityImpl(Coordinate2D initialPosition) {
-            super(initialPosition);
+    private class DynamicTextEntityImpl extends DynamicTextEntity {
+        public DynamicTextEntityImpl(Coordinate2D location) {
+            super(location);
         }
     }
 }
+
+

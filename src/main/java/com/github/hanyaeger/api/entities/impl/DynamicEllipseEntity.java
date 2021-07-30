@@ -1,5 +1,6 @@
-package com.github.hanyaeger.api.entities.impl.circle;
+package com.github.hanyaeger.api.entities.impl;
 
+import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.core.Updatable;
 import com.github.hanyaeger.core.UpdateDelegator;
 import com.github.hanyaeger.core.Updater;
@@ -13,10 +14,10 @@ import com.google.inject.Injector;
 import java.util.Optional;
 
 /**
- * An {@link DynamicCircleEntity} extends all behaviour of a {@link CircleEntity}, but also implements the
+ * An {@link DynamicEllipseEntity} extends all behaviour of a {@link EllipseEntity}, but also implements the
  * {@link Updatable} Interface.
  */
-public abstract class DynamicCircleEntity extends CircleEntity implements UpdateDelegator, BufferedMovable, ContinuousRotatable {
+public abstract class DynamicEllipseEntity extends EllipseEntity implements UpdateDelegator, BufferedMovable, ContinuousRotatable {
 
     private MotionApplier motionApplier;
     private Updater updater;
@@ -24,12 +25,29 @@ public abstract class DynamicCircleEntity extends CircleEntity implements Update
     private double rotationAngle;
 
     /**
-     * Create a new {@link DynamicCircleEntity} on the given {@code initialPosition}.
+     * Create a new {@link DynamicEllipseEntity} on the given {@code initialPosition}.
      *
-     * @param initialLocation the initial position at which this {@link DynamicCircleEntity} should be placed
+     * @param initialPosition the initial position at which this {@link DynamicEllipseEntity} should be placed
      */
-    protected DynamicCircleEntity(final Coordinate2D initialLocation) {
-        super(initialLocation);
+    protected DynamicEllipseEntity(final Coordinate2D initialPosition) {
+        super(initialPosition);
+
+        buffer = Optional.of(new EntityMotionInitBuffer());
+    }
+
+    /**
+     * Create a new {@link EllipseEntity} on the given {@code initialPosition} with the given {@link Size}.
+     * Using this constructor results in the same situation as using {@link #DynamicEllipseEntity(Coordinate2D)},
+     * {@link #setRadiusX(double)} and {@link #setRadiusY(double)}, where both the {@link Size#width()} and
+     * {@link Size#height()} are divided by 2.
+     *
+     * @param initialPosition the initial position at which this {@link DynamicEllipseEntity} should be placed
+     * @param size            the {@link Size} of this {@link DynamicEllipseEntity}
+     */
+    protected DynamicEllipseEntity(final Coordinate2D initialPosition, final Size size) {
+        super(initialPosition);
+        this.radiusX = size.width() / 2;
+        this.radiusY = size.height() / 2;
 
         buffer = Optional.of(new EntityMotionInitBuffer());
     }

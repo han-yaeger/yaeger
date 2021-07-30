@@ -1,4 +1,4 @@
-package com.github.hanyaeger.api.entities.impl.sprite;
+package com.github.hanyaeger.api.entities.impl;
 
 import com.github.hanyaeger.core.entities.SpriteAnimationDelegate;
 import com.google.inject.Inject;

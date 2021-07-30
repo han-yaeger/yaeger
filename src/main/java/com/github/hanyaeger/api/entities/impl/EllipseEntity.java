@@ -1,17 +1,16 @@
-package com.github.hanyaeger.api.entities.impl.ellipse;
+package com.github.hanyaeger.api.entities.impl;
 
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.core.entities.CenteredShapeEntity;
-import com.github.hanyaeger.api.entities.impl.circle.CircleEntity;
 import com.google.inject.Injector;
 import javafx.scene.shape.Ellipse;
 
 /**
  * An {@link EllipseEntity} provides the option to use a drawable Ellipse as a
  * {@link YaegerEntity}. As opposed to some of the other shapes
- * ({@link com.github.hanyaeger.api.entities.impl.rectangle.RectangleEntity}, for instance),
+ * ({@link RectangleEntity}, for instance),
  * the reference point of a {@link EllipseEntity} is its center.
  * <p>
  * For an {@link EllipseEntity} it is possible to set the x-radius and y-radius, through the methods {@link EllipseEntity#setRadiusX(double)}

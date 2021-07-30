@@ -2,7 +2,7 @@ package com.github.hanyaeger.api.scenes;
 
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.Coordinate2D;
-import com.github.hanyaeger.api.entities.impl.sprite.SpriteEntity;
+import com.github.hanyaeger.api.entities.impl.SpriteEntity;
 
 class SpriteEntityOne extends SpriteEntity {
 

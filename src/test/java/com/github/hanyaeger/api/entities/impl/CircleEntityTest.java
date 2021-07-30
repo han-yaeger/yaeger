@@ -1,6 +1,7 @@
-package com.github.hanyaeger.api.entities.impl.circle;
+package com.github.hanyaeger.api.entities.impl;
 
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.entities.impl.CircleEntity;
 import com.google.inject.Injector;
 import javafx.scene.shape.Circle;
 import org.junit.jupiter.api.Assertions;

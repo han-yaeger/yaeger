@@ -1,7 +1,7 @@
 package com.github.hanyaeger.api.scenes;
 
 import com.github.hanyaeger.core.Activatable;
-import com.github.hanyaeger.api.entities.impl.sprite.SpriteEntity;
+import com.github.hanyaeger.api.entities.impl.SpriteEntity;
 import com.github.hanyaeger.core.entities.EntityConfiguration;
 import com.github.hanyaeger.core.entities.events.EventTypes;
 import com.github.hanyaeger.core.factories.TileFactory;

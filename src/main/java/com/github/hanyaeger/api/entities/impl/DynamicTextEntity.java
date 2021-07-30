@@ -1,4 +1,4 @@
-package com.github.hanyaeger.api.entities.impl.text;
+package com.github.hanyaeger.api.entities.impl;
 
 import com.github.hanyaeger.core.Updatable;
 import com.github.hanyaeger.core.UpdateDelegator;

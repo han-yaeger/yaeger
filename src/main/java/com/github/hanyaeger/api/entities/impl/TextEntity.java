@@ -1,4 +1,4 @@
-package com.github.hanyaeger.api.entities.impl.text;
+package com.github.hanyaeger.api.entities.impl;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.core.entities.ShapeEntity;
@@ -12,6 +12,11 @@ import javafx.scene.text.Text;
 
 /**
  * A {@link TextEntity} can be used to display a line of text on a {@link YaegerScene}.
+ * <p>
+ * For the displayed text, either a system-font can be used, through the the use of the {@link Font} class, or a custom
+ * font, through the use if the class {@link CustomFont}. The custom font, should then be a {@code *.ttf} file and
+ * placed within the {@code resources/} folder. When placed in a sub-folder of {@code resource/}, this folder should be
+ * open through the module-descriptor.
  */
 public class TextEntity extends ShapeEntity<Text> {
 
