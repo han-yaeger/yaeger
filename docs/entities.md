@@ -28,7 +28,6 @@ lower the value, the closer the entity is placed to the front of the scene.
 
 ## Movement of dynamic entities
 
-
 ## Different types of entities
 
 There are several Entities available, which can be divided into four different
@@ -47,9 +46,8 @@ The sprite, shape and text-entity are basic entities. The composite entity
 is of a different type. It should be used whenever the entity should
 actually consist of several smaller entities.
 
-# Applying physics
+## Applying physics
 
 Yaeger supports a basic form of physics for entities, through the
 `Newtonian` interface. Since this form of physics is based on motion,
 the interface makes only sense when applied to a dynamic entity.
-

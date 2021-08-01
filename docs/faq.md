@@ -32,8 +32,7 @@ and this cycle can repeat itself until the entity no longer collides.
 
 A workaround could be to use a `CompositeEntity` with a smaller hit box.
 
-## I use tile maps, timers and entities on the same scene, why not add
-everything in the `setupEntities()` method?
+## I use tile maps, timers and entities on the same scene, why not add everything in the `setupEntities()` method?
 
 Each `YaegerScene` exposes the method `setupEntities()`, which should be used
 to add instances of `YaegerEntity` to the scene. When tile maps are required,
