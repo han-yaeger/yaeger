@@ -1,4 +1,4 @@
-# Entity interactions
+# Entity collisions
 
 Entities can interact with each other by using collision detection.
 Collision detection is Yaeger is fairly simple. Each GWU checks if all

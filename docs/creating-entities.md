@@ -1,4 +1,4 @@
-# Creating Entities
+# Creating entities
 
 All available entities, expect the `TextEntity`, are abstract classes, meaning
 they should be extended to create an instance. After creating a class, an
@@ -10,7 +10,7 @@ thing, but it is possible to call `addEntity(YaegerEntity)` from methods such
 as `setupTimers()` (see [Timing things](timing-things.md)) or `setupSpawners()`
 (see below).
 
-## Spawning Entities at a regular time-interval
+## Spawning entities at a regular time-interval
 
 Sometimes many entities should spawn within a scene. For instance, when enemies
 spawn to life, or when it snows.
