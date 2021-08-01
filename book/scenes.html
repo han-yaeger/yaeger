@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="creating-a-game.html"><strong aria-hidden="true">2.</strong> Creating a game</a></li><li class="chapter-item expanded "><a href="scenes.html" class="active"><strong aria-hidden="true">3.</strong> Scenes aka Levels</a></li><li class="chapter-item expanded "><a href="entities.html"><strong aria-hidden="true">4.</strong> Entities aka Game Objects</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="creating-entities.html"><strong aria-hidden="true">4.1.</strong> Creating Entities</a></li><li class="chapter-item expanded "><a href="entity-interactions.html"><strong aria-hidden="true">4.2.</strong> Entity interactions</a></li><li class="chapter-item expanded "><a href="physics.html"><strong aria-hidden="true">4.3.</strong> Applying physics</a></li><li class="chapter-item expanded "><a href="tilemaps.html"><strong aria-hidden="true">4.4.</strong> Adding many Entities at one</a></li></ol></li><li class="chapter-item expanded "><a href="user-input.html"><strong aria-hidden="true">5.</strong> Handling user input</a></li><li class="chapter-item expanded "><a href="sounds.html"><strong aria-hidden="true">6.</strong> Sounds</a></li><li class="chapter-item expanded "><a href="timing-things.html"><strong aria-hidden="true">7.</strong> Timing things</a></li><li class="chapter-item expanded "><a href="commandline-arguments.html"><strong aria-hidden="true">8.</strong> Command line arguments</a></li><li class="chapter-item expanded "><a href="debugging.html"><strong aria-hidden="true">9.</strong> Debugging</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">10.</strong> FAQ</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="creating-a-game.html"><strong aria-hidden="true">2.</strong> Creating a game</a></li><li class="chapter-item expanded "><a href="scenes.html" class="active"><strong aria-hidden="true">3.</strong> Scenes aka Levels</a></li><li class="chapter-item expanded "><a href="entities.html"><strong aria-hidden="true">4.</strong> Entities aka Game Objects</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="creating-entities.html"><strong aria-hidden="true">4.1.</strong> Creating Entities</a></li><li class="chapter-item expanded "><a href="entity-interactions.html"><strong aria-hidden="true">4.2.</strong> Entity interactions</a></li><li class="chapter-item expanded "><a href="tilemaps.html"><strong aria-hidden="true">4.3.</strong> Adding many Entities at once</a></li></ol></li><li class="chapter-item expanded "><a href="user-input.html"><strong aria-hidden="true">5.</strong> Handling user input</a></li><li class="chapter-item expanded "><a href="sounds.html"><strong aria-hidden="true">6.</strong> Sounds</a></li><li class="chapter-item expanded "><a href="timing-things.html"><strong aria-hidden="true">7.</strong> Timing things</a></li><li class="chapter-item expanded "><a href="commandline-arguments.html"><strong aria-hidden="true">8.</strong> Command line arguments</a></li><li class="chapter-item expanded "><a href="debugging.html"><strong aria-hidden="true">9.</strong> Debugging</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">10.</strong> FAQ</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -146,48 +146,59 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="scenes-aka-levels"><a class="header" href="#scenes-aka-levels">Scenes aka Levels</a></h1>
-<p>After scenes have been added, Yaeger will load the first one. In this chapter we will dive deeper into them.</p>
-<h2 id="what-are-scenes"><a class="header" href="#what-are-scenes">What are Scenes?</a></h2>
-<p>A game is usually comprised of different 'parts', such as levels, menu's or a game-over screen. Some of those are just
-simple images and other are complex levels, with lots of behaviour.</p>
-<p>In Yaeger, all of them implement <code>YaegerScene</code> and will be referred to as a Yaeger Scene. For a simple Yaeger Scene,
-without any moving parts, Yaeger provides the abstract class
-<code>StaticScene</code>. In case of a complex scene, with moving parts and a so-called Game World Update, Yaeger provides
-a <code>DynamicScene</code>. Both can be added to Yaeger, since they both implement <code>YaegerScene</code>. Their behaviour is, however,
-quite different.</p>
-<h3 id="staticscene"><a class="header" href="#staticscene">StaticScene</a></h3>
-<p>A <code>StaticScene</code> is a scene that is not aware of time. It can contain anything you like, and those things will listen to
-user interaction, but their behaviour will not be based on the concept of time. Typical use cases are:</p>
+                        <h1 id="scenes-aka-levels"><a class="header" href="#scenes-aka-levels">Scenes aka levels</a></h1>
+<p>After scenes have been added, Yaeger will load the first one. In this chapter
+we will dive deeper into them.</p>
+<h2 id="what-are-scenes"><a class="header" href="#what-are-scenes">What are scenes?</a></h2>
+<p>A game is usually comprised of different 'parts', such as levels, menu's or a
+game-over screen. Some of those are just simple images and other are complex
+levels, with lots of behaviour.</p>
+<p>In Yaeger, all of them implement <code>YaegerScene</code> and will be referred to as a
+Yaeger scene. For a simple Yaeger scene, without any moving parts, Yaeger
+provides the abstract class <code>StaticScene</code>. In case of a complex scene, with
+moving parts and a so-called Game World Update, Yaeger provides a
+<code>DynamicScene</code>. Both can be added to Yaeger, since they both implement
+<code>YaegerScene</code>. Their behaviour is, however, quite different.</p>
+<h3 id="staticscene"><a class="header" href="#staticscene"><code>StaticScene</code></a></h3>
+<p>A <code>StaticScene</code> is a scene that is not aware of time. It can contain anything
+you like, and those things will listen to user interaction, but their behaviour
+will not be based on the concept of time. Typical use cases are:</p>
 <ul>
 <li>A Menu</li>
 <li>A Game Over scene</li>
 <li>An inventory selection scene</li>
 </ul>
-<h3 id="dynamicscene"><a class="header" href="#dynamicscene">DynamicScene</a></h3>
-<p>A <code>DynamicScene</code> is exactly the same as a <code>StaticScene</code>, but it is also aware of time. A <code>DynamicScene</code> contains a Game
-World Update, that calls a <code>update(long)</code> method on the scene itself and all dynamic parts of the scene. This way, it is
-possible to create movement and add time-based behaviour. Typical use cases are:</p>
+<h3 id="dynamicscene"><a class="header" href="#dynamicscene"><code>DynamicScene</code></a></h3>
+<p>A <code>DynamicScene</code> is exactly the same as a <code>StaticScene</code>, but it is also aware
+of time. A <code>DynamicScene</code> contains a Game World Update, that calls a
+<code>update(long)</code> method on the scene itself and all dynamic parts of the scene.
+This way, it is possible to create movement and add time-based behaviour.
+Typical use cases are:</p>
 <ul>
 <li>A level for a game</li>
 <li>A Splash screen</li>
 <li>A scene with any form of animation</li>
 </ul>
-<h2 id="creating-a-scene"><a class="header" href="#creating-a-scene">Creating a Scene</a></h2>
-<p>To create either a <code>StaticScene</code> or <code>DynamicScene</code>, let your own scene extend one of those. As when
-extending <code>YaegerGame</code>, again two methods will need to be implemented:</p>
+<h2 id="creating-a-scene"><a class="header" href="#creating-a-scene">Creating a scene</a></h2>
+<p>To create either a <code>StaticScene</code> or <code>DynamicScene</code>, let your own scene extend
+one of those. As when extending <code>YaegerGame</code>, again two methods will need to
+be implemented:</p>
 <ul>
-<li><code>setupScene()</code>, which should be used for setting all the properties of the scene</li>
-<li><code>setupEntities()</code>, which should be used for adding various Entities (Game Objects) to the Scene</li>
+<li><code>setupScene()</code>, which should be used for setting all the properties of the
+scene</li>
+<li><code>setupEntities()</code>, which should be used for adding various entities (Game
+Objects) to the Scene</li>
 </ul>
 <h3 id="setting-up-the-scene-through-setupscene"><a class="header" href="#setting-up-the-scene-through-setupscene">Setting up the scene, through <code>setupScene()</code></a></h3>
-<p>The first method to implement is <code>setupScene()</code>, which has the following signature:</p>
+<p>The first method to implement is <code>setupScene()</code>, which has the following
+signature:</p>
 <pre><code class="language-java">@Override
 protected void setupScene(){
 }
 </code></pre>
-<p>This method will be called first and must be used to set up the background image, background color and background audio
-of the scene A typical implementation can look like:</p>
+<p>This method will be called first and must be used to set up the background
+image, background color and background audio of the scene.</p>
+<p>A typical implementation can look like:</p>
 <pre><code class="language-java">@Override
 public void setupScene(){
     setBackgroundAudio(&quot;audio/ocean.mp3&quot;);
@@ -196,11 +207,14 @@ public void setupScene(){
 </code></pre>
 <p>For more information, check the
 <a href="https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/scenes/YaegerScene.html#setupScene()">API of setupGame()</a></p>
-<h3 id="adding-entities-to-the-scene-through-setupentities"><a class="header" href="#adding-entities-to-the-scene-through-setupentities">Adding Entities to the scene, through <code>setupEntities()</code></a></h3>
-<p>After <code>setupScene()</code> has been called, Yaeger will call <code>setupEntities()</code>. This is the second step in the life cycle of a
-YaegerScene, in which it expects the developer to add Entities to the Scene.</p>
-<p>Entities can be added by calling <code>addEntity(YaegerEntity)</code>. Since entities can overlap, their placement will follow the
-order in which they are added to the scene. So newly added entities may overlap entities that had been placed earlier.</p>
+<h3 id="adding-entities-to-the-scene-through-setupentities"><a class="header" href="#adding-entities-to-the-scene-through-setupentities">Adding entities to the scene, through <code>setupEntities()</code></a></h3>
+<p>After <code>setupScene()</code> has been called, Yaeger will call <code>setupEntities()</code>. This
+is the second step in the life cycle of a <code>YaegerScene</code>, in which it expects the
+developer to add entities to the scene.</p>
+<p>Entities can be added by calling <code>addEntity(YaegerEntity)</code>. Since entities can
+overlap, their placement will follow the order in which they are added to the
+scene. So newly added entities may overlap entities that had been placed
+earlier.</p>
 <p>More on entities in the following chapter of this documentation.</p>
 <p>A typical implementation can look like:</p>
 <pre><code class="language-java">@Override
@@ -211,9 +225,10 @@ public void setupEntities(){
 }
 </code></pre>
 <h2 id="what-about-the-constructor"><a class="header" href="#what-about-the-constructor">What about the constructor?</a></h2>
-<p>The same rules apply to a <code>YaegerScene</code>, as do to a <code>YaegerGame</code>. Configuring the scene should only be done from
-the <code>setupScene()</code> method.</p>
-<p>It is however possible to use the constructor for basic wiring of Objects or other commons object-oriented practices.</p>
+<p>The same rules apply to a <code>YaegerScene</code>, as do to a <code>YaegerGame</code>. Configuring
+the scene should only be done from the <code>setupScene()</code> method.</p>
+<p>It is however possible to use the constructor for basic wiring of objects or
+other commons object-oriented practices.</p>
 
                     </main>
 

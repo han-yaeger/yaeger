@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="creating-a-game.html"><strong aria-hidden="true">2.</strong> Creating a game</a></li><li class="chapter-item expanded "><a href="scenes.html"><strong aria-hidden="true">3.</strong> Scenes aka Levels</a></li><li class="chapter-item expanded "><a href="entities.html"><strong aria-hidden="true">4.</strong> Entities aka Game Objects</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="creating-entities.html"><strong aria-hidden="true">4.1.</strong> Creating Entities</a></li><li class="chapter-item expanded "><a href="entity-interactions.html"><strong aria-hidden="true">4.2.</strong> Entity interactions</a></li><li class="chapter-item expanded "><a href="physics.html"><strong aria-hidden="true">4.3.</strong> Applying physics</a></li><li class="chapter-item expanded "><a href="tilemaps.html"><strong aria-hidden="true">4.4.</strong> Adding many Entities at one</a></li></ol></li><li class="chapter-item expanded "><a href="user-input.html"><strong aria-hidden="true">5.</strong> Handling user input</a></li><li class="chapter-item expanded "><a href="sounds.html"><strong aria-hidden="true">6.</strong> Sounds</a></li><li class="chapter-item expanded "><a href="timing-things.html"><strong aria-hidden="true">7.</strong> Timing things</a></li><li class="chapter-item expanded "><a href="commandline-arguments.html"><strong aria-hidden="true">8.</strong> Command line arguments</a></li><li class="chapter-item expanded "><a href="debugging.html" class="active"><strong aria-hidden="true">9.</strong> Debugging</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">10.</strong> FAQ</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="creating-a-game.html"><strong aria-hidden="true">2.</strong> Creating a game</a></li><li class="chapter-item expanded "><a href="scenes.html"><strong aria-hidden="true">3.</strong> Scenes aka Levels</a></li><li class="chapter-item expanded "><a href="entities.html"><strong aria-hidden="true">4.</strong> Entities aka Game Objects</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="creating-entities.html"><strong aria-hidden="true">4.1.</strong> Creating Entities</a></li><li class="chapter-item expanded "><a href="entity-interactions.html"><strong aria-hidden="true">4.2.</strong> Entity interactions</a></li><li class="chapter-item expanded "><a href="tilemaps.html"><strong aria-hidden="true">4.3.</strong> Adding many Entities at once</a></li></ol></li><li class="chapter-item expanded "><a href="user-input.html"><strong aria-hidden="true">5.</strong> Handling user input</a></li><li class="chapter-item expanded "><a href="sounds.html"><strong aria-hidden="true">6.</strong> Sounds</a></li><li class="chapter-item expanded "><a href="timing-things.html"><strong aria-hidden="true">7.</strong> Timing things</a></li><li class="chapter-item expanded "><a href="commandline-arguments.html"><strong aria-hidden="true">8.</strong> Command line arguments</a></li><li class="chapter-item expanded "><a href="debugging.html" class="active"><strong aria-hidden="true">9.</strong> Debugging</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">10.</strong> FAQ</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -147,34 +147,41 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="debugging-a-game"><a class="header" href="#debugging-a-game">Debugging a game</a></h1>
-<p>Yaeger provides a debugging dialog that shows information about the current scene, and the machine it is running on.
-Since this dialog requires the Game World Update to refresh itself, it gives little information on a scene that
-extends <code>StaticScene</code>. But on a scene that extends <code>DynamicScene</code> it can give insight.</p>
-<p>To enable the debugging dialog, start you Yaeger game with the command line argument as shown
-in <a href="commandline-arguments.html">Command line arguments</a>.</p>
+<p>Yaeger provides a debugging dialog that shows information about the current
+scene, and the machine it is running on. Since this dialog requires the
+Game World Update to refresh itself, it gives little information on a scene that
+extends <code>StaticScene</code>. But on a scene that extends <code>DynamicScene</code> it can give
+insight.</p>
+<p>To enable the debugging dialog, start you Yaeger game with the command line
+argument as shown in <a href="commandline-arguments.html">Command line arguments</a>.</p>
 <h2 id="processors-and-memory"><a class="header" href="#processors-and-memory">Processors and memory</a></h2>
-<p>When run, a Java-program allocates memory through the JVM, the Java Virtual Machine, which is part of the Java Runtime
-Environment (JRE). Depending on the number of Objects that make up the program, it then uses this memory. Since, during
-the lifecycle of a program, more and more Objects are created, you can see the <em>total used memory</em> increase. When some
-of these Objects are no longer used by the program, the memory they use gets cleared by the JVM. Hence, the <em>total used
-memory</em>
-periodically decreases.</p>
-<p>If the <em>total used memory</em> reaches the value of <em>total allocated memory</em>, the program will come to a grinding halt.</p>
+<p>When run, a Java-program allocates memory through the JVM, the Java Virtual
+Machine, which is part of the Java Runtime Environment (JRE). Depending on the
+number of Objects that make up the program, it then uses this memory. Since,
+during the lifecycle of a program, more and more Objects are created, you can
+see the <em>total used memory</em> increase. When some of these Objects are no longer
+used by the program, the memory they use gets cleared by the JVM. Hence, the
+<em>total used memory</em> periodically decreases.</p>
+<p>If the <em>total used memory</em> reaches the value of <em>total allocated memory</em>, the
+program will come to a grinding halt.</p>
 <h2 id="entities-suppliers-and-garbage"><a class="header" href="#entities-suppliers-and-garbage">Entities, suppliers and garbage</a></h2>
-<p>The debugger keeps track of the number of Entities that are present on the Scene.</p>
+<p>The debugger keeps track of the number of Entities that are present on the
+scene.</p>
 <table><thead><tr><th align="left">Entity</th><th align="left">Explanation</th></tr></thead><tbody>
-<tr><td align="left"><strong>Dynamic Entities</strong></td><td align="left">Number of Entities that extend <code>DynamicEntity</code></td></tr>
-<tr><td align="left"><strong>Static Entities</strong></td><td align="left">Number of  Entities that extend <code>StaticEntity</code></td></tr>
-<tr><td align="left"><strong>Suppliers</strong></td><td align="left">Number of Objects that are able to supply Entities to the Scene. This means all instances of <code>EntitySpawner</code>, but also the Scene itself.</td></tr>
+<tr><td align="left"><strong>Dynamic Entities</strong></td><td align="left">Number of entities that extend <code>DynamicEntity</code></td></tr>
+<tr><td align="left"><strong>Static Entities</strong></td><td align="left">Number of  entities that extend <code>StaticEntity</code></td></tr>
+<tr><td align="left"><strong>Suppliers</strong></td><td align="left">Number of objects that are able to supply entities to the scene. This means all instances of <code>EntitySpawner</code>, but also the Scene itself.</td></tr>
 <tr><td align="left"><strong>Garbage</strong></td><td align="left">Number of Entities that have been marked as garbage, by calling the <code>remove()</code> method. The will be removed from the Scene during the next Game World Update, which should result in a drop of <em>total used memory</em></td></tr>
-<tr><td align="left"><strong>Key listening entities</strong></td><td align="left">Number of Entities that implement <code>KeyListener</code></td></tr>
+<tr><td align="left"><strong>Key listening entities</strong></td><td align="left">Number of entities that implement <code>KeyListener</code></td></tr>
 </tbody></table>
 <h2 id="loaded-files"><a class="header" href="#loaded-files">Loaded files</a></h2>
-<p>Image and audio files will probably make up most of Yaeger's memory usage. To minimize this memory footprint, Yaeger
-reuses images if possible. Meaning, for entities that use the same image file, this image file gets loaded only once.
-The same goes for audio files. Because Yaeger tries to reclaim the memory if such a file is no longer used, the
-background audio does get added to the value in the debugger. As soon as it starts playing, Yaeger loses its reference
-to the loaded file, and it continues playing.</p>
+<p>Image and audio files will probably make up most of Yaeger's memory usage. To
+minimize this memory footprint, Yaeger reuses images if possible. Meaning,
+for entities that use the same image file, this image file gets loaded only
+once. The same goes for audio files. Because Yaeger tries to reclaim the
+memory if such a file is no longer used, the background audio does get added to
+the value in the debugger. As soon as it starts playing, Yaeger loses its
+reference to the loaded file, and it continues playing.</p>
 
                     </main>
 

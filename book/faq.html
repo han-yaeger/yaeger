@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="creating-a-game.html"><strong aria-hidden="true">2.</strong> Creating a game</a></li><li class="chapter-item expanded "><a href="scenes.html"><strong aria-hidden="true">3.</strong> Scenes aka Levels</a></li><li class="chapter-item expanded "><a href="entities.html"><strong aria-hidden="true">4.</strong> Entities aka Game Objects</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="creating-entities.html"><strong aria-hidden="true">4.1.</strong> Creating Entities</a></li><li class="chapter-item expanded "><a href="entity-interactions.html"><strong aria-hidden="true">4.2.</strong> Entity interactions</a></li><li class="chapter-item expanded "><a href="physics.html"><strong aria-hidden="true">4.3.</strong> Applying physics</a></li><li class="chapter-item expanded "><a href="tilemaps.html"><strong aria-hidden="true">4.4.</strong> Adding many Entities at one</a></li></ol></li><li class="chapter-item expanded "><a href="user-input.html"><strong aria-hidden="true">5.</strong> Handling user input</a></li><li class="chapter-item expanded "><a href="sounds.html"><strong aria-hidden="true">6.</strong> Sounds</a></li><li class="chapter-item expanded "><a href="timing-things.html"><strong aria-hidden="true">7.</strong> Timing things</a></li><li class="chapter-item expanded "><a href="commandline-arguments.html"><strong aria-hidden="true">8.</strong> Command line arguments</a></li><li class="chapter-item expanded "><a href="debugging.html"><strong aria-hidden="true">9.</strong> Debugging</a></li><li class="chapter-item expanded "><a href="faq.html" class="active"><strong aria-hidden="true">10.</strong> FAQ</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="creating-a-game.html"><strong aria-hidden="true">2.</strong> Creating a game</a></li><li class="chapter-item expanded "><a href="scenes.html"><strong aria-hidden="true">3.</strong> Scenes aka Levels</a></li><li class="chapter-item expanded "><a href="entities.html"><strong aria-hidden="true">4.</strong> Entities aka Game Objects</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="creating-entities.html"><strong aria-hidden="true">4.1.</strong> Creating Entities</a></li><li class="chapter-item expanded "><a href="entity-interactions.html"><strong aria-hidden="true">4.2.</strong> Entity interactions</a></li><li class="chapter-item expanded "><a href="tilemaps.html"><strong aria-hidden="true">4.3.</strong> Adding many Entities at once</a></li></ol></li><li class="chapter-item expanded "><a href="user-input.html"><strong aria-hidden="true">5.</strong> Handling user input</a></li><li class="chapter-item expanded "><a href="sounds.html"><strong aria-hidden="true">6.</strong> Sounds</a></li><li class="chapter-item expanded "><a href="timing-things.html"><strong aria-hidden="true">7.</strong> Timing things</a></li><li class="chapter-item expanded "><a href="commandline-arguments.html"><strong aria-hidden="true">8.</strong> Command line arguments</a></li><li class="chapter-item expanded "><a href="debugging.html"><strong aria-hidden="true">9.</strong> Debugging</a></li><li class="chapter-item expanded "><a href="faq.html" class="active"><strong aria-hidden="true">10.</strong> FAQ</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -147,33 +147,43 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="faq"><a class="header" href="#faq">FAQ</a></h1>
-<p>This chapter will sum up known issues and solutions on how to bypass them. The list is likely not complete, so do feel
-free to share your findings.</p>
-<p>Some of the issues noted here can be seen as bugs, but that does not mean they are easily resolved.</p>
+<p>This chapter will sum up known issues and solutions on how to bypass them. The
+list is likely not complete, so do feel free to share your findings.</p>
+<p>Some of the issues noted here can be seen as bugs, but that does not mean they
+are easily resolved.</p>
 <h2 id="my-mp3-file-is-not-being-played"><a class="header" href="#my-mp3-file-is-not-being-played">My MP3 file is not being played</a></h2>
-<p>For some reason, not all MP3 files are supported. If playing an MP3 file does not give any exceptions, but you can not
-hear it in game, it might be because the MP3 file is nog supported. To correct this, use
-<a href="https://online-audio-converter.com/">a tool</a> to create an MP3 file that is supported.</p>
-<h2 id="an-entity-behaves-strangely-when-colliding"><a class="header" href="#an-entity-behaves-strangely-when-colliding">An Entity behaves strangely when colliding</a></h2>
-<p>Sometimes an Entity behaves unexpected when colliding. For instance, it is set to change its direction on collision, but
-when this happens it doesn't immediately do so. First it seems to stutter a few times, after which it finally behaves as
-expected.</p>
-<p>This behaviour likely follows from the fact that the bounding box is used for collision detection, and the bounding box
-is usually larger that the Entity we can see. Especially if the Entity is a SpriteEntity containing a round image, the
-bounding box is still rectangular. When this SpriteEntity is also rotating, it is not unlikely that the angles of the
-rectangular bounding box will again cause a collision on the Game World Update after the first collision. Because of the
-second collision the Entity will again change its direction and this cycle can repeat itself until the Entity no longer
-collides.</p>
+<p>For some reason, not all MP3 files are supported. If playing an MP3 file does
+not give any exceptions, but you can not hear it in game, it might be because
+the MP3 file is nog supported. To correct this, use
+<a href="https://online-audio-converter.com/">a tool</a> to create an MP3 file that is
+supported.</p>
+<h2 id="an-entity-behaves-strangely-when-colliding"><a class="header" href="#an-entity-behaves-strangely-when-colliding">An entity behaves strangely when colliding</a></h2>
+<p>Sometimes an entity behaves unexpected when colliding. For instance, it is set
+to change its direction on collision, but when this happens it doesn't
+immediately do so. First it seems to stutter a few times, after which it
+finally behaves as expected.</p>
+<p>This behaviour likely follows from the fact that the bounding box is used for
+collision detection, and the bounding box is usually larger that the entity we
+can see. Especially if the entity is a <code>SpriteEntity</code> containing a round image,
+the bounding box is still rectangular. When this <code>SpriteEntity</code> is also
+rotating, it is not unlikely that the angles of the rectangular bounding box
+will again cause a collision on the Game World Update after the first collision.
+Because of the second collision the entity will again change its direction
+and this cycle can repeat itself until the entity no longer collides.</p>
 <p>A workaround could be to use a <code>CompositeEntity</code> with a smaller hit box.</p>
-<h2 id="i-use-tilemaps-timers-and-entities-on-the-same-scene-why-not-add-everything-in-the-setupentities-method"><a class="header" href="#i-use-tilemaps-timers-and-entities-on-the-same-scene-why-not-add-everything-in-the-setupentities-method">I use TileMaps, Timers and Entities on the same Scene, why not add everything in the <code>setupEntities()</code> method?</a></h2>
-<p>Each <code>YaegerScene</code> exposes the method <code>setupEntities()</code>, which should be used to add instances of
-<code>YaegerEntity</code> to the Scene. When TileMaps are required, the Scene should implement the interface <code>TileMapContainer</code>,
-after which the method <code>setupTileMaps()</code> gets exposed and the method <code>addTileMap(TileMap)</code> becomes available. The same
-goes for Timers through the interface <code>TimerContainer</code>.</p>
-<p>In a Scene where either TileMaps or Timers are required, it is very well possible to ignore the <code>setupTileMaps()</code> or
-<code>setupTimers()</code> methods and add TileMaps or Timers from the <code>setupEntities()</code> method. It is however preferable to
-use the appropriate method, to maximize readability. Scenes can grow rather large and to find specific Entities, TileMaps
-or Timers, it can help to group them within their specific methods.</p>
+<h2 id="i-use-tile-maps-timers-and-entities-on-the-same-scene-why-not-add-everything-in-the-setupentities-method"><a class="header" href="#i-use-tile-maps-timers-and-entities-on-the-same-scene-why-not-add-everything-in-the-setupentities-method">I use tile maps, timers and entities on the same scene, why not add everything in the <code>setupEntities()</code> method?</a></h2>
+<p>Each <code>YaegerScene</code> exposes the method <code>setupEntities()</code>, which should be used
+to add instances of <code>YaegerEntity</code> to the scene. When tile maps are required,
+the scene should implement the interface <code>TileMapContainer</code>, after which
+the method <code>setupTileMaps()</code> gets exposed and the method <code>addTileMap(TileMap)</code>
+becomes available. The same goes for timers through the interface
+<code>TimerContainer</code>.</p>
+<p>In a Scene where either tileMaps or timers are required, it is very well
+possible to ignore the <code>setupTileMaps()</code> or <code>setupTimers()</code> methods and add
+TileMaps or Timers from the <code>setupEntities()</code> method. It is however preferable
+to use the appropriate method, to maximize readability. Scenes can grow rather
+large and to find specific entities, tile maps or timers, it can help to
+group them within their specific methods.</p>
 
                     </main>
 

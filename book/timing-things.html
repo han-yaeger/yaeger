@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="creating-a-game.html"><strong aria-hidden="true">2.</strong> Creating a game</a></li><li class="chapter-item expanded "><a href="scenes.html"><strong aria-hidden="true">3.</strong> Scenes aka Levels</a></li><li class="chapter-item expanded "><a href="entities.html"><strong aria-hidden="true">4.</strong> Entities aka Game Objects</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="creating-entities.html"><strong aria-hidden="true">4.1.</strong> Creating Entities</a></li><li class="chapter-item expanded "><a href="entity-interactions.html"><strong aria-hidden="true">4.2.</strong> Entity interactions</a></li><li class="chapter-item expanded "><a href="physics.html"><strong aria-hidden="true">4.3.</strong> Applying physics</a></li><li class="chapter-item expanded "><a href="tilemaps.html"><strong aria-hidden="true">4.4.</strong> Adding many Entities at one</a></li></ol></li><li class="chapter-item expanded "><a href="user-input.html"><strong aria-hidden="true">5.</strong> Handling user input</a></li><li class="chapter-item expanded "><a href="sounds.html"><strong aria-hidden="true">6.</strong> Sounds</a></li><li class="chapter-item expanded "><a href="timing-things.html" class="active"><strong aria-hidden="true">7.</strong> Timing things</a></li><li class="chapter-item expanded "><a href="commandline-arguments.html"><strong aria-hidden="true">8.</strong> Command line arguments</a></li><li class="chapter-item expanded "><a href="debugging.html"><strong aria-hidden="true">9.</strong> Debugging</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">10.</strong> FAQ</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="creating-a-game.html"><strong aria-hidden="true">2.</strong> Creating a game</a></li><li class="chapter-item expanded "><a href="scenes.html"><strong aria-hidden="true">3.</strong> Scenes aka Levels</a></li><li class="chapter-item expanded "><a href="entities.html"><strong aria-hidden="true">4.</strong> Entities aka Game Objects</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="creating-entities.html"><strong aria-hidden="true">4.1.</strong> Creating Entities</a></li><li class="chapter-item expanded "><a href="entity-interactions.html"><strong aria-hidden="true">4.2.</strong> Entity interactions</a></li><li class="chapter-item expanded "><a href="tilemaps.html"><strong aria-hidden="true">4.3.</strong> Adding many Entities at once</a></li></ol></li><li class="chapter-item expanded "><a href="user-input.html"><strong aria-hidden="true">5.</strong> Handling user input</a></li><li class="chapter-item expanded "><a href="sounds.html"><strong aria-hidden="true">6.</strong> Sounds</a></li><li class="chapter-item expanded "><a href="timing-things.html" class="active"><strong aria-hidden="true">7.</strong> Timing things</a></li><li class="chapter-item expanded "><a href="commandline-arguments.html"><strong aria-hidden="true">8.</strong> Command line arguments</a></li><li class="chapter-item expanded "><a href="debugging.html"><strong aria-hidden="true">9.</strong> Debugging</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">10.</strong> FAQ</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -147,26 +147,33 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="timing-things"><a class="header" href="#timing-things">Timing things</a></h1>
-<p>As can be read in <a href="scenes.html">Scenes aka Levels</a>, there are two different implementations of <code>YaegerScene</code> available:
-a <code>StaticScene</code> and a <code>DynamicScene</code>. Their main difference resides in the fact that a <code>DynamicScene</code> contains a Game
-World Update (GWA) to which all instances of <code>DynamicEntity</code> added to the scene will listen.</p>
-<p>This chapter will discuss the different ways in the GWA can be used within Yaeger. It will start by discussing how the
-GWA gets delegated to all Objects, after which different ways to use in within your Scene of Entity.</p>
-<h2 id="how-the-gwa-is-delegated-to-all-objects"><a class="header" href="#how-the-gwa-is-delegated-to-all-objects">How the GWA is delegated to all Objects</a></h2>
-<p>The GWA is initiated by the <code>DynamicScene</code>, and handed down to all Dynamic Entities that were added to the Scene. This
-is done in the same order as in which they were added to the Scene.</p>
+<p>As can be read in <a href="scenes.html">Scenes aka Levels</a>, there are two different
+implementations of <code>YaegerScene</code> available: a <code>StaticScene</code> and a
+<code>DynamicScene</code>. Their main difference resides in the fact that a <code>DynamicScene</code>
+contains a Game World Update (GWU) to which all instances of <code>DynamicEntity</code>
+added to the scene will listen.</p>
+<p>This chapter will discuss the different ways in the GWU can be used within
+Yaeger. It will start by discussing how the GWU gets delegated to all
+objects, after which different ways to use in within your scene of entity.</p>
+<h2 id="how-the-gwu-is-delegated-to-all-objects"><a class="header" href="#how-the-gwu-is-delegated-to-all-objects">How the GWU is delegated to all objects</a></h2>
+<p>The GWU is initiated by the <code>DynamicScene</code>, and handed down to all dynamic
+entities that were added to the scene. This is done in the same order as in
+which they were added to the scene.</p>
 <p><img src="images/update-delegation.png" alt="Update Delegation" /></p>
-<h3 id="pausing-and-resuming-the-gwa"><a class="header" href="#pausing-and-resuming-the-gwa">Pausing and resuming the GWA</a></h3>
-<p>Since the GWA gets initiated at the level of the <code>DynamicScene</code>, and then passed down, it is possible to pause all
-Objects that are called by this GWA. For this a <code>DynamicScene</code> provides a method to pause and resume the GWA.</p>
+<h3 id="pausing-and-resuming-the-gwu"><a class="header" href="#pausing-and-resuming-the-gwu">Pausing and resuming the GWU</a></h3>
+<p>Since the GWU gets initiated at the level of the <code>DynamicScene</code>, and then
+passed down, it is possible to pause all objects that are called by this
+GWU. For this a <code>DynamicScene</code> provides a method to pause and resume the GWU.</p>
 <h2 id="using-a-timer-to-create-time-based-events"><a class="header" href="#using-a-timer-to-create-time-based-events">Using a <code>Timer</code> to create time-based events</a></h2>
-<p>On both Dynamic Scenes and Dynamic Entities one or more timers can be used to create time based events. To use such a
-<code>Timer</code> the Scene or Entity should implement the interface <code>TimerContainer</code>. After doing so, the method <code>setupTimers()</code>
-should be implemented and the method <code>addTimer(Timer)</code> can be called to add an instance of <code>Timer</code>.</p>
-<h2 id="exposing-the-gwa-to-scenes-and-entities"><a class="header" href="#exposing-the-gwa-to-scenes-and-entities">Exposing the GWA to Scenes and Entities</a></h2>
-<p>The GWA is kept internal on all Entities and Scenes and gets delegated downwards. It is, however, possible to expose the
-GWA to an Entity or Scene by implementing the interface
-<code>UpdateExposer</code>, which exposes an <code>explicitUpdate(long)</code> method. The value passed to this method represents a timestamp
+<p>On both dynamic scenes and dynamic entities one or more timers can be used
+to create time based events. To use such a <code>Timer</code> the scene or entity
+should implement the interface <code>TimerContainer</code>. After doing so, the method
+<code>setupTimers()</code> should be implemented and the method <code>addTimer(Timer)</code> can
+be called to add an instance of <code>Timer</code>.</p>
+<h2 id="exposing-the-gwu-to-scenes-and-entities"><a class="header" href="#exposing-the-gwu-to-scenes-and-entities">Exposing the GWU to scenes and entities</a></h2>
+<p>The GWU is kept internal on all entities and scenes and gets delegated
+downwards. It is, however, possible to expose the GWU to an entity or scene by
+implementing the interface <code>UpdateExposer</code>, which exposes an <code>explicitUpdate (long)</code> method. The value passed to this method represents a timestamp
 of the current time and can be used to keep track of time.</p>
 
                     </main>
