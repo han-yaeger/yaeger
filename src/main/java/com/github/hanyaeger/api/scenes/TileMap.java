@@ -19,12 +19,14 @@ import com.github.hanyaeger.core.scenes.DimensionsProvider;
 import java.util.*;
 
 /**
- * A {@link TileMap} encapsulate a two-dimensional map of {@link SpriteEntity}.
+ * A {@code TileMap} encapsulate a two-dimensional map of instances of {@link YaegerEntity}, which should be added to
+ * a {@link YaegerScene}. It is a convenience way to let Yaeger calculate the location and size of each of the entities,
+ * and place them on the scene.
  * <p>
- * By default a {@link TileMap} will assume
- * the full width of the {@link YaegerScene} must be used for placing the tiles.
- * For this, it will require both tiles to be added, as a map to be defined. Based on those, it will automatically
- * calculate the width, height and placement of all tiles.
+ * By default a {@link TileMap} will assume the full width of the {@link YaegerScene} must be used for placing the
+ * tiles. It will require a two dimensional array that represents the scene and sets which entity should be where, and
+ * a list of the actual entities. Of these the classes are required, since the {@code TileMap} itself will create the
+ * instances. It will use the two-dimensional array to calculate the location and size of each entity.
  */
 public abstract class TileMap extends EntitySupplier implements Anchorable, Activatable {
 

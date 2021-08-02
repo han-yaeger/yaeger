@@ -36,7 +36,7 @@ public interface TileMapContainer extends SupplierProvider, TileMapListProvider,
      *
      * @param tileMap The {@link TileMap} that should be registered.
      */
-    default void addTileMap(TileMap tileMap) {
+    default void addTileMap(final TileMap tileMap) {
         if (getTileMaps() != null) {
             tileMap.setDimensionsProvider(this);
             getTileMaps().add(tileMap);

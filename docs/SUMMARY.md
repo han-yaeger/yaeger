@@ -6,7 +6,6 @@
 - [Entities aka Game Objects](entities.md)
     - [Creating Entities](creating-entities.md)
     - [Entity interactions](entity-interactions.md)
-    - [Adding many Entities at once](tilemaps.md)
 - [Handling user input](user-input.md)
 - [Sounds](sounds.md)
 - [Timing things](timing-things.md)

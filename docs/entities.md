@@ -28,6 +28,14 @@ lower the value, the closer the entity is placed to the front of the scene.
 
 ## Movement of dynamic entities
 
+Dynamic entities can move around the scene, by setting their motion. This
+movement is applied each GWU, which means the entity moves discretely across the
+scene (as opposed to continuously).
+
+The motion consists of a `direction` and `speed`, which can be set
+individually or together. The `direction` is a double, where the value 0
+denotes downward and 180 logically means upward.
+
 ## Different types of entities
 
 There are several Entities available, which can be divided into four different
