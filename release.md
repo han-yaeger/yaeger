@@ -2,6 +2,8 @@
 
 ## Configuration
 
+* Updated Mockito to 3.11.2
+
 ## Refactor
 
 * Moved the implementations of all entities from their own package to the
