@@ -39,6 +39,3 @@ instantiate them and add them to the scene.
 
 To be able to use a `TileMap`, the scene should implement the interface
 `TileMapContainer`.
-
-
-
