@@ -80,6 +80,9 @@ jobs:
           destination_dir: ./book
           keep_files: true
 
+      - name: Deploy to the Maven Central Repository
+        run: mvn compile javadoc:javadoc
+
       - name: Deploy JavaDoc
         uses: peaceiris/actions-gh-pages@v3
         with:
