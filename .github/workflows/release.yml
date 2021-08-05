@@ -56,7 +56,7 @@ jobs:
         with:
           artifacts: "target/*.jar"
           bodyFile: "release.md"
-          prerelease: false
+          prerelease: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: QA check Markdown content
