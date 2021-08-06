@@ -46,7 +46,7 @@ protected void setupGame(){
 ```
 
 For more information, check the
-[API](https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/YaegerGame.html#setupGame())
+[API](https://han-yaeger.github.io/yaeger/hanyaeger/com/github/hanyaeger/api/YaegerGame.html#setupGame())
 of `setupGame()`
 
 ### Adding Scenes, through `setupScenes()`
@@ -75,7 +75,7 @@ protected void setupScenes(){
 When adding scenes to the Yaeger Game, the first added scene will also be the
 one that gets loaded and becomes visible. To load a specific scene,
 `YaegerGame` provides the method `setActiveScene(int)`. Read
-the [API](https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/YaegerGame.html#setActiveScene(int))
+the [API](https://han-yaeger.github.io/yaeger/hanyaeger/com/github/hanyaeger/api/YaegerGame.html#setActiveScene(int))
 for the details on how to use this method.
 
 ## What about the constructor?

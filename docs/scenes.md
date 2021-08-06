@@ -74,7 +74,7 @@ public void setupScene(){
 ```
 
 For more information, check the
-[API of setupGame()](https://han-yaeger.github.io/yaeger/hanyaeger.api/com/github/hanyaeger/api/engine/scenes/YaegerScene.html#setupScene())
+[API](https://han-yaeger.github.io/yaeger/hanyaeger/com/github/hanyaeger/api/scenes/YaegerScene.html#setupScene())
 
 ### Adding entities to the scene, through `setupEntities()`
 
