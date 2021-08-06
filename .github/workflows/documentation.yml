@@ -1,9 +1,12 @@
+name: Publish Documentation
+
 on:
+  workflow_run:
+    workflows: [ "Release" ]
+    types: [ completed ]
   push:
     branches:
       - documentation
-
-name: Publish Documentation
 
 jobs:
   build:
@@ -13,10 +16,26 @@ jobs:
       - name: Fetch source code
         uses: actions/checkout@v2
 
+      - name: Generate JavaDoc
+        run: mvn compile javadoc:javadoc
+
+      - name: Deploy JavaDoc on GH-Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/site/apidocs
+          keep_files: false
+
       - name: QA check Markdown content
         uses: nosborn/github-action-markdown-cli@v1.1.1
         with:
           files: .
+
+      - name: Check links in markdown
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-verbose-mode: 'yes'
+          folder-path: 'docs/'
 
       - name: Run mdBook
         uses: peaceiris/actions-mdbook@v1
@@ -25,7 +44,7 @@ jobs:
       - run: |
           mdbook build
 
-      - name: Publish book website
+      - name: Deploy Book on GH-Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
