@@ -23,7 +23,7 @@ public class YaegerCommandLineParser {
      * @return an instance of {@link YaegerConfig} that can be used to initialize a {@link YaegerGame}
      */
     public YaegerConfig parseToConfig(final List<String> args) {
-        final var invalidArgs = args.stream().filter(a -> !isValidArgument(a)).collect(Collectors.toList());
+        final var invalidArgs = args.stream().filter(a -> !isValidArgument(a)).toList();
         printInvalidArgumentWarning(invalidArgs);
 
         if (args.contains(YaegerCommandLineArgument.HELP.flag) || !invalidArgs.isEmpty()) {
@@ -55,7 +55,7 @@ public class YaegerCommandLineParser {
         final var validArguments = Arrays
                 .stream(YaegerCommandLineArgument.values())
                 .map(a -> a.flag)
-                .collect(Collectors.toList());
+                .toList();
 
         return validArguments.contains(argument);
     }
