@@ -261,7 +261,7 @@ public class EntityCollection implements Initializable {
     }
 
     private void removeGameObject(final Removable entity) {
-        this.pane.getChildren().remove(entity.getNode());
+        entity.getNode().ifPresent(node -> this.pane.getChildren().remove(node));
         this.collisionDelegate.remove(entity);
     }
 
