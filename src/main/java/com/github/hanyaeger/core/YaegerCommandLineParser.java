@@ -4,7 +4,6 @@ import com.github.hanyaeger.api.YaegerGame;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * The commandline parser will parse the {@code String[]} provided as command line
