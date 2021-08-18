@@ -1,6 +1,5 @@
 package com.github.hanyaeger.api;
 
-import com.github.hanyaeger.api.entities.EntitySpawner;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.core.TimerListProvider;
 import com.github.hanyaeger.core.Updatable;
