@@ -4,8 +4,8 @@ import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 
 /**
- * Abstract superclass of all timers that are available for both a {@link YaegerScene}
- * and an {@link YaegerEntity}.
+ * The abstract superclass of all timers that are available for both {@link YaegerScene}
+ * and {@link YaegerEntity}.
  * <p>
  * Extend this class and implement the method {@link #onAnimationUpdate(long)}.
  */

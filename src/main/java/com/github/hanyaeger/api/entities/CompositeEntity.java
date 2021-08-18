@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * When a group of Entities are combined to create a single {@link YaegerEntity}, they are
+ * When a group of entities are combined to create a single {@link YaegerEntity}, they are
  * a composition and this class should be used to perform that composition.
  * <p>
  * It is possible to add instances of {@link YaegerEntity} to this {@link CompositeEntity},

@@ -24,7 +24,7 @@ public abstract class DynamicCircleEntity extends CircleEntity implements Update
     private double rotationAngle;
 
     /**
-     * Create a new {@link DynamicCircleEntity} on the given {@code initialPosition}.
+     * Create a new {@link DynamicCircleEntity} on the given {@code initialLocation}.
      *
      * @param initialLocation the initial position at which this {@link DynamicCircleEntity} should be placed
      */

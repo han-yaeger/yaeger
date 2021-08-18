@@ -23,12 +23,12 @@ public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
     private double arcHeight = DEFAULT_ARC;
 
     /**
-     * Create a new {@link RectangleEntity} on the given {@code initialPosition}.
+     * Create a new {@link RectangleEntity} on the given {@code initialLocation}.
      *
-     * @param initialPosition the initial position at which this {@link RectangleEntity} should be placed
+     * @param initialLocation the initial position at which this {@link RectangleEntity} should be placed
      */
-    protected RectangleEntity(final Coordinate2D initialPosition) {
-        this(initialPosition, new Size(DEFAULT_WIDTH, DEFAULT_HEIGHT));
+    protected RectangleEntity(final Coordinate2D initialLocation) {
+        this(initialLocation, new Size(DEFAULT_WIDTH, DEFAULT_HEIGHT));
     }
 
     /**

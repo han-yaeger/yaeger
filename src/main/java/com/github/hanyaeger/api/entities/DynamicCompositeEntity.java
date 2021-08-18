@@ -12,7 +12,7 @@ import com.google.inject.Injector;
 import java.util.Optional;
 
 /**
- * When a group of Entities are combined to create a single Entity, they are
+ * When a group of entities are combined to create a single entity, they are
  * a composition and this class should be used to perform that composition.
  * <p>
  * It is possible to add instances of {@link YaegerEntity} to this {@link DynamicCompositeEntity},
@@ -21,7 +21,7 @@ import java.util.Optional;
  * {@link YaegerEntity}, but are managed as a whole.
  * </p>
  * <p>
- * Since the child Entities are part of this {@link DynamicCompositeEntity}, their event listeners will
+ * Since the child entities are part of this {@link DynamicCompositeEntity}, their event listeners will
  * only be called if their parent {@link DynamicCompositeEntity} implements the correct interfaces. The
  * such a case, the parent will be called first, after which it will direct the event to its children.
  * </p>

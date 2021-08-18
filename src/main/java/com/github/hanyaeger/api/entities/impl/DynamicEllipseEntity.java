@@ -25,12 +25,12 @@ public abstract class DynamicEllipseEntity extends EllipseEntity implements Upda
     private double rotationAngle;
 
     /**
-     * Create a new {@link DynamicEllipseEntity} on the given {@code initialPosition}.
+     * Create a new {@link DynamicEllipseEntity} on the given {@code initialLocation}.
      *
-     * @param initialPosition the initial position at which this {@link DynamicEllipseEntity} should be placed
+     * @param initialLocation the initial position at which this {@link DynamicEllipseEntity} should be placed
      */
-    protected DynamicEllipseEntity(final Coordinate2D initialPosition) {
-        super(initialPosition);
+    protected DynamicEllipseEntity(final Coordinate2D initialLocation) {
+        super(initialLocation);
 
         buffer = Optional.of(new EntityMotionInitBuffer());
     }

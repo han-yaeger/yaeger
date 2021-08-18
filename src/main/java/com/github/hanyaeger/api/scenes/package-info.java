@@ -1,4 +1,4 @@
 /**
- * Classes, Interfaces and Packages that are related to Scenes and their behaviour.
+ * All classes, interfaces and enumerations that are related to scenes.
  */
 package com.github.hanyaeger.api.scenes;

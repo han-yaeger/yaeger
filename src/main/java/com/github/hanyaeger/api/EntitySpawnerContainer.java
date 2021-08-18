@@ -12,12 +12,11 @@ import com.github.hanyaeger.core.scenes.EntitySpawnerListProvider;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 
 /**
- * When implementing this interface, the {@link #setupEntitySpawners()} method needs to be implemented.
- * This interface can be used with a {@link YaegerScene} and ensures that the method {@link #setupEntitySpawners()}
- * is being called during initialization of such an object.
+ * An {@code EntitySpawnerContainer} enables a {@link YaegerScene} to use instances of {@link EntitySpawner}.
  * <p>
- * THe body of {@link #setupEntitySpawners()} should be used to add instances of {@link EntitySpawner}, using the exposed
- * method  {@link #addEntitySpawner(EntitySpawner)}. These spawners will then be registered and added to the Game-loop.
+ * When implementing this interface, the {@link #setupEntitySpawners()} method needs to be implemented The
+ * body of {@link #setupEntitySpawners()} should be used to add instances of {@link EntitySpawner}, using the
+ * method  {@link #addEntitySpawner(EntitySpawner)}. These spawners will then be registered and added to the GWU.
  * <p>
  * A {@link EntitySpawner} that is instantiated, but not added in this way, will not work.
  */

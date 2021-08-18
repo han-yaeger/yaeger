@@ -25,12 +25,12 @@ public abstract class DynamicRectangleEntity extends RectangleEntity implements 
     private double rotationAngle;
 
     /**
-     * Create a new {@link DynamicRectangleEntity} on the given {@code initialPosition}.
+     * Create a new {@link DynamicRectangleEntity} on the given {@code initialLocation}.
      *
-     * @param initialPosition the initial position at which this {@link DynamicRectangleEntity} should be placed
+     * @param initialLocation the initial position at which this {@link DynamicRectangleEntity} should be placed
      */
-    protected DynamicRectangleEntity(final Coordinate2D initialPosition) {
-        super(initialPosition);
+    protected DynamicRectangleEntity(final Coordinate2D initialLocation) {
+        super(initialLocation);
 
         buffer = Optional.of(new EntityMotionInitBuffer());
     }

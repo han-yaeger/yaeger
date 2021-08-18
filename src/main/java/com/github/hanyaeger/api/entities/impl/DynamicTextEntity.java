@@ -25,12 +25,12 @@ public abstract class DynamicTextEntity extends TextEntity implements UpdateDele
     private double rotationAngle;
 
     /**
-     * Instantiate a new {@link DynamicTextEntity} for the given {@link Coordinate2D}.
+     * Instantiate a new {@link DynamicTextEntity} for the given {@code initialLocation}.
      *
-     * @param initialPosition the initial {@link Coordinate2D} of this {@link DynamicTextEntity}
+     * @param initialLocation the initial {@link Coordinate2D} of this {@link DynamicTextEntity}
      */
-    protected DynamicTextEntity(final Coordinate2D initialPosition) {
-        this(initialPosition, "");
+    protected DynamicTextEntity(final Coordinate2D initialLocation) {
+        this(initialLocation, "");
     }
 
     /**

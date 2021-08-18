@@ -25,12 +25,12 @@ public abstract class EllipseEntity extends CenteredShapeEntity<Ellipse> {
     double radiusY = DEFAULT_RADIUS_Y;
 
     /**
-     * Create a new {@link EllipseEntity} on the given {@code initialPosition}.
+     * Create a new {@link EllipseEntity} on the given {@code initialLocation}.
      *
-     * @param initialPosition the initial position at which this {@link EllipseEntity} should be placed
+     * @param initialLocation the initial position at which this {@link EllipseEntity} should be placed
      */
-    protected EllipseEntity(final Coordinate2D initialPosition) {
-        super(initialPosition);
+    protected EllipseEntity(final Coordinate2D initialLocation) {
+        super(initialLocation);
     }
 
     /**

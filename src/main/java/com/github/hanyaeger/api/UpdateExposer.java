@@ -6,15 +6,15 @@ import com.github.hanyaeger.core.Updatable;
 import com.github.hanyaeger.core.annotations.UpdatableProvider;
 
 /**
- * The interface {@link UpdateExposer} can be applied to any dynamic {@link YaegerEntity}
- * or {@link YaegerScene}. By default, both of those hide their
- * {@link Updatable#update(long)} method.
+ * An {@link UpdateExposer} can be applied to any dynamic {@link YaegerEntity}
+ * or {@link YaegerScene} and makes it possible to explicitly use the GWU.
  * <p>
- * When implementing {@link UpdateExposer}, the {@link Updatable#update(long)} becomes exposed.
+ * By default, both of those hide their GWU (or {@link Updatable#update(long)} method).
+ * When implementing {@link UpdateExposer}, the GWU becomes exposed through the method {@link #explicitUpdate(long)}.
  * <p>
  * Note that this should not be used for timing events. In such cases a {@link Timer} should be used.
  * <p>
- * The {@link #exposedUpdate()} will be called after the internal {@link Updatable#update(long)} has been
+ * Note that the {@link #exposedUpdate()} will be called after the internal {@link Updatable#update(long)} has been
  * called.
  */
 public interface UpdateExposer {

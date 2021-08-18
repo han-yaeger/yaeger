@@ -27,7 +27,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     private double rotationAngle;
 
     /**
-     * Create a new {@link DynamicSpriteEntity} for the given image resource on the given {@link Coordinate2D}.
+     * Create a new {@link DynamicSpriteEntity} for the given image resource on the given {@code initialLocation}.
      * This {@link DynamicSpriteEntity} will use the original dimensions of the image.
      *
      * @param resource        the url of the image file. Relative to the resources folder

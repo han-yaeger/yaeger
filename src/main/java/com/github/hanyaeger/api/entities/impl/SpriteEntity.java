@@ -35,14 +35,14 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     Optional<SpriteAnimationDelegate> spriteAnimationDelegate = Optional.empty();
 
     /**
-     * Instantiate a new {@link SpriteEntity} for a given image.
+     * Instantiate a new {@link SpriteEntity} for an image with the given {@code resource}.
      * This {@link SpriteEntity} will use the original dimensions of the image.
      *
      * @param resource the url of the image file. Relative to the resources folder
-     * @param location the initial {@link Coordinate2D} of this {@link SpriteEntity}
+     * @param initialLocation the initial {@link Coordinate2D} of this {@link SpriteEntity}
      */
-    protected SpriteEntity(final String resource, final Coordinate2D location) {
-        this(resource, location, null);
+    protected SpriteEntity(final String resource, final Coordinate2D initialLocation) {
+        this(resource, initialLocation, null);
     }
 
     /**

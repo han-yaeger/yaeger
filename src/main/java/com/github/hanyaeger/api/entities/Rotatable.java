@@ -4,7 +4,7 @@ import com.github.hanyaeger.core.entities.GameNode;
 import com.github.hanyaeger.core.entities.motion.InitializationBuffer;
 
 /**
- * Implementing the interface {@link Rotatable} will result in de availability of the {@link Rotatable#setRotate(double)}
+ * Implementing this interface will result in de availability of the {@link Rotatable#setRotate(double)}
  * method.
  */
 public interface Rotatable extends GameNode {

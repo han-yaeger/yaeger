@@ -26,7 +26,7 @@ public class TextEntity extends ShapeEntity<Text> {
     private String text;
 
     /**
-     * Create a new empty {@link TextEntity} on the given {@link Coordinate2D}.
+     * Create a new empty {@link TextEntity} on the given {@code initialLocation}.
      *
      * @param initialLocation the initial {@link Coordinate2D} of this {@link TextEntity}
      */

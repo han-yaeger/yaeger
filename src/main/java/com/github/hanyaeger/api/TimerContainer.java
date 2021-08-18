@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api;
 
+import com.github.hanyaeger.api.entities.EntitySpawner;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.core.TimerListProvider;
 import com.github.hanyaeger.core.Updatable;
@@ -9,13 +10,11 @@ import com.github.hanyaeger.core.exceptions.YaegerEngineException;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 
 /**
- * When implementing this interface, the {@link #setupTimers()} method needs to be implemented.
- * This interface can be used with both a {@link YaegerScene} and en
- * {@link YaegerEntity} and ensures that the method {@link #setupTimers()}
- * is being called during initialization of such an object.
- * <p>
- * THe body of {@link #setupTimers()} should be used to add instances of {@link Timer}, using the exposed
- * method  {@link #addTimer(Timer)}. These timers will then be registered and added to the Game-loop.
+ * An {@code TimerContainer} enables a {@link YaegerScene} and {@link YaegerEntity} to use instances of
+ * {@link Timer}.
+ * When implementing this interface, the {@link #setupTimers()} method needs to be implemented. The body
+ * of {@link #setupTimers()} should be used to add instances of {@link Timer}, using the method
+ * {@link #addTimer(Timer)}. These timers will then be registered and added to the GWU.
  * <p>
  * A {@link Timer} that is instantiated, but not added in this way, will not work.
  */
