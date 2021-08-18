@@ -17,11 +17,11 @@ public enum Direction {
      */
     RIGHT(90d),
     /**
-     * The direction to the left, of which the numeric value is 180 degrees.
+     * The upward direction, of which the numeric value is 180 degrees.
      */
     UP(180d),
     /**
-     * The upward direction, of which the numeric value is 270 degrees.
+     * The direction to the left, of which the numeric value is 270 degrees.
      */
     LEFT(270d);
 

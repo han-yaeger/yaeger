@@ -35,7 +35,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
 
     /**
      * The default value for the viewOrder for instances of {@link YaegerEntity} that are
-     * part of an {@link com.github.hanyaeger.api.scenes.TileMap}.
+     * part of a {@link com.github.hanyaeger.api.scenes.TileMap}.
      */
     public static final double VIEW_ORDER_DEFAULT_BEHIND = 100D;
 
