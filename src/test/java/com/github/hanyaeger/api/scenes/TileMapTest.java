@@ -11,6 +11,7 @@ import com.github.hanyaeger.core.exceptions.YaegerEngineException;
 import com.github.hanyaeger.core.scenes.DimensionsProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -36,37 +37,51 @@ class TileMapTest {
         sut = new TileMapEmptyConstructorImpl();
     }
 
-    @Test
-    void tileMapIsEqualToSelf() {
-        // Arrange
-        var sut2 = sut;
+    @Nested
+    class EqualsTest {
 
-        // Act, Assert
-        assertEquals(sut2, sut);
-    }
+        @Test
+        void tileMapIsEqualToSelf() {
+            // Arrange
+            var sut2 = sut;
 
-    @Test
-    void tileMapIsNotEqualToNull() {
-        // Arrange Act Assert
-        assertNotEquals(null, sut);
-    }
+            // Act, Assert
+            assertEquals(sut, sut2);
+        }
 
-    @Test
-    void tileMapIsNotEqualToDifferentTileMapWithSameEmptyContent() {
-        // Arrange
-        var sut2 = new TileMapEmptyConstructorImpl();
+        @Test
+        void tileMapIsNotEqualToNull() {
+            // Arrange Act Assert
+            assertNotEquals(null, sut);
+        }
 
-        // Arc, Assert
-        assertNotEquals(sut2, sut);
-    }
+        @Test
+        void tileMapIsEqualToOtherOfSameClassWithSameContentAndLocation() {
+            // Arrange
+            var localSut1 = new FullyImplementedTileMap();
+            var localSut2 = new FullyImplementedTileMap();
 
-    @Test
-    void tileMapHashIsEqualToDifferentTileMapWithSameEmptyContentHash() {
-        // Arrange
-        var sut2 = new TileMapEmptyConstructorImpl();
+            // Act, Assert
+            assertEquals(localSut1, localSut2);
+        }
 
-        // Arc, Assert
-        assertEquals(sut.hashCode(), sut2.hashCode());
+        @Test
+        void tileMapIsEqualToDifferentTileMapWithSameEmptyContent() {
+            // Arrange
+            var sut2 = new TileMapEmptyConstructorImpl();
+
+            // Arc, Assert
+            assertEquals(sut2, sut);
+        }
+
+        @Test
+        void tileMapHashIsEqualToDifferentTileMapWithSameEmptyContentHash() {
+            // Arrange
+            var sut2 = new TileMapEmptyConstructorImpl();
+
+            // Arc, Assert
+            assertEquals(sut.hashCode(), sut2.hashCode());
+        }
     }
 
     @Test
@@ -347,7 +362,7 @@ class TileMapTest {
         localSut.activate();
 
         // Assert
-        ArgumentCaptor<Size> argument = ArgumentCaptor.forClass(Size.class);
+        var argument = ArgumentCaptor.forClass(Size.class);
         verify(tileFactory).create(any(EntityConfiguration.class), any(), argument.capture());
         assertEquals(SIZE.height(), argument.getValue().height());
         assertEquals(SIZE.width(), argument.getValue().width());
@@ -395,7 +410,7 @@ class TileMapTest {
         localSut.activate();
 
         // Assert
-        ArgumentCaptor<Size> argument = ArgumentCaptor.forClass(Size.class);
+        var argument = ArgumentCaptor.forClass(Size.class);
         verify(tileFactory).create(any(EntityConfiguration.class), any(), argument.capture());
         assertEquals(Math.ceil(SIZE.height() / 3), argument.getValue().height());
         assertEquals(Math.ceil(SIZE.width() / 3), argument.getValue().width());
@@ -430,7 +445,7 @@ class TileMapTest {
         localSut.activate();
 
         // Assert
-        ArgumentCaptor<Size> argument = ArgumentCaptor.forClass(Size.class);
+        var argument = ArgumentCaptor.forClass(Size.class);
         verify(tileFactory).create(any(EntityConfiguration.class), any(), argument.capture());
         assertEquals(Math.ceil(SIZE.height() / 3), argument.getValue().height());
         assertEquals(SIZE.width(), argument.getValue().width());
@@ -467,7 +482,7 @@ class TileMapTest {
         localSut.activate();
 
         // Assert
-        ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
+        var argument = ArgumentCaptor.forClass(Coordinate2D.class);
         verify(tileFactory).create(any(EntityConfiguration.class), argument.capture(), any());
         assertEquals(LOCATION.getX(), argument.getValue().getX());
         assertEquals(LOCATION.getY(), argument.getValue().getY());
@@ -504,7 +519,7 @@ class TileMapTest {
         localSut.activate();
 
         // Assert
-        ArgumentCaptor<Coordinate2D> argument = ArgumentCaptor.forClass(Coordinate2D.class);
+        var argument = ArgumentCaptor.forClass(Coordinate2D.class);
         verify(tileFactory).create(any(EntityConfiguration.class), argument.capture(), any());
 
         var expectedX = LOCATION.getX() - SIZE.width() / 2;
@@ -969,6 +984,28 @@ class TileMapTest {
 
         public Optional<Coordinate2D> getLocation() {
             return location;
+        }
+    }
+
+    private static class FullyImplementedTileMap extends TileMap {
+
+        FullyImplementedTileMap() {
+            super(new Coordinate2D(37, 37), new Size(42, 42));
+        }
+
+        @Override
+        public void setupEntities() {
+            addEntity(1, SpriteEntityOne.class);
+            addEntity(2, SpriteEntityTwo.class);
+            addEntity(3, SpriteEntityThree.class);
+        }
+
+        @Override
+        public int[][] defineMap() {
+            return new int[][]{
+                    {0, 0, 0, 0, 0, 0, 0},
+                    {0, 0, 0, 0, 0, 0, 0},
+                    {0, 0, 0, 0, 0, 0, 0}};
         }
     }
 }
