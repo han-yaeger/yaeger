@@ -467,6 +467,18 @@ class StaticSceneTest {
         assertTrue(sut.isActivationComplete());
     }
 
+    @Test
+    void colorAdjustGetsSet() {
+        // Arrange
+        var colorAdjust = mock(ColorAdjust.class);
+
+        // Act
+        sut.setColorAdjust(colorAdjust);
+
+        // Arrange
+        assertEquals(sut.getColorAdjust(), colorAdjust);
+    }
+
     private static class StaticSceneImpl extends StaticScene {
 
         @Override
@@ -475,6 +487,10 @@ class StaticSceneTest {
 
         @Override
         public void setupEntities() {
+        }
+
+        ColorAdjust getColorAdjust() {
+            return this.colorAdjust;
         }
     }
 
