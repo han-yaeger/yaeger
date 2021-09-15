@@ -252,6 +252,29 @@ class EntityCollectionTest {
         }
 
         @Test
+        void addRootPaneIsCalledOnEachEntity(){
+            // Arrange
+            List<YaegerEntity> updatables = new ArrayList<>();
+            updatables.add(updatableEntity);
+            var supplier = mock(EntitySupplier.class);
+            when(supplier.get()).thenReturn(updatables);
+
+            var children = mock(ObservableList.class);
+            when(pane.getChildren()).thenReturn(children);
+
+            sut = new EntityCollection(pane, config);
+            sut.setAnnotationProcessor(annotationProcessor);
+            sut.init(injector);
+
+            // Act
+            sut.registerSupplier(supplier);
+            sut.initialUpdate();
+
+            // Assert
+            assertEquals(pane, updatableEntity.getRootPane());
+        }
+
+        @Test
         void transferCoordinatesToNodeIsCalledForEachEntity() {
             // Arrange
             List<YaegerEntity> updatables = new ArrayList<>();

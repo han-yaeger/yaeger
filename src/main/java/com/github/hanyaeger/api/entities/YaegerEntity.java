@@ -21,6 +21,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +40,17 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
      */
     public static final double VIEW_ORDER_DEFAULT_BEHIND = 100D;
 
+    /**
+     * The default value for the viewOrder for instances of {@link YaegerEntity}.
+     */
     static final double VIEW_ORDER_DEFAULT = 37D;
+
     static final boolean DEFAULT_VISIBILITY = true;
     static final double DEFAULT_OPACITY = 1;
 
     private Coordinate2D anchorLocation;
     private AnchorPoint anchorPoint;
+    private Pane rootPane;
 
     private boolean visible = DEFAULT_VISIBILITY;
     private double opacity = DEFAULT_OPACITY;
@@ -442,6 +448,24 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
     }
 
     /**
+     * Return the root pane to which this {@link YaegerEntity} is added.
+     *
+     * @return the root pane, which is an instance of {@link Pane}
+     */
+    public Pane getRootPane() {
+        return rootPane;
+    }
+
+    /**
+     * Set the root pane to which this {@link YaegerEntity} is added.
+     *
+     * @param rootPane the root pane, which is an instance of {@link Pane}
+     */
+    public void setRootPane(final Pane rootPane) {
+        this.rootPane = rootPane;
+    }
+
+    /**
      * Set the {@link DragNDropRepository} to be used.
      *
      * @param dragNDropRepository the {@link DragNDropRepository} to be used
@@ -449,5 +473,21 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
     @Inject
     public void setDragNDropRepository(final DragNDropRepository dragNDropRepository) {
         this.dragNDropRepository = dragNDropRepository;
+    }
+
+    @Override
+    public double getSceneWidth() {
+        if (getRootPane() == null) {
+            return 0;
+        }
+        return getRootPane().getWidth();
+    }
+
+    @Override
+    public double getSceneHeight() {
+        if (getRootPane() == null) {
+            return 0;
+        }
+        return getRootPane().getHeight();
     }
 }
