@@ -24,7 +24,7 @@ class BoundingBoxVisualizer extends DynamicRectangleEntity implements UpdateExpo
 
     private final YaegerEntity yaegerEntity;
     private static final Color DEFAULT_FILL = Color.TRANSPARENT;
-    private static final Color DEFAULT_STROKE_COLOR = Color.GREEN;
+    static final Color COLLIDABLE_STROKE_COLOR = Color.GREEN;
     private static final double DEFAULT_STROKE_WIDTH = 2;
 
     /**
@@ -37,7 +37,7 @@ class BoundingBoxVisualizer extends DynamicRectangleEntity implements UpdateExpo
         this.yaegerEntity = yaegerEntity;
         setFill(DEFAULT_FILL);
         setStrokeWidth(DEFAULT_STROKE_WIDTH);
-        setStrokeColor(DEFAULT_STROKE_COLOR);
+        setStrokeColor(COLLIDABLE_STROKE_COLOR);
         yaegerEntity.attachEventListener(EventTypes.REMOVE, e -> remove());
     }
 

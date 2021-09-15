@@ -12,6 +12,9 @@ import com.github.hanyaeger.api.scenes.YaegerScene;
  * Implement this interface to be notified if the {@link YaegerEntity} touches the boundary of the {@link YaegerScene}.
  * In that case, the method {@link SceneBorderTouchingWatcher#notifyBoundaryTouching(SceneBorder)}
  * will be called.
+ * <p>
+ * Note that the boundary of the {@link YaegerScene} can be larger that the actual viewable area, if a
+ * {@link com.github.hanyaeger.api.scenes.ScrollableDynamicScene} is being used.
  */
 public interface SceneBorderTouchingWatcher extends Movable, Bounded, SceneChild {
 

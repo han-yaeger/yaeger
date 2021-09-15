@@ -13,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -143,6 +144,15 @@ public abstract class CompositeEntity extends YaegerEntity {
         }
 
         return Optional.empty();
+    }
+
+    @Override
+    public void setRootPane(Pane rootPane) {
+        super.setRootPane(rootPane);
+
+        entities.forEach(yaegerEntity ->
+                yaegerEntity.setRootPane(rootPane)
+        );
     }
 
     /**

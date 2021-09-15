@@ -1,17 +1,15 @@
 package com.github.hanyaeger.core.entities;
 
+import com.github.hanyaeger.api.entities.*;
 import com.github.hanyaeger.core.Initializable;
 import com.github.hanyaeger.core.Updatable;
 import com.github.hanyaeger.core.YaegerConfig;
 import com.github.hanyaeger.core.annotations.AnnotationProcessor;
-import com.github.hanyaeger.api.entities.Collided;
-import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import com.github.hanyaeger.core.exceptions.YaegerEngineException;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import com.github.hanyaeger.api.entities.YaegerEntity;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 import com.github.hanyaeger.core.entities.events.EventTypes;
@@ -287,16 +285,17 @@ public class EntityCollection implements Initializable {
         entity.applyTranslationsForAnchorPoint();
 
         entity.applyEntityProcessor(this::registerIfKeyListener);
-        entity.applyEntityProcessor(this::registerIfCollider);
+        entity.applyEntityProcessor(this::registerCollidable);
         entity.addToParent(this::addToParentNode);
+        entity.setRootPane(pane);
 
         entity.applyEntityProcessor(yaegerEntity -> annotationProcessor.invokeActivators(yaegerEntity));
     }
 
-    private void registerIfCollider(final YaegerEntity yaegerEntity) {
-        final var collider = collisionDelegate.register(yaegerEntity);
+    private void registerCollidable(final YaegerEntity yaegerEntity) {
+        final var collidable = collisionDelegate.register(yaegerEntity);
 
-        if (collider && config.showBoundingBox()) {
+        if (collidable && config.showBoundingBox()) {
             boundingBoxVisualizerSupplier.add(new BoundingBoxVisualizer(yaegerEntity));
         }
     }

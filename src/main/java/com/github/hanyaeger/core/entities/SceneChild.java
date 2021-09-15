@@ -10,22 +10,24 @@ import com.github.hanyaeger.api.scenes.YaegerScene;
 public interface SceneChild extends GameNode {
 
     /**
-     * Return the width of the {@link javafx.scene.Scene} that this {@code Entity}
-     * is part of.
+     * Return the width of the {@link YaegerScene} that this {@code Entity}
+     * is part of. For both a {@link com.github.hanyaeger.api.scenes.StaticScene} and
+     * {@link com.github.hanyaeger.api.scenes.DynamicScene}, the full width is always visible.
+     * In case of a {@link com.github.hanyaeger.api.scenes.ScrollableDynamicScene}, this is not the case, since
+     * it can be larger that the viewable area.
      *
      * @return the width of this {@link YaegerScene} as a {@code double}
      */
-    default double getSceneWidth() {
-        return getNode().map(node -> node.getScene().getWidth()).orElse(0D);
-    }
+    double getSceneWidth();
 
     /**
-     * Return the height of the {@link javafx.scene.Scene} that this {@code Entity}
-     * is part of.
+     * Return the height of the {@link YaegerScene} that this {@code Entity}
+     * is part of. For both a {@link com.github.hanyaeger.api.scenes.StaticScene} and
+     * {@link com.github.hanyaeger.api.scenes.DynamicScene}, the full height is always visible.
+     * In case of a {@link com.github.hanyaeger.api.scenes.ScrollableDynamicScene}, this is not the case, since
+     * it can be larger that the viewable area.
      *
      * @return the height of this {@link YaegerScene} as a {@code double}
      */
-    default double getSceneHeight() {
-        return getNode().map(node -> node.getScene().getHeight()).orElse(0D);
-    }
+    double getSceneHeight();
 }

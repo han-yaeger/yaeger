@@ -1,6 +1,5 @@
 package com.github.hanyaeger.core.entities;
 
-import com.github.hanyaeger.core.entities.Bounded;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import org.junit.jupiter.api.Assertions;
@@ -66,8 +65,7 @@ class BoundedTest {
         sut.getBoundingBox();
 
         // Assert
-        Mockito.verify(node).localToScene(any(Bounds.class), eq(true));
-        Mockito.verify(node).getBoundsInLocal();
+        Mockito.verify(node, times(4)).getBoundsInParent();
     }
 
     @Test

@@ -13,6 +13,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.layout.Pane;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -41,6 +42,7 @@ class YaegerEntityTest {
     private Node node;
     private Injector injector;
     private Scene scene;
+    private Pane pane;
 
     @BeforeEach
     void setup() {
@@ -49,6 +51,7 @@ class YaegerEntityTest {
         node = mock(Node.class, withSettings().withoutAnnotations());
         sut.setNode(Optional.of(node));
         scene = mock(Scene.class);
+        pane = mock(Pane.class);
 
         var boundingBox = mock(BoundingBox.class);
 
@@ -59,7 +62,9 @@ class YaegerEntityTest {
         when(boundingBox.getMinX()).thenReturn(LOCATION.getX());
         when(boundingBox.getMinY()).thenReturn(LOCATION.getY());
         when(node.getScene()).thenReturn(scene);
-        when(scene.getWidth()).thenReturn(SCENE_WIDTH);
+        when(pane.getWidth()).thenReturn(SCENE_WIDTH);
+        when(pane.getHeight()).thenReturn(SCENE_HEIGHT);
+        sut.setRootPane(pane);
     }
 
     @Test
@@ -506,8 +511,6 @@ class YaegerEntityTest {
     @Test
     void getSceneWidthReturnsSceneWidthFromNode() {
         // Arrange
-        when(node.getScene()).thenReturn(scene);
-        when(scene.getWidth()).thenReturn(SCENE_WIDTH);
 
         // Act
         double actual = sut.getSceneWidth();
@@ -519,8 +522,6 @@ class YaegerEntityTest {
     @Test
     void getSceneHeightReturnsSceneHeightFromNode() {
         // Arrange
-        when(node.getScene()).thenReturn(scene);
-        when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
 
         // Act
         double actual = sut.getSceneHeight();
