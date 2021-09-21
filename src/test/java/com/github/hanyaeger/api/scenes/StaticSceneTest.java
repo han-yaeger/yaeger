@@ -187,6 +187,17 @@ class StaticSceneTest {
     }
 
     @Test
+    void getPaneForDebuggerReturnsThePane() {
+        // Arrange
+
+        // Act
+        var actual = sut.getPaneForDebugger();
+
+        // Assert
+        assertEquals(actual, pane);
+    }
+
+    @Test
     void activateInjectDependenciesIntoEntityCollection() {
         // Arrange
 

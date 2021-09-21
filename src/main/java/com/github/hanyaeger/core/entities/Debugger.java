@@ -1,6 +1,7 @@
 package com.github.hanyaeger.core.entities;
 
 import com.github.hanyaeger.api.Size;
+import com.github.hanyaeger.core.ViewOrders;
 import com.google.inject.Inject;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -72,9 +73,10 @@ public class Debugger implements StatisticsObserver {
      */
     public void postActivation() {
         windowDimensions.setText(String.format("%.0f x %.0f", scene.getWindow().getWidth(), scene.getWindow().getHeight()));
-        setGameDimensions(new Size(pane.getPrefWidth(), pane.getPrefHeight()));
-        gridpane.setViewOrder(1);
-        gridpane.toFront();
+        setGameDimensions(new Size(pane.getWidth(), pane.getHeight()));
+        gridpane.setViewOrder(ViewOrders.VIEW_ORDER_DEBUGGER);
+        gridpane.setMaxHeight(200);
+        gridpane.setMaxWidth(220);
     }
 
     /**
