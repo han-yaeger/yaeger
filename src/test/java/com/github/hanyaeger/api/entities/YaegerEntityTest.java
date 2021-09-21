@@ -3,6 +3,7 @@ package com.github.hanyaeger.api.entities;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Timer;
+import com.github.hanyaeger.core.ViewOrders;
 import com.github.hanyaeger.core.entities.EntityCollection;
 import com.github.hanyaeger.core.entities.EntityProcessor;
 import com.google.inject.Injector;
@@ -137,7 +138,7 @@ class YaegerEntityTest {
         sut.init(injector);
 
         // Assert
-        verify(node).setViewOrder(YaegerEntity.VIEW_ORDER_DEFAULT);
+        verify(node).setViewOrder(ViewOrders.VIEW_ORDER_ENTITY_DEFAULT);
     }
 
     @Test

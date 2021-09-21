@@ -2,6 +2,7 @@ package com.github.hanyaeger.core.factories;
 
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 /**
  * A {@code PaneFactory} can be used to create instances of {@link javafx.scene.layout.Pane} or
@@ -25,5 +26,14 @@ public class PaneFactory {
      */
     public ScrollPane createScrollPane() {
         return new ScrollPane();
+    }
+
+    /**
+     * Return an instance of {@link StackPane}.
+     *
+     * @return an instance of {@link StackPane}
+     */
+    public StackPane createStackPane() {
+        return new StackPane();
     }
 }

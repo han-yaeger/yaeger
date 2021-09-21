@@ -78,7 +78,7 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
         if (config.showDebug()) {
             entityCollection.addStatisticsObserver(debugger);
-            debugger.setup(pane, getScene());
+            debugger.setup(getPaneForDebugger(), getScene());
         }
 
         keyListenerDelegate.setup(scene, this::onInputChanged);
@@ -90,6 +90,16 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
         setupScene();
         setupEntities();
+    }
+
+    /**
+     * Return the {@link Pane} that should be used for attaching the {@link Debugger}. Depending on the actual type
+     * of {@link YaegerScene} being used, a different {@link Pane} should be used for attaching the {@link Debugger}.
+     *
+     * @return The default {@link Pane}
+     */
+    Pane getPaneForDebugger() {
+        return pane;
     }
 
     void createJavaFXScene(final SceneFactory sceneFactory) {
