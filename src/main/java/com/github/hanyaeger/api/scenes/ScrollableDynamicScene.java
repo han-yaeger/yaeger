@@ -15,7 +15,6 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
 
     private StackPane stackPane;
     private ScrollPane scrollPane;
-    private Size size;
 
     /**
      * Set the {@link Size} (e.g. the width and height) of the scrollable area of the {@link YaegerScene}. By default,
@@ -26,8 +25,6 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
      * @param size
      */
     protected void setSize(final Size size) {
-        this.size = size;
-
         if (Double.compare(size.width(), 0) != 0) {
             scrollPane.setFitToWidth(false);
             scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
