@@ -95,6 +95,10 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
     public void postActivate() {
         entityCollection.registerSupplier(entitySupplier);
         entityCollection.initialUpdate();
+        // Fixes #208
+        stage.hide();
+        stage.show();
+        //
         if (config.showDebug()) {
             debugger.postActivation();
         }
