@@ -4,7 +4,7 @@
 
     <groupId>com.github.han-yaeger</groupId>
     <artifactId>yaeger</artifactId>
-    <version>2021.2022.2-SNAPSHOT</version>
+    <version>2021.2022.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>yaeger</name>
