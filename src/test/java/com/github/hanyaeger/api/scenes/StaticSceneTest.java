@@ -461,6 +461,19 @@ class StaticSceneTest {
     }
 
     @Test
+    void postActivationHidesAndShowsStage() {
+        // Arrange
+        sut.activate();
+
+        // Act
+        sut.postActivate();
+
+        // Verify
+        verify(stage).hide();
+        verify(stage).show();
+    }
+
+    @Test
     void postActivationCalssPostActivationOnDebugger() {
         // Arrange
         sut.activate();
