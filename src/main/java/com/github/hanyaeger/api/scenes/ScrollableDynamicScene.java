@@ -5,9 +5,11 @@ import com.github.hanyaeger.core.ViewOrders;
 import com.github.hanyaeger.core.factories.PaneFactory;
 import com.github.hanyaeger.core.factories.SceneFactory;
 import com.google.inject.Inject;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
@@ -42,6 +44,10 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
         super.postActivate();
         if (config.showDebug()) {
             debugger.setGameDimensions(new Size(pane.getPrefWidth(), pane.getPrefHeight()));
+        }
+
+        if (!config.enableScroll()) {
+            scrollPane.addEventFilter(ScrollEvent.SCROLL, event -> event.consume());
         }
     }
 
