@@ -32,7 +32,8 @@ public class YaegerCommandLineParser {
         return new YaegerConfig(
                 !args.contains(YaegerCommandLineArgument.NO_SPLASH.flag),
                 args.contains(YaegerCommandLineArgument.SHOW_BB.flag),
-                args.contains(YaegerCommandLineArgument.SHOW_DEBUG.flag)
+                args.contains(YaegerCommandLineArgument.SHOW_DEBUG.flag),
+                args.contains(YaegerCommandLineArgument.ENABLE_SCROLL.flag)
         );
     }
 
@@ -63,7 +64,8 @@ public class YaegerCommandLineParser {
         HELP("--help", "Show this help screen with all commandline options"),
         SHOW_BB("--showBB", "Show the BoundingBox of all Colliders and Collided Entities"),
         SHOW_DEBUG("--showDebug", "Show a debug window with information about the Scene"),
-        NO_SPLASH("--noSplash", "Skip the Splash screen during start up");
+        NO_SPLASH("--noSplash", "Skip the Splash screen during start up"),
+        ENABLE_SCROLL("--enableScroll", "Enable the scrolling gesture for ScrollableDynamicScenes");
 
         private final String flag;
         private final String explanation;

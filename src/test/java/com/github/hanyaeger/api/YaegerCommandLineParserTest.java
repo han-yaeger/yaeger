@@ -17,7 +17,7 @@ class YaegerCommandLineParserTest {
     void emptyArgumentsReturnsDefaultConfig() {
         // Arrange
         var sut = new YaegerCommandLineParser();
-        var expected = new YaegerConfig(true, false, false);
+        var expected = new YaegerConfig(true, false, false, false);
 
         // Act
         var actual = sut.parseToConfig(new ArrayList<>());
@@ -63,6 +63,19 @@ class YaegerCommandLineParserTest {
 
         // Assert
         assertTrue(actual.showDebug());
+    }
+
+    @Test
+    void enableScrollReturnsCorrectConfig() {
+        // Arrange
+        var sut = new YaegerCommandLineParser();
+        var showDebugArgs = Collections.singletonList("--enableScroll");
+
+        // Act
+        var actual = sut.parseToConfig(showDebugArgs);
+
+        // Assert
+        assertTrue(actual.enableScroll());
     }
 
     @Test
