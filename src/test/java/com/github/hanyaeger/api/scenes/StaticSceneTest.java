@@ -161,6 +161,17 @@ class StaticSceneTest {
         verify(sceneFactory).create(pane);
     }
 
+    @Test
+    void activateSetsPaneOnEntitySupplier() {
+        // Arrange
+
+        // Act
+        sut.activate();
+
+        // Verify
+        verify(entitySupplier).setPane(pane);
+    }
+
 
     @Test
     void activateSetsUpADebuggerIfConfigHasShowDebug() {

@@ -2,6 +2,7 @@ package com.github.hanyaeger.api;
 
 import com.github.hanyaeger.core.Activatable;
 import com.github.hanyaeger.core.DependencyInjector;
+import com.github.hanyaeger.core.RootPaneProvider;
 import com.github.hanyaeger.core.Updatable;
 import com.github.hanyaeger.core.annotations.OnPostActivation;
 import com.github.hanyaeger.core.annotations.UpdatableProvider;
@@ -20,7 +21,7 @@ import com.github.hanyaeger.api.scenes.YaegerScene;
  * <p>
  * A {@link EntitySpawner} that is instantiated, but not added in this way, will not work.
  */
-public interface EntitySpawnerContainer extends EntitySpawnerListProvider, EntityCollectionSupplier, DependencyInjector, Activatable {
+public interface EntitySpawnerContainer extends EntitySpawnerListProvider, EntityCollectionSupplier, DependencyInjector, Activatable, RootPaneProvider {
 
     /**
      * Use this method to add any {@link EntitySpawner} that is required by the {@link YaegerScene}.
@@ -30,6 +31,7 @@ public interface EntitySpawnerContainer extends EntitySpawnerListProvider, Entit
     default void addEntitySpawner(final EntitySpawner entitySpawner) {
         if (getSpawners() != null) {
             getInjector().injectMembers(entitySpawner);
+            entitySpawner.getSupplier().setPane(getRootPane());
             getSpawners().add(entitySpawner);
 
             if (isActivationComplete()) {

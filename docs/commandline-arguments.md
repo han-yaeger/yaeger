@@ -1,4 +1,4 @@
-# Command Line Arguments
+§# Command Line Arguments
 
 When run, Yaeger accepts command line arguments. These arguments are primarily
 meant for debugging your Game.
