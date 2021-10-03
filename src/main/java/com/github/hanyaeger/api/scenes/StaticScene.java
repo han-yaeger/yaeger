@@ -1,6 +1,7 @@
 package com.github.hanyaeger.api.scenes;
 
 import com.github.hanyaeger.core.DependencyInjector;
+import com.github.hanyaeger.core.RootPaneProvider;
 import com.github.hanyaeger.core.YaegerConfig;
 import com.github.hanyaeger.core.YaegerGameObject;
 import com.github.hanyaeger.core.entities.Debugger;
@@ -37,7 +38,7 @@ import java.util.Set;
  * A {@link StaticScene} is the abstract superclass of all scenes that do not require a Game Loop. If a Game
  * Loop is required, extend a {@link DynamicScene}.
  */
-public abstract class StaticScene extends YaegerGameObject implements YaegerScene, SupplierProvider, TileMapListProvider, EntityCollectionSupplier, DependencyInjector {
+public abstract class StaticScene extends YaegerGameObject implements YaegerScene, SupplierProvider, TileMapListProvider, EntityCollectionSupplier, DependencyInjector, RootPaneProvider {
 
     private EntityCollectionFactory entityCollectionFactory;
     private SceneFactory sceneFactory;
@@ -87,7 +88,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
             entityCollection.registerKeyListener(keyListener);
         }
         backgroundDelegate.setup(pane);
-
+        entitySupplier.setPane(pane);
+        
         setupScene();
         setupEntities();
     }
@@ -206,6 +208,11 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
     @Override
     public Scene getScene() {
         return this.scene;
+    }
+
+    @Override
+    public Pane getRootPane() {
+        return pane;
     }
 
     @Override

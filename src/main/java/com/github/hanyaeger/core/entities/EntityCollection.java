@@ -175,9 +175,15 @@ public class EntityCollection implements Initializable {
 
     /**
      * Perform the initial update, to ensure all available entities are transferred fron their {@link EntitySupplier}
-     * to the actual collections to become part of the {@link EntityCollection}.
+     * to the actual collections to become part of the {@link EntityCollection}. Since the initial update might also
+     * require the visualisation of the bounding boxes, we ensure that the {@link #boundingBoxVisualizerSupplier} has
+     * access to the pane to be used.
      */
     public void initialUpdate() {
+        if (config.showBoundingBox()) {
+            boundingBoxVisualizerSupplier.setPane(pane);
+        }
+
         addSuppliedEntities();
     }
 
@@ -258,22 +264,22 @@ public class EntityCollection implements Initializable {
         garbage.clear();
     }
 
-    private void removeGameObject(final Removable entity) {
-        entity.getNode().ifPresent(node -> this.pane.getChildren().remove(node));
+    private void removeGameObject(final YaegerEntity entity) {
+        entity.getNode().ifPresent(node -> entity.getRootPane().getChildren().remove(node));
         this.collisionDelegate.remove(entity);
     }
 
     private void addSuppliedEntities() {
         if (!suppliers.isEmpty()) {
-            suppliers.forEach(supplier -> supplier.get().forEach(this::initialize));
+            suppliers.forEach(supplier -> supplier.get().forEach(yaegerEntity -> initialize(yaegerEntity, supplier.getPane())));
         }
 
         if (config.showBoundingBox() && !boundingBoxVisualizerSupplier.isEmpty()) {
-            boundingBoxVisualizerSupplier.get().forEach(this::initialize);
+            boundingBoxVisualizerSupplier.get().forEach(yaegerEntity -> initialize(yaegerEntity, boundingBoxVisualizerSupplier.getPane()));
         }
     }
 
-    private void initialize(final YaegerEntity entity) {
+    private void initialize(final YaegerEntity entity, final Pane paneToBeUsed) {
         entity.beforeInitialize();
 
         entity.applyEntityProcessor(yaegerEntity -> injector.injectMembers(yaegerEntity));
@@ -286,8 +292,8 @@ public class EntityCollection implements Initializable {
 
         entity.applyEntityProcessor(this::registerIfKeyListener);
         entity.applyEntityProcessor(this::registerCollidable);
+        entity.setRootPane(paneToBeUsed);
         entity.addToParent(this::addToParentNode);
-        entity.setRootPane(pane);
 
         entity.applyEntityProcessor(yaegerEntity -> annotationProcessor.invokeActivators(yaegerEntity));
     }
@@ -307,7 +313,7 @@ public class EntityCollection implements Initializable {
     }
 
     private void addToParentNode(final YaegerEntity entity) {
-        entity.getNode().ifPresent(node -> this.pane.getChildren().add(node));
+        entity.getNode().ifPresent(node -> entity.getRootPane().getChildren().add(node));
     }
 
     private void updateStatistics() {

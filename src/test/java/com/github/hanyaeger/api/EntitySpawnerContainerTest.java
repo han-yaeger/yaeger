@@ -6,6 +6,7 @@ import com.github.hanyaeger.api.entities.EntitySpawner;
 import com.github.hanyaeger.core.entities.EntitySupplier;
 import com.github.hanyaeger.core.exceptions.YaegerEngineException;
 import com.google.inject.Injector;
+import javafx.scene.layout.Pane;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,14 +22,17 @@ class EntitySpawnerContainerTest {
     private EntitySpawnerContainerImpl sut;
     private List<EntitySpawner> spawners;
     private Injector injector;
+    private Pane pane;
 
     @BeforeEach
     void setup() {
         sut = new EntitySpawnerContainerImpl();
         spawners = mock(ArrayList.class);
         injector = mock(Injector.class);
+        pane = mock(Pane.class);
         sut.setSpawners(spawners);
         sut.setInjector(injector);
+        sut.setRootPane(pane);
     }
 
     @Test
@@ -58,12 +62,31 @@ class EntitySpawnerContainerTest {
         // Arrange
         sut.setSpawners(new ArrayList<>());
         var spawner = mock(EntitySpawner.class);
+        var supplier = mock(EntitySupplier.class);
+
+        when(spawner.getSupplier()).thenReturn(supplier);
 
         // Act
         sut.addEntitySpawner(spawner);
 
         // Assert
         assertEquals(spawner, sut.getSpawners().get(0));
+    }
+
+    @Test
+    void addSpawnerSetsRootPaneOnProvider() {
+        // Arrange
+        sut.setSpawners(new ArrayList<>());
+        var spawner = mock(EntitySpawner.class);
+
+        var supplier = mock(EntitySupplier.class);
+        when(spawner.getSupplier()).thenReturn(supplier);
+
+        // Act
+        sut.addEntitySpawner(spawner);
+
+        // Assert
+        verify(supplier).setPane(pane);
     }
 
     @Test
@@ -126,6 +149,11 @@ class EntitySpawnerContainerTest {
         sut.setSpawners(new ArrayList<>());
         var spawner1 = mock(EntitySpawner.class);
         var spawner2 = mock(EntitySpawner.class);
+        var supplier = mock(EntitySupplier.class);
+
+        when(spawner1.getSupplier()).thenReturn(supplier);
+        when(spawner2.getSupplier()).thenReturn(supplier);
+
         sut.addEntitySpawner(spawner1);
         sut.addEntitySpawner(spawner2);
         var updatable = sut.callEntitySpawners();
@@ -145,6 +173,9 @@ class EntitySpawnerContainerTest {
         var spawner1 = mock(EntitySpawner.class);
         var spawner2 = mock(EntitySpawner.class);
         var supplier = mock(EntitySupplier.class);
+
+        when(spawner1.getSupplier()).thenReturn(supplier);
+        when(spawner2.getSupplier()).thenReturn(supplier);
 
         when(spawner2.isGarbage()).thenReturn(true);
         when(spawner2.getSupplier()).thenReturn(supplier);
@@ -172,6 +203,9 @@ class EntitySpawnerContainerTest {
         var spawner2 = mock(EntitySpawner.class);
         var supplier = mock(EntitySupplier.class);
 
+        when(spawner1.getSupplier()).thenReturn(supplier);
+        when(spawner2.getSupplier()).thenReturn(supplier);
+
         when(spawner2.isGarbage()).thenReturn(true);
         when(spawner2.getSupplier()).thenReturn(supplier);
 
@@ -197,6 +231,7 @@ class EntitySpawnerContainerTest {
         private Injector injector;
         private boolean activationComplete = false;
         private EntityCollection entityCollection;
+        private Pane rootPane;
 
         @Override
         public void setupEntitySpawners() {
@@ -241,6 +276,15 @@ class EntitySpawnerContainerTest {
 
         public void setEntityCollection(EntityCollection entityCollection) {
             this.entityCollection = entityCollection;
+        }
+
+        @Override
+        public Pane getRootPane() {
+            return rootPane;
+        }
+
+        public void setRootPane(Pane rootPane) {
+            this.rootPane = rootPane;
         }
     }
 }

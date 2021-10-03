@@ -1,11 +1,13 @@
 package com.github.hanyaeger.api.scenes;
 
 import com.github.hanyaeger.api.Size;
+import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.core.ViewOrders;
+import com.github.hanyaeger.core.entities.EntitySupplier;
 import com.github.hanyaeger.core.factories.PaneFactory;
 import com.github.hanyaeger.core.factories.SceneFactory;
 import com.google.inject.Inject;
-import javafx.event.EventHandler;
+import javafx.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -14,6 +16,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 public abstract class ScrollableDynamicScene extends DynamicScene {
+
+    private EntitySupplier viewPortEntitySupplier;
 
     private StackPane stackPane;
     private ScrollPane scrollPane;
@@ -39,15 +43,28 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
         }
     }
 
+    protected void addEntity(final YaegerEntity yaegerEntity, final boolean stickyOnViewport) {
+        if (!stickyOnViewport) {
+            super.addEntity(yaegerEntity);
+        } else {
+            yaegerEntity.setViewOrder(ViewOrders.VIEW_ORDER_ENTITY_STICKY);
+            viewPortEntitySupplier.add(yaegerEntity);
+        }
+    }
+
     @Override
     public void postActivate() {
+        viewPortEntitySupplier.setPane(stackPane);
+        entityCollection.registerSupplier(viewPortEntitySupplier);
+
         super.postActivate();
+
         if (config.showDebug()) {
             debugger.setGameDimensions(new Size(pane.getPrefWidth(), pane.getPrefHeight()));
         }
 
         if (!config.enableScroll()) {
-            scrollPane.addEventFilter(ScrollEvent.SCROLL, event -> event.consume());
+            scrollPane.addEventFilter(ScrollEvent.SCROLL, Event::consume);
         }
     }
 
@@ -79,5 +96,10 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
     @Override
     public Scene getScene() {
         return scrollPane.getScene();
+    }
+
+    @Inject
+    public void setViewPortEntitySupplier(final EntitySupplier viewPortEntitySupplier) {
+        this.viewPortEntitySupplier = viewPortEntitySupplier;
     }
 }

@@ -12,13 +12,19 @@ public class ViewOrders {
      */
     public static final int VIEW_ORDER_DEBUGGER = 1;
 
+
+    /**
+     * The default value for the viewOrder for instances of {@link YaegerEntity}.
+     */
+    public static final double VIEW_ORDER_ENTITY_STICKY = 10D;
+
     /**
      * In case of a {@link com.github.hanyaeger.api.scenes.ScrollableDynamicScene}, the
      * {@link com.github.hanyaeger.core.entities.Debugger} is placed on the same underlying
      * {@link javafx.scene.layout.StackPane}, and should be behind the
      * {@link com.github.hanyaeger.core.entities.Debugger}.
      */
-    public static final int VIEW_ORDER_SCROLLPANE = 2;
+    public static final int VIEW_ORDER_SCROLLPANE = 37;
 
     /**
      * The default value for the viewOrder for instances of {@link YaegerEntity} that are

@@ -110,6 +110,9 @@ class EntityCollectionTest {
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
 
+            entitySupplier.setPane(pane);
+
+
             entitySupplier.add(keyListeningEntity);
         }
 
@@ -172,6 +175,7 @@ class EntityCollectionTest {
             updatables.add(updatableEntity);
             var supplier = mock(EntitySupplier.class);
             when(supplier.get()).thenReturn(updatables);
+            when(supplier.getPane()).thenReturn(pane);
 
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
@@ -212,6 +216,7 @@ class EntityCollectionTest {
             updatables.add(updatableEntity);
             var supplier = mock(EntitySupplier.class);
             when(supplier.get()).thenReturn(updatables);
+            when(supplier.getPane()).thenReturn(pane);
 
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
@@ -235,6 +240,7 @@ class EntityCollectionTest {
             updatables.add(updatableEntity);
             var supplier = mock(EntitySupplier.class);
             when(supplier.get()).thenReturn(updatables);
+            when(supplier.getPane()).thenReturn(pane);
 
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
@@ -252,12 +258,13 @@ class EntityCollectionTest {
         }
 
         @Test
-        void addRootPaneIsCalledOnEachEntity(){
+        void addRootPaneIsCalledOnEachEntity() {
             // Arrange
             List<YaegerEntity> updatables = new ArrayList<>();
             updatables.add(updatableEntity);
             var supplier = mock(EntitySupplier.class);
             when(supplier.get()).thenReturn(updatables);
+            when(supplier.getPane()).thenReturn(pane);
 
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
@@ -281,6 +288,7 @@ class EntityCollectionTest {
             updatables.add(updatableEntity);
             var supplier = mock(EntitySupplier.class);
             when(supplier.get()).thenReturn(updatables);
+            when(supplier.getPane()).thenReturn(pane);
 
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
@@ -304,6 +312,7 @@ class EntityCollectionTest {
             updatables.add(updatableEntity);
             var supplier = mock(EntitySupplier.class);
             when(supplier.get()).thenReturn(updatables);
+            when(supplier.getPane()).thenReturn(pane);
 
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
@@ -311,9 +320,10 @@ class EntityCollectionTest {
             sut = new EntityCollection(pane, config);
             sut.setAnnotationProcessor(annotationProcessor);
             sut.init(injector);
+            sut.registerSupplier(supplier);
 
             // Act
-            sut.registerSupplier(supplier);
+
             sut.initialUpdate();
 
             // Assert
@@ -327,6 +337,7 @@ class EntityCollectionTest {
             updatables.add(updatableEntity);
             var supplier = mock(EntitySupplier.class);
             when(supplier.get()).thenReturn(updatables);
+            when(supplier.getPane()).thenReturn(pane);
 
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
