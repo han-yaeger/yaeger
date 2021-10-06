@@ -38,7 +38,7 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
      * Instantiate a new {@link SpriteEntity} for an image with the given {@code resource}.
      * This {@link SpriteEntity} will use the original dimensions of the image.
      *
-     * @param resource the url of the image file. Relative to the resources folder
+     * @param resource        the url of the image file. Relative to the resources folder
      * @param initialLocation the initial {@link Coordinate2D} of this {@link SpriteEntity}
      */
     protected SpriteEntity(final String resource, final Coordinate2D initialLocation) {
@@ -48,37 +48,37 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     /**
      * Instantiate a new {@link SpriteEntity} for a given image.
      *
-     * @param resource the url of the image file. Relative to the resources folder
-     * @param location the initial {@link Coordinate2D} of this {@link SpriteEntity}
-     * @param rows     the number of rows the image contains
-     * @param columns  the number of columns the image contains
+     * @param resource        the url of the image file. Relative to the resources folder
+     * @param initialLocation the initial {@link Coordinate2D} of this {@link SpriteEntity}
+     * @param rows            the number of rows the image contains
+     * @param columns         the number of columns the image contains
      */
-    protected SpriteEntity(final String resource, final Coordinate2D location, final int rows, final int columns) {
-        this(resource, location, null, rows, columns);
+    protected SpriteEntity(final String resource, final Coordinate2D initialLocation, final int rows, final int columns) {
+        this(resource, initialLocation, null, rows, columns);
     }
 
     /**
      * Instantiate a new {@link SpriteEntity} for a given image.
      *
-     * @param resource the url of the image file. Relative to the resources folder
-     * @param location the initial {@link Coordinate2D} of this {@link SpriteEntity}
-     * @param size     the bounding box of this {@link SpriteEntity}
+     * @param resource        the url of the image file. Relative to the resources folder
+     * @param initialLocation the initial {@link Coordinate2D} of this {@link SpriteEntity}
+     * @param size            the bounding box of this {@link SpriteEntity}
      */
-    protected SpriteEntity(final String resource, final Coordinate2D location, final Size size) {
-        this(resource, location, size, 1, 1);
+    protected SpriteEntity(final String resource, final Coordinate2D initialLocation, final Size size) {
+        this(resource, initialLocation, size, 1, 1);
     }
 
     /**
      * Instantiate a new {@link SpriteEntity} for a given image.
      *
-     * @param resource the url of the image file. Relative to the resources folder
-     * @param location the initial {@link Coordinate2D} of this {@link SpriteEntity}
-     * @param size     the bounding box of this {@link SpriteEntity}
-     * @param rows     the number of rows the image contains
-     * @param columns  the number of columns the image contains
+     * @param resource        the url of the image file. Relative to the resources folder
+     * @param initialLocation the initial {@link Coordinate2D} of this {@link SpriteEntity}
+     * @param size            the bounding box of this {@link SpriteEntity}
+     * @param rows            the number of rows the image contains
+     * @param columns         the number of columns the image contains
      */
-    protected SpriteEntity(final String resource, final Coordinate2D location, final Size size, final int rows, final int columns) {
-        super(location);
+    protected SpriteEntity(final String resource, final Coordinate2D initialLocation, final Size size, final int rows, final int columns) {
+        super(initialLocation);
         this.rows = rows;
         this.columns = columns;
         this.resource = resource;
