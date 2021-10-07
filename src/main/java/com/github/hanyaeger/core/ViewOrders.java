@@ -16,13 +16,17 @@ public class ViewOrders {
     /**
      * The default value for the viewOrder for instances of {@link YaegerEntity}.
      */
-    public static final double VIEW_ORDER_ENTITY_STICKY = 10D;
+    public static final double VIEW_ORDER_ENTITY_STICKY = 10;
 
     /**
-     * In case of a {@link com.github.hanyaeger.api.scenes.ScrollableDynamicScene}, the
-     * {@link com.github.hanyaeger.core.entities.Debugger} is placed on the same underlying
-     * {@link javafx.scene.layout.StackPane}, and should be behind the
-     * {@link com.github.hanyaeger.core.entities.Debugger}.
+     * In case of a {@link com.github.hanyaeger.api.scenes.ScrollableDynamicScene}, the {@link javafx.scene.control.ScrollPane}
+     * should be placed behind the {@link javafx.scene.layout.Pane} that is to be used for sticky instances of {@link javafx.scene.Node}.
+     */
+    public static final int VIEW_ORDER_STICKYPANE = 1;
+
+    /**
+     * In case of a {@link com.github.hanyaeger.api.scenes.ScrollableDynamicScene}, the {@link javafx.scene.control.ScrollPane}
+     * should be placed behind the {@link javafx.scene.layout.Pane} that is to be used for sticky instances of {@link javafx.scene.Node}.
      */
     public static final int VIEW_ORDER_SCROLLPANE = 37;
 
@@ -31,16 +35,16 @@ public class ViewOrders {
      * part of a {@link com.github.hanyaeger.api.scenes.TileMap}. These will, by default be behind the
      * {@link YaegerEntity} that are not part of a {@link com.github.hanyaeger.api.scenes.TileMap}.
      */
-    public static final double VIEW_ORDER_ENTITY_DEFAULT_BEHIND = 100D;
+    public static final double VIEW_ORDER_ENTITY_DEFAULT_BEHIND = 100;
 
     /**
      * The default value for the viewOrder for instances of {@link YaegerEntity}.
      */
-    public static final double VIEW_ORDER_ENTITY_DEFAULT = 37D;
+    public static final double VIEW_ORDER_ENTITY_DEFAULT = 37;
 
 
     /**
      * The default value for the viewOrder for all instances of {@code BoundingBoxVisualizer}.
      */
-    public static final double VIEW_ORDER_ENTITY_BOUNDINGBOX_VISUALIZER = 1D;
+    public static final double VIEW_ORDER_ENTITY_BOUNDINGBOX_VISUALIZER = 1;
 }
