@@ -4,10 +4,13 @@ import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.core.ViewOrders;
 import com.github.hanyaeger.core.entities.EntitySupplier;
+import com.github.hanyaeger.core.entities.events.EventTypes;
 import com.github.hanyaeger.core.factories.PaneFactory;
 import com.github.hanyaeger.core.factories.SceneFactory;
 import com.google.inject.Inject;
 import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -21,6 +24,7 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
 
     private StackPane stackPane;
     private ScrollPane scrollPane;
+    private Pane stickyPane;
 
     /**
      * Set the {@link Size} (e.g. the width and height) of the scrollable area of the {@link YaegerScene}. By default,
@@ -54,7 +58,7 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
 
     @Override
     public void postActivate() {
-        viewPortEntitySupplier.setPane(stackPane);
+        viewPortEntitySupplier.setPane(stickyPane);
         entityCollection.registerSupplier(viewPortEntitySupplier);
 
         super.postActivate();
@@ -70,22 +74,28 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
 
     @Override
     Pane getPaneForDebugger() {
-        return stackPane;
+        return stickyPane;
     }
 
     @Override
     @Inject
     public void setPaneFactory(final PaneFactory paneFactory) {
         this.pane = paneFactory.createPane();
-        this.stackPane = paneFactory.createStackPane();
-        this.scrollPane = paneFactory.createScrollPane();
 
-        stackPane.getChildren().add(scrollPane);
-        stackPane.setAlignment(Pos.TOP_LEFT);
+        this.scrollPane = paneFactory.createScrollPane();
+        scrollPane.setViewOrder(ViewOrders.VIEW_ORDER_SCROLLPANE);
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(pane);
-        scrollPane.setViewOrder(ViewOrders.VIEW_ORDER_SCROLLPANE);
+
+        this.stickyPane = paneFactory.createPane();
+        stickyPane.setViewOrder(ViewOrders.VIEW_ORDER_STICKYPANE);
+        stickyPane.setPickOnBounds(false);
+
+        this.stackPane = paneFactory.createStackPane();
+        stackPane.getChildren().add(scrollPane);
+        stackPane.getChildren().add(stickyPane);
+        stackPane.setAlignment(Pos.TOP_LEFT);
     }
 
     @Override
