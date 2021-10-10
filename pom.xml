@@ -14,7 +14,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
-        <javafx.version>17</javafx.version>
+        <!-- TODO: workaround for JavaFX defect (https://mail.openjdk.java.net/pipermail/openjfx-dev/2021-September/031934.html) -->
+        <javafx.version>16</javafx.version>
         <sonar.projectKey>han-yaeger_yaeger</sonar.projectKey>
         <sonar.organization>han-yaeger</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
