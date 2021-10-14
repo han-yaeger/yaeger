@@ -22,9 +22,9 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     private transient Injector injector;
     private transient AnnotationProcessor annotationProcessor;
     private transient YaegerScene activeScene;
-    private int firstScene;
+    private transient int firstScene;
     private transient SplashScreenFactory splashScreenFactory;
-    private boolean finishedSplashScreen = false;
+    private transient boolean finishedSplashScreen;
 
     /**
      * Create a new {@link SceneCollection} for the given {@link Stage} and {@link YaegerConfig}.
@@ -35,6 +35,7 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     public SceneCollection(final Stage stage, final YaegerConfig yaegerConfig) {
         this.stage = stage;
         this.yaegerConfig = yaegerConfig;
+        this.finishedSplashScreen = false;
     }
 
     /**

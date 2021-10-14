@@ -2,6 +2,7 @@ package com.github.hanyaeger.api.scenes;
 
 import com.github.hanyaeger.core.DependencyInjector;
 import com.github.hanyaeger.core.YaegerConfig;
+import com.github.hanyaeger.core.YaegerGameObject;
 import com.github.hanyaeger.core.entities.Debugger;
 import com.github.hanyaeger.core.repositories.DragNDropRepository;
 import com.github.hanyaeger.core.scenes.EntityCollectionSupplier;
@@ -35,7 +36,7 @@ import java.util.Set;
  * A {@link StaticScene} is the abstract superclass of all scenes that do not require a Game Loop. If a Game
  * Loop is required, extend a {@link DynamicScene}.
  */
-public abstract class StaticScene implements YaegerScene, SupplierProvider, TileMapListProvider, EntityCollectionSupplier, DependencyInjector {
+public abstract class StaticScene extends YaegerGameObject implements YaegerScene, SupplierProvider, TileMapListProvider, EntityCollectionSupplier, DependencyInjector {
 
     private EntityCollectionFactory entityCollectionFactory;
     private SceneFactory sceneFactory;
@@ -52,7 +53,6 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     private Stage stage;
     private Scene scene;
     private Pane pane;
-    private ColorAdjust colorAdjust;
     private YaegerConfig config;
     private Debugger debugger;
 
@@ -74,7 +74,6 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
         entityCollection = entityCollectionFactory.create(pane, config);
         injector.injectMembers(entityCollection);
         entityCollection.init(injector);
-
 
         if (config.showDebug()) {
             entityCollection.addStatisticsObserver(debugger);
@@ -190,46 +189,6 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     }
 
     @Override
-    public void setBrightness(final double brightness) {
-        colorAdjust.setBrightness(brightness);
-    }
-
-    @Override
-    public void setContrast(final double contrast) {
-        colorAdjust.setContrast(contrast);
-    }
-
-    @Override
-    public void setHue(final double hue) {
-        colorAdjust.setHue(hue);
-    }
-
-    @Override
-    public void setSaturation(final double saturation) {
-        colorAdjust.setSaturation(saturation);
-    }
-
-    @Override
-    public double getBrightness() {
-        return colorAdjust.getBrightness();
-    }
-
-    @Override
-    public double getContrast() {
-        return colorAdjust.getContrast();
-    }
-
-    @Override
-    public double getHue() {
-        return colorAdjust.getHue();
-    }
-
-    @Override
-    public double getSaturation() {
-        return colorAdjust.getSaturation();
-    }
-
-    @Override
     public Scene getScene() {
         return this.scene;
     }
@@ -337,16 +296,6 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     }
 
     /**
-     * Set the {@link ColorAdjust} that should be used.
-     *
-     * @param colorAdjust the {@link ColorAdjust} to be used
-     */
-    @Inject
-    public void setColorAdjust(final ColorAdjust colorAdjust) {
-        this.colorAdjust = colorAdjust;
-    }
-
-    /**
      * Set the {@link DragNDropRepository} that should be used.
      *
      * @param dragNDropRepository the {@link DragNDropRepository} to be used
@@ -354,6 +303,16 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     @Inject
     public void setDragNDropRepository(DragNDropRepository dragNDropRepository) {
         this.dragNDropRepository = dragNDropRepository;
+    }
+
+    /**
+     * Set the {@link ColorAdjust} that should be used.
+     *
+     * @param colorAdjust the {@link ColorAdjust} to be used
+     */
+    @Inject
+    public void setColorAdjust(final ColorAdjust colorAdjust) {
+        this.colorAdjust = colorAdjust;
     }
 
     private void onInputChanged(final Set<KeyCode> input) {
