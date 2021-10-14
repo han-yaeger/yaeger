@@ -13,11 +13,10 @@ public class EntityCollectionFactory {
     /**
      * Create a {@link EntityCollection}.
      *
-     * @param pane   the {@link Pane} to which all instances of {@link YaegerEntity}s should be added
      * @param config the {@link YaegerConfig} that should be used by the created {@link EntityCollection}
      * @return an instance of {@link EntityCollection}
      */
-    public EntityCollection create(final Pane pane, final YaegerConfig config) {
-        return new EntityCollection(pane, config);
+    public EntityCollection create(final YaegerConfig config) {
+        return new EntityCollection(config);
     }
 }

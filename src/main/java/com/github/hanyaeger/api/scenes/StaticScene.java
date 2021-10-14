@@ -73,7 +73,7 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
         createJavaFXScene(sceneFactory);
 
-        entityCollection = entityCollectionFactory.create(pane, config);
+        entityCollection = entityCollectionFactory.create(config);
         injector.injectMembers(entityCollection);
         entityCollection.init(injector);
 
@@ -89,7 +89,7 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
         }
         backgroundDelegate.setup(pane);
         entitySupplier.setPane(pane);
-        
+
         setupScene();
         setupEntities();
     }
