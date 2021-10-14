@@ -45,15 +45,17 @@ public interface Collided extends Bounded {
             return;
         }
 
-        List<Collider> collisions = new ArrayList<>();
+        List<Collider> colliderList =  new ArrayList<>();
+
         for (final var collider : colliders) {
             if (hasCollidedWith(collider)) {
-                collisions.add(collider);
+                colliderList.add(collider);
+
             }
         }
 
-        if (!collisions.isEmpty()){
-            onCollision(colliders);
+        if (!colliderList.isEmpty()){
+            onCollision(colliderList);
         }
     }
 
