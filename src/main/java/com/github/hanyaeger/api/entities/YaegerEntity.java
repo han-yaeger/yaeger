@@ -151,7 +151,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * @return The distance as a {@code double}
      */
     public double distanceTo(final YaegerEntity entity) {
-        return distanceTo(entity.getAnchorLocation());
+        return distanceTo(entity.getLocationInScene());
     }
 
     /**
@@ -162,7 +162,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * @return the distance as a {@code double}
      */
     public double distanceTo(final Coordinate2D location) {
-        return getAnchorLocation().distance(new Point2D(location.getX(), location.getY()));
+        return getLocationInScene().distance(new Point2D(location.getX(), location.getY()));
     }
 
     /**
