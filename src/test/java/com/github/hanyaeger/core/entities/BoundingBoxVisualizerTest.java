@@ -13,6 +13,7 @@ class BoundingBoxVisualizerTest {
 
     private YaegerEntity yaegerEntity;
     private BoundingBox bounds = new BoundingBox(50, 50, 0, 25, 25, 0);
+    private static final double VIEW_ORDER = 42;
 
     private BoundingBoxVisualizer sut;
 
@@ -20,6 +21,7 @@ class BoundingBoxVisualizerTest {
     void setup() {
         yaegerEntity = mock(YaegerEntity.class);
         when(yaegerEntity.getBoundingBox()).thenReturn(bounds);
+        when(yaegerEntity.getViewOrder()).thenReturn(VIEW_ORDER);
 
         sut = new BoundingBoxVisualizer(yaegerEntity);
     }
@@ -36,7 +38,7 @@ class BoundingBoxVisualizerTest {
     }
 
     @Test
-    void removeEventistenerGetsAttachedToTheYeagerEntity() {
+    void removeEventListenerGetsAttachedToTheYeagerEntity() {
         // Arrange
 
         // Act
@@ -56,6 +58,16 @@ class BoundingBoxVisualizerTest {
 
         // Arrange
         assertEquals(expectedWidth, sut.getWidth());
+    }
+
+    @Test
+    void viewOrderOfYaegerEntityIsUsed() {
+        // Arrange
+
+        // Act
+
+        // Arrange
+        assertEquals(VIEW_ORDER - 1, sut.getViewOrder());
     }
 
     @Test

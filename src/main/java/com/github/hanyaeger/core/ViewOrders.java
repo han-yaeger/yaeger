@@ -41,10 +41,4 @@ public class ViewOrders {
      * The default value for the viewOrder for instances of {@link YaegerEntity}.
      */
     public static final double VIEW_ORDER_ENTITY_DEFAULT = 37;
-
-
-    /**
-     * The default value for the viewOrder for all instances of {@code BoundingBoxVisualizer}.
-     */
-    public static final double VIEW_ORDER_ENTITY_BOUNDINGBOX_VISUALIZER = 1;
 }

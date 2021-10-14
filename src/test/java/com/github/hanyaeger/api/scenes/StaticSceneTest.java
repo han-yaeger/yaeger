@@ -85,7 +85,7 @@ class StaticSceneTest {
         entityCollection = mock(EntityCollection.class);
 
         when(sceneFactory.create(pane)).thenReturn(scene);
-        when(entityCollectionFactory.create(pane, config)).thenReturn(entityCollection);
+        when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
 
         sut.init(injector);
     }
@@ -194,7 +194,7 @@ class StaticSceneTest {
         sut.activate();
 
         // Verify
-        verify(entityCollectionFactory).create(pane, config);
+        verify(entityCollectionFactory).create(config);
     }
 
     @Test
@@ -234,7 +234,7 @@ class StaticSceneTest {
     void activateAddsTheDebuggerAsAStatisticsObserverToTheEntityCollection() {
         // Arrange
         var entityCollection = mock(EntityCollection.class);
-        when(entityCollectionFactory.create(pane, config)).thenReturn(entityCollection);
+        when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
 
         when(config.showDebug()).thenReturn(true);
 
@@ -309,7 +309,7 @@ class StaticSceneTest {
         entityCollection = mock(EntityCollection.class);
 
         when(sceneFactory.create(pane)).thenReturn(scene);
-        when(entityCollectionFactory.create(pane, config)).thenReturn(entityCollection);
+        when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
 
         sut.init(injector);
 

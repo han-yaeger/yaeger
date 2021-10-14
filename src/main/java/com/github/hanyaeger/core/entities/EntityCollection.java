@@ -8,6 +8,7 @@ import com.github.hanyaeger.core.annotations.AnnotationProcessor;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import com.github.hanyaeger.core.exceptions.YaegerEngineException;
 import com.github.hanyaeger.api.scenes.YaegerScene;
+import com.github.hanyaeger.core.factories.EntitySupplierFactory;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.scene.Group;
@@ -15,9 +16,7 @@ import javafx.scene.input.KeyCode;
 import com.github.hanyaeger.core.entities.events.EventTypes;
 import javafx.scene.layout.Pane;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * An {@link EntityCollection} encapsulates all behaviour related to all instances of {@link YaegerEntity} that are part of
@@ -28,36 +27,35 @@ public class EntityCollection implements Initializable {
     private static final String NO_SHOW_BB_ERROR = "A BoundingBoxVisualizer can only be added when the Game is run with the commandline argument -showBB.";
     private final EntityCollectionStatistics statistics;
     private Injector injector;
-    private final Pane pane;
     private final List<EntitySupplier> suppliers = new ArrayList<>();
     private final List<YaegerEntity> statics = new ArrayList<>();
     private final List<Updatable> updatables = new ArrayList<>();
     private final List<KeyListener> keyListeners = new ArrayList<>();
     private final List<YaegerEntity> garbage = new ArrayList<>();
 
-    private EntitySupplier boundingBoxVisualizerSupplier;
+    private Map<Pane, EntitySupplier> boundingBoxVisualizersMap;
     private List<Updatable> boundingBoxVisualizers;
 
     private final List<StatisticsObserver> statisticsObservers = new ArrayList<>();
 
     private final CollisionDelegate collisionDelegate;
+    private EntitySupplierFactory entitySupplierFactory;
     private AnnotationProcessor annotationProcessor;
     private final YaegerConfig config;
 
     /**
      * Instantiate an {@link EntityCollection} for a given {@link Group} and a {@link Set} of {@link YaegerEntity} instances.
      *
-     * @param pane   the {@link Group} to which all instances of {@link YaegerEntity}s should be added
      * @param config the {@link YaegerConfig} that should be used with this {@link EntityCollection}
      */
-    public EntityCollection(final Pane pane, final YaegerConfig config) {
-        this.pane = pane;
+    public EntityCollection(final YaegerConfig config) {
         this.config = config;
         this.collisionDelegate = new CollisionDelegate();
         this.statistics = new EntityCollectionStatistics();
 
         if (config.showBoundingBox()) {
             boundingBoxVisualizers = new ArrayList<>();
+            boundingBoxVisualizersMap = new HashMap<>();
         }
     }
 
@@ -175,15 +173,9 @@ public class EntityCollection implements Initializable {
 
     /**
      * Perform the initial update, to ensure all available entities are transferred fron their {@link EntitySupplier}
-     * to the actual collections to become part of the {@link EntityCollection}. Since the initial update might also
-     * require the visualisation of the bounding boxes, we ensure that the {@link #boundingBoxVisualizerSupplier} has
-     * access to the pane to be used.
+     * to the actual collections to become part of the {@link EntityCollection}.
      */
     public void initialUpdate() {
-        if (config.showBoundingBox()) {
-            boundingBoxVisualizerSupplier.setPane(pane);
-        }
-
         addSuppliedEntities();
     }
 
@@ -199,6 +191,8 @@ public class EntityCollection implements Initializable {
 
         if (config.showBoundingBox()) {
             boundingBoxVisualizers.clear();
+            boundingBoxVisualizersMap.values().forEach(entitySupplier -> entitySupplier.clear());
+            boundingBoxVisualizersMap.clear();
         }
     }
 
@@ -239,11 +233,11 @@ public class EntityCollection implements Initializable {
 
     private void clearSuppliers() {
         suppliers.forEach(EntitySupplier::clear);
-        suppliers.clear();
-
         if (config.showBoundingBox()) {
-            boundingBoxVisualizerSupplier.clear();
+            boundingBoxVisualizersMap.values().forEach(ArrayList::clear);
         }
+
+        suppliers.clear();
     }
 
     private void notifyStatisticsObservers() {
@@ -274,8 +268,9 @@ public class EntityCollection implements Initializable {
             suppliers.forEach(supplier -> supplier.get().forEach(yaegerEntity -> initialize(yaegerEntity, supplier.getPane())));
         }
 
-        if (config.showBoundingBox() && !boundingBoxVisualizerSupplier.isEmpty()) {
-            boundingBoxVisualizerSupplier.get().forEach(yaegerEntity -> initialize(yaegerEntity, boundingBoxVisualizerSupplier.getPane()));
+        if (config.showBoundingBox()) {
+            boundingBoxVisualizersMap.keySet().forEach(key -> boundingBoxVisualizersMap.get(key).get().forEach(yaegerEntity -> initialize(yaegerEntity, key)));
+
         }
     }
 
@@ -291,18 +286,27 @@ public class EntityCollection implements Initializable {
         entity.applyTranslationsForAnchorPoint();
 
         entity.applyEntityProcessor(this::registerIfKeyListener);
-        entity.applyEntityProcessor(this::registerCollidable);
+        // Entities will receive knowledge of the RootPane they are attached to
         entity.setRootPane(paneToBeUsed);
+        // When registering a Collidable, the RootPane should be present to ensure
+        // the BoundingBoxVisualizer is attached to the same RootPane.
+        entity.applyEntityProcessor(this::registerCollidable);
+
         entity.addToParent(this::addToParentNode);
 
         entity.applyEntityProcessor(yaegerEntity -> annotationProcessor.invokeActivators(yaegerEntity));
     }
 
     private void registerCollidable(final YaegerEntity yaegerEntity) {
-        final var collidable = collisionDelegate.register(yaegerEntity);
+        final var hasBoundingBox = collisionDelegate.register(yaegerEntity);
 
-        if (collidable && config.showBoundingBox()) {
-            boundingBoxVisualizerSupplier.add(new BoundingBoxVisualizer(yaegerEntity));
+        if (hasBoundingBox && config.showBoundingBox()) {
+            if (!boundingBoxVisualizersMap.containsKey(yaegerEntity.getRootPane())) {
+                var supplier = entitySupplierFactory.create(yaegerEntity.getRootPane());
+                boundingBoxVisualizersMap.put(yaegerEntity.getRootPane(), supplier);
+            }
+
+            boundingBoxVisualizersMap.get(yaegerEntity.getRootPane()).add(new BoundingBoxVisualizer(yaegerEntity));
         }
     }
 
@@ -340,14 +344,12 @@ public class EntityCollection implements Initializable {
     }
 
     /**
-     * Set the {@link EntitySupplier} that should be used for the bounding-box visualizers.
+     * Set the {@link EntitySupplierFactory} to be used
      *
-     * @param boundingBoxVisualizerSupplier the {@link EntitySupplier} to be used
+     * @param entitySupplierFactory the {@link EntitySupplierFactory} to be used
      */
     @Inject
-    public void setBoundingBoxVisualizerSupplier(final EntitySupplier boundingBoxVisualizerSupplier) {
-        if (config.showBoundingBox()) {
-            this.boundingBoxVisualizerSupplier = boundingBoxVisualizerSupplier;
-        }
+    public void setEntitySupplierFactory(final EntitySupplierFactory entitySupplierFactory) {
+        this.entitySupplierFactory = entitySupplierFactory;
     }
 }

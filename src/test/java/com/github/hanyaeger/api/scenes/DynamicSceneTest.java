@@ -85,7 +85,7 @@ class DynamicSceneTest {
         entityCollection = mock(EntityCollection.class);
 
         when(sceneFactory.create(pane)).thenReturn(scene);
-        when(entityCollectionFactory.create(pane, config)).thenReturn(entityCollection);
+        when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
         when(animationTimerFactory.create(any())).thenReturn(animationTimer);
 
         sut.init(injector);

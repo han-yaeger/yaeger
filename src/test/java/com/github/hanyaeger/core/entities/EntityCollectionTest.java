@@ -7,6 +7,7 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import com.github.hanyaeger.core.exceptions.YaegerEngineException;
+import com.github.hanyaeger.core.factories.EntitySupplierFactory;
 import com.google.inject.Injector;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -52,7 +53,7 @@ class EntityCollectionTest {
         var debugger = mock(Debugger.class);
 
         // Act
-        sut = new EntityCollection(pane, config);
+        sut = new EntityCollection(config);
         sut.addStatisticsObserver(debugger);
         sut.setAnnotationProcessor(annotationProcessor);
 
@@ -68,7 +69,7 @@ class EntityCollectionTest {
     void removeSupplierClearsRemovedSupplier() {
         // Arrange
         var supplier = mock(EntitySupplier.class);
-        sut = new EntityCollection(pane, config);
+        sut = new EntityCollection(config);
         sut.setAnnotationProcessor(annotationProcessor);
         sut.registerSupplier(supplier);
 
@@ -83,7 +84,7 @@ class EntityCollectionTest {
     void clearClearsSupplier() {
         // Arrange
         var supplier = mock(EntitySupplier.class);
-        sut = new EntityCollection(pane, config);
+        sut = new EntityCollection(config);
         sut.setAnnotationProcessor(annotationProcessor);
         sut.registerSupplier(supplier);
 
@@ -122,7 +123,7 @@ class EntityCollectionTest {
             Set<KeyCode> keycodes = new HashSet<>();
 
             // Act
-            sut = new EntityCollection(pane, config);
+            sut = new EntityCollection(config);
             sut.setAnnotationProcessor(annotationProcessor);
             sut.init(injector);
             sut.registerSupplier(entitySupplier);
@@ -144,7 +145,7 @@ class EntityCollectionTest {
             keycodes.add(KeyCode.R);
 
             // Act
-            sut = new EntityCollection(pane, config);
+            sut = new EntityCollection(config);
             sut.setAnnotationProcessor(annotationProcessor);
             sut.init(injector);
             sut.registerSupplier(entitySupplier);
@@ -180,7 +181,7 @@ class EntityCollectionTest {
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
 
-            sut = new EntityCollection(pane, config);
+            sut = new EntityCollection(config);
             sut.setAnnotationProcessor(annotationProcessor);
             sut.init(injector);
 
@@ -198,7 +199,7 @@ class EntityCollectionTest {
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
 
-            sut = new EntityCollection(pane, config);
+            sut = new EntityCollection(config);
             sut.setAnnotationProcessor(annotationProcessor);
             sut.init(injector);
 
@@ -221,7 +222,7 @@ class EntityCollectionTest {
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
 
-            sut = new EntityCollection(pane, config);
+            sut = new EntityCollection(config);
             sut.setAnnotationProcessor(annotationProcessor);
             sut.init(injector);
 
@@ -245,7 +246,7 @@ class EntityCollectionTest {
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
 
-            sut = new EntityCollection(pane, config);
+            sut = new EntityCollection(config);
             sut.setAnnotationProcessor(annotationProcessor);
             sut.init(injector);
 
@@ -269,7 +270,7 @@ class EntityCollectionTest {
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
 
-            sut = new EntityCollection(pane, config);
+            sut = new EntityCollection(config);
             sut.setAnnotationProcessor(annotationProcessor);
             sut.init(injector);
 
@@ -293,7 +294,7 @@ class EntityCollectionTest {
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
 
-            sut = new EntityCollection(pane, config);
+            sut = new EntityCollection(config);
             sut.setAnnotationProcessor(annotationProcessor);
             sut.init(injector);
 
@@ -317,7 +318,7 @@ class EntityCollectionTest {
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
 
-            sut = new EntityCollection(pane, config);
+            sut = new EntityCollection(config);
             sut.setAnnotationProcessor(annotationProcessor);
             sut.init(injector);
             sut.registerSupplier(supplier);
@@ -342,7 +343,7 @@ class EntityCollectionTest {
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
 
-            sut = new EntityCollection(pane, config);
+            sut = new EntityCollection(config);
             sut.setAnnotationProcessor(annotationProcessor);
             sut.init(injector);
             sut.registerSupplier(supplier);
@@ -436,14 +437,18 @@ class EntityCollectionTest {
     @Nested
     class BoundingBoxVisualizerEntities {
 
-        private EntitySupplier boundingBoxVisualizerSupplier;
+        private EntitySupplierFactory entitySupplierFactory;
+        private EntitySupplier entitySupplier;
 
         @BeforeEach
         void setup() {
             when(config.showBoundingBox()).thenReturn(true);
 
             boundingBoxVisualizer = mock(BoundingBoxVisualizer.class);
-            boundingBoxVisualizerSupplier = mock(EntitySupplier.class);
+            entitySupplierFactory = mock(EntitySupplierFactory.class);
+            entitySupplier = mock(EntitySupplier.class);
+
+            when(entitySupplierFactory.create(any())).thenReturn(entitySupplier);
         }
 
         @Test
@@ -453,8 +458,9 @@ class EntityCollectionTest {
             when(pane.getChildren()).thenReturn(children);
             when(config.showBoundingBox()).thenReturn(false);
 
-            sut = new EntityCollection(pane, config);
+            sut = new EntityCollection(config);
             sut.setAnnotationProcessor(annotationProcessor);
+            sut.setEntitySupplierFactory(entitySupplierFactory);
             sut.init(injector);
 
             // Act & Assert
@@ -467,9 +473,9 @@ class EntityCollectionTest {
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
 
-            sut = new EntityCollection(pane, config);
+            sut = new EntityCollection(config);
             sut.setAnnotationProcessor(annotationProcessor);
-            sut.setBoundingBoxVisualizerSupplier(boundingBoxVisualizerSupplier);
+            sut.setEntitySupplierFactory(entitySupplierFactory);
             sut.init(injector);
 
             // Act
@@ -485,9 +491,9 @@ class EntityCollectionTest {
             var children = mock(ObservableList.class);
             when(pane.getChildren()).thenReturn(children);
 
-            sut = new EntityCollection(pane, config);
+            sut = new EntityCollection(config);
             sut.setAnnotationProcessor(annotationProcessor);
-            sut.setBoundingBoxVisualizerSupplier(boundingBoxVisualizerSupplier);
+            sut.setEntitySupplierFactory(entitySupplierFactory);
             sut.init(injector);
             sut.addBoundingBoxVisualizer(boundingBoxVisualizer);
             sut.initialUpdate();
@@ -498,22 +504,6 @@ class EntityCollectionTest {
 
             // Assert
             verify(boundingBoxVisualizer).update(expected);
-        }
-
-        @Test
-        void clearClearsSupplier() {
-            // Arrange
-            var supplier = mock(EntitySupplier.class);
-            sut = new EntityCollection(pane, config);
-            sut.setAnnotationProcessor(annotationProcessor);
-            sut.setBoundingBoxVisualizerSupplier(boundingBoxVisualizerSupplier);
-            sut.registerSupplier(supplier);
-
-            // Act
-            sut.clear();
-
-            // Assert
-            verify(boundingBoxVisualizerSupplier).clear();
         }
     }
 
