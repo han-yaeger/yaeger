@@ -217,19 +217,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * @throws NullPointerException if the specified {@code otherLocation} is null
      */
     public double angleTo(final Coordinate2D otherLocation) {
-
-        if (getLocationInScene().equals(otherLocation)) {
-            return 0D;
-        }
-
-        final var delta = otherLocation.subtract(getLocationInScene());
-        final var normalizedDelta = delta.normalize();
-        var angle = new Point2D(0, 1).angle(normalizedDelta);
-
-        if (delta.getX() < 0) {
-            angle = 360 - angle;
-        }
-        return angle;
+        return getLocationInScene().angleTo(otherLocation);
     }
 
     /**
