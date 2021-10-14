@@ -8,4 +8,9 @@
 
 ## Features
 
+* Added a `ScrollableDynamicScene`. (#57)
+
 ## Bugfixes
+
+* Resolved a bug on Windows in which the size of the stage was larger that
+  the viewable area. (#208)
