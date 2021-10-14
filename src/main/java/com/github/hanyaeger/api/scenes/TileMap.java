@@ -30,8 +30,7 @@ import java.util.*;
  */
 public abstract class TileMap extends EntitySupplier implements Anchorable, Activatable {
 
-    private int[][] classMap;
-
+    private transient int[][] classMap;
     private transient YaegerEntity[][] instanceMap;
 
     private final transient Map<Integer, EntityConfiguration> entities;
@@ -187,13 +186,13 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        var entities1 = (TileMap) o;
-        return entities.equals(entities1.entities) &&
-                Arrays.deepEquals(classMap, entities1.classMap) &&
-                size.equals(entities1.size) &&
-                location.equals(entities1.location);
+        if (o == null) return false;
+        if (getClass() != o.getClass()) return false;
+        var otherTileMap = (TileMap) o;
+        return entities.equals(otherTileMap.entities) &&
+                Arrays.deepEquals(classMap, otherTileMap.classMap) &&
+                size.equals(otherTileMap.size) &&
+                location.equals(otherTileMap.location);
     }
 
     @Override

@@ -3,11 +3,11 @@ package com.github.hanyaeger.api.entities;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.YaegerGame;
-import com.github.hanyaeger.core.Effectable;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.Initializable;
 import com.github.hanyaeger.api.Timer;
 import com.github.hanyaeger.core.TimerListProvider;
+import com.github.hanyaeger.core.YaegerGameObject;
 import com.github.hanyaeger.core.entities.*;
 import com.github.hanyaeger.core.entities.events.EventTypes;
 import com.github.hanyaeger.core.entities.motion.InitializationBuffer;
@@ -31,7 +31,7 @@ import java.util.Optional;
  * {@link YaegerScene}.
  */
 
-public abstract class YaegerEntity implements Initializable, TimerListProvider, Bounded, Removable, Placeable, SceneChild, GameNode, Rotatable, EventInitiator, DragRepositoryAccessor, Effectable {
+public abstract class YaegerEntity extends YaegerGameObject implements Initializable, TimerListProvider, Bounded, Removable, Placeable, SceneChild, GameNode, Rotatable, EventInitiator, DragRepositoryAccessor {
 
     /**
      * The default value for the viewOrder for instances of {@link YaegerEntity} that are
@@ -55,7 +55,6 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
 
     private final InitializationBuffer initializationBuffer;
 
-    private final ColorAdjust colorAdjust = new ColorAdjust();
     private DragNDropRepository dragNDropRepository;
 
     /**
@@ -68,6 +67,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
 
         this.anchorPoint = AnchorPoint.TOP_LEFT;
         this.initializationBuffer = new InitializationBuffer();
+        this.colorAdjust = new ColorAdjust();
     }
 
     /**
@@ -323,46 +323,6 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     @Override
     public void setAnchorLocationY(final double y) {
         setAnchorLocation(new Coordinate2D(getAnchorLocation().getX(), y));
-    }
-
-    @Override
-    public void setBrightness(final double brightness) {
-        colorAdjust.setBrightness(brightness);
-    }
-
-    @Override
-    public void setContrast(final double contrast) {
-        colorAdjust.setContrast(contrast);
-    }
-
-    @Override
-    public void setHue(final double hue) {
-        colorAdjust.setHue(hue);
-    }
-
-    @Override
-    public void setSaturation(final double saturation) {
-        colorAdjust.setSaturation(saturation);
-    }
-
-    @Override
-    public double getBrightness() {
-        return colorAdjust.getBrightness();
-    }
-
-    @Override
-    public double getContrast() {
-        return colorAdjust.getContrast();
-    }
-
-    @Override
-    public double getHue() {
-        return colorAdjust.getHue();
-    }
-
-    @Override
-    public double getSaturation() {
-        return colorAdjust.getSaturation();
     }
 
     @Override
