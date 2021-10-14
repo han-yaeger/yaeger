@@ -49,4 +49,26 @@ public class Coordinate2D extends Point2D {
     public Coordinate2D add(final Coordinate2D location) {
         return new Coordinate2D(super.add(location));
     }
+
+    /**
+     * Returns a {@code double} with the angle to the specified point of this {@code Coordinate2D}
+     * @param coordinate the {@code Coordinate2D} where the angle is going to be calculated to
+     * @return the {@code double} of the angle between coordinates
+     */
+    public double angleTo(Coordinate2D coordinate) {
+
+        if (this.equals(coordinate)) {
+            return 0D;
+        }
+
+        final var delta = coordinate.subtract(this);
+        final var normalizedDelta = delta.normalize();
+        var angle = new Point2D(0, 1).angle(normalizedDelta);
+
+        if (delta.getX() < 0) {
+            angle = 360 - angle;
+        }
+        return angle;
+    }
+
 }
