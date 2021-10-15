@@ -3,6 +3,7 @@
 ## Configuration
 
 * Updated Mockito to 4.0.0
+* Updated jUnit to 5.8.1
 
 ## Refactor
 
