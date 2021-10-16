@@ -124,10 +124,6 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
     /**
      * Add an {@link YaegerEntity} to this {@link YaegerScene}.
-     * <p>
-     * This method can only be used to add an instance of {@link YaegerEntity} during initialisation.If
-     * one should be added during the game, a {@link EntitySpawner} should be used.
-     * </p>
      *
      * @param yaegerEntity the {@link YaegerEntity} to be added
      */
