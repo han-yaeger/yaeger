@@ -16,8 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Instantiate a new  {@code DynamicScene}. A {@code DynamicScene} extends a {@link StaticScene}, but adds its
- * own Game World Update.
+ * A {@code DynamicScene} extends a {@link StaticScene}, but adds a Game World Update (GWU). Because of this,
+ * the {@code DynamicScene} should be used in all cases where something should move on the Screen.
+ * <p>
+ * Because of th presence of the GWU, it is possible to add instances of {@link Timer}, by implementing the {@link com.github.hanyaeger.api.TimerContainer}
+ * interface, or instances of {@link EntitySpawner}, by implementing the {@link com.github.hanyaeger.api.EntitySpawnerContainer}
+ * interface.
+ * <p>
+ * As with the {@link StaticScene}, the viewable area of a {@code DynamicScene} is exactly the same as the area
+ * it occupies. If area should be larger, a {@link ScrollableDynamicScene} should be used.
  */
 public abstract class DynamicScene extends StaticScene implements UpdateDelegator, TimerListProvider, EntitySpawnerListProvider {
 
