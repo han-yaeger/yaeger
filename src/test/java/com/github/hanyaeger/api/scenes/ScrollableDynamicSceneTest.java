@@ -20,8 +20,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,6 +49,7 @@ class ScrollableDynamicSceneTest {
 
     private EntityCollection entityCollection;
     private EntitySupplier entitySupplier;
+    private EntitySupplier viewPortEntitySupplier;
 
     private Pane defaultPane;
     private Pane stickyPane;
@@ -57,7 +60,8 @@ class ScrollableDynamicSceneTest {
     private YaegerConfig config;
     private Scene scene;
     private Updater updater;
-    private EntitySupplier viewPortEntitySupplier;
+    private Stage stage;
+
 
     @BeforeAll
     static void beforAll() {
@@ -91,6 +95,7 @@ class ScrollableDynamicSceneTest {
         injector = mock(Injector.class);
         updater = mock(Updater.class);
         config = mock(YaegerConfig.class);
+        stage = mock(Stage.class);
 
         when(paneFactory.createPane()).thenReturn(defaultPane, stickyPane);
         when(paneFactory.createScrollPane()).thenReturn(scrollPane);
@@ -106,8 +111,10 @@ class ScrollableDynamicSceneTest {
         sut.setKeyListenerDelegate(keyListenerDelegate);
         sut.setEntitySupplier(entitySupplier);
         sut.setViewPortEntitySupplier(viewPortEntitySupplier);
+        sut.setViewPortEntitySupplier(viewPortEntitySupplier);
         sut.setAnimationTimerFactory(animationTimerFactory);
         sut.setUpdater(updater);
+        sut.setStage(stage);
         sut.setConfig(config);
 
         scene = mock(Scene.class);
@@ -187,6 +194,44 @@ class ScrollableDynamicSceneTest {
 
         // Assert
         assertEquals(scene, actual);
+    }
+
+    @Test
+    void postActivateSetsPaneOnViewPortEntitySupplier() {
+        // Arrange
+        sut.activate();
+
+        // Act
+        sut.postActivate();
+
+        // Assert
+        verify(viewPortEntitySupplier).setPane(stickyPane);
+    }
+
+    @Test
+    void postActivateSetsGameDimensionsOnDebuggerIfDebugIsTrue() {
+        // Arrange
+        when(config.showDebug()).thenReturn(true);
+        sut.activate();
+
+        // Act
+        sut.postActivate();
+
+        // Assert
+        verify(debugger).setGameDimensions(any());
+    }
+
+    @Test
+    void postActivateDisablesSscrollingByDefault() {
+        // Arrange
+        when(config.enableScroll()).thenReturn(false);
+        sut.activate();
+
+        // Act
+        sut.postActivate();
+
+        // Assert
+       verify(scrollPane).addEventFilter(eq(ScrollEvent.SCROLL), any());
     }
 
 
