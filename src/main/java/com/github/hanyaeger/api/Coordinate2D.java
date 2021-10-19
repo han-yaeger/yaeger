@@ -49,4 +49,61 @@ public class Coordinate2D extends Point2D {
     public Coordinate2D add(final Coordinate2D location) {
         return new Coordinate2D(super.add(location));
     }
+    
+    /**
+     * Return a {@code Coordinate2D} with the coordinates of the specified point subtracted from the coordinates of this
+     * {@code Coordinate2D}.
+     * 
+     * @param location the {@code Coordinate2D} with the subtracted coordinates
+     * @return the {@code Coordinate2D} with the subtracted coordinates
+     * throws {@link NullPointerException} if the specified {@code Coordinate2D} is null
+     */
+    public Coordinate2D subtract(final Coordinate2D location) {
+    	return new Coordinate2D(super.subtract(location));
+    }
+    
+    /**
+     * Return a {@code Coordinate2D} with the coordinates of the specified point multiplied by the coordinates of this
+     * {@code Coordinate2D}.
+     * 
+     * @param location the {@code Coordinate2D} with the multiplied coordinates
+     * @return the {@code Coordinate2D} with the multiplied coordinates
+     * throws {@link NullPointerException} if the specified {@code Coordinate2D} is null
+     */
+    public Coordinate2D multiply(final Coordinate2D location) throws NullPointerException {
+    	if(location == null) {
+    		throw new NullPointerException("'location' was null");
+    	}
+    	
+    	return new Coordinate2D(this.getX() * location.getX(), this.getY() * location.getY());
+    }
+    
+    /**
+     * Return a {@code Coordinate2D} with the coordinates of the specified point divided by the coordinates of this
+     * {@code Coordinate2D}.
+     * 
+     * @param location the {@code Coordinate2D} with the divided coordinates
+     * @return the {@code Coordinate2D} with the divided coordinates
+     * throws {@link NullPointerException} if the specified {@code Coordinate2D} is null
+     * throws {@link IllegalArgumentException} if an X,Y component of either coordinate is 0
+     */
+    public Coordinate2D divide(final Coordinate2D location) throws NullPointerException, IllegalArgumentException {
+    	if(location == null) {
+    		throw new NullPointerException("'location' was null");
+    	}
+    	
+    	if(this.getX() == 0.D || this.getY() == 0.D || location.getX() == 0.D || location.getY() == 0.D) {
+    		throw new IllegalArgumentException("An X,Y component of either coordinate is 0");
+    	}
+    	
+    	return new Coordinate2D(this.getX() / location.getX(), this.getY() / location.getY());
+    }
+    
+    /**
+     * Return a {@code Coordinate2D} which is the inverse of this coordinate
+     * @return the {@code Coordinate2D} with the location of this coordinate, inverted
+     */
+    public Coordinate2D invert() {
+    	return new Coordinate2D(this.getX() * -1, this.getY() * -1);
+    }
 }
