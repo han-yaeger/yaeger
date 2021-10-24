@@ -12,4 +12,8 @@
 
 ## Features
 
+* Allowed `Collideds` to support multi collisions (#209).
+* Enabled a  `Coordinate2D` to calculate the `angleto(Coordinate2D)` method
+  (#215).
+
 ## Bugfixes
