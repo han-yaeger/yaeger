@@ -113,4 +113,12 @@ public abstract class Timer {
     public void setIntervalInMs(final long intervalInMs) {
         this.intervalInMs = intervalInMs;
     }
+    
+    /**
+     * Reset this {@code Timer} to start from the beginning again.
+     *
+     */
+    public void reset() {
+        this.prevTime = 0;
+    }
 }
