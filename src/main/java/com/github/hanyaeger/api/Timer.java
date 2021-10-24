@@ -116,7 +116,6 @@ public abstract class Timer {
     
     /**
      * Reset this {@code Timer} to start from the beginning again.
-     *
      */
     public void reset() {
         this.prevTime = 0;
