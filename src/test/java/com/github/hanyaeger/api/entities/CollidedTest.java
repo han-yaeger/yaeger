@@ -52,7 +52,7 @@ class CollidedTest {
         // Arrange
         List<CollidingCollider> trivialColliders = new ArrayList<CollidingCollider>();
         trivialColliders.add(new CollidingCollider());
-        for(var trivialCollider : trivialColliders){
+        for (var trivialCollider : trivialColliders) {
             trivialCollider.setBounds(TEST_COLLIDED_BOUNDINGBOX);
 
             List<Collider> testColliders = List.of(trivialCollider);
@@ -94,7 +94,7 @@ class CollidedTest {
         assertNull(collidables.getLastCollider());
     }
 
-    private class CollidingCollider implements Collider {
+    private static class CollidingCollider implements Collider {
 
         private Bounds bounds;
 
@@ -133,7 +133,7 @@ class CollidedTest {
 
         @Override
         public Optional<? extends Node> getNode() {
-            return null;
+            return Optional.empty();
         }
     }
 
@@ -141,7 +141,7 @@ class CollidedTest {
 
         @Override
         public Optional<? extends Node> getNode() {
-            return null;
+            return Optional.empty();
         }
     }
 }
