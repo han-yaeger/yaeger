@@ -108,13 +108,13 @@ class Coordinate2DTest {
     @Test
     void normalizePointWorksAsExpected() {
     	// Arrange
-    	var position = new Coordinate2D(2d, 2d);
+    	var position = new Coordinate2D(1d, 1d);
     	
     	// Act
     	var normalizedPosition = position.normalize();
     	
     	// Assert
-    	assertEquals(1d, normalizedPosition.getX());
-    	assertEquals(1d, normalizedPosition.getY());
+    	assertEquals(0.7071067811865475d, normalizedPosition.getX());
+    	assertEquals(0.7071067811865475d, normalizedPosition.getY());
     }
 }
