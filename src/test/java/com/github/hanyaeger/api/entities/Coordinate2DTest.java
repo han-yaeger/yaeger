@@ -104,4 +104,17 @@ class Coordinate2DTest {
     	assertEquals(-1d, invertedPosition.getX());
     	assertEquals(-1d, invertedPosition.getY());
     }
+    
+    @Test
+    void normalizePointWorksAsExpected() {
+    	// Arrange
+    	var position = new Coordinate2D(2d, 2d);
+    	
+    	// Act
+    	var normalizedPosition = position.normalize();
+    	
+    	// Assert
+    	assertEquals(1d, normalizedPosition.getX());
+    	assertEquals(1d, normalizedPosition.getY());
+    }
 }

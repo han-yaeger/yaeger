@@ -99,29 +99,13 @@ public class Coordinate2D extends Point2D {
     	return new Coordinate2D(this.getX() / location.getX(), this.getY() / location.getY());
     }
     
-    
-    /***
-     * Return a {@code Coordinate2D} with the coordinates of 'this' {@code Coordinate2D} transformed by the dot product of 'this' {@code Coordinate2D} + 'location'.
-     * @param location is the {@code Coordinate2D} to use as the point of reference for the dot product calculation.
-     * @return the {@code Coordinate2D} with the transformed coordinates.
-     * throws {@link NullPointerException} if the specified {@code Coordinate2D} is null
-     */
-    public Coordinate2D dotProduct(final Coordinate2D location) {
-    	if(location == null) {
-    		throw new NullPointerException("'location' was null");
-    	}
-    	
-    	double scalar = (this.getX() * location.getX()) + (this.getY() * location.getY());
-    	Coordinate2D normalized = this.normalize();
-    	return new Coordinate2D(normalized.getX() * scalar, normalized.getY() * scalar);
-    }
-    
     /**
      * Returns a {@code Coordinate2D} which lies in the middle between this {@code Coordinate2D} and the specified {@code Coordinate2D}.
      * @param location is the other endpoint
      * @return the coordinate in the middle.
+     * throws {@link NullPointerException} if the specified {@code Coordinate2D} is null
      */
-    public Coordinate2D midPoint(final Coordinate2D location) {
+    public Coordinate2D midPoint(final Coordinate2D location) throws NullPointerException  {
     	if(location == null) {
     		throw new NullPointerException("'location' was null");
     	}
@@ -131,7 +115,7 @@ public class Coordinate2D extends Point2D {
     
     /***
      * Return a normalized {@code Coordinate2D}.
-     * @return the variant of 'this' vector
+     * @return the normalized variant of 'this' vector
      */
     public Coordinate2D normalize() {
     	return new Coordinate2D(super.normalize());
