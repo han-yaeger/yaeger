@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,16 +50,20 @@ class CollidedTest {
     @Test
     void testTrivialCollisionGivesCollision() {
         // Arrange
-        var trivialCollider = new CollidingCollider();
-        trivialCollider.setBounds(TEST_COLLIDED_BOUNDINGBOX);
+        List<CollidingCollider> trivialColliders = new ArrayList<CollidingCollider>();
+        trivialColliders.add(new CollidingCollider());
+        for (var trivialCollider : trivialColliders) {
+            trivialCollider.setBounds(TEST_COLLIDED_BOUNDINGBOX);
 
-        List<Collider> testColliders = List.of(trivialCollider);
+            List<Collider> testColliders = List.of(trivialCollider);
 
-        // Act
-        sut.checkForCollisions(testColliders);
+            // Act
+            sut.checkForCollisions(testColliders);
 
-        // Assert
-        assertEquals(trivialCollider, sut.getLastCollider());
+            // Assert
+        }
+
+        assertEquals(trivialColliders, sut.getLastCollider());
     }
 
     @Test
@@ -89,7 +94,7 @@ class CollidedTest {
         assertNull(collidables.getLastCollider());
     }
 
-    private class CollidingCollider implements Collider {
+    private static class CollidingCollider implements Collider {
 
         private Bounds bounds;
 
@@ -110,11 +115,11 @@ class CollidedTest {
 
     private static class TestCollided implements Collided {
 
-        private Collider lastCollided;
+        private List<Collider> lastCollideds;
 
         @Override
-        public void onCollision(Collider collidingObject) {
-            lastCollided = collidingObject;
+        public void onCollision(List<Collider> collidingObject) {
+            lastCollideds = collidingObject;
         }
 
         @Override
@@ -122,13 +127,13 @@ class CollidedTest {
             return TEST_COLLIDED_BOUNDINGBOX;
         }
 
-        public Collider getLastCollider() {
-            return lastCollided;
+        public List<Collider> getLastCollider() {
+            return lastCollideds;
         }
 
         @Override
         public Optional<? extends Node> getNode() {
-            return null;
+            return Optional.empty();
         }
     }
 
@@ -136,7 +141,7 @@ class CollidedTest {
 
         @Override
         public Optional<? extends Node> getNode() {
-            return null;
+            return Optional.empty();
         }
     }
 }
