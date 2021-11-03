@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class YaegerCommandLineParser {
 
-    private static final String TABLE_FORMAT = "%-14s%-50s";
+    private static final String TABLE_FORMAT = "%-20s%-50s";
 
     /**
      * Parse the given command line Arguments and create a {@link YaegerConfig} that can be used to
