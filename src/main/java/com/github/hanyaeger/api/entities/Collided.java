@@ -27,10 +27,10 @@ public interface Collided extends Bounded {
     /**
      * This method is called if a collision has occurred.
      *
-     * @param collidingObject a {@link List} of all instances of {@link Collider} this {@link Collided} has collided
-     *                        with, during the last Game World Update.
+     * @param collidingObjects a {@link List} of all instances of {@link Collider} this {@link Collided} has collided
+     *                         with, during the last Game World Update.
      */
-    void onCollision(final List<Collider> collidingObject);
+    void onCollision(final List<Collider> collidingObjects);
 
     /**
      * Perform collision detection with a {@link Set} of {@link Collider} instances. Only the first collision
