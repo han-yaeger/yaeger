@@ -231,9 +231,30 @@ class ScrollableDynamicSceneTest {
         sut.postActivate();
 
         // Assert
-       verify(scrollPane).addEventFilter(eq(ScrollEvent.SCROLL), any());
+        verify(scrollPane).addEventFilter(eq(ScrollEvent.SCROLL), any());
     }
 
+    @Test
+    void getWidthReturnsWidthOfDefaultPane() {
+        // Arrange
+
+        // Act
+        sut.getWidth();
+
+        // Assert
+        verify(defaultPane).getPrefWidth();
+    }
+
+    @Test
+    void getHeightReturnsHeightOfDefaultPane() {
+        // Arrange
+
+        // Act
+        sut.getHeight();
+
+        // Assert
+        verify(defaultPane).getPrefHeight();
+    }
 
     private static class ScrollableDynamicSceneImpl extends ScrollableDynamicScene {
 

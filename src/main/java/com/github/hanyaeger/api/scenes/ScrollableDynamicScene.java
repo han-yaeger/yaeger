@@ -4,6 +4,7 @@ import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.core.ViewOrders;
 import com.github.hanyaeger.core.entities.EntitySupplier;
+import com.github.hanyaeger.core.exceptions.YaegerLifecycleException;
 import com.github.hanyaeger.core.factories.PaneFactory;
 import com.github.hanyaeger.core.factories.SceneFactory;
 import com.google.inject.Inject;
@@ -33,6 +34,9 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
     private ScrollPane scrollPane;
     private Pane stickyPane;
 
+    private double horizontalScrollPosition = 0D;
+    private double verticalScrollPosition = 0D;
+
     /**
      * Set the {@link Size} (e.g. the width and height) of the scrollable area of the {@link YaegerScene}. By default,
      * the with and height are set to the width and height of the {@link com.github.hanyaeger.api.YaegerGame}.
@@ -50,6 +54,57 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
             scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
             pane.setPrefHeight(size.height());
         }
+    }
+
+    public void setHorizontalScrollPosition(final double horizontalScrollPosition) {
+        if (scrollPane == null) {
+            this.horizontalScrollPosition = horizontalScrollPosition;
+        } else {
+            scrollPane.setHvalue(horizontalScrollPosition);
+        }
+    }
+
+    public void setVerticalScrollPosition(final double verticalScrollPosition) {
+        if (scrollPane == null) {
+            this.verticalScrollPosition = verticalScrollPosition;
+        } else {
+            scrollPane.setVvalue(verticalScrollPosition);
+        }
+    }
+
+    /**
+     * Return the current horizontal scroll position of the viewport. The {@code ScrollableDynamicScene} will update
+     * this value whenever the viewport is scrolled.
+     * <p>
+     * The value will be a {@code double} between 0 and 1, where a 0 will mean the viewport is positioned
+     * at the left of the scrollable area. A value of 1 will mean the viewport will be positioned at the end of the
+     * scrollable area.
+     *
+     * @return a {@code double} between 0 and 1 (inclusive)
+     */
+    public double getHorizontalScrollPosition() {
+        if (scrollPane == null) {
+            return horizontalScrollPosition;
+        }
+        return scrollPane.getHvalue();
+    }
+
+    /**
+     * Return the current vertical scroll position of the viewport. The {@code ScrollableDynamicScene} will update
+     * this value whenever the viewport is scrolled.
+     * <p>
+     * The value will be a {@code double} between 0 and 1, where a 0 will mean the viewport will be positioned
+     * at the top of the scrollable area. A value of 1 will mean the viewport will be positioned at the end of the
+     * scrollable area.
+     *
+     * @return a {@code double} between 0 and 1 (inclusive)
+     */
+    public double getVerticalScrollPosition() {
+        if (scrollPane == null) {
+            return verticalScrollPosition;
+        }
+
+        return scrollPane.getVvalue();
     }
 
     /**
@@ -82,6 +137,28 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
         if (!config.enableScroll()) {
             scrollPane.addEventFilter(ScrollEvent.SCROLL, Event::consume);
         }
+    }
+
+    /**
+     * Return the width of the complete scene. Note that this concerns the complete area of the
+     * scrollable scene, not only the part that is visible (the so-called viewport).
+     *
+     * @return the width of the complete scene, as a {@code double}
+     */
+    @Override
+    public double getWidth() {
+        return pane.getPrefWidth();
+    }
+
+    /**
+     * Return the height of the complete scene. Note that this concerns the complete area of the
+     * scrollable scene, not only the part that is visible (the so-called viewport).
+     *
+     * @return the height of the complete scene, as a {@code double}
+     */
+    @Override
+    public double getHeight() {
+        return pane.getPrefHeight();
     }
 
     @Override
