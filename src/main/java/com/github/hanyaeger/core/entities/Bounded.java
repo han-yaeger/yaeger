@@ -54,7 +54,7 @@ public interface Bounded extends DimensionsProvider, GameNode {
      * can also be part of the {@link Pane} or another {@link javafx.scene.Group}, which itself can be... , this
      * method recursively calculates ({@link #translateCoordinates(Node, Coordinate2D)} does the actual recursive work)
      * the coordinate of the {@link} projected on the {@link Pane}. This way it is
-     * possible to use the {@link Node#intersects(Bounds)} method the perform collision detection.
+     * possible to use the {@link Node#intersects(Bounds)} method to perform collision detection.
      *
      * @param node that {@link Node} for which the coordinates need to be calculated
      * @return the {@link Coordinate2D} of the node, as projected on the {@link Pane}
