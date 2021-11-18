@@ -141,7 +141,9 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
 
     /**
      * Return the width of the complete scene. Note that this concerns the complete area of the
-     * scrollable scene, not only the part that is visible (the so-called viewport).
+     * scrollable scene, not only the part that is visible (the viewport).
+     * <p>
+     * If only the width of the viewport is required, use the method {@link #getViewportWidth()}
      *
      * @return the width of the complete scene, as a {@code double}
      */
@@ -151,14 +153,38 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
     }
 
     /**
+     * Return the width of the viewport.
+     * <p>
+     * If the full width of the scene is required, use the method {@link #getWidth()}.
+     *
+     * @return the width of the viewport, as a {@code double}
+     */
+    public double getViewportWidth() {
+        return super.getWidth();
+    }
+
+    /**
      * Return the height of the complete scene. Note that this concerns the complete area of the
-     * scrollable scene, not only the part that is visible (the so-called viewport).
+     * scrollable scene, not only the part that is visible (the viewport).
+     * <p>
+     * If only the height of the viewport is required, use the method {@link #getViewportHeight()}
      *
      * @return the height of the complete scene, as a {@code double}
      */
     @Override
     public double getHeight() {
         return pane.getPrefHeight();
+    }
+
+    /**
+     * Return the height of the viewport.
+     * <p>
+     * If the full height of the scene is required, use the method {@link #getHeight()}.
+     *
+     * @return the height of the viewport, as a {@code double}
+     */
+    public double getViewportHeight() {
+        return super.getHeight();
     }
 
     @Override

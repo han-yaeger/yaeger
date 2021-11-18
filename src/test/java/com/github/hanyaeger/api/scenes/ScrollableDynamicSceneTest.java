@@ -96,12 +96,20 @@ class ScrollableDynamicSceneTest {
         updater = mock(Updater.class);
         config = mock(YaegerConfig.class);
         stage = mock(Stage.class);
+        scene = mock(Scene.class);
+        entityCollection = mock(EntityCollection.class);
+
+        when(sceneFactory.create(defaultPane)).thenReturn(scene);
+        when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
+        when(animationTimerFactory.create(any())).thenReturn(animationTimer);
 
         when(paneFactory.createPane()).thenReturn(defaultPane, stickyPane);
         when(paneFactory.createScrollPane()).thenReturn(scrollPane);
         when(paneFactory.createStackPane()).thenReturn(stackPane);
 
         when(stackPane.getChildren()).thenReturn(stackPaneChildres);
+
+        when(stage.getScene()).thenReturn(scene);
 
         sut.setDebugger(debugger);
         sut.setSceneFactory(sceneFactory);
@@ -117,12 +125,7 @@ class ScrollableDynamicSceneTest {
         sut.setStage(stage);
         sut.setConfig(config);
 
-        scene = mock(Scene.class);
-        entityCollection = mock(EntityCollection.class);
 
-        when(sceneFactory.create(defaultPane)).thenReturn(scene);
-        when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
-        when(animationTimerFactory.create(any())).thenReturn(animationTimer);
 
         sut.init(injector);
     }
@@ -254,6 +257,28 @@ class ScrollableDynamicSceneTest {
 
         // Assert
         verify(defaultPane).getPrefHeight();
+    }
+
+    @Test
+    void getViewPortWidthReturnsWidthOfStage() {
+        // Arrange
+
+        // Act
+        sut.getViewportWidth();
+
+        // Assert
+        verify(scene).getWidth();
+    }
+
+    @Test
+    void getViewPortHeightReturnsHeightOfStage() {
+        // Arrange
+
+        // Act
+        sut.getViewportHeight();
+
+        // Assert
+        verify(scene).getHeight();
     }
 
     private static class ScrollableDynamicSceneImpl extends ScrollableDynamicScene {

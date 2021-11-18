@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.userinput;
 
+import com.github.hanyaeger.api.scenes.ScrollableDynamicScene;
 import com.github.hanyaeger.core.annotations.OnActivation;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.core.entities.GameNode;
@@ -7,19 +8,18 @@ import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 
 /**
- * Being a {@code MouseMovedListener} enables the {@link YaegerEntity} or {@link YaegerScene} to be
+ * A {@code MouseMovedListener} enables the {@link YaegerEntity} or {@link YaegerScene} to be
  * notified if the mouse has been moved. On movement, it will receive an event that contains a {@link Coordinate2D}
- * of the x and y-coordinate. Note that this listener is only notified of mouse movement if the user is not dragging a
+ * of the x and y-coordinate. Note that this listener is only notified of mouse movement if the user is <b>not</b> dragging a
  * {@link YaegerEntity} that implements {@link MouseDraggedListener}.
  * <p>
  * If this {@code MouseMovedListener} is implemented by a {@link com.github.hanyaeger.api.scenes.ScrollableDynamicScene},
- * the {@link Coordinate2D} that is passed to the event handler is relative to the viewport (e.g. the visible part of the
- * {@link com.github.hanyaeger.api.scenes.ScrollableDynamicScene}).
+ * the {@link Coordinate2D} that is passed to the event handler is relative to the full scene.
  */
 public interface MouseMovedListener extends GameNode {
 
     /**
-     * Called when the corresponding {@link javafx.scene.Node} receives a mouse pressed event.
+     * Called when the corresponding {@link javafx.scene.Node} receives a mouse moved event.
      *
      * @param coordinate2D the current coordinate of the mouse pointer
      */
@@ -35,6 +35,9 @@ public interface MouseMovedListener extends GameNode {
             getNode().ifPresent(node -> node.getScene().setOnMouseMoved(event ->
                     onMouseMoved(new Coordinate2D(event.getX(), event.getY()))
             ));
+        } else if (this instanceof ScrollableDynamicScene scrollableDynamicScene) {
+            scrollableDynamicScene.getRootPane().setOnMouseMoved(event ->
+                    onMouseMoved(new Coordinate2D(event.getX(), event.getY())));
         } else if (this instanceof YaegerScene) {
             getNode().ifPresent(node -> node.setOnMouseMoved(event ->
                     onMouseMoved(new Coordinate2D(event.getX(), event.getY()))

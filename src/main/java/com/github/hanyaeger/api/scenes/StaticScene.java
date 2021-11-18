@@ -14,7 +14,6 @@ import com.github.hanyaeger.core.factories.EntityCollectionFactory;
 import com.github.hanyaeger.core.factories.SceneFactory;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import com.github.hanyaeger.api.entities.EntitySpawner;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.effect.ColorAdjust;

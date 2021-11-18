@@ -1,15 +1,20 @@
 package com.github.hanyaeger.api.userinput;
 
+import com.github.hanyaeger.api.scenes.ScrollableDynamicScene;
 import com.github.hanyaeger.core.annotations.OnActivation;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.core.entities.GameNode;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 /**
- * Being a {@link MouseButtonPressedListener} enables the {@link YaegerEntity} or {@link com.github.hanyaeger.api.scenes.YaegerScene}
+ * A {@code MouseButtonPressedListener} enables the {@link YaegerEntity} or {@link com.github.hanyaeger.api.scenes.YaegerScene}
  * to be notified if a {@link MouseButton} has been clicked while the mouse pointer is on the {@link YaegerEntity} or
  * {@link com.github.hanyaeger.api.scenes.YaegerScene}.
+ * <p>
+ * If this {@code MouseButtonPressedListener} is implemented by a {@link com.github.hanyaeger.api.scenes.ScrollableDynamicScene},
+ * the {@link Coordinate2D} that is passed to the event handler is relative to the full scene.
  */
 public interface MouseButtonPressedListener extends GameNode {
 
@@ -25,10 +30,16 @@ public interface MouseButtonPressedListener extends GameNode {
      * Attach a mousePressedListener to this {@link YaegerEntity} or {@link com.github.hanyaeger.api.scenes.YaegerScene}.
      */
     @OnActivation
-    default void attachMousePressedListener() {
-        getNode().ifPresent(node -> node.setOnMousePressed(event -> {
-            onMouseButtonPressed(event.getButton(), new Coordinate2D(event.getX(), event.getY()));
-            event.consume();
-        }));
+    default void attachMouseButtonPressedListener() {
+        if (this instanceof ScrollableDynamicScene scrollableDynamicScene) {
+            scrollableDynamicScene.getRootPane().setOnMousePressed(this::handleEvent);
+        } else {
+            getNode().ifPresent(node -> node.setOnMousePressed(this::handleEvent));
+        }
+    }
+
+    private void handleEvent(final MouseEvent event) {
+        onMouseButtonPressed(event.getButton(), new Coordinate2D(event.getX(), event.getY()));
+        event.consume();
     }
 }
