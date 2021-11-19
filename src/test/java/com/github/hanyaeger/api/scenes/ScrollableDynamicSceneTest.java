@@ -55,7 +55,7 @@ class ScrollableDynamicSceneTest {
     private Pane stickyPane;
     private static ScrollPane scrollPane;
     private StackPane stackPane;
-    private ObservableList<Node> stackPaneChildres;
+    private ObservableList<Node> stackPaneChildren;
 
     private YaegerConfig config;
     private Scene scene;
@@ -80,7 +80,7 @@ class ScrollableDynamicSceneTest {
         stackPane = mock(StackPane.class);
         reset(scrollPane);
 
-        stackPaneChildres = mock(ObservableList.class);
+        stackPaneChildren = mock(ObservableList.class);
 
         backgroundDelegate = mock(BackgroundDelegate.class);
         keyListenerDelegate = mock(KeyListenerDelegate.class);
@@ -107,7 +107,7 @@ class ScrollableDynamicSceneTest {
         when(paneFactory.createScrollPane()).thenReturn(scrollPane);
         when(paneFactory.createStackPane()).thenReturn(stackPane);
 
-        when(stackPane.getChildren()).thenReturn(stackPaneChildres);
+        when(stackPane.getChildren()).thenReturn(stackPaneChildren);
 
         when(stage.getScene()).thenReturn(scene);
 
@@ -124,7 +124,6 @@ class ScrollableDynamicSceneTest {
         sut.setUpdater(updater);
         sut.setStage(stage);
         sut.setConfig(config);
-
 
 
         sut.init(injector);
@@ -162,8 +161,8 @@ class ScrollableDynamicSceneTest {
 
         // Assert
         verify(stackPane).setAlignment(Pos.TOP_LEFT);
-        verify(stackPaneChildres).add(scrollPane);
-        verify(stackPaneChildres).add(stickyPane);
+        verify(stackPaneChildren).add(scrollPane);
+        verify(stackPaneChildren).add(stickyPane);
     }
 
     @Test
@@ -279,6 +278,30 @@ class ScrollableDynamicSceneTest {
 
         // Assert
         verify(scene).getHeight();
+    }
+
+    @Test
+    void setHorizontalScrollPositionDelegatesToPane() {
+        // Arrange
+        var expected = 0.37D;
+
+        // Act
+        sut.setHorizontalScrollPosition(expected);
+
+        // Assert
+        verify(scrollPane).setHvalue(expected);
+    }
+
+    @Test
+    void setVerticalScrollPositionDelegatesToPane() {
+        // Arrange
+        var expected = 0.37D;
+
+        // Act
+        sut.setVerticalScrollPosition(expected);
+
+        // Assert
+        verify(scrollPane).setVvalue(expected);
     }
 
     private static class ScrollableDynamicSceneImpl extends ScrollableDynamicScene {

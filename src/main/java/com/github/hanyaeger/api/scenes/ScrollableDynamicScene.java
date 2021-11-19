@@ -56,6 +56,13 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
         }
     }
 
+    /**
+     * Set the horizontal scroll position of the scene. A value of 0 (or smaller) will mean the viewport is positioned
+     * on the utmost left of the scene. A value of 1 or greater places the viewport on the utmost right of the scene.
+     *
+     * @param horizontalScrollPosition a {@code double} between 0 and 1. A {@code double} below 0 will be handled as 0
+     *                                 and a {@code double} greater that 1 will be treated as 1.
+     */
     public void setHorizontalScrollPosition(final double horizontalScrollPosition) {
         if (scrollPane == null) {
             this.horizontalScrollPosition = horizontalScrollPosition;
@@ -64,6 +71,13 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
         }
     }
 
+    /**
+     * Set the vertical scroll position of the scene. A value of 0 (or smaller) will mean the viewport is positioned
+     * on the top of the scene. A value of 1 or greater places the viewport on the bottom of the scene.
+     *
+     * @param verticalScrollPosition a {@code double} between 0 and 1. A {@code double} below 0 will be handled as 0
+     *                               and a {@code double} greater that 1 will be treated as 1.
+     */
     public void setVerticalScrollPosition(final double verticalScrollPosition) {
         if (scrollPane == null) {
             this.verticalScrollPosition = verticalScrollPosition;
