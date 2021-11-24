@@ -15,9 +15,10 @@
   World Update. Note that this feature breaks the API.
 * Enabled a  `Coordinate2D` to calculate the `angleto(Coordinate2D)` method
   (#215).
-* Added a `ScrollableDynamicScene`. (#57)
+* Added a `ScrollableDynamicScene`(#57) and updated all the mouse listeners to
+  use the coordinates from the full scrollable area.
 
 ## Bugfixes
 
-* Resolved a bug on Windows in which the size of the stage was larger that
-  the viewable area. (#208)
+* Resolved a bug on Windows in which the size of the stage was larger that the
+  viewable area. (#208)
