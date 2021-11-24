@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.scenes;
 
+import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.core.ViewOrders;
@@ -34,8 +35,7 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
     private ScrollPane scrollPane;
     private Pane stickyPane;
 
-    private double horizontalScrollPosition = 0D;
-    private double verticalScrollPosition = 0D;
+    private Coordinate2D scrollPosition = new Coordinate2D();
 
     /**
      * Set the {@link Size} (e.g. the width and height) of the scrollable area of the {@link YaegerScene}. By default,
@@ -64,11 +64,7 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
      *                                 and a {@code double} greater that 1 will be treated as 1.
      */
     public void setHorizontalScrollPosition(final double horizontalScrollPosition) {
-        if (scrollPane == null) {
-            this.horizontalScrollPosition = horizontalScrollPosition;
-        } else {
-            scrollPane.setHvalue(horizontalScrollPosition);
-        }
+        setScrollPosition(new Coordinate2D(horizontalScrollPosition, scrollPosition.getY()));
     }
 
     /**
@@ -79,10 +75,25 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
      *                               and a {@code double} greater that 1 will be treated as 1.
      */
     public void setVerticalScrollPosition(final double verticalScrollPosition) {
-        if (scrollPane == null) {
-            this.verticalScrollPosition = verticalScrollPosition;
-        } else {
-            scrollPane.setVvalue(verticalScrollPosition);
+        setScrollPosition(new Coordinate2D(scrollPosition.getX(), verticalScrollPosition));
+    }
+
+    /**
+     * Set the scroll position of the scene. This {@link Coordinate2D} contains an x and y-value, which should both be a
+     * value between 0 and 1. An  x-value of 0 (or smaller) will mean the viewport is positioned on the utmost left of
+     * the scene. An x-value of 1 or greater places the viewport on the utmost right of the scene.
+     * <p>
+     * A y-value of 0 (or smaller) will mean the viewport is positioned
+     * on the top of the scene. A y-value of 1 or greater places the viewport on the bottom of the scene.
+     *
+     * @param scrollPosition a {@code Coordinate2D} containing the horizontal and vertical scroll positions
+     */
+    public void setScrollPosition(final Coordinate2D scrollPosition) {
+        this.scrollPosition = scrollPosition;
+
+        if (scrollPane != null) {
+            scrollPane.setHvalue(scrollPosition.getX());
+            scrollPane.setVvalue(scrollPosition.getY());
         }
     }
 
@@ -98,7 +109,7 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
      */
     public double getHorizontalScrollPosition() {
         if (scrollPane == null) {
-            return horizontalScrollPosition;
+            return scrollPosition.getX();
         }
         return scrollPane.getHvalue();
     }
@@ -115,7 +126,7 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
      */
     public double getVerticalScrollPosition() {
         if (scrollPane == null) {
-            return verticalScrollPosition;
+            return scrollPosition.getY();
         }
 
         return scrollPane.getVvalue();

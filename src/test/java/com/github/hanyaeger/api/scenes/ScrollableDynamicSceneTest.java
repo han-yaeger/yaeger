@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.scenes;
 
+import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.core.Updater;
 import com.github.hanyaeger.core.ViewOrders;
 import com.github.hanyaeger.core.YaegerConfig;
@@ -64,8 +65,8 @@ class ScrollableDynamicSceneTest {
 
 
     @BeforeAll
-    static void beforAll() {
-        // Ensure that the scrollpane is created from a JavaFX thread
+    static void beforeAll() {
+        // Ensure that the scroll pane is created from a JavaFX thread
         Platform.startup(() -> {
             scrollPane = mock(ScrollPane.class, withSettings());
         });
@@ -124,7 +125,6 @@ class ScrollableDynamicSceneTest {
         sut.setUpdater(updater);
         sut.setStage(stage);
         sut.setConfig(config);
-
 
         sut.init(injector);
     }
@@ -281,6 +281,18 @@ class ScrollableDynamicSceneTest {
     }
 
     @Test
+    void setScrollPositionDelegatesToPane() {
+        // Arrange
+        var expected = new Coordinate2D(0.37, 0.42);
+
+        // Act
+        sut.setScrollPosition(expected);
+
+        // Assert
+        verify(scrollPane).setHvalue(expected.getX());
+        verify(scrollPane).setVvalue(expected.getY());
+    }
+    @Test
     void setHorizontalScrollPositionDelegatesToPane() {
         // Arrange
         var expected = 0.37D;
@@ -293,6 +305,17 @@ class ScrollableDynamicSceneTest {
     }
 
     @Test
+    void getHorizontalScrollPositionDelegatesToPane() {
+        // Arrange
+
+        // Act
+        sut.getHorizontalScrollPosition();
+
+        // Assert
+        verify(scrollPane).getHvalue();
+    }
+
+    @Test
     void setVerticalScrollPositionDelegatesToPane() {
         // Arrange
         var expected = 0.37D;
@@ -302,6 +325,17 @@ class ScrollableDynamicSceneTest {
 
         // Assert
         verify(scrollPane).setVvalue(expected);
+    }
+
+    @Test
+    void getVerticalScrollPositionDelegatesToPane() {
+        // Arrange
+
+        // Act
+        sut.getVerticalScrollPosition();
+
+        // Assert
+        verify(scrollPane).getVvalue();
     }
 
     private static class ScrollableDynamicSceneImpl extends ScrollableDynamicScene {
