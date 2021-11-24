@@ -29,7 +29,9 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Install xvfb to support starting a JavaFX thread during unittesting
-        run: sudo apt-get install xvfb
+        run: |
+          sudo apt-get install xvfb
+          xvfb-run
 
       - name: Build with Maven
         run: mvn package
