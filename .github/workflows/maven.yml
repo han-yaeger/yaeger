@@ -28,13 +28,8 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Install xvfb to support starting a JavaFX thread during unittesting
-        run: |
-          sudo apt-get install xvfb
-          xvfb-run
-
       - name: Build with Maven
-        run: mvn package
+        run:  xvfb-run mvn package
 
       - name: Run Sonar analysis
-        run: mvn -Dsonar.login=${{ secrets.SONAR_LOGIN }} jacoco:prepare-agent install jacoco:report sonar:sonar
+        run: xvfb-run mvn -Dsonar.login=${{ secrets.SONAR_LOGIN }} jacoco:prepare-agent install jacoco:report sonar:sonar
