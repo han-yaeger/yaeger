@@ -2,7 +2,7 @@ name: Java CI
 
 on:
   push:
-    branches: [ development, master]
+    branches: [ development, master ]
     paths-ignore:
       - "docs/**"
   pull_request:
@@ -28,8 +28,13 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
+      - run: sudo apt-get install xvfb
+
       - name: Build with Maven
         run: mvn package
 
       - name: Run Sonar analysis
         run: mvn -Dsonar.login=${{ secrets.SONAR_LOGIN }} jacoco:prepare-agent install jacoco:report sonar:sonar
+
+      - name: Cleanup xvfb pidx
+        uses: bcomnes/cleanup-xvfb@v1
