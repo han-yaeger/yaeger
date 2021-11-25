@@ -68,7 +68,6 @@ class ScrollableDynamicSceneTest extends FxRobot {
     private Updater updater;
     private Stage stage;
 
-
     @BeforeAll
     static void beforeAll() throws TimeoutException {
 
@@ -81,10 +80,7 @@ class ScrollableDynamicSceneTest extends FxRobot {
         }
         registerPrimaryStage();
 
-        // Ensure that the scroll pane is created from a JavaFX thread
-//        Platform.startup(() -> {
-            scrollPane = mock(ScrollPane.class, withSettings());
-//        });
+        scrollPane = mock(ScrollPane.class, withSettings());
     }
 
     @BeforeEach
