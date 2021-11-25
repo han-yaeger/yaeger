@@ -17,6 +17,7 @@
   (#215).
 * Added a `ScrollableDynamicScene`(#57) and updated all the mouse listeners to
   use the coordinates from the full scrollable area.
+* A `Coordinate2D` now exposes all vector-related methods.
 
 ## Bugfixes
 
