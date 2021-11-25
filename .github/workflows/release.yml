@@ -54,5 +54,5 @@ jobs:
         with:
           artifacts: "target/*.jar"
           bodyFile: "release.md"
-          prerelease: true
+          prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}

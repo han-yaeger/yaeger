@@ -582,6 +582,9 @@ class YaegerEntityTest {
         // Act
         var actual = sut.distanceTo(other);
 
+        System.out.println(other.getLocationInScene().getX() + " " + other.getLocationInScene().getY());
+        System.out.println(sut.getLocationInScene().getX() + " " + sut.getLocationInScene().getY());
+        System.out.println(actual);
         // Assert
         assertEquals(actual, expected);
     }
