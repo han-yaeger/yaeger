@@ -28,12 +28,17 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testfx.api.FxRobot;
+
+import java.util.concurrent.TimeoutException;
+
+import static org.testfx.api.FxToolkit.registerPrimaryStage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class ScrollableDynamicSceneTest {
+class ScrollableDynamicSceneTest extends FxRobot {
 
     private ScrollableDynamicSceneImpl sut;
 
@@ -65,11 +70,21 @@ class ScrollableDynamicSceneTest {
 
 
     @BeforeAll
-    static void beforeAll() {
+    static void beforeAll() throws TimeoutException {
+
+        if (Boolean.getBoolean("headless")) {
+            System.setProperty("testfx.robot", "glass");
+            System.setProperty("testfx.headless", "true");
+            System.setProperty("prism.order", "sw");
+            System.setProperty("prism.text", "t2k");
+            System.setProperty("java.awt.headless", "true");
+        }
+        registerPrimaryStage();
+
         // Ensure that the scroll pane is created from a JavaFX thread
-        Platform.startup(() -> {
+//        Platform.startup(() -> {
             scrollPane = mock(ScrollPane.class, withSettings());
-        });
+//        });
     }
 
     @BeforeEach
@@ -292,6 +307,7 @@ class ScrollableDynamicSceneTest {
         verify(scrollPane).setHvalue(expected.getX());
         verify(scrollPane).setVvalue(expected.getY());
     }
+
     @Test
     void setHorizontalScrollPositionDelegatesToPane() {
         // Arrange
