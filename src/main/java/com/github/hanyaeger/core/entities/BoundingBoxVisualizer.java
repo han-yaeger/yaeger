@@ -6,6 +6,7 @@ import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.scenes.YaegerScene;
+import com.github.hanyaeger.core.ViewOrders;
 import com.github.hanyaeger.core.entities.events.EventTypes;
 import com.github.hanyaeger.api.entities.impl.DynamicRectangleEntity;
 import javafx.scene.paint.Color;
@@ -24,7 +25,7 @@ class BoundingBoxVisualizer extends DynamicRectangleEntity implements UpdateExpo
 
     private final YaegerEntity yaegerEntity;
     private static final Color DEFAULT_FILL = Color.TRANSPARENT;
-    private static final Color DEFAULT_STROKE_COLOR = Color.GREEN;
+    static final Color COLLIDABLE_STROKE_COLOR = Color.GREEN;
     private static final double DEFAULT_STROKE_WIDTH = 2;
 
     /**
@@ -37,7 +38,8 @@ class BoundingBoxVisualizer extends DynamicRectangleEntity implements UpdateExpo
         this.yaegerEntity = yaegerEntity;
         setFill(DEFAULT_FILL);
         setStrokeWidth(DEFAULT_STROKE_WIDTH);
-        setStrokeColor(DEFAULT_STROKE_COLOR);
+        setStrokeColor(COLLIDABLE_STROKE_COLOR);
+        setViewOrder(yaegerEntity.getViewOrder() - 1);
         yaegerEntity.attachEventListener(EventTypes.REMOVE, e -> remove());
     }
 

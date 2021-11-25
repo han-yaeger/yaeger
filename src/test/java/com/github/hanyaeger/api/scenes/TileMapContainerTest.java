@@ -4,6 +4,7 @@ import com.github.hanyaeger.core.entities.EntitySupplier;
 import com.github.hanyaeger.core.factories.TileFactory;
 import com.github.hanyaeger.core.exceptions.YaegerEngineException;
 import com.google.inject.Injector;
+import javafx.scene.layout.Pane;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

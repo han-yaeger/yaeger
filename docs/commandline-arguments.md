@@ -1,4 +1,4 @@
-# Command Line Arguments
+§# Command Line Arguments
 
 When run, Yaeger accepts command line arguments. These arguments are primarily
 meant for debugging your Game.
@@ -10,6 +10,7 @@ The following arguments are currently supported:
 | --noSplash | Skip the Splash screen during start up                                                                |
 | --showBB   | Show the BoundingBox of all instances of `YaegerEntity` that implement either `Collider` or `Collided`. |
 | --showDebug | Show a debug window with information about the Scene. More information on the debug window can be found [here](debugging.md).|
+| --enableScroll | Enable the scrolling gesture for all instances of `ScrollableDynamicScene`. This can help during the development process of such a scene. |
 | --help     | Show this help screen with all commandline options |
 
 ## Using command line arguments from an IDE

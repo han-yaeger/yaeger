@@ -3,7 +3,7 @@ package com.github.hanyaeger.core.exceptions;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 
 /**
- * An {@link FailedToInstantiateEntityException} should be thrown if Yaeger failes to instantiate an
+ * A {@link FailedToInstantiateEntityException} should be thrown if Yaeger failes to instantiate an
  * {@link YaegerEntity} through reflection.
  */
 public class FailedToInstantiateEntityException extends RuntimeException {

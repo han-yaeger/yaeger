@@ -1,6 +1,10 @@
 package com.github.hanyaeger.core.entities;
 
+import com.github.hanyaeger.api.Size;
+import com.github.hanyaeger.core.ViewOrders;
 import com.google.inject.Inject;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import com.github.hanyaeger.core.repositories.AudioRepository;
@@ -34,6 +38,8 @@ public class Debugger implements StatisticsObserver {
     private DebugGridPaneFactory debugGridPaneFactory;
     private DebugLabelFactory debugLabelFactory;
 
+    private Scene scene;
+    private Pane pane;
     private GridPane gridpane;
     private Label windowDimensions;
     private Label gameDimensions;
@@ -48,15 +54,17 @@ public class Debugger implements StatisticsObserver {
     private Label audioFiles;
     private Label imageFiles;
 
-
     /**
      * Setup the {@code Debugger} on the given {@link Pane}.
      *
-     * @param pane the {@link Pane} that should be used when creating this {@code Debugger}.
+     * @param pane  the {@link Pane} that should be used when creating this {@code Debugger}
+     * @param scene the {@link Scene} that is encapsulated by the {@link com.github.hanyaeger.api.scenes.YaegerScene}
      */
-    public void setup(final Pane pane) {
+    public void setup(final Pane pane, final Scene scene) {
         createGridPane(pane);
 
+        this.pane = pane;
+        this.scene = scene;
         this.audioRepository = AudioRepository.getInstance();
     }
 
@@ -64,11 +72,11 @@ public class Debugger implements StatisticsObserver {
      * Ensure that the {@link Debugger} is brought to the top of the view stack.
      */
     public void postActivation() {
-        windowDimensions.setText(String.format("%.0f x %.0f", gridpane.getScene().getWindow().getWidth(), gridpane.getScene().getWindow().getHeight()));
-        gameDimensions.setText(String.format("%.0f x %.0f", gridpane.getScene().getWidth(), gridpane.getScene().getHeight()));
-        gridpane.setViewOrder(1);
-        gridpane.toFront();
-
+        windowDimensions.setText(String.format("%.0f x %.0f", scene.getWindow().getWidth(), scene.getWindow().getHeight()));
+        setGameDimensions(new Size(pane.getWidth(), pane.getHeight()));
+        gridpane.setViewOrder(ViewOrders.VIEW_ORDER_DEBUGGER);
+        gridpane.setMaxHeight(200);
+        gridpane.setMaxWidth(220);
     }
 
     /**
@@ -95,6 +103,15 @@ public class Debugger implements StatisticsObserver {
 
         audioFiles.setText(String.valueOf(audioRepository.size()));
         imageFiles.setText(String.valueOf(imageRepository.size()));
+    }
+
+    /**
+     * Set the dimensions of the game, which will be shown by the debugger.
+     *
+     * @param size a {@link Size} than encapsulates the width and height of the game
+     */
+    public void setGameDimensions(final Size size) {
+        gameDimensions.setText(String.format("%.0f x %.0f", size.width(), size.height()));
     }
 
     private void createGridPane(final Pane pane) {

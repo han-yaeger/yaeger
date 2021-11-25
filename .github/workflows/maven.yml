@@ -2,7 +2,7 @@ name: Java CI
 
 on:
   push:
-    branches: [ development, master]
+    branches: [ development, master ]
     paths-ignore:
       - "docs/**"
   pull_request:
@@ -29,7 +29,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Build with Maven
-        run: mvn package
+        run:  xvfb-run mvn package
 
       - name: Run Sonar analysis
-        run: mvn -Dsonar.login=${{ secrets.SONAR_LOGIN }} jacoco:prepare-agent install jacoco:report sonar:sonar
+        run: xvfb-run mvn -Dsonar.login=${{ secrets.SONAR_LOGIN }} jacoco:prepare-agent install jacoco:report sonar:sonar

@@ -30,7 +30,7 @@ public interface MouseDraggedListener extends GameNode, DragRepositoryAccessor {
     void onDropped(final Coordinate2D coordinate2D);
 
     /**
-     * Attach a {@link MouseDraggedListener} to this {@link YaegerEntity} or {@link com.github.hanyaeger.api.scenes.YaegerScene}.
+     * Attach a {@code MouseDraggedListener} to this {@link YaegerEntity} or {@link com.github.hanyaeger.api.scenes.YaegerScene}.
      */
     @OnActivation
     default void attachMouseDraggedListener() {

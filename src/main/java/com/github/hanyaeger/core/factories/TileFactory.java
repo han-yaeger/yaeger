@@ -2,6 +2,7 @@ package com.github.hanyaeger.core.factories;
 
 import com.github.hanyaeger.api.entities.impl.SpriteEntity;
 import com.github.hanyaeger.api.scenes.TileMap;
+import com.github.hanyaeger.core.ViewOrders;
 import com.github.hanyaeger.core.entities.EntityConfiguration;
 import com.github.hanyaeger.core.exceptions.InvalidConstructorException;
 import com.github.hanyaeger.api.Size;
@@ -56,7 +57,7 @@ public class TileFactory {
             ((SpriteEntity) entity).setPreserveAspectRatio(false);
         }
 
-        entity.setViewOrder(YaegerEntity.VIEW_ORDER_DEFAULT_BEHIND);
+        entity.setViewOrder(ViewOrders.VIEW_ORDER_ENTITY_DEFAULT_BEHIND);
 
         return entity;
     }

@@ -3,6 +3,7 @@ package com.github.hanyaeger.api.scenes;
 import com.github.hanyaeger.core.YaegerConfig;
 import com.github.hanyaeger.core.entities.Debugger;
 import com.github.hanyaeger.core.entities.EntitySupplier;
+import com.github.hanyaeger.core.factories.PaneFactory;
 import com.github.hanyaeger.core.repositories.DragNDropRepository;
 import com.github.hanyaeger.core.scenes.delegates.BackgroundDelegate;
 import com.github.hanyaeger.core.scenes.delegates.KeyListenerDelegate;
@@ -44,6 +45,7 @@ class StaticSceneTest {
 
     private EntityCollection entityCollection;
     private EntitySupplier entitySupplier;
+    private PaneFactory paneFactory;
     private Pane pane;
     private Scene scene;
     private Stage stage;
@@ -61,15 +63,18 @@ class StaticSceneTest {
         entitySupplier = mock(EntitySupplier.class);
         sceneFactory = mock(SceneFactory.class);
         entityCollectionFactory = mock(EntityCollectionFactory.class);
+        paneFactory = mock(PaneFactory.class);
         injector = mock(Injector.class);
         stage = mock(Stage.class);
         config = mock(YaegerConfig.class);
+
+        when(paneFactory.createPane()).thenReturn(pane);
 
         sut.setDebugger(debugger);
         sut.setSceneFactory(sceneFactory);
         sut.setEntityCollectionFactory(entityCollectionFactory);
         sut.setDragNDropRepository(dragNDropRepository);
-        sut.setPane(pane);
+        sut.setPaneFactory(paneFactory);
         sut.setBackgroundDelegate(backgroundDelegate);
         sut.setKeyListenerDelegate(keyListenerDelegate);
         sut.setEntitySupplier(entitySupplier);
@@ -80,7 +85,7 @@ class StaticSceneTest {
         entityCollection = mock(EntityCollection.class);
 
         when(sceneFactory.create(pane)).thenReturn(scene);
-        when(entityCollectionFactory.create(pane, config)).thenReturn(entityCollection);
+        when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
 
         sut.init(injector);
     }
@@ -156,6 +161,17 @@ class StaticSceneTest {
         verify(sceneFactory).create(pane);
     }
 
+    @Test
+    void activateSetsPaneOnEntitySupplier() {
+        // Arrange
+
+        // Act
+        sut.activate();
+
+        // Verify
+        verify(entitySupplier).setPane(pane);
+    }
+
 
     @Test
     void activateSetsUpADebuggerIfConfigHasShowDebug() {
@@ -165,8 +181,8 @@ class StaticSceneTest {
         // Act
         sut.activate();
 
-        // Verify
-        verify(debugger).setup(pane);
+        // Assert
+        verify(debugger).setup(pane, scene);
     }
 
 
@@ -178,7 +194,18 @@ class StaticSceneTest {
         sut.activate();
 
         // Verify
-        verify(entityCollectionFactory).create(pane, config);
+        verify(entityCollectionFactory).create(config);
+    }
+
+    @Test
+    void getPaneForDebuggerReturnsThePane() {
+        // Arrange
+
+        // Act
+        var actual = sut.getPaneForDebugger();
+
+        // Assert
+        assertEquals(actual, pane);
     }
 
     @Test
@@ -207,7 +234,7 @@ class StaticSceneTest {
     void activateAddsTheDebuggerAsAStatisticsObserverToTheEntityCollection() {
         // Arrange
         var entityCollection = mock(EntityCollection.class);
-        when(entityCollectionFactory.create(pane, config)).thenReturn(entityCollection);
+        when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
 
         when(config.showDebug()).thenReturn(true);
 
@@ -266,10 +293,12 @@ class StaticSceneTest {
         // Arrange
         final var sut = new StaticSceneKeyListenerImpl();
 
+        when(paneFactory.createPane()).thenReturn(pane);
+
         sut.setDebugger(debugger);
         sut.setSceneFactory(sceneFactory);
         sut.setEntityCollectionFactory(entityCollectionFactory);
-        sut.setPane(pane);
+        sut.setPaneFactory(paneFactory);
         sut.setBackgroundDelegate(backgroundDelegate);
         sut.setKeyListenerDelegate(keyListenerDelegate);
         sut.setEntitySupplier(entitySupplier);
@@ -280,7 +309,7 @@ class StaticSceneTest {
         entityCollection = mock(EntityCollection.class);
 
         when(sceneFactory.create(pane)).thenReturn(scene);
-        when(entityCollectionFactory.create(pane, config)).thenReturn(entityCollection);
+        when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
 
         sut.init(injector);
 

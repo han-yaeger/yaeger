@@ -7,6 +7,7 @@ import com.github.hanyaeger.core.YaegerConfig;
 import com.github.hanyaeger.core.entities.Debugger;
 import com.github.hanyaeger.core.entities.EntityCollection;
 import com.github.hanyaeger.core.entities.EntitySupplier;
+import com.github.hanyaeger.core.factories.PaneFactory;
 import com.github.hanyaeger.core.scenes.delegates.BackgroundDelegate;
 import com.github.hanyaeger.core.scenes.delegates.KeyListenerDelegate;
 import com.github.hanyaeger.core.factories.EntityCollectionFactory;
@@ -36,6 +37,7 @@ class DynamicSceneTest {
     private EntityCollectionFactory entityCollectionFactory;
     private AnimationTimer animationTimer;
     private AnimationTimerFactory animationTimerFactory;
+    private PaneFactory paneFactory;
     private Injector injector;
 
     private KeyListenerDelegate keyListenerDelegate;
@@ -61,14 +63,17 @@ class DynamicSceneTest {
         animationTimer = mock(AnimationTimer.class);
         entityCollectionFactory = mock(EntityCollectionFactory.class);
         animationTimerFactory = mock(AnimationTimerFactory.class);
+        paneFactory = mock(PaneFactory.class);
         injector = mock(Injector.class);
         updater = mock(Updater.class);
         config = mock(YaegerConfig.class);
 
+        when(paneFactory.createPane()).thenReturn(pane);
+
         sut.setDebugger(debugger);
         sut.setSceneFactory(sceneFactory);
         sut.setEntityCollectionFactory(entityCollectionFactory);
-        sut.setPane(pane);
+        sut.setPaneFactory(paneFactory);
         sut.setBackgroundDelegate(backgroundDelegate);
         sut.setKeyListenerDelegate(keyListenerDelegate);
         sut.setEntitySupplier(entitySupplier);
@@ -80,7 +85,7 @@ class DynamicSceneTest {
         entityCollection = mock(EntityCollection.class);
 
         when(sceneFactory.create(pane)).thenReturn(scene);
-        when(entityCollectionFactory.create(pane, config)).thenReturn(entityCollection);
+        when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
         when(animationTimerFactory.create(any())).thenReturn(animationTimer);
 
         sut.init(injector);

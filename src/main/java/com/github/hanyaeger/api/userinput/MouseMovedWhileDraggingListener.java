@@ -2,9 +2,11 @@ package com.github.hanyaeger.api.userinput;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.YaegerEntity;
+import com.github.hanyaeger.api.scenes.ScrollableDynamicScene;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.annotations.OnActivation;
 import com.github.hanyaeger.core.entities.GameNode;
+import javafx.scene.Node;
 
 /**
  * Being a {@link MouseMovedWhileDraggingListener} enables the {@link YaegerEntity} or {@link YaegerScene} to be
@@ -33,11 +35,16 @@ public interface MouseMovedWhileDraggingListener extends GameNode {
         if (this instanceof YaegerEntity) {
             getNode().ifPresent(node -> node.getScene().setOnDragDetected(event -> node.getScene().startFullDrag()));
             getNode().ifPresent(node -> node.getScene().setOnMouseDragOver(event -> onMouseMovedWhileDragging(new Coordinate2D(event.getX(), event.getY()))));
+        } else if (this instanceof ScrollableDynamicScene scrollableDynamicScene) {
+            handleMouseMovedWhileDragging(scrollableDynamicScene.getRootPane());
         } else if (this instanceof YaegerScene) {
-            getNode().ifPresent(node -> node.setOnDragDetected(event -> node.startFullDrag()));
-            getNode().ifPresent(node -> node.setOnMouseDragOver(event ->
-                    onMouseMovedWhileDragging(new Coordinate2D(event.getX(), event.getY()))
-            ));
+            getNode().ifPresent(this::handleMouseMovedWhileDragging);
         }
+    }
+
+
+    private void handleMouseMovedWhileDragging(final Node node) {
+        node.setOnDragDetected(event -> node.startFullDrag());
+        node.setOnMouseDragOver(event -> onMouseMovedWhileDragging(new Coordinate2D(event.getX(), event.getY())));
     }
 }

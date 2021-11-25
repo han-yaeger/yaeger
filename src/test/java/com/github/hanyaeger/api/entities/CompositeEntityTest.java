@@ -6,6 +6,7 @@ import com.github.hanyaeger.core.entities.EntityProcessor;
 import com.google.inject.Injector;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.layout.Pane;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -25,11 +26,13 @@ class CompositeEntityTest {
 
     private CompositeEntityImpl sut;
 
+    private Pane pane;
     private Group group;
 
     @BeforeEach
     void setup() {
         group = mock(Group.class);
+        pane = mock(Pane.class);
 
         sut = new CompositeEntityImpl(DEFAULT_LOCATION);
         sut.setGroup(group);
@@ -126,6 +129,19 @@ class CompositeEntityTest {
             verify(entity1).init(injector);
             verify(entity2).init(injector);
             verify(entity3).init(injector);
+        }
+
+        @Test
+        void setRootPaneDelegatedToChildren(){
+            // Arrange
+
+            // Act
+            sut.setRootPane(pane);
+
+            // Assert
+            verify(entity1).setRootPane(pane);
+            verify(entity2).setRootPane(pane);
+            verify(entity3).setRootPane(pane);
         }
 
         @Test

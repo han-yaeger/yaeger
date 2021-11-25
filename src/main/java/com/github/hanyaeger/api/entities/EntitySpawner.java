@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.entities;
 
+import com.github.hanyaeger.api.EntitySpawnerContainer;
 import com.github.hanyaeger.api.Timer;
 import com.github.hanyaeger.core.entities.EntitySupplier;
 import com.github.hanyaeger.api.scenes.YaegerScene;
@@ -9,6 +10,12 @@ import com.google.inject.Inject;
  * An {@link EntitySpawner} is the abstract superclass that should be extended to create an object that
  * spawns a subclass of {@link YaegerEntity}. After each {@code interval in ms}, set through the constructor, the method
  * {@link #spawnEntities()} is called, which should be implemented in a subclass.
+ * <p>
+ * To add an {@code EntitySpawner} the  {@link YaegerScene} should implement
+ * the interface {@link com.github.hanyaeger.api.EntitySpawnerContainer}, after which the method
+ * {@link EntitySpawnerContainer#setupEntitySpawners()}
+ * should be implemented to add the newly created Entity Spawners through the method
+ * {@link EntitySpawnerContainer#addEntitySpawner(EntitySpawner)}.
  */
 public abstract class EntitySpawner extends Timer {
 

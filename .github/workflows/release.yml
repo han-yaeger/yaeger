@@ -32,7 +32,7 @@ jobs:
           GPG_PRIVATE_KEY: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
 
       - name: Build Project for release
-        run: mvn package -P release -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
+        run: xvfb-run mvn package -P release -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
 
       - name: Set up Apache Maven Central
         uses: actions/setup-java@v1

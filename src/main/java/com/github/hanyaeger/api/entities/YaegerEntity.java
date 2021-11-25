@@ -7,6 +7,7 @@ import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.Initializable;
 import com.github.hanyaeger.api.Timer;
 import com.github.hanyaeger.core.TimerListProvider;
+import com.github.hanyaeger.core.ViewOrders;
 import com.github.hanyaeger.core.YaegerGameObject;
 import com.github.hanyaeger.core.entities.*;
 import com.github.hanyaeger.core.entities.events.EventTypes;
@@ -21,6 +22,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,22 +35,16 @@ import java.util.Optional;
 
 public abstract class YaegerEntity extends YaegerGameObject implements Initializable, TimerListProvider, Bounded, Removable, Placeable, SceneChild, GameNode, Rotatable, EventInitiator, DragRepositoryAccessor {
 
-    /**
-     * The default value for the viewOrder for instances of {@link YaegerEntity} that are
-     * part of a {@link com.github.hanyaeger.api.scenes.TileMap}.
-     */
-    public static final double VIEW_ORDER_DEFAULT_BEHIND = 100D;
-
-    static final double VIEW_ORDER_DEFAULT = 37D;
     static final boolean DEFAULT_VISIBILITY = true;
     static final double DEFAULT_OPACITY = 1;
 
     private Coordinate2D anchorLocation;
     private AnchorPoint anchorPoint;
+    private Pane rootPane;
 
     private boolean visible = DEFAULT_VISIBILITY;
     private double opacity = DEFAULT_OPACITY;
-    private double viewOrder = VIEW_ORDER_DEFAULT;
+    private double viewOrder = ViewOrders.VIEW_ORDER_ENTITY_DEFAULT;
 
     private Optional<Cursor> cursor = Optional.empty();
     private final List<Timer> timers = new ArrayList<>();
@@ -217,19 +213,7 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
      * @throws NullPointerException if the specified {@code otherLocation} is null
      */
     public double angleTo(final Coordinate2D otherLocation) {
-
-        if (getLocationInScene().equals(otherLocation)) {
-            return 0D;
-        }
-
-        final var delta = otherLocation.subtract(getLocationInScene());
-        final var normalizedDelta = delta.normalize();
-        var angle = new Point2D(0, 1).angle(normalizedDelta);
-
-        if (delta.getX() < 0) {
-            angle = 360 - angle;
-        }
-        return angle;
+        return getLocationInScene().angleTo(otherLocation);
     }
 
     /**
@@ -400,7 +384,7 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
      * of this {@link YaegerEntity} within the {@link YaegerScene}. The lower the viewOrder, the closer
      * the {@link YaegerEntity} is to the front of the {@link YaegerScene}.
      * <p>
-     * By default a {@link YaegerEntity} will receive the viewOrder of {@link #VIEW_ORDER_DEFAULT}.
+     * By default a {@link YaegerEntity} will receive the viewOrder of {@link ViewOrders#VIEW_ORDER_ENTITY_DEFAULT}.
      * A {@link YaegerEntity} that is part of an {@link com.github.hanyaeger.api.scenes.TileMap} will default
      * to the value 100 to ensure it is placed behind other Entities.
      *
@@ -416,7 +400,7 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
      * of this {@link YaegerEntity} within the {@link YaegerScene}. The lower the viewOrder, the closer
      * the {@link YaegerEntity} is to the front of the {@link YaegerScene}.
      * <p>
-     * By default a {@link YaegerEntity} will receive the viewOrder of {@link #VIEW_ORDER_DEFAULT}.
+     * By default a {@link YaegerEntity} will receive the viewOrder of {@link ViewOrders#VIEW_ORDER_ENTITY_DEFAULT}.
      * A {@link YaegerEntity} that is part of an {@link com.github.hanyaeger.api.scenes.TileMap} will default
      * to the value 100 to ensure it is placed behind other Entities.
      *
@@ -454,6 +438,24 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
     }
 
     /**
+     * Return the root pane to which this {@link YaegerEntity} is added.
+     *
+     * @return the root pane, which is an instance of {@link Pane}
+     */
+    public Pane getRootPane() {
+        return rootPane;
+    }
+
+    /**
+     * Set the root pane to which this {@link YaegerEntity} is added.
+     *
+     * @param rootPane the root pane, which is an instance of {@link Pane}
+     */
+    public void setRootPane(final Pane rootPane) {
+        this.rootPane = rootPane;
+    }
+
+    /**
      * Set the {@link DragNDropRepository} to be used.
      *
      * @param dragNDropRepository the {@link DragNDropRepository} to be used
@@ -461,5 +463,21 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
     @Inject
     public void setDragNDropRepository(final DragNDropRepository dragNDropRepository) {
         this.dragNDropRepository = dragNDropRepository;
+    }
+
+    @Override
+    public double getSceneWidth() {
+        if (getRootPane() == null) {
+            return 0;
+        }
+        return getRootPane().getWidth();
+    }
+
+    @Override
+    public double getSceneHeight() {
+        if (getRootPane() == null) {
+            return 0;
+        }
+        return getRootPane().getHeight();
     }
 }

@@ -2,6 +2,7 @@ package com.github.hanyaeger.core.entities;
 
 import com.github.hanyaeger.core.Clearable;
 import com.github.hanyaeger.api.entities.YaegerEntity;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,12 @@ import java.util.List;
  * cleared.
  */
 public class EntitySupplier extends ArrayList<YaegerEntity> implements Clearable {
+
+    /**
+     * The {@link Pane} that should be used when adding all instances of {@link YaegerEntity} that were part
+     * of this {@link EntitySupplier}.
+     */
+    private Pane pane;
 
     /**
      * Return a {@link List} of instances of {@link YaegerEntity}. After this method is called,
@@ -37,5 +44,25 @@ public class EntitySupplier extends ArrayList<YaegerEntity> implements Clearable
     @Override
     public int hashCode() {
         return super.hashCode();
+    }
+
+    /**
+     * Get the {@link Pane} on which each {@link javafx.scene.Node} that is part of the
+     * {@link YaegerEntity}, should be added.
+     *
+     * @return an instance of {@link Pane}
+     */
+    public Pane getPane() {
+        return pane;
+    }
+
+    /**
+     * Set the {@link Pane} on which each {@link javafx.scene.Node} that is part of the
+     * {@link YaegerEntity}, should be added.
+     *
+     * @param pane an instance of {@link Pane}
+     */
+    public void setPane(final Pane pane) {
+        this.pane = pane;
     }
 }

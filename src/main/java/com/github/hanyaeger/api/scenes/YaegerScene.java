@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.scenes;
 
+import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.core.YaegerConfig;
 import com.github.hanyaeger.core.*;
 import com.github.hanyaeger.core.entities.DragRepositoryAccessor;
@@ -16,7 +17,7 @@ import javafx.stage.Stage;
 public interface YaegerScene extends GameNode, DimensionsProvider, Destroyable, Initializable, Activatable, Clearable, Effectable, DragRepositoryAccessor {
 
     /**
-     * Setup the {@code YaegerScene}. Use this method to setup all properties of the {@code YaegerScene}. The
+     * Set up the {@code YaegerScene}. Use this method to set up all properties of the {@code YaegerScene}. The
      * following methods are available:
      *
      * <ul>
@@ -25,6 +26,12 @@ public interface YaegerScene extends GameNode, DimensionsProvider, Destroyable, 
      *     <li>{@link #setBackgroundAudio(String)}</li>
      *     <li>{@link #setBackgroundAudioVolume(double)}</li>
      *     <li>{@link #getBackgroundAudioVolume()}</li>
+     * </ul>
+     * 
+     * If a {@link ScrollableDynamicScene} is used, the following methods are also available:
+     * 
+     * <ul>
+     *     <li>{@link ScrollableDynamicScene#setSize(Size)}</li>
      * </ul>
      */
     void setupScene();
