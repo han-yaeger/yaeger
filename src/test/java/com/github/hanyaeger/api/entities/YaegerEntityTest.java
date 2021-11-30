@@ -41,6 +41,7 @@ class YaegerEntityTest {
 
     private YaegerEntityImpl sut;
     private Node node;
+    private Node otherNode;
     private Injector injector;
     private Scene scene;
     private Pane pane;
@@ -50,6 +51,8 @@ class YaegerEntityTest {
         sut = new YaegerEntityImpl(LOCATION);
         injector = mock(Injector.class);
         node = mock(Node.class, withSettings().withoutAnnotations());
+        otherNode = mock(Node.class, withSettings().withoutAnnotations());
+
         sut.setNode(Optional.of(node));
         scene = mock(Scene.class);
         pane = mock(Pane.class);
@@ -574,22 +577,6 @@ class YaegerEntityTest {
     }
 
     @Test
-    void distanceToOtherOnSameLocationReturns0() {
-        // Arrange
-        var other = new YaegerEntityImpl(LOCATION);
-        var expected = 0d;
-
-        // Act
-        var actual = sut.distanceTo(other);
-
-        System.out.println(other.getLocationInScene().getX() + " " + other.getLocationInScene().getY());
-        System.out.println(sut.getLocationInScene().getX() + " " + sut.getLocationInScene().getY());
-        System.out.println(actual);
-        // Assert
-        assertEquals(actual, expected);
-    }
-
-    @Test
     void verticalDistanceToCoordinate2DIsCorrect() {
         // Arrange
         var expected = 9d;
@@ -624,13 +611,16 @@ class YaegerEntityTest {
     void verticalDistanceToEntityIsCorrect() {
         // Arrange
         var expected = 9d;
-        var other = new YaegerEntityImpl(new Coordinate2D(LOCATION.getX(), LOCATION.getY() + expected));
+        var other = new YaegerEntityImpl(new Coordinate2D(LOCATION.getX() + expected, LOCATION.getY() + expected));
         var otherNode = mock(Node.class, withSettings().withoutAnnotations());
         other.setNode(Optional.of(otherNode));
         var otherBoundingBox = mock(BoundingBox.class);
+        when(otherNode.localToScene(otherBoundingBox, true)).thenReturn(otherBoundingBox);
         when(otherNode.getBoundsInLocal()).thenReturn(otherBoundingBox);
         when(otherBoundingBox.getWidth()).thenReturn(ENTITY_WIDTH);
         when(otherBoundingBox.getHeight()).thenReturn(ENTITY_HEIGHT);
+        when(otherBoundingBox.getMinX()).thenReturn(LOCATION.getX());
+        when(otherBoundingBox.getMinY()).thenReturn(LOCATION.getY() + expected);
         when(otherNode.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
 
@@ -644,7 +634,7 @@ class YaegerEntityTest {
         var actual = sut.distanceTo(other);
 
         // Assert
-        assertEquals(actual, expected);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -655,9 +645,12 @@ class YaegerEntityTest {
         var otherNode = mock(Node.class, withSettings().withoutAnnotations());
         other.setNode(Optional.of(otherNode));
         var otherBoundingBox = mock(BoundingBox.class);
+        when(otherNode.localToScene(otherBoundingBox, true)).thenReturn(otherBoundingBox);
         when(otherNode.getBoundsInLocal()).thenReturn(otherBoundingBox);
         when(otherBoundingBox.getWidth()).thenReturn(ENTITY_WIDTH);
         when(otherBoundingBox.getHeight()).thenReturn(ENTITY_HEIGHT);
+        when(otherBoundingBox.getMinX()).thenReturn(LOCATION.getX() + expected);
+        when(otherBoundingBox.getMinY()).thenReturn(LOCATION.getY());
         when(otherNode.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
 
@@ -671,7 +664,7 @@ class YaegerEntityTest {
         var actual = sut.distanceTo(other);
 
         // Assert
-        assertEquals(actual, expected);
+        assertEquals(expected, actual);
     }
 
     @Test

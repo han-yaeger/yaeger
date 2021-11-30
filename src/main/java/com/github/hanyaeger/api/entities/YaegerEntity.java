@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * A {@link YaegerEntity} is the base class for all things that can be drawn on a
+ * A {@code YaegerEntity} is the base class for all things that can be drawn on a
  * {@link YaegerScene}.
  */
 
@@ -54,7 +54,7 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
     private DragNDropRepository dragNDropRepository;
 
     /**
-     * Create a new {@link YaegerEntity} on the given {@link Coordinate2D}.
+     * Create a new {@code YaegerEntity} on the given {@link Coordinate2D}.
      *
      * @param initialLocation the initial {@link Coordinate2D} of this {@link YaegerEntity}
      */
@@ -158,7 +158,12 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
      * @return the distance as a {@code double}
      */
     public double distanceTo(final Coordinate2D location) {
-        return getLocationInScene().distance(new Point2D(location.getX(), location.getY()));
+        if (location == null) {
+            throw new NullPointerException("Cannot calculate distance a coordinate that is null.");
+        }
+        var locationInScene = getLocationInScene();
+        var distance = locationInScene.distance(location);
+        return distance;
     }
 
     /**
