@@ -1,5 +1,6 @@
 package com.github.hanyaeger.core.factories.animationtimer;
 
+import com.github.hanyaeger.core.YaegerAnimationTimer;
 import com.google.inject.Singleton;
 import javafx.animation.AnimationTimer;
 
@@ -18,10 +19,9 @@ public class AnimationTimerFactory {
      */
     public AnimationTimer create(final AnimationTimerHandler handler) {
         return
-                new AnimationTimer() {
+                new YaegerAnimationTimer() {
                     @Override
-                    public void handle(long arg0) {
-
+                    public void handleOn60fps(long arg0) {
                         handler.handle(arg0);
                     }
                 };
