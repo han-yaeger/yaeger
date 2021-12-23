@@ -113,7 +113,7 @@ public abstract class DynamicScene extends StaticScene implements UpdateDelegato
     }
 
     private void createGameLoop() {
-        animator = this.animationTimerFactory.create(this::update);
+        animator = this.animationTimerFactory.create(this::update, config.limitGWU());
     }
 
     @Override

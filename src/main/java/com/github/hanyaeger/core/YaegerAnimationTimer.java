@@ -12,19 +12,25 @@ public abstract class YaegerAnimationTimer extends AnimationTimer {
 
     private static final long MIN_INTERVAL = 16_667_000;
     private long prevTime = 0;
+    private boolean limitGWU;
+
+    public YaegerAnimationTimer(final boolean limitGWU) {
+        this.limitGWU = limitGWU;
+    }
 
     @Override
     public void handle(final long now) {
 
-        if (prevTime == 0) {
+        if (limitGWU) {
+            if (prevTime == 0) {
+                prevTime = now;
+            }
+            if ((now - prevTime) < MIN_INTERVAL) {
+                return;
+            }
+
             prevTime = now;
         }
-
-        if ((now - prevTime) < MIN_INTERVAL) {
-            return;
-        }
-
-        prevTime = now;
 
         handleOn60fps(now);
     }
