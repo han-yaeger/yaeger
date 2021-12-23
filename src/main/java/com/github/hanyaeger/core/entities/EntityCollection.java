@@ -168,7 +168,7 @@ public class EntityCollection implements Initializable {
 
         addSuppliedEntities();
         updateStatistics();
-        notifyStatisticsObservers();
+        notifyStatisticsObservers(timestamp);
     }
 
     /**
@@ -240,8 +240,8 @@ public class EntityCollection implements Initializable {
         suppliers.clear();
     }
 
-    private void notifyStatisticsObservers() {
-        statisticsObservers.forEach(statisticsObserver -> statisticsObserver.update(statistics));
+    private void notifyStatisticsObservers(final long timestamp) {
+        statisticsObservers.forEach(statisticsObserver -> statisticsObserver.update(statistics, timestamp));
     }
 
     private void collectGarbage() {

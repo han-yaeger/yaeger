@@ -24,6 +24,7 @@ public class Debugger implements StatisticsObserver {
     private static final String MEMORY_USED = "Total used memory:";
     private static final String WINDOW_DIMENSIONS = "Window dimensions:";
     private static final String GAME_DIMENSIONS = "Game dimensions:";
+    private static final String FPS = "Frames per second:";
     private static final String ENTITIES_DYNAMIC = "Dynamic Entities:";
     private static final String ENTITIES_STATIC = "Static Entities:";
     private static final String SUPPLIERS = "Suppliers:";
@@ -43,6 +44,7 @@ public class Debugger implements StatisticsObserver {
     private GridPane gridpane;
     private Label windowDimensions;
     private Label gameDimensions;
+    private Label fps;
     private Label dynamicEntities;
     private Label staticEntities;
     private Label entitySpawners;
@@ -53,6 +55,10 @@ public class Debugger implements StatisticsObserver {
 
     private Label audioFiles;
     private Label imageFiles;
+
+    private long lastFPSUpdateNanos = 0L;
+    private long fpsBuffer2sec = 0;
+    private int lastFps = 60;
 
     /**
      * Setup the {@code Debugger} on the given {@link Pane}.
@@ -87,11 +93,12 @@ public class Debugger implements StatisticsObserver {
      *                                   {@link EntityCollection}
      */
     @Override
-    public void update(final EntityCollectionStatistics entityCollectionStatistics) {
+    public void update(final EntityCollectionStatistics entityCollectionStatistics, final long timestamp) {
         if (!gridpane.isVisible()) {
             return;
         }
 
+        fps.setText(String.valueOf(calculateFPS(timestamp)));
         dynamicEntities.setText(String.valueOf(entityCollectionStatistics.getUpdatables()));
         staticEntities.setText(String.valueOf(entityCollectionStatistics.getStatics()));
         keyListeningEntities.setText(String.valueOf(entityCollectionStatistics.getKeyListeners()));
@@ -137,6 +144,8 @@ public class Debugger implements StatisticsObserver {
 
         windowDimensions = addDebugLine(WINDOW_DIMENSIONS);
         gameDimensions = addDebugLine(GAME_DIMENSIONS);
+
+        fps = addDebugLine(FPS);
     }
 
     private void addEntityStatistics() {
@@ -171,6 +180,22 @@ public class Debugger implements StatisticsObserver {
 
     private String getUsedMemory() {
         return String.valueOf(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory());
+    }
+
+    private int calculateFPS(final long timestamp) {
+        if (lastFPSUpdateNanos == 0L) {
+            lastFPSUpdateNanos = timestamp;
+        }
+
+        fpsBuffer2sec++;
+
+        if (timestamp - lastFPSUpdateNanos >= 2_000_000_000) {
+            lastFPSUpdateNanos = timestamp;
+            lastFps = (int) fpsBuffer2sec / 2;
+            fpsBuffer2sec = 0;
+        }
+
+        return lastFps;
     }
 
     /**

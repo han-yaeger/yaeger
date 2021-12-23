@@ -86,7 +86,7 @@ class DynamicSceneTest {
 
         when(sceneFactory.create(pane)).thenReturn(scene);
         when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
-        when(animationTimerFactory.create(any())).thenReturn(animationTimer);
+        when(animationTimerFactory.create(any(), eq(false))).thenReturn(animationTimer);
 
         sut.init(injector);
     }

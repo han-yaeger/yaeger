@@ -3,8 +3,8 @@ package com.github.hanyaeger.core.factories.animationtimer;
 import javafx.animation.AnimationTimer;
 
 /**
- * An {@link AnimationTimer} that calls its {@code handle()} method on the given interval, and not the default 60 times
- * per second.
+ * An {@code AnimationTimer} that calls its {@code handle()} method on the given interval, and not the default
+ * on each frame.
  */
 public abstract class TimeableAnimationTimer extends AnimationTimer {
 

@@ -113,7 +113,7 @@ class ScrollableDynamicSceneTest extends FxRobot {
 
         when(sceneFactory.create(defaultPane)).thenReturn(scene);
         when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
-        when(animationTimerFactory.create(any())).thenReturn(animationTimer);
+        when(animationTimerFactory.create(any(), eq(false))).thenReturn(animationTimer);
 
         when(paneFactory.createPane()).thenReturn(defaultPane, stickyPane);
         when(paneFactory.createScrollPane()).thenReturn(scrollPane);
