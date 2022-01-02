@@ -14,6 +14,12 @@ public abstract class YaegerAnimationTimer extends AnimationTimer {
     private long prevTime = 0;
     private boolean limitGWU;
 
+    /**
+     * Create a new {@code YaegerAnimationTimer}, which adds the option of maximizing the timing interval
+     * to 60 times per second, as opposed to the default {@link AnimationTimer}.
+     *
+     * @param limitGWU a boolean that indicates if the timing interval should be limited
+     */
     public YaegerAnimationTimer(final boolean limitGWU) {
         this.limitGWU = limitGWU;
     }
