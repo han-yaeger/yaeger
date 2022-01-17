@@ -17,7 +17,7 @@ class YaegerCommandLineParserTest {
     void emptyArgumentsReturnsDefaultConfig() {
         // Arrange
         var sut = new YaegerCommandLineParser();
-        var expected = new YaegerConfig(true, false, false, false);
+        var expected = new YaegerConfig(true, false, false, false, false);
 
         // Act
         var actual = sut.parseToConfig(new ArrayList<>());
@@ -76,6 +76,19 @@ class YaegerCommandLineParserTest {
 
         // Assert
         assertTrue(actual.enableScroll());
+    }
+
+    @Test
+    void limitGWUReturnsCorrectConfig() {
+        // Arrange
+        var sut = new YaegerCommandLineParser();
+        var limitGWUArgs = Collections.singletonList("--limitGWU");
+
+        // Act
+        var actual = sut.parseToConfig(limitGWUArgs);
+
+        // Assert
+        assertTrue(actual.limitGWU());
     }
 
     @Test

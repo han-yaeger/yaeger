@@ -19,8 +19,15 @@
 * Added a `ScrollableDynamicScene`(#57) and updated all the mouse listeners to
   use the coordinates from the full scrollable area.
 * A `Coordinate2D` now exposes all vector-related methods.
+* The debugger now also lists the frames per second. This value is
+  calculated as the average number of frames (#224) during two seconds
+  (divided by 2)
 
 ## Bugfixes
 
 * Resolved a bug on Windows in which the size of the stage was larger that the
   viewable area. (#208)
+* Restricted the Game World Update to a max of 60 fps. (#211). The Game
+  World Update is triggered on each screen refresh, which defaults to 60fps.
+  On systems with a higher refresh are, this value is no limited to a max of
+  60fps to ensure games run at about the same speed.
