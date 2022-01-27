@@ -2,14 +2,12 @@
 
 ## Configuration
 
-* Updated Mockito to 3.11.2
-* Updated jUnit to 5.7.2
+* Updated Guice to 5.1.0
 
 ## Refactor
-
-* Moved the implementations of all entities from their own package to the
-  package `com.github.hanyaeger.api.entities.impl`.
 
 ## Features
 
 ## Bugfixes
+
+* Resolved #227, which prevented Yaeger to support JDK 17.
