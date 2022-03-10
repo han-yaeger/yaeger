@@ -51,7 +51,6 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
     private final List<TileMap> tileMaps = new ArrayList<>();
 
-    private Stage debuggerStage;
     private Stage stage;
     Scene scene;
     Pane pane;
@@ -79,14 +78,7 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
         if (config.showDebug()) {
             entityCollection.addStatisticsObserver(debugger);
-            debuggerStage = new Stage();
-            debuggerStage.setTitle("Yaeger Debugger");
-            var debuggerPane = new Pane();
-            var scene = new Scene(debuggerPane);
-            debuggerStage.setScene(scene);
-            // TODO encapsulate the debugger in a better way
-            debugger.setup(debuggerPane, getScene());
-            debuggerStage.show();
+            debugger.setup(pane, getScene());
         }
 
         keyListenerDelegate.setup(scene, this::onInputChanged);
@@ -126,7 +118,6 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
         //
         if (config.showDebug()) {
             debugger.postActivation();
-            debuggerStage.toFront();
         }
         activationComplete = true;
     }
@@ -222,9 +213,6 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
     @Override
     public void destroy() {
-        if (debuggerStage != null){
-            debuggerStage.close();
-        }
         keyListenerDelegate.tearDown(scene);
         backgroundDelegate.destroy();
         clear();
