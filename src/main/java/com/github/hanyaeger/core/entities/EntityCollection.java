@@ -232,7 +232,10 @@ public class EntityCollection implements Initializable {
     }
 
     private void clearSuppliers() {
-        suppliers.forEach(EntitySupplier::clear);
+        for (var supplier : suppliers) {
+            supplier.clear();
+        }
+
         if (config.showBoundingBox()) {
             boundingBoxVisualizersMap.values().forEach(ArrayList::clear);
         }
@@ -249,7 +252,10 @@ public class EntityCollection implements Initializable {
             return;
         }
 
-        garbage.forEach(this::removeGameObject);
+        for (var entity : garbage){
+            removeGameObject(entity);
+        }
+
         statics.removeAll(garbage);
         updatables.removeAll(garbage);
         if (config.showBoundingBox()) {
