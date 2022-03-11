@@ -4,7 +4,7 @@
 
 * Updated Mockito to 4.0.0
 * Updated jUnit to 5.8.1
-* Updated JavaFX to 17.0.1
+* Updated JavaFX to 17.0.2
 
 ## Refactor
 
@@ -29,5 +29,5 @@
   viewable area. (#208)
 * Restricted the Game World Update to a max of 60 fps. (#211). The Game
   World Update is triggered on each screen refresh, which defaults to 60fps.
-  On systems with a higher refresh are, this value is no limited to a max of
+  On systems with a higher refresh rate, this value is now limited to a max of
   60fps to ensure games run at about the same speed.
