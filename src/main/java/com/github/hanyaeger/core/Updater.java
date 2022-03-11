@@ -41,7 +41,9 @@ public class Updater implements Updatable, Clearable {
     @Override
     public void update(final long timestamp) {
         if (!clearUpdatables) {
-            updatables.forEach(updatable -> updatable.update(timestamp));
+            for (var updatable : updatables) {
+                updatable.update(timestamp);
+            }
         } else {
             updatables.clear();
         }
