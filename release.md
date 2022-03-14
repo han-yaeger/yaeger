@@ -8,6 +8,9 @@
 
 ## Refactor
 
+* Switched all usages of the Stream-API for-each for the traditional version.
+  Measurements have shown that this might improve speed.
+
 ## Features
 
 * Allowed `Collideds` to support multi collisions (#209). A `YaegerEntity`
