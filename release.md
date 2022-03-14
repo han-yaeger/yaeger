@@ -9,7 +9,7 @@
 ## Refactor
 
 * Switched all usages of the Stream-API for-each for the traditional version.
-  Measurements have shown that this might improve speed.
+  Measurements have shown that this might improve speed (#233).
 
 ## Features
 
