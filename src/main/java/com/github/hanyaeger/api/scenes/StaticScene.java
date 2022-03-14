@@ -1,9 +1,6 @@
 package com.github.hanyaeger.api.scenes;
 
-import com.github.hanyaeger.core.DependencyInjector;
-import com.github.hanyaeger.core.RootPaneProvider;
-import com.github.hanyaeger.core.YaegerConfig;
-import com.github.hanyaeger.core.YaegerGameObject;
+import com.github.hanyaeger.core.*;
 import com.github.hanyaeger.core.entities.Debugger;
 import com.github.hanyaeger.core.factories.PaneFactory;
 import com.github.hanyaeger.core.repositories.DragNDropRepository;
