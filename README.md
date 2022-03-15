@@ -28,7 +28,7 @@ Repository.
 <dependency>
   <groupId>com.github.han-yaeger</groupId>
   <artifactId>yaeger</artifactId>
-  <version>2021.2022.2</version>
+  <version>2021.2022.3</version>
 </dependency>
 ```
 
