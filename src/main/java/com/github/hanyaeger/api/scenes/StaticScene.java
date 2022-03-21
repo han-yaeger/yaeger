@@ -93,8 +93,9 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
     /**
      * Return the {@link Pane} that should be used for attaching the {@link Debugger}. Depending on the actual type
      * of {@link YaegerScene} being used, a different {@link Pane} should be used for attaching the {@link Debugger}.
-     *
+     * <p>
      *  TODO remove this one
+     *
      * @return The default {@link Pane}
      */
     Pane getPaneForDebugger() {
@@ -120,7 +121,10 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
     }
 
     /**
-     * Add an {@link YaegerEntity} to this {@link YaegerScene}.
+     * Add an {@link YaegerEntity} to this {@link YaegerScene}. This method will primarily be used
+     * from the {@link #setupEntities()} method, but can also be used to add Entities while the game
+     * is running. When the entities should be added at a regular interval, the preferred approach will
+     * be to use an {@link com.github.hanyaeger.api.entities.EntitySpawner}.
      *
      * @param yaegerEntity the {@link YaegerEntity} to be added
      */
