@@ -103,11 +103,10 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     }
 
     /**
-     * Add an {@link YaegerEntity} to this {@link YaegerScene}.
-     * <p>
-     * This method can only be used to add an instance of {@link YaegerEntity} during initialisation.If
-     * one should be added during the game, a {@link EntitySpawner} should be used.
-     * </p>
+     * Add an {@link YaegerEntity} to this {@link YaegerScene}. This method will primarily be used
+     * from the {@link #setupEntities()} method, but can also be used to add Entities while the game
+     * is running. When the entities should be added at a regular interval, the preferred approach will
+     * be to use an {@link com.github.hanyaeger.api.entities.EntitySpawner}.
      *
      * @param yaegerEntity the {@link YaegerEntity} to be added
      */
