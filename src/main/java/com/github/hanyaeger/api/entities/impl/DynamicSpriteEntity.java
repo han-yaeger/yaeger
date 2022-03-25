@@ -85,7 +85,9 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      * @param interval the interval in milli-seconds
      */
     protected void setAutoCycle(final long interval) {
-        setAutoCycle(interval, -1);
+        spriteAnimationDelegate.ifPresentOrElse(delegate -> delegate.setAutoCycleInterval(interval), () -> {
+            this.autoCycleInterval = interval;
+        });
     }
 
     /**

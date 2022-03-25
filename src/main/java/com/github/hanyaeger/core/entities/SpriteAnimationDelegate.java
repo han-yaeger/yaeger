@@ -22,6 +22,7 @@ public class SpriteAnimationDelegate implements Updatable {
     private final ImageView imageView;
     private final List<Rectangle2D> viewports = new ArrayList<>();
     private int currentIndex = 0;
+
     private int cyclingRow = -1;
 
     private static final String INVALID_ROW_EXCEPTION = "Cannot auto-cycle through row %d because" +
@@ -86,8 +87,20 @@ public class SpriteAnimationDelegate implements Updatable {
      */
     public void setAutoCycle(final long interval, final int row) {
         setAutoCycleRow(row);
-        this.autoCycleInterval = interval * MILLI_TO_NANO_FACTOR;
+        setAutoCycleInterval(interval);
         applyNewCurrentIndex(row);
+    }
+
+    /**
+     * set the interval at which the sprite should be automatically cycled.
+     * The row will remain the same. To set the row that needs to be cycled,
+     * use the method {@link #setAutoCycleRow(int)}, or {@link #setAutoCycle(long, int)}
+     * to set them both at once.
+     *
+     * @param interval the interval in milli-seconds
+     */
+    public void setAutoCycleInterval(final long interval) {
+        this.autoCycleInterval = interval * MILLI_TO_NANO_FACTOR;
     }
 
     /**
@@ -105,8 +118,18 @@ public class SpriteAnimationDelegate implements Updatable {
         applyNewCurrentIndex(row);
     }
 
+    /**
+     * Return the row that is currently set as the only row to cycle through. If
+     * a value of -1 is returned, all rows are cycked through.
+     *
+     * @return the cycling row
+     */
+    public int getCyclingRow() {
+        return cyclingRow;
+    }
+
     private void applyNewCurrentIndex(final int row) {
-        if (row != -1) {
+        if (row != -1 && row != cyclingRow) {
             currentIndex = cyclingRow * columns;
         }
     }
@@ -145,4 +168,6 @@ public class SpriteAnimationDelegate implements Updatable {
     private double getFrameHeight() {
         return imageView.getImage().getHeight() / rows;
     }
+
+
 }

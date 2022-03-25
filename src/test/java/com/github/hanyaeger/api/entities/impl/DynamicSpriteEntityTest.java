@@ -350,13 +350,13 @@ class DynamicSpriteEntityTest {
         @Test
         void autoCycleGetsDelegatedToSpriteAnimationDelegate() {
             // Arrange
-            sut.setAutoCycle(2);
-
-            // Act
             sut.init(injector);
 
+            // Act
+            sut.setAutoCycle(2);
+
             // Assert
-            verify(spriteAnimationDelegate).setAutoCycle(2, -1);
+            verify(spriteAnimationDelegate).setAutoCycleInterval(2);
         }
 
         @Test
