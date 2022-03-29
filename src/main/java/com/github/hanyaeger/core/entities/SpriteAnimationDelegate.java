@@ -86,9 +86,10 @@ public class SpriteAnimationDelegate implements Updatable {
      * @param row      the row to cycle through (zero-indexed)
      */
     public void setAutoCycle(final long interval, final int row) {
-        setAutoCycleRow(row);
         setAutoCycleInterval(interval);
-        applyNewCurrentIndex(row);
+        setAutoCycleRow(row);
+
+//        applyNewCurrentIndex(row);
     }
 
     /**
@@ -113,7 +114,6 @@ public class SpriteAnimationDelegate implements Updatable {
             final var message = String.format(INVALID_ROW_EXCEPTION, row, rows);
             throw new IllegalArgumentException(message);
         }
-        this.cyclingRow = row;
 
         applyNewCurrentIndex(row);
     }
@@ -129,7 +129,10 @@ public class SpriteAnimationDelegate implements Updatable {
     }
 
     private void applyNewCurrentIndex(final int row) {
-        if (row != -1 && row != cyclingRow) {
+        if (cyclingRow == -1 && row == 0) {
+            this.cyclingRow = row;
+        } else if (row != -1 && row != cyclingRow) {
+            this.cyclingRow = row;
             currentIndex = cyclingRow * columns;
         }
     }
@@ -168,6 +171,4 @@ public class SpriteAnimationDelegate implements Updatable {
     private double getFrameHeight() {
         return imageView.getImage().getHeight() / rows;
     }
-
-
 }
