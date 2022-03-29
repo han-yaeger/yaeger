@@ -149,7 +149,7 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
     }
 
     @Test
-    void autoCycleContinuesOnCurrentRows() {
+    void autoCycleContinuesOnCurrentRow() {
         // Arrange
         sut.setFrameIndex(4);
 
