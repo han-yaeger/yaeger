@@ -23,8 +23,8 @@ import java.util.*;
  * a {@link YaegerScene}. It is a convenience way to let Yaeger calculate the location and size of each of the entities,
  * and place them on the scene.
  * <p>
- * By default a {@link TileMap} will assume the full width of the {@link YaegerScene} must be used for placing the
- * tiles. It will require a two dimensional array that represents the scene and sets which entity should be where, and
+ * By default, a {@link TileMap} will assume the full width of the {@link YaegerScene} must be used for placing the
+ * tiles. It will require a two-dimensional array that represents the scene and sets which entity should be where, and
  * a list of the actual entities. Of these the classes are required, since the {@code TileMap} itself will create the
  * instances. It will use the two-dimensional array to calculate the location and size of each entity.
  */
@@ -39,7 +39,6 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
 
     final transient Optional<Coordinate2D> location;
     transient Optional<Size> size = Optional.empty();
-
 
     /**
      * Create a new {@link TileMap} that takes up the full width and height of the
@@ -87,7 +86,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
      * will place three rows of seven entities. In this case there should be four Entities added through the
      * {@link #addEntity(int, Class)} method.
      *
-     * @return The two dimensional array representing the map.
+     * @return The two-dimensional array representing the map.
      */
     public abstract int[][] defineMap();
 
@@ -167,7 +166,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
     }
 
     /**
-     * Return a two dimensional array of instances of {@link YaegerEntity} that contains the instances
+     * Return a two-dimensional array of instances of {@link YaegerEntity} that contains the instances
      * created by this {@code TileMap}. This way, this {@code TileMap} provides access to the instances
      * it has created.
      * <p>
@@ -177,7 +176,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
      * Whenever a {@link YaegerEntity} gets removed from the scene, through calling {@link YaegerEntity#remove()},
      * it will also be removed from this {@code TileMap}, and no longer accessible through this method.
      *
-     * @return a two dimensional array that contains all instances of {@link YaegerEntity} created by this {@code TileMap}
+     * @return a two-dimensional array that contains all instances of {@link YaegerEntity} created by this {@code TileMap}
      */
     public YaegerEntity[][] getInstanceMap() {
         return instanceMap;
