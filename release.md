@@ -34,3 +34,6 @@
   World Update is triggered on each screen refresh, which defaults to 60fps.
   On systems with a higher refresh rate, this value is now limited to a max of
   60fps to ensure games run at about the same speed.
+* Removed the input lag (#236) that occurred due to the key pressed delay.
+* Resolved #234, which caused setting the autocycle of a SpriteEntity to
+  reset the row to -1.
