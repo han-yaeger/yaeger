@@ -227,7 +227,7 @@ class StaticSceneTest {
         sut.activate();
 
         // Verify
-        verify(keyListenerDelegate).setup(any(Scene.class), any(KeyListener.class));
+        verify(keyListenerDelegate).setup(any(Scene.class), any(KeyListener.class), any(YaegerConfig.class));
     }
 
     @Test
@@ -449,7 +449,7 @@ class StaticSceneTest {
 
         sut.activate();
         ArgumentCaptor<KeyListener> captor = ArgumentCaptor.forClass(KeyListener.class);
-        verify(keyListenerDelegate, times(1)).setup(any(), captor.capture());
+        verify(keyListenerDelegate, times(1)).setup(any(), captor.capture(), any());
 
         // Act
         captor.getValue().onPressedKeysChange(input);

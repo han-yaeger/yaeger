@@ -55,6 +55,54 @@ class DirectionTest {
     }
 
     @Test
+    void valueOfForDownRight() {
+    	// Arrange
+        var directionNumeric = 45d;
+
+        // Act
+        var direction = Direction.valueOf(directionNumeric);
+
+        // Assert
+        assertEquals(Direction.DOWN_RIGHT, direction);
+    }
+    
+    @Test
+    void valueOfForUpRight() {
+    	// Arrange
+        var directionNumeric = 135d;
+
+        // Act
+        var direction = Direction.valueOf(directionNumeric);
+
+        // Assert
+        assertEquals(Direction.UP_RIGHT, direction);
+    }
+    
+    @Test
+    void valueOfForUpLeft() {
+    	// Arrange
+        var directionNumeric = 225d;
+
+        // Act
+        var direction = Direction.valueOf(directionNumeric);
+
+        // Assert
+        assertEquals(Direction.UP_LEFT, direction);
+    }
+    
+    @Test
+    void valueOfForDownLeft() {
+    	// Arrange
+        var directionNumeric = 315d;
+
+        // Act
+        var direction = Direction.valueOf(directionNumeric);
+
+        // Assert
+        assertEquals(Direction.DOWN_LEFT, direction);
+    }
+    
+    @Test
     void getValueForUp() {
         // Arrange
         var direction = Direction.UP;
@@ -100,5 +148,53 @@ class DirectionTest {
 
         // Assert
         assertEquals(270d, directionNumeric);
+    }
+    
+    @Test
+    void getValueForDownRight() {
+        // Arrange
+        var direction = Direction.DOWN_RIGHT;
+
+        // Act
+        var directionNumeric = direction.getValue();
+
+        // Assert
+        assertEquals(45d, directionNumeric);
+    }
+    
+    @Test
+    void getValueForUpRight() {
+        // Arrange
+        var direction = Direction.UP_RIGHT;
+
+        // Act
+        var directionNumeric = direction.getValue();
+
+        // Assert
+        assertEquals(135d, directionNumeric);
+    }
+    
+    @Test
+    void getValueForUpLeft() {
+        // Arrange
+        var direction = Direction.UP_LEFT;
+
+        // Act
+        var directionNumeric = direction.getValue();
+
+        // Assert
+        assertEquals(225d, directionNumeric);
+    }
+    
+    @Test
+    void getValueForDownLeft() {
+        // Arrange
+        var direction = Direction.DOWN_LEFT;
+
+        // Act
+        var directionNumeric = direction.getValue();
+
+        // Assert
+        assertEquals(315d, directionNumeric);
     }
 }

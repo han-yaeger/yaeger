@@ -78,7 +78,7 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
             debugger.setup(getPaneForDebugger(), getScene());
         }
 
-        keyListenerDelegate.setup(scene, this::onInputChanged);
+        keyListenerDelegate.setup(scene, this::onInputChanged, config);
 
         if (this instanceof KeyListener keyListener) {
             entityCollection.registerKeyListener(keyListener);
