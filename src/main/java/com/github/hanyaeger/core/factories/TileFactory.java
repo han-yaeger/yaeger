@@ -24,7 +24,8 @@ import java.lang.reflect.InvocationTargetException;
 public class TileFactory {
 
     private static final String MESSAGE_INVALID_CONSTRUCTOR_EXCEPTION = "An Entity used for a TileMap should have a constructor that accepts" +
-            " exactly two parameters: An instance of Coordinate2D and of Size.";
+            " either two or three parameters, where the first parameter is an instance of Coordinate2D, the second an instance of Size. If needed, " +
+            "a third parameter can be used to configure the created Entity.";
     private static final String MESSAGE_INVALID_CONFIGURABLE_ENTITY = "Configurable entity %s should also accept an instance of %s as third parameter.";
     private static final String MESSAGE_FAILED_TO_INSTANTIATE_ENTITY = "Unable to instantiate an Entity for the TileMap";
 
