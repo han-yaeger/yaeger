@@ -154,12 +154,19 @@ public class EntityCollection implements Initializable {
      * </li>
      * </ul>
      *
-     * @param timestamp the timestamp of the update
+     * @param timestamp the timestamp of the update as a {@code long}
      */
     public void update(final long timestamp) {
         collectGarbage();
 
-        updatables.forEach(updatable -> updatable.update(timestamp));
+        try {
+            updatables.forEach(updatable -> updatable.update(timestamp));
+        } catch (ConcurrentModificationException ce) {
+            // in case of this exception, the user requested a different Scene to be loaded,
+            // so this scene can be gracefully destroyed.
+            return;
+        }
+
         collisionDelegate.checkCollisions();
 
         if (config.showBoundingBox()) {
@@ -252,7 +259,7 @@ public class EntityCollection implements Initializable {
             return;
         }
 
-        for (var entity : garbage){
+        for (var entity : garbage) {
             removeGameObject(entity);
         }
 

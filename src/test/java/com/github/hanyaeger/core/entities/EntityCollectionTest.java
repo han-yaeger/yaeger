@@ -113,7 +113,6 @@ class EntityCollectionTest {
 
             entitySupplier.setPane(pane);
 
-
             entitySupplier.add(keyListeningEntity);
         }
 
