@@ -9,6 +9,7 @@ import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.ViewOrders;
 import com.github.hanyaeger.core.entities.events.EventTypes;
 import com.github.hanyaeger.api.entities.impl.DynamicRectangleEntity;
+import com.google.inject.Injector;
 import javafx.scene.paint.Color;
 
 /**
@@ -41,6 +42,16 @@ class BoundingBoxVisualizer extends DynamicRectangleEntity implements UpdateExpo
         setStrokeColor(COLLIDABLE_STROKE_COLOR);
         setViewOrder(yaegerEntity.getViewOrder() - 1);
         yaegerEntity.attachEventListener(EventTypes.REMOVE, e -> remove());
+    }
+
+    @Override
+    public void init(Injector injector) {
+        super.init(injector);
+
+        // Making the mouse transparent enables the mouse events to be noticed by the entity for
+        // which this is the bounding box visualizer
+        // todo test
+        getNode().ifPresent(node -> node.setMouseTransparent(true));
     }
 
     @Override

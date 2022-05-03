@@ -2,7 +2,12 @@ package com.github.hanyaeger.core.entities;
 
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.core.entities.events.EventTypes;
+import com.github.hanyaeger.core.entities.motion.MotionApplier;
+import com.google.inject.Injector;
 import javafx.geometry.BoundingBox;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
+import javafx.scene.shape.Rectangle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -93,5 +98,22 @@ class BoundingBoxVisualizerTest {
 
         // Arrange
         verify(entityCollection).addBoundingBoxVisualizer(sut);
+    }
+
+    @Test
+    void initSetsTransparentToMouse() {
+        // Arrange
+        var injectorMock = mock(Injector.class);
+        var rectangleMock = mock(Rectangle.class, withSettings().withoutAnnotations());
+        sut.setShape(rectangleMock);
+
+        var motionApplierMock = mock(MotionApplier.class);
+        sut.setMotionApplier(motionApplierMock);
+
+        // Act
+        sut.init(injectorMock);
+
+        // Assert
+        verify(rectangleMock).setMouseTransparent(true);
     }
 }

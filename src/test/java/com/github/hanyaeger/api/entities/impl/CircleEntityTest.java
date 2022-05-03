@@ -63,7 +63,7 @@ class CircleEntityTest {
         var actual = sut.getRadius();
 
         // Assert
-        Assertions.assertEquals(CircleEntity.DEFAULT_RADIUS, actual);
+        assertEquals(CircleEntity.DEFAULT_RADIUS, actual);
     }
 
     @Test
@@ -75,7 +75,7 @@ class CircleEntityTest {
         var actual = sut.getRadius();
 
         // Assert
-        Assertions.assertEquals(RADIUS, actual);
+        assertEquals(RADIUS, actual);
     }
 
     @Test
@@ -90,7 +90,7 @@ class CircleEntityTest {
         var actual = sut.getRadius();
 
         // Assert
-        Assertions.assertEquals(RADIUS, actual);
+        assertEquals(RADIUS, actual);
     }
 
     @Test
