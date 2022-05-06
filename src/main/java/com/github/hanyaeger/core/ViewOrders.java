@@ -7,6 +7,13 @@ import com.github.hanyaeger.api.entities.YaegerEntity;
  * {@link com.github.hanyaeger.api.YaegerGame}.
  */
 public class ViewOrders {
+
+    /**
+     * A private constructor to prevent instantiation.
+     */
+    private ViewOrders() {
+    }
+
     /**
      * Since the debugger should be visible in all cases, it should have an exceptionally low view order.
      */

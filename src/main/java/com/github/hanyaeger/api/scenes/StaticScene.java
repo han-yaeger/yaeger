@@ -94,7 +94,6 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
      * Return the {@link Pane} that should be used for attaching the {@link Debugger}. Depending on the actual type
      * of {@link YaegerScene} being used, a different {@link Pane} should be used for attaching the {@link Debugger}.
      * <p>
-     *  TODO remove this one
      *
      * @return The default {@link Pane}
      */

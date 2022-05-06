@@ -198,7 +198,7 @@ public class EntityCollection implements Initializable {
 
         if (config.showBoundingBox()) {
             boundingBoxVisualizers.clear();
-            boundingBoxVisualizersMap.values().forEach(entitySupplier -> entitySupplier.clear());
+            boundingBoxVisualizersMap.values().forEach(ArrayList::clear);
             boundingBoxVisualizersMap.clear();
         }
     }

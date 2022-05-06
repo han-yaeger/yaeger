@@ -51,11 +51,8 @@ class TileMapTest {
 
         @Test
         void tileMapIsNotEqualToNull() {
-            // Arrange
-            TileMap other = null;
-
-            // Act, Assert
-            assertFalse(sut.equals(other));
+            // Arrange, Act, Assert
+            assertNotEquals(sut, null);
         }
 
         @Test

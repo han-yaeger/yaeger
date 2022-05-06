@@ -88,8 +88,6 @@ public class SpriteAnimationDelegate implements Updatable {
     public void setAutoCycle(final long interval, final int row) {
         setAutoCycleInterval(interval);
         setAutoCycleRow(row);
-
-//        applyNewCurrentIndex(row);
     }
 
     /**

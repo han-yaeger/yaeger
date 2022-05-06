@@ -6,7 +6,6 @@ import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.scenes.YaegerScene;
-import com.github.hanyaeger.core.ViewOrders;
 import com.github.hanyaeger.core.entities.events.EventTypes;
 import com.github.hanyaeger.api.entities.impl.DynamicRectangleEntity;
 import com.google.inject.Injector;
@@ -50,7 +49,6 @@ class BoundingBoxVisualizer extends DynamicRectangleEntity implements UpdateExpo
 
         // Making the mouse transparent enables the mouse events to be noticed by the entity for
         // which this is the bounding box visualizer
-        // todo test
         getNode().ifPresent(node -> node.setMouseTransparent(true));
     }
 

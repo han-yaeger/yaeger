@@ -1,20 +1,15 @@
 package com.github.hanyaeger.api.entities;
 
 import com.github.hanyaeger.api.Coordinate2D;
-import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.when;
 
 class Coordinate2DTest {
 
@@ -179,7 +174,7 @@ class Coordinate2DTest {
     @MethodSource("provideArgumentsForMidpoint")
     void testMidPoint(final Coordinate2D otherLocation, final Coordinate2D expectedMidPoint) {
         // Act
-        var actual = LOCATION.midPoint(otherLocation);
+        var actual = LOCATION.middlePoint(otherLocation);
 
         // Assert
         assertEquals(expectedMidPoint, actual);

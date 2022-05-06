@@ -12,7 +12,7 @@ public abstract class YaegerAnimationTimer extends AnimationTimer {
 
     private static final long MIN_INTERVAL = 16_667_000;
     private long prevTime = 0;
-    private boolean limitGWU;
+    private final boolean limitGWU;
 
     /**
      * Create a new {@code YaegerAnimationTimer}, which adds the option of maximizing the timing interval
@@ -20,7 +20,7 @@ public abstract class YaegerAnimationTimer extends AnimationTimer {
      *
      * @param limitGWU a boolean that indicates if the timing interval should be limited
      */
-    public YaegerAnimationTimer(final boolean limitGWU) {
+    protected YaegerAnimationTimer(final boolean limitGWU) {
         this.limitGWU = limitGWU;
     }
 

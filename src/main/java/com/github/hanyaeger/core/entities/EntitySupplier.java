@@ -18,7 +18,7 @@ public class EntitySupplier extends ArrayList<YaegerEntity> implements Clearable
      * The {@link Pane} that should be used when adding all instances of {@link YaegerEntity} that were part
      * of this {@link EntitySupplier}.
      */
-    private Pane pane;
+    private transient Pane pane;
 
     /**
      * Return a {@link List} of instances of {@link YaegerEntity}. After this method is called,

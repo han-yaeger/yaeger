@@ -5,7 +5,6 @@ import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.core.ViewOrders;
 import com.github.hanyaeger.core.entities.EntitySupplier;
-import com.github.hanyaeger.core.exceptions.YaegerLifecycleException;
 import com.github.hanyaeger.core.factories.PaneFactory;
 import com.github.hanyaeger.core.factories.SceneFactory;
 import com.google.inject.Inject;

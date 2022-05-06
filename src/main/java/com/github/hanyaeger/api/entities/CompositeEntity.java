@@ -1,7 +1,6 @@
 package com.github.hanyaeger.api.entities;
 
 import com.github.hanyaeger.api.Coordinate2D;
-import com.github.hanyaeger.core.Initializable;
 import com.github.hanyaeger.core.entities.events.EventTypes;
 import com.github.hanyaeger.core.Updatable;
 import com.github.hanyaeger.core.entities.EntityProcessor;

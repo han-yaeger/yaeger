@@ -3,7 +3,6 @@ package com.github.hanyaeger.api.entities;
 import com.github.hanyaeger.core.entities.Bounded;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 

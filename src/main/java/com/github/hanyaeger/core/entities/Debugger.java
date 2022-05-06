@@ -3,7 +3,6 @@ package com.github.hanyaeger.core.entities;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.core.ViewOrders;
 import com.google.inject.Inject;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -44,7 +43,7 @@ public class Debugger implements StatisticsObserver {
     private GridPane gridpane;
     private Label windowDimensions;
     private Label gameDimensions;
-    private Label fps;
+    private Label currentFps;
     private Label dynamicEntities;
     private Label staticEntities;
     private Label entitySpawners;
@@ -98,7 +97,7 @@ public class Debugger implements StatisticsObserver {
             return;
         }
 
-        fps.setText(String.valueOf(calculateFPS(timestamp)));
+        currentFps.setText(String.valueOf(calculateFPS(timestamp)));
         dynamicEntities.setText(String.valueOf(entityCollectionStatistics.getUpdatables()));
         staticEntities.setText(String.valueOf(entityCollectionStatistics.getStatics()));
         keyListeningEntities.setText(String.valueOf(entityCollectionStatistics.getKeyListeners()));
@@ -145,7 +144,7 @@ public class Debugger implements StatisticsObserver {
         windowDimensions = addDebugLine(WINDOW_DIMENSIONS);
         gameDimensions = addDebugLine(GAME_DIMENSIONS);
 
-        fps = addDebugLine(FPS);
+        currentFps = addDebugLine(FPS);
     }
 
     private void addEntityStatistics() {

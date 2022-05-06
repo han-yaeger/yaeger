@@ -7,6 +7,9 @@ import javafx.geometry.Point2D;
  */
 public class Coordinate2D extends Point2D {
 
+    public static final String NULLPOINTER_LOCATION = "'location' was null";
+    public static final String EXCEPTION_X_Y_IS_0 = "An X,Y component of either coordinate is 0";
+
     /**
      * Creates a new instance of {@link Coordinate2D} at (0,0).
      */
@@ -72,7 +75,7 @@ public class Coordinate2D extends Point2D {
      */
     public Coordinate2D multiply(final Coordinate2D location) throws NullPointerException {
         if (location == null) {
-            throw new NullPointerException("'location' was null");
+            throw new NullPointerException(NULLPOINTER_LOCATION);
         }
 
         return new Coordinate2D(this.getX() * location.getX(), this.getY() * location.getY());
@@ -89,11 +92,11 @@ public class Coordinate2D extends Point2D {
      */
     public Coordinate2D divide(final Coordinate2D location) throws NullPointerException, IllegalArgumentException {
         if (location == null) {
-            throw new NullPointerException("'location' was null");
+            throw new NullPointerException(NULLPOINTER_LOCATION);
         }
 
         if (this.getX() == 0.D || this.getY() == 0.D || location.getX() == 0.D || location.getY() == 0.D) {
-            throw new IllegalArgumentException("An X,Y component of either coordinate is 0");
+            throw new IllegalArgumentException(EXCEPTION_X_Y_IS_0);
         }
 
         return new Coordinate2D(this.getX() / location.getX(), this.getY() / location.getY());
@@ -107,9 +110,9 @@ public class Coordinate2D extends Point2D {
      * @return the coordinate in the middle.
      * throws {@link NullPointerException} if the specified {@code Coordinate2D} is null
      */
-    public Coordinate2D midPoint(final Coordinate2D location) throws NullPointerException {
+    public Coordinate2D middlePoint(final Coordinate2D location) throws NullPointerException {
         if (location == null) {
-            throw new NullPointerException("'location' was null");
+            throw new NullPointerException(NULLPOINTER_LOCATION);
         }
 
         return new Coordinate2D(super.midpoint(location));
@@ -119,6 +122,7 @@ public class Coordinate2D extends Point2D {
      * Return a normalized {@code Coordinate2D}.
      * @return the normalized variant of 'this' vector
      */
+    @Override
     public Coordinate2D normalize() {
         return new Coordinate2D(super.normalize());
     }

@@ -18,7 +18,6 @@ import com.google.inject.Injector;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.geometry.BoundingBox;
-import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
@@ -162,8 +161,7 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
             throw new NullPointerException("Cannot calculate distance a coordinate that is null.");
         }
         var locationInScene = getLocationInScene();
-        var distance = locationInScene.distance(location);
-        return distance;
+        return locationInScene.distance(location);
     }
 
     /**

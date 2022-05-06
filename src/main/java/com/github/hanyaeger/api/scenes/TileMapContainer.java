@@ -2,7 +2,6 @@ package com.github.hanyaeger.api.scenes;
 
 import com.github.hanyaeger.core.DependencyInjector;
 import com.github.hanyaeger.api.Timer;
-import com.github.hanyaeger.core.RootPaneProvider;
 import com.github.hanyaeger.core.annotations.OnActivation;
 import com.github.hanyaeger.core.exceptions.YaegerEngineException;
 import com.github.hanyaeger.core.scenes.DimensionsProvider;
