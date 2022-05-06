@@ -52,7 +52,7 @@ class TileMapTest {
         @Test
         void tileMapIsNotEqualToNull() {
             // Arrange, Act, Assert
-            assertNotEquals(sut, null);
+            assertNotEquals(null, sut);
         }
 
         @Test
