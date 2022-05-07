@@ -2,7 +2,7 @@
 
 ## Configuration
 
-* Updated Mockito to 4.0.0
+* Updated Mockito to 4.5.1
 * Updated jUnit to 5.8.1
 * Updated JavaFX to 17.0.2
 
