@@ -4,7 +4,7 @@
 
 * Updated Mockito to 4.5.1
 * Updated jUnit to 5.8.1
-* Updated JavaFX to 17.0.2
+* Updated JavaFX to 18.0.1
 
 ## Refactor
 
