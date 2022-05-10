@@ -64,10 +64,10 @@ public class KeyListenerDelegate {
      * @param scene the {@link Scene} from which the listeners should be removed
      */
     public void tearDown(final Scene scene) {
-        keyListener = null;
         animationTimer.stop();
         scene.setOnKeyPressed(null);
         scene.setOnKeyReleased(null);
+        keyListener = null;
     }
 
     private void inputChanged(final Set<KeyCode> input) {
