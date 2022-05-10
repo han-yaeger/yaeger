@@ -7,7 +7,16 @@ import javafx.geometry.Point2D;
  */
 public class Coordinate2D extends Point2D {
 
+    /**
+     * The message as to be shown in case a {@link NullPointerException} occurs as the result of
+     * some methods from this class.
+     */
     public static final String NULLPOINTER_LOCATION = "'location' was null";
+
+    /**
+     * The message as to be shown in case a {@link IllegalArgumentException} occurs as the result of
+     * some methods from this class.
+     */
     public static final String EXCEPTION_X_Y_IS_0 = "An X,Y component of either coordinate is 0";
 
     /**
