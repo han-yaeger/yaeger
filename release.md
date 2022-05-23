@@ -5,6 +5,8 @@
 * Updated Mockito to 4.5.1
 * Updated jUnit to 5.8.1
 * Updated JavaFX to 18.0.1
+* Updated Jacoco to 0.8.8
+* Updated Nexus Staging Maven Plugin to 1.6.13
 
 ## Refactor
 
@@ -24,7 +26,8 @@
 * A `Coordinate2D` now exposes all vector-related methods.
 * The debugger now also lists the frames per second. This value is
   calculated as the average number of frames (#224) during two seconds
-  (divided by 2)
+  (divided by 2).
+* Added constants for diagonal directions to `Directions.java`.
 
 ## Bugfixes
 
@@ -35,5 +38,9 @@
   On systems with a higher refresh rate, this value is now limited to a max of
   60fps to ensure games run at about the same speed.
 * Removed the input lag (#236) that occurred due to the key pressed delay.
-* Resolved #234, which caused setting the autocycle of a SpriteEntity to
+* Resolved #234, which caused setting the autocycle of a `SpriteEntity` to
   reset the row to -1.
+* Resolved #235, which caused Boundingbox Visualizers to block Mouse Events
+  on the underlying Entities.
+* Resolved #238, which caused some `setActiveScene(int)` calls to lead to a
+  `ConcurrentModificationException`.
