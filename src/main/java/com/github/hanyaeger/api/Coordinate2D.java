@@ -104,7 +104,7 @@ public class Coordinate2D extends Point2D {
             throw new NullPointerException(NULLPOINTER_LOCATION);
         }
 
-        if (this.getX() == 0.D || this.getY() == 0.D || location.getX() == 0.D || location.getY() == 0.D) {
+        if (location.getX() == 0.D || location.getY() == 0.D) {
             throw new IllegalArgumentException(EXCEPTION_X_Y_IS_0);
         }
 

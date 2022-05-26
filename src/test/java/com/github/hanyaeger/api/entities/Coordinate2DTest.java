@@ -2,6 +2,7 @@ package com.github.hanyaeger.api.entities;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import javafx.geometry.Point2D;
+import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -14,109 +15,138 @@ import static org.junit.jupiter.api.Assertions.*;
 class Coordinate2DTest {
 
     private static final double DELTA = 0.00000001;
-    private static final Coordinate2D LOCATION = new Coordinate2D(37, 37);
+    private static final Coordinate2D LOCATION = new Coordinate2D(37D, 37D);
 
     @Test
     void addingPointWorksAsExpected() {
         // Arrange
-        var position = new Coordinate2D(0d, 0d);
-        var positionToAdd = new Coordinate2D(1d, 1d);
+        var position = new Coordinate2D(0D, 0D);
+        var positionToAdd = new Coordinate2D(1D, 1D);
 
         // Act
         var addedPosition = position.add(positionToAdd);
 
         // Assert
-        assertEquals(1d, addedPosition.getX());
-        assertEquals(1d, addedPosition.getY());
+        assertEquals(1D, addedPosition.getX());
+        assertEquals(1D, addedPosition.getY());
     }
 
     @Test
     void addingPoint2DWorksAsExpected() {
         // Arrange
-        var position = new Coordinate2D(0d, 0d);
-        var positionToAdd = new Point2D(1d, 1d);
+        var position = new Coordinate2D(0D, 0D);
+        var positionToAdd = new Point2D(1D, 1D);
 
         // Act
         var addedPosition = position.add(positionToAdd);
 
         // Assert
-        assertEquals(1d, addedPosition.getX());
-        assertEquals(1d, addedPosition.getY());
+        assertEquals(1D, addedPosition.getX());
+        assertEquals(1D, addedPosition.getY());
     }
 
     @Test
     void subtractingPointWorksAsExpected() {
         // Arrange
-        var position = new Coordinate2D(0d, 0d);
-        var positionToSubtract = new Coordinate2D(1d, 1d);
+        var position = new Coordinate2D(0D, 0D);
+        var positionToSubtract = new Coordinate2D(1D, 1D);
 
         // Act
         var subtractedPosition = position.subtract(positionToSubtract);
 
         // Assert
-        assertEquals(-1d, subtractedPosition.getX());
-        assertEquals(-1d, subtractedPosition.getY());
+        assertEquals(-1D, subtractedPosition.getX());
+        assertEquals(-1D, subtractedPosition.getY());
     }
 
     @Test
     void subtractingPoint2DWorksAsExpected() {
         // Arrange
-        var position = new Coordinate2D(0d, 0d);
-        var positionToSubtract = new Point2D(1d, 1d);
+        var position = new Coordinate2D(0D, 0D);
+        var positionToSubtract = new Point2D(1D, 1D);
 
         // Act
         var subtractedPosition = position.subtract(positionToSubtract);
 
         // Assert
-        assertEquals(-1d, subtractedPosition.getX());
-        assertEquals(-1d, subtractedPosition.getY());
+        assertEquals(-1D, subtractedPosition.getX());
+        assertEquals(-1D, subtractedPosition.getY());
     }
 
     @Test
     void multiplyPointWorksAsExpected() {
         // Arrange
-        var position = new Coordinate2D(1d, 1d);
-        var positionToMultiply = new Coordinate2D(2d, 2d);
+        var position = new Coordinate2D(1D, 1D);
+        var positionToMultiply = new Coordinate2D(2D, 2D);
 
         // Act
         var multipliedPosition = position.multiply(positionToMultiply);
 
         // Assert
-        assertEquals(2d, multipliedPosition.getX());
-        assertEquals(2d, multipliedPosition.getY());
+        assertEquals(2D, multipliedPosition.getX());
+        assertEquals(2D, multipliedPosition.getY());
+    }
+
+    @Test
+    void multiplicationWithNullLeadsToNullpointer() {
+        // Arrange
+        var position = new Coordinate2D(1D, 1D);
+
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> position.multiply(null));
     }
 
     @Test
     void dividePointWorksAsExpected() {
         // Arrange
-        var position = new Coordinate2D(1d, 1d);
-        var positionToDivide = new Coordinate2D(2d, 2d);
+        var position = new Coordinate2D(1D, 1D);
+        var positionToDivide = new Coordinate2D(2D, 2D);
 
         // Act
         var dividedPosition = position.divide(positionToDivide);
 
         // Assert
-        assertEquals(0.5d, dividedPosition.getX());
-        assertEquals(0.5d, dividedPosition.getY());
+        assertEquals(0.5D, dividedPosition.getX());
+        assertEquals(0.5D, dividedPosition.getY());
     }
+
+    @Test
+    void divisionWithNullLeadsToNullpointer() {
+        // Arrange
+        var position = new Coordinate2D(1d, 1d);
+
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> position.divide(null));
+    }
+
+    @Test
+    void divisionWithZeroLeadsToNullpointer() {
+        // Arrange
+        var position = new Coordinate2D(1D, 1D);
+        var zeroPosition = new Coordinate2D(0D, 0D);
+
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> position.divide(zeroPosition));
+    }
+
 
     @Test
     void invertPointWorksAsExpected() {
         // Arrange
-        var position = new Coordinate2D(1d, 1d);
+        var position = new Coordinate2D(1D, 1D);
 
         // Act
         var invertedPosition = position.invert();
 
         // Assert
-        assertEquals(-1d, invertedPosition.getX());
-        assertEquals(-1d, invertedPosition.getY());
+        assertEquals(-1D, invertedPosition.getX());
+        assertEquals(-1D, invertedPosition.getY());
     }
 
     @Test
     void normalizePointWorksAsExpected() {
         // Arrange
-        var position = new Coordinate2D(1d, 1d);
+        var position = new Coordinate2D(1D, 1D);
 
         // Act
         var normalizedPosition = position.normalize();
@@ -129,7 +159,7 @@ class Coordinate2DTest {
     @Test
     void angleToSelfIs0() {
         // Arrange
-        var expected = 0d;
+        var expected = 0D;
 
         // Act
         var actual = LOCATION.angleTo(LOCATION);
@@ -142,7 +172,7 @@ class Coordinate2DTest {
     void angleToOwnCoordinatesIs0() {
         // Arrange
         var other = new Coordinate2D(LOCATION.getX(), LOCATION.getY());
-        var expected = 0d;
+        var expected = 0D;
 
         // Act
         var actual = LOCATION.angleTo(new Coordinate2D(other.getX(), other.getY()));
@@ -170,6 +200,15 @@ class Coordinate2DTest {
         assertEquals(expectedAngle, actual);
     }
 
+    @Test
+    void midPointWithNullThrowsNullpointer() {
+        // Act
+        var position = new Coordinate2D(1D, 1D);
+
+        // Assert
+        assertThrows(NullPointerException.class, () -> position.middlePoint(null));
+    }
+
     @ParameterizedTest
     @MethodSource("provideArgumentsForMidpoint")
     void testMidPoint(final Coordinate2D otherLocation, final Coordinate2D expectedMidPoint) {
@@ -186,10 +225,10 @@ class Coordinate2DTest {
                 Arguments.of(new Coordinate2D(LOCATION.getX(), LOCATION.getY() + 10), Direction.DOWN.getValue()),
                 Arguments.of(new Coordinate2D(LOCATION.getX() - 10, LOCATION.getY()), Direction.LEFT.getValue()),
                 Arguments.of(new Coordinate2D(LOCATION.getX() + 10, LOCATION.getY()), Direction.RIGHT.getValue()),
-                Arguments.of(new Coordinate2D(LOCATION.getX() - 10, LOCATION.getY() - 10), 225d), // left above
-                Arguments.of(new Coordinate2D(LOCATION.getX() + 10, LOCATION.getY() - 10), 135d), // right above
-                Arguments.of(new Coordinate2D(LOCATION.getX() - 10, LOCATION.getY() + 10), 315d), // left below
-                Arguments.of(new Coordinate2D(LOCATION.getX() + 10, LOCATION.getY() + 10), 45d) // right below
+                Arguments.of(new Coordinate2D(LOCATION.getX() - 10, LOCATION.getY() - 10), 225D), // left above
+                Arguments.of(new Coordinate2D(LOCATION.getX() + 10, LOCATION.getY() - 10), 135D), // right above
+                Arguments.of(new Coordinate2D(LOCATION.getX() - 10, LOCATION.getY() + 10), 315D), // left below
+                Arguments.of(new Coordinate2D(LOCATION.getX() + 10, LOCATION.getY() + 10), 45D) // right below
 
         );
     }
