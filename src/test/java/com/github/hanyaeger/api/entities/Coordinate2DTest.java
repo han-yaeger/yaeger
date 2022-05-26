@@ -120,10 +120,20 @@ class Coordinate2DTest {
     }
 
     @Test
-    void divisionWithZeroLeadsToNullpointer() {
+    void divisionWithZeroLeadsToIllegalArgumentException() {
         // Arrange
         var position = new Coordinate2D(1D, 1D);
-        var zeroPosition = new Coordinate2D(0D, 0D);
+        var zeroPosition = new Coordinate2D(0D, 1D);
+
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> position.divide(zeroPosition));
+    }
+
+    @Test
+    void divisionWithZeroYLeadsToIllegalArgumentException() {
+        // Arrange
+        var position = new Coordinate2D(1D, 1D);
+        var zeroPosition = new Coordinate2D(1D, 0D);
 
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> position.divide(zeroPosition));

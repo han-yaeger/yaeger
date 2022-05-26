@@ -2,6 +2,7 @@ package com.github.hanyaeger.api.userinput;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.YaegerEntity;
+import com.github.hanyaeger.api.scenes.ScrollableDynamicScene;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.YaegerConfig;
 import com.github.hanyaeger.core.repositories.DragNDropRepository;
@@ -10,7 +11,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseDragEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +37,7 @@ class MouseMovedWhileDraggingListenerTest {
     }
 
     @Nested
-    class MouseMovedListeningEntity {
+    class MouseMovedListeningEntityTest {
 
         private MouseMovedWhileDraggingListeningEntityImpl sut;
         private Scene scene;
@@ -97,7 +98,7 @@ class MouseMovedWhileDraggingListenerTest {
     }
 
     @Nested
-    class MouseMovedListeningScene {
+    class MouseMovedListeningSceneTest {
 
         private MouseMovedWhileDraggingListeningSceneImpl sut;
 
@@ -152,7 +153,7 @@ class MouseMovedWhileDraggingListenerTest {
             assertEquals(y, sut.getCoordinate().getY());
         }
     }
-
+    
     @Test
     void attachMouseMovedListenerToOtherDoesNothing() {
         // Arrange
@@ -187,6 +188,165 @@ class MouseMovedWhileDraggingListenerTest {
     }
 
     private static class MouseMovedWhileDraggingListeningSceneImpl implements YaegerScene, MouseMovedWhileDraggingListener {
+
+        private Node node;
+        private Coordinate2D coordinate;
+
+        @Override
+        public void clear() {
+
+        }
+
+        @Override
+        public void destroy() {
+
+        }
+
+        @Override
+        public void setBrightness(double brightness) {
+
+        }
+
+        @Override
+        public double getBrightness() {
+            return 0;
+        }
+
+        @Override
+        public void setContrast(double contrast) {
+
+        }
+
+        @Override
+        public double getContrast() {
+            return 0;
+        }
+
+        @Override
+        public void setHue(double hue) {
+
+        }
+
+        @Override
+        public double getHue() {
+            return 0;
+        }
+
+        @Override
+        public void setSaturation(double saturation) {
+
+        }
+
+        @Override
+        public double getSaturation() {
+            return 0;
+        }
+
+        @Override
+        public void init(Injector injector) {
+
+        }
+
+        public void setNode(Node node) {
+            this.node = node;
+        }
+
+        @Override
+        public Optional<? extends Node> getNode() {
+            return Optional.of(node);
+        }
+
+        @Override
+        public void setupScene() {
+            // Not required here
+        }
+
+        @Override
+        public void setupEntities() {
+            // Not required here
+        }
+
+        @Override
+        public void postActivate() {
+            // Not required here
+        }
+
+        @Override
+        public void setBackgroundColor(Color color) {
+            // Not required here
+        }
+
+        @Override
+        public void setBackgroundImage(String url) {
+            // Not required here
+        }
+
+        @Override
+        public void setBackgroundImage(String url, boolean fullscreen) {
+            // Not required here
+        }
+
+        @Override
+        public void setBackgroundAudio(String url) {
+            // Not required here
+        }
+
+        @Override
+        public void setBackgroundAudioVolume(double volume) {
+            // Not required here
+        }
+
+        @Override
+        public double getBackgroundAudioVolume() {
+            return 0;
+        }
+
+        @Override
+        public void stopBackgroundAudio() {
+            // Not required here
+        }
+
+        @Override
+        public Scene getScene() {
+            return null;
+        }
+
+        @Override
+        public Stage getStage() {
+            return null;
+        }
+
+        @Override
+        public void setStage(Stage stage) {
+            // Not required here
+        }
+
+        @Override
+        public void setConfig(YaegerConfig yaegerConfig) {
+            // Not required here
+        }
+
+        @Override
+        public void onMouseMovedWhileDragging(Coordinate2D coordinate2D) {
+            this.coordinate = coordinate2D;
+        }
+
+        @Override
+        public void setDragNDropRepository(DragNDropRepository dragNDropRepository) {
+            // Not required here
+        }
+
+        @Override
+        public DragNDropRepository getDragNDropRepository() {
+            return null;
+        }
+
+        public Coordinate2D getCoordinate() {
+            return coordinate;
+        }
+    }
+
+    private static class MouseMovedWhileDraggingListeningScrollableDynamicSceneImpl extends ScrollableDynamicScene implements MouseMovedWhileDraggingListener {
 
         private Node node;
         private Coordinate2D coordinate;

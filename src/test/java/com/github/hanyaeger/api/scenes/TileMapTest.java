@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -935,6 +936,39 @@ class TileMapTest {
         var entityConfiguration = argument.getValue();
         assertEquals(YaegerEntity.class, entityConfiguration.getEntityClass());
         assertEquals("config", entityConfiguration.getConfiguration());
+    }
+
+    @Test
+    void tileMapIsEqualToSelf() {
+        // Arrange
+
+        // Act
+        var equals = sut.equals(sut);
+
+        // Assert
+        assertTrue(equals);
+    }
+
+    @Test
+    void tileMapIsNotEqualToNull() {
+        // Arrange
+
+        // Act
+        var equals = sut.equals(null);
+
+        // Assert
+        assertFalse(equals);
+    }
+
+    @Test
+    void tileMapIsNotEqualToInstanceOfOtherClass() {
+        // Arrange
+
+        // Act
+        var equals = sut.equals(new ArrayList<String>());
+
+        // Assert
+        assertFalse(equals);
     }
 
     private static class TileMapEmptyConstructorImpl extends TileMap {
