@@ -1,6 +1,7 @@
 package com.github.hanyaeger.api.scenes;
 
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.core.Updater;
 import com.github.hanyaeger.core.ViewOrders;
 import com.github.hanyaeger.core.YaegerConfig;
@@ -28,6 +29,7 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.testfx.api.FxRobot;
 
 import java.util.concurrent.TimeoutException;
@@ -348,6 +350,73 @@ class ScrollableDynamicSceneTest extends FxRobot {
 
         // Assert
         verify(scrollPane).getVvalue();
+    }
+
+    @Test
+    void setSizeWithZeroValuesDoesNoting() {
+        // Arrange
+        var size = new Size(0, 0);
+        verify(scrollPane).setViewOrder(ViewOrders.VIEW_ORDER_SCROLLPANE);
+        verify(scrollPane).setFitToHeight(true);
+        verify(scrollPane).setFitToWidth(true);
+        verify(scrollPane).setContent(defaultPane);
+
+        // Act
+        sut.setSize(size);
+
+        // Assert
+        verifyNoMoreInteractions(scrollPane);
+    }
+
+    @Test
+    void setSizeWithNonZeroWidthSetsCorrectValuesOnScrollPane() {
+        // Arrange
+        var size = new Size(37, 0);
+
+        // Act
+        sut.setSize(size);
+
+        // Assert
+        verify(scrollPane).setFitToWidth(false);
+        verify(scrollPane).setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    }
+
+    @Test
+    void setSizeWithNonZeroHeightSetsCorrectValuesOnScrollPane() {
+        // Arrange
+        var size = new Size(0, 37);
+
+        // Act
+        sut.setSize(size);
+
+        // Assert
+        verify(scrollPane).setFitToHeight(false);
+        verify(scrollPane).setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    }
+
+    @Test
+    void setSizeWithNonZeroWidthSetsCorrectValuesOnPane() {
+        // Arrange
+        var size = new Size(37, 0);
+
+        // Act
+        sut.setSize(size);
+
+        // Assert
+        defaultPane.setPrefWidth(size.width());
+    }
+
+    @Test
+    void setSizeWithNonZeroHeightSetsCorrectValuesOnPane() {
+        // Arrange
+        var size = new Size(0, 37);
+
+        // Act
+        sut.setSize(size);
+
+        // Assert
+        defaultPane.setPrefHeight(size.height());
+
     }
 
     private static class ScrollableDynamicSceneImpl extends ScrollableDynamicScene {
