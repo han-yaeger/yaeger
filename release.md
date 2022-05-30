@@ -7,6 +7,7 @@
 * Updated JavaFX to 18.0.1
 * Updated Jacoco to 0.8.8
 * Updated Nexus Staging Maven Plugin to 1.6.13
+* Updated the JavaDoc Maven Plugin to 3.4.0
 
 ## Refactor
 
