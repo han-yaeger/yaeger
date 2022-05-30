@@ -2,6 +2,7 @@ package com.github.hanyaeger.api.scenes;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
+import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.core.Updater;
 import com.github.hanyaeger.core.ViewOrders;
 import com.github.hanyaeger.core.YaegerConfig;
@@ -417,6 +418,62 @@ class ScrollableDynamicSceneTest extends FxRobot {
         // Assert
         defaultPane.setPrefHeight(size.height());
 
+    }
+
+    @Test
+    void addEntityAddsTheEntitySupplier() {
+        // Arrange
+        sut.activate();
+
+        var testEntity = mock(YaegerEntity.class);
+
+        // Act
+        sut.addEntity(testEntity);
+
+        // Verify
+        verify(entitySupplier).add(testEntity);
+    }
+
+    @Test
+    void addNonStickyEntityAddsTheEntitySupplier() {
+        // Arrange
+        sut.activate();
+
+        var testEntity = mock(YaegerEntity.class);
+
+        // Act
+        sut.addEntity(testEntity, false);
+
+        // Verify
+        verify(entitySupplier).add(testEntity);
+    }
+
+    @Test
+    void addStickyEntitySetsViewOrder() {
+        // Arrange
+        sut.activate();
+
+        var testEntity = mock(YaegerEntity.class);
+
+        // Act
+        sut.addEntity(testEntity, true);
+
+        // Verify
+        verify(testEntity).setViewOrder(ViewOrders.VIEW_ORDER_ENTITY_STICKY);
+    }
+
+    @Test
+    void addStickyEntityAddsTheEntitySupplier() {
+        // Arrange
+        sut.activate();
+
+        var testEntity = mock(YaegerEntity.class);
+
+        // Act
+        sut.addEntity(testEntity, true);
+
+        // Verify
+        verify(viewPortEntitySupplier).add(testEntity);
     }
 
     private static class ScrollableDynamicSceneImpl extends ScrollableDynamicScene {
