@@ -238,7 +238,7 @@ class ScrollableDynamicSceneTest extends FxRobot {
     }
 
     @Test
-    void postActivateDisablesSscrollingByDefault() {
+    void postActivateDisablesScrollingByDefault() {
         // Arrange
         when(config.enableScroll()).thenReturn(false);
         sut.activate();
@@ -248,6 +248,19 @@ class ScrollableDynamicSceneTest extends FxRobot {
 
         // Assert
         verify(scrollPane).addEventFilter(eq(ScrollEvent.SCROLL), any());
+    }
+
+    @Test
+    void postActivateWithEnableScrollDoesNotDisableScrolling() {
+        // Arrange
+        when(config.enableScroll()).thenReturn(true);
+        sut.activate();
+
+        // Act
+        sut.postActivate();
+
+        // Assert
+        verify(scrollPane, never()).addEventFilter(eq(ScrollEvent.SCROLL), any());
     }
 
     @Test
