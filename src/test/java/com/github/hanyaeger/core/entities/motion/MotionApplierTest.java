@@ -687,6 +687,18 @@ class MotionApplierTest {
             // Assert
             assertEquals(0, sut.getSpeed());
         }
+
+        @Test
+        void nullifySpeedInZeroDirectionCreatesNaN() {
+            // Arrange
+            var updatedDirection = 0.0;
+
+            // Act
+            sut.nullifySpeedInDirection(updatedDirection);
+
+            // Assert
+            assertTrue(Double.isNaN(sut.getDirection()));
+        }
     }
 
     @Nested
