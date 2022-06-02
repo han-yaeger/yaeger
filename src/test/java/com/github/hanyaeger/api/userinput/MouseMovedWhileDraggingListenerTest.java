@@ -11,6 +11,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -117,7 +118,7 @@ class MouseMovedWhileDraggingListenerTest {
             sut.attachMouseMovedWhileDraggedListener();
 
             // Assert
-            verify(node).setOnDragDetected(any());
+            verify(node).setOnMouseDragOver(any());
         }
 
         @Test
@@ -153,7 +154,55 @@ class MouseMovedWhileDraggingListenerTest {
             assertEquals(y, sut.getCoordinate().getY());
         }
     }
-    
+
+    @Nested
+    class MouseMovedWhileDraggingScrollableSceneTest {
+        private MouseMovedWhileDraggingListeningScrollableSceneImpl sut;
+        private Pane pane;
+
+        @BeforeEach
+        void setup() {
+            pane = mock(Pane.class);
+
+            sut = new MouseMovedWhileDraggingListeningScrollableSceneImpl();
+            sut.setNode(node);
+            sut.setPane(pane);
+        }
+
+        @Test
+        void attachMouseMovedListenerToScrollableDynamicSceneAttachesMouseListenerToRootPane() {
+            // Arrange
+
+            // Act
+            sut.attachMouseMovedWhileDraggedListener();
+
+            // Assert
+            verify(pane).setOnMouseDragOver(any());
+        }
+
+        @Test
+        void callingEventFromEventHandlerCallsOnMouseButtonPressedWithCorrectCoordinates() {
+            // Arrange
+            ArgumentCaptor<EventHandler> eventHandlerArgumentCaptor = ArgumentCaptor.forClass(EventHandler.class);
+            sut.attachMouseMovedWhileDraggedListener();
+            verify(pane).setOnMouseDragOver(eventHandlerArgumentCaptor.capture());
+
+            var x = 37D;
+            var y = 42D;
+
+            var mouseEvent = mock(MouseDragEvent.class);
+            when(mouseEvent.getX()).thenReturn(x);
+            when(mouseEvent.getY()).thenReturn(y);
+
+            // Act
+            eventHandlerArgumentCaptor.getValue().handle(mouseEvent);
+
+            // Assert
+            assertEquals(x, sut.getCoordinate().getX());
+            assertEquals(y, sut.getCoordinate().getY());
+        }
+    }
+
     @Test
     void attachMouseMovedListenerToOtherDoesNothing() {
         // Arrange
@@ -530,6 +579,51 @@ class MouseMovedWhileDraggingListenerTest {
 
         public Coordinate2D getCoordinate() {
             return coordinate;
+        }
+    }
+
+
+    private static class MouseMovedWhileDraggingListeningScrollableSceneImpl extends ScrollableDynamicScene implements MouseMovedWhileDraggingListener {
+
+        private Node node;
+        private Pane pane;
+        private Coordinate2D coordinate;
+
+        public void setNode(Node node) {
+            this.node = node;
+        }
+
+        void setPane(Pane pane) {
+            this.pane = pane;
+        }
+
+        @Override
+        public Pane getRootPane() {
+            return pane;
+        }
+
+        @Override
+        public Optional<? extends Node> getNode() {
+            return Optional.of(node);
+        }
+
+        @Override
+        public void setupScene() {
+
+        }
+
+        @Override
+        public void setupEntities() {
+
+        }
+
+        public Coordinate2D getCoordinate() {
+            return coordinate;
+        }
+
+        @Override
+        public void onMouseMovedWhileDragging(Coordinate2D coordinate2D) {
+            this.coordinate = coordinate2D;
         }
     }
 }
