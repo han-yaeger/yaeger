@@ -417,7 +417,7 @@ class ScrollableDynamicSceneTest extends FxRobot {
         sut.setSize(size);
 
         // Assert
-        defaultPane.setPrefWidth(size.width());
+        verify(defaultPane).setPrefWidth(size.width());
     }
 
     @Test
@@ -429,8 +429,7 @@ class ScrollableDynamicSceneTest extends FxRobot {
         sut.setSize(size);
 
         // Assert
-        defaultPane.setPrefHeight(size.height());
-
+        verify(defaultPane).setPrefHeight(size.height());
     }
 
     @Test

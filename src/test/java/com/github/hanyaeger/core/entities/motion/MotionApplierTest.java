@@ -712,7 +712,7 @@ class MotionApplierTest {
             sut.nullifySpeedInDirection(updatedDirection);
 
             // Assert
-            assertEquals(Double.compare(updatedDirection, sut.getDirection()), 0);
+            assertEquals(0, Double.compare(updatedDirection, sut.getDirection()));
         }
 
         @Test
