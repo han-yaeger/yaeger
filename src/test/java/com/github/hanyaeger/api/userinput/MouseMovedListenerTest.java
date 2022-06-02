@@ -38,7 +38,7 @@ class MouseMovedListenerTest {
     }
 
     @Nested
-    class MouseMovedListeningEntity {
+    class MouseMovedListeningEntityTest {
 
         private MouseMovedListeningEntityImpl sut;
         private Scene scene;
@@ -88,7 +88,7 @@ class MouseMovedListenerTest {
     }
 
     @Nested
-    class MouseMovedListeningScene {
+    class MouseMovedListeningSceneTest {
 
         private MouseMovedListeningSceneImpl sut;
 
@@ -102,7 +102,6 @@ class MouseMovedListenerTest {
         @Test
         void attachMouseMovedListenerAttachesMouseListenerToScene() {
             // Arrange
-
 
             // Act
             sut.attachMouseMovedListener();
@@ -135,7 +134,7 @@ class MouseMovedListenerTest {
     }
 
     @Nested
-    class MouseMovedScrollableScene {
+    class MouseMovedScrollableSceneTest {
         private MouseMovedListeningScrollableSceneImpl sut;
         private Pane pane;
 
@@ -159,6 +158,27 @@ class MouseMovedListenerTest {
             verify(pane).setOnMouseMoved(any());
         }
 
+        @Test
+        void callingEventFromEventHandlerCallsOnMouseButtonPressedWithCorrectCoordinates() {
+            // Arrange
+            ArgumentCaptor<EventHandler> eventHandlerArgumentCaptor = ArgumentCaptor.forClass(EventHandler.class);
+            sut.attachMouseMovedListener();
+            verify(pane).setOnMouseMoved(eventHandlerArgumentCaptor.capture());
+
+            var x = 37D;
+            var y = 42D;
+
+            var mouseEvent = mock(MouseEvent.class);
+            when(mouseEvent.getX()).thenReturn(x);
+            when(mouseEvent.getY()).thenReturn(y);
+
+            // Act
+            eventHandlerArgumentCaptor.getValue().handle(mouseEvent);
+
+            // Assert
+            assertEquals(x, sut.getCoordinate().getX());
+            assertEquals(y, sut.getCoordinate().getY());
+        }
     }
 
     @Test
@@ -177,7 +197,7 @@ class MouseMovedListenerTest {
     private static class MouseMovedListenerImpl implements MouseMovedListener {
 
         private Node node;
-        private Coordinate2D releasedCoordinates;
+        private Coordinate2D coordinate;
 
         public void setNode(Node node) {
             this.node = node;
@@ -185,12 +205,12 @@ class MouseMovedListenerTest {
 
         @Override
         public Optional<? extends Node> getNode() {
-            return Optional.empty();
+            return Optional.of(node);
         }
 
         @Override
         public void onMouseMoved(Coordinate2D coordinate2D) {
-
+            this.coordinate = coordinate2D;
         }
     }
 
