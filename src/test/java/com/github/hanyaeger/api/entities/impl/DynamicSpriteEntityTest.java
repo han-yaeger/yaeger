@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class DynamicSpriteEntityTest {
@@ -139,7 +140,7 @@ class DynamicSpriteEntityTest {
             Updater updater1 = sut.getUpdater();
 
             // Assert
-            Assertions.assertEquals(updater, updater1);
+            assertEquals(updater, updater1);
         }
     }
 
@@ -266,7 +267,7 @@ class DynamicSpriteEntityTest {
             Updater updater1 = sut.getUpdater();
 
             // Assert
-            Assertions.assertEquals(updater, updater1);
+            assertEquals(updater, updater1);
         }
 
         @Test
@@ -278,7 +279,7 @@ class DynamicSpriteEntityTest {
             var mA = sut.getMotionApplier();
 
             // Assert
-            Assertions.assertEquals(motionApplier, mA);
+            assertEquals(motionApplier, mA);
         }
 
         @Test
@@ -291,7 +292,7 @@ class DynamicSpriteEntityTest {
             var rS = sut.getRotationSpeed();
 
             // Assert
-            Assertions.assertEquals(ROTATION_SPEED, rS);
+            assertEquals(ROTATION_SPEED, rS);
         }
 
         @Test
@@ -357,6 +358,20 @@ class DynamicSpriteEntityTest {
 
             // Assert
             verify(spriteAnimationDelegate).setAutoCycleInterval(2);
+        }
+
+        @Test
+        void getAutoCycleRowDelegatedToSpriteAnimationDelegate() {
+            // Arrange
+            var expected = 42;
+            sut.init(injector);
+            when(spriteAnimationDelegate.getCyclingRow()).thenReturn(expected);
+
+            // Act
+            var actual = sut.getAutoCycleRow();
+
+            // Assert
+            Assertions.assertEquals(expected, actual);
         }
 
         @Test

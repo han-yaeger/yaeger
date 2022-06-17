@@ -114,6 +114,16 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
         spriteAnimationDelegate.ifPresentOrElse(delegate -> delegate.setAutoCycleRow(row), () -> this.cyclingRow = row);
     }
 
+    /**
+     * Return the row that is currently set as the only row to cycle through. If
+     * a value of -1 is returned, all rows are cycled through.
+     *
+     * @return the cycling row that is currently cycled through
+     */
+    protected int getAutoCycleRow() {
+        return spriteAnimationDelegate.map(delegate -> delegate.getCyclingRow()).orElse(0);
+    }
+
     @Override
     public MotionApplier getMotionApplier() {
         return motionApplier;

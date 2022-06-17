@@ -118,7 +118,7 @@ public class SpriteAnimationDelegate implements Updatable {
 
     /**
      * Return the row that is currently set as the only row to cycle through. If
-     * a value of -1 is returned, all rows are cycked through.
+     * a value of -1 is returned, all rows are cycled through.
      *
      * @return the cycling row
      */
