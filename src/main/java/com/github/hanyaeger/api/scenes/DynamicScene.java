@@ -58,7 +58,7 @@ public abstract class DynamicScene extends StaticScene implements UpdateDelegato
     }
 
     /**
-     * Returns whether the Game World Update is active or not. By default the GWU is active. After
+     * Returns whether the Game World Update is active or not. By default, the GWU is active. After
      * calling {@link #pause()} this method will return {@code false}. To reactivate the GWA, use
      * {@link #resume()}.
      *

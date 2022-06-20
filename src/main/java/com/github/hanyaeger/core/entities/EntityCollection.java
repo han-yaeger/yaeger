@@ -179,7 +179,7 @@ public class EntityCollection implements Initializable {
     }
 
     /**
-     * Perform the initial update, to ensure all available entities are transferred fron their {@link EntitySupplier}
+     * Perform the initial update, to ensure all available entities are transferred from their {@link EntitySupplier}
      * to the actual collections to become part of the {@link EntityCollection}.
      */
     public void initialUpdate() {

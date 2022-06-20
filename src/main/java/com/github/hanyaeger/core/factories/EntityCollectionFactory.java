@@ -2,8 +2,6 @@ package com.github.hanyaeger.core.factories;
 
 import com.github.hanyaeger.core.YaegerConfig;
 import com.github.hanyaeger.core.entities.EntityCollection;
-import com.github.hanyaeger.api.entities.YaegerEntity;
-import javafx.scene.layout.Pane;
 
 /**
  * A {@link EntityCollectionFactory} should be used to create instances of {@link EntityCollection}.

@@ -127,7 +127,7 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
     }
 
     /**
-     * Preserve the aspect ration of the width and height of this {@link SpriteEntity}.
+     * Preserve the aspect ratio of the width and height of this {@link SpriteEntity}.
      *
      * @param preserveAspectRatio {@code true} if the ratio should be preserved, {@code false} otherwise
      */

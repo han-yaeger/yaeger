@@ -37,7 +37,7 @@ public interface YaegerScene extends GameNode, DimensionsProvider, Destroyable, 
     void setupScene();
 
     /**
-     * Use this method to setup all instances of {@code YaegerEntity} that should
+     * Use this method to set up all instances of {@code YaegerEntity} that should
      * be added to the {@code YaegerScene} before activation.
      * <p>
      * If not only instances of {@link com.github.hanyaeger.api.entities.YaegerEntity}, but also of
@@ -70,7 +70,7 @@ public interface YaegerScene extends GameNode, DimensionsProvider, Destroyable, 
      * resources should be placed. If the resource is placed in a subfolder of {@code resources/}, this folder should
      * be opened explicitly from the module descriptor.
      *
-     * @param url the name of the image file, including extension. Although many different file types are supported,
+     * @param url the name of the image file, including extension. Although many file types are supported,
      *            the following types are preferred:
      *            <ul>
      *            <li>jpg, jpeg</li>
@@ -86,7 +86,7 @@ public interface YaegerScene extends GameNode, DimensionsProvider, Destroyable, 
      * resources should be placed. If the resource is placed in a subfolder of {@code resources/}, this folder should
      * be opened explicitly from the module descriptor.
      *
-     * @param url        the name of the image file, including extension. Although many different file types are supported,
+     * @param url        the name of the image file, including extension. Although many file types are supported,
      *                   the following types are preferred:
      *                   <ul>
      *                   <li>jpg, jpeg</li>
@@ -99,7 +99,7 @@ public interface YaegerScene extends GameNode, DimensionsProvider, Destroyable, 
     void setBackgroundImage(final String url, final boolean fullscreen);
 
     /**
-     * Set the background audio file. Currently only {@code *.mp3} files are supported. The audio file
+     * Set the background audio file. Currently, only {@code *.mp3} files are supported. The audio file
      * will be looped indefinitely, until the {@code YaegerScene} is destroyed.
      * <p>
      * Set the background image file. The {@code url} of the image is relative to the {@code resources/} folder, where all
@@ -133,7 +133,7 @@ public interface YaegerScene extends GameNode, DimensionsProvider, Destroyable, 
     /**
      * Return the {@link Scene} that is encapsulated by this {@code YaegerScene}
      *
-     * @return the {@link Scene} that is encapsulated bu this {@code YaegerScene}
+     * @return the {@link Scene} that is encapsulated by this {@code YaegerScene}
      */
     Scene getScene();
 

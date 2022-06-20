@@ -150,7 +150,7 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
     }
 
     /**
-     * Calculates the distance between the {@link AnchorPoint} of this {@link YaegerEntity} and the to a given
+     * Calculates the distance between the {@link AnchorPoint} of this {@link YaegerEntity} and the given
      * {@link Coordinate2D}.
      *
      * @param location the {@link Coordinate2D} to which the distance should be calculated
@@ -387,7 +387,7 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
      * of this {@link YaegerEntity} within the {@link YaegerScene}. The lower the viewOrder, the closer
      * the {@link YaegerEntity} is to the front of the {@link YaegerScene}.
      * <p>
-     * By default a {@link YaegerEntity} will receive the viewOrder of {@link ViewOrders#VIEW_ORDER_ENTITY_DEFAULT}.
+     * By default, a {@link YaegerEntity} will receive the viewOrder of {@link ViewOrders#VIEW_ORDER_ENTITY_DEFAULT}.
      * A {@link YaegerEntity} that is part of an {@link com.github.hanyaeger.api.scenes.TileMap} will default
      * to the value 100 to ensure it is placed behind other Entities.
      *
@@ -403,7 +403,7 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
      * of this {@link YaegerEntity} within the {@link YaegerScene}. The lower the viewOrder, the closer
      * the {@link YaegerEntity} is to the front of the {@link YaegerScene}.
      * <p>
-     * By default a {@link YaegerEntity} will receive the viewOrder of {@link ViewOrders#VIEW_ORDER_ENTITY_DEFAULT}.
+     * By default, a {@link YaegerEntity} will receive the viewOrder of {@link ViewOrders#VIEW_ORDER_ENTITY_DEFAULT}.
      * A {@link YaegerEntity} that is part of an {@link com.github.hanyaeger.api.scenes.TileMap} will default
      * to the value 100 to ensure it is placed behind other Entities.
      *

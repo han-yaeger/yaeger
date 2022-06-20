@@ -18,7 +18,7 @@ public interface Initializable {
      * A default method to be used as a lifecycle hook to be called before a {@link YaegerEntity}
      * is initialized and added to the {@link YaegerScene}.
      * <p>
-     * By default this method is empty.
+     * By default, this method is empty.
      */
     default void beforeInitialize() {
     }

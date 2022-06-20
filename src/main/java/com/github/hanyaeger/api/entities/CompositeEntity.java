@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * When a group of entities are combined to create a single {@link YaegerEntity}, they are
+ * When a group of entities is combined to create a single {@link YaegerEntity}, they are
  * a composition and this class should be used to perform that composition.
  * <p>
  * It is possible to add instances of {@link YaegerEntity} to this {@link CompositeEntity},
@@ -73,7 +73,7 @@ public abstract class CompositeEntity extends YaegerEntity {
     }
 
     /**
-     * Implement this method to setup all instances of {@link YaegerEntity} that should
+     * Implement this method to set up all instances of {@link YaegerEntity} that should
      * be added to the {@link CompositeEntity} before activation.
      */
     protected abstract void setupEntities();
@@ -121,7 +121,7 @@ public abstract class CompositeEntity extends YaegerEntity {
     }
 
     /**
-     * Note that this method will become recursive it composition consists of more instance of {@link CompositeEntity}.
+     * Note that this method will become recursive if the composition consists of more instance of {@link CompositeEntity}.
      */
     @Override
     public void addToParent(final EntityProcessor processor) {
@@ -130,7 +130,7 @@ public abstract class CompositeEntity extends YaegerEntity {
             entity.addToParent(this::addToParentNode);
         }
 
-        // After all child Entities have been added themself to this parent, add this to its own parent
+        // After all child Entities have been added themselves to this parent, add this to its own parent
         super.addToParent(processor);
 
         // The Node hierarchy has been created and the translations can be applied

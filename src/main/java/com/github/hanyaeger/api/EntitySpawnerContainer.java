@@ -66,7 +66,7 @@ public interface EntitySpawnerContainer extends EntitySpawnerListProvider, Entit
     void setupEntitySpawners();
 
     /**
-     * Call the {@link Updatable#update(long)} of all intances of {@link EntitySpawner} that
+     * Call the {@link Updatable#update(long)} of all instances of {@link EntitySpawner} that
      * were added to this {@link EntitySpawnerContainer}.
      *
      * @return an {@link Updatable} that delegates the {@link Updatable#update(long)}

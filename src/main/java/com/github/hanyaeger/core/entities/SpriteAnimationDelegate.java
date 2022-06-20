@@ -82,7 +82,7 @@ public class SpriteAnimationDelegate implements Updatable {
      * Set the interval at which the sprite should be automatically cycled
      * and which row to cycle through.
      *
-     * @param interval the interval in milli-seconds
+     * @param interval the interval in milliseconds
      * @param row      the row to cycle through (zero-indexed)
      */
     public void setAutoCycle(final long interval, final int row) {
@@ -96,7 +96,7 @@ public class SpriteAnimationDelegate implements Updatable {
      * use the method {@link #setAutoCycleRow(int)}, or {@link #setAutoCycle(long, int)}
      * to set them both at once.
      *
-     * @param interval the interval in milli-seconds
+     * @param interval the interval in milliseconds
      */
     public void setAutoCycleInterval(final long interval) {
         this.autoCycleInterval = interval * MILLI_TO_NANO_FACTOR;

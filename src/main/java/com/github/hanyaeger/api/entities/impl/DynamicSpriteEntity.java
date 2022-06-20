@@ -1,6 +1,7 @@
 package com.github.hanyaeger.api.entities.impl;
 
 import com.github.hanyaeger.core.entities.EntityCollection;
+import com.github.hanyaeger.core.entities.SpriteAnimationDelegate;
 import com.github.hanyaeger.core.entities.motion.*;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -82,7 +83,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     /**
      * Set the interval at which the sprite should be automatically cycled.
      *
-     * @param interval the interval in milli-seconds
+     * @param interval the interval in milliseconds
      */
     protected void setAutoCycle(final long interval) {
         spriteAnimationDelegate.ifPresentOrElse(delegate -> delegate.setAutoCycleInterval(interval), () ->
@@ -93,7 +94,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      * Set the interval at which the sprite should be automatically cycled.
      * The sprite will cycle through one row of sprites, from left to right.
      *
-     * @param interval the interval in milli-seconds
+     * @param interval the interval in milliseconds
      * @param row      the row to cycle through. This value is zero based; if a value of -1 is used, all sprites are
      *                 cycled through
      */
@@ -121,7 +122,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
      * @return the cycling row that is currently cycled through
      */
     protected int getAutoCycleRow() {
-        return spriteAnimationDelegate.map(delegate -> delegate.getCyclingRow()).orElse(0);
+        return spriteAnimationDelegate.map(SpriteAnimationDelegate::getCyclingRow).orElse(0);
     }
 
     @Override

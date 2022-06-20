@@ -11,7 +11,7 @@ public interface Rotatable extends GameNode {
 
     /**
      * Set the rotation of the {@link YaegerEntity} to the specified value. Note that a positive rotation value
-     * rotates the {@link YaegerEntity} counter clockwise, and a negative value rotates the {@link YaegerEntity}
+     * rotates the {@link YaegerEntity} counterclockwise, and a negative value rotates the {@link YaegerEntity}
      * clockwise.
      *
      * @param degrees The rotation in degrees as a {@code double}.

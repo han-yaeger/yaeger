@@ -4,7 +4,6 @@ import com.github.hanyaeger.api.Size;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 
 /**
  * A {@link SceneFactory} can be used to create instances of {@link Scene}.

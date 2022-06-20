@@ -51,14 +51,14 @@ public abstract class Timer {
     }
 
     /**
-     * Pause the timer so it will no longer update with each animation.
+     * Pause the timer, so it will no longer update with each animation.
      */
     public final void pause() {
         active = false;
     }
 
     /**
-     * Resume the timer so it will start updating on each animation again.
+     * Resume the timer, so it will start updating on each animation again.
      */
     public final void resume() {
         active = true;

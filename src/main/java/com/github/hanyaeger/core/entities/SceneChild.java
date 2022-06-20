@@ -4,7 +4,7 @@ import com.github.hanyaeger.api.scenes.YaegerScene;
 
 /**
  * A {@link SceneChild} is part of a {@link YaegerScene}
- * and has thus access to width and height of the {@link YaegerScene} it
+ * and has thus acces to width and height of the {@link YaegerScene} it
  * is part of.
  */
 public interface SceneChild extends GameNode {

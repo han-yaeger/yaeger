@@ -60,7 +60,7 @@ public class Debugger implements StatisticsObserver {
     private int lastFps = 60;
 
     /**
-     * Setup the {@code Debugger} on the given {@link Pane}.
+     * Set up the {@code Debugger} on the given {@link Pane}.
      *
      * @param pane  the {@link Pane} that should be used when creating this {@code Debugger}
      * @param scene the {@link Scene} that is encapsulated by the {@link com.github.hanyaeger.api.scenes.YaegerScene}

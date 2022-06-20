@@ -28,7 +28,7 @@ public class Updater implements Updatable, Clearable {
      *
      * @param updatable the {@link Updatable} to be added
      * @param asFirst   add an {@link Updatable} to this {@link Updater} as the first element and thus
-     *                  be execute first during an {@code update}
+     *                  be executed first during an {@code update}
      */
     public void addUpdatable(final Updatable updatable, boolean asFirst) {
         if (asFirst) {
