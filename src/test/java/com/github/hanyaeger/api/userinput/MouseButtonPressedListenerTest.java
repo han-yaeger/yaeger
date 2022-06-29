@@ -1,12 +1,14 @@
 package com.github.hanyaeger.api.userinput;
 
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.scenes.ScrollableDynamicScene;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -18,72 +20,106 @@ import static org.mockito.Mockito.*;
 class MouseButtonPressedListenerTest {
 
     private Node node;
-    private MouseButtonPressedListeningImpl sut;
 
     @BeforeEach
     void setup() {
-        sut = new MouseButtonPressedListeningImpl();
-
         node = mock(Node.class, withSettings().withoutAnnotations());
-        sut.setNode(node);
     }
 
-    @Test
-    void attachMousePressedListenerAttachesMouseListener() {
-        // Arrange
+    @Nested
+    class GenericMouseButtonPressedListener {
+        private MouseButtonPressedListeningImpl sut;
 
-        // Act
-        sut.attachMousePressedListener();
+        @BeforeEach
+        void setup() {
+            sut = new MouseButtonPressedListeningImpl();
+            sut.setNode(node);
+        }
 
-        // Assert
-        verify(node).setOnMousePressed(any());
+        @Test
+        void attachMousePressedListenerAttachesMouseListener() {
+            // Arrange
+
+            // Act
+            sut.attachMouseButtonPressedListener();
+
+            // Assert
+            verify(node).setOnMousePressed(any());
+        }
+
+        @Test
+        void callingEventFromEventHandlerCallsOnMouseButtonPressedWithCorrectCoordinates() {
+            // Arrange
+            ArgumentCaptor<EventHandler> eventHandlerArgumentCaptor = ArgumentCaptor.forClass(EventHandler.class);
+            sut.attachMouseButtonPressedListener();
+            verify(node).setOnMousePressed(eventHandlerArgumentCaptor.capture());
+
+            var x = 37D;
+            var y = 42D;
+
+            var mouseEvent = mock(MouseEvent.class);
+            when(mouseEvent.getX()).thenReturn(x);
+            when(mouseEvent.getY()).thenReturn(y);
+
+            // Act
+            eventHandlerArgumentCaptor.getValue().handle(mouseEvent);
+
+            // Assert
+            assertEquals(x, sut.getPressedCoordinates().getX());
+            assertEquals(y, sut.getPressedCoordinates().getY());
+        }
+
+        @Test
+        void callingEventFromEventHandlerCallsOnMouseButtonPressedWithCorrectButton() {
+            // Arrange
+            ArgumentCaptor<EventHandler> eventHandlerArgumentCaptor = ArgumentCaptor.forClass(EventHandler.class);
+            sut.attachMouseButtonPressedListener();
+            verify(node).setOnMousePressed(eventHandlerArgumentCaptor.capture());
+
+
+            var mouseEvent = mock(MouseEvent.class);
+            var x = 37D;
+            var y = 42D;
+
+            when(mouseEvent.getX()).thenReturn(x);
+            when(mouseEvent.getY()).thenReturn(y);
+
+            var expectedButton = MouseButton.PRIMARY;
+            when(mouseEvent.getButton()).thenReturn(expectedButton);
+
+            // Act
+            eventHandlerArgumentCaptor.getValue().handle(mouseEvent);
+
+            // Assert
+            assertEquals(expectedButton, sut.getButton());
+        }
     }
 
-    @Test
-    void callingEventFromEventHandlerCallsonMouseButtonPressedWithCorrectCoordinates() {
-        // Arrange
-        ArgumentCaptor<EventHandler> eventHandlerArgumentCaptor = ArgumentCaptor.forClass(EventHandler.class);
-        sut.attachMousePressedListener();
-        verify(node).setOnMousePressed(eventHandlerArgumentCaptor.capture());
+    @Nested
+    class ScrollingSceneMousePressedListener {
 
-        var x = 37D;
-        var y = 42D;
+        private MouseButtonPressedListeningScrollableSceneImpl sut;
+        private Pane pane;
 
-        var mouseEvent = mock(MouseEvent.class);
-        when(mouseEvent.getX()).thenReturn(x);
-        when(mouseEvent.getY()).thenReturn(y);
+        @BeforeEach
+        void setup() {
+            pane = mock(Pane.class);
 
-        // Act
-        eventHandlerArgumentCaptor.getValue().handle(mouseEvent);
+            sut = new MouseButtonPressedListeningScrollableSceneImpl();
+            sut.setNode(node);
+            sut.setPane(pane);
+        }
 
-        // Assert
-        assertEquals(x, sut.getPressedCoordinates().getX());
-        assertEquals(y, sut.getPressedCoordinates().getY());
-    }
+        @Test
+        void attachMousePressedListenerAttachesMouseListener() {
+            // Arrange
 
-    @Test
-    void callingEventFromEventHandlerCallsonMouseButtonPressedWithCorrectButton() {
-        // Arrange
-        ArgumentCaptor<EventHandler> eventHandlerArgumentCaptor = ArgumentCaptor.forClass(EventHandler.class);
-        sut.attachMousePressedListener();
-        verify(node).setOnMousePressed(eventHandlerArgumentCaptor.capture());
+            // Act
+            sut.attachMouseButtonPressedListener();
 
-
-        var mouseEvent = mock(MouseEvent.class);
-        var x = 37D;
-        var y = 42D;
-
-        when(mouseEvent.getX()).thenReturn(x);
-        when(mouseEvent.getY()).thenReturn(y);
-
-        var expectedButton = MouseButton.PRIMARY;
-        when(mouseEvent.getButton()).thenReturn(expectedButton);
-
-        // Act
-        eventHandlerArgumentCaptor.getValue().handle(mouseEvent);
-
-        // Assert
-        assertEquals(expectedButton, sut.getButton());
+            // Assert
+            verify(pane).setOnMousePressed(any());
+        }
     }
 
     private static class MouseButtonPressedListeningImpl implements MouseButtonPressedListener {
@@ -113,6 +149,50 @@ class MouseButtonPressedListenerTest {
 
         public MouseButton getButton() {
             return button;
+        }
+    }
+
+    private static class MouseButtonPressedListeningScrollableSceneImpl extends ScrollableDynamicScene implements MouseButtonPressedListener {
+
+        private Node node;
+        private Pane pane;
+        private Coordinate2D coordinate;
+
+        public void setNode(Node node) {
+            this.node = node;
+        }
+
+        void setPane(Pane pane) {
+            this.pane = pane;
+        }
+
+        @Override
+        public Pane getRootPane() {
+            return pane;
+        }
+
+        @Override
+        public Optional<? extends Node> getNode() {
+            return Optional.of(node);
+        }
+
+        @Override
+        public void setupScene() {
+
+        }
+
+        @Override
+        public void setupEntities() {
+
+        }
+
+        public Coordinate2D getCoordinate() {
+            return coordinate;
+        }
+
+        @Override
+        public void onMouseButtonPressed(MouseButton button, Coordinate2D coordinate2D) {
+            this.coordinate = coordinate2D;
         }
     }
 }

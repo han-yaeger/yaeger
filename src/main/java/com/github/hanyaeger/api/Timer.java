@@ -5,7 +5,9 @@ import com.github.hanyaeger.api.scenes.YaegerScene;
 
 /**
  * The abstract superclass of all timers that are available for both {@link YaegerScene}
- * and {@link YaegerEntity}.
+ * and {@link YaegerEntity}. To add a {@code Timer} the {@link YaegerEntity} or {@link YaegerScene} should implement
+ * the interface {@link TimerContainer}, after which the method {@link TimerContainer#setupTimers()} should be
+ * implemented to add the newly created timers through the method {@link TimerContainer#addTimer(Timer)}.
  * <p>
  * Extend this class and implement the method {@link #onAnimationUpdate(long)}.
  */
@@ -49,14 +51,14 @@ public abstract class Timer {
     }
 
     /**
-     * Pause the timer so it will no longer update with each animation.
+     * Pause the timer, so it will no longer update with each animation.
      */
     public final void pause() {
         active = false;
     }
 
     /**
-     * Resume the timer so it will start updating on each animation again.
+     * Resume the timer, so it will start updating on each animation again.
      */
     public final void resume() {
         active = true;
@@ -112,5 +114,12 @@ public abstract class Timer {
      */
     public void setIntervalInMs(final long intervalInMs) {
         this.intervalInMs = intervalInMs;
+    }
+
+    /**
+     * Reset this {@code Timer} to start from the beginning again.
+     */
+    public void reset() {
+        this.prevTime = 0;
     }
 }

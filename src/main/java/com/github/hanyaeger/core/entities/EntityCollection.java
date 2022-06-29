@@ -1,25 +1,22 @@
 package com.github.hanyaeger.core.entities;
 
+import com.github.hanyaeger.api.entities.*;
 import com.github.hanyaeger.core.Initializable;
 import com.github.hanyaeger.core.Updatable;
 import com.github.hanyaeger.core.YaegerConfig;
 import com.github.hanyaeger.core.annotations.AnnotationProcessor;
-import com.github.hanyaeger.api.entities.Collided;
-import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import com.github.hanyaeger.core.exceptions.YaegerEngineException;
 import com.github.hanyaeger.api.scenes.YaegerScene;
+import com.github.hanyaeger.core.factories.EntitySupplierFactory;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import com.github.hanyaeger.api.entities.YaegerEntity;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 import com.github.hanyaeger.core.entities.events.EventTypes;
 import javafx.scene.layout.Pane;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * An {@link EntityCollection} encapsulates all behaviour related to all instances of {@link YaegerEntity} that are part of
@@ -30,36 +27,35 @@ public class EntityCollection implements Initializable {
     private static final String NO_SHOW_BB_ERROR = "A BoundingBoxVisualizer can only be added when the Game is run with the commandline argument -showBB.";
     private final EntityCollectionStatistics statistics;
     private Injector injector;
-    private final Pane pane;
     private final List<EntitySupplier> suppliers = new ArrayList<>();
     private final List<YaegerEntity> statics = new ArrayList<>();
     private final List<Updatable> updatables = new ArrayList<>();
     private final List<KeyListener> keyListeners = new ArrayList<>();
     private final List<YaegerEntity> garbage = new ArrayList<>();
 
-    private EntitySupplier boundingBoxVisualizerSupplier;
+    private Map<Pane, EntitySupplier> boundingBoxVisualizersMap;
     private List<Updatable> boundingBoxVisualizers;
 
     private final List<StatisticsObserver> statisticsObservers = new ArrayList<>();
 
     private final CollisionDelegate collisionDelegate;
+    private EntitySupplierFactory entitySupplierFactory;
     private AnnotationProcessor annotationProcessor;
     private final YaegerConfig config;
 
     /**
      * Instantiate an {@link EntityCollection} for a given {@link Group} and a {@link Set} of {@link YaegerEntity} instances.
      *
-     * @param pane   the {@link Group} to which all instances of {@link YaegerEntity}s should be added
      * @param config the {@link YaegerConfig} that should be used with this {@link EntityCollection}
      */
-    public EntityCollection(final Pane pane, final YaegerConfig config) {
-        this.pane = pane;
+    public EntityCollection(final YaegerConfig config) {
         this.config = config;
         this.collisionDelegate = new CollisionDelegate();
         this.statistics = new EntityCollectionStatistics();
 
         if (config.showBoundingBox()) {
             boundingBoxVisualizers = new ArrayList<>();
+            boundingBoxVisualizersMap = new HashMap<>();
         }
     }
 
@@ -158,12 +154,19 @@ public class EntityCollection implements Initializable {
      * </li>
      * </ul>
      *
-     * @param timestamp the timestamp of the update
+     * @param timestamp the timestamp of the update as a {@code long}
      */
     public void update(final long timestamp) {
         collectGarbage();
 
-        updatables.forEach(updatable -> updatable.update(timestamp));
+        try {
+            updatables.forEach(updatable -> updatable.update(timestamp));
+        } catch (ConcurrentModificationException ce) {
+            // in case of this exception, the user requested a different Scene to be loaded,
+            // so this scene can be gracefully destroyed.
+            return;
+        }
+
         collisionDelegate.checkCollisions();
 
         if (config.showBoundingBox()) {
@@ -172,11 +175,11 @@ public class EntityCollection implements Initializable {
 
         addSuppliedEntities();
         updateStatistics();
-        notifyStatisticsObservers();
+        notifyStatisticsObservers(timestamp);
     }
 
     /**
-     * Perform the initial update, to ensure all available entities are transferred fron their {@link EntitySupplier}
+     * Perform the initial update, to ensure all available entities are transferred from their {@link EntitySupplier}
      * to the actual collections to become part of the {@link EntityCollection}.
      */
     public void initialUpdate() {
@@ -195,6 +198,8 @@ public class EntityCollection implements Initializable {
 
         if (config.showBoundingBox()) {
             boundingBoxVisualizers.clear();
+            boundingBoxVisualizersMap.values().forEach(ArrayList::clear);
+            boundingBoxVisualizersMap.clear();
         }
     }
 
@@ -234,16 +239,19 @@ public class EntityCollection implements Initializable {
     }
 
     private void clearSuppliers() {
-        suppliers.forEach(EntitySupplier::clear);
-        suppliers.clear();
+        for (var supplier : suppliers) {
+            supplier.clear();
+        }
 
         if (config.showBoundingBox()) {
-            boundingBoxVisualizerSupplier.clear();
+            boundingBoxVisualizersMap.values().forEach(ArrayList::clear);
         }
+
+        suppliers.clear();
     }
 
-    private void notifyStatisticsObservers() {
-        statisticsObservers.forEach(statisticsObserver -> statisticsObserver.update(statistics));
+    private void notifyStatisticsObservers(final long timestamp) {
+        statisticsObservers.forEach(statisticsObserver -> statisticsObserver.update(statistics, timestamp));
     }
 
     private void collectGarbage() {
@@ -251,7 +259,10 @@ public class EntityCollection implements Initializable {
             return;
         }
 
-        garbage.forEach(this::removeGameObject);
+        for (var entity : garbage) {
+            removeGameObject(entity);
+        }
+
         statics.removeAll(garbage);
         updatables.removeAll(garbage);
         if (config.showBoundingBox()) {
@@ -260,22 +271,23 @@ public class EntityCollection implements Initializable {
         garbage.clear();
     }
 
-    private void removeGameObject(final Removable entity) {
-        entity.getNode().ifPresent(node -> this.pane.getChildren().remove(node));
+    private void removeGameObject(final YaegerEntity entity) {
+        entity.getNode().ifPresent(node -> entity.getRootPane().getChildren().remove(node));
         this.collisionDelegate.remove(entity);
     }
 
     private void addSuppliedEntities() {
         if (!suppliers.isEmpty()) {
-            suppliers.forEach(supplier -> supplier.get().forEach(this::initialize));
+            suppliers.forEach(supplier -> supplier.get().forEach(yaegerEntity -> initialize(yaegerEntity, supplier.getPane())));
         }
 
-        if (config.showBoundingBox() && !boundingBoxVisualizerSupplier.isEmpty()) {
-            boundingBoxVisualizerSupplier.get().forEach(this::initialize);
+        if (config.showBoundingBox()) {
+            boundingBoxVisualizersMap.keySet().forEach(key -> boundingBoxVisualizersMap.get(key).get().forEach(yaegerEntity -> initialize(yaegerEntity, key)));
+
         }
     }
 
-    private void initialize(final YaegerEntity entity) {
+    private void initialize(final YaegerEntity entity, final Pane paneToBeUsed) {
         entity.beforeInitialize();
 
         entity.applyEntityProcessor(yaegerEntity -> injector.injectMembers(yaegerEntity));
@@ -287,17 +299,27 @@ public class EntityCollection implements Initializable {
         entity.applyTranslationsForAnchorPoint();
 
         entity.applyEntityProcessor(this::registerIfKeyListener);
-        entity.applyEntityProcessor(this::registerIfCollider);
+        // Entities will receive knowledge of the RootPane they are attached to
+        entity.setRootPane(paneToBeUsed);
+        // When registering a Collidable, the RootPane should be present to ensure
+        // the BoundingBoxVisualizer is attached to the same RootPane.
+        entity.applyEntityProcessor(this::registerCollidable);
+
         entity.addToParent(this::addToParentNode);
 
         entity.applyEntityProcessor(yaegerEntity -> annotationProcessor.invokeActivators(yaegerEntity));
     }
 
-    private void registerIfCollider(final YaegerEntity yaegerEntity) {
-        final var collider = collisionDelegate.register(yaegerEntity);
+    private void registerCollidable(final YaegerEntity yaegerEntity) {
+        final var hasBoundingBox = collisionDelegate.register(yaegerEntity);
 
-        if (collider && config.showBoundingBox()) {
-            boundingBoxVisualizerSupplier.add(new BoundingBoxVisualizer(yaegerEntity));
+        if (hasBoundingBox && config.showBoundingBox()) {
+            if (!boundingBoxVisualizersMap.containsKey(yaegerEntity.getRootPane())) {
+                var supplier = entitySupplierFactory.create(yaegerEntity.getRootPane());
+                boundingBoxVisualizersMap.put(yaegerEntity.getRootPane(), supplier);
+            }
+
+            boundingBoxVisualizersMap.get(yaegerEntity.getRootPane()).add(new BoundingBoxVisualizer(yaegerEntity));
         }
     }
 
@@ -308,7 +330,7 @@ public class EntityCollection implements Initializable {
     }
 
     private void addToParentNode(final YaegerEntity entity) {
-        entity.getNode().ifPresent(node -> this.pane.getChildren().add(node));
+        entity.getNode().ifPresent(node -> entity.getRootPane().getChildren().add(node));
     }
 
     private void updateStatistics() {
@@ -335,14 +357,12 @@ public class EntityCollection implements Initializable {
     }
 
     /**
-     * Set the {@link EntitySupplier} that should be used for the bounding-box visualizers.
+     * Set the {@link EntitySupplierFactory} to be used
      *
-     * @param boundingBoxVisualizerSupplier the {@link EntitySupplier} to be used
+     * @param entitySupplierFactory the {@link EntitySupplierFactory} to be used
      */
     @Inject
-    public void setBoundingBoxVisualizerSupplier(final EntitySupplier boundingBoxVisualizerSupplier) {
-        if (config.showBoundingBox()) {
-            this.boundingBoxVisualizerSupplier = boundingBoxVisualizerSupplier;
-        }
+    public void setEntitySupplierFactory(final EntitySupplierFactory entitySupplierFactory) {
+        this.entitySupplierFactory = entitySupplierFactory;
     }
 }

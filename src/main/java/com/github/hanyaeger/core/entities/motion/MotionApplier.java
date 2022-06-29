@@ -15,7 +15,7 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
 
     private static final Point2D IDENTITY_MOTION = new Point2D(0, 1);
     private static final Point2D NON_MOTION = new Point2D(0, 0);
-    private Optional<Double> direction = Optional.empty();
+    private Optional<Double> direction = Optional.of(0D);
     private Coordinate2D motion;
 
     /**
@@ -249,6 +249,9 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     }
 
     private double convertVectorToAngle(final Point2D vector) {
+        if (Double.compare(vector.getX(), 0D) == 0 && Double.compare(vector.getY(), 0D) == 0) {
+            return 0D;
+        }
         var currentAngle = vector.angle(IDENTITY_MOTION);
 
         if (vector.getX() < 0) {

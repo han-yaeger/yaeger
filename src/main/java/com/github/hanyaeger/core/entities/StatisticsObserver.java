@@ -12,6 +12,7 @@ public interface StatisticsObserver {
      *
      * @param statistics an instance of {@link EntityCollectionStatistics} that encapsulates the latest statistical
      *                   information regarding the observed {@link EntityCollection}
+     * @param timestamp  the timestamp of the update
      */
-    void update(final EntityCollectionStatistics statistics);
+    void update(final EntityCollectionStatistics statistics, final long timestamp);
 }

@@ -592,24 +592,25 @@ class MotionApplierTest {
             assertEquals(expectedDirection, sut.getDirection(), DELTA);
             assertEquals(expectedSpeed, sut.getSpeed(), DELTA);
         }
-
-        @Test
-        void nullifyMotionInExactSameDirectionSetsSpeedToZero() {
-            // Arrange
-            var currentSpeed = 3.7;
-            var currentDirection = 37;
-
-            // Act
-            sut.setMotion(currentSpeed, currentDirection);
-            sut.nullifySpeedInDirection(currentDirection);
-
-            // Assert
-            assertEquals(0, sut.getSpeed(), DELTA);
-        }
     }
 
     @Nested
     class NullifySpeedInDirectionTests {
+
+        @Test
+        void nullifySpeedInDirectionWhenSpeedIsAlreadyZero() {
+            // Arrange
+            var currentSpeed = 0D;
+            var currentDirection = 0D;
+            sut.setMotion(currentSpeed, currentDirection);
+
+            // Act
+            sut.nullifySpeedInDirection(0D);
+
+            // Assert
+            assertEquals(currentSpeed, sut.getSpeed(), DELTA);
+            assertEquals(currentDirection, sut.getDirection(), DELTA);
+        }
 
         @Test
         void nullifySpeedInOppositeDirectionDoesNothing() {
@@ -686,6 +687,44 @@ class MotionApplierTest {
 
             // Assert
             assertEquals(0, sut.getSpeed());
+        }
+
+        @Test
+        void nullifyMotionInExactSameDirectionSetsSpeedToZero() {
+            // Arrange
+            var currentSpeed = 3.7;
+            var currentDirection = 37;
+
+            // Act
+            sut.setMotion(currentSpeed, currentDirection);
+            sut.nullifySpeedInDirection(currentDirection);
+
+            // Assert
+            assertEquals(0, sut.getSpeed(), DELTA);
+        }
+
+        @Test
+        void nullifySpeedInZeroDirectionKeepsZeroDirection() {
+            // Arrange
+            var updatedDirection = 0.0;
+
+            // Act
+            sut.nullifySpeedInDirection(updatedDirection);
+
+            // Assert
+            assertEquals(0, Double.compare(updatedDirection, sut.getDirection()));
+        }
+
+        @Test
+        void nullifySpeedInZeroDirectionDoesNotResultInNaN() {
+            // Arrange
+            var updatedDirection = 0D;
+
+            // Act
+            sut.nullifySpeedInDirection(updatedDirection);
+
+            // Assert
+            assertFalse(Double.isNaN(sut.getDirection()));
         }
     }
 

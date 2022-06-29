@@ -1,8 +1,8 @@
 package com.github.hanyaeger.api.scenes;
 
-import com.github.hanyaeger.core.DependencyInjector;
-import com.github.hanyaeger.core.YaegerConfig;
+import com.github.hanyaeger.core.*;
 import com.github.hanyaeger.core.entities.Debugger;
+import com.github.hanyaeger.core.factories.PaneFactory;
 import com.github.hanyaeger.core.repositories.DragNDropRepository;
 import com.github.hanyaeger.core.scenes.EntityCollectionSupplier;
 import com.github.hanyaeger.core.scenes.SupplierProvider;
@@ -11,7 +11,6 @@ import com.github.hanyaeger.core.factories.EntityCollectionFactory;
 import com.github.hanyaeger.core.factories.SceneFactory;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import com.github.hanyaeger.api.entities.EntitySpawner;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.effect.ColorAdjust;
@@ -35,7 +34,7 @@ import java.util.Set;
  * A {@link StaticScene} is the abstract superclass of all scenes that do not require a Game Loop. If a Game
  * Loop is required, extend a {@link DynamicScene}.
  */
-public abstract class StaticScene implements YaegerScene, SupplierProvider, TileMapListProvider, EntityCollectionSupplier, DependencyInjector {
+public abstract class StaticScene extends YaegerGameObject implements YaegerScene, SupplierProvider, TileMapListProvider, EntityCollectionSupplier, DependencyInjector, RootPaneProvider {
 
     private EntityCollectionFactory entityCollectionFactory;
     private SceneFactory sceneFactory;
@@ -50,11 +49,10 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     private final List<TileMap> tileMaps = new ArrayList<>();
 
     private Stage stage;
-    private Scene scene;
-    private Pane pane;
-    private ColorAdjust colorAdjust;
-    private YaegerConfig config;
-    private Debugger debugger;
+    Scene scene;
+    Pane pane;
+    YaegerConfig config;
+    Debugger debugger;
 
     private DragNDropRepository dragNDropRepository;
 
@@ -69,27 +67,42 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     public void activate() {
         pane.setEffect(colorAdjust);
 
-        scene = sceneFactory.create(pane);
+        createJavaFXScene(sceneFactory);
 
-        entityCollection = entityCollectionFactory.create(pane, config);
+        entityCollection = entityCollectionFactory.create(config);
         injector.injectMembers(entityCollection);
         entityCollection.init(injector);
 
-
         if (config.showDebug()) {
             entityCollection.addStatisticsObserver(debugger);
-            debugger.setup(pane);
+            debugger.setup(getPaneForDebugger(), getScene());
         }
 
-        keyListenerDelegate.setup(scene, this::onInputChanged);
+        keyListenerDelegate.setup(scene, this::onInputChanged, config);
 
         if (this instanceof KeyListener keyListener) {
             entityCollection.registerKeyListener(keyListener);
         }
         backgroundDelegate.setup(pane);
+        entitySupplier.setPane(pane);
 
         setupScene();
         setupEntities();
+    }
+
+    /**
+     * Return the {@link Pane} that should be used for attaching the {@link Debugger}. Depending on the actual type
+     * of {@link YaegerScene} being used, a different {@link Pane} should be used for attaching the {@link Debugger}.
+     * <p>
+     *
+     * @return The default {@link Pane}
+     */
+    Pane getPaneForDebugger() {
+        return pane;
+    }
+
+    void createJavaFXScene(final SceneFactory sceneFactory) {
+        scene = sceneFactory.create(pane);
     }
 
     @Override
@@ -107,11 +120,10 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     }
 
     /**
-     * Add an {@link YaegerEntity} to this {@link YaegerScene}.
-     * <p>
-     * This method can only be used to add an instance of {@link YaegerEntity} during initialisation.If
-     * one should be added during the game, a {@link EntitySpawner} should be used.
-     * </p>
+     * Add an {@link YaegerEntity} to this {@link YaegerScene}. This method will primarily be used
+     * from the {@link #setupEntities()} method, but can also be used to add Entities while the game
+     * is running. When the entities should be added at a regular interval, the preferred approach will
+     * be to use an {@link com.github.hanyaeger.api.entities.EntitySpawner}.
      *
      * @param yaegerEntity the {@link YaegerEntity} to be added
      */
@@ -190,48 +202,13 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     }
 
     @Override
-    public void setBrightness(final double brightness) {
-        colorAdjust.setBrightness(brightness);
-    }
-
-    @Override
-    public void setContrast(final double contrast) {
-        colorAdjust.setContrast(contrast);
-    }
-
-    @Override
-    public void setHue(final double hue) {
-        colorAdjust.setHue(hue);
-    }
-
-    @Override
-    public void setSaturation(final double saturation) {
-        colorAdjust.setSaturation(saturation);
-    }
-
-    @Override
-    public double getBrightness() {
-        return colorAdjust.getBrightness();
-    }
-
-    @Override
-    public double getContrast() {
-        return colorAdjust.getContrast();
-    }
-
-    @Override
-    public double getHue() {
-        return colorAdjust.getHue();
-    }
-
-    @Override
-    public double getSaturation() {
-        return colorAdjust.getSaturation();
-    }
-
-    @Override
     public Scene getScene() {
         return this.scene;
+    }
+
+    @Override
+    public Pane getRootPane() {
+        return pane;
     }
 
     @Override
@@ -264,16 +241,15 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     }
 
     /**
-     * Set the {@link Pane} to be used. The {@link Pane} will be the root node of the graph that
-     * will be constructed for this {@link Scene}.
+     * Set the {@link PaneFactory} to be used. The {@link PaneFactory} will be used to create the root node of the
+     * graph that will be constructed for this {@link Scene}.
      *
-     * @param pane the {@link Pane} to be used
+     * @param paneFactory the {@link PaneFactory} to be used
      */
     @Inject
-    public void setPane(final Pane pane) {
-        this.pane = pane;
+    public void setPaneFactory(final PaneFactory paneFactory) {
+        this.pane = paneFactory.createPane();
     }
-
 
     /**
      * Set the {@link KeyListener} that should be used. In general, this will be the {@link YaegerScene}
@@ -337,16 +313,6 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
     }
 
     /**
-     * Set the {@link ColorAdjust} that should be used.
-     *
-     * @param colorAdjust the {@link ColorAdjust} to be used
-     */
-    @Inject
-    public void setColorAdjust(final ColorAdjust colorAdjust) {
-        this.colorAdjust = colorAdjust;
-    }
-
-    /**
      * Set the {@link DragNDropRepository} that should be used.
      *
      * @param dragNDropRepository the {@link DragNDropRepository} to be used
@@ -356,9 +322,17 @@ public abstract class StaticScene implements YaegerScene, SupplierProvider, Tile
         this.dragNDropRepository = dragNDropRepository;
     }
 
+    /**
+     * Set the {@link ColorAdjust} that should be used.
+     *
+     * @param colorAdjust the {@link ColorAdjust} to be used
+     */
+    @Inject
+    public void setColorAdjust(final ColorAdjust colorAdjust) {
+        this.colorAdjust = colorAdjust;
+    }
+
     private void onInputChanged(final Set<KeyCode> input) {
         entityCollection.notifyGameObjectsOfPressedKeys(input);
     }
-
-
 }

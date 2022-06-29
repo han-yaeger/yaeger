@@ -23,15 +23,14 @@ import java.util.*;
  * a {@link YaegerScene}. It is a convenience way to let Yaeger calculate the location and size of each of the entities,
  * and place them on the scene.
  * <p>
- * By default a {@link TileMap} will assume the full width of the {@link YaegerScene} must be used for placing the
- * tiles. It will require a two dimensional array that represents the scene and sets which entity should be where, and
+ * By default, a {@link TileMap} will assume the full width of the {@link YaegerScene} must be used for placing the
+ * tiles. It will require a two-dimensional array that represents the scene and sets which entity should be where, and
  * a list of the actual entities. Of these the classes are required, since the {@code TileMap} itself will create the
  * instances. It will use the two-dimensional array to calculate the location and size of each entity.
  */
 public abstract class TileMap extends EntitySupplier implements Anchorable, Activatable {
 
-    private int[][] classMap;
-
+    private transient int[][] classMap;
     private transient YaegerEntity[][] instanceMap;
 
     private final transient Map<Integer, EntityConfiguration> entities;
@@ -40,7 +39,6 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
 
     final transient Optional<Coordinate2D> location;
     transient Optional<Size> size = Optional.empty();
-
 
     /**
      * Create a new {@link TileMap} that takes up the full width and height of the
@@ -72,7 +70,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
 
     /**
      * The lifecycle method {@code defineMap()} should be used to define the map that should be used. It is
-     * represented by a two dimensional array of type {@code int}, where each cell represents an {@link YaegerEntity}
+     * represented by a two-dimensional array of type {@code int}, where each cell represents an {@link YaegerEntity}
      * on the map. The first array ({@code int[]}) defines the rows. Each entry in this array is itself an array
      * containing the columns of the given row.
      * <p>
@@ -88,7 +86,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
      * will place three rows of seven entities. In this case there should be four Entities added through the
      * {@link #addEntity(int, Class)} method.
      *
-     * @return The two dimensional array representing the map.
+     * @return The two-dimensional array representing the map.
      */
     public abstract int[][] defineMap();
 
@@ -168,7 +166,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
     }
 
     /**
-     * Return a two dimensional array of instances of {@link YaegerEntity} that contains the instances
+     * Return a two-dimensional array of instances of {@link YaegerEntity} that contains the instances
      * created by this {@code TileMap}. This way, this {@code TileMap} provides access to the instances
      * it has created.
      * <p>
@@ -178,7 +176,7 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
      * Whenever a {@link YaegerEntity} gets removed from the scene, through calling {@link YaegerEntity#remove()},
      * it will also be removed from this {@code TileMap}, and no longer accessible through this method.
      *
-     * @return a two dimensional array that contains all instances of {@link YaegerEntity} created by this {@code TileMap}
+     * @return a two-dimensional array that contains all instances of {@link YaegerEntity} created by this {@code TileMap}
      */
     public YaegerEntity[][] getInstanceMap() {
         return instanceMap;
@@ -187,13 +185,13 @@ public abstract class TileMap extends EntitySupplier implements Anchorable, Acti
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        var entities1 = (TileMap) o;
-        return entities.equals(entities1.entities) &&
-                Arrays.deepEquals(classMap, entities1.classMap) &&
-                size.equals(entities1.size) &&
-                location.equals(entities1.location);
+        if (o == null) return false;
+        if (getClass() != o.getClass()) return false;
+        var otherTileMap = (TileMap) o;
+        return entities.equals(otherTileMap.entities) &&
+                Arrays.deepEquals(classMap, otherTileMap.classMap) &&
+                size.equals(otherTileMap.size) &&
+                location.equals(otherTileMap.location);
     }
 
     @Override

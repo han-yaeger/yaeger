@@ -8,8 +8,7 @@ import javafx.scene.shape.Circle;
 
 /**
  * A {@link CircleEntity} provides the option to use a drawable Circle as an
- * {@link YaegerEntity}. As opposed to some of the other shapes
- * ({@link RectangleEntity}, for instance),
+ * {@link YaegerEntity}. As opposed to some shapes ({@link RectangleEntity}, for instance),
  * the reference point of a {@link CircleEntity} is its center.
  * <p>
  * For a {@link CircleEntity} it is possible to set the radius, through the methods {@link CircleEntity#setRadius(double)}.

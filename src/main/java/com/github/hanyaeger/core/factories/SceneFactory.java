@@ -2,8 +2,8 @@ package com.github.hanyaeger.core.factories;
 
 import com.github.hanyaeger.api.Size;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 
 /**
  * A {@link SceneFactory} can be used to create instances of {@link Scene}.
@@ -13,11 +13,11 @@ public class SceneFactory {
     /**
      * Create a {@link Scene}.
      *
-     * @param pane the {@link Pane} for which a {@link Scene} must be created
+     * @param parent the {@link Parent} for which a {@link Scene} must be created
      * @return an instance of {@link Scene}
      */
-    public Scene create(final Pane pane) {
-        return new Scene(pane);
+    public Scene create(final Parent parent) {
+        return new Scene(parent);
     }
 
     /**
@@ -29,5 +29,4 @@ public class SceneFactory {
     public Scene createEmptyForSize(final Size size) {
         return new Scene(new Group(), size.width(), size.height());
     }
-
 }

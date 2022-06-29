@@ -12,7 +12,7 @@ import com.google.inject.Injector;
 import java.util.Optional;
 
 /**
- * When a group of entities are combined to create a single entity, they are
+ * When a group of entities is combined to create a single entity, they are
  * a composition and this class should be used to perform that composition.
  * <p>
  * It is possible to add instances of {@link YaegerEntity} to this {@link DynamicCompositeEntity},

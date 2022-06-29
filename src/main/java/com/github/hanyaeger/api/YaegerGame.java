@@ -106,7 +106,7 @@ public abstract class YaegerGame extends Application {
     public abstract void setupScenes();
 
     /**
-     * Set the background audio file. Currently only {@code *.mp3} files are supported. The audio file
+     * Set the background audio file. Currently, only {@code *.mp3} files are supported. The audio file
      * will be looped indefinitely. Since it is part of the {@code YaegerGame}, it will continue
      * playing through each {@link YaegerScene}.
      * <p>

@@ -1,9 +1,12 @@
 package com.github.hanyaeger.api.userinput;
 
+import com.github.hanyaeger.api.scenes.ScrollableDynamicScene;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -15,57 +18,93 @@ import static org.mockito.Mockito.*;
 class MouseExitListenerTest {
 
     private Node node;
-    private MouseExitListeningImpl sut;
 
     @BeforeEach
     void setup() {
-        sut = new MouseExitListeningImpl();
-
         node = mock(Node.class, withSettings().withoutAnnotations());
-        sut.setNode(node);
     }
 
-    @Test
-    void attachMouseExitListenerAttachesMouseListener() {
-        // Arrange
+    @Nested
+    class GenericMouseEnterListener {
+        private MouseExitListeningImpl sut;
 
-        // Act
-        sut.attachMouseExitListener();
+        @BeforeEach
+        void setup() {
+            sut = new MouseExitListeningImpl();
 
-        // Assert
-        verify(node).setOnMouseExited(any());
+            node = mock(Node.class, withSettings().withoutAnnotations());
+            sut.setNode(node);
+        }
+
+        @Test
+        void attachMouseEnterListenerAttachesMouseListener() {
+            // Arrange
+
+            // Act
+            sut.attachMouseExitListener();
+
+            // Assert
+            verify(node).setOnMouseExited(any());
+        }
+
+        @Test
+        void callingEventFromEventHandlerCallsConsumesOnEvent() {
+            // Arrange
+            ArgumentCaptor<EventHandler> eventHandlerArgumentCaptor = ArgumentCaptor.forClass(EventHandler.class);
+            sut.attachMouseExitListener();
+            verify(node).setOnMouseExited(eventHandlerArgumentCaptor.capture());
+
+            var mouseEvent = mock(MouseEvent.class);
+
+            // Act
+            eventHandlerArgumentCaptor.getValue().handle(mouseEvent);
+
+            // Assert
+            verify(mouseEvent).consume();
+        }
+
+        @Test
+        void callingEventFromEventHandlerCallsOnMouseEntered() {
+            // Arrange
+            ArgumentCaptor<EventHandler> eventHandlerArgumentCaptor = ArgumentCaptor.forClass(EventHandler.class);
+            sut.attachMouseExitListener();
+            verify(node).setOnMouseExited(eventHandlerArgumentCaptor.capture());
+
+            var mouseEvent = mock(MouseEvent.class);
+
+            // Act
+            eventHandlerArgumentCaptor.getValue().handle(mouseEvent);
+
+            // Assert
+            assertTrue(sut.isCalled());
+        }
     }
 
-    @Test
-    void callingEventFromEventHandlerCallsConsumesOnEvent() {
-        // Arrange
-        ArgumentCaptor<EventHandler> eventHandlerArgumentCaptor = ArgumentCaptor.forClass(EventHandler.class);
-        sut.attachMouseExitListener();
-        verify(node).setOnMouseExited(eventHandlerArgumentCaptor.capture());
+    @Nested
+    class MouseMovedScrollableScene {
+        private MouseExitListeningScrollableSceneImpl sut;
+        private Pane pane;
 
-        var mouseEvent = mock(MouseEvent.class);
+        @BeforeEach
+        void setup() {
+            pane = mock(Pane.class);
 
-        // Act
-        eventHandlerArgumentCaptor.getValue().handle(mouseEvent);
+            sut = new MouseExitListeningScrollableSceneImpl();
 
-        // Assert
-        verify(mouseEvent).consume();
-    }
+            sut.setNode(node);
+            sut.setPane(pane);
+        }
 
-    @Test
-    void callingEventFromEventHandlerCallsOnMouseEntered() {
-        // Arrange
-        ArgumentCaptor<EventHandler> eventHandlerArgumentCaptor = ArgumentCaptor.forClass(EventHandler.class);
-        sut.attachMouseExitListener();
-        verify(node).setOnMouseExited(eventHandlerArgumentCaptor.capture());
+        @Test
+        void attachMouseMovedListenerToScrollableDynamicSceneAttachesMouseListenerToRootPane() {
+            // Arrange
 
-        var mouseEvent = mock(MouseEvent.class);
+            // Act
+            sut.attachMouseExitListener();
 
-        // Act
-        eventHandlerArgumentCaptor.getValue().handle(mouseEvent);
-
-        // Assert
-        assertTrue(sut.isCalled());
+            // Assert
+            verify(pane).setOnMouseExited(any());
+        }
     }
 
     private static class MouseExitListeningImpl implements MouseExitListener {
@@ -89,6 +128,45 @@ class MouseExitListenerTest {
 
         public boolean isCalled() {
             return called;
+        }
+    }
+
+    private static class MouseExitListeningScrollableSceneImpl extends ScrollableDynamicScene implements MouseExitListener {
+
+        private Node node;
+        private Pane pane;
+
+        public void setNode(Node node) {
+            this.node = node;
+        }
+
+        void setPane(Pane pane) {
+            this.pane = pane;
+        }
+
+        @Override
+        public Pane getRootPane() {
+            return pane;
+        }
+
+        @Override
+        public Optional<? extends Node> getNode() {
+            return Optional.of(node);
+        }
+
+        @Override
+        public void setupScene() {
+
+        }
+
+        @Override
+        public void setupEntities() {
+
+        }
+
+        @Override
+        public void onMouseExited() {
+
         }
     }
 }

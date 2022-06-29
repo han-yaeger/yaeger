@@ -22,6 +22,7 @@ public class SpriteAnimationDelegate implements Updatable {
     private final ImageView imageView;
     private final List<Rectangle2D> viewports = new ArrayList<>();
     private int currentIndex = 0;
+
     private int cyclingRow = -1;
 
     private static final String INVALID_ROW_EXCEPTION = "Cannot auto-cycle through row %d because" +
@@ -81,13 +82,24 @@ public class SpriteAnimationDelegate implements Updatable {
      * Set the interval at which the sprite should be automatically cycled
      * and which row to cycle through.
      *
-     * @param interval the interval in milli-seconds
+     * @param interval the interval in milliseconds
      * @param row      the row to cycle through (zero-indexed)
      */
     public void setAutoCycle(final long interval, final int row) {
+        setAutoCycleInterval(interval);
         setAutoCycleRow(row);
+    }
+
+    /**
+     * set the interval at which the sprite should be automatically cycled.
+     * The row will remain the same. To set the row that needs to be cycled,
+     * use the method {@link #setAutoCycleRow(int)}, or {@link #setAutoCycle(long, int)}
+     * to set them both at once.
+     *
+     * @param interval the interval in milliseconds
+     */
+    public void setAutoCycleInterval(final long interval) {
         this.autoCycleInterval = interval * MILLI_TO_NANO_FACTOR;
-        applyNewCurrentIndex(row);
     }
 
     /**
@@ -100,13 +112,25 @@ public class SpriteAnimationDelegate implements Updatable {
             final var message = String.format(INVALID_ROW_EXCEPTION, row, rows);
             throw new IllegalArgumentException(message);
         }
-        this.cyclingRow = row;
 
         applyNewCurrentIndex(row);
     }
 
+    /**
+     * Return the row that is currently set as the only row to cycle through. If
+     * a value of -1 is returned, all rows are cycled through.
+     *
+     * @return the cycling row
+     */
+    public int getCyclingRow() {
+        return cyclingRow;
+    }
+
     private void applyNewCurrentIndex(final int row) {
-        if (row != -1) {
+        if (cyclingRow == -1 && row == 0) {
+            this.cyclingRow = row;
+        } else if (row != -1 && row != cyclingRow) {
+            this.cyclingRow = row;
             currentIndex = cyclingRow * columns;
         }
     }

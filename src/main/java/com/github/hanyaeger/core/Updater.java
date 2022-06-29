@@ -28,7 +28,7 @@ public class Updater implements Updatable, Clearable {
      *
      * @param updatable the {@link Updatable} to be added
      * @param asFirst   add an {@link Updatable} to this {@link Updater} as the first element and thus
-     *                  be execute first during an {@code update}
+     *                  be executed first during an {@code update}
      */
     public void addUpdatable(final Updatable updatable, boolean asFirst) {
         if (asFirst) {
@@ -41,7 +41,9 @@ public class Updater implements Updatable, Clearable {
     @Override
     public void update(final long timestamp) {
         if (!clearUpdatables) {
-            updatables.forEach(updatable -> updatable.update(timestamp));
+            for (var updatable : updatables) {
+                updatable.update(timestamp);
+            }
         } else {
             updatables.clear();
         }

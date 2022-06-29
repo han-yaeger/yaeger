@@ -26,9 +26,10 @@ public interface Collided extends Bounded {
     /**
      * This method is called if a collision has occurred.
      *
-     * @param collidingObject the {@link Collider} you are colliding with
+     * @param collidingObjects a {@link List} of all instances of {@link Collider} this {@link Collided} has collided
+     *                         with, during the last Game World Update.
      */
-    void onCollision(final Collider collidingObject);
+    void onCollision(final List<Collider> collidingObjects);
 
     /**
      * Perform collision detection with a {@link Set} of {@link Collider} instances. Only the first collision
@@ -44,11 +45,10 @@ public interface Collided extends Bounded {
             return;
         }
 
-        for (final var collider : colliders) {
-            if (hasCollidedWith(collider)) {
-                onCollision(collider);
-                break;
-            }
+        var colliderList = colliders.stream().filter(this::hasCollidedWith).toList();
+
+        if (!colliderList.isEmpty()) {
+            onCollision(colliderList);
         }
     }
 

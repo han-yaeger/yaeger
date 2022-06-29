@@ -4,13 +4,14 @@
 [![codebeat badge](https://codebeat.co/badges/e5806ed2-598a-4597-b85b-3940650927e3)](https://codebeat.co/projects/github-com-han-yaeger-yaeger-master)
 [![CodeFactor](https://www.codefactor.io/repository/github/han-yaeger/yaeger/badge)](https://www.codefactor.io/repository/github/han-yaeger/yaeger)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=han-yaeger_yaeger&metric=alert_status)](https://sonarcloud.io/dashboard?id=han-yaeger_yaeger)
+[![BCH compliance](https://bettercodehub.com/edge/badge/han-yaeger/yaeger?branch=master)](https://bettercodehub.com/)
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.han-yaeger/yaeger/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.han-yaeger/yaeger)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 Yaeger is Another Education Game Engine Runtime, and a fully functional 2D game-engine that
 requires only a traditional Object-Oriented style of programming. It is based on JavaFX and
-requires Java 16 or above to work.
+requires Java 17 or above to work.
 
 ## Documentation
 
@@ -20,9 +21,7 @@ requires Java 16 or above to work.
 * Showcase: [Yaeger showcase](https://github.com/han-yaeger/yaeger-showcase)
 
 ## Usage
-
-Yaeger requires JDK16 or above, and is available through the Maven Central
-Repository.
+Yaeger requires JDK17, and is available through the Maven Central Repository.
 
 ```xml
 <dependency>

@@ -9,7 +9,7 @@ import java.util.Optional;
  * A {@link BufferedMovable} extends the interface {@link Movable} and support the use of a buffer.
  * With dependency injection, a {@link MotionApplier} is injected into a {@link YaegerEntity}.
  * The main problem is, however, that this injection takes place after the constructor has been called.
- * Hence it would not be possible to set the speed, direction and physics related properties of a {@link YaegerEntity}
+ * Hence, it would not be possible to set the speed, direction and physics related properties of a {@link YaegerEntity}
  * from the constructor.
  * <p>
  * This problem is resolved by introduction of a {@link EntityMotionInitBuffer}, which buffers the values set before the

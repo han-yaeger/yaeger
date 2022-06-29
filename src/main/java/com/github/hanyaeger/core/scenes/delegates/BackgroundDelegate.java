@@ -25,7 +25,7 @@ public class BackgroundDelegate implements ResourceConsumer, Destroyable {
     private BackgroundAudioMediaPlayer backgroundAudioMediaPlayer;
 
     /**
-     * Setup the {@link Pane} belonging to this  {@link BackgroundDelegate}.
+     * Set up the {@link Pane} belonging to this  {@link BackgroundDelegate}.
      *
      * @param pane The {@link Pane} that should be used when setup.
      */

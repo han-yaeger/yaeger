@@ -135,7 +135,21 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
     }
 
     @Test
-    void autoCycleGoesToStartOfRow() {
+    void changingAutoCycleDoesNotAlterRow() {
+        // Arrange
+
+        final var ROW = 3;
+        sut.setAutoCycle(2, ROW);
+
+        // Act
+        sut.setAutoCycleInterval(10);
+
+        // Assert
+        assertEquals(ROW, sut.getCyclingRow());
+    }
+
+    @Test
+    void autoCycleContinuesOnCurrentRow() {
         // Arrange
         sut.setFrameIndex(4);
 
@@ -143,7 +157,7 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
         sut.setAutoCycle(10, 0);
 
         // Assert
-        assertEquals(0, sut.getFrameIndex());
+        assertEquals(4, sut.getFrameIndex());
     }
 
     @Test

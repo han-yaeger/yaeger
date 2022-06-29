@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class YaegerCommandLineParser {
 
-    private static final String TABLE_FORMAT = "%-14s%-50s";
+    private static final String TABLE_FORMAT = "%-20s%-50s";
 
     /**
      * Parse the given command line Arguments and create a {@link YaegerConfig} that can be used to
@@ -32,7 +32,9 @@ public class YaegerCommandLineParser {
         return new YaegerConfig(
                 !args.contains(YaegerCommandLineArgument.NO_SPLASH.flag),
                 args.contains(YaegerCommandLineArgument.SHOW_BB.flag),
-                args.contains(YaegerCommandLineArgument.SHOW_DEBUG.flag)
+                args.contains(YaegerCommandLineArgument.SHOW_DEBUG.flag),
+                args.contains(YaegerCommandLineArgument.ENABLE_SCROLL.flag),
+                args.contains(YaegerCommandLineArgument.LIMIT_GWU.flag)
         );
     }
 
@@ -60,11 +62,12 @@ public class YaegerCommandLineParser {
     }
 
     private enum YaegerCommandLineArgument {
-        HELP("--help", "Show this help screen with all commandline options"),
-        SHOW_BB("--showBB", "Show the BoundingBox of all Colliders and Collided Entities"),
-        SHOW_DEBUG("--showDebug", "Show a debug window with information about the Scene"),
-        NO_SPLASH("--noSplash", "Skip the Splash screen during start up");
-
+        HELP("--help", "Show this help screen with all commandline options."),
+        SHOW_BB("--showBB", "Show the BoundingBox of all Colliders and Collided Entities."),
+        SHOW_DEBUG("--showDebug", "Show a debug window with information about the Scene."),
+        NO_SPLASH("--noSplash", "Skip the Splash screen during start up."),
+        ENABLE_SCROLL("--enableScroll", "Enable the scrolling gesture for ScrollableDynamicScenes."),
+        LIMIT_GWU("--limitGWU", "Limit the Game World Update to max 60/sec.");
         private final String flag;
         private final String explanation;
 

@@ -151,7 +151,7 @@ class CollisionDelegateTest {
         }
 
         @Override
-        public void onCollision(Collider collidingObject) {
+        public void onCollision(List<Collider> collidingObject) {
             // Not required here
         }
 

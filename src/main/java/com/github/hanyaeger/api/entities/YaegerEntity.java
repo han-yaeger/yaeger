@@ -3,11 +3,12 @@ package com.github.hanyaeger.api.entities;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.YaegerGame;
-import com.github.hanyaeger.core.Effectable;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.Initializable;
 import com.github.hanyaeger.api.Timer;
 import com.github.hanyaeger.core.TimerListProvider;
+import com.github.hanyaeger.core.ViewOrders;
+import com.github.hanyaeger.core.YaegerGameObject;
 import com.github.hanyaeger.core.entities.*;
 import com.github.hanyaeger.core.entities.events.EventTypes;
 import com.github.hanyaeger.core.entities.motion.InitializationBuffer;
@@ -17,49 +18,42 @@ import com.google.inject.Injector;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.geometry.BoundingBox;
-import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * A {@link YaegerEntity} is the base class for all things that can be drawn on a
+ * A {@code YaegerEntity} is the base class for all things that can be drawn on a
  * {@link YaegerScene}.
  */
 
-public abstract class YaegerEntity implements Initializable, TimerListProvider, Bounded, Removable, Placeable, SceneChild, GameNode, Rotatable, EventInitiator, DragRepositoryAccessor, Effectable {
+public abstract class YaegerEntity extends YaegerGameObject implements Initializable, TimerListProvider, Bounded, Removable, Placeable, SceneChild, GameNode, Rotatable, EventInitiator, DragRepositoryAccessor {
 
-    /**
-     * The default value for the viewOrder for instances of {@link YaegerEntity} that are
-     * part of a {@link com.github.hanyaeger.api.scenes.TileMap}.
-     */
-    public static final double VIEW_ORDER_DEFAULT_BEHIND = 100D;
-
-    static final double VIEW_ORDER_DEFAULT = 37D;
     static final boolean DEFAULT_VISIBILITY = true;
     static final double DEFAULT_OPACITY = 1;
 
     private Coordinate2D anchorLocation;
     private AnchorPoint anchorPoint;
+    private Pane rootPane;
 
     private boolean visible = DEFAULT_VISIBILITY;
     private double opacity = DEFAULT_OPACITY;
-    private double viewOrder = VIEW_ORDER_DEFAULT;
+    private double viewOrder = ViewOrders.VIEW_ORDER_ENTITY_DEFAULT;
 
     private Optional<Cursor> cursor = Optional.empty();
     private final List<Timer> timers = new ArrayList<>();
 
     private final InitializationBuffer initializationBuffer;
 
-    private final ColorAdjust colorAdjust = new ColorAdjust();
     private DragNDropRepository dragNDropRepository;
 
     /**
-     * Create a new {@link YaegerEntity} on the given {@link Coordinate2D}.
+     * Create a new {@code YaegerEntity} on the given {@link Coordinate2D}.
      *
      * @param initialLocation the initial {@link Coordinate2D} of this {@link YaegerEntity}
      */
@@ -68,6 +62,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
 
         this.anchorPoint = AnchorPoint.TOP_LEFT;
         this.initializationBuffer = new InitializationBuffer();
+        this.colorAdjust = new ColorAdjust();
     }
 
     /**
@@ -151,18 +146,22 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * @return The distance as a {@code double}
      */
     public double distanceTo(final YaegerEntity entity) {
-        return distanceTo(entity.getAnchorLocation());
+        return distanceTo(entity.getLocationInScene());
     }
 
     /**
-     * Calculates the distance between the {@link AnchorPoint} of this {@link YaegerEntity} and the to a given
+     * Calculates the distance between the {@link AnchorPoint} of this {@link YaegerEntity} and the given
      * {@link Coordinate2D}.
      *
      * @param location the {@link Coordinate2D} to which the distance should be calculated
      * @return the distance as a {@code double}
      */
     public double distanceTo(final Coordinate2D location) {
-        return getAnchorLocation().distance(new Point2D(location.getX(), location.getY()));
+        if (location == null) {
+            throw new NullPointerException("Cannot calculate distance a coordinate that is null.");
+        }
+        var locationInScene = getLocationInScene();
+        return locationInScene.distance(location);
     }
 
     /**
@@ -217,19 +216,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * @throws NullPointerException if the specified {@code otherLocation} is null
      */
     public double angleTo(final Coordinate2D otherLocation) {
-
-        if (getLocationInScene().equals(otherLocation)) {
-            return 0D;
-        }
-
-        final var delta = otherLocation.subtract(getLocationInScene());
-        final var normalizedDelta = delta.normalize();
-        var angle = new Point2D(0, 1).angle(normalizedDelta);
-
-        if (delta.getX() < 0) {
-            angle = 360 - angle;
-        }
-        return angle;
+        return getLocationInScene().angleTo(otherLocation);
     }
 
     /**
@@ -338,46 +325,6 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     }
 
     @Override
-    public void setBrightness(final double brightness) {
-        colorAdjust.setBrightness(brightness);
-    }
-
-    @Override
-    public void setContrast(final double contrast) {
-        colorAdjust.setContrast(contrast);
-    }
-
-    @Override
-    public void setHue(final double hue) {
-        colorAdjust.setHue(hue);
-    }
-
-    @Override
-    public void setSaturation(final double saturation) {
-        colorAdjust.setSaturation(saturation);
-    }
-
-    @Override
-    public double getBrightness() {
-        return colorAdjust.getBrightness();
-    }
-
-    @Override
-    public double getContrast() {
-        return colorAdjust.getContrast();
-    }
-
-    @Override
-    public double getHue() {
-        return colorAdjust.getHue();
-    }
-
-    @Override
-    public double getSaturation() {
-        return colorAdjust.getSaturation();
-    }
-
-    @Override
     public void remove() {
         getNode().ifPresent(node -> {
             node.setVisible(false);
@@ -440,7 +387,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * of this {@link YaegerEntity} within the {@link YaegerScene}. The lower the viewOrder, the closer
      * the {@link YaegerEntity} is to the front of the {@link YaegerScene}.
      * <p>
-     * By default a {@link YaegerEntity} will receive the viewOrder of {@link #VIEW_ORDER_DEFAULT}.
+     * By default, a {@link YaegerEntity} will receive the viewOrder of {@link ViewOrders#VIEW_ORDER_ENTITY_DEFAULT}.
      * A {@link YaegerEntity} that is part of an {@link com.github.hanyaeger.api.scenes.TileMap} will default
      * to the value 100 to ensure it is placed behind other Entities.
      *
@@ -456,7 +403,7 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
      * of this {@link YaegerEntity} within the {@link YaegerScene}. The lower the viewOrder, the closer
      * the {@link YaegerEntity} is to the front of the {@link YaegerScene}.
      * <p>
-     * By default a {@link YaegerEntity} will receive the viewOrder of {@link #VIEW_ORDER_DEFAULT}.
+     * By default, a {@link YaegerEntity} will receive the viewOrder of {@link ViewOrders#VIEW_ORDER_ENTITY_DEFAULT}.
      * A {@link YaegerEntity} that is part of an {@link com.github.hanyaeger.api.scenes.TileMap} will default
      * to the value 100 to ensure it is placed behind other Entities.
      *
@@ -494,6 +441,24 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     }
 
     /**
+     * Return the root pane to which this {@link YaegerEntity} is added.
+     *
+     * @return the root pane, which is an instance of {@link Pane}
+     */
+    public Pane getRootPane() {
+        return rootPane;
+    }
+
+    /**
+     * Set the root pane to which this {@link YaegerEntity} is added.
+     *
+     * @param rootPane the root pane, which is an instance of {@link Pane}
+     */
+    public void setRootPane(final Pane rootPane) {
+        this.rootPane = rootPane;
+    }
+
+    /**
      * Set the {@link DragNDropRepository} to be used.
      *
      * @param dragNDropRepository the {@link DragNDropRepository} to be used
@@ -501,5 +466,21 @@ public abstract class YaegerEntity implements Initializable, TimerListProvider, 
     @Inject
     public void setDragNDropRepository(final DragNDropRepository dragNDropRepository) {
         this.dragNDropRepository = dragNDropRepository;
+    }
+
+    @Override
+    public double getSceneWidth() {
+        if (getRootPane() == null) {
+            return 0;
+        }
+        return getRootPane().getWidth();
+    }
+
+    @Override
+    public double getSceneHeight() {
+        if (getRootPane() == null) {
+            return 0;
+        }
+        return getRootPane().getHeight();
     }
 }

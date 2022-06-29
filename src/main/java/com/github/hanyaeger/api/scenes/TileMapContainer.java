@@ -52,9 +52,9 @@ public interface TileMapContainer extends SupplierProvider, TileMapListProvider,
     }
 
     private void configureTileMaps() {
-        getTileMaps().forEach(entityMap -> {
-            getInjector().injectMembers(entityMap);
-            entityMap.activate();
+        getTileMaps().forEach(tileMap -> {
+            getInjector().injectMembers(tileMap);
+            tileMap.activate();
         });
     }
 }

@@ -35,7 +35,7 @@ class YaegerStageTest {
         stage = mock(Stage.class);
         scene = mock(Scene.class);
         injector = mock(Injector.class);
-        yaegerConfig = new YaegerConfig(true, false, false);
+        yaegerConfig = new YaegerConfig(true, false, false, false, false);
         sceneCollectionFactory = mock(SceneCollectionFactory.class);
         sceneFactory = mock(SceneFactory.class);
         sceneCollection = mock(SceneCollection.class);
