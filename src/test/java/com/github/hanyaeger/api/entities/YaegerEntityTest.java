@@ -3,6 +3,7 @@ package com.github.hanyaeger.api.entities;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Timer;
+import com.github.hanyaeger.core.ViewOrders;
 import com.github.hanyaeger.core.entities.EntityCollection;
 import com.github.hanyaeger.core.entities.EntityProcessor;
 import com.google.inject.Injector;
@@ -13,6 +14,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.layout.Pane;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -39,16 +41,21 @@ class YaegerEntityTest {
 
     private YaegerEntityImpl sut;
     private Node node;
+    private Node otherNode;
     private Injector injector;
     private Scene scene;
+    private Pane pane;
 
     @BeforeEach
     void setup() {
         sut = new YaegerEntityImpl(LOCATION);
         injector = mock(Injector.class);
         node = mock(Node.class, withSettings().withoutAnnotations());
+        otherNode = mock(Node.class, withSettings().withoutAnnotations());
+
         sut.setNode(Optional.of(node));
         scene = mock(Scene.class);
+        pane = mock(Pane.class);
 
         var boundingBox = mock(BoundingBox.class);
 
@@ -59,7 +66,9 @@ class YaegerEntityTest {
         when(boundingBox.getMinX()).thenReturn(LOCATION.getX());
         when(boundingBox.getMinY()).thenReturn(LOCATION.getY());
         when(node.getScene()).thenReturn(scene);
-        when(scene.getWidth()).thenReturn(SCENE_WIDTH);
+        when(pane.getWidth()).thenReturn(SCENE_WIDTH);
+        when(pane.getHeight()).thenReturn(SCENE_HEIGHT);
+        sut.setRootPane(pane);
     }
 
     @Test
@@ -132,7 +141,7 @@ class YaegerEntityTest {
         sut.init(injector);
 
         // Assert
-        verify(node).setViewOrder(YaegerEntity.VIEW_ORDER_DEFAULT);
+        verify(node).setViewOrder(ViewOrders.VIEW_ORDER_ENTITY_DEFAULT);
     }
 
     @Test
@@ -506,8 +515,6 @@ class YaegerEntityTest {
     @Test
     void getSceneWidthReturnsSceneWidthFromNode() {
         // Arrange
-        when(node.getScene()).thenReturn(scene);
-        when(scene.getWidth()).thenReturn(SCENE_WIDTH);
 
         // Act
         double actual = sut.getSceneWidth();
@@ -519,8 +526,6 @@ class YaegerEntityTest {
     @Test
     void getSceneHeightReturnsSceneHeightFromNode() {
         // Arrange
-        when(node.getScene()).thenReturn(scene);
-        when(scene.getHeight()).thenReturn(SCENE_HEIGHT);
 
         // Act
         double actual = sut.getSceneHeight();
@@ -572,19 +577,6 @@ class YaegerEntityTest {
     }
 
     @Test
-    void distanceToOtherOnSameLocationReturns0() {
-        // Arrange
-        var other = new YaegerEntityImpl(LOCATION);
-        var expected = 0d;
-
-        // Act
-        var actual = sut.distanceTo(other);
-
-        // Assert
-        assertEquals(actual, expected);
-    }
-
-    @Test
     void verticalDistanceToCoordinate2DIsCorrect() {
         // Arrange
         var expected = 9d;
@@ -619,13 +611,16 @@ class YaegerEntityTest {
     void verticalDistanceToEntityIsCorrect() {
         // Arrange
         var expected = 9d;
-        var other = new YaegerEntityImpl(new Coordinate2D(LOCATION.getX(), LOCATION.getY() + expected));
+        var other = new YaegerEntityImpl(new Coordinate2D(LOCATION.getX() + expected, LOCATION.getY() + expected));
         var otherNode = mock(Node.class, withSettings().withoutAnnotations());
         other.setNode(Optional.of(otherNode));
         var otherBoundingBox = mock(BoundingBox.class);
+        when(otherNode.localToScene(otherBoundingBox, true)).thenReturn(otherBoundingBox);
         when(otherNode.getBoundsInLocal()).thenReturn(otherBoundingBox);
         when(otherBoundingBox.getWidth()).thenReturn(ENTITY_WIDTH);
         when(otherBoundingBox.getHeight()).thenReturn(ENTITY_HEIGHT);
+        when(otherBoundingBox.getMinX()).thenReturn(LOCATION.getX());
+        when(otherBoundingBox.getMinY()).thenReturn(LOCATION.getY() + expected);
         when(otherNode.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
 
@@ -639,7 +634,7 @@ class YaegerEntityTest {
         var actual = sut.distanceTo(other);
 
         // Assert
-        assertEquals(actual, expected);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -650,9 +645,12 @@ class YaegerEntityTest {
         var otherNode = mock(Node.class, withSettings().withoutAnnotations());
         other.setNode(Optional.of(otherNode));
         var otherBoundingBox = mock(BoundingBox.class);
+        when(otherNode.localToScene(otherBoundingBox, true)).thenReturn(otherBoundingBox);
         when(otherNode.getBoundsInLocal()).thenReturn(otherBoundingBox);
         when(otherBoundingBox.getWidth()).thenReturn(ENTITY_WIDTH);
         when(otherBoundingBox.getHeight()).thenReturn(ENTITY_HEIGHT);
+        when(otherBoundingBox.getMinX()).thenReturn(LOCATION.getX() + expected);
+        when(otherBoundingBox.getMinY()).thenReturn(LOCATION.getY());
         when(otherNode.getScene()).thenReturn(scene);
         when(scene.getWidth()).thenReturn(SCENE_WIDTH);
 
@@ -666,7 +664,7 @@ class YaegerEntityTest {
         var actual = sut.distanceTo(other);
 
         // Assert
-        assertEquals(actual, expected);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -838,86 +836,6 @@ class YaegerEntityTest {
                 Arguments.of(AnchorPoint.BOTTOM_CENTER, LOCATION.getX() + ENTITY_WIDTH / 2, LOCATION.getY() + ENTITY_HEIGHT),
                 Arguments.of(AnchorPoint.BOTTOM_RIGHT, LOCATION.getX() + ENTITY_WIDTH, LOCATION.getY() + ENTITY_HEIGHT)
         );
-    }
-
-    @Nested
-    class EffectableTests {
-
-        private static final double BRIGHTNESS = 0.37D;
-        private static final double CONTRAST = 0.314159D;
-        private static final double HUE = 0.42D;
-        private static final double SATURATION = 0.27D;
-
-        @Test
-        void initSetsEffectsAdjustOnNode() {
-            // Arrange
-
-            // Act
-            sut.init(injector);
-
-            // Assert
-            verify(node).setEffect(any(ColorAdjust.class));
-        }
-
-        @Test
-        void brightnessIsSetOnColorAdjust() {
-            // Arrange
-            ArgumentCaptor<ColorAdjust> colorAdjustArgumentCaptor = ArgumentCaptor.forClass(ColorAdjust.class);
-            sut.init(injector);
-            verify(node).setEffect(colorAdjustArgumentCaptor.capture());
-
-            // Act
-            sut.setBrightness(BRIGHTNESS);
-
-            // Assert
-            var actualBrightness = colorAdjustArgumentCaptor.getValue().getBrightness();
-            assertEquals(BRIGHTNESS, actualBrightness);
-        }
-
-        @Test
-        void contrastIsSetOnColorAdjust() {
-            // Arrange
-            ArgumentCaptor<ColorAdjust> colorAdjustArgumentCaptor = ArgumentCaptor.forClass(ColorAdjust.class);
-            sut.init(injector);
-            verify(node).setEffect(colorAdjustArgumentCaptor.capture());
-
-            // Act
-            sut.setContrast(CONTRAST);
-
-            // Assert
-            var actualContrast = colorAdjustArgumentCaptor.getValue().getContrast();
-            assertEquals(CONTRAST, actualContrast);
-        }
-
-        @Test
-        void hueIsSetOnColorAdjust() {
-            // Arrange
-            ArgumentCaptor<ColorAdjust> colorAdjustArgumentCaptor = ArgumentCaptor.forClass(ColorAdjust.class);
-            sut.init(injector);
-            verify(node).setEffect(colorAdjustArgumentCaptor.capture());
-
-            // Act
-            sut.setHue(HUE);
-
-            // Assert
-            var actualHue = colorAdjustArgumentCaptor.getValue().getHue();
-            assertEquals(HUE, actualHue);
-        }
-
-        @Test
-        void saturationIsSetOnColorAdjust() {
-            // Arrange
-            ArgumentCaptor<ColorAdjust> colorAdjustArgumentCaptor = ArgumentCaptor.forClass(ColorAdjust.class);
-            sut.init(injector);
-            verify(node).setEffect(colorAdjustArgumentCaptor.capture());
-
-            // Act
-            sut.setSaturation(SATURATION);
-
-            // Assert
-            var actualSaturation = colorAdjustArgumentCaptor.getValue().getSaturation();
-            assertEquals(SATURATION, actualSaturation);
-        }
     }
 
     private static class YaegerEntityImpl extends YaegerEntity {

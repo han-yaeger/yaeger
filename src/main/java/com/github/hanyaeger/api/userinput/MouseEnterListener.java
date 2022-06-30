@@ -1,12 +1,14 @@
 package com.github.hanyaeger.api.userinput;
 
+import com.github.hanyaeger.api.scenes.ScrollableDynamicScene;
 import com.github.hanyaeger.core.annotations.OnActivation;
 import com.github.hanyaeger.core.entities.GameNode;
 import com.github.hanyaeger.api.entities.YaegerEntity;
+import javafx.scene.input.MouseEvent;
 
 /**
- * Being a {@link MouseEnterListener} enables the {@link YaegerEntity} or {@link com.github.hanyaeger.api.scenes.YaegerScene}
- * to be notified if the Mouse Cursor has entered the area defined by the {@link javafx.geometry.BoundingBox} of an {@link YaegerEntity} or
+ * A {@link MouseEnterListener} enables the {@link YaegerEntity} or {@link com.github.hanyaeger.api.scenes.YaegerScene}
+ * to be notified if the Mouse Cursor has entered the area defined by the {@link javafx.geometry.BoundingBox} of the {@link YaegerEntity} or
  * {@link com.github.hanyaeger.api.scenes.YaegerScene}.
  */
 public interface MouseEnterListener extends GameNode {
@@ -21,9 +23,15 @@ public interface MouseEnterListener extends GameNode {
      */
     @OnActivation
     default void attachMouseEnterListener() {
-        getNode().ifPresent(node -> node.setOnMouseEntered(event -> {
-            onMouseEntered();
-            event.consume();
-        }));
+        if (this instanceof ScrollableDynamicScene scrollableDynamicScene) {
+            scrollableDynamicScene.getRootPane().setOnMouseEntered(this::handleEnter);
+        } else {
+            getNode().ifPresent(node -> node.setOnMouseEntered(this::handleEnter));
+        }
+    }
+
+    private void handleEnter(final MouseEvent event) {
+        onMouseEntered();
+        event.consume();
     }
 }

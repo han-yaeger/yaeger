@@ -1,7 +1,6 @@
 package com.github.hanyaeger.api.entities;
 
 import com.github.hanyaeger.api.Coordinate2D;
-import com.github.hanyaeger.core.Initializable;
 import com.github.hanyaeger.core.entities.events.EventTypes;
 import com.github.hanyaeger.core.Updatable;
 import com.github.hanyaeger.core.entities.EntityProcessor;
@@ -13,13 +12,14 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * When a group of entities are combined to create a single {@link YaegerEntity}, they are
+ * When a group of entities is combined to create a single {@link YaegerEntity}, they are
  * a composition and this class should be used to perform that composition.
  * <p>
  * It is possible to add instances of {@link YaegerEntity} to this {@link CompositeEntity},
@@ -73,7 +73,7 @@ public abstract class CompositeEntity extends YaegerEntity {
     }
 
     /**
-     * Implement this method to setup all instances of {@link YaegerEntity} that should
+     * Implement this method to set up all instances of {@link YaegerEntity} that should
      * be added to the {@link CompositeEntity} before activation.
      */
     protected abstract void setupEntities();
@@ -82,14 +82,18 @@ public abstract class CompositeEntity extends YaegerEntity {
     public void beforeInitialize() {
         setupEntities();
 
-        entities.forEach(Initializable::beforeInitialize);
+        for (YaegerEntity entity : entities) {
+            entity.beforeInitialize();
+        }
     }
 
     @Override
     public void init(final Injector injector) {
         super.init(injector);
 
-        entities.forEach(yaegerEntity -> yaegerEntity.init(injector));
+        for (YaegerEntity entity : entities) {
+            entity.init(injector);
+        }
     }
 
     /**
@@ -99,7 +103,10 @@ public abstract class CompositeEntity extends YaegerEntity {
      */
     @Override
     public void applyTranslationsForAnchorPoint() {
-        entities.forEach(YaegerEntity::applyTranslationsForAnchorPoint);
+
+        for (YaegerEntity entity : entities) {
+            entity.applyTranslationsForAnchorPoint();
+        }
 
         super.applyTranslationsForAnchorPoint();
     }
@@ -108,18 +115,22 @@ public abstract class CompositeEntity extends YaegerEntity {
     public void applyEntityProcessor(final EntityProcessor processor) {
         super.applyEntityProcessor(processor);
 
-        entities.forEach(yaegerEntity -> yaegerEntity.applyEntityProcessor(processor));
+        for (YaegerEntity entity : entities) {
+            entity.applyEntityProcessor(processor);
+        }
     }
 
     /**
-     * Note that this method will become recursive it composition consists of more instance of {@link CompositeEntity}.
+     * Note that this method will become recursive if the composition consists of more instance of {@link CompositeEntity}.
      */
     @Override
     public void addToParent(final EntityProcessor processor) {
         // First delegate the toParent call to all child Entities
-        entities.forEach(yaegerEntity -> yaegerEntity.addToParent(this::addToParentNode));
+        for (YaegerEntity entity : entities) {
+            entity.addToParent(this::addToParentNode);
+        }
 
-        // After all child Entities have been added themself to this parent, add this to its own parent
+        // After all child Entities have been added themselves to this parent, add this to its own parent
         super.addToParent(processor);
 
         // The Node hierarchy has been created and the translations can be applied
@@ -145,6 +156,15 @@ public abstract class CompositeEntity extends YaegerEntity {
         return Optional.empty();
     }
 
+    @Override
+    public void setRootPane(Pane rootPane) {
+        super.setRootPane(rootPane);
+
+        for (YaegerEntity entity : entities) {
+            entity.setRootPane(rootPane);
+        }
+    }
+
     /**
      * Set the {@link Group} that is used within this {@code CompositeEntity}. All
      * instances of {@link YaegerEntity} that are added to this {@code CompositeEntity}
@@ -162,9 +182,10 @@ public abstract class CompositeEntity extends YaegerEntity {
     public void attachEventListener(final EventType eventType, final EventHandler eventHandler) {
         super.attachEventListener(eventType, eventHandler);
 
-        entities.forEach(yaegerEntity ->
-                yaegerEntity.attachEventListener(eventType, event -> handleEvent(eventHandler, event, yaegerEntity))
-        );
+        for (YaegerEntity entity : entities) {
+            entity.attachEventListener(eventType, event -> handleEvent(eventHandler, event, entity
+            ));
+        }
     }
 
     /**
@@ -174,14 +195,18 @@ public abstract class CompositeEntity extends YaegerEntity {
      */
     @Override
     public void transferCoordinatesToNode() {
-        entities.forEach(YaegerEntity::transferCoordinatesToNode);
+        for (YaegerEntity entity : entities) {
+            entity.transferCoordinatesToNode();
+        }
 
         super.transferCoordinatesToNode();
     }
 
     @Override
     public void remove() {
-        entities.forEach(YaegerEntity::remove);
+        for (YaegerEntity entity : entities) {
+            entity.remove();
+        }
 
         super.remove();
     }

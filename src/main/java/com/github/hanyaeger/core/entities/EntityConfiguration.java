@@ -47,7 +47,7 @@ public class EntityConfiguration<C> {
     /**
      * Return the configuration (of type {@link C}) that should be applied to the {@link Class}.
      *
-     * @return the configarion class of type {@link C}
+     * @return the configuration class of type {@link C}
      */
     public C getConfiguration() {
         return configuration;

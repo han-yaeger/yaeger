@@ -21,6 +21,7 @@ module hanyaeger {
     exports com.github.hanyaeger.api.media;
     exports com.github.hanyaeger.api.userinput;
     exports com.github.hanyaeger.api.entities;
+    exports com.github.hanyaeger.api.entities.impl;
 
     exports com.github.hanyaeger.core.factories.animationtimer to com.google.guice;
     exports com.github.hanyaeger.core.factories.debug to com.google.guice;
@@ -36,5 +37,4 @@ module hanyaeger {
     exports com.github.hanyaeger.core.media to com.google.guice;
 
     opens yaegerimages;
-    exports com.github.hanyaeger.api.entities.impl;
 }

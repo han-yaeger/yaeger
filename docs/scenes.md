@@ -1,7 +1,7 @@
 # Scenes aka levels
 
-After scenes have been added, Yaeger will load the first one. In this chapter
-we will dive deeper into them.
+After scenes have been added, Yaeger will load the first one. In this chapter we
+will dive deeper into them.
 
 ## What are scenes?
 
@@ -28,8 +28,8 @@ will not be based on the concept of time. Typical use cases are:
 
 ### `DynamicScene`
 
-A `DynamicScene` is exactly the same as a `StaticScene`, but it is also aware
-of time. A `DynamicScene` contains a Game World Update, that calls a
+A `DynamicScene` is exactly the same as a `StaticScene`, but it is also aware of
+time. A `DynamicScene` contains a Game World Update, that calls a
 `update(long)` method on the scene itself and all dynamic parts of the scene.
 This way, it is possible to create movement and add time-based behaviour.
 Typical use cases are:
@@ -38,11 +38,19 @@ Typical use cases are:
 * A Splash screen
 * A scene with any form of animation
 
+### `ScrollableDynamicScene`
+
+A `ScrollableDynamicScene` is exactly the same as a `DynamicScene`, but allows a
+different width/height for its content. This way the scene can be much larger
+that the viewable area (the viewport). The with and height of the scene can be
+set from the `setupScene()` and the part of the scene that is visible can be set
+by setting the scroll-position.
+
 ## Creating a scene
 
 To create either a `StaticScene` or `DynamicScene`, let your own scene extend
-one of those. As when extending `YaegerGame`, again two methods will need to
-be implemented:
+one of those. As when extending `YaegerGame`, again two methods will need to be
+implemented:
 
 * `setupScene()`, which should be used for setting all the properties of the
   scene
@@ -57,7 +65,7 @@ signature:
 ```java
 @Override
 protected void setupScene(){
-}
+        }
 ```
 
 This method will be called first and must be used to set up the background
@@ -68,9 +76,9 @@ A typical implementation can look like:
 ```java
 @Override
 public void setupScene(){
-    setBackgroundAudio("audio/ocean.mp3");
-    setBackgroundImage("backgrounds/background1.jpg");
-}
+        setBackgroundAudio("audio/ocean.mp3");
+        setBackgroundImage("backgrounds/background1.jpg");
+        }
 ```
 
 For more information, check the
@@ -94,10 +102,10 @@ A typical implementation can look like:
 ```java
 @Override
 public void setupEntities(){
-    addEntity(new Hanny(new Coordinate2D(1,1), waterworld));
-    addEntity(new Swordfish(new Coordinate2D(200,300)));
-    addEntity(new Sharky(new Coordinate2D(0,100)));
-}
+        addEntity(new Hanny(new Coordinate2D(1,1),waterworld));
+        addEntity(new Swordfish(new Coordinate2D(200,300)));
+        addEntity(new Sharky(new Coordinate2D(0,100)));
+        }
 ```
 
 ## What about the constructor?

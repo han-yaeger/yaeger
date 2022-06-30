@@ -22,9 +22,9 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     private transient Injector injector;
     private transient AnnotationProcessor annotationProcessor;
     private transient YaegerScene activeScene;
-    private int firstScene;
+    private transient int firstScene;
     private transient SplashScreenFactory splashScreenFactory;
-    private boolean finishedSplashScreen = false;
+    private transient boolean finishedSplashScreen;
 
     /**
      * Create a new {@link SceneCollection} for the given {@link Stage} and {@link YaegerConfig}.
@@ -35,13 +35,14 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
     public SceneCollection(final Stage stage, final YaegerConfig yaegerConfig) {
         this.stage = stage;
         this.yaegerConfig = yaegerConfig;
+        this.finishedSplashScreen = false;
     }
 
     /**
      * Add a {@link YaegerScene} to the collection of {@link SceneCollection}. A {@link YaegerScene} uses a number ({@link Integer})
      * to be identified. Each number can be only used one time.
      *
-     * @param id    the {@link Integer} identifying the {@link YaegerScene}
+     * @param id    the {@code int} identifying the {@link YaegerScene}
      * @param scene the {@link YaegerScene} to be added
      */
     public void addScene(final int id, final YaegerScene scene) {
@@ -68,7 +69,7 @@ public class SceneCollection extends LinkedHashMap<Integer, YaegerScene> impleme
      * Set the {@link YaegerScene} of the given {@code int}. The set {@link YaegerScene} will be shown and if available
      * its {@code GameLoop} and {@code EventListeners} will be active.
      *
-     * @param id the {@link Integer} identifying the {@link YaegerScene}
+     * @param id the {@code int} identifying the {@link YaegerScene}
      */
     public void setActive(final int id) {
         if (!finishedSplashScreen) {

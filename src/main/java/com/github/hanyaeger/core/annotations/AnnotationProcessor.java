@@ -8,7 +8,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * The {@link AnnotationProcessor} is responsible for processing Yaeger specific annotations. Currently
+ * The {@link AnnotationProcessor} is responsible for processing Yaeger specific annotations. Currently,
  * only the following annotations are supported and will be processed:
  *
  * <ul>

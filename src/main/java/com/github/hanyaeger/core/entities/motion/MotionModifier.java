@@ -57,7 +57,7 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
 
     /**
      * Since a motion can be described as a vector, such a vector can be decomposed in two perpendicular
-     * components, of which one is parallel to the given direction. Calling this methods returns the
+     * components, of which one is parallel to the given direction. Calling this method returns the
      * magnitude of that vector, which represents the speed in the given direction.
      *
      * @param direction the {@link Direction} in which the speed should be nullified
@@ -73,7 +73,7 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
 
     /**
      * Since a motion can be described as a vector, such a vector can be decomposed in two perpendicular
-     * components, of which one is parallel to the given direction. Calling this methods inverts the vector
+     * components, of which one is parallel to the given direction. Calling this method inverts the vector
      * parallel to the direction and computes a new motion, based on that vector.
      *
      * <p>
@@ -106,7 +106,7 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
 
     /**
      * Since the motion can be described as a vector, such a vector can be decomposed in two perpendicular
-     * components. Calling this methods maximize the vector for the component in the given {@link Direction} to
+     * components. Calling this method maximize the vector for the component in the given {@link Direction} to
      * the given speed.
      * <p>
      * <img width="30%" src="doc-files/maximize-motion-vectors.svg" alt="Vector representation of maximizing the motion in a given direction">
@@ -133,7 +133,7 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
 
     /**
      * Since the motion can be described as a vector, such a vector can be decomposed in two perpendicular
-     * components, of which one is parallel to the given direction. Calling this methods nullifies that vector,
+     * components, of which one is parallel to the given direction. Calling this method nullifies that vector,
      * leaving the other as the new motion.
      *
      * <p>
@@ -210,7 +210,7 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
 
     /**
      * Change the direction by adding a rotation in degrees. A positive value will be added and will result
-     * in a clockwise rotation. A negative value will be subtracted and will result in a counter clockwise
+     * in a clockwise rotation. A negative value will be subtracted and will result in a counterclockwise
      * rotation.
      *
      * @param rotation the rotation as a double

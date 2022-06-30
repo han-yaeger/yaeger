@@ -13,17 +13,33 @@ public enum Direction {
      */
     DOWN(0d),
     /**
+     * The diagonal direction to the right down, of which the numeric value is 45 degrees.
+     */
+    DOWN_RIGHT(45d),
+    /**
      * The direction to the right, of which the numeric value is 90 degrees.
      */
     RIGHT(90d),
+    /**
+     * The diagonal direction to the right up, of which the numeric value is 135 degrees.
+     */
+    UP_RIGHT(135d),
     /**
      * The upward direction, of which the numeric value is 180 degrees.
      */
     UP(180d),
     /**
+     * The diagonal direction to the left up, of which the numeric value is 225 degrees.
+     */
+    UP_LEFT(225d),
+    /**
      * The direction to the left, of which the numeric value is 270 degrees.
      */
-    LEFT(270d);
+    LEFT(270d),
+    /**
+     * The diagonal direction to the left down, of which the numeric value is 315 degrees.
+     */
+    DOWN_LEFT(315d);
 
     private final double value;
     private static final Map<Double, Direction> map = new HashMap<>();

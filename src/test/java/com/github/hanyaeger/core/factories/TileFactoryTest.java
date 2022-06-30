@@ -3,6 +3,7 @@ package com.github.hanyaeger.core.factories;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.YaegerEntity;
+import com.github.hanyaeger.core.ViewOrders;
 import com.github.hanyaeger.core.entities.EntityConfiguration;
 import com.github.hanyaeger.core.exceptions.FailedToInstantiateEntityException;
 import com.github.hanyaeger.core.exceptions.InvalidConstructorException;
@@ -91,7 +92,7 @@ class TileFactoryTest {
         var entity = sut.create(SpriteEntityValidConstructorImpl.class, new Coordinate2D(1, 1), new Size(1, 1));
 
         // Assert
-        assertEquals(YaegerEntity.VIEW_ORDER_DEFAULT_BEHIND, entity.getViewOrder());
+        assertEquals(ViewOrders.VIEW_ORDER_ENTITY_DEFAULT_BEHIND, entity.getViewOrder());
     }
 
     @Test

@@ -16,7 +16,7 @@ class TimerTest {
     }
 
     @Test
-    void intervalInMsFromConstructorIsUsed(){
+    void intervalInMsFromConstructorIsUsed() {
         // Arrange
 
         // Act
@@ -27,7 +27,7 @@ class TimerTest {
     }
 
     @Test
-    void setIntervalInMsFromConstructorOverridesConstructorValue(){
+    void setIntervalInMsFromConstructorOverridesConstructorValue() {
         // Arrange
         var expected = 37L;
         sut.setIntervalInMs(expected);
@@ -141,6 +141,19 @@ class TimerTest {
 
         // Assert
         assertTrue(sut.isActive());
+    }
+
+    @Test
+    void resetTimerResetsTimer() {
+        // Arrange
+        sut.handle(1_000_000);
+
+        // Act
+        sut.reset();
+        sut.handle(1001 * 1_000_000);
+
+        // Assert
+        assertFalse(sut.updateCalled);
     }
 
     private static class TimerImpl extends Timer {

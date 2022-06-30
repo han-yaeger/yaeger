@@ -1,6 +1,5 @@
 package com.github.hanyaeger.core.entities;
 
-import com.github.hanyaeger.core.entities.Bounded;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import org.junit.jupiter.api.Assertions;
@@ -10,6 +9,7 @@ import org.mockito.Mockito;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class BoundedTest {
@@ -39,8 +39,8 @@ class BoundedTest {
         var boundingBox = sut.getBoundingBox();
 
         // Assert
-        Assertions.assertEquals(0, boundingBox.getWidth());
-        Assertions.assertEquals(0, boundingBox.getHeight());
+        assertEquals(0, boundingBox.getWidth());
+        assertEquals(0, boundingBox.getHeight());
     }
 
     @Test
@@ -52,8 +52,8 @@ class BoundedTest {
         var boundingBox = sut.getBoundingBox();
 
         // Assert
-        Assertions.assertEquals(0, boundingBox.getWidth());
-        Assertions.assertEquals(0, boundingBox.getHeight());
+        assertEquals(0, boundingBox.getWidth());
+        assertEquals(0, boundingBox.getHeight());
     }
 
     @Test
@@ -66,8 +66,7 @@ class BoundedTest {
         sut.getBoundingBox();
 
         // Assert
-        Mockito.verify(node).localToScene(any(Bounds.class), eq(true));
-        Mockito.verify(node).getBoundsInLocal();
+        Mockito.verify(node, times(4)).getBoundsInParent();
     }
 
     @Test
@@ -80,7 +79,7 @@ class BoundedTest {
         double returnedWidth = sut.getWidth();
 
         // Assert
-        Assertions.assertEquals(width, returnedWidth);
+        assertEquals(width, returnedWidth);
     }
 
     @Test
@@ -93,7 +92,22 @@ class BoundedTest {
         double returnedHeight = sut.getHeight();
 
         // Assert
-        Assertions.assertEquals(height, returnedHeight);
+        assertEquals(height, returnedHeight);
+    }
+
+    @Test
+    void getBoundingBoxReturnsMinimalBoxOnDefaultLocationIfNodeIsNull(){
+        // Arrange
+        var emptySut = new EmptyGameNodeBoundedImpl();
+
+        // Act
+        var boundingBox = emptySut.getBoundingBox();
+
+        //Assert
+        assertEquals(0, boundingBox.getHeight());
+        assertEquals(0, boundingBox.getWidth());
+        assertEquals(0, boundingBox.getMinX());
+        assertEquals(0, boundingBox.getMinY());
     }
 
     private static class BoundedImpl implements Bounded {

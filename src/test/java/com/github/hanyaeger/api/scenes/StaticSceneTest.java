@@ -3,6 +3,7 @@ package com.github.hanyaeger.api.scenes;
 import com.github.hanyaeger.core.YaegerConfig;
 import com.github.hanyaeger.core.entities.Debugger;
 import com.github.hanyaeger.core.entities.EntitySupplier;
+import com.github.hanyaeger.core.factories.PaneFactory;
 import com.github.hanyaeger.core.repositories.DragNDropRepository;
 import com.github.hanyaeger.core.scenes.delegates.BackgroundDelegate;
 import com.github.hanyaeger.core.scenes.delegates.KeyListenerDelegate;
@@ -44,6 +45,7 @@ class StaticSceneTest {
 
     private EntityCollection entityCollection;
     private EntitySupplier entitySupplier;
+    private PaneFactory paneFactory;
     private Pane pane;
     private Scene scene;
     private Stage stage;
@@ -61,15 +63,18 @@ class StaticSceneTest {
         entitySupplier = mock(EntitySupplier.class);
         sceneFactory = mock(SceneFactory.class);
         entityCollectionFactory = mock(EntityCollectionFactory.class);
+        paneFactory = mock(PaneFactory.class);
         injector = mock(Injector.class);
         stage = mock(Stage.class);
         config = mock(YaegerConfig.class);
+
+        when(paneFactory.createPane()).thenReturn(pane);
 
         sut.setDebugger(debugger);
         sut.setSceneFactory(sceneFactory);
         sut.setEntityCollectionFactory(entityCollectionFactory);
         sut.setDragNDropRepository(dragNDropRepository);
-        sut.setPane(pane);
+        sut.setPaneFactory(paneFactory);
         sut.setBackgroundDelegate(backgroundDelegate);
         sut.setKeyListenerDelegate(keyListenerDelegate);
         sut.setEntitySupplier(entitySupplier);
@@ -80,7 +85,7 @@ class StaticSceneTest {
         entityCollection = mock(EntityCollection.class);
 
         when(sceneFactory.create(pane)).thenReturn(scene);
-        when(entityCollectionFactory.create(pane, config)).thenReturn(entityCollection);
+        when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
 
         sut.init(injector);
     }
@@ -156,6 +161,17 @@ class StaticSceneTest {
         verify(sceneFactory).create(pane);
     }
 
+    @Test
+    void activateSetsPaneOnEntitySupplier() {
+        // Arrange
+
+        // Act
+        sut.activate();
+
+        // Verify
+        verify(entitySupplier).setPane(pane);
+    }
+
 
     @Test
     void activateSetsUpADebuggerIfConfigHasShowDebug() {
@@ -165,8 +181,8 @@ class StaticSceneTest {
         // Act
         sut.activate();
 
-        // Verify
-        verify(debugger).setup(pane);
+        // Assert
+        verify(debugger).setup(pane, scene);
     }
 
 
@@ -178,7 +194,18 @@ class StaticSceneTest {
         sut.activate();
 
         // Verify
-        verify(entityCollectionFactory).create(pane, config);
+        verify(entityCollectionFactory).create(config);
+    }
+
+    @Test
+    void getPaneForDebuggerReturnsThePane() {
+        // Arrange
+
+        // Act
+        var actual = sut.getPaneForDebugger();
+
+        // Assert
+        assertEquals(actual, pane);
     }
 
     @Test
@@ -200,14 +227,14 @@ class StaticSceneTest {
         sut.activate();
 
         // Verify
-        verify(keyListenerDelegate).setup(any(Scene.class), any(KeyListener.class));
+        verify(keyListenerDelegate).setup(any(Scene.class), any(KeyListener.class), any(YaegerConfig.class));
     }
 
     @Test
     void activateAddsTheDebuggerAsAStatisticsObserverToTheEntityCollection() {
         // Arrange
         var entityCollection = mock(EntityCollection.class);
-        when(entityCollectionFactory.create(pane, config)).thenReturn(entityCollection);
+        when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
 
         when(config.showDebug()).thenReturn(true);
 
@@ -266,10 +293,12 @@ class StaticSceneTest {
         // Arrange
         final var sut = new StaticSceneKeyListenerImpl();
 
+        when(paneFactory.createPane()).thenReturn(pane);
+
         sut.setDebugger(debugger);
         sut.setSceneFactory(sceneFactory);
         sut.setEntityCollectionFactory(entityCollectionFactory);
-        sut.setPane(pane);
+        sut.setPaneFactory(paneFactory);
         sut.setBackgroundDelegate(backgroundDelegate);
         sut.setKeyListenerDelegate(keyListenerDelegate);
         sut.setEntitySupplier(entitySupplier);
@@ -280,7 +309,7 @@ class StaticSceneTest {
         entityCollection = mock(EntityCollection.class);
 
         when(sceneFactory.create(pane)).thenReturn(scene);
-        when(entityCollectionFactory.create(pane, config)).thenReturn(entityCollection);
+        when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
 
         sut.init(injector);
 
@@ -420,7 +449,7 @@ class StaticSceneTest {
 
         sut.activate();
         ArgumentCaptor<KeyListener> captor = ArgumentCaptor.forClass(KeyListener.class);
-        verify(keyListenerDelegate, times(1)).setup(any(), captor.capture());
+        verify(keyListenerDelegate, times(1)).setup(any(), captor.capture(), any());
 
         // Act
         captor.getValue().onPressedKeysChange(input);
@@ -440,6 +469,19 @@ class StaticSceneTest {
         // Verify
         verify(entityCollection).registerSupplier(any());
         verify(entityCollection).initialUpdate();
+    }
+
+    @Test
+    void postActivationHidesAndShowsStage() {
+        // Arrange
+        sut.activate();
+
+        // Act
+        sut.postActivate();
+
+        // Verify
+        verify(stage).hide();
+        verify(stage).show();
     }
 
     @Test
@@ -467,121 +509,16 @@ class StaticSceneTest {
         assertTrue(sut.isActivationComplete());
     }
 
-    @Nested
-    class EffectableTests {
+    @Test
+    void colorAdjustGetsSet() {
+        // Arrange
+        var colorAdjust = mock(ColorAdjust.class);
 
-        private static final double BRIGHTNESS = 0.37D;
-        private static final double CONTRAST = 0.314159D;
-        private static final double HUE = 0.42D;
-        private static final double SATURATION = 0.27D;
+        // Act
+        sut.setColorAdjust(colorAdjust);
 
-        @Test
-        void setBrightnessDelegatesToTheColorAdjust() {
-            // Arrange
-            var colorAdjust = mock(ColorAdjust.class);
-            sut.setColorAdjust(colorAdjust);
-
-            // Act
-            sut.setBrightness(BRIGHTNESS);
-
-            // Verify
-            verify(colorAdjust).setBrightness(BRIGHTNESS);
-        }
-
-        @Test
-        void getBrightnessDelegatesToTheColorAdjust() {
-            // Arrange
-            var colorAdjust = mock(ColorAdjust.class);
-            sut.setColorAdjust(colorAdjust);
-            when(colorAdjust.getBrightness()).thenReturn(BRIGHTNESS);
-
-            // Act
-            double actual = sut.getBrightness();
-
-            // Verify
-            assertEquals(BRIGHTNESS, actual);
-        }
-
-        @Test
-        void setContrastDelegatesToTheColorAdjust() {
-            // Arrange
-            var colorAdjust = mock(ColorAdjust.class);
-            sut.setColorAdjust(colorAdjust);
-
-            // Act
-            sut.setContrast(CONTRAST);
-
-            // Verify
-            verify(colorAdjust).setContrast(CONTRAST);
-        }
-
-        @Test
-        void getConstrastDelegatesToTheColorAdjust() {
-            // Arrange
-            var colorAdjust = mock(ColorAdjust.class);
-            sut.setColorAdjust(colorAdjust);
-            when(colorAdjust.getContrast()).thenReturn(CONTRAST);
-
-            // Act
-            double actual = sut.getContrast();
-
-            // Verify
-            assertEquals(CONTRAST, actual);
-        }
-
-        @Test
-        void setHueDelegatesToTheColorAdjust() {
-            // Arrange
-            var colorAdjust = mock(ColorAdjust.class);
-            sut.setColorAdjust(colorAdjust);
-
-            // Act
-            sut.setHue(HUE);
-
-            // Verify
-            verify(colorAdjust).setHue(HUE);
-        }
-
-        @Test
-        void getHueDelegatesToTheColorAdjust() {
-            // Arrange
-            var colorAdjust = mock(ColorAdjust.class);
-            sut.setColorAdjust(colorAdjust);
-            when(colorAdjust.getHue()).thenReturn(HUE);
-
-            // Act
-            double actual = sut.getHue();
-
-            // Verify
-            assertEquals(HUE, actual);
-        }
-
-        @Test
-        void setSaturationDelegatesToTheColorAdjust() {
-            // Arrange
-            var colorAdjust = mock(ColorAdjust.class);
-            sut.setColorAdjust(colorAdjust);
-
-            // Act
-            sut.setSaturation(SATURATION);
-
-            // Verify
-            verify(colorAdjust).setSaturation(SATURATION);
-        }
-
-        @Test
-        void getSaturationDelegatesToTheColorAdjust() {
-            // Arrange
-            var colorAdjust = mock(ColorAdjust.class);
-            sut.setColorAdjust(colorAdjust);
-            when(colorAdjust.getSaturation()).thenReturn(SATURATION);
-
-            // Act
-            double actual = sut.getSaturation();
-
-            // Verify
-            assertEquals(SATURATION, actual);
-        }
+        // Arrange
+        assertEquals(sut.getColorAdjust(), colorAdjust);
     }
 
     private static class StaticSceneImpl extends StaticScene {
@@ -592,6 +529,10 @@ class StaticSceneTest {
 
         @Override
         public void setupEntities() {
+        }
+
+        ColorAdjust getColorAdjust() {
+            return this.colorAdjust;
         }
     }
 
