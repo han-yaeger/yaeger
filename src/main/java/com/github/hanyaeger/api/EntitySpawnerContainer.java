@@ -56,7 +56,13 @@ public interface EntitySpawnerContainer extends EntitySpawnerListProvider, Entit
      * Register all instances of {@link EntitySpawner} that were added to this {@link EntitySpawnerContainer}.
      */
     default void registerEntitySpawners() {
-        getSpawners().forEach(spawner -> getEntityCollection().registerSupplier(spawner.getSupplier()));
+        if (getSpawners() == null || getEntityCollection() == null) {
+            return;
+        }
+
+        for (var spawner : getSpawners()) {
+            getEntityCollection().registerSupplier(spawner.getSupplier());
+        }
     }
 
     /**
@@ -75,16 +81,20 @@ public interface EntitySpawnerContainer extends EntitySpawnerListProvider, Entit
     default Updatable callEntitySpawners() {
         return timestamp -> {
             if (getSpawners() != null && !getSpawners().isEmpty()) {
-                // remove the suppliers from garbage-spawners from the entityCollection
-                getSpawners().stream().filter(Timer::isGarbage).forEach(
-                        entitySpawner ->
-                                getEntityCollection().removeSupplier(entitySpawner.getSupplier()));
+
+                for (var spawner : getSpawners()) {
+                    if (spawner.isGarbage()) {
+                        // remove the suppliers from garbage-spawners from the entityCollection
+                        getEntityCollection().removeSupplier(spawner.getSupplier());
+
+                    } else {
+                        // call handle on all spawners
+                        spawner.handle(timestamp);
+                    }
+                }
+
                 // remove all spawners that have been marked as garbage
                 getSpawners().removeIf(Timer::isGarbage);
-                // call handle on all spawners
-                getSpawners().forEach(
-                        entitySpawner ->
-                                entitySpawner.handle(timestamp));
             }
         };
     }
