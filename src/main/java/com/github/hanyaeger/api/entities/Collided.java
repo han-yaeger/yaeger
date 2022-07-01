@@ -3,6 +3,7 @@ package com.github.hanyaeger.api.entities;
 import com.github.hanyaeger.core.entities.Bounded;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -45,7 +46,13 @@ public interface Collided extends Bounded {
             return;
         }
 
-        var colliderList = colliders.stream().filter(this::hasCollidedWith).toList();
+        var colliderList = new ArrayList<Collider>();
+
+        for (var collider : colliders) {
+            if (hasCollidedWith(collider)) {
+                colliderList.add(collider);
+            }
+        }
 
         if (!colliderList.isEmpty()) {
             onCollision(colliderList);

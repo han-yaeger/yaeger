@@ -7,6 +7,7 @@
     <version>2022.2023.beta2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+
     <name>yaeger</name>
     <description>A JavaFX based 2D Game Engine.</description>
     <url>https://github.com/han-yaeger/yaeger</url>
