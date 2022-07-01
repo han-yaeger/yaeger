@@ -243,40 +243,32 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
         getNode().ifPresent(node -> {
             var localBounds = getNode().get().getBoundsInLocal();
             switch (anchorPoint) {
-                case TOP_LEFT:
+                case TOP_LEFT -> {
                     node.setTranslateX(0);
                     node.setTranslateY(0);
-                    break;
-                case TOP_CENTER:
-                    node.setTranslateX(-localBounds.getWidth() / 2);
-                    break;
-                case TOP_RIGHT:
-                    node.setTranslateX(-localBounds.getWidth());
-                    break;
-                case CENTER_LEFT:
-                    node.setTranslateY(-localBounds.getHeight() / 2);
-                    break;
-                case CENTER_CENTER:
+                }
+                case TOP_CENTER -> node.setTranslateX(-localBounds.getWidth() / 2);
+                case TOP_RIGHT -> node.setTranslateX(-localBounds.getWidth());
+                case CENTER_LEFT -> node.setTranslateY(-localBounds.getHeight() / 2);
+                case CENTER_CENTER -> {
                     node.setTranslateX(-localBounds.getWidth() / 2);
                     node.setTranslateY(-localBounds.getHeight() / 2);
-                    break;
-                case CENTER_RIGHT:
+                }
+                case CENTER_RIGHT -> {
                     node.setTranslateX(-localBounds.getWidth());
                     node.setTranslateY(-localBounds.getHeight() / 2);
-                    break;
-                case BOTTOM_LEFT:
-                    node.setTranslateY(-localBounds.getHeight());
-                    break;
-                case BOTTOM_CENTER:
+                }
+                case BOTTOM_LEFT -> node.setTranslateY(-localBounds.getHeight());
+                case BOTTOM_CENTER -> {
                     node.setTranslateX(-localBounds.getWidth() / 2);
                     node.setTranslateY(-localBounds.getHeight());
-                    break;
-                case BOTTOM_RIGHT:
+                }
+                case BOTTOM_RIGHT -> {
                     node.setTranslateX(-localBounds.getWidth());
                     node.setTranslateY(-localBounds.getHeight());
-                    break;
-                default:
-                    break;
+                }
+                default -> {
+                }
             }
         });
     }
