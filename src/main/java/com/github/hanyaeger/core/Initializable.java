@@ -5,7 +5,7 @@ import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.google.inject.Injector;
 
 /**
- * Stating an {@code Object} is {@link Initializable} exposes the {@code init} lifecycle hook.
+ * Stating an {@code Object} is {@code Initializable} exposes the {@link Initializable#init(Injector)} lifecycle hook.
  */
 public interface Initializable {
 
