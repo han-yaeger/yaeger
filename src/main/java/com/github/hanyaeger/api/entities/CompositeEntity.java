@@ -82,7 +82,7 @@ public abstract class CompositeEntity extends YaegerEntity {
     public void beforeInitialize() {
         setupEntities();
 
-        for (YaegerEntity entity : entities) {
+        for (var entity : entities) {
             entity.beforeInitialize();
         }
     }
@@ -91,7 +91,7 @@ public abstract class CompositeEntity extends YaegerEntity {
     public void init(final Injector injector) {
         super.init(injector);
 
-        for (YaegerEntity entity : entities) {
+        for (var entity : entities) {
             entity.init(injector);
         }
     }
@@ -104,7 +104,7 @@ public abstract class CompositeEntity extends YaegerEntity {
     @Override
     public void applyTranslationsForAnchorPoint() {
 
-        for (YaegerEntity entity : entities) {
+        for (var entity : entities) {
             entity.applyTranslationsForAnchorPoint();
         }
 
@@ -115,7 +115,7 @@ public abstract class CompositeEntity extends YaegerEntity {
     public void applyEntityProcessor(final EntityProcessor processor) {
         super.applyEntityProcessor(processor);
 
-        for (YaegerEntity entity : entities) {
+        for (var entity : entities) {
             entity.applyEntityProcessor(processor);
         }
     }
@@ -126,7 +126,7 @@ public abstract class CompositeEntity extends YaegerEntity {
     @Override
     public void addToParent(final EntityProcessor processor) {
         // First delegate the toParent call to all child Entities
-        for (YaegerEntity entity : entities) {
+        for (var entity : entities) {
             entity.addToParent(this::addToParentNode);
         }
 
@@ -160,7 +160,7 @@ public abstract class CompositeEntity extends YaegerEntity {
     public void setRootPane(Pane rootPane) {
         super.setRootPane(rootPane);
 
-        for (YaegerEntity entity : entities) {
+        for (var entity : entities) {
             entity.setRootPane(rootPane);
         }
     }
@@ -182,7 +182,7 @@ public abstract class CompositeEntity extends YaegerEntity {
     public void attachEventListener(final EventType eventType, final EventHandler eventHandler) {
         super.attachEventListener(eventType, eventHandler);
 
-        for (YaegerEntity entity : entities) {
+        for (var entity : entities) {
             entity.attachEventListener(eventType, event -> handleEvent(eventHandler, event, entity
             ));
         }
@@ -195,7 +195,7 @@ public abstract class CompositeEntity extends YaegerEntity {
      */
     @Override
     public void transferCoordinatesToNode() {
-        for (YaegerEntity entity : entities) {
+        for (var entity : entities) {
             entity.transferCoordinatesToNode();
         }
 
@@ -204,7 +204,7 @@ public abstract class CompositeEntity extends YaegerEntity {
 
     @Override
     public void remove() {
-        for (YaegerEntity entity : entities) {
+        for (var entity : entities) {
             entity.remove();
         }
 
