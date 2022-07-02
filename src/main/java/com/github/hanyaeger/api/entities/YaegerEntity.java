@@ -267,8 +267,6 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
                     node.setTranslateX(-localBounds.getWidth());
                     node.setTranslateY(-localBounds.getHeight());
                 }
-                default -> {
-                }
             }
         });
     }
