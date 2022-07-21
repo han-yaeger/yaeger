@@ -1,5 +1,6 @@
 package com.github.hanyaeger.api.entities.impl;
 
+import com.github.hanyaeger.api.entities.Animation;
 import com.github.hanyaeger.core.entities.EntityCollection;
 import com.github.hanyaeger.core.entities.SpriteAnimationDelegate;
 import com.github.hanyaeger.core.entities.motion.*;
@@ -26,6 +27,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     private Updater updater;
     private Optional<EntityMotionInitBuffer> buffer;
     private double rotationAngle;
+    private Animation initialAnimation;
 
     /**
      * Create a new {@link DynamicSpriteEntity} for the given image resource on the given {@code initialLocation}.
@@ -125,6 +127,15 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
         return spriteAnimationDelegate.map(SpriteAnimationDelegate::getCyclingRow).orElse(0);
     }
 
+    /**
+     * TODO document test
+     *
+     * @param animation
+     */
+    protected void playAnimation(final Animation animation) {
+        spriteAnimationDelegate.ifPresentOrElse(delegate -> delegate.playAnimation(animation), () -> this.initialAnimation = animation);
+    }
+
     @Override
     public MotionApplier getMotionApplier() {
         return motionApplier;
@@ -143,6 +154,10 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
             updater.addUpdatable(delegate);
             if (getFrames() > 1) {
                 delegate.setAutoCycle(autoCycleInterval, cyclingRow);
+            }
+            // TODO test
+            if (initialAnimation != null) {
+                delegate.playAnimation(initialAnimation);
             }
         });
 

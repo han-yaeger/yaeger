@@ -1,5 +1,6 @@
 package com.github.hanyaeger.core.entities;
 
+import com.github.hanyaeger.api.entities.Animation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import com.github.hanyaeger.core.Updatable;
@@ -145,6 +146,17 @@ public class SpriteAnimationDelegate implements Updatable {
         } else {
             setFrameIndex(cyclingRow * columns);
         }
+    }
+
+    /**
+     * TODO test document
+     *
+     * @param animation
+     */
+    public void playAnimation(final Animation animation) {
+
+
+        System.out.println("playing animation: " + animation);
     }
 
     private void createViewPorts() {
