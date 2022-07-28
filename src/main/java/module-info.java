@@ -32,6 +32,7 @@ module hanyaeger {
     exports com.github.hanyaeger.core.scenes.delegates to com.google.guice;
     exports com.github.hanyaeger.core.factories to com.google.guice;
     exports com.github.hanyaeger.core to com.google.guice;
+    exports com.github.hanyaeger.core.entities to com.google.guice;
     exports com.github.hanyaeger.core.entities.motion to com.google.guice;
     exports com.github.hanyaeger.core.media to com.google.guice;
 

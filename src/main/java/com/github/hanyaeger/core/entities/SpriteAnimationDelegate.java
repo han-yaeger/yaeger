@@ -23,6 +23,8 @@ public class SpriteAnimationDelegate implements Updatable {
     private final ImageView imageView;
     private final List<Rectangle2D> viewports = new ArrayList<>();
     private int currentIndex = 0;
+    private Animation currentAnimation;
+    private int animationEndIndex = -1;
 
     private int cyclingRow = -1;
 
@@ -74,6 +76,7 @@ public class SpriteAnimationDelegate implements Updatable {
         }
 
         if (timestamp > previousCycleTime + autoCycleInterval) {
+            updateFrameIndex();
             next();
             previousCycleTime = timestamp;
         }
@@ -101,6 +104,15 @@ public class SpriteAnimationDelegate implements Updatable {
      */
     public void setAutoCycleInterval(final long interval) {
         this.autoCycleInterval = interval * MILLI_TO_NANO_FACTOR;
+    }
+
+    /**
+     * Return the current auto-cycle interval
+     *
+     * @return the current auto-cycle interval in milliseconds
+     */
+    public long getAutoCycleInterval() {
+        return autoCycleInterval == 0 ? 0 : autoCycleInterval / MILLI_TO_NANO_FACTOR;
     }
 
     /**
@@ -136,27 +148,73 @@ public class SpriteAnimationDelegate implements Updatable {
         }
     }
 
-    /**
-     * Set the next index of the sprite.
-     */
-    public void next() {
-        final var lastIndexOfTheRow = cyclingRow * columns + columns - 1;
-        if (cyclingRow == -1 || currentIndex < lastIndexOfTheRow) {
-            setFrameIndex(++currentIndex);
+    private void next() {
+        if (currentAnimation != null && currentIndex == animationEndIndex) {
+            if (currentAnimation.loop()) {
+                currentIndex = getIndexForFrameOn(currentAnimation.rowStart(), currentAnimation.columnStart());
+            } else {
+                System.out.println("Animation Ended. Alas!");
+                currentAnimation = null;
+                setAutoCycleInterval(0);
+            }
         } else {
-            setFrameIndex(cyclingRow * columns);
+            final var lastIndexOfTheRow = cyclingRow * columns + columns - 1;
+            if (cyclingRow == -1 || currentIndex < lastIndexOfTheRow) {
+                currentIndex++;
+            } else {
+                currentIndex = cyclingRow * columns;
+            }
         }
     }
 
-    /**
-     * TODO test document
-     *
-     * @param animation
-     */
-    public void playAnimation(final Animation animation) {
+    private void updateFrameIndex() {
+        setFrameIndex(currentIndex);
+    }
 
+    /**
+     * Play the given {@link Animation}. The actual settings of the {@link Animation} can be set through the
+     * constructor of {@link Animation}.
+     *
+     * @param animation     the {@link Animation} to be played
+     * @param restartIfSame if the same {@link Animation} is currently being played, this {@code boolean}
+     *                      states if the {@link Animation} should be restarted or should continue with the
+     *                      current frame.
+     */
+    public void playAnimation(final Animation animation, final boolean restartIfSame) {
+        if (!restartIfSame && animation.equals(currentAnimation)) {
+            return;
+        }
 
         System.out.println("playing animation: " + animation);
+        currentAnimation = animation;
+
+        // Disable the auto cycle row
+        cyclingRow = -1;
+
+        // Set the correct interval for auto cycling
+        if (animation.cycleTimeInMs() == -1 && autoCycleInterval == 0) {
+            setAutoCycleInterval(Animation.DEFAULT_AUTOCYCLE_INTERVAL);
+        }
+
+        // Calculate the new value for currentIndex
+        currentIndex = getIndexForFrameOn(animation.rowStart(), animation.columnStart());
+
+        // Calculate at which index this animation should end
+        animationEndIndex = getIndexForFrameOn(animation.rowEnd(), animation.columnEnd());
+    }
+
+    /**
+     * Return the {@link Animation} that is currently being played. If the {@link Animation} has ended
+     * and {@link Animation#loop()} was set to {@code false}, this method will return {@code null}.
+     *
+     * @return the {@link Animation} that is currently being played or {@code null if none are played}
+     */
+    public Animation getCurrentAnimation() {
+        return currentAnimation;
+    }
+
+    private int getIndexForFrameOn(final int row, final int column) {
+        return column + (row * columns);
     }
 
     private void createViewPorts() {

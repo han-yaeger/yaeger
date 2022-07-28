@@ -1,6 +1,7 @@
 package com.github.hanyaeger.api.entities.impl;
 
 import com.github.hanyaeger.api.Size;
+import com.github.hanyaeger.api.entities.Animation;
 import com.github.hanyaeger.core.Updater;
 import com.github.hanyaeger.core.entities.EntityCollection;
 import com.github.hanyaeger.api.Coordinate2D;
@@ -57,7 +58,7 @@ class DynamicSpriteEntityTest {
     }
 
     @Nested
-    class EntitiesWithDefaultSize {
+    class EntitiesWithDefaultSizeTest {
         private DynamicSpriteEntity sut;
 
         @BeforeEach
@@ -145,7 +146,7 @@ class DynamicSpriteEntityTest {
     }
 
     @Nested
-    class EntitiesWithSizeSet {
+    class EntitiesWithSizeSetTest {
         private DynamicSpriteEntity sut;
 
         @BeforeEach
@@ -323,7 +324,7 @@ class DynamicSpriteEntityTest {
     }
 
     @Nested
-    class EntitiesWithAutoCycling {
+    class EntitiesWithAutoCyclingTest {
 
         private DynamicSpriteEntityImpl sut;
 
@@ -396,6 +397,59 @@ class DynamicSpriteEntityTest {
 
             // Assert
             verify(spriteAnimationDelegate).setAutoCycleRow(2);
+        }
+    }
+
+    @Nested
+    class EntitiesPlayingAnimationsTest {
+
+        private DynamicSpriteEntityImpl sut;
+        private Animation animationMock;
+
+        @BeforeEach
+        void setup() {
+            var rows = 1;
+            var columns = 2;
+            var imageMock = mock(Image.class);
+            var imageViewMock = mock(ImageView.class);
+            animationMock = mock(Animation.class);
+
+            sut = new DynamicSpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, rows, columns);
+            sut.setMotionApplier(motionApplier);
+            sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+            sut.setImageRepository(imageRepository);
+            sut.setImageViewFactory(imageViewFactory);
+            sut.setSpriteAnimationDelegateFactory(spriteAnimationDelegateFactory);
+            sut.setUpdater(updater);
+
+            when(imageRepository.get(DEFAULT_RESOURCE, WIDTH * columns, HEIGHT * rows, true)).thenReturn(imageMock);
+
+            when(imageViewFactory.create(imageMock)).thenReturn(imageViewMock);
+            when(spriteAnimationDelegateFactory.create(imageViewMock, rows, columns)).thenReturn(spriteAnimationDelegate);
+        }
+
+        @Test
+        void playAnimationDelegatesToSpriteAnimationDelegateWithRestartIfSameValueFalseTest() {
+            // Arrange
+            sut.init(injector);
+
+            // Act
+            sut.playAnimation(animationMock);
+
+            // Assert
+            verify(spriteAnimationDelegate).playAnimation(animationMock, false);
+        }
+
+        @Test
+        void playAnimationDelegatesToSpriteAnimationDelegate() {
+            // Arrange
+            sut.init(injector);
+
+            // Act
+            sut.playAnimation(animationMock, true);
+
+            // Assert
+            verify(spriteAnimationDelegate).playAnimation(animationMock, true);
         }
     }
 

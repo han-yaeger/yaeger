@@ -128,12 +128,40 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     }
 
     /**
-     * TODO document test
+     * Play the given {@link Animation}. The actual settings of the {@link Animation} can be set through the
+     * constructor of {@link Animation}. It the {@link Animation} that is being played is the same as the one
+     * passed through this method, it will continue from the current frame. If the {@link Animation} should restart,
+     * use the method {@link #playAnimation(Animation, boolean)}.
      *
-     * @param animation
-     */
+     * @param animation the {@link Animation} to be played
+     **/
     protected void playAnimation(final Animation animation) {
-        spriteAnimationDelegate.ifPresentOrElse(delegate -> delegate.playAnimation(animation), () -> this.initialAnimation = animation);
+        playAnimation(animation, false);
+    }
+
+    /**
+     * Play the given {@link Animation}. The actual settings of the {@link Animation} can be set through the
+     * constructor of {@link Animation}.
+     *
+     * @param animation     the {@link Animation} to be played
+     * @param restartIfSame if the same {@link Animation} is currently being played, this {@code boolean}
+     *                      states if the {@link Animation} should be restarted or should continue with the
+     *                      current frame.
+     */
+    protected void playAnimation(final Animation animation, final boolean restartIfSame) {
+        spriteAnimationDelegate.ifPresentOrElse(delegate -> delegate.playAnimation(animation, restartIfSame), () -> this.initialAnimation = animation);
+    }
+
+    /**
+     * Return the {@link Animation} that is currently being played. If no {@link Animation} is being played, this
+     * method returns {@code null}.
+     * <p>
+     * TODO test
+     *
+     * @return the {@link Animation} that is currently being played, or {@code null}
+     */
+    public Animation getCurrentAnimation() {
+        return spriteAnimationDelegate.map(SpriteAnimationDelegate::getCurrentAnimation).orElse(null);
     }
 
     @Override
@@ -157,7 +185,7 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
             }
             // TODO test
             if (initialAnimation != null) {
-                delegate.playAnimation(initialAnimation);
+                delegate.playAnimation(initialAnimation, true);
             }
         });
 

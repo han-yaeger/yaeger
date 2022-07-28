@@ -1,10 +1,12 @@
 package com.github.hanyaeger.core.entities;
 
+import com.github.hanyaeger.api.entities.Animation;
 import com.github.hanyaeger.core.ResourceConsumer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -90,22 +92,15 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
     }
 
     @Test
-    void nextSetsNextSpriteIndex() {
+    void getAutoCycleIntervalReturnsSameAutoCycleAsSet() {
         // Arrange
+        var expected = 37;
 
         // Act
-        sut.next();
+        sut.setAutoCycleInterval(expected);
 
         // Assert
-        var argument = ArgumentCaptor.forClass(Rectangle2D.class);
-
-        verify(imageView, atLeastOnce()).setViewport(argument.capture());
-
-        var values = argument.getAllValues();
-        var nextRectangle = values.get(1);
-
-        assertEquals(IMAGE_WIDTH / COLUMNS, nextRectangle.getMinX());
-        assertEquals(0, nextRectangle.getMinY());
+        assertEquals(expected, sut.getAutoCycleInterval());
     }
 
     @Test
@@ -180,8 +175,7 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
         // Arrange
 
         // Act & Assert
-        assertThrows(IllegalArgumentException.class,
-                () -> sut.setAutoCycleRow(4));
+        assertThrows(IllegalArgumentException.class, () -> sut.setAutoCycleRow(4));
     }
 
     @Test
@@ -189,8 +183,7 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
         // Arrange
 
         // Act & Assert
-        assertThrows(IllegalArgumentException.class,
-                () -> sut.setAutoCycleRow(-2));
+        assertThrows(IllegalArgumentException.class, () -> sut.setAutoCycleRow(-2));
     }
 
     @Test
@@ -198,8 +191,7 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
         // Arrange
 
         // Act & Assert
-        assertThrows(IllegalArgumentException.class,
-                () -> sut.setAutoCycle(10, 4));
+        assertThrows(IllegalArgumentException.class, () -> sut.setAutoCycle(10, 4));
     }
 
     @Test
@@ -207,7 +199,130 @@ class SpriteAnimationDelegateTest implements ResourceConsumer {
         // Arrange
 
         // Act & Assert
-        assertThrows(IllegalArgumentException.class,
-                () -> sut.setAutoCycle(10, -2));
+        assertThrows(IllegalArgumentException.class, () -> sut.setAutoCycle(10, -2));
+    }
+
+    @Nested
+    class AnimationTest {
+
+        @Test
+        void thePlayedAnimationIsReturnedAsTheCurrentAnimationTest() {
+            // Arrange
+            var expected = new Animation(0, 2, 1, 3);
+            sut.playAnimation(expected, false);
+
+            // Act
+            var actual = sut.getCurrentAnimation();
+
+            // Assert
+            assertEquals(expected, actual);
+        }
+
+        @Test
+        void playAnimationSetsAutoCycleRowToMinusOneTest() {
+            // Arrange
+            sut.setAutoCycleRow(2);
+            var animation = new Animation(0, 2, 1, 3);
+
+            // Act
+            sut.playAnimation(animation, false);
+
+            // Assert
+            assertEquals(-1, sut.getCyclingRow());
+        }
+
+        @Test
+        void playAnimationKeepsCurrentAutoCycleIntervalIfItHasBeenSetTest() {
+            // Arrange
+            var actual = 37;
+            sut.setAutoCycleInterval(actual);
+            var animation = new Animation(0, 2, 1, 3);
+
+            // Act
+            sut.playAnimation(animation, false);
+
+            // Assert
+            assertEquals(actual, sut.getAutoCycleInterval());
+        }
+
+        @Test
+        void playAnimationSetsAutoCycleIntervalToDefaultIfNoneIsSetOrGivenTest() {
+            // Arrange
+            var animation = new Animation(0, 2, 1, 3);
+
+            // Act
+            sut.playAnimation(animation, false);
+
+            // Assert
+            var actual = sut.getAutoCycleInterval();
+            assertEquals(Animation.DEFAULT_AUTOCYCLE_INTERVAL, actual);
+        }
+
+        @Test
+        void playAnimationSetsCurrentIndexOnFirstFrameFromAnimationWhenAnimationStartsOnFirstRowTest() {
+            // Arrange
+            var animation = new Animation(0, 2, 1, 3);
+
+            // Act
+            sut.playAnimation(animation, false);
+
+            // Assert
+            assertEquals(2, sut.getFrameIndex());
+        }
+
+        @Test
+        void playAnimationSetsCurrentIndexOnFirstFrameFromAnimationWhenAnimationStartsOnThirdRowTest() {
+            // Arrange
+            var animation = new Animation(2, 2, 1, 3);
+
+            // Act
+            sut.playAnimation(animation, false);
+
+            // Assert
+            assertEquals(8, sut.getFrameIndex());
+        }
+
+        @Test
+        void animationGetAnimatedTest() {
+            // Arrange
+            var animation = new Animation(0, 0, 0, 2, true);
+            sut.playAnimation(animation, false);
+
+            // Act
+            sut.update(100000001);
+
+            // Assert
+            assertEquals(1, sut.getFrameIndex());
+        }
+
+        @Test
+        void loopingAnimationLoopsTest() {
+            // Arrange
+            var animation = new Animation(0, 0, 0, 2, true);
+            sut.playAnimation(animation, false);
+
+            // Act
+            sut.update(100000001);
+            sut.update(200000002);
+            sut.update(300000003);
+            // Assert
+            assertEquals(0, sut.getFrameIndex());
+        }
+
+        @Test
+        void nonLoopingAnimationStopsAutoCycleTest() {
+            // Arrange
+            var animation = new Animation(0, 0, 0, 2, false);
+            sut.playAnimation(animation, false);
+
+            // Act
+            sut.update(100000001);
+            sut.update(200000002);
+            sut.update(300000003);
+
+            // Assert
+            assertEquals(2, sut.getFrameIndex());
+            assertEquals(0, sut.getAutoCycleInterval());
+        }
     }
 }

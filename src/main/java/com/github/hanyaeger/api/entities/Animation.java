@@ -1,28 +1,22 @@
 package com.github.hanyaeger.api.entities;
 
-public class Animation {
+/**
+ * An {@code Animation} encapsulate an animation that uses only a selection of the frames from a sprite sheet.
+ */
+public record Animation(int rowStart, int columnStart, int rowEnd, int columnEnd, boolean loop, long cycleTimeInMs) {
 
-    private int rowStart;
-    private int columnStart;
-    private int rowEnd;
-    private int columnEnd;
-    private boolean loop;
-    private int cycleTimeInMs;
+    public static long DEFAULT_AUTOCYCLE_INTERVAL = 100;
 
+    // TODO document
     public Animation(final int rowStart, final int columnStart, final int rowEnd, final int columnEnd) {
-        this(rowStart, columnStart, rowEnd, columnEnd, false, 0);
+        this(rowStart, columnStart, rowEnd, columnEnd, false, -1);
     }
 
     public Animation(final int rowStart, final int columnStart, final int rowEnd, final int columnEnd, final boolean loop) {
-        this(rowStart, columnStart, rowEnd, columnEnd, loop, 0);
+        this(rowStart, columnStart, rowEnd, columnEnd, loop, -1);
     }
 
-    public Animation(final int rowStart, final int columnStart, final int rowEnd, final int columnEnd, final boolean loop, final int cycleTimeInMs) {
-        this.rowStart = rowStart;
-        this.columnStart = columnStart;
-        this.rowEnd = rowEnd;
-        this.columnEnd = columnEnd;
-        this.loop = loop;
-        this.cycleTimeInMs = cycleTimeInMs;
+    public Animation(final int rowStart, final int columnStart, final int rowEnd, final int columnEnd, final long cycleTimeInMs) {
+        this(rowStart, columnStart, rowEnd, columnEnd, false, cycleTimeInMs);
     }
 }
