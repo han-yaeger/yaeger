@@ -14,8 +14,8 @@ import java.util.Optional;
 public class MotionApplier implements MotionModifier, NewtonianModifier, LocationUpdater {
 
     private static final Point2D IDENTITY_MOTION = new Point2D(0, 1);
-    private static final Point2D NON_MOTION = new Point2D(0, 0);
-    private Optional<Double> direction = Optional.of(0D);
+    private double direction = 0D;
+    private double speed = 0D;
     private Coordinate2D motion;
 
     /**
@@ -86,19 +86,21 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     }
 
     @Override
-    public void invertSpeedInDirection(final double direction) {
-        if (Double.compare(getDirection(), direction) == 0) {
+    public void invertSpeedInDirection(final double newDirection) {
+        if (Double.compare(getDirection(), newDirection) == 0) {
             changeDirection(180);
 
         } else {
-            final var normalizedVector = createVector(1, direction);
+            final var normalizedVector = createVector(1, newDirection);
             final var dotProduct = normalizedVector.dotProduct(motion);
 
             if (dotProduct > 0) {
                 // An actual situation in which the speed should be inverted in the given direction
                 final var vectorForDirection = calculateDenormalizedVector(normalizedVector, motion);
                 final var newMotion = motion.subtract(vectorForDirection).subtract(vectorForDirection);
-                setMotion(newMotion.magnitude(), convertVectorToAngle(newMotion));
+                speed = newMotion.magnitude();
+                direction = convertVectorToAngle(newMotion);
+                updateMotion();
             }
         }
     }
@@ -109,16 +111,16 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     }
 
     @Override
-    public void maximizeMotionInDirection(final double direction, final double speed) {
-        if (Double.compare(motion.magnitude(), 0) == 0 ||
-                Double.compare(getDirection() % 180, direction % 180) == 0) {
-            setMotion(speed, direction);
-        } else {
-            final var maximizedMotion = createVector(speed, direction);
+    public void maximizeMotionInDirection(final double maximizeDirection, final double maximizeSpeed) {
+        if (!(Double.compare(motion.magnitude(), 0) == 0 &&
+                Double.compare(getDirection() % 180, maximizeDirection % 180) == 0)) {
+            final var maximizedMotion = createVector(maximizeSpeed, maximizeDirection);
             final var fraction = maximizedMotion.multiply(motion.dotProduct(maximizedMotion) / maximizedMotion.dotProduct(maximizedMotion));
             final var newMotion = motion.subtract(fraction).add(maximizedMotion);
-            setMotion(newMotion.magnitude(), convertVectorToAngle(newMotion));
+            speed = newMotion.magnitude();
+            direction = convertVectorToAngle(newMotion);
         }
+        updateMotion();
     }
 
     @Override
@@ -127,21 +129,23 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     }
 
     @Override
-    public void nullifySpeedInDirection(final double direction) {
+    public void nullifySpeedInDirection(final double nullifyDirection) {
         // Direction is same as current direction, so direction can be set to 0
-        if (Double.compare(getDirection(), direction) == 0) {
-            setSpeed(0D);
+        if (Double.compare(getDirection(), nullifyDirection) == 0) {
+            speed = 0;
         } else {
-            final var normalizedVector = createVector(1, direction);
+            final var normalizedVector = createVector(1, nullifyDirection);
             final var dotProduct = normalizedVector.dotProduct(motion);
 
             if (dotProduct > 0) {
                 // An actual situation in which the motion should be nullified in the given direction
                 final var vectorForDirection = calculateDenormalizedVector(normalizedVector, motion);
                 final var newMotion = motion.subtract(vectorForDirection);
-                setMotion(newMotion.magnitude(), convertVectorToAngle(newMotion));
+                speed = newMotion.magnitude();
+                direction = convertVectorToAngle(newMotion);
             }
         }
+        updateMotion();
     }
 
     private Point2D calculateDenormalizedVector(final Coordinate2D normalizedVector,
@@ -156,27 +160,10 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
         motion = motion.add(createVector(speed, direction));
     }
 
-
     @Override
     public void setSpeed(final double newSpeed) {
-        if (Double.compare(newSpeed, 0d) == 0) {
-            if (NON_MOTION.equals(this.motion)) {
-                this.direction = Optional.of(Direction.DOWN.getValue());
-            } else {
-                this.direction = Optional.of(this.motion.angle(IDENTITY_MOTION));
-                if (motion.getX() < 0) {
-                    this.direction = Optional.of(360 - direction.get());
-                }
-            }
-        }
-
-        if (this.motion.equals(new Coordinate2D(0, 0))) {
-            this.motion = new Coordinate2D(0, newSpeed);
-        } else {
-            this.motion = new Coordinate2D((this.motion.normalize().multiply(newSpeed)));
-        }
-
-        this.direction.ifPresent(this::setDirection);
+        speed = newSpeed;
+        updateMotion();
     }
 
     @Override
@@ -185,13 +172,13 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     }
 
     @Override
-    public void setDirection(final double direction) {
-        if (Double.compare(0, motion.magnitude()) == 0) {
-            this.direction = Optional.of(direction);
-        } else {
-            motion = createVector(motion.magnitude(), direction);
-            this.direction = Optional.empty();
-        }
+    public void setDirection(final double newDirection) {
+        direction = newDirection;
+        updateMotion();
+    }
+
+    private void updateMotion() {
+        motion = createVector(speed, direction);
     }
 
     @Override
@@ -248,7 +235,7 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
 
     @Override
     public double getDirection() {
-        return direction.orElseGet(() -> convertVectorToAngle(motion));
+        return direction;
     }
 
     private double convertVectorToAngle(final Point2D vector) {
