@@ -164,6 +164,9 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
                 this.direction = Optional.of(Direction.DOWN.getValue());
             } else {
                 this.direction = Optional.of(this.motion.angle(IDENTITY_MOTION));
+                if (motion.getX() < 0) {
+                    this.direction = Optional.of(360 - direction.get());
+                }
             }
         }
 

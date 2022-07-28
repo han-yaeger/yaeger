@@ -33,7 +33,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void newInstanceHasNoMotion() {
+    void newInstanceHasNoMotionTest() {
         // Arrange
 
         // Act
@@ -45,7 +45,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void speedWithNoAngleDefaultsToDirectionOfZero() {
+    void speedWithNoAngleDefaultsToDirectionOfZeroTest() {
         // Arrange
         sut.setMotion(1, Direction.DOWN.getValue());
         sut.multiplySpeed(SPEED_MULTIPLICATION_FRACTION);
@@ -59,7 +59,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void setFrictionConstantStoresFriction() {
+    void setFrictionConstantStoresFrictionTest() {
         // Arrange
 
         // Act
@@ -70,7 +70,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void setGravityConstantStoresGravity() {
+    void setGravityConstantStoresGravityTest() {
         // Arrange
 
         // Act
@@ -81,7 +81,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void setGravitationalDirectionStoresDirection() {
+    void setGravitationalDirectionStoresDirectionTest() {
         // Arrange
 
         // Act
@@ -92,7 +92,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void isMotionImmutable() {
+    void isMotionImmutableTest() {
         // Arrange
 
         // Act
@@ -103,7 +103,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void multiplySpeedOfOneKeepsMotionFromConstructor() {
+    void multiplySpeedOfOneKeepsMotionFromConstructorTest() {
         // Arrange
         sut.setMotion(1, Direction.DOWN.getValue());
 
@@ -116,7 +116,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void multiplySpeedOfMinusOneInvertsMotionFromConstructor() {
+    void multiplySpeedOfMinusOneInvertsMotionFromConstructorTest() {
         // Arrange
         sut.setMotion(1, Direction.DOWN.getValue());
 
@@ -129,7 +129,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void multiplySpeedMultipliesSpeed() {
+    void multiplySpeedMultipliesSpeedTest() {
         // Arrange
         sut.setMotion(0.5, Direction.DOWN.getValue());
 
@@ -142,7 +142,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void setSpeedToOneSetsSpeedToOne() {
+    void setSpeedToOneSetsSpeedToOneTest() {
         // Arrange
         sut.setMotion(1, Direction.DOWN.getValue());
 
@@ -155,7 +155,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void changeDirection180WhenRightChangesToLeft() {
+    void changeDirection180WhenRightChangesToLeftTest() {
         // Arrange
         sut.setMotion(1, Direction.RIGHT.getValue());
 
@@ -168,7 +168,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void changeDirection180WhenLeftChangesToRight() {
+    void changeDirection180WhenLeftChangesToRightTest() {
         // Arrange
         sut.setMotion(1, Direction.LEFT.getValue());
 
@@ -181,7 +181,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void alterSpeedIncrementsSpeed() {
+    void alterSpeedIncrementsSpeedTest() {
         // Arrange
         sut.setMotion(1, Direction.UP.getValue());
         var increment = 0.1d;
@@ -194,7 +194,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void alterSpeedWithNegativeValueDecrementsSpeed() {
+    void alterSpeedWithNegativeValueDecrementsSpeedTest() {
         // Arrange
         sut.setMotion(1, Direction.UP.getValue());
         var increment = -0.1d;
@@ -207,7 +207,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void getSpeedReturnsCorrectValue() {
+    void getSpeedReturnsCorrectValueTest() {
         // Arrange
         var SPEED = 3.7;
         sut.setMotion(SPEED, Direction.UP.getValue());
@@ -220,7 +220,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void setDirectionRIGHTForSpeedOneCreatesRightVector() {
+    void setDirectionRIGHTForSpeedOneCreatesRightVectorTest() {
         // Arrange
         sut.setSpeed(1);
 
@@ -233,7 +233,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void setDirectionToUPForSpeedOneCreatesUpVector() {
+    void setDirectionToUPForSpeedOneCreatesUpVectorTest() {
         // Arrange
         sut.setSpeed(1);
 
@@ -246,7 +246,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void setDirectionToLEFTForSpeedOneCreatesLEFTVector() {
+    void setDirectionToLEFTForSpeedOneCreatesLEFTVectorTest() {
         // Arrange
         sut.setSpeed(1);
 
@@ -259,7 +259,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void setDirectionDOWNForSpeedOneCreatesDownVector() {
+    void setDirectionDOWNForSpeedOneCreatesDownVectorTest() {
         // Arrange
         sut.setSpeed(1);
 
@@ -272,7 +272,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void setDirectionWithZeroSpeedCreatesZeroVector() {
+    void setDirectionWithZeroSpeedCreatesZeroVectorTest() {
         // Arrange
 
         // Act
@@ -284,7 +284,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void setSpeedAfterDirectionCreatesCorrectVector() {
+    void setSpeedAfterDirectionCreatesCorrectVectorTest() {
         // Arrange
         sut.setDirection(Direction.UP);
 
@@ -297,7 +297,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void setSpeedBeforeDirectionCreatesCorrectVector() {
+    void setSpeedBeforeDirectionCreatesCorrectVectorTest() {
         // Arrange
         sut.setSpeed(1);
 
@@ -310,7 +310,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void resetSpeedAfterSpeedHasBeenSetToZeroCreatesCorrectVector() {
+    void resetSpeedAfterSpeedHasBeenSetToZeroCreatesCorrectVectorTest() {
         // Arrange
         sut.setSpeed(1);
         sut.setDirection(Direction.UP);
@@ -325,7 +325,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void getDirectionForDirectionBelow180() {
+    void getDirectionForDirectionBelow180TestReturnsCorrectValue() {
         // Arrange
         final double DIRECTION = 42;
         sut.setMotion(1, DIRECTION);
@@ -338,7 +338,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void getDirectionsReturnsNumericValueWhenEnumIsForDirectionWasUsed() {
+    void getDirectionsReturnsNumericValueWhenEnumIsForDirectionWasUsedTest() {
         // Arrange
         sut.setDirection(DIRECTION_ENUM);
 
@@ -350,7 +350,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void getDirectionsReturnsNumericValueWhenEnumIsForDirectionWasUsedInMotion() {
+    void getDirectionsReturnsNumericValueWhenEnumIsForDirectionWasUsedInMotionTest() {
         // Arrange
         sut.setMotion(1, DIRECTION_ENUM);
 
@@ -362,7 +362,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void getDirectionForDirectionAbove180() {
+    void getDirectionForDirectionAbove180ReturnsCorrectValueTest() {
         // Arrange
         final double DIRECTION = 189;
         sut.setMotion(1, DIRECTION);
@@ -375,7 +375,20 @@ class MotionApplierTest {
     }
 
     @Test
-    void changeDirectionWithZeroDoesNotChangeAngle() {
+    void getDirectionAfterSpeedSetTo0ReturnsCorrectDirection(){
+        // Arrange
+        final double EXPECTED = 189;
+        sut.setMotion(1, EXPECTED);
+
+        // Act
+        sut.setSpeed(0);
+
+        // Assert
+        assertEquals(EXPECTED, sut.getDirection(), DELTA);
+    }
+
+    @Test
+    void changeDirectionWithZeroDoesNotChangeAngleTest() {
         // Arrange
         sut.setMotion(1, Direction.DOWN.getValue());
 
@@ -387,7 +400,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void changeDirectionWithZeroDoesNotChangeSpeed() {
+    void changeDirectionWithZeroDoesNotChangeSpeedTest() {
         // Arrange
         sut.setMotion(1, Direction.DOWN.getValue());
 
@@ -400,7 +413,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void changeDirectionChangesTheAngle() {
+    void changeDirectionChangesTheAngleTest() {
         // Arrange
         sut.setMotion(1, Direction.DOWN.getValue());
 
@@ -412,7 +425,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void changeDirectionWithNegativeChangesTheAngle() {
+    void changeDirectionWithNegativeChangesTheAngleTest() {
         // Arrange
         sut.setMotion(1, Direction.DOWN.getValue());
 
@@ -424,7 +437,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void changeDirectionWithClockwiseEqualsCounterClockwise() {
+    void changeDirectionWithClockwiseEqualsCounterClockwiseTest() {
         // Arrange
         sut.setMotion(1, Direction.DOWN.getValue());
 
@@ -436,7 +449,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void changeDirectionZeroDoesNotChangeAngle() {
+    void changeDirectionZeroDoesNotChangeAngleTest() {
         // Arrange
         sut.setMotion(1, Direction.DOWN.getValue());
 
@@ -448,7 +461,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void addToMotionOfOppositeVectorsResultInZeroVector() {
+    void addToMotionOfOppositeVectorsResultInZeroVectorTest() {
         // Arrange
         sut.setMotion(1, Direction.DOWN);
 
@@ -460,7 +473,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void addToMotionWithEnumOfOppositeVectorsResultInZeroVector() {
+    void addToMotionWithEnumOfOppositeVectorsResultInZeroVectorTest() {
         // Arrange
         sut.setMotion(1, Direction.DOWN);
 
@@ -472,7 +485,7 @@ class MotionApplierTest {
     }
 
     @Test
-    void addToMotionWithSameVectorsResultsInDoubleSpeed() {
+    void addToMotionWithSameVectorsResultsInDoubleSpeedTest() {
         // Arrange
         sut.setMotion(1, Direction.UP);
 
@@ -487,7 +500,7 @@ class MotionApplierTest {
     class MaximizeMotionInDirectionTests {
 
         @Test
-        void motionIsSetToMaximizedValueIfCurrentMotionIsZero() {
+        void motionIsSetToMaximizedValueIfCurrentMotionIsZeroTest() {
             // Arrange
             var expectedSpeed = 3.7D;
             var expectedDirection = Direction.RIGHT;
@@ -503,7 +516,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void motionIsSetToMaximizedValueIfDirectionIsSame() {
+        void motionIsSetToMaximizedValueIfDirectionIsSameTest() {
             // Arrange
             var expectedSpeed = 3.7D;
             var expectedDirection = Direction.RIGHT;
@@ -519,7 +532,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void motionIsSetToMaximizedValueIfDirectionIsInverse() {
+        void motionIsSetToMaximizedValueIfDirectionIsInverseTest() {
             // Arrange
             var expectedSpeed = 3.7D;
             var expectedDirection = Direction.RIGHT;
@@ -535,7 +548,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void maximizedMotionOnPythagorianDiagonalDownRight() {
+        void maximizedMotionOnPythagorianDiagonalDownRightTest() {
             // Arrange
             var currentSpeed = 3;
             var maximizedSpeed = 4;
@@ -554,7 +567,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void maximizedMotionOnPythagorianDiagonalLeftUp() {
+        void maximizedMotionOnPythagorianDiagonalLeftUpTest() {
             // Arrange
             var currentSpeed = 3;
             var maximizedSpeed = 4;
@@ -574,7 +587,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void maximizedMotionFromOppositeDiagonal() {
+        void maximizedMotionFromOppositeDiagonalTest() {
             // Arrange
             var currentDirection = 225D;
             var currentSpeed = Math.sqrt(2);
@@ -598,7 +611,7 @@ class MotionApplierTest {
     class NullifySpeedInDirectionTests {
 
         @Test
-        void nullifySpeedInDirectionWhenSpeedIsAlreadyZero() {
+        void nullifySpeedInDirectionWhenSpeedIsAlreadyZeroTest() {
             // Arrange
             var currentSpeed = 0D;
             var currentDirection = 0D;
@@ -613,7 +626,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void nullifySpeedInOppositeDirectionDoesNothing() {
+        void nullifySpeedInOppositeDirectionDoesNothingTest() {
             // Arrange
             var currentSpeed = 3.7;
             var currentDirection = 37;
@@ -628,7 +641,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void nullifySpeedInDirectionWithAngleGreaterThat90DoesNothing() {
+        void nullifySpeedInDirectionWithAngleGreaterThat90DoesNothingTest() {
             // Arrange
             var currentSpeed = 3.7;
             var currentDirection = 37;
@@ -644,7 +657,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void nullifySpeedInDirectionWithAngle45() {
+        void nullifySpeedInDirectionWithAngle45Test() {
             // Arrange
             var currentSpeed = Math.sqrt(2);
             var currentDirection = 45;
@@ -660,7 +673,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void nullifySpeedInDirectionWithAngleMinus45() {
+        void nullifySpeedInDirectionWithAngleMinus45Test() {
             // Arrange
             var currentSpeed = Math.sqrt(2);
             var currentDirection = 315;
@@ -676,7 +689,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void nullifySpeedInSameDirectionSetsSpeedTo0() {
+        void nullifySpeedInSameDirectionSetsSpeedTo0Test() {
             // Arrange
             var currentSpeed = 3.7D;
             var currentDirection = 37;
@@ -690,7 +703,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void nullifyMotionInExactSameDirectionSetsSpeedToZero() {
+        void nullifyMotionInExactSameDirectionSetsSpeedToZeroTest() {
             // Arrange
             var currentSpeed = 3.7;
             var currentDirection = 37;
@@ -704,7 +717,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void nullifySpeedInZeroDirectionKeepsZeroDirection() {
+        void nullifySpeedInZeroDirectionKeepsZeroDirectionTest() {
             // Arrange
             var updatedDirection = 0.0;
 
@@ -716,7 +729,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void nullifySpeedInZeroDirectionDoesNotResultInNaN() {
+        void nullifySpeedInZeroDirectionDoesNotResultInNaNTest() {
             // Arrange
             var updatedDirection = 0D;
 
@@ -731,7 +744,7 @@ class MotionApplierTest {
     @Nested
     class GetSpeedInDirectionTests {
         @Test
-        void getSpeedInOppositeDirectionGives0() {
+        void getSpeedInOppositeDirectionGives0Test() {
             // Arrange
             var currentSpeed = 3.7;
             var currentDirection = 37;
@@ -745,7 +758,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void getSpeedInDirectionWithAngleGreaterThat90Gives0() {
+        void getSpeedInDirectionWithAngleGreaterThat90Gives0Test() {
             // Arrange
             var currentSpeed = 3.7;
             var currentDirection = 37;
@@ -760,7 +773,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void getSpeedInRightwardDirectionFor45DegreesGives1() {
+        void getSpeedInRightwardDirectionFor45DegreesGives1Test() {
             // Arrange
             var currentSpeed = Math.sqrt(2);
             var currentDirection = 45D;
@@ -774,7 +787,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void getSpeedInDownwardDirectionFor45DegreesGives1() {
+        void getSpeedInDownwardDirectionFor45DegreesGives1Test() {
             // Arrange
             var currentSpeed = Math.sqrt(2);
             var currentDirection = 45D;
@@ -792,7 +805,7 @@ class MotionApplierTest {
     class InvertSpeedInDirectionTests {
 
         @Test
-        void invertingSpeedInOppositeDirectionDoesNothing() {
+        void invertingSpeedInOppositeDirectionDoesNothingTest() {
             // Arrange
             var currentSpeed = 3.7;
             var currentDirection = 37;
@@ -807,7 +820,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void invertSpeedInDirectionWithAngleGreaterThat90DoesNothing() {
+        void invertSpeedInDirectionWithAngleGreaterThat90DoesNothingTest() {
             // Arrange
             var currentSpeed = 3.7;
             var currentDirection = 37;
@@ -822,7 +835,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void invertSpeedInSameDirectionKeepsSameSpeedButInvertsDirection() {
+        void invertSpeedInSameDirectionKeepsSameSpeedButInvertsDirectionTest() {
             // Arrange
             var currentSpeed = 3.7D;
             var currentDirection = 37;
@@ -837,7 +850,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void invertSpeedDirectionRightOn45DegreesGives315Degrees() {
+        void invertSpeedDirectionRightOn45DegreesGives315DegreesTest() {
             // Arrange
             var currentSpeed = 2;
             var currentDirection = 45;
@@ -852,7 +865,7 @@ class MotionApplierTest {
         }
 
         @Test
-        void invertSpeedDirectionDownOn45DegreesGives135Degrees() {
+        void invertSpeedDirectionDownOn45DegreesGives135DegreesTest() {
             // Arrange
             var currentSpeed = 2;
             var currentDirection = 45;
