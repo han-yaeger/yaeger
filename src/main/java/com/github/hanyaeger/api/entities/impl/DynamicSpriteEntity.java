@@ -1,6 +1,7 @@
 package com.github.hanyaeger.api.entities.impl;
 
 import com.github.hanyaeger.api.entities.Animation;
+import com.github.hanyaeger.api.entities.LinkedAnimation;
 import com.github.hanyaeger.core.entities.EntityCollection;
 import com.github.hanyaeger.core.entities.SpriteAnimationDelegate;
 import com.github.hanyaeger.core.entities.motion.*;
@@ -129,9 +130,16 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
 
     /**
      * Play the given {@link Animation}. The actual settings of the {@link Animation} can be set through the
-     * constructor of {@link Animation}. It the {@link Animation} that is being played is the same as the one
-     * passed through this method, it will continue from the current frame. If the {@link Animation} should restart,
-     * use the method {@link #playAnimation(Animation, boolean)}.
+     * constructor of specific implementation of {@link Animation}. These implementations are
+     * <ul>
+     *     <li>{@link com.github.hanyaeger.api.entities.FiniteAnimation}</li>
+     *     <li>{@link com.github.hanyaeger.api.entities.LoopingAnimation}</li>
+     *     <li>{@link LinkedAnimation}</li>
+     * </ul>
+     * <p>
+     * If the {@link Animation} that is being played is the same as the one passed through this method, it
+     * will continue from the current frame. If the {@link Animation} should restart, use the method
+     * {@link #playAnimation(Animation, boolean)}.
      *
      * @param animation the {@link Animation} to be played
      **/
@@ -141,7 +149,12 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
 
     /**
      * Play the given {@link Animation}. The actual settings of the {@link Animation} can be set through the
-     * constructor of {@link Animation}.
+     * constructor of specific implementation of {@link Animation}. These implementations are
+     * <ul>
+     *     <li>{@link com.github.hanyaeger.api.entities.FiniteAnimation}</li>
+     *     <li>{@link com.github.hanyaeger.api.entities.LoopingAnimation}</li>
+     *     <li>{@link LinkedAnimation}</li>
+     * </ul>
      *
      * @param animation     the {@link Animation} to be played
      * @param restartIfSame if the same {@link Animation} is currently being played, this {@code boolean}
@@ -155,8 +168,6 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
     /**
      * Return the {@link Animation} that is currently being played. If no {@link Animation} is being played, this
      * method returns {@code null}.
-     * <p>
-     * TODO test
      *
      * @return the {@link Animation} that is currently being played, or {@code null}
      */
@@ -183,7 +194,6 @@ public abstract class DynamicSpriteEntity extends SpriteEntity implements Update
             if (getFrames() > 1) {
                 delegate.setAutoCycle(autoCycleInterval, cyclingRow);
             }
-            // TODO test
             if (initialAnimation != null) {
                 delegate.playAnimation(initialAnimation, true);
             }

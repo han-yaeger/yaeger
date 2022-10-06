@@ -1,6 +1,8 @@
 package com.github.hanyaeger.core.entities;
 
 import com.github.hanyaeger.api.entities.Animation;
+import com.github.hanyaeger.api.entities.FiniteAnimation;
+import com.github.hanyaeger.core.exceptions.YaegerEngineException;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import com.github.hanyaeger.core.Updatable;
@@ -23,7 +25,9 @@ public class SpriteAnimationDelegate implements Updatable {
     private final ImageView imageView;
     private final List<Rectangle2D> viewports = new ArrayList<>();
     private int currentIndex = 0;
+
     private Animation currentAnimation;
+    private Animation queuedAnimation;
     private int animationEndIndex = -1;
 
     private int cyclingRow = -1;
@@ -150,10 +154,17 @@ public class SpriteAnimationDelegate implements Updatable {
 
     private void next() {
         if (currentAnimation != null && currentIndex == animationEndIndex) {
-            if (currentAnimation.loop()) {
+            // If a callback is present call it
+            if (currentAnimation.callback() != null) {
+                currentAnimation.callback().call();
+            }
+            if (queuedAnimation != null) {
+                playAnimation(queuedAnimation, false);
+            } else if (currentAnimation.loop()) {
                 currentIndex = getIndexForFrameOn(currentAnimation.rowStart(), currentAnimation.columnStart());
+            } else if (currentAnimation.next() != null) {
+                playAnimation(currentAnimation.next(), false);
             } else {
-                System.out.println("Animation Ended. Alas!");
                 currentAnimation = null;
                 setAutoCycleInterval(0);
             }
@@ -172,10 +183,10 @@ public class SpriteAnimationDelegate implements Updatable {
     }
 
     /**
-     * Play the given {@link Animation}. The actual settings of the {@link Animation} can be set through the
-     * constructor of {@link Animation}.
+     * Play the given {@link FiniteAnimation}. The actual settings of the {@link FiniteAnimation} can be set through the
+     * constructor of {@link FiniteAnimation}.
      *
-     * @param animation     the {@link Animation} to be played
+     * @param animation     the {@link FiniteAnimation} to be played
      * @param restartIfSame if the same {@link Animation} is currently being played, this {@code boolean}
      *                      states if the {@link Animation} should be restarted or should continue with the
      *                      current frame.
@@ -193,7 +204,7 @@ public class SpriteAnimationDelegate implements Updatable {
 
         // Set the correct interval for auto cycling
         if (animation.cycleTimeInMs() == -1 && autoCycleInterval == 0) {
-            setAutoCycleInterval(Animation.DEFAULT_AUTOCYCLE_INTERVAL);
+            setAutoCycleInterval(FiniteAnimation.DEFAULT_AUTOCYCLE_INTERVAL);
         }
 
         // Calculate the new value for currentIndex
@@ -204,13 +215,64 @@ public class SpriteAnimationDelegate implements Updatable {
     }
 
     /**
-     * Return the {@link Animation} that is currently being played. If the {@link Animation} has ended
-     * and {@link Animation#loop()} was set to {@code false}, this method will return {@code null}.
+     * Return the {@link Animation} that is currently being played. If the {@link Animation} has ended, the
+     * behaviour is based on the type of {@link Animation}. If the current animation is a {@link FiniteAnimation},
+     * this method will return {@code null} when it has finished.
      *
      * @return the {@link Animation} that is currently being played or {@code null if none are played}
      */
     public Animation getCurrentAnimation() {
         return currentAnimation;
+    }
+
+    /**
+     * Queue the given {@link Animation} ensures it is played after the current {@link Animation}, regardless
+     * of the type of the current {@link Animation}. the queued {@link Animation} will overwrite both the
+     * {@code next} {@link Animation} as defined in a {@link com.github.hanyaeger.api.entities.LinkedAnimation}
+     * and overwrite the looping behaviour of a {@link com.github.hanyaeger.api.entities.LoopingAnimation}.
+     * <p>
+     * To un-queue the queued {@link Animation}, call {@link #unQueueAnimation()}.
+     *
+     * @param animation the {@link Animation} to be queued
+     * @throws YaegerEngineException thrown if no {@link Animation} is currently being played
+     */
+    public void queueAnimation(final Animation animation) {
+        if (currentAnimation == null) {
+            throw new YaegerEngineException("Unable to queue animation: " + animation + "if no animation is being played.");
+        }
+        this.queuedAnimation = animation;
+    }
+
+    /**
+     * Call this method to un-queue the {@link Animation} that is currently queued. This method must be called
+     * before the current {@link Animation} has finished.
+     *
+     * @return the {@link Animation} that is un-queued
+     * @throws YaegerEngineException thrown if no animation is currently queued
+     */
+    public Animation unQueueAnimation() {
+        if (queuedAnimation == null) {
+            throw new YaegerEngineException("The animation can not be un-queued, because no animation is currently queued.");
+        }
+
+        var animation = queuedAnimation;
+        this.queuedAnimation = null;
+
+        return animation;
+    }
+
+    /**
+     * Call this method to un-queue the specific {@link Animation}, if it is currently queued.
+     * This method must be called before the current {@link Animation} has finished and will only
+     * un-queue the queued {@link Animation} if it is the same as the {@link Animation} passed as the
+     * argument.
+     *
+     * @param animation the {@link Animation} that should be un-queued
+     */
+    public void unQueueAnimation(final Animation animation) {
+        if (animation.equals(queuedAnimation)) {
+            this.queuedAnimation = null;
+        }
     }
 
     private int getIndexForFrameOn(final int row, final int column) {

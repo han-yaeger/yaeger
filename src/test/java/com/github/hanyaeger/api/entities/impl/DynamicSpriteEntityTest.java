@@ -1,7 +1,7 @@
 package com.github.hanyaeger.api.entities.impl;
 
 import com.github.hanyaeger.api.Size;
-import com.github.hanyaeger.api.entities.Animation;
+import com.github.hanyaeger.api.entities.FiniteAnimation;
 import com.github.hanyaeger.core.Updater;
 import com.github.hanyaeger.core.entities.EntityCollection;
 import com.github.hanyaeger.api.Coordinate2D;
@@ -404,7 +404,7 @@ class DynamicSpriteEntityTest {
     class EntitiesPlayingAnimationsTest {
 
         private DynamicSpriteEntityImpl sut;
-        private Animation animationMock;
+        private FiniteAnimation animationMock;
 
         @BeforeEach
         void setup() {
@@ -412,7 +412,7 @@ class DynamicSpriteEntityTest {
             var columns = 2;
             var imageMock = mock(Image.class);
             var imageViewMock = mock(ImageView.class);
-            animationMock = mock(Animation.class);
+            animationMock = mock(FiniteAnimation.class);
 
             sut = new DynamicSpriteEntityImpl(DEFAULT_RESOURCE, DEFAULT_LOCATION, DEFAULT_SIZE, rows, columns);
             sut.setMotionApplier(motionApplier);
@@ -426,6 +426,19 @@ class DynamicSpriteEntityTest {
 
             when(imageViewFactory.create(imageMock)).thenReturn(imageViewMock);
             when(spriteAnimationDelegateFactory.create(imageViewMock, rows, columns)).thenReturn(spriteAnimationDelegate);
+        }
+
+        @Test
+        void initCallsPlayAnimationIfSetTest() {
+            // Arrange
+            sut.playAnimation(animationMock);
+
+            // Act
+            sut.init(injector);
+
+            // Assert
+            verify(spriteAnimationDelegate).setAutoCycle(0L, -1);
+            verify(spriteAnimationDelegate).playAnimation(animationMock, true);
         }
 
         @Test
@@ -450,6 +463,16 @@ class DynamicSpriteEntityTest {
 
             // Assert
             verify(spriteAnimationDelegate).playAnimation(animationMock, true);
+        }
+
+        @Test
+        void getAnimationIsDelegatedToTheDelegate() {
+            // Arrange
+            sut.init(injector);
+            when(spriteAnimationDelegate.getCurrentAnimation()).thenReturn(animationMock);
+
+            // Act & Assert
+            assertEquals(animationMock, sut.getCurrentAnimation());
         }
     }
 

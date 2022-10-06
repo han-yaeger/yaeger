@@ -36,7 +36,7 @@ Typical use cases are:
 
 * A level for a game
 * A Splash screen
-* A scene with any form of animation
+* A scene with any form of finiteAnimation
 
 ### `ScrollableDynamicScene`
 
