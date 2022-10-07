@@ -71,5 +71,3 @@ can be seen in the image below:
 For complex animation, an `Animation` can be created to encapsulate a part
 of the spritesheet. For more information, please read the API of the interface
 `Animation` and its implementations.
-
-
