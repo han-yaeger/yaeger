@@ -42,12 +42,12 @@ There are several Entities available, which can be divided into four different
 types:
 
 | Static Entity     | Dynamic Entity            | Type              |
-| :---------------- | :------------------------ | :---------------- |
+| :---------------- | :------------------------ |:------------------|
 | `SpriteEntity`    | `DynamicSpriteEntity`     | Sprite entity     |
 | `CircleEntity`    | `DynamicCircleEntity`     | Shape entity      |
 | `EllipseEntity`   | `DynamicEllipseEntity`    | Shape entity      |
 | `RectangleEntity` | `DynamicRectangleEntity`  | Shape entity      |
-| `TextEntity`      | `DynamicTextEntity`       | Text entity        |
+| `TextEntity`      | `DynamicTextEntity`       | Text entity       |
 | `CompositeEntity` | `DynamicCompositeEntity`  | Composite entity  |
 
 The sprite, shape and text-entity are basic entities. The composite entity
@@ -59,3 +59,17 @@ actually consist of several smaller entities.
 Yaeger supports a basic form of physics for entities, through the
 `Newtonian` interface. Since this form of physics is based on motion,
 the interface makes only sense when applied to a dynamic entity.
+
+## Animating entities
+
+Both the `SpriteEntity` and the `DynamicSpriteEntity` can be used to create
+animated entities. Fot this, the provides image should be a spritesheet, as
+can be seen in the image below:
+
+![A spritesheet](images/witch-spritesheet.png)
+
+For complex animation, an `Animation` can be created to encapsulate a part
+of the spritesheet. For more information, please read the API of the interface
+`Animation` and its implementations.
+
+
