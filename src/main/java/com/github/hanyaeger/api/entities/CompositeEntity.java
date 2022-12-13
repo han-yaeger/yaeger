@@ -191,7 +191,7 @@ public abstract class CompositeEntity extends YaegerEntity {
     /**
      * Because the {@link Group} encapsulates the child nodes and its {@link javafx.geometry.BoundingBox}
      * depends on the space and location of those child nodes, first the child nodes receive their coordinates
-     * and transformations. After this the {@link Group} nodes does the same.
+     * and transformations. After this the {@link Group} node does the same.
      */
     @Override
     public void transferCoordinatesToNode() {

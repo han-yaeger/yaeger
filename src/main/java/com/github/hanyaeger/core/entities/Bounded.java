@@ -67,7 +67,6 @@ public interface Bounded extends DimensionsProvider, GameNode {
         return translateCoordinates(node, new Coordinate2D());
     }
 
-
     private Coordinate2D translateCoordinates(final Node node, final Coordinate2D translatedCoordinate) {
         if (node == null || node instanceof Pane) {
             return translatedCoordinate;

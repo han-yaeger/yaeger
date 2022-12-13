@@ -196,7 +196,6 @@ public class SpriteAnimationDelegate implements Updatable {
             return;
         }
 
-        System.out.println("playing animation: " + animation);
         currentAnimation = animation;
 
         // Disable the auto cycle row
