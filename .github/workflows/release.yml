@@ -21,6 +21,9 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 17
+          server-id: ossrh
+          server-username: MAVEN_CENTRAL_USERNAME
+          server-password: MAVEN_CENTRAL_PASSWORD
 
       - name: Cache Maven packages
         uses: actions/cache@v3.0.11
@@ -37,14 +40,14 @@ jobs:
       - name: Build Project for release
         run: xvfb-run mvn package -P release -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
 
-      - name: Set up Apache Maven Central
-        uses: actions/setup-java@v3.9.0
-        with:
-          distribution: 'zulu'
-          java-version: 17
-          server-id: ossrh
-          server-username: MAVEN_CENTRAL_USERNAME
-          server-password: MAVEN_CENTRAL_PASSWORD
+#      - name: Set up Apache Maven Central
+#        uses: actions/setup-java@v3.9.0
+#        with:
+#          distribution: 'zulu'
+#          java-version: 17
+#          server-id: ossrh
+#          server-username: MAVEN_CENTRAL_USERNAME
+#          server-password: MAVEN_CENTRAL_PASSWORD
 
       - name: Deploy to the Maven Central Repository
         run: mvn deploy -P release -DskipTests -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} -Dgpg.executable=gpg
