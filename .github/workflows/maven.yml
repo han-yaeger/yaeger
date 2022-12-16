@@ -33,4 +33,4 @@ jobs:
         run:  xvfb-run mvn package
 
       - name: Run Sonar analysis
-        run: xvfb-run mvn -Dsonar.login=${{ secrets.SONAR_LOGIN }} jacoco:prepare-agent install jacoco:report sonar:sonar
+        run: xvfb-run mvn -Dsonar.login=${{ secrets.SONAR_LOGIN }} jacoco:prepare-agent install jacoco:report org.sonarsource.scanner.maven:sonar-maven-plugin:RELEASE:sonar
