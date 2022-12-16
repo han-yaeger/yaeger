@@ -5,8 +5,6 @@ import com.github.hanyaeger.api.entities.Direction;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import javafx.geometry.Point2D;
 
-import java.util.Optional;
-
 /**
  * A {@link MotionApplier} provides basis behaviour regarding speed and direction of a
  * {@link YaegerEntity}
@@ -68,16 +66,16 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
 
     @Override
     public double getSpeedInDirection(final double direction) {
-        var speed = 0D;
+        var calculatedSpeed = 0D;
         if (Double.compare(getDirection(), direction) != 0) {
             final var normalizedVector = createVector(1, direction);
             final var dotProduct = normalizedVector.dotProduct(motion);
 
             if (dotProduct > 0) {
-                speed = calculateDenormalizedVector(normalizedVector, motion).magnitude();
+                calculatedSpeed = calculateDenormalizedVector(normalizedVector, motion).magnitude();
             }
         }
-        return speed;
+        return calculatedSpeed;
     }
 
     @Override
