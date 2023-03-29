@@ -11,6 +11,8 @@ import com.github.hanyaeger.api.userinput.KeyListener;
 import java.util.HashSet;
 import java.util.Set;
 
+import static java.util.Objects.nonNull;
+
 /**
  * A {@link KeyListenerDelegate} follows the Delegate pattern and embraces Composition over Inheritance.
  * <p>
@@ -76,7 +78,7 @@ public class KeyListenerDelegate {
         } else {
             animationTimer.start();
         }
-        keyListener.onPressedKeysChange(input);
+        if (nonNull(keyListener)) keyListener.onPressedKeysChange(input);
     }
 
     /**
