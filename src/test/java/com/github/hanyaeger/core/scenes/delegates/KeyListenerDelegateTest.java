@@ -228,4 +228,20 @@ class KeyListenerDelegateTest {
         verify(animationTimerMock, times(4)).start();
         verify(animationTimerMock, times(1)).stop();
     }
+
+    @Test
+    void onKeyPressedDoesNotCallOnPressedKeysChangeAfterTearDown() {
+        // Arrange
+        sut.setup(mockScene, mockKeyListener, mockConfig);
+        ArgumentCaptor<EventHandler> captor = ArgumentCaptor.forClass(EventHandler.class);
+        verify(mockScene, times(1)).setOnKeyReleased(captor.capture());
+
+        sut.tearDown(mockScene);
+
+        // Act
+        captor.getValue().handle(keyEvent);
+
+        // Verify
+        verify(mockKeyListener, never()).onPressedKeysChange(new HashSet<>());
+    }
 }
