@@ -9,6 +9,7 @@ import com.github.hanyaeger.core.scenes.SupplierProvider;
 import com.github.hanyaeger.core.scenes.TileMapListProvider;
 import com.github.hanyaeger.core.factories.EntityCollectionFactory;
 import com.github.hanyaeger.core.factories.SceneFactory;
+import com.github.hanyaeger.core.scenes.delegates.CoordinateGridDelegate;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.scene.Node;
@@ -45,6 +46,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
     private EntitySupplier entitySupplier;
     private KeyListenerDelegate keyListenerDelegate;
     private BackgroundDelegate backgroundDelegate;
+
+    private CoordinateGridDelegate coordinateGridDelegate;
 
     private final List<TileMap> tileMaps = new ArrayList<>();
 
@@ -86,6 +89,11 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
         backgroundDelegate.setup(pane);
         entitySupplier.setPane(pane);
 
+        if (config.showGrid()) {
+            coordinateGridDelegate.setup(pane);
+            injector.injectMembers(coordinateGridDelegate);
+        }
+
         setupScene();
         setupEntities();
     }
@@ -115,6 +123,9 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
         //
         if (config.showDebug()) {
             debugger.postActivation();
+        }
+        if (config.showGrid()) {
+            coordinateGridDelegate.postActivation();
         }
         activationComplete = true;
     }
@@ -215,6 +226,7 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
     public void destroy() {
         keyListenerDelegate.tearDown(scene);
         backgroundDelegate.destroy();
+        coordinateGridDelegate.destroy();
         clear();
     }
 
@@ -332,7 +344,14 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
         this.colorAdjust = colorAdjust;
     }
 
+    @Inject
+    public void setCoordinateGridDelegate(CoordinateGridDelegate coordinateGridDelegate) {
+        this.coordinateGridDelegate = coordinateGridDelegate;
+    }
+
     private void onInputChanged(final Set<KeyCode> input) {
         entityCollection.notifyGameObjectsOfPressedKeys(input);
     }
+
+
 }

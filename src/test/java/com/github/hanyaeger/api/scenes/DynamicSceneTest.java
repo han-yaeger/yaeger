@@ -9,6 +9,7 @@ import com.github.hanyaeger.core.entities.EntityCollection;
 import com.github.hanyaeger.core.entities.EntitySupplier;
 import com.github.hanyaeger.core.factories.PaneFactory;
 import com.github.hanyaeger.core.scenes.delegates.BackgroundDelegate;
+import com.github.hanyaeger.core.scenes.delegates.CoordinateGridDelegate;
 import com.github.hanyaeger.core.scenes.delegates.KeyListenerDelegate;
 import com.github.hanyaeger.core.factories.EntityCollectionFactory;
 import com.github.hanyaeger.core.factories.SceneFactory;
@@ -32,63 +33,67 @@ class DynamicSceneTest {
     private final long TIMESTAMP = 0L;
 
     private DynamicSceneImpl sut;
-    private SceneFactory sceneFactory;
-    private Debugger debugger;
-    private EntityCollectionFactory entityCollectionFactory;
-    private AnimationTimer animationTimer;
-    private AnimationTimerFactory animationTimerFactory;
-    private PaneFactory paneFactory;
-    private Injector injector;
+    private SceneFactory sceneFactoryMock;
+    private Debugger debuggerMock;
+    private EntityCollectionFactory entityCollectionFactoryMock;
+    private AnimationTimer animationTimerMock;
+    private AnimationTimerFactory animationTimerFactoryMock;
+    private PaneFactory paneFactoryMock;
+    private Injector injectorMock;
 
-    private KeyListenerDelegate keyListenerDelegate;
-    private BackgroundDelegate backgroundDelegate;
+    private KeyListenerDelegate keyListenerDelegateMock;
+    private BackgroundDelegate backgroundDelegateMock;
+
+    private CoordinateGridDelegate coordinateGridDelegateMock;
 
     private EntityCollection entityCollection;
-    private EntitySupplier entitySupplier;
-    private Pane pane;
-    private YaegerConfig config;
+    private EntitySupplier entitySupplierMock;
+    private Pane paneMock;
+    private YaegerConfig configMock;
     private Scene scene;
-    private Updater updater;
+    private Updater updaterMock;
 
     @BeforeEach
     void setup() {
         sut = new DynamicSceneImpl();
 
-        pane = mock(Pane.class);
-        backgroundDelegate = mock(BackgroundDelegate.class);
-        keyListenerDelegate = mock(KeyListenerDelegate.class);
-        entitySupplier = mock(EntitySupplier.class);
-        sceneFactory = mock(SceneFactory.class);
-        debugger = mock(Debugger.class);
-        animationTimer = mock(AnimationTimer.class);
-        entityCollectionFactory = mock(EntityCollectionFactory.class);
-        animationTimerFactory = mock(AnimationTimerFactory.class);
-        paneFactory = mock(PaneFactory.class);
-        injector = mock(Injector.class);
-        updater = mock(Updater.class);
-        config = mock(YaegerConfig.class);
+        paneMock = mock(Pane.class);
+        backgroundDelegateMock = mock(BackgroundDelegate.class);
+        keyListenerDelegateMock = mock(KeyListenerDelegate.class);
+        entitySupplierMock = mock(EntitySupplier.class);
+        sceneFactoryMock = mock(SceneFactory.class);
+        debuggerMock = mock(Debugger.class);
+        animationTimerMock = mock(AnimationTimer.class);
+        entityCollectionFactoryMock = mock(EntityCollectionFactory.class);
+        animationTimerFactoryMock = mock(AnimationTimerFactory.class);
+        coordinateGridDelegateMock = mock(CoordinateGridDelegate.class);
+        paneFactoryMock = mock(PaneFactory.class);
+        injectorMock = mock(Injector.class);
+        updaterMock = mock(Updater.class);
+        configMock = mock(YaegerConfig.class);
 
-        when(paneFactory.createPane()).thenReturn(pane);
+        when(paneFactoryMock.createPane()).thenReturn(paneMock);
 
-        sut.setDebugger(debugger);
-        sut.setSceneFactory(sceneFactory);
-        sut.setEntityCollectionFactory(entityCollectionFactory);
-        sut.setPaneFactory(paneFactory);
-        sut.setBackgroundDelegate(backgroundDelegate);
-        sut.setKeyListenerDelegate(keyListenerDelegate);
-        sut.setEntitySupplier(entitySupplier);
-        sut.setAnimationTimerFactory(animationTimerFactory);
-        sut.setUpdater(updater);
-        sut.setConfig(config);
+        sut.setDebugger(debuggerMock);
+        sut.setSceneFactory(sceneFactoryMock);
+        sut.setEntityCollectionFactory(entityCollectionFactoryMock);
+        sut.setPaneFactory(paneFactoryMock);
+        sut.setBackgroundDelegate(backgroundDelegateMock);
+        sut.setKeyListenerDelegate(keyListenerDelegateMock);
+        sut.setCoordinateGridDelegate(coordinateGridDelegateMock);
+        sut.setEntitySupplier(entitySupplierMock);
+        sut.setAnimationTimerFactory(animationTimerFactoryMock);
+        sut.setUpdater(updaterMock);
+        sut.setConfig(configMock);
 
         scene = mock(Scene.class);
         entityCollection = mock(EntityCollection.class);
 
-        when(sceneFactory.create(pane)).thenReturn(scene);
-        when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
-        when(animationTimerFactory.create(any(), eq(false))).thenReturn(animationTimer);
+        when(sceneFactoryMock.create(paneMock)).thenReturn(scene);
+        when(entityCollectionFactoryMock.create(configMock)).thenReturn(entityCollection);
+        when(animationTimerFactoryMock.create(any(), eq(false))).thenReturn(animationTimerMock);
 
-        sut.init(injector);
+        sut.init(injectorMock);
     }
 
     @Test
@@ -107,7 +112,7 @@ class DynamicSceneTest {
     void destroyClearsEntityCollection() {
         // Arrange
         var children = mock(ObservableList.class);
-        when(pane.getChildren()).thenReturn(children);
+        when(paneMock.getChildren()).thenReturn(children);
         sut.activate();
 
         // Act
@@ -121,7 +126,7 @@ class DynamicSceneTest {
     void destroyClearsUpdaters() {
         // Arrange
         var children = mock(ObservableList.class);
-        when(pane.getChildren()).thenReturn(children);
+        when(paneMock.getChildren()).thenReturn(children);
 
         sut.activate();
 
@@ -129,7 +134,7 @@ class DynamicSceneTest {
         sut.destroy();
 
         // Assert
-        verify(updater).clear();
+        verify(updaterMock).clear();
     }
 
 
@@ -166,7 +171,7 @@ class DynamicSceneTest {
         var u = sut.getUpdater();
 
         // Assert
-        Assertions.assertEquals(updater, u);
+        Assertions.assertEquals(updaterMock, u);
     }
 
     @Test
@@ -192,7 +197,7 @@ class DynamicSceneTest {
 
         // Assert
         assertFalse(sut.isActiveGWU());
-        verify(animationTimer).stop();
+        verify(animationTimerMock).stop();
     }
 
     @Test
@@ -205,7 +210,7 @@ class DynamicSceneTest {
 
         // Assert
         assertTrue(sut.isActiveGWU());
-        verify(animationTimer, times(2)).start();
+        verify(animationTimerMock, times(2)).start();
     }
 
     private static class DynamicSceneImpl extends DynamicScene {

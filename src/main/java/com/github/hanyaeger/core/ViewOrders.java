@@ -45,6 +45,12 @@ public class ViewOrders {
     public static final double VIEW_ORDER_ENTITY_DEFAULT_BEHIND = 100;
 
     /**
+     * The default value for the viewOrder for the Coordinate grid that is shown when the commandline
+     * option {@code --showGrid} is being used.
+     */
+    public static final double VIEW_ORDER_COORDINATE_GRID = 200;
+
+    /**
      * The default value for the viewOrder for instances of {@link YaegerEntity}.
      */
     public static final double VIEW_ORDER_ENTITY_DEFAULT = 37;
