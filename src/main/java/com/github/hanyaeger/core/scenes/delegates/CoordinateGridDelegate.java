@@ -62,7 +62,6 @@ public class CoordinateGridDelegate implements Destroyable {
         }
     }
 
-
     private void drawCoordinateText(final int x, final int y, final int value, final int deltaX, final int deltaY) {
         var text = textFactory.createText(Integer.valueOf(value).toString(), TEXT_COLOR);
         text.setLayoutX((double) x + deltaX);
