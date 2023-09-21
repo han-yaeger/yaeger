@@ -73,7 +73,7 @@ class CoordinateGridDelegateTest {
         sut.postActivation();
 
         // Assert
-        verify(textFactoryMock, times(2)).createText(eq("0"), eq(CoordinateGridDelegate.TEXT_COLOR));
+        verify(textFactoryMock, times(2)).createText("0", CoordinateGridDelegate.TEXT_COLOR);
     }
 
     @Test
@@ -99,7 +99,7 @@ class CoordinateGridDelegateTest {
         sut.postActivation();
 
         // Assert
-        verify(textFactoryMock, times(2)).createText(eq("0"), eq(CoordinateGridDelegate.TEXT_COLOR));
+        verify(textFactoryMock, times(2)).createText("0", CoordinateGridDelegate.TEXT_COLOR);
     }
 
     @Test
