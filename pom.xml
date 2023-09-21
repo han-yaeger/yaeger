@@ -155,14 +155,14 @@
                     <dependency>
                         <groupId>org.junit.jupiter</groupId>
                         <artifactId>junit-jupiter-engine</artifactId>
-                        <version>5.8.1</version>
+                        <version>5.10.0</version>
                     </dependency>
                 </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.8</version>
+                <version>0.8.10</version>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
@@ -176,7 +176,7 @@
                     <dependency>
                         <groupId>org.ow2.asm</groupId>
                         <artifactId>asm</artifactId>
-                        <version>9.1</version>
+                        <version>9.5</version>
                     </dependency>
                 </dependencies>
                 <configuration>
