@@ -59,7 +59,7 @@ public abstract class ShapeEntity<T extends Shape> extends YaegerEntity {
     /**
      * Set the width of the stroke to be used.
      *
-     * @param strokeWidth the with of the stroke as a {@code double}
+     * @param strokeWidth the width of the stroke as a {@code double}
      */
     public void setStrokeWidth(final double strokeWidth) {
         shape.ifPresentOrElse(s -> s.setStrokeWidth(strokeWidth), () -> this.strokeWidth = Optional.of(strokeWidth));

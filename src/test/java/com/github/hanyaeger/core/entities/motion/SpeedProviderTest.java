@@ -18,6 +18,6 @@ class SpeedProviderTest {
         assertEquals(0, Double.compare(actual, 0d));
     }
 
-    private class SpeedProviderImpl implements SpeedProvider {
+    private static class SpeedProviderImpl implements SpeedProvider {
     }
 }

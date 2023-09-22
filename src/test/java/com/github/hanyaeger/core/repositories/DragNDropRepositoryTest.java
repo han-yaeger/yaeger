@@ -42,5 +42,4 @@ class DragNDropRepositoryTest {
         // Assert
         assertNull(actual);
     }
-
 }

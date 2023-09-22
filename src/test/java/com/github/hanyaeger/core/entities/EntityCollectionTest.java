@@ -29,7 +29,6 @@ import static org.mockito.Mockito.*;
 class EntityCollectionTest {
 
     private static final Coordinate2D LOCATION = new Coordinate2D(0, 0);
-
     private EntityCollection sut;
     private Injector injector;
     private Pane pane;
@@ -356,8 +355,7 @@ class EntityCollectionTest {
             assertEquals(expected, updatableEntity.getLatestTimestamp());
         }
 
-        private class UpdatableEntity extends YaegerEntity implements Updatable {
-
+        private static class UpdatableEntity extends YaegerEntity implements Updatable {
             private Node node;
             private boolean transferCoordinatesToNodeCalled = false;
             private boolean applyTranslationsForAnchorPointCalled = false;
@@ -437,7 +435,6 @@ class EntityCollectionTest {
     class BoundingBoxVisualizerEntities {
 
         private EntitySupplierFactory entitySupplierFactory;
-        private EntitySupplier entitySupplier;
 
         @BeforeEach
         void setup() {
@@ -445,7 +442,7 @@ class EntityCollectionTest {
 
             boundingBoxVisualizer = mock(BoundingBoxVisualizer.class);
             entitySupplierFactory = mock(EntitySupplierFactory.class);
-            entitySupplier = mock(EntitySupplier.class);
+            var entitySupplier = mock(EntitySupplier.class);
 
             when(entitySupplierFactory.create(any())).thenReturn(entitySupplier);
         }

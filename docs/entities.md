@@ -41,14 +41,14 @@ denotes downward and 180 logically means upward.
 There are several Entities available, which can be divided into four different
 types:
 
-| Static Entity     | Dynamic Entity            | Type              |
-| :---------------- | :------------------------ |:------------------|
-| `SpriteEntity`    | `DynamicSpriteEntity`     | Sprite entity     |
-| `CircleEntity`    | `DynamicCircleEntity`     | Shape entity      |
-| `EllipseEntity`   | `DynamicEllipseEntity`    | Shape entity      |
-| `RectangleEntity` | `DynamicRectangleEntity`  | Shape entity      |
-| `TextEntity`      | `DynamicTextEntity`       | Text entity       |
-| `CompositeEntity` | `DynamicCompositeEntity`  | Composite entity  |
+| Static Entity     | Dynamic Entity           | Type             |
+|:------------------|:-------------------------|:-----------------|
+| `SpriteEntity`    | `DynamicSpriteEntity`    | Sprite entity    |
+| `CircleEntity`    | `DynamicCircleEntity`    | Shape entity     |
+| `EllipseEntity`   | `DynamicEllipseEntity`   | Shape entity     |
+| `RectangleEntity` | `DynamicRectangleEntity` | Shape entity     |
+| `TextEntity`      | `DynamicTextEntity`      | Text entity      |
+| `CompositeEntity` | `DynamicCompositeEntity` | Composite entity |
 
 The sprite, shape and text-entity are basic entities. The composite entity
 is of a different type. It should be used whenever the entity should

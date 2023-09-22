@@ -35,7 +35,7 @@ public interface NewtonianModifier {
     double getGravityConstant();
 
     /**
-     * Set the gravitational direction used..
+     * Set the gravitational direction used.
      *
      * @param gravityDirection the gravitational direction as a {@code double}
      */

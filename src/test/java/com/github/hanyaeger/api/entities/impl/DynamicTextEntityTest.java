@@ -14,11 +14,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class DynamicTextEntityTest {
-
-    private final long TIMESTAMP = 0L;
 
     private static final String YAEGER = "Yaeger";
     private final static int X_POSITION = 37;
@@ -30,12 +29,11 @@ class DynamicTextEntityTest {
 
     private DynamicTextEntityImpl sut;
     private Injector injector;
-    private Text text;
 
     @BeforeEach
     void setup() {
         sut = new DynamicTextEntityImpl(DEFAULT_LOCATION);
-        text = mock(Text.class);
+        var text = mock(Text.class);
         sut.setText(YAEGER);
         sut.setShape(text);
         injector = mock(Injector.class);
@@ -46,10 +44,10 @@ class DynamicTextEntityTest {
         // Arrange
 
         // Act
-        Optional<EntityMotionInitBuffer> buffer = sut.getBuffer();
+        var buffer = sut.getBuffer();
 
         // Verify
-        Assertions.assertTrue(buffer.isPresent());
+        assertTrue(buffer.isPresent());
     }
 
     @Nested
@@ -71,7 +69,7 @@ class DynamicTextEntityTest {
             sut.init(injector);
 
             // Assert
-            Assertions.assertFalse(sut.getBuffer().isPresent());
+            assertFalse(sut.getBuffer().isPresent());
         }
 
         @Test
@@ -109,7 +107,7 @@ class DynamicTextEntityTest {
             var mA = sut.getMotionApplier();
 
             // Assert
-            Assertions.assertEquals(motionApplier, mA);
+            assertEquals(motionApplier, mA);
         }
     }
 
@@ -123,7 +121,7 @@ class DynamicTextEntityTest {
         var u = sut.getUpdater();
 
         // Verify
-        Assertions.assertEquals(updater, u);
+        assertEquals(updater, u);
     }
 
     @Test
@@ -135,7 +133,7 @@ class DynamicTextEntityTest {
         var rS = sut.getRotationSpeed();
 
         // Verify
-        Assertions.assertEquals(ROTATION_SPEED, rS);
+        assertEquals(ROTATION_SPEED, rS);
     }
 
     @Test
@@ -157,13 +155,14 @@ class DynamicTextEntityTest {
         sut.setUpdater(updater);
 
         // Act
+        var TIMESTAMP = 0L;
         sut.update(TIMESTAMP);
 
         // Assert
         verify(updater).update(TIMESTAMP);
     }
 
-    private class DynamicTextEntityImpl extends DynamicTextEntity {
+    private static class DynamicTextEntityImpl extends DynamicTextEntity {
         public DynamicTextEntityImpl(Coordinate2D location) {
             super(location);
         }

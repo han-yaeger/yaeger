@@ -25,19 +25,15 @@ class CoordinateGridDelegateTest {
     private Pane paneMock;
     private LineFactory lineFactoryMock;
     private TextFactory textFactoryMock;
-    private Line lineMock;
-    private Text textMock;
-
-    private ObservableList<Node> childrenMock;
 
     @BeforeEach
     void setup() {
         paneMock = mock(Pane.class);
         lineFactoryMock = mock(LineFactory.class);
         textFactoryMock = mock(TextFactory.class);
-        childrenMock = mock(ObservableList.class);
-        lineMock = mock(Line.class);
-        textMock = mock(Text.class);
+        ObservableList<Node> childrenMock = mock(ObservableList.class);
+        var lineMock = mock(Line.class);
+        var textMock = mock(Text.class);
 
         sut = new CoordinateGridDelegate();
         sut.setLineFactory(lineFactoryMock);
@@ -112,7 +108,6 @@ class CoordinateGridDelegateTest {
         // Act
         ObservableList<Node> children = paneMock.getChildren();
         sut.destroy();
-
 
         // Assert
         verify(paneMock, atLeastOnce()).getChildren();

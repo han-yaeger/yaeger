@@ -45,18 +45,8 @@ class ScrollableDynamicSceneTest extends FxRobot {
 
     private ScrollableDynamicSceneImpl sut;
 
-    private SceneFactory sceneFactory;
     private Debugger debugger;
-    private EntityCollectionFactory entityCollectionFactory;
-    private AnimationTimer animationTimer;
-    private AnimationTimerFactory animationTimerFactory;
-    private PaneFactory paneFactory;
-    private Injector injector;
 
-    private KeyListenerDelegate keyListenerDelegate;
-    private BackgroundDelegate backgroundDelegate;
-
-    private EntityCollection entityCollection;
     private EntitySupplier entitySupplier;
     private EntitySupplier viewPortEntitySupplier;
 
@@ -68,8 +58,6 @@ class ScrollableDynamicSceneTest extends FxRobot {
 
     private YaegerConfig config;
     private Scene scene;
-    private Updater updater;
-    private Stage stage;
 
     @BeforeAll
     static void beforeAll() throws TimeoutException {
@@ -97,22 +85,22 @@ class ScrollableDynamicSceneTest extends FxRobot {
 
         stackPaneChildren = mock(ObservableList.class);
 
-        backgroundDelegate = mock(BackgroundDelegate.class);
-        keyListenerDelegate = mock(KeyListenerDelegate.class);
+        var backgroundDelegate = mock(BackgroundDelegate.class);
+        var keyListenerDelegate = mock(KeyListenerDelegate.class);
         entitySupplier = mock(EntitySupplier.class);
         viewPortEntitySupplier = mock(EntitySupplier.class);
-        sceneFactory = mock(SceneFactory.class);
+        var sceneFactory = mock(SceneFactory.class);
         debugger = mock(Debugger.class);
-        animationTimer = mock(AnimationTimer.class);
-        entityCollectionFactory = mock(EntityCollectionFactory.class);
-        animationTimerFactory = mock(AnimationTimerFactory.class);
-        paneFactory = mock(PaneFactory.class);
-        injector = mock(Injector.class);
-        updater = mock(Updater.class);
+        var animationTimer = mock(AnimationTimer.class);
+        var entityCollectionFactory = mock(EntityCollectionFactory.class);
+        var animationTimerFactory = mock(AnimationTimerFactory.class);
+        var paneFactory = mock(PaneFactory.class);
+        var injector = mock(Injector.class);
+        var updater = mock(Updater.class);
         config = mock(YaegerConfig.class);
-        stage = mock(Stage.class);
+        var stage = mock(Stage.class);
         scene = mock(Scene.class);
-        entityCollection = mock(EntityCollection.class);
+        var entityCollection = mock(EntityCollection.class);
 
         when(sceneFactory.create(defaultPane)).thenReturn(scene);
         when(entityCollectionFactory.create(config)).thenReturn(entityCollection);

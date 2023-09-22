@@ -206,8 +206,6 @@ class MouseDragExitedListenerTest {
         private Node node;
         private Pane pane;
 
-        private Coordinate2D coordinate;
-
         public void setNode(Node node) {
             this.node = node;
         }
@@ -238,7 +236,6 @@ class MouseDragExitedListenerTest {
 
         @Override
         public void onDragExited(final Coordinate2D coordinate2D, final MouseDraggedListener source) {
-            this.coordinate = coordinate2D;
         }
     }
 }

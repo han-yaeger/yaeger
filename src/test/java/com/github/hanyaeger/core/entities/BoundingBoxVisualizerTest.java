@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
 class BoundingBoxVisualizerTest {
 
     private YaegerEntity yaegerEntity;
-    private BoundingBox bounds = new BoundingBox(50, 50, 0, 25, 25, 0);
+    private final BoundingBox bounds = new BoundingBox(50, 50, 0, 25, 25, 0);
     private static final double VIEW_ORDER = 42;
 
     private BoundingBoxVisualizer sut;

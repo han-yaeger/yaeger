@@ -139,7 +139,7 @@ class CollisionDelegateTest {
         assertEquals(0, argument.getValue().size());
     }
 
-    private class CollidedImpl extends YaegerEntity implements Collided {
+    private static class CollidedImpl extends YaegerEntity implements Collided {
 
         /**
          * Instantiate a new {@link YaegerEntity} for the given {@link Coordinate2D} and textDelegate.
@@ -191,7 +191,7 @@ class CollisionDelegateTest {
         }
     }
 
-    private class ColliderImpl extends YaegerEntity implements Collider {
+    private static class ColliderImpl extends YaegerEntity implements Collider {
 
         /**
          * Instantiate a new {@link YaegerEntity} for the given {@link Coordinate2D} and textDelegate.

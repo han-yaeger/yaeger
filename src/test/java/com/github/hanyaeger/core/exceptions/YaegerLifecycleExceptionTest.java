@@ -3,6 +3,8 @@ package com.github.hanyaeger.core.exceptions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class YaegerLifecycleExceptionTest {
 
     @Test
@@ -15,6 +17,6 @@ class YaegerLifecycleExceptionTest {
 
         // Assert
         var message = sut.getMessage();
-        Assertions.assertEquals(originalMessage, message);
+        assertEquals(originalMessage, message);
     }
 }

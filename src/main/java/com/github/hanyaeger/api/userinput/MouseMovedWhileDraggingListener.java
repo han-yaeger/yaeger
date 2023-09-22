@@ -14,7 +14,7 @@ import javafx.scene.Node;
  * it can also be used to receive notification when the mouse is being moved while the mouse-button is down. In this it
  * differs from a {@link MouseMovedListener}, which does not receive those events if the button is down.
  * <p>
- * On movement it will receive an event that contains a {@link Coordinate2D} of the x and y-coordinate.
+ * On movement, it will receive an event that contains a {@link Coordinate2D} of the x and y-coordinate.
  */
 public interface MouseMovedWhileDraggingListener extends GameNode {
 

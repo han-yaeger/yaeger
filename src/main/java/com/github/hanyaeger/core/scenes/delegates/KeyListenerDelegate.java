@@ -20,8 +20,8 @@ import static java.util.Objects.nonNull;
  */
 public class KeyListenerDelegate {
 
-    Set<KeyCode> delayedInput = new HashSet<>();
-    Set<KeyCode> input = new HashSet<>();
+    final Set<KeyCode> delayedInput = new HashSet<>();
+    final Set<KeyCode> input = new HashSet<>();
     private KeyListener keyListener;
     private AnimationTimerFactory animationTimerFactory;
     private AnimationTimer animationTimer;

@@ -262,7 +262,7 @@ class RectangleEntityTest {
             verify(rectangle).setArcHeight(ARC_HEIGHT);
         }
 
-        private class RectangleEntityImpl extends RectangleEntity {
+        private static class RectangleEntityImpl extends RectangleEntity {
 
             public RectangleEntityImpl(Coordinate2D initialPosition) {
                 super(initialPosition);
@@ -304,7 +304,7 @@ class RectangleEntityTest {
             assertEquals(HEIGHT, actual);
         }
 
-        private class RectangleEntityImpl extends RectangleEntity {
+        private static class RectangleEntityImpl extends RectangleEntity {
 
             public RectangleEntityImpl(final Coordinate2D initialPosition, final Size size) {
                 super(initialPosition, size);

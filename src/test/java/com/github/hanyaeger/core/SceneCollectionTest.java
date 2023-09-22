@@ -16,7 +16,6 @@ import org.mockito.ArgumentCaptor;
 import static org.mockito.Mockito.*;
 
 class SceneCollectionTest {
-
     private Stage stage;
     private SceneCollection sut;
     private Injector injector;

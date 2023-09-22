@@ -12,8 +12,6 @@ import static org.mockito.Mockito.*;
 class SoundClipTest {
 
     private final String DEFAULT_PATH = "audio/testaudio.mp3";
-    private final int DEFAULT_CYCLE_COUNT = 1;
-    private final int CUSTOM_CYCLE_COUNT = 37;
 
     private AudioRepository audioRepository;
     private AudioClip audioClip;
@@ -57,6 +55,7 @@ class SoundClipTest {
             sut.play();
 
             // Assert
+            var DEFAULT_CYCLE_COUNT = 1;
             verify(audioClip).setCycleCount(DEFAULT_CYCLE_COUNT);
         }
     }
@@ -67,6 +66,7 @@ class SoundClipTest {
             audioRepositoryMockedStatic.when(AudioRepository::getInstance).thenReturn(audioRepository);
 
             // Arrange
+            var CUSTOM_CYCLE_COUNT = 37;
             sut = new SoundClip(DEFAULT_PATH, CUSTOM_CYCLE_COUNT);
             when(audioRepository.get(DEFAULT_PATH)).thenReturn(audioClip);
 

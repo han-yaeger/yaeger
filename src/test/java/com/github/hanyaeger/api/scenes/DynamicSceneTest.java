@@ -30,27 +30,10 @@ import static org.mockito.Mockito.*;
 
 class DynamicSceneTest {
 
-    private final long TIMESTAMP = 0L;
-
     private DynamicSceneImpl sut;
-    private SceneFactory sceneFactoryMock;
-    private Debugger debuggerMock;
-    private EntityCollectionFactory entityCollectionFactoryMock;
     private AnimationTimer animationTimerMock;
-    private AnimationTimerFactory animationTimerFactoryMock;
-    private PaneFactory paneFactoryMock;
-    private Injector injectorMock;
-
-    private KeyListenerDelegate keyListenerDelegateMock;
-    private BackgroundDelegate backgroundDelegateMock;
-
-    private CoordinateGridDelegate coordinateGridDelegateMock;
-
     private EntityCollection entityCollection;
-    private EntitySupplier entitySupplierMock;
     private Pane paneMock;
-    private YaegerConfig configMock;
-    private Scene scene;
     private Updater updaterMock;
 
     @BeforeEach
@@ -58,19 +41,19 @@ class DynamicSceneTest {
         sut = new DynamicSceneImpl();
 
         paneMock = mock(Pane.class);
-        backgroundDelegateMock = mock(BackgroundDelegate.class);
-        keyListenerDelegateMock = mock(KeyListenerDelegate.class);
-        entitySupplierMock = mock(EntitySupplier.class);
-        sceneFactoryMock = mock(SceneFactory.class);
-        debuggerMock = mock(Debugger.class);
+        var backgroundDelegateMock = mock(BackgroundDelegate.class);
+        var keyListenerDelegateMock = mock(KeyListenerDelegate.class);
+        var entitySupplierMock = mock(EntitySupplier.class);
+        var sceneFactoryMock = mock(SceneFactory.class);
+        var debuggerMock = mock(Debugger.class);
         animationTimerMock = mock(AnimationTimer.class);
-        entityCollectionFactoryMock = mock(EntityCollectionFactory.class);
-        animationTimerFactoryMock = mock(AnimationTimerFactory.class);
-        coordinateGridDelegateMock = mock(CoordinateGridDelegate.class);
-        paneFactoryMock = mock(PaneFactory.class);
-        injectorMock = mock(Injector.class);
+        var entityCollectionFactoryMock = mock(EntityCollectionFactory.class);
+        var animationTimerFactoryMock = mock(AnimationTimerFactory.class);
+        var coordinateGridDelegateMock = mock(CoordinateGridDelegate.class);
+        var paneFactoryMock = mock(PaneFactory.class);
+        var injectorMock = mock(Injector.class);
         updaterMock = mock(Updater.class);
-        configMock = mock(YaegerConfig.class);
+        var configMock = mock(YaegerConfig.class);
 
         when(paneFactoryMock.createPane()).thenReturn(paneMock);
 
@@ -86,7 +69,7 @@ class DynamicSceneTest {
         sut.setUpdater(updaterMock);
         sut.setConfig(configMock);
 
-        scene = mock(Scene.class);
+        var scene = mock(Scene.class);
         entityCollection = mock(EntityCollection.class);
 
         when(sceneFactoryMock.create(paneMock)).thenReturn(scene);
@@ -101,7 +84,7 @@ class DynamicSceneTest {
         // Arrange
 
         // Act
-        List<Timer> timers = sut.getTimers();
+        var timers = sut.getTimers();
 
         // Assert
         assertNotNull(timers);
@@ -171,7 +154,7 @@ class DynamicSceneTest {
         var u = sut.getUpdater();
 
         // Assert
-        Assertions.assertEquals(updaterMock, u);
+        assertEquals(updaterMock, u);
     }
 
     @Test
@@ -181,6 +164,7 @@ class DynamicSceneTest {
         sut.setUpdater(updater);
 
         // Act
+        var TIMESTAMP = 0L;
         sut.update(TIMESTAMP);
 
         // Assert

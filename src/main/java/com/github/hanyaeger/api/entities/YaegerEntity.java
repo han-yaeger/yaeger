@@ -224,7 +224,7 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
      * part of the {@link YaegerGame}. Since an {@link EntityCollection}
      * contains different lists of Entities, a {@link YaegerEntity} itself is responsible for
      * knowing to which list it should be added.
-     *
+     * <p>
      * <b>Note that this method is for internal use only and should not be used when creating a {@link YaegerGame}</b>
      *
      * @param collection the {@link EntityCollection} to which this {@link YaegerEntity} should add itself

@@ -164,7 +164,7 @@ class NewtonianTest {
             var updatable = sut.addSimplePhysics();
 
             // Act
-            updatable.update(0l);
+            updatable.update(0L);
 
             // Assert
             verify(motionApplier).getGravityConstant();
@@ -181,7 +181,7 @@ class NewtonianTest {
             var updatable = sut.addSimplePhysics();
 
             // Act
-            updatable.update(0l);
+            updatable.update(0L);
 
             // Assert
             verify(motionApplier).getFrictionConstant();
@@ -189,7 +189,7 @@ class NewtonianTest {
         }
     }
 
-    private class NewtonianImpl implements Newtonian {
+    private static class NewtonianImpl implements Newtonian {
 
         private MotionApplier motionApplier;
         private EntityMotionInitBuffer buffer;

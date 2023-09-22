@@ -316,7 +316,7 @@ class SpriteEntityTest {
         }
     }
 
-    private class SpriteEntityImpl extends SpriteEntity {
+    private static class SpriteEntityImpl extends SpriteEntity {
 
         SpriteEntityImpl(String resource, Coordinate2D location) {
             super(resource, location);

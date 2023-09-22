@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class TileFactoryTest {
 
     private TileFactory sut;
-
     public final static String DEFAULT_RESOURCE = "images/bubble.png";
     private final static Coordinate2D DEFAULT_LOCATION = new Coordinate2D(37, 42);
     private final static Size DEFAULT_SIZE = new Size(39, 45);

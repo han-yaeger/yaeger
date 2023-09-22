@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class KeyListenerDelegateTest {
-
     private KeyListenerDelegate sut;
     private Scene mockScene;
     private YaegerConfig mockConfig;

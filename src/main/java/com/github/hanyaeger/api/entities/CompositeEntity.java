@@ -46,8 +46,8 @@ import java.util.Optional;
  */
 public abstract class CompositeEntity extends YaegerEntity {
 
-    List<YaegerEntity> entities = new ArrayList<>();
-    List<YaegerEntity> garbage = new ArrayList<>();
+    final List<YaegerEntity> entities = new ArrayList<>();
+    final List<YaegerEntity> garbage = new ArrayList<>();
     Optional<Group> group = Optional.empty();
 
     /**

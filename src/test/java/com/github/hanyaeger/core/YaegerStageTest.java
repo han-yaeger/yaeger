@@ -24,7 +24,6 @@ class YaegerStageTest {
     private YaegerConfig yaegerConfig;
     private Injector injector;
     private YaegerStage sut;
-    private Scene scene;
     private SceneCollectionFactory sceneCollectionFactory;
     private SceneFactory sceneFactory;
     private SceneCollection sceneCollection;
@@ -33,7 +32,7 @@ class YaegerStageTest {
     void setUp() {
         yaegerGame = mock(YaegerGame.class);
         stage = mock(Stage.class);
-        scene = mock(Scene.class);
+        var scene = mock(Scene.class);
         injector = mock(Injector.class);
         yaegerConfig = new YaegerConfig(true, false, false, false, false, false);
         sceneCollectionFactory = mock(SceneCollectionFactory.class);
@@ -102,7 +101,7 @@ class YaegerStageTest {
         sut.init(injector);
 
         // Assert
-        InOrder inOrder = inOrder(yaegerGame, yaegerGame);
+        var inOrder = inOrder(yaegerGame, yaegerGame);
         inOrder.verify(yaegerGame).setupGame();
         inOrder.verify(yaegerGame).setupScenes();
     }
@@ -137,7 +136,7 @@ class YaegerStageTest {
         sut.init(injector);
 
         // Assert
-        InOrder inOrder = inOrder(yaegerGame, stage);
+        var inOrder = inOrder(yaegerGame, stage);
         inOrder.verify(yaegerGame).setupGame();
         inOrder.verify(stage).setWidth(anyDouble());
         inOrder.verify(stage).setHeight(anyDouble());
