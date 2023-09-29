@@ -225,7 +225,7 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
      * contains different lists of Entities, a {@link YaegerEntity} itself is responsible for
      * knowing to which list it should be added.
      * <p>
-     * <b>Note that this method is for internal use only and should not be used when creating a {@link YaegerGame}</b>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param collection the {@link EntityCollection} to which this {@link YaegerEntity} should add itself
      */
@@ -238,6 +238,8 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
      * For most implementation of {@link YaegerEntity}, the default {@code anchorPoint} is {@code TOP_LEFT}.
      * Using a different {@code anchorpoint} will mean a translation will be applied. Its {@code anchorLocation}
      * will remain te same.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      */
     public void applyTranslationsForAnchorPoint() {
         getNode().ifPresent(node -> {
@@ -343,6 +345,8 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
     /**
      * Apply an {@link EntityProcessor} to this {@link YaegerEntity}. An {@link EntityProcessor} is most
      * likely a lambda expression passed by a parent object.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param processor an instance of {@link EntityProcessor}, most likely a lambda expression that should
      *                  be called for processing this {@link YaegerEntity}
@@ -354,6 +358,8 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
     /**
      * The {@link Node} encapsulated by this {@link YaegerEntity} should be added to a parent {@link Node} to
      * be displayed on the screen and become part of the {@link YaegerScene}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param processor an instance of {@link EntityProcessor}, most likely a lambda expression that can be
      *                  used for adding this node as a child to a parent node
@@ -432,6 +438,8 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
 
     /**
      * Return the root pane to which this {@link YaegerEntity} is added.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @return the root pane, which is an instance of {@link Pane}
      */
@@ -441,6 +449,8 @@ public abstract class YaegerEntity extends YaegerGameObject implements Initializ
 
     /**
      * Set the root pane to which this {@link YaegerEntity} is added.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param rootPane the root pane, which is an instance of {@link Pane}
      */

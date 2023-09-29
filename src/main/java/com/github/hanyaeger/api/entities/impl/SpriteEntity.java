@@ -179,6 +179,8 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
 
     /**
      * Set the {@link SpriteAnimationDelegateFactory} to be used.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param spriteAnimationDelegateFactory an instance of {@link SpriteAnimationDelegateFactory}
      */
@@ -189,6 +191,8 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
 
     /**
      * Set the {@link ImageRepository} to be used.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param imageRepository an instance of {@link ImageRepository}
      */
@@ -199,6 +203,8 @@ public abstract class SpriteEntity extends YaegerEntity implements ResourceConsu
 
     /**
      * Set the {@link ImageViewFactory} to be used.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param imageViewFactory an instance of {@link ImageViewFactory}
      */

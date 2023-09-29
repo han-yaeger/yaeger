@@ -46,6 +46,8 @@ public interface Newtonian extends BufferedMovable, NewtonianModifier {
     /**
      * Return an {@link Updatable} that applies simple rules of physics on each call
      * to {@link Updatable#update(long)}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @return an instance of {@link Updatable}
      */

@@ -27,7 +27,6 @@ import java.util.List;
  * it occupies. If area should be larger, a {@link ScrollableDynamicScene} should be used.
  */
 public abstract class DynamicScene extends StaticScene implements UpdateDelegator, TimerListProvider, EntitySpawnerListProvider {
-
     private Updater updater;
     private boolean activeGWU;
     private AnimationTimer animator;
@@ -86,18 +85,11 @@ public abstract class DynamicScene extends StaticScene implements UpdateDelegato
         super.destroy();
     }
 
-    private void startGameLoop() {
-        resume();
-    }
-
-    private void stopGameLoop() {
-        pause();
-        animator = null;
-    }
-
     /**
      * Return an {@link Updatable} that delegates the {@link Updatable#update(long)} to
      * {@link com.github.hanyaeger.core.entities.EntityCollection#update(long)}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @return an instance of {@link Updatable}
      */
@@ -133,6 +125,8 @@ public abstract class DynamicScene extends StaticScene implements UpdateDelegato
 
     /**
      * Set the {@link AnimationTimerFactory} that should be used.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param animationTimerFactory the {@link AnimationTimerFactory}
      */
@@ -143,11 +137,22 @@ public abstract class DynamicScene extends StaticScene implements UpdateDelegato
 
     /**
      * Set the {@link Updater} that should be used.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param updater the {@link Updater}
      */
     @Inject
     public void setUpdater(final Updater updater) {
         this.updater = updater;
+    }
+
+    private void startGameLoop() {
+        resume();
+    }
+
+    private void stopGameLoop() {
+        pause();
+        animator = null;
     }
 }

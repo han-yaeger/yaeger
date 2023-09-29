@@ -28,6 +28,8 @@ public interface MouseMovedListener extends GameNode {
     /**
      * Attach a mouse moved Listener to this entity. Note that the MouseMoved listener gets attached to the {@link javafx.scene.Scene}, which
      * results in the fact that this listener is called whenever the mouse is moved within the {@link javafx.scene.Scene}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      */
     @OnActivation
     default void attachMouseMovedListener() {

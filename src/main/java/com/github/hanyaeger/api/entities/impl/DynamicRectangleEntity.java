@@ -103,6 +103,8 @@ public abstract class DynamicRectangleEntity extends RectangleEntity implements 
 
     /**
      * Set the {@link Updater} to be used.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param updater an instance of {@link Updater}
      */

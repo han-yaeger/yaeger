@@ -15,12 +15,16 @@ public interface Activatable {
     /**
      * Lifecycle method used to perform activation of this Game Object. By default, this method is empty, so it should
      * be implemented by the Game Object, if desired.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      */
     default void activate() {
     }
 
     /**
      * Return whether this {@link YaegerScene} has completed activation.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @return a {@code boolean} value that states whether this {@link YaegerScene} has finished activation
      */

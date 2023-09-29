@@ -255,6 +255,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
     /**
      * Set the {@link PaneFactory} to be used. The {@link PaneFactory} will be used to create the root node of the
      * graph that will be constructed for this {@link Scene}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param paneFactory the {@link PaneFactory} to be used
      */
@@ -266,6 +268,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
     /**
      * Set the {@link KeyListener} that should be used. In general, this will be the {@link YaegerScene}
      * itself.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param keyListenerDelegate the {@link KeyListener} to be used
      */
@@ -276,6 +280,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
     /**
      * Set the {@link SceneFactory} that should be used to create a {@link Scene}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param sceneFactory the {@link SceneFactory} to be used
      */
@@ -286,6 +292,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
     /**
      * Set the {@link Debugger} that should be used.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param debugger the {@link Debugger} to be used
      */
@@ -296,6 +304,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
     /**
      * Set the {@link BackgroundDelegate} that should be used.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param backgroundDelegate the {@link BackgroundDelegate} to be used
      */
@@ -306,6 +316,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
     /**
      * Set the {@link EntityCollectionFactory} that should be used.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param entityCollectionFactory the {@link EntityCollectionFactory} to be used
      */
@@ -316,6 +328,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
     /**
      * Set the {@link EntitySupplier} that should be used.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param entitySupplier the {@link EntitySupplier} to be used
      */
@@ -326,6 +340,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
     /**
      * Set the {@link DragNDropRepository} that should be used.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param dragNDropRepository the {@link DragNDropRepository} to be used
      */
@@ -336,6 +352,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
     /**
      * Set the {@link ColorAdjust} that should be used.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param colorAdjust the {@link ColorAdjust} to be used
      */

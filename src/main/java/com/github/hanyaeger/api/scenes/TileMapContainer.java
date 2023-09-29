@@ -22,6 +22,8 @@ public interface TileMapContainer extends SupplierProvider, TileMapListProvider,
 
     /**
      * Initialize all instances of {@link TileMap} that were added to this {@link TileMapContainer}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      */
     @OnActivation
     default void initTileMaps() {

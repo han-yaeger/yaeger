@@ -19,9 +19,7 @@ import javafx.scene.text.Text;
  * open through the module-descriptor.
  */
 public class TextEntity extends ShapeEntity<Text> {
-
     static final Font DEFAULT_FONT = Font.font("roboto", FontWeight.NORMAL, 11);
-
     private Font font = DEFAULT_FONT;
     private String text;
 
