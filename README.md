@@ -11,7 +11,7 @@
 
 Yaeger is Another Education Game Engine Runtime, and a fully functional 2D game-engine that
 requires only a traditional Object-Oriented style of programming. It is based on JavaFX and
-requires Java 17 or above to work.
+requires Java 20 or above to work.
 
 ## Documentation
 
@@ -21,13 +21,13 @@ requires Java 17 or above to work.
 * Showcase: [Yaeger showcase](https://github.com/han-yaeger/yaeger-showcase)
 
 ## Usage
-Yaeger requires JDK17, and is available through the Maven Central Repository.
+Yaeger requires JDK20, and is available through the Maven Central Repository.
 
 ```xml
 <dependency>
   <groupId>com.github.han-yaeger</groupId>
   <artifactId>yaeger</artifactId>
-  <version>2021.2022.3</version>
+  <version>2023.2024</version>
 </dependency>
 ```
 
