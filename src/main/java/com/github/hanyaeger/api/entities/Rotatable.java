@@ -21,6 +21,24 @@ public interface Rotatable extends GameNode {
     }
 
     /**
+     * Return the rotation of the {@link YaegerEntity}. This will be a value in degrees and will range
+     * between 0 and 360.
+     *
+     * @return the rotation in degrees as a {@code double}
+     */
+    default double getRotation(){
+        if (getNode().isPresent()){
+            return absoluteAndModulo360(getNode().get().getRotate());
+        } else {
+            return absoluteAndModulo360(getInitializationBuffer().getRotation());
+        }
+    }
+
+    private double absoluteAndModulo360(final double value){
+        return Math.abs(value % 360);
+    }
+
+    /**
      * Return an instance of {@link InitializationBuffer} to be used whenever a {@link javafx.scene.Node} is unavailable
      * to apply the rotation.
      *
