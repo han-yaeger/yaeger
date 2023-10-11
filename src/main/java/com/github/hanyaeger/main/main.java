@@ -1,4 +1,4 @@
 package com.github.hanyaeger.main;
 
-public class main {
+public class Main {
 }
