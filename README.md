@@ -21,7 +21,7 @@ requires Java 20 or above to work.
 * Showcase: [Yaeger showcase](https://github.com/han-yaeger/yaeger-showcase)
 
 ## Usage
-Yaeger requires JDK20, and is available through the Maven Central Repository.
+Yaeger requires JDK21, and is available through the Maven Central Repository.
 
 ```xml
 <dependency>
