@@ -17,8 +17,8 @@ import com.github.hanyaeger.core.scenes.delegates.BackgroundDelegate;
 import com.github.hanyaeger.core.scenes.delegates.KeyListenerDelegate;
 import com.google.inject.Injector;
 import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -30,7 +30,6 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.testfx.api.FxRobot;
 
 import java.util.concurrent.TimeoutException;
@@ -296,12 +295,12 @@ class ScrollableDynamicSceneTest extends FxRobot {
     }
 
     @Test
-    void setScrollPositionDelegatesToPane() {
+    void setRelativeScrollPositionDelegatesToPane() {
         // Arrange
-        var expected = new Coordinate2D(0.37, 0.42);
+        var expected = new Point2D(0.37, 0.42);
 
         // Act
-        sut.setScrollPosition(expected);
+        sut.setRelativeScrollPosition(expected.getX(), expected.getY());
 
         // Assert
         verify(scrollPane).setHvalue(expected.getX());
@@ -309,15 +308,43 @@ class ScrollableDynamicSceneTest extends FxRobot {
     }
 
     @Test
-    void setHorizontalScrollPositionDelegatesToPane() {
+    void setScrollPositionDelegatesToPane(){
+        // Arrange
+        var coordinate2D = new Coordinate2D(500, 500);
+        var expected = new Point2D(0.5, 0.5);
+        when(defaultPane.getPrefHeight()).thenReturn(1000D);
+        when(defaultPane.getPrefWidth()).thenReturn(1000D);
+
+        // Act
+        sut.setScrollPosition(coordinate2D);
+
+        // Assert
+        verify(scrollPane).setHvalue(expected.getX());
+        verify(scrollPane).setVvalue(expected.getY());
+    }
+
+    @Test
+    void setHorizontalRelativeScrollPositionDelegatesToPane() {
         // Arrange
         var expected = 0.37D;
 
         // Act
-        sut.setHorizontalScrollPosition(expected);
+        sut.setHorizontalRelativeScrollPosition(expected);
 
         // Assert
         verify(scrollPane).setHvalue(expected);
+    }
+
+    @Test
+    void setHorizontalScrollPositionDelegatesToPane() {
+        // Arrange
+        when(defaultPane.getPrefWidth()).thenReturn(1000D);
+
+        // Act
+        sut.setHorizontalScrollPosition(500D);
+
+        // Assert
+        verify(scrollPane).setHvalue(0.5);
     }
 
     @Test
@@ -325,22 +352,34 @@ class ScrollableDynamicSceneTest extends FxRobot {
         // Arrange
 
         // Act
-        sut.getHorizontalScrollPosition();
+        sut.getHorizontalRelativeScrollPosition();
 
         // Assert
         verify(scrollPane).getHvalue();
     }
 
     @Test
-    void setVerticalScrollPositionDelegatesToPane() {
+    void setVerticalRelativeScrollPositionDelegatesToPane() {
         // Arrange
         var expected = 0.37D;
 
         // Act
-        sut.setVerticalScrollPosition(expected);
+        sut.setVerticalRelativeScrollPosition(expected);
 
         // Assert
         verify(scrollPane).setVvalue(expected);
+    }
+
+    @Test
+    void setVerticalScrollPositionDelegatesToPane() {
+        // Arrange
+        when(defaultPane.getPrefHeight()).thenReturn(1000D);
+
+        // Act
+        sut.setVerticalScrollPosition(500D);
+
+        // Assert
+        verify(scrollPane).setVvalue(0.5);
     }
 
     @Test
@@ -348,7 +387,7 @@ class ScrollableDynamicSceneTest extends FxRobot {
         // Arrange
 
         // Act
-        sut.getVerticalScrollPosition();
+        sut.getVerticalRelativeScrollPosition();
 
         // Assert
         verify(scrollPane).getVvalue();
