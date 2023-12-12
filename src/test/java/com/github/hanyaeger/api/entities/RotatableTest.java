@@ -16,22 +16,23 @@ class RotatableTest {
 
     public static final int DEGREES = 37;
     private RotatableImpl sut;
+    private InitializationBuffer rotationBuffer;
 
     @BeforeEach
     void setup() {
         sut = new RotatableImpl();
+        rotationBuffer = mock(InitializationBuffer.class);
+        sut.setRotationBuffer(rotationBuffer);
     }
 
     @Nested
     class RotatableWithoutNodeSet {
 
-        private InitializationBuffer rotationBuffer;
 
         @BeforeEach
         void setup() {
 
-            rotationBuffer = mock(InitializationBuffer.class);
-            sut.setRotationBuffer(rotationBuffer);
+
         }
 
         @Test
@@ -89,7 +90,10 @@ class RotatableTest {
         @BeforeEach
         void setup() {
             node = mock(Node.class, withSettings().withoutAnnotations());
+
             sut.setNode(node);
+
+            when(node.getRotate()).thenReturn(37D);
         }
 
         @Test
@@ -141,8 +145,8 @@ class RotatableTest {
 
     private static class RotatableImpl implements Rotatable {
 
-        private Node node;
         private InitializationBuffer initializationBuffer;
+        private Node node;
 
         @Override
         public Optional<? extends Node> getNode() {
