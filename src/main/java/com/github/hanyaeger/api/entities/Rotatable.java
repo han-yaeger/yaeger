@@ -2,7 +2,6 @@ package com.github.hanyaeger.api.entities;
 
 import com.github.hanyaeger.core.entities.GameNode;
 import com.github.hanyaeger.core.entities.motion.InitializationBuffer;
-import javafx.geometry.BoundingBox;
 import javafx.scene.Node;
 
 /**
