@@ -38,7 +38,7 @@ jobs:
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
         env:
-          GPG_PRIVATE_KEY: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+          gpg_private_key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
 
       - name: Build Project for release
         run: xvfb-run mvn package -P release -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
