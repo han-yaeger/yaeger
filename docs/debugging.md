@@ -27,13 +27,13 @@ program will come to a grinding halt.
 The debugger keeps track of the number of Entities that are present on the
 scene.
 
-| Entity   | Explanation                                        |
-| :--------- | :------------------------------------------------- |
-| **Dynamic Entities** | Number of entities that extend `DynamicEntity`  |
-| **Static Entities**   | Number of  entities that extend `StaticEntity` |
-| **Suppliers** | Number of objects that are able to supply entities to the scene. This means all instances of `EntitySpawner`, but also the Scene itself. |
-| **Garbage**     | Number of Entities that have been marked as garbage, by calling the `remove()` method. The will be removed from the Scene during the next Game World Update, which should result in a drop of *total used memory*|
-| **Key listening entities**| Number of entities that implement `KeyListener` |
+| Entity                     | Explanation                                                                                                                                                                                                       |
+|:---------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Dynamic Entities**       | Number of entities that extend `DynamicEntity`                                                                                                                                                                    |
+| **Static Entities**        | Number of  entities that extend `StaticEntity`                                                                                                                                                                    |
+| **Suppliers**              | Number of objects that are able to supply entities to the scene. This means all instances of `EntitySpawner`, but also the Scene itself.                                                                          |
+| **Garbage**                | Number of Entities that have been marked as garbage, by calling the `remove()` method. The will be removed from the Scene during the next Game World Update, which should result in a drop of *total used memory* |
+| **Key listening entities** | Number of entities that implement `KeyListener`                                                                                                                                                                   |
 
 ## Loaded files
 

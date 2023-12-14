@@ -21,14 +21,13 @@ class EntitySpawnerContainerTest {
     public static final Long TIMESTAMP = 0L;
     private EntitySpawnerContainerImpl sut;
     private List<EntitySpawner> spawners;
-    private Injector injector;
     private Pane pane;
 
     @BeforeEach
     void setup() {
         sut = new EntitySpawnerContainerImpl();
         spawners = mock(ArrayList.class);
-        injector = mock(Injector.class);
+        var injector = mock(Injector.class);
         pane = mock(Pane.class);
         sut.setSpawners(spawners);
         sut.setInjector(injector);

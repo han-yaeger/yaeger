@@ -12,7 +12,6 @@ import javafx.scene.shape.Rectangle;
  * {@link YaegerEntity}.
  */
 public abstract class RectangleEntity extends ShapeEntity<Rectangle> {
-
     static final double DEFAULT_HEIGHT = 1;
     static final double DEFAULT_WIDTH = 2;
     static final double DEFAULT_ARC = 0;

@@ -106,7 +106,7 @@ class CircleEntityTest {
         verify(circle).setRadius(RADIUS);
     }
 
-    private class CircleEntityImpl extends CircleEntity {
+    private static class CircleEntityImpl extends CircleEntity {
 
         public CircleEntityImpl(Coordinate2D initialPosition) {
             super(initialPosition);

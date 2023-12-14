@@ -17,8 +17,8 @@ import com.github.hanyaeger.core.scenes.delegates.BackgroundDelegate;
 import com.github.hanyaeger.core.scenes.delegates.KeyListenerDelegate;
 import com.google.inject.Injector;
 import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -30,7 +30,6 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.testfx.api.FxRobot;
 
 import java.util.concurrent.TimeoutException;
@@ -45,18 +44,8 @@ class ScrollableDynamicSceneTest extends FxRobot {
 
     private ScrollableDynamicSceneImpl sut;
 
-    private SceneFactory sceneFactory;
     private Debugger debugger;
-    private EntityCollectionFactory entityCollectionFactory;
-    private AnimationTimer animationTimer;
-    private AnimationTimerFactory animationTimerFactory;
-    private PaneFactory paneFactory;
-    private Injector injector;
 
-    private KeyListenerDelegate keyListenerDelegate;
-    private BackgroundDelegate backgroundDelegate;
-
-    private EntityCollection entityCollection;
     private EntitySupplier entitySupplier;
     private EntitySupplier viewPortEntitySupplier;
 
@@ -68,8 +57,6 @@ class ScrollableDynamicSceneTest extends FxRobot {
 
     private YaegerConfig config;
     private Scene scene;
-    private Updater updater;
-    private Stage stage;
 
     @BeforeAll
     static void beforeAll() throws TimeoutException {
@@ -97,22 +84,22 @@ class ScrollableDynamicSceneTest extends FxRobot {
 
         stackPaneChildren = mock(ObservableList.class);
 
-        backgroundDelegate = mock(BackgroundDelegate.class);
-        keyListenerDelegate = mock(KeyListenerDelegate.class);
+        var backgroundDelegate = mock(BackgroundDelegate.class);
+        var keyListenerDelegate = mock(KeyListenerDelegate.class);
         entitySupplier = mock(EntitySupplier.class);
         viewPortEntitySupplier = mock(EntitySupplier.class);
-        sceneFactory = mock(SceneFactory.class);
+        var sceneFactory = mock(SceneFactory.class);
         debugger = mock(Debugger.class);
-        animationTimer = mock(AnimationTimer.class);
-        entityCollectionFactory = mock(EntityCollectionFactory.class);
-        animationTimerFactory = mock(AnimationTimerFactory.class);
-        paneFactory = mock(PaneFactory.class);
-        injector = mock(Injector.class);
-        updater = mock(Updater.class);
+        var animationTimer = mock(AnimationTimer.class);
+        var entityCollectionFactory = mock(EntityCollectionFactory.class);
+        var animationTimerFactory = mock(AnimationTimerFactory.class);
+        var paneFactory = mock(PaneFactory.class);
+        var injector = mock(Injector.class);
+        var updater = mock(Updater.class);
         config = mock(YaegerConfig.class);
-        stage = mock(Stage.class);
+        var stage = mock(Stage.class);
         scene = mock(Scene.class);
-        entityCollection = mock(EntityCollection.class);
+        var entityCollection = mock(EntityCollection.class);
 
         when(sceneFactory.create(defaultPane)).thenReturn(scene);
         when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
@@ -308,12 +295,12 @@ class ScrollableDynamicSceneTest extends FxRobot {
     }
 
     @Test
-    void setScrollPositionDelegatesToPane() {
+    void setRelativeScrollPositionDelegatesToPane() {
         // Arrange
-        var expected = new Coordinate2D(0.37, 0.42);
+        var expected = new Point2D(0.37, 0.42);
 
         // Act
-        sut.setScrollPosition(expected);
+        sut.setRelativeScrollPosition(expected.getX(), expected.getY());
 
         // Assert
         verify(scrollPane).setHvalue(expected.getX());
@@ -321,15 +308,43 @@ class ScrollableDynamicSceneTest extends FxRobot {
     }
 
     @Test
-    void setHorizontalScrollPositionDelegatesToPane() {
+    void setScrollPositionDelegatesToPane(){
+        // Arrange
+        var coordinate2D = new Coordinate2D(500, 500);
+        var expected = new Point2D(0.5, 0.5);
+        when(defaultPane.getPrefHeight()).thenReturn(1000D);
+        when(defaultPane.getPrefWidth()).thenReturn(1000D);
+
+        // Act
+        sut.setScrollPosition(coordinate2D);
+
+        // Assert
+        verify(scrollPane).setHvalue(expected.getX());
+        verify(scrollPane).setVvalue(expected.getY());
+    }
+
+    @Test
+    void setHorizontalRelativeScrollPositionDelegatesToPane() {
         // Arrange
         var expected = 0.37D;
 
         // Act
-        sut.setHorizontalScrollPosition(expected);
+        sut.setHorizontalRelativeScrollPosition(expected);
 
         // Assert
         verify(scrollPane).setHvalue(expected);
+    }
+
+    @Test
+    void setHorizontalScrollPositionDelegatesToPane() {
+        // Arrange
+        when(defaultPane.getPrefWidth()).thenReturn(1000D);
+
+        // Act
+        sut.setHorizontalScrollPosition(500D);
+
+        // Assert
+        verify(scrollPane).setHvalue(0.5);
     }
 
     @Test
@@ -337,22 +352,34 @@ class ScrollableDynamicSceneTest extends FxRobot {
         // Arrange
 
         // Act
-        sut.getHorizontalScrollPosition();
+        sut.getHorizontalRelativeScrollPosition();
 
         // Assert
         verify(scrollPane).getHvalue();
     }
 
     @Test
-    void setVerticalScrollPositionDelegatesToPane() {
+    void setVerticalRelativeScrollPositionDelegatesToPane() {
         // Arrange
         var expected = 0.37D;
 
         // Act
-        sut.setVerticalScrollPosition(expected);
+        sut.setVerticalRelativeScrollPosition(expected);
 
         // Assert
         verify(scrollPane).setVvalue(expected);
+    }
+
+    @Test
+    void setVerticalScrollPositionDelegatesToPane() {
+        // Arrange
+        when(defaultPane.getPrefHeight()).thenReturn(1000D);
+
+        // Act
+        sut.setVerticalScrollPosition(500D);
+
+        // Assert
+        verify(scrollPane).setVvalue(0.5);
     }
 
     @Test
@@ -360,7 +387,7 @@ class ScrollableDynamicSceneTest extends FxRobot {
         // Arrange
 
         // Act
-        sut.getVerticalScrollPosition();
+        sut.getVerticalRelativeScrollPosition();
 
         // Assert
         verify(scrollPane).getVvalue();

@@ -12,6 +12,8 @@ import org.mockito.Mockito;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class EntitySupplierTest {
 
     private static final Coordinate2D DEFAULT_LOCATION = new Coordinate2D(0, 0);
@@ -33,7 +35,7 @@ class EntitySupplierTest {
         sut.add(entity);
 
         // Assert
-        Assertions.assertEquals(1, sut.size());
+        assertEquals(1, sut.size());
     }
 
     @Test
@@ -46,7 +48,7 @@ class EntitySupplierTest {
         sut.clear();
 
         // Assert
-        Assertions.assertEquals(0, sut.size());
+        assertEquals(0, sut.size());
     }
 
     @Test
@@ -57,7 +59,7 @@ class EntitySupplierTest {
         var entities = sut.get();
 
         // Assert
-        Assertions.assertEquals(0, entities.size());
+        assertEquals(0, entities.size());
     }
 
     @Test
@@ -69,7 +71,7 @@ class EntitySupplierTest {
         var equals = sut.equals(otherSut);
 
         // Assert
-        Assertions.assertFalse(equals);
+        assertFalse(equals);
     }
 
     @Test
@@ -80,7 +82,7 @@ class EntitySupplierTest {
         var equals = sut.equals(sut);
 
         // Assert
-        Assertions.assertTrue(equals);
+        assertTrue(equals);
     }
 
     @Test
@@ -91,7 +93,7 @@ class EntitySupplierTest {
         sut.setPane(pane);
 
         // Assert
-        Assertions.assertEquals(pane, sut.getPane());
+        assertEquals(pane, sut.getPane());
     }
 
     private static class TestEntity extends YaegerEntity {

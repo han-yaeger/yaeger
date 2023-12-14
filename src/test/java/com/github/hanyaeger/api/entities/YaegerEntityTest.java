@@ -41,21 +41,18 @@ class YaegerEntityTest {
 
     private YaegerEntityImpl sut;
     private Node node;
-    private Node otherNode;
     private Injector injector;
     private Scene scene;
-    private Pane pane;
 
     @BeforeEach
     void setup() {
         sut = new YaegerEntityImpl(LOCATION);
         injector = mock(Injector.class);
         node = mock(Node.class, withSettings().withoutAnnotations());
-        otherNode = mock(Node.class, withSettings().withoutAnnotations());
 
         sut.setNode(Optional.of(node));
         scene = mock(Scene.class);
-        pane = mock(Pane.class);
+        var pane = mock(Pane.class);
 
         var boundingBox = mock(BoundingBox.class);
 

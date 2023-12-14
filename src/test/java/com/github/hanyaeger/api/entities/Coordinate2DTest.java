@@ -88,7 +88,7 @@ class Coordinate2DTest {
     }
 
     @Test
-    void multiplicationWithNullLeadsToNullpointer() {
+    void multiplicationWithNullLeadsToNullPointer() {
         // Arrange
         var position = new Coordinate2D(1D, 1D);
 

@@ -46,8 +46,8 @@ import java.util.Optional;
  */
 public abstract class CompositeEntity extends YaegerEntity {
 
-    List<YaegerEntity> entities = new ArrayList<>();
-    List<YaegerEntity> garbage = new ArrayList<>();
+    final List<YaegerEntity> entities = new ArrayList<>();
+    final List<YaegerEntity> garbage = new ArrayList<>();
     Optional<Group> group = Optional.empty();
 
     /**
@@ -66,7 +66,7 @@ public abstract class CompositeEntity extends YaegerEntity {
      * one should be added during the game, a {@link EntitySpawner} should be used.
      * </p>
      *
-     * @param yaegerEntity The {@link YaegerEntity} to be added.
+     * @param yaegerEntity The {@link YaegerEntity} to be added
      */
     protected void addEntity(final YaegerEntity yaegerEntity) {
         entities.add(yaegerEntity);
@@ -100,6 +100,8 @@ public abstract class CompositeEntity extends YaegerEntity {
      * At this stage we only ask the children to apply their transformation. The transformation that should be
      * applied to this {@link CompositeEntity} can only be applied after its children have been added to the
      * {@link Group} and the {@link Group} has been added to the {@link javafx.scene.Scene}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      */
     @Override
     public void applyTranslationsForAnchorPoint() {
@@ -122,6 +124,8 @@ public abstract class CompositeEntity extends YaegerEntity {
 
     /**
      * Note that this method will become recursive if the composition consists of more instance of {@link CompositeEntity}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      */
     @Override
     public void addToParent(final EntityProcessor processor) {
@@ -170,6 +174,8 @@ public abstract class CompositeEntity extends YaegerEntity {
      * instances of {@link YaegerEntity} that are added to this {@code CompositeEntity}
      * are packaged together within this {@link Group}. Within it, they have their own
      * coordinate-space and can be placed as a whole on the {@link YaegerScene}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param group the {@link Group} to be used
      */
@@ -192,6 +198,8 @@ public abstract class CompositeEntity extends YaegerEntity {
      * Because the {@link Group} encapsulates the child nodes and its {@link javafx.geometry.BoundingBox}
      * depends on the space and location of those child nodes, first the child nodes receive their coordinates
      * and transformations. After this the {@link Group} node does the same.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      */
     @Override
     public void transferCoordinatesToNode() {

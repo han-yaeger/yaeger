@@ -180,7 +180,7 @@ class EllipseEntityTest {
             verify(ellipse).setRadiusY(RADIUS_Y);
         }
 
-        private class EllipseEntityImpl extends EllipseEntity {
+        private static class EllipseEntityImpl extends EllipseEntity {
 
             public EllipseEntityImpl(Coordinate2D initialPosition) {
                 super(initialPosition);
@@ -222,7 +222,7 @@ class EllipseEntityTest {
             assertEquals(SIZE.height() / 2, actual);
         }
 
-        private class EllipseEntityImpl extends EllipseEntity {
+        private static class EllipseEntityImpl extends EllipseEntity {
             public EllipseEntityImpl(final Coordinate2D initialPosition, final Size size) {
                 super(initialPosition, size);
             }

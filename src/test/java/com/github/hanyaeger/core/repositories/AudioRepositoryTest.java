@@ -5,10 +5,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class AudioRepositoryTest {
 
     private AudioRepository audioRepository;
-
     @BeforeEach
     void setup() {
         audioRepository = AudioRepository.getInstance();
@@ -23,7 +24,7 @@ class AudioRepositoryTest {
         int size = audioRepository.size();
 
         // Assert
-        Assertions.assertEquals(0, size);
+        assertEquals(0, size);
     }
 
     @Test
@@ -35,8 +36,8 @@ class AudioRepositoryTest {
         AudioClip audioClip = audioRepository.get("audio/testaudio2.mp3");
 
         // Assert
-        Assertions.assertNotNull(audioClip);
-        Assertions.assertEquals(1, audioRepository.size());
+        assertNotNull(audioClip);
+        assertEquals(1, audioRepository.size());
     }
 
     @Test
@@ -49,8 +50,8 @@ class AudioRepositoryTest {
         AudioClip audioClip2 = audioRepository.get("audio/testaudio2.mp3");
 
         // Assert
-        Assertions.assertSame(audioClip1, audioClip2);
-        Assertions.assertEquals(1, audioRepository.size());
+        assertSame(audioClip1, audioClip2);
+        assertEquals(1, audioRepository.size());
     }
 
     @Test
@@ -63,8 +64,8 @@ class AudioRepositoryTest {
         AudioClip audioClip2 = audioRepository.get("audio/testaudio2.mp3");
 
         // Assert
-        Assertions.assertNotSame(audioClip1, audioClip2);
-        Assertions.assertEquals(2, audioRepository.size());
+        assertNotSame(audioClip1, audioClip2);
+        assertEquals(2, audioRepository.size());
     }
 
     @Test
@@ -76,8 +77,8 @@ class AudioRepositoryTest {
         AudioClip audioClip = audioRepository.get("audio/testaudio2.mp3", 2);
 
         // Assert
-        Assertions.assertNotNull(audioClip);
-        Assertions.assertEquals(1, audioRepository.size());
+        assertNotNull(audioClip);
+        assertEquals(1, audioRepository.size());
     }
 
     @Test
@@ -90,7 +91,7 @@ class AudioRepositoryTest {
         AudioClip audioClip2 = audioRepository.get("audio/testaudio2.mp3", 3);
 
         // Assert
-        Assertions.assertNotSame(audioClip1, audioClip2);
-        Assertions.assertEquals(2, audioRepository.size());
+        assertNotSame(audioClip1, audioClip2);
+        assertEquals(2, audioRepository.size());
     }
 }

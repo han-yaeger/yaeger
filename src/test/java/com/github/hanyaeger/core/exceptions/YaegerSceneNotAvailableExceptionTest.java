@@ -3,6 +3,8 @@ package com.github.hanyaeger.core.exceptions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class YaegerSceneNotAvailableExceptionTest {
 
     @Test
@@ -15,7 +17,7 @@ class YaegerSceneNotAvailableExceptionTest {
         // Assert
         var message = sut.getMessage();
 
-        Assertions.assertEquals("Scene 0 is not available. Ensure the scene is added to the game.", message);
+        assertEquals("Scene 0 is not available. Ensure the scene is added to the game.", message);
     }
 
     @Test
@@ -29,6 +31,6 @@ class YaegerSceneNotAvailableExceptionTest {
         // Assert
         var returnedType = sut.getId();
 
-        Assertions.assertEquals(sceneType, returnedType);
+        assertEquals(sceneType, returnedType);
     }
 }

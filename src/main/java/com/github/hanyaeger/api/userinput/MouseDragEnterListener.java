@@ -29,6 +29,8 @@ public interface MouseDragEnterListener extends GameNode, DragRepositoryAccessor
 
     /**
      * Attach a {@code MouseDragEnterListener} to this {@link YaegerEntity} or {@link com.github.hanyaeger.api.scenes.YaegerScene}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      */
     @OnActivation
     default void attachDragEnteredListener() {

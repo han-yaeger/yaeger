@@ -253,7 +253,7 @@ class ShapeEntityTest {
         verify(shape).setFill(FILL_COLOR);
     }
 
-    private class ShapeEntityImpl extends ShapeEntity<Shape> {
+    private static class ShapeEntityImpl extends ShapeEntity<Shape> {
 
         public ShapeEntityImpl(Coordinate2D initialPosition) {
             super(initialPosition);

@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class InitializationBuffer {
 
-    private List<EventHandler> removeHandlers = new ArrayList<>();
+    private final List<EventHandler> removeHandlers = new ArrayList<>();
     private double rotation;
 
     /**

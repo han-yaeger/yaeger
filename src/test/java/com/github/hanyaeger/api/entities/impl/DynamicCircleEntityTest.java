@@ -27,12 +27,11 @@ class DynamicCircleEntityTest {
 
     private DynamicCircleEntityImpl sut;
     private Injector injector;
-    private Circle circle;
 
     @BeforeEach
     void setup() {
         sut = new DynamicCircleEntityImpl(DEFAULT_LOCATION);
-        circle = mock(Circle.class);
+        var circle = mock(Circle.class);
         sut.setShape(circle);
         injector = mock(Injector.class);
     }
@@ -160,7 +159,7 @@ class DynamicCircleEntityTest {
         verify(updater).update(TIMESTAMP);
     }
 
-    private class DynamicCircleEntityImpl extends DynamicCircleEntity {
+    private static class DynamicCircleEntityImpl extends DynamicCircleEntity {
 
         /**
          * Create a new {@link DynamicRectangleEntity} on the given {@code initialPosition}.

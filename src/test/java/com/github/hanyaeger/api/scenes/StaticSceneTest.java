@@ -6,6 +6,7 @@ import com.github.hanyaeger.core.entities.EntitySupplier;
 import com.github.hanyaeger.core.factories.PaneFactory;
 import com.github.hanyaeger.core.repositories.DragNDropRepository;
 import com.github.hanyaeger.core.scenes.delegates.BackgroundDelegate;
+import com.github.hanyaeger.core.scenes.delegates.CoordinateGridDelegate;
 import com.github.hanyaeger.core.scenes.delegates.KeyListenerDelegate;
 import com.github.hanyaeger.core.factories.EntityCollectionFactory;
 import com.github.hanyaeger.core.factories.SceneFactory;
@@ -22,7 +23,6 @@ import com.github.hanyaeger.core.entities.EntityCollection;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -34,60 +34,63 @@ import static org.mockito.Mockito.*;
 
 class StaticSceneTest {
     private StaticSceneImpl sut;
-    private SceneFactory sceneFactory;
-    private EntityCollectionFactory entityCollectionFactory;
+    private SceneFactory sceneFactoryMock;
+    private EntityCollectionFactory entityCollectionFactoryMock;
 
-    private KeyListenerDelegate keyListenerDelegate;
-    private BackgroundDelegate backgroundDelegate;
-    private DragNDropRepository dragNDropRepository;
-    private Debugger debugger;
-    private Injector injector;
+    private KeyListenerDelegate keyListenerDelegateMock;
+    private BackgroundDelegate backgroundDelegateMock;
+    private DragNDropRepository dragNDropRepositoryMock;
+    private CoordinateGridDelegate coordinateGridDelegateMock;
+    private Debugger debuggerMock;
+    private Injector injectorMock;
 
     private EntityCollection entityCollection;
-    private EntitySupplier entitySupplier;
-    private PaneFactory paneFactory;
-    private Pane pane;
+    private EntitySupplier entitySupplierMock;
+    private PaneFactory paneFactoryMock;
+    private Pane paneMock;
     private Scene scene;
-    private Stage stage;
-    private YaegerConfig config;
+    private Stage stageMock;
+    private YaegerConfig configMock;
 
     @BeforeEach
     void setup() {
         sut = new StaticSceneImpl();
 
-        pane = mock(Pane.class, withSettings().withoutAnnotations());
-        backgroundDelegate = mock(BackgroundDelegate.class);
-        keyListenerDelegate = mock(KeyListenerDelegate.class);
-        dragNDropRepository = mock(DragNDropRepository.class);
-        debugger = mock(Debugger.class);
-        entitySupplier = mock(EntitySupplier.class);
-        sceneFactory = mock(SceneFactory.class);
-        entityCollectionFactory = mock(EntityCollectionFactory.class);
-        paneFactory = mock(PaneFactory.class);
-        injector = mock(Injector.class);
-        stage = mock(Stage.class);
-        config = mock(YaegerConfig.class);
+        paneMock = mock(Pane.class, withSettings().withoutAnnotations());
+        backgroundDelegateMock = mock(BackgroundDelegate.class);
+        keyListenerDelegateMock = mock(KeyListenerDelegate.class);
+        coordinateGridDelegateMock = mock(CoordinateGridDelegate.class);
+        dragNDropRepositoryMock = mock(DragNDropRepository.class);
+        debuggerMock = mock(Debugger.class);
+        entitySupplierMock = mock(EntitySupplier.class);
+        sceneFactoryMock = mock(SceneFactory.class);
+        entityCollectionFactoryMock = mock(EntityCollectionFactory.class);
+        paneFactoryMock = mock(PaneFactory.class);
+        injectorMock = mock(Injector.class);
+        stageMock = mock(Stage.class);
+        configMock = mock(YaegerConfig.class);
 
-        when(paneFactory.createPane()).thenReturn(pane);
+        when(paneFactoryMock.createPane()).thenReturn(paneMock);
 
-        sut.setDebugger(debugger);
-        sut.setSceneFactory(sceneFactory);
-        sut.setEntityCollectionFactory(entityCollectionFactory);
-        sut.setDragNDropRepository(dragNDropRepository);
-        sut.setPaneFactory(paneFactory);
-        sut.setBackgroundDelegate(backgroundDelegate);
-        sut.setKeyListenerDelegate(keyListenerDelegate);
-        sut.setEntitySupplier(entitySupplier);
-        sut.setStage(stage);
-        sut.setConfig(config);
+        sut.setDebugger(debuggerMock);
+        sut.setSceneFactory(sceneFactoryMock);
+        sut.setEntityCollectionFactory(entityCollectionFactoryMock);
+        sut.setDragNDropRepository(dragNDropRepositoryMock);
+        sut.setPaneFactory(paneFactoryMock);
+        sut.setBackgroundDelegate(backgroundDelegateMock);
+        sut.setKeyListenerDelegate(keyListenerDelegateMock);
+        sut.setCoordinateGridDelegate(coordinateGridDelegateMock);
+        sut.setEntitySupplier(entitySupplierMock);
+        sut.setStage(stageMock);
+        sut.setConfig(configMock);
 
         scene = mock(Scene.class);
         entityCollection = mock(EntityCollection.class);
 
-        when(sceneFactory.create(pane)).thenReturn(scene);
-        when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
+        when(sceneFactoryMock.create(paneMock)).thenReturn(scene);
+        when(entityCollectionFactoryMock.create(configMock)).thenReturn(entityCollection);
 
-        sut.init(injector);
+        sut.init(injectorMock);
     }
 
     @Test
@@ -98,7 +101,7 @@ class StaticSceneTest {
         var actual = sut.getInjector();
 
         // Verify
-        assertEquals(actual, injector);
+        assertEquals(actual, injectorMock);
     }
 
     @Test
@@ -109,7 +112,7 @@ class StaticSceneTest {
         var actual = sut.getStage();
 
         // Verify
-        assertEquals(actual, stage);
+        assertEquals(actual, stageMock);
     }
 
     @Test
@@ -120,7 +123,7 @@ class StaticSceneTest {
         var actual = sut.getDragNDropRepository();
 
         // Assert
-        assertEquals(actual, dragNDropRepository);
+        assertEquals(actual, dragNDropRepositoryMock);
     }
 
     @Test
@@ -158,7 +161,7 @@ class StaticSceneTest {
         sut.activate();
 
         // Verify
-        verify(sceneFactory).create(pane);
+        verify(sceneFactoryMock).create(paneMock);
     }
 
     @Test
@@ -169,22 +172,45 @@ class StaticSceneTest {
         sut.activate();
 
         // Verify
-        verify(entitySupplier).setPane(pane);
+        verify(entitySupplierMock).setPane(paneMock);
     }
 
 
     @Test
     void activateSetsUpADebuggerIfConfigHasShowDebug() {
         // Arrange
-        when(config.showDebug()).thenReturn(true);
+        when(configMock.showDebug()).thenReturn(true);
 
         // Act
         sut.activate();
 
         // Assert
-        verify(debugger).setup(pane, scene);
+        verify(debuggerMock).setup(paneMock, scene);
     }
 
+    @Test
+    void activateSetsUpCoordinateGridDelegateIfConfigHasShowGrid() {
+        // Arrange
+        when(configMock.showGrid()).thenReturn(true);
+
+        // Act
+        sut.activate();
+
+        // Assert
+        verify(coordinateGridDelegateMock).setup(paneMock);
+    }
+
+    @Test
+    void activateInjectDependenciesIntoCoordinateGridDelegateIfConfigHasShowGrid() {
+        // Arrange
+        when(configMock.showGrid()).thenReturn(true);
+
+        // Act
+        sut.activate();
+
+        // Assert
+        verify(injectorMock).injectMembers(coordinateGridDelegateMock);
+    }
 
     @Test
     void activateCreatesAnEntityCollection() {
@@ -194,7 +220,7 @@ class StaticSceneTest {
         sut.activate();
 
         // Verify
-        verify(entityCollectionFactory).create(config);
+        verify(entityCollectionFactoryMock).create(configMock);
     }
 
     @Test
@@ -205,7 +231,7 @@ class StaticSceneTest {
         var actual = sut.getPaneForDebugger();
 
         // Assert
-        assertEquals(actual, pane);
+        assertEquals(actual, paneMock);
     }
 
     @Test
@@ -216,7 +242,7 @@ class StaticSceneTest {
         sut.activate();
 
         // Verify
-        verify(injector).injectMembers(any());
+        verify(injectorMock).injectMembers(any());
     }
 
     @Test
@@ -227,29 +253,29 @@ class StaticSceneTest {
         sut.activate();
 
         // Verify
-        verify(keyListenerDelegate).setup(any(Scene.class), any(KeyListener.class), any(YaegerConfig.class));
+        verify(keyListenerDelegateMock).setup(any(Scene.class), any(KeyListener.class), any(YaegerConfig.class));
     }
 
     @Test
     void activateAddsTheDebuggerAsAStatisticsObserverToTheEntityCollection() {
         // Arrange
         var entityCollection = mock(EntityCollection.class);
-        when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
+        when(entityCollectionFactoryMock.create(configMock)).thenReturn(entityCollection);
 
-        when(config.showDebug()).thenReturn(true);
+        when(configMock.showDebug()).thenReturn(true);
 
         // Act
         sut.activate();
 
         // Verify
-        verify(entityCollection).addStatisticsObserver(debugger);
+        verify(entityCollection).addStatisticsObserver(debuggerMock);
     }
 
     @Test
     void destroyDelegatesDestroy() {
         // Arrange
         var children = mock(ObservableList.class);
-        when(pane.getChildren()).thenReturn(children);
+        when(paneMock.getChildren()).thenReturn(children);
 
         sut.activate();
 
@@ -257,8 +283,8 @@ class StaticSceneTest {
         sut.destroy();
 
         // Verify
-        verify(keyListenerDelegate).tearDown(scene);
-        verify(backgroundDelegate).destroy();
+        verify(keyListenerDelegateMock).tearDown(scene);
+        verify(backgroundDelegateMock).destroy();
         verify(children).clear();
     }
 
@@ -273,7 +299,7 @@ class StaticSceneTest {
         sut.addEntity(testEntity);
 
         // Verify
-        verify(entitySupplier).add(testEntity);
+        verify(entitySupplierMock).add(testEntity);
     }
 
     @Test
@@ -285,7 +311,7 @@ class StaticSceneTest {
         sut.setBackgroundAudio(AUDIO_STRING);
 
         // Verify
-        verify(backgroundDelegate).setBackgroundAudio(AUDIO_STRING);
+        verify(backgroundDelegateMock).setBackgroundAudio(AUDIO_STRING);
     }
 
     @Test
@@ -293,25 +319,25 @@ class StaticSceneTest {
         // Arrange
         final var sut = new StaticSceneKeyListenerImpl();
 
-        when(paneFactory.createPane()).thenReturn(pane);
+        when(paneFactoryMock.createPane()).thenReturn(paneMock);
 
-        sut.setDebugger(debugger);
-        sut.setSceneFactory(sceneFactory);
-        sut.setEntityCollectionFactory(entityCollectionFactory);
-        sut.setPaneFactory(paneFactory);
-        sut.setBackgroundDelegate(backgroundDelegate);
-        sut.setKeyListenerDelegate(keyListenerDelegate);
-        sut.setEntitySupplier(entitySupplier);
-        sut.setStage(stage);
-        sut.setConfig(config);
+        sut.setDebugger(debuggerMock);
+        sut.setSceneFactory(sceneFactoryMock);
+        sut.setEntityCollectionFactory(entityCollectionFactoryMock);
+        sut.setPaneFactory(paneFactoryMock);
+        sut.setBackgroundDelegate(backgroundDelegateMock);
+        sut.setKeyListenerDelegate(keyListenerDelegateMock);
+        sut.setEntitySupplier(entitySupplierMock);
+        sut.setStage(stageMock);
+        sut.setConfig(configMock);
 
         scene = mock(Scene.class);
         entityCollection = mock(EntityCollection.class);
 
-        when(sceneFactory.create(pane)).thenReturn(scene);
-        when(entityCollectionFactory.create(config)).thenReturn(entityCollection);
+        when(sceneFactoryMock.create(paneMock)).thenReturn(scene);
+        when(entityCollectionFactoryMock.create(configMock)).thenReturn(entityCollection);
 
-        sut.init(injector);
+        sut.init(injectorMock);
 
         // Act
         sut.activate();
@@ -329,7 +355,7 @@ class StaticSceneTest {
         sut.setBackgroundColor(color);
 
         // Verify
-        verify(backgroundDelegate).setBackgroundColor(color);
+        verify(backgroundDelegateMock).setBackgroundColor(color);
     }
 
     @Test
@@ -341,7 +367,7 @@ class StaticSceneTest {
         sut.setBackgroundImage(IMAGE_STRING);
 
         // Verify
-        verify(backgroundDelegate).setBackgroundImage(IMAGE_STRING, true);
+        verify(backgroundDelegateMock).setBackgroundImage(IMAGE_STRING, true);
     }
 
     @Test
@@ -353,7 +379,7 @@ class StaticSceneTest {
         sut.setBackgroundImage(IMAGE_STRING, true);
 
         // Verify
-        verify(backgroundDelegate).setBackgroundImage(IMAGE_STRING, true);
+        verify(backgroundDelegateMock).setBackgroundImage(IMAGE_STRING, true);
     }
 
     @Test
@@ -365,7 +391,7 @@ class StaticSceneTest {
         sut.setBackgroundImage(IMAGE_STRING, false);
 
         // Verify
-        verify(backgroundDelegate).setBackgroundImage(IMAGE_STRING, false);
+        verify(backgroundDelegateMock).setBackgroundImage(IMAGE_STRING, false);
     }
 
     @Test
@@ -376,7 +402,7 @@ class StaticSceneTest {
         sut.stopBackgroundAudio();
 
         // Verify
-        verify(backgroundDelegate).stopBackgroundAudio();
+        verify(backgroundDelegateMock).stopBackgroundAudio();
     }
 
     @Test
@@ -388,7 +414,7 @@ class StaticSceneTest {
         sut.setBackgroundAudioVolume(expected);
 
         // Verify
-        verify(backgroundDelegate).setVolume(expected);
+        verify(backgroundDelegateMock).setVolume(expected);
     }
 
     @Test
@@ -396,7 +422,7 @@ class StaticSceneTest {
         // Arrange
         final var expected = 0.37D;
 
-        when(backgroundDelegate.getVolume()).thenReturn(expected);
+        when(backgroundDelegateMock.getVolume()).thenReturn(expected);
 
         // Act
         var actual = sut.getBackgroundAudioVolume();
@@ -449,7 +475,7 @@ class StaticSceneTest {
 
         sut.activate();
         ArgumentCaptor<KeyListener> captor = ArgumentCaptor.forClass(KeyListener.class);
-        verify(keyListenerDelegate, times(1)).setup(any(), captor.capture(), any());
+        verify(keyListenerDelegateMock, times(1)).setup(any(), captor.capture(), any());
 
         // Act
         captor.getValue().onPressedKeysChange(input);
@@ -480,21 +506,21 @@ class StaticSceneTest {
         sut.postActivate();
 
         // Verify
-        verify(stage).hide();
-        verify(stage).show();
+        verify(stageMock).hide();
+        verify(stageMock).show();
     }
 
     @Test
     void postActivationCalssPostActivationOnDebugger() {
         // Arrange
         sut.activate();
-        when(config.showDebug()).thenReturn(true);
+        when(configMock.showDebug()).thenReturn(true);
 
         // Act
         sut.postActivate();
 
         // Verify
-        verify(debugger).postActivation();
+        verify(debuggerMock).postActivation();
     }
 
     @Test

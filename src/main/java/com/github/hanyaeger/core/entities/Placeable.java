@@ -28,7 +28,7 @@ public interface Placeable extends Bounded, Anchorable {
     /**
      * Set the {@link Coordinate2D} where the {@link AnchorPoint} of this {@link YaegerEntity} will be placed, within
      * the {@link YaegerScene}.
-     *
+
      * @param anchorLocation the {@link Coordinate2D} that should be used
      */
     void setAnchorLocation(final Coordinate2D anchorLocation);
@@ -44,6 +44,8 @@ public interface Placeable extends Bounded, Anchorable {
     /**
      * Transfer the x and y-coordinate of this {@link YaegerEntity} to its JavaFX {@link javafx.scene.Node}
      * and apply the requested transformations.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      */
     void transferCoordinatesToNode();
 }

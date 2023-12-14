@@ -36,6 +36,8 @@ public interface TimerContainer extends TimerListProvider {
     /**
      * Annotated with {@link OnActivation}, this method will be called during activation. First it will clear
      * any timers from a previous activation, after which it will call {@link #setupTimers()}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      */
     @OnActivation
     default void initTimers() {
@@ -52,6 +54,8 @@ public interface TimerContainer extends TimerListProvider {
     /**
      * Return an {@link Updatable} that, when called, call all the timers that were
      * added to this {@code TimerContainer}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @return an {@link Updatable} that delegates the {@link Updatable#update(long)} to
      * all timers

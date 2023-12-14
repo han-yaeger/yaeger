@@ -19,8 +19,6 @@ import static org.mockito.Mockito.*;
 
 class DynamicRectangleEntityTest {
 
-    private final long TIMESTAMP = 0L;
-
     private final static int X_POSITION = 37;
     private final static int Y_POSITION = 37;
     private final static Coordinate2D DEFAULT_LOCATION = new Coordinate2D(X_POSITION, Y_POSITION);
@@ -53,7 +51,7 @@ class DynamicRectangleEntityTest {
             // Arrange
 
             // Act
-            Optional<EntityMotionInitBuffer> buffer = sut.getBuffer();
+            var buffer = sut.getBuffer();
 
             // Assert
             assertTrue(buffer.isPresent());
@@ -164,13 +162,14 @@ class DynamicRectangleEntityTest {
             sut.setUpdater(updater);
 
             // Act
+            long TIMESTAMP = 0L;
             sut.update(TIMESTAMP);
 
             // Assert
             verify(updater).update(TIMESTAMP);
         }
 
-        private class DynamicRectangleEntityImpl extends DynamicRectangleEntity {
+        private static class DynamicRectangleEntityImpl extends DynamicRectangleEntity {
 
             public DynamicRectangleEntityImpl(final Coordinate2D initialPosition) {
                 super(initialPosition);
@@ -203,12 +202,11 @@ class DynamicRectangleEntityTest {
             assertTrue(buffer.isPresent());
         }
 
-        private class DynamicRectangleEntityImpl extends DynamicRectangleEntity {
+        private static class DynamicRectangleEntityImpl extends DynamicRectangleEntity {
 
             public DynamicRectangleEntityImpl(final Coordinate2D initialPosition, final Size size) {
                 super(initialPosition, size);
             }
         }
     }
-
 }

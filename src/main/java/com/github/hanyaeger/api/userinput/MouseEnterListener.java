@@ -19,7 +19,9 @@ public interface MouseEnterListener extends GameNode {
     void onMouseEntered();
 
     /**
-     * Attach a {@link MouseEnterListener} to this {@link YaegerEntity} or {@link com.github.hanyaeger.api.scenes.YaegerScene}
+     * Attach a {@link MouseEnterListener} to this {@link YaegerEntity} or {@link com.github.hanyaeger.api.scenes.YaegerScene}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      */
     @OnActivation
     default void attachMouseEnterListener() {

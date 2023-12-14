@@ -45,7 +45,7 @@ class UpdaterTest {
         sut.update(TIMESTAMP);
 
         // Assert
-        InOrder inOrder = inOrder(firstUpdatable, updatable);
+        var inOrder = inOrder(firstUpdatable, updatable);
         inOrder.verify(firstUpdatable).update(TIMESTAMP);
         inOrder.verify(updatable).update(TIMESTAMP);
     }

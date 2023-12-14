@@ -10,6 +10,8 @@ public interface DragRepositoryAccessor {
 
     /**
      * Set the {@link DragNDropRepository}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param dragNDropRepository the {@link DragNDropRepository} to be used
      */
@@ -17,6 +19,8 @@ public interface DragRepositoryAccessor {
 
     /**
      * Return the {@link DragNDropRepository} that was set on this {@code DragRepositoryAccessor}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @return the instance of {@link DragNDropRepository}
      */

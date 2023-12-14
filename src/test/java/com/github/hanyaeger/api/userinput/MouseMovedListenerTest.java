@@ -197,7 +197,6 @@ class MouseMovedListenerTest {
     private static class MouseMovedListenerImpl implements MouseMovedListener {
 
         private Node node;
-        private Coordinate2D coordinate;
 
         public void setNode(Node node) {
             this.node = node;
@@ -210,7 +209,6 @@ class MouseMovedListenerTest {
 
         @Override
         public void onMouseMoved(Coordinate2D coordinate2D) {
-            this.coordinate = coordinate2D;
         }
     }
 

@@ -20,15 +20,13 @@ class CenteredShapeEntityTest {
     private static final BoundingBox BOUNDING_BOX = new BoundingBox(0, 0, 10, 10);
 
     private Shape shape;
-    private Injector injector;
     private CenteredShapeEntityImpl sut;
-    private BoundingBox boundingBox;
 
     @BeforeEach
     void setup() {
         shape = mock(Shape.class, withSettings().withoutAnnotations());
-        injector = mock(Injector.class);
-        boundingBox = mock(BoundingBox.class);
+        var injector = mock(Injector.class);
+        var boundingBox = mock(BoundingBox.class);
         when(shape.getBoundsInLocal()).thenReturn(boundingBox);
         when(boundingBox.getWidth()).thenReturn(ENTITY_WIDTH);
         when(boundingBox.getHeight()).thenReturn(ENTITY_HEIGHT);
@@ -143,7 +141,7 @@ class CenteredShapeEntityTest {
         verify(shape).setTranslateY(-(ENTITY_HEIGHT / 2));
     }
 
-    private class CenteredShapeEntityImpl extends CenteredShapeEntity<Shape> {
+    private static class CenteredShapeEntityImpl extends CenteredShapeEntity<Shape> {
 
         public CenteredShapeEntityImpl(Coordinate2D initialPosition) {
             super(initialPosition);

@@ -11,7 +11,7 @@ trivially possible to use JavaFX within Yaeger. This is by design.
 
 ## Required Java version
 
-Although Yaeger only exposes a traditional Object Oriented API, internally its
+Although Yaeger only exposes a traditional Object-Oriented API, internally its
 based on modern Java. To see which specific version is required, please read
 the [readme](https://github.com/han-yaeger/yaeger) on the project GitHub.
 

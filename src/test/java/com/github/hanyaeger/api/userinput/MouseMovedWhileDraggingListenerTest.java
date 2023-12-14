@@ -218,11 +218,9 @@ class MouseMovedWhileDraggingListenerTest {
 
     private static class MouseMovedWhileDraggingListeningImpl implements MouseMovedWhileDraggingListener {
 
-        private Node node;
         private Coordinate2D releasedCoordinates;
 
         public void setNode(Node node) {
-            this.node = node;
         }
 
         @Override

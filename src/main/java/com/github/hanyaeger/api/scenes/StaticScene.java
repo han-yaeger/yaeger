@@ -9,6 +9,7 @@ import com.github.hanyaeger.core.scenes.SupplierProvider;
 import com.github.hanyaeger.core.scenes.TileMapListProvider;
 import com.github.hanyaeger.core.factories.EntityCollectionFactory;
 import com.github.hanyaeger.core.factories.SceneFactory;
+import com.github.hanyaeger.core.scenes.delegates.CoordinateGridDelegate;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.scene.Node;
@@ -45,6 +46,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
     private EntitySupplier entitySupplier;
     private KeyListenerDelegate keyListenerDelegate;
     private BackgroundDelegate backgroundDelegate;
+
+    private CoordinateGridDelegate coordinateGridDelegate;
 
     private final List<TileMap> tileMaps = new ArrayList<>();
 
@@ -86,6 +89,11 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
         backgroundDelegate.setup(pane);
         entitySupplier.setPane(pane);
 
+        if (config.showGrid()) {
+            coordinateGridDelegate.setup(pane);
+            injector.injectMembers(coordinateGridDelegate);
+        }
+
         setupScene();
         setupEntities();
     }
@@ -115,6 +123,9 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
         //
         if (config.showDebug()) {
             debugger.postActivation();
+        }
+        if (config.showGrid()) {
+            coordinateGridDelegate.postActivation();
         }
         activationComplete = true;
     }
@@ -215,6 +226,7 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
     public void destroy() {
         keyListenerDelegate.tearDown(scene);
         backgroundDelegate.destroy();
+        coordinateGridDelegate.destroy();
         clear();
     }
 
@@ -243,6 +255,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
     /**
      * Set the {@link PaneFactory} to be used. The {@link PaneFactory} will be used to create the root node of the
      * graph that will be constructed for this {@link Scene}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param paneFactory the {@link PaneFactory} to be used
      */
@@ -254,6 +268,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
     /**
      * Set the {@link KeyListener} that should be used. In general, this will be the {@link YaegerScene}
      * itself.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param keyListenerDelegate the {@link KeyListener} to be used
      */
@@ -264,6 +280,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
     /**
      * Set the {@link SceneFactory} that should be used to create a {@link Scene}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param sceneFactory the {@link SceneFactory} to be used
      */
@@ -274,6 +292,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
     /**
      * Set the {@link Debugger} that should be used.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param debugger the {@link Debugger} to be used
      */
@@ -284,6 +304,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
     /**
      * Set the {@link BackgroundDelegate} that should be used.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param backgroundDelegate the {@link BackgroundDelegate} to be used
      */
@@ -294,6 +316,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
     /**
      * Set the {@link EntityCollectionFactory} that should be used.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param entityCollectionFactory the {@link EntityCollectionFactory} to be used
      */
@@ -304,6 +328,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
     /**
      * Set the {@link EntitySupplier} that should be used.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param entitySupplier the {@link EntitySupplier} to be used
      */
@@ -314,6 +340,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
     /**
      * Set the {@link DragNDropRepository} that should be used.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param dragNDropRepository the {@link DragNDropRepository} to be used
      */
@@ -324,6 +352,8 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
 
     /**
      * Set the {@link ColorAdjust} that should be used.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param colorAdjust the {@link ColorAdjust} to be used
      */
@@ -332,7 +362,14 @@ public abstract class StaticScene extends YaegerGameObject implements YaegerScen
         this.colorAdjust = colorAdjust;
     }
 
+    @Inject
+    public void setCoordinateGridDelegate(CoordinateGridDelegate coordinateGridDelegate) {
+        this.coordinateGridDelegate = coordinateGridDelegate;
+    }
+
     private void onInputChanged(final Set<KeyCode> input) {
         entityCollection.notifyGameObjectsOfPressedKeys(input);
     }
+
+
 }

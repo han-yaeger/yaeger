@@ -9,6 +9,7 @@ import com.github.hanyaeger.core.factories.PaneFactory;
 import com.github.hanyaeger.core.factories.SceneFactory;
 import com.google.inject.Inject;
 import javafx.event.Event;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -18,13 +19,19 @@ import javafx.scene.layout.StackPane;
 
 /**
  * A {@code ScrollableDynamicScene} has exactly the same behaviour as a {@link DynamicScene}, but adds the option
- * to differ between the viewable area and the actual window size. The viewable are can be set with the method
+ * to differ between the viewable area and the actual window size. The size of the viewable are can be set with the method
  * {@link #setSize(Size)}, which should be called from the lifecycle method {@link #setupScene()}.
  * <p>
  * The main area of a {@code ScrollableDynamicScene} is scrollable and all instances of {@link YaegerEntity} are added
- * to this scrollable area. However, as additional to the {@link DynamicScene}, a {@code ScrollableDynamicScene} exposes
+ * to this scrollable area. However, additional to the {@link DynamicScene}, a {@code ScrollableDynamicScene} exposes
  * an overloaded {@link #addEntity(YaegerEntity, boolean)}, which accepts a second parameter. By setting this to {@code true},
  * the {@link YaegerEntity} is added to a non-scrollable layer, which is placed above the scrollable layer.
+ * <p>
+ * Since the size of the actual window size is usually much larger than the viewable area is, it is necessary set which
+ * part can be seen. For this, the horizontal and vertical scroll position can be set, with both relative values
+ * ({@link #setRelativeScrollPosition(double, double)}, or separately through {@link #setVerticalRelativeScrollPosition(double)}
+ * and {@link #setHorizontalRelativeScrollPosition}) or absolute values ({@link #setScrollPosition(Coordinate2D)}, or separately
+ * through {@link #setHorizontalScrollPosition(double)} and {@link #setVerticalScrollPosition(double)}).
  */
 public abstract class ScrollableDynamicScene extends DynamicScene {
 
@@ -34,7 +41,7 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
     private ScrollPane scrollPane;
     private Pane stickyPane;
 
-    private Coordinate2D scrollPosition = new Coordinate2D();
+    private Point2D scrollPosition = Point2D.ZERO;
 
     /**
      * Set the {@link Size} (e.g. the width and height) of the scrollable area of the {@link YaegerScene}. By default,
@@ -56,44 +63,87 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
     }
 
     /**
-     * Set the horizontal scroll position of the scene. A value of 0 (or smaller) will mean the viewport is positioned
-     * on the utmost left of the scene. A value of 1 or greater places the viewport on the utmost right of the scene.
+     * Set the horizontal scroll position of the scene to a relative value. A value of 0 (or smaller) will mean the viewport
+     * is positioned on the utmost left of the scene. A value of 1 or greater places the viewport on the utmost right of
+     * the scene.
      *
-     * @param horizontalScrollPosition a {@code double} between 0 and 1. A {@code double} below 0 will be handled as 0
-     *                                 and a {@code double} greater that 1 will be treated as 1.
+     * @param horizontalRelativeScrollPosition a {@code double} between 0 and 1. A {@code double} below 0 will be handled as 0
+     *                                         and a {@code double} greater than 1 will be treated as 1.
      */
-    public void setHorizontalScrollPosition(final double horizontalScrollPosition) {
-        setScrollPosition(new Coordinate2D(horizontalScrollPosition, scrollPosition.getY()));
+    public void setHorizontalRelativeScrollPosition(final double horizontalRelativeScrollPosition) {
+        setRelativeScrollPosition(horizontalRelativeScrollPosition, scrollPosition.getY());
     }
 
     /**
-     * Set the vertical scroll position of the scene. A value of 0 (or smaller) will mean the viewport is positioned
-     * on the top of the scene. A value of 1 or greater places the viewport on the bottom of the scene.
+     * Set the vertical scroll position of the scene to a relative value. A value of 0 (or smaller) will mean the viewport is
+     * positioned on the top of the scene. A value of 1 or greater places the viewport on the bottom of the scene.
      *
-     * @param verticalScrollPosition a {@code double} between 0 and 1. A {@code double} below 0 will be handled as 0
-     *                               and a {@code double} greater that 1 will be treated as 1.
+     * @param verticalRelativeScrollPosition a {@code double} between 0 and 1. A {@code double} below 0 will be handled as 0
+     *                                       and a {@code double} greater than 1 will be treated as 1.
      */
-    public void setVerticalScrollPosition(final double verticalScrollPosition) {
-        setScrollPosition(new Coordinate2D(scrollPosition.getX(), verticalScrollPosition));
+    public void setVerticalRelativeScrollPosition(final double verticalRelativeScrollPosition) {
+        setRelativeScrollPosition(scrollPosition.getX(), verticalRelativeScrollPosition);
     }
 
     /**
-     * Set the scroll position of the scene. This {@link Coordinate2D} contains an x and y-value, which should both be a
-     * value between 0 and 1. An  x-value of 0 (or smaller) will mean the viewport is positioned on the utmost left of
+     * Set the scroll position of the scene to the relative x and y-value provided. Both values should be between
+     * 0 and 1. An  x-value of 0 (or smaller) will mean the viewport is positioned on the utmost left of
      * the scene. An x-value of 1 or greater places the viewport on the utmost right of the scene.
      * <p>
-     * A y-value of 0 (or smaller) will mean the viewport is positioned
-     * on the top of the scene. A y-value of 1 or greater places the viewport on the bottom of the scene.
+     * A y-value of 0 (or smaller) will mean the viewport is positioned on the top of the scene. A y-value of 1
+     * or greater places the viewport on the bottom of the scene.
      *
-     * @param scrollPosition a {@code Coordinate2D} containing the horizontal and vertical scroll positions
+     * @param horizontalRelativeScrollPosition a {@code double} between 0 and 1. A {@code double} below 0 will be handled as 0
+     *                                         and a {@code double} greater than 1 will be treated as 1.
+     * @param verticalRelativeScrollPosition   a {@code double} between 0 and 1. A {@code double} below 0 will be handled as 0
+     *                                         and a {@code double} greater than 1 will be treated as 1.
      */
-    public void setScrollPosition(final Coordinate2D scrollPosition) {
-        this.scrollPosition = scrollPosition;
+    public void setRelativeScrollPosition(final double horizontalRelativeScrollPosition, final double verticalRelativeScrollPosition) {
+        this.scrollPosition = new Point2D(horizontalRelativeScrollPosition, verticalRelativeScrollPosition);
 
         if (scrollPane != null) {
             scrollPane.setHvalue(scrollPosition.getX());
             scrollPane.setVvalue(scrollPosition.getY());
         }
+    }
+
+    /**
+     * Set the horizontal scroll position of the scene. A value of 0 (or smaller) will mean the viewport
+     * is positioned on the utmost left of the scene. A value equal or greater than the width of the scene places the
+     * viewport on the utmost right of the scene.
+     *
+     * @param horizontalScrollPosition a {@code double} between 0 and the width of the scene. A {@code double} below 0
+     *                                 will be handled as  0 and a {@code double} greater than the width of the scene will
+     *                                 be treated as the width of the scene.
+     */
+    public void setHorizontalScrollPosition(final double horizontalScrollPosition) {
+        var relativeX = horizontalScrollPosition / pane.getPrefWidth();
+        setHorizontalRelativeScrollPosition(relativeX);
+    }
+
+    /**
+     * Set the vertical scroll position of the scene. A value of 0 (or smaller) will mean the viewport
+     * is positioned on the utmost top of the scene. A value equal or greater than the height of the scene places the
+     * viewport on the bottom of the scene.
+     *
+     * @param verticalScrollPosition a {@code double} between 0 and the height of the scene. A {@code double} below 0
+     *                               will be handled as  0 and a {@code double} greater than the height of the scene will
+     *                               be treated as the height of the scene.
+     */
+    public void setVerticalScrollPosition(final double verticalScrollPosition) {
+        var relativeY = verticalScrollPosition / pane.getPrefHeight();
+        setVerticalRelativeScrollPosition(relativeY);
+    }
+
+    /**
+     * Set the scroll position of the scene centered on the given {@link Coordinate2D}.
+     *
+     * @param coordinate2D the {@link Coordinate2D} on which the {@code ScrollableDynamicScene} should be centered.
+     */
+    public void setScrollPosition(final Coordinate2D coordinate2D) {
+        var relativeX = coordinate2D.getX() / pane.getPrefWidth();
+        var relativeY = coordinate2D.getY() / pane.getPrefHeight();
+        setRelativeScrollPosition(relativeX, relativeY);
     }
 
     /**
@@ -106,7 +156,7 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
      *
      * @return a {@code double} between 0 and 1 (inclusive)
      */
-    public double getHorizontalScrollPosition() {
+    public double getHorizontalRelativeScrollPosition() {
         if (scrollPane == null) {
             return scrollPosition.getX();
         }
@@ -123,7 +173,7 @@ public abstract class ScrollableDynamicScene extends DynamicScene {
      *
      * @return a {@code double} between 0 and 1 (inclusive)
      */
-    public double getVerticalScrollPosition() {
+    public double getVerticalRelativeScrollPosition() {
         if (scrollPane == null) {
             return scrollPosition.getY();
         }

@@ -7,6 +7,8 @@ public interface UpdateDelegator extends Updatable {
 
     /**
      * Get the {@link Updater} to which the {@code update} should be delegated.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @return an instance of {@link Updater}
      */

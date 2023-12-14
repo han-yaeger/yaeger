@@ -9,13 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class BackgroundAudioMediaPlayerTest {
 
     private static final String URL = "audio/testaudio.mp3";
     private static final String URL2 = "audio/testaudio2.mp3";
-
     private BackgroundAudioMediaPlayer sut;
     private Media media;
     private MediaPlayer mediaPlayer;
@@ -171,7 +171,7 @@ class BackgroundAudioMediaPlayerTest {
             var actual = sut.getVolume();
 
             // Assert
-            Assertions.assertEquals(expected, actual);
+            assertEquals(expected, actual);
         }
     }
 
@@ -191,7 +191,7 @@ class BackgroundAudioMediaPlayerTest {
             var actual = sut.getVolume();
 
             // Assert
-            Assertions.assertEquals(expected, actual);
+            assertEquals(expected, actual);
         }
     }
 }

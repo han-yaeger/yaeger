@@ -11,6 +11,8 @@ public interface Initializable {
 
     /**
      * @param injector the {@link Injector} used for Dependency Injection
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      */
     void init(final Injector injector);
 

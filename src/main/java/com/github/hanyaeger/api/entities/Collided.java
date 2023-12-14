@@ -38,6 +38,8 @@ public interface Collided extends Bounded {
      * <p>
      * Note that all of this takes place during the same Game World update. The re-rendering takes place after this update
      * completes, meaning the undoing will cause no jitter effect.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param colliders a {@link Set} of colliders that should be checked for collisions
      */

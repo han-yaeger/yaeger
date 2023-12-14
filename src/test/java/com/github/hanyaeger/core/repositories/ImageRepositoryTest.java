@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class ImageRepositoryTest {
@@ -29,7 +30,7 @@ class ImageRepositoryTest {
         int size = imageRepository.size();
 
         // Assert
-        Assertions.assertEquals(0, size);
+        assertEquals(0, size);
     }
 
     @Test
@@ -40,74 +41,74 @@ class ImageRepositoryTest {
         when(imageFactory.create(anyString())).thenReturn(image);
 
         // Act
-        Image createdImage = imageRepository.get("waterworld/images/bubble.png");
+        var createdImage = imageRepository.get("waterworld/images/bubble.png");
 
         // Assert
-        Assertions.assertEquals(image, createdImage);
-        Assertions.assertEquals(1, imageRepository.size());
+        assertEquals(image, createdImage);
+        assertEquals(1, imageRepository.size());
     }
 
     @Test
     void callingGetTwiceCreatesCreatesOnlyOneImage() {
         // Arrange
         imageRepository.destroy();
-        Image image = mock(Image.class);
+        var image = mock(Image.class);
         when(imageFactory.create(anyString())).thenReturn(image);
 
         // Act
-        Image image1 = imageRepository.get("waterworld/images/bubble.png");
-        Image image2 = imageRepository.get("waterworld/images/bubble.png");
+        var image1 = imageRepository.get("waterworld/images/bubble.png");
+        var image2 = imageRepository.get("waterworld/images/bubble.png");
 
         // Assert
-        Assertions.assertSame(image1, image2);
-        Assertions.assertEquals(1, imageRepository.size());
+        assertSame(image1, image2);
+        assertEquals(1, imageRepository.size());
     }
 
     @Test
     void callingGetForDifferentImagesCreatesDifferentImages() {
         // Arrange
         imageRepository.destroy();
-        Image image = mock(Image.class);
+        var image = mock(Image.class);
         when(imageFactory.create(anyString())).thenReturn(image);
 
         // Act
-        Image image1 = imageRepository.get("waterworld/images/bubble.png");
-        Image image2 = imageRepository.get("waterworld/images/poison.png");
+        var image1 = imageRepository.get("waterworld/images/bubble.png");
+        var image2 = imageRepository.get("waterworld/images/poison.png");
 
         // Assert
-        Assertions.assertEquals(2, imageRepository.size());
+        assertEquals(2, imageRepository.size());
     }
 
     @Test
     void callingGetWithSpecifiedWidthAndHeightReturnsAnImage() {
         // Arrange
         imageRepository.destroy();
-        Image image = mock(Image.class);
+        var image = mock(Image.class);
         when(imageFactory.create(anyString(), anyDouble(), anyDouble(), anyBoolean())).thenReturn(image);
 
         // Act
-        Image createdImage = imageRepository.get("waterworld/images/bubble.png", 20, 20, true);
+        var createdImage = imageRepository.get("waterworld/images/bubble.png", 20, 20, true);
 
         // Assert
-        Assertions.assertSame(image, createdImage);
-        Assertions.assertEquals(1, imageRepository.size());
+        assertSame(image, createdImage);
+        assertEquals(1, imageRepository.size());
     }
 
     @Test
     void callingTwiceGetWithSpecifiedWidthAndHeightReturnsSameImage() {
         // Arrange
         imageRepository.destroy();
-        Image image = mock(Image.class);
+        var image = mock(Image.class);
         when(imageFactory.create(anyString(), anyDouble(), anyDouble(), anyBoolean())).thenReturn(image);
 
         // Act
-        Image firstImage = imageRepository.get("waterworld/images/bubble.png", 20, 20, true);
-        Image secondImage = imageRepository.get("waterworld/images/bubble.png", 20, 20, true);
+        var firstImage = imageRepository.get("waterworld/images/bubble.png", 20, 20, true);
+        var secondImage = imageRepository.get("waterworld/images/bubble.png", 20, 20, true);
 
         // Assert
-        Assertions.assertSame(image, firstImage);
-        Assertions.assertSame(firstImage, secondImage);
-        Assertions.assertEquals(1, imageRepository.size());
+        assertSame(image, firstImage);
+        assertSame(firstImage, secondImage);
+        assertEquals(1, imageRepository.size());
     }
 }
 

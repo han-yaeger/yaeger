@@ -28,6 +28,8 @@ public interface SceneBorderTouchingWatcher extends Movable, Bounded, SceneChild
     /**
      * Return an {@link Updatable} that checks if any of the boundaries has been touched
      * on each {@link Updatable#update(long)}
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @return an instance of {@link Updatable}
      */

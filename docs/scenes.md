@@ -42,7 +42,7 @@ Typical use cases are:
 
 A `ScrollableDynamicScene` is exactly the same as a `DynamicScene`, but allows a
 different width/height for its content. This way the scene can be much larger
-that the viewable area (the viewport). The with and height of the scene can be
+that the viewable area (the viewport). The width and height of the scene can be
 set from the `setupScene()` and the part of the scene that is visible can be set
 by setting the scroll-position.
 

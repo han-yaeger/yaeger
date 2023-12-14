@@ -15,7 +15,6 @@ public abstract class Timer {
 
     private long intervalInMs;
     private long prevTime = 0;
-
     private boolean active = true;
     private boolean garbage = false;
 

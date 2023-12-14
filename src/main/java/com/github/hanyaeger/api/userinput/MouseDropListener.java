@@ -29,6 +29,8 @@ public interface MouseDropListener extends GameNode, DragRepositoryAccessor {
 
     /**
      * Attach a {@link MouseDropListener} to this {@link YaegerEntity} or {@link com.github.hanyaeger.api.scenes.YaegerScene}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      */
     @OnActivation
     default void attachDropListener() {

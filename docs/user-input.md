@@ -17,16 +17,16 @@ In case of a `ScrollableDynamicScene`, the instances of `Coordinate2D` that are
 passed to the event handlers report the coordinates of the entire scene, not
 only the viewport.
 
-| Interface                         | EventHandler(s)                                            |
-| :-------------------------------- | :-------------------------------------------------------- |
-| `KeyListener`                     | `void onPressedKeysChange(Set<KeyCode>)`                  |                                                    |
-| `MouseButtonPressedListener`      | `void onMouseButtonPressed(MouseButton, Coordinate2D)`    |
-| `MouseButtonReleasedListener`     | `void onMouseButtonReleased(MouseButton, Coordinate2D)`   |
-| `MouseEnterListener`              | `void onMouseEntered()`                                   |
-| `MouseExitListener`               | `void onMouseExited()`                                    |
-| `MouseMovedListener`              | `void onMouseMoved(Coordinate2D)`                         |
-| `MouseMovedWhileDraggingListener` | `void onMouseMovedWhileDragging(Coordinate2D)`            |
+| Interface                         | EventHandler(s)                                                     |
+|:----------------------------------|:--------------------------------------------------------------------|
+| `KeyListener`                     | `void onPressedKeysChange(Set<KeyCode>)`                            |                                                    |
+| `MouseButtonPressedListener`      | `void onMouseButtonPressed(MouseButton, Coordinate2D)`              |
+| `MouseButtonReleasedListener`     | `void onMouseButtonReleased(MouseButton, Coordinate2D)`             |
+| `MouseEnterListener`              | `void onMouseEntered()`                                             |
+| `MouseExitListener`               | `void onMouseExited()`                                              |
+| `MouseMovedListener`              | `void onMouseMoved(Coordinate2D)`                                   |
+| `MouseMovedWhileDraggingListener` | `void onMouseMovedWhileDragging(Coordinate2D)`                      |
 | `MouseDraggedListener`            | `void onMouseDragged(Coordinate2D)`, `void onDropped(Coordinate2D)` |
-| `MouseDragEnterListener`          | `void onDragEntered(Coordinate2D, MouseDraggedListener)`  |
-| `MouseDragExitListener`           | `void onDragExited(Coordinate2D, MouseDraggedListener)`   |
-| `MouseDropListener`               | `void onDrop(Coordinate2D, MouseDraggedListener)`         |
+| `MouseDragEnterListener`          | `void onDragEntered(Coordinate2D, MouseDraggedListener)`            |
+| `MouseDragExitListener`           | `void onDragExited(Coordinate2D, MouseDraggedListener)`             |
+| `MouseDropListener`               | `void onDrop(Coordinate2D, MouseDraggedListener)`                   |

@@ -123,7 +123,7 @@ class YaegerGameObjectTest {
         when(colorAdjust.getSaturation()).thenReturn(SATURATION);
 
         // Act
-        double actual = sut.getSaturation();
+        var actual = sut.getSaturation();
 
         // Verify
         assertEquals(SATURATION, actual);

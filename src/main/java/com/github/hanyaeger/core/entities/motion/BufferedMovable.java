@@ -45,6 +45,8 @@ public interface BufferedMovable extends Movable {
     /**
      * Return the {@link EntityMotionInitBuffer} encapsulated in an {@link Optional} to
      * be used by this {@link BufferedMovable}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @return an {@link EntityMotionInitBuffer} encapsulated in an {@link Optional}
      */
@@ -52,6 +54,8 @@ public interface BufferedMovable extends Movable {
 
     /**
      * Return the {@link MotionApplier} to be used by this {@link BufferedMovable}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @return an instance of {@link MotionApplier}
      */

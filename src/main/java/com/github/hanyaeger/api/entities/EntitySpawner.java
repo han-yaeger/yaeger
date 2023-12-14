@@ -59,6 +59,8 @@ public abstract class EntitySpawner extends Timer {
 
     /**
      * Return the {@link EntitySupplier} that is part of this {@link EntitySpawner}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @return The {@link EntitySupplier} that is part of this {@link EntitySpawner}.
      */
@@ -68,6 +70,8 @@ public abstract class EntitySpawner extends Timer {
 
     /**
      * Set the {@link EntitySupplier} to be used.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @param supplier an instance of {@link EntitySupplier}
      */

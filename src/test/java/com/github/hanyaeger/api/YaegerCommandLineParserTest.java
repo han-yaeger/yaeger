@@ -17,7 +17,7 @@ class YaegerCommandLineParserTest {
     void emptyArgumentsReturnsDefaultConfig() {
         // Arrange
         var sut = new YaegerCommandLineParser();
-        var expected = new YaegerConfig(true, false, false, false, false);
+        var expected = new YaegerConfig(true, false, false, false, false, false);
 
         // Act
         var actual = sut.parseToConfig(new ArrayList<>());

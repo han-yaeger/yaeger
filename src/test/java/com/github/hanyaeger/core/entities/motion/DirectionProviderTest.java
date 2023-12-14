@@ -19,7 +19,7 @@ class DirectionProviderTest {
 
     }
 
-    private class DirectionProviderImpl implements DirectionProvider {
+    private static class DirectionProviderImpl implements DirectionProvider {
     }
 
 }

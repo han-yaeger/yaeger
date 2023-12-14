@@ -5,14 +5,15 @@ meant for debugging your Game.
 
 The following arguments are currently supported:
 
-| Argument   | Explanation                                        |
-| :--------- | :------------------------------------------------- |
-| --noSplash | Skip the Splash screen during start up.                                                                |
-| --showBB   | Show the BoundingBox of all instances of `YaegerEntity` that implement either `Collider` or `Collided`. |
-| --showDebug | Show a debug window with information about the Scene. More information on the debug window can be found [here](debugging.md).|
+| Argument       | Explanation                                                                                                                               |
+|:---------------|:------------------------------------------------------------------------------------------------------------------------------------------|
+| --noSplash     | Skip the Splash screen during start up.                                                                                                   |
+| --showBB       | Show the BoundingBox of all instances of `YaegerEntity` that implement either `Collider` or `Collided`.                                   |
+| --showDebug    | Show a debug window with information about the Scene. More information on the debug window can be found [here](debugging.md).             |
+| --showGrid     | Show a coordinate grid as an overlay on each Scene. This can be useful when figuring out where exactly Entities are on the Scene.         |
 | --enableScroll | Enable the scrolling gesture for all instances of `ScrollableDynamicScene`. This can help during the development process of such a scene. |
-| --limitGWU | Limit the Game World Update (GWU) to a max of 60/sec. |
-| --help     | Show this help screen with all commandline options. |
+| --limitGWU     | Limit the Game World Update (GWU) to a max of 60/sec.                                                                                     |
+| --help         | Show this help screen with all commandline options.                                                                                       |
 
 ## Using command line arguments from an IDE
 

@@ -54,6 +54,8 @@ public interface EntitySpawnerContainer extends EntitySpawnerListProvider, Entit
 
     /**
      * Register all instances of {@link EntitySpawner} that were added to this {@link EntitySpawnerContainer}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      */
     default void registerEntitySpawners() {
         if (getSpawners() == null || getEntityCollection() == null) {
@@ -74,6 +76,8 @@ public interface EntitySpawnerContainer extends EntitySpawnerListProvider, Entit
     /**
      * Call the {@link Updatable#update(long)} of all instances of {@link EntitySpawner} that
      * were added to this {@link EntitySpawnerContainer}.
+     * <p>
+     * Note: This method is part of the internal API, and should not be used when implementing a Yaeger game.
      *
      * @return an {@link Updatable} that delegates the {@link Updatable#update(long)}
      */
