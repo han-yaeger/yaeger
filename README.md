@@ -17,7 +17,7 @@ requires Java 21 or above to work.
 * Manual: [https://han-yaeger.github.io/yaeger/book/](https://han-yaeger.github.io/yaeger/book/)
 * Tutorial: [Yaeger tutorial](https://github.com/han-yaeger/yaeger-tutorial)
 * Showcase: [Yaeger showcase](https://github.com/han-yaeger/yaeger-showcase)
-* Youtube: [Howto setup a new project with IntelliJ](https://www.youtube.com/watch?v=EvIrkw7VKO0&t=409s)
+* Youtube: [Howto setup a new project with IntelliJ](https://www.youtube.com/watch?v=EvIrkw7VKO0)
 
 ## Usage
 Yaeger requires JDK21, and is available through the Maven Central Repository.
