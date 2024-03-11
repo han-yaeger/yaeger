@@ -142,8 +142,8 @@ public class EntityCollection implements Initializable {
      * </li>
      * <li>
      * <b>Check for collisions</b> Check if collisions have occurred between instances of
-     * {@link Collided} and
-     * {@link Collider}. In such a case, the {@link Collided}
+     * {@link Collidable} and
+     * {@link Collider}. In such a case, the {@link Collidable}
      * will be notified.
      * </li>
      * <li>

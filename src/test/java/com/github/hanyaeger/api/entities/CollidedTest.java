@@ -38,7 +38,7 @@ class CollidedTest {
     @Test
     void testNoCollidersGivesNoCollisions() {
         // Arrange
-        List<Collider> emptySet = List.of();
+        List<Collidable> emptySet = List.of();
 
         // Act
         sut.checkForCollisions(emptySet);
@@ -50,12 +50,12 @@ class CollidedTest {
     @Test
     void testTrivialCollisionGivesCollision() {
         // Arrange
-        List<CollidingCollider> trivialColliders = new ArrayList<CollidingCollider>();
-        trivialColliders.add(new CollidingCollider());
+        List<CollidingCollidable> trivialColliders = new ArrayList<CollidingCollidable>();
+        trivialColliders.add(new CollidingCollidable());
         for (var trivialCollider : trivialColliders) {
             trivialCollider.setBounds(TEST_COLLIDED_BOUNDINGBOX);
 
-            List<Collider> testColliders = List.of(trivialCollider);
+            List<Collidable> testColliders = List.of(trivialCollider);
 
             // Act
             sut.checkForCollisions(testColliders);
@@ -69,10 +69,10 @@ class CollidedTest {
     @Test
     void testNoCollisionReportNoCollision() {
         // Arrange
-        var noCollisionCollider = new CollidingCollider();
+        var noCollisionCollider = new CollidingCollidable();
         noCollisionCollider.setBounds(TEST_NOT_COLLIDING_BOUNDINGBOX);
 
-        List<Collider> testColliders = List.of(noCollisionCollider);
+        List<Collidable> testColliders = List.of(noCollisionCollider);
 
         // Act
         sut.checkForCollisions(testColliders);
@@ -85,7 +85,7 @@ class CollidedTest {
     void tesCollisionWithSelfReportsNoCollision() {
         // Arrange
         var collidables = new TestCollidable();
-        List<Collider> testColliders = List.of(collidables);
+        List<Collidable> testColliders = List.of(collidables);
 
         // Act
         collidables.checkForCollisions(testColliders);
@@ -94,7 +94,7 @@ class CollidedTest {
         assertNull(collidables.getLastCollider());
     }
 
-    private static class CollidingCollider implements Collider {
+    private static class CollidingCollidable implements Collidable {
 
         private Bounds bounds;
 
@@ -111,14 +111,19 @@ class CollidedTest {
         public void setBounds(Bounds bounds) {
             this.bounds = bounds;
         }
-    }
-
-    private static class TestCollided implements Collided {
-
-        private List<Collider> lastCollideds;
 
         @Override
-        public void onCollision(List<Collider> collidingObject) {
+        public void onCollision(List<Collidable> collidingObjects) {
+
+        }
+    }
+
+    private static class TestCollided implements Collidable {
+
+        private List<Collidable> lastCollideds;
+
+        @Override
+        public void onCollision(List<Collidable> collidingObject) {
             lastCollideds = collidingObject;
         }
 
@@ -127,7 +132,7 @@ class CollidedTest {
             return TEST_COLLIDED_BOUNDINGBOX;
         }
 
-        public List<Collider> getLastCollider() {
+        public List<Collidable> getLastCollider() {
             return lastCollideds;
         }
 
@@ -137,7 +142,7 @@ class CollidedTest {
         }
     }
 
-    private static class TestCollidable extends TestCollided implements Collider, Collided {
+    private static class TestCollidable extends TestCollided implements Collidable {
 
         @Override
         public Optional<? extends Node> getNode() {

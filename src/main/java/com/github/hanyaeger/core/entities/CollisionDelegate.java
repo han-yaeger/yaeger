@@ -1,7 +1,6 @@
 package com.github.hanyaeger.core.entities;
 
-import com.github.hanyaeger.api.entities.Collided;
-import com.github.hanyaeger.api.entities.Collider;
+import com.github.hanyaeger.api.entities.Collidable;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 
 import java.util.ArrayList;
@@ -12,55 +11,37 @@ import java.util.List;
  */
 public class CollisionDelegate {
 
-    private final List<Collided> collideds;
-    private final List<Collider> colliders;
+    private final List<Collidable> collidables;
 
     /**
      * Create a new {@link CollisionDelegate}.
      */
     public CollisionDelegate() {
-        collideds = new ArrayList<>();
-        colliders = new ArrayList<>();
+        collidables = new ArrayList<>();
     }
 
     /**
      * Register an {@link YaegerEntity} to be evaluated for collision detection. The {@link YaegerEntity} will only be added
-     * if is an {@link Collider} or {@link Collided}.
+     * if is an {@link Collidable} or {@link Collidable}.
      *
      * @param entity the {@link YaegerEntity} that should be registered
-     * @return a {@code boolean} stated whether this {@link YaegerEntity} is either a {@link Collider} or a {@link Collided}
+     * @return a {@code boolean} stated whether this {@link YaegerEntity} is either a {@link Collidable} or a {@link Collidable}
      */
     public boolean register(final YaegerEntity entity) {
-        var registered = false;
-
-        if (entity instanceof Collider collider) {
-            register(collider);
-            registered = true;
+        if (entity instanceof Collidable collidable) {
+            register(collidable);
+            return true;
         }
-        if (entity instanceof Collided collided) {
-            register(collided);
-            registered = true;
-        }
-
-        return registered;
+        return false;
     }
 
     /**
-     * Register a {@link Collider} to be evaluated for collision detection.
+     * Register a {@link Collidable} to be evaluated for collision detection.
      *
-     * @param collider the {@link Collider} that should be registered
+     * @param collidable the {@link Collidable} that should be registered
      */
-    public void register(final Collider collider) {
-        colliders.add(collider);
-    }
-
-    /**
-     * Register a {@link Collided} to be evaluated for collision detection.
-     *
-     * @param collided the {@link Collided} that should be registered
-     */
-    public void register(final Collided collided) {
-        collideds.add(collided);
+    public void register(final Collidable collidable) {
+        collidables.add(collidable);
     }
 
     /**
@@ -69,26 +50,22 @@ public class CollisionDelegate {
      * @param removable The {@link Removable} that should be removed.
      */
     public void remove(final Removable removable) {
-        if (removable instanceof Collider collider) {
-            removeCollider(collider);
-        }
-        if (removable instanceof Collided collided) {
-            removeCollided(collided);
+        if (removable instanceof Collidable collidable) {
+            removeCollidable(collidable);
         }
     }
 
     /**
-     * Check for collisions. Each {@link Collided} is asked to check for collisions.
+     * Check for collisions. Each {@link Collidable} is asked to check for collisions.
      */
     public void checkCollisions() {
-        collideds.forEach(collided -> collided.checkForCollisions(colliders));
+        if (collidables.size() < 2) {
+            return;
+        }
+        collidables.forEach(collided -> collided.checkForCollisions(collidables));
     }
 
-    private void removeCollider(final Collider collider) {
-        colliders.remove(collider);
-    }
-
-    private void removeCollided(final Collided collided) {
-        collideds.remove(collided);
+    private void removeCollidable(final Collidable collidable) {
+        collidables.remove(collidable);
     }
 }
