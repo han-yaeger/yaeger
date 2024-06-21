@@ -3,6 +3,7 @@ package com.github.hanyaeger.core.scenes.splash;
 import com.github.hanyaeger.api.Timer;
 import com.github.hanyaeger.api.TimerContainer;
 import com.github.hanyaeger.api.YaegerGame;
+import com.github.hanyaeger.api.media.SoundClip;
 import com.github.hanyaeger.api.scenes.DynamicScene;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.api.AnchorPoint;
@@ -30,6 +31,8 @@ public class SplashScene extends DynamicScene implements TimerContainer {
     public void setupScene() {
         setBrightness(-1);
         setBackgroundImage("yaegerimages/splash-bg.jpg");
+        var splashSound = new SoundClip("yaegersounds/yaeger.mp3");
+        splashSound.play();
     }
 
     @Override
