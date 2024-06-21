@@ -5,6 +5,8 @@ import javafx.geometry.Point2D;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -743,6 +745,20 @@ class MotionApplierTest {
 
     @Nested
     class GetSpeedInDirectionTests {
+        @ParameterizedTest
+        @EnumSource(Direction.class)
+        void getSpeedInExactDirectionGivesSpeedTest(Direction direction){
+            // Arrange
+            var speed = 3.7;
+
+            // Act
+            sut.setMotion(speed, direction);
+            var speedInDirection = sut.getSpeedInDirection(direction);
+
+            // Assert
+            assertEquals(3.7, speedInDirection, DELTA);
+        }
+
         @Test
         void getSpeedInOppositeDirectionGives0Test() {
             // Arrange
