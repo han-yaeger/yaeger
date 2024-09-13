@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class BackgroundDelegateTest {
@@ -62,7 +64,7 @@ class BackgroundDelegateTest {
             var actual = sut.getVolume();
 
             // Assert
-            Assertions.assertEquals(expected, actual);
+            assertEquals(expected, actual);
         }
     }
 
@@ -133,7 +135,7 @@ class BackgroundDelegateTest {
             var actual = sut.getVolume();
 
             // Assert
-            Assertions.assertEquals(expected, actual);
+            assertEquals(expected, actual);
         }
     }
 
@@ -166,7 +168,7 @@ class BackgroundDelegateTest {
             var color = Color.YELLOW;
 
             // Act & Assert
-            Assertions.assertAll(() -> paneIsNullSut.setBackgroundColor(color));
+            assertAll(() -> paneIsNullSut.setBackgroundColor(color));
         }
 
         @Test
