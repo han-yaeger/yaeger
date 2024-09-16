@@ -52,7 +52,7 @@ group them within their specific methods.
 
 If you have a machine with Apple Silicon you might come across an error in the build process like this:
 
-![Error building because of libraries that cannot be linked](./images/00-mac-error.png)
+![Error building because of libraries that cannot be linked](images/00-mac-error.png)
 
 To solve this you have to change the architecture of your JDK to one that is not specific to an ARM CPU.
 
@@ -60,18 +60,18 @@ Go to Project Structure, through File->Project Structure or enter the keycombo: 
 
 You will see something similar to this:
 
-![Project Structure window in IntelliJ](./images/01-mac-project-structure.png)
+![Project Structure window in IntelliJ](images/01-mac-project-structure.png)
 
 Click on Edit next to the SDK overview and then choose `Download JDK`.
 
-![Download button](./images/02-mac-download-jdk.png)
+![Download button](images/02-mac-download-jdk.png)
 
 Then choose a JDK that does not have the descriptor: `aarch64`.
 
-![JDK without aarch64](./images/03-mac-without-aarch64.png)
+![JDK without aarch64](images/03-mac-without-aarch64.png)
 
 To finish click download.
 
-![Download the JDK](./images/04-mac-download.png)
+![Download the JDK](images/04-mac-download.png)
 
 You should be able to build and run your project now.

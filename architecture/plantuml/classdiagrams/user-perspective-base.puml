@@ -1,0 +1,56 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class YaegerGame {
+    setupGame(): void
+    setupScenes(): void
+    addScene(int, YaegerScene): void
+}
+
+interface YaegerScene {
+  setupScene(): void
+  setupEntities(): void
+}
+
+abstract class StaticScene implements YaegerScene{
+  addEntity(YaegerEntity): void
+}
+
+abstract class DynamicScene extends StaticScene{
+}
+
+abstract class YaegerEntity {
+}
+
+abstract class CircleEntity extends YaegerEntity {
+}
+
+abstract class DynamicCircleEntity extends CircleEntity {
+}
+
+abstract class EllipseEntity extends YaegerEntity {
+}
+
+abstract class DynamicEllipseEntity extends EllipseEntity {
+}
+
+abstract class RectangleEntity extends YaegerEntity {
+}
+
+abstract class DynamicRectangleEntity extends RectangleEntity {
+}
+
+abstract class SpriteEntity extends YaegerEntity {
+}
+
+abstract class DynamicSpriteEntity extends SpriteEntity {
+}
+
+abstract class TextEntity extends YaegerEntity {
+}
+
+abstract class DynamicTextEntity extends TextEntity {
+}
+
+
+@enduml
