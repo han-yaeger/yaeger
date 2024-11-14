@@ -271,7 +271,7 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- This dependency is required to fix a security-issue with Goigke Guice 7.0 -->
+            <!-- This dependency is required to fix a security-issue with Google Guice 7.0 -->
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
