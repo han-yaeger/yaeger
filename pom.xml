@@ -267,17 +267,12 @@
             <version>21.0.2</version>
             <scope>test</scope>
         </dependency>
+        <!-- This dependency is required to fix a security-issue with Google Guice 7.0, which uses an older
+         version of guava. Setting an explicit dependency forces Maven to use the specified version.-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>33.3.1-jre</version>
+        </dependency>
     </dependencies>
-
-    <dependencyManagement>
-        <dependencies>
-            <!-- This dependency is required to fix a security-issue with Google Guice 7.0 -->
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>33.3.1-jre</version>
-            </dependency>
-            <!-- https://mvnrepository.com/artifact/org.ow2.asm/asm -->
-        </dependencies>
-    </dependencyManagement>
 </project>
