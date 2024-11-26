@@ -56,7 +56,8 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryNotTouched() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_IN_PARENT);
+        when(node.getLayoutBounds()).thenReturn(BOUNDS_IN_PARENT);
+        when(node.localToScene(BOUNDS_IN_PARENT)).thenReturn(BOUNDS_IN_PARENT);
         var updatable = sut.watchForBoundaryTouching();
 
         // Act
@@ -84,7 +85,8 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryLeftCrossedWithNonZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_LEFT);
+        when(node.getLayoutBounds()).thenReturn(BOUNDS_CROSSED_LEFT);
+        when(node.localToScene(BOUNDS_CROSSED_LEFT)).thenReturn(BOUNDS_CROSSED_LEFT);
         when(motionApplier.getSpeed()).thenReturn(1d);
 
         var updatable = sut.watchForBoundaryTouching();
@@ -99,7 +101,8 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryRightCrossedWithZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_RIGHT);
+        when(node.getLayoutBounds()).thenReturn(BOUNDS_CROSSED_RIGHT);
+        when(node.localToScene(BOUNDS_CROSSED_RIGHT)).thenReturn(BOUNDS_CROSSED_RIGHT);
         when(motionApplier.getSpeed()).thenReturn(0d);
 
         var updatable = sut.watchForBoundaryTouching();
@@ -114,7 +117,8 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryRightCrossedWithNonZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_RIGHT);
+        when(node.getLayoutBounds()).thenReturn(BOUNDS_CROSSED_RIGHT);
+        when(node.localToScene(BOUNDS_CROSSED_RIGHT)).thenReturn(BOUNDS_CROSSED_RIGHT);
         when(motionApplier.getSpeed()).thenReturn(1d);
 
         var updatable = sut.watchForBoundaryTouching();
@@ -129,7 +133,8 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryBottomTouchedWithZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_BOTTOM);
+        when(node.getLayoutBounds()).thenReturn(BOUNDS_CROSSED_BOTTOM);
+        when(node.localToScene(BOUNDS_CROSSED_BOTTOM)).thenReturn(BOUNDS_CROSSED_BOTTOM);
         when(motionApplier.getSpeed()).thenReturn(0d);
 
         var updatable = sut.watchForBoundaryTouching();
@@ -144,7 +149,8 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryBottomTouchedWithNonZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_BOTTOM);
+        when(node.getLayoutBounds()).thenReturn(BOUNDS_CROSSED_BOTTOM);
+        when(node.localToScene(BOUNDS_CROSSED_BOTTOM)).thenReturn(BOUNDS_CROSSED_BOTTOM);
         when(motionApplier.getSpeed()).thenReturn(1d);
 
         var updatable = sut.watchForBoundaryTouching();
@@ -159,7 +165,8 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryTopTouchedWithZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_TOP);
+        when(node.getLayoutBounds()).thenReturn(BOUNDS_CROSSED_TOP);
+        when(node.localToScene(BOUNDS_CROSSED_TOP)).thenReturn(BOUNDS_CROSSED_TOP);
         when(motionApplier.getSpeed()).thenReturn(0d);
 
         var updatable = sut.watchForBoundaryTouching();
@@ -174,7 +181,8 @@ class SceneBorderTouchingWatcherTest {
     @Test
     void testBoundaryTopTouchedWithNonZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_TOP);
+        when(node.getLayoutBounds()).thenReturn(BOUNDS_CROSSED_TOP);
+        when(node.localToScene(BOUNDS_CROSSED_TOP)).thenReturn(BOUNDS_CROSSED_TOP);
         when(motionApplier.getSpeed()).thenReturn(1d);
 
         var updatable = sut.watchForBoundaryTouching();
