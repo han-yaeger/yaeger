@@ -7,7 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,6 @@ import static org.mockito.Mockito.*;
 class BackgroundDelegateTest {
 
     private static final String URL_AUDIO = "audio/testaudio.mp3";
-    private static final String URL_AUDIO_2 = "audio/testaudio2.mp3";
     private static final String URL_IMAGE = "testImage.png";
     private BackgroundDelegate sut;
     private BackgroundFactory backgroundFactory;

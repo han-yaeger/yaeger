@@ -5,9 +5,7 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.core.entities.motion.MotionApplier;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 import javafx.geometry.BoundingBox;
-import javafx.geometry.Bounds;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,13 +17,13 @@ import static org.mockito.Mockito.*;
 
 class SceneBorderTouchingWatcherTest {
 
-    private final static double SCENE_HEIGHT = 100;
-    private final static double SCENE_WIDTH = 100;
-    private final static BoundingBox BOUNDS_IN_PARENT = new BoundingBox(10, 10, 10, 10);
-    private final static BoundingBox BOUNDS_CROSSED_LEFT = new BoundingBox(-20, 10, 10, 10);
-    private final static BoundingBox BOUNDS_CROSSED_RIGHT = new BoundingBox(110, 10, 10, 10);
-    private final static BoundingBox BOUNDS_CROSSED_BOTTOM = new BoundingBox(10, 100, 10, 10);
-    private final static BoundingBox BOUNDS_CROSSED_TOP = new BoundingBox(10, -20, 10, 10);
+    private static final double SCENE_HEIGHT = 100;
+    private static final double SCENE_WIDTH = 100;
+    private static final BoundingBox BOUNDS_IN_PARENT = new BoundingBox(10, 10, 10, 10);
+    private static final BoundingBox BOUNDS_CROSSED_LEFT = new BoundingBox(-20, 10, 10, 10);
+    private static final BoundingBox BOUNDS_CROSSED_RIGHT = new BoundingBox(110, 10, 10, 10);
+    private static final BoundingBox BOUNDS_CROSSED_BOTTOM = new BoundingBox(10, 100, 10, 10);
+    private static final BoundingBox BOUNDS_CROSSED_TOP = new BoundingBox(10, -20, 10, 10);
     private SceneBorderTouchingWatcherImpl sut;
     private Node node;
     private MotionApplier motionApplier;

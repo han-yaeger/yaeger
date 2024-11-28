@@ -1,14 +1,11 @@
 package com.github.hanyaeger.core.entities;
 
-import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.CompositeEntity;
 import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.core.scenes.DimensionsProvider;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
-import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.layout.Pane;
 
 /**
  * Implementing this interface exposes the {@link Bounded#getBoundingBox()} and  method, which returns the bounds, aka
