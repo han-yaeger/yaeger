@@ -211,14 +211,14 @@ class MotionApplierTest {
     @Test
     void getSpeedReturnsCorrectValueTest() {
         // Arrange
-        var SPEED = 3.7;
-        sut.setMotion(SPEED, Direction.UP.getValue());
+        var expected = 3.7;
+        sut.setMotion(expected, Direction.UP.getValue());
 
         // Act
         var speed = sut.getSpeed();
 
         // Assert
-        assertEquals(SPEED, speed, DELTA);
+        assertEquals(expected, speed, DELTA);
     }
 
     @Test
