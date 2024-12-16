@@ -54,7 +54,6 @@ If you have a machine with Apple Silicon you might come across an error in the b
 
 ![Error building because of libraries that cannot be linked](images/00-mac-error.png)
 
-
 To solve this you have to change the architecture of your JDK to one that is not specific to an ARM CPU.
 
 Go to Project Structure, through File->Project Structure or enter the keycombo: `⌘+;`.
