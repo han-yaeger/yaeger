@@ -42,24 +42,28 @@ jobs:
         with:
           gpg_private_key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
 
-      - name: Build Project for release
-        run: xvfb-run mvn package -P release -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} -Dgpg.executable=gpg
-
-      - name: Set up Apache Maven Central
-        uses: actions/setup-java@v4.5.0
-        with:
-          distribution: 'zulu'
-          java-version: 21
-          server-id: ossrh
-          server-username: MAVEN_CENTRAL_USERNAME
-          server-password: MAVEN_CENTRAL_PASSWORD
-
-      - name: Deploy to the Maven Central Repository
-        run: mvn deploy -P release -DskipTests -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} -Dgpg.executable=gpg
+      - name: Build Project for release & Deploy
+        run: xvfb-run mvn package deploy -P release -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} -Dgpg.executable=gpg
         env:
           MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
           MAVEN_OPTS: "--add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED"
+
+#      - name: Set up Apache Maven Central
+#        uses: actions/setup-java@v4.5.0
+#        with:
+#          distribution: 'zulu'
+#          java-version: 21
+#          server-id: ossrh
+#          server-username: MAVEN_CENTRAL_USERNAME
+#          server-password: MAVEN_CENTRAL_PASSWORD
+#
+#      - name: Deploy to the Maven Central Repository
+#        run: mvn deploy -P release -DskipTests -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} -Dgpg.executable=gpg
+#        env:
+#          MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+#          MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+#          MAVEN_OPTS: "--add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED"
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
