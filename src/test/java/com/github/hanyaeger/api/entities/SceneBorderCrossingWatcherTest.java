@@ -7,7 +7,6 @@ import com.github.hanyaeger.api.scenes.SceneBorder;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,13 +17,14 @@ import static org.mockito.Mockito.*;
 
 class SceneBorderCrossingWatcherTest {
 
-    private final static double SCENE_HEIGHT = 100;
-    private final static double SCENE_WIDTH = 100;
-    private final static BoundingBox BOUNDS_IN_PARENT = new BoundingBox(10, 10, 10, 10);
-    private final static BoundingBox BOUNDS_CROSSED_LEFT = new BoundingBox(-20, 10, 10, 10);
-    private final static BoundingBox BOUNDS_CROSSED_RIGHT = new BoundingBox(110, 10, 10, 10);
-    private final static BoundingBox BOUNDS_CROSSED_BOTTOM = new BoundingBox(10, 100, 10, 10);
-    private final static BoundingBox BOUNDS_CROSSED_TOP = new BoundingBox(10, -20, 10, 10);
+    private static final double SCENE_HEIGHT = 100;
+    private static final double SCENE_WIDTH = 100;
+
+    private static final BoundingBox BOUNDS_IN_PARENT = new BoundingBox(10, 10, 10, 10);
+    private static final BoundingBox BOUNDS_CROSSED_LEFT = new BoundingBox(-20, 10, 10, 10);
+    private static final BoundingBox BOUNDS_CROSSED_RIGHT = new BoundingBox(110, 10, 10, 10);
+    private static final BoundingBox BOUNDS_CROSSED_BOTTOM = new BoundingBox(10, 100, 10, 10);
+    private static final BoundingBox BOUNDS_CROSSED_TOP = new BoundingBox(10, -20, 10, 10);
     private SceneBorderCrossingWatcherImpl sut;
     private Node node;
     private MotionApplier motionApplier;
@@ -55,7 +55,8 @@ class SceneBorderCrossingWatcherTest {
     @Test
     void testBoundaryNotCrossed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_IN_PARENT);
+        when(node.getLayoutBounds()).thenReturn(BOUNDS_IN_PARENT);
+        when(node.localToScene(BOUNDS_IN_PARENT)).thenReturn(BOUNDS_IN_PARENT);
 
         var updatable = sut.watchForBoundaryCrossing();
 
@@ -69,7 +70,8 @@ class SceneBorderCrossingWatcherTest {
     @Test
     void testBoundaryLeftCrossedWithZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_LEFT);
+        when(node.getLayoutBounds()).thenReturn(BOUNDS_CROSSED_LEFT);
+        when(node.localToScene(BOUNDS_CROSSED_LEFT)).thenReturn(BOUNDS_CROSSED_LEFT);
         when(motionApplier.getSpeed()).thenReturn(0d);
 
         var updatable = sut.watchForBoundaryCrossing();
@@ -84,7 +86,8 @@ class SceneBorderCrossingWatcherTest {
     @Test
     void testBoundaryLeftCrossedWithNonZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_LEFT);
+        when(node.getLayoutBounds()).thenReturn(BOUNDS_CROSSED_LEFT);
+        when(node.localToScene(BOUNDS_CROSSED_LEFT)).thenReturn(BOUNDS_CROSSED_LEFT);
         when(motionApplier.getSpeed()).thenReturn(1d);
 
         var updatable = sut.watchForBoundaryCrossing();
@@ -99,7 +102,8 @@ class SceneBorderCrossingWatcherTest {
     @Test
     void testBoundaryRightCrossedWithZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_RIGHT);
+        when(node.getLayoutBounds()).thenReturn(BOUNDS_CROSSED_RIGHT);
+        when(node.localToScene(BOUNDS_CROSSED_RIGHT)).thenReturn(BOUNDS_CROSSED_RIGHT);
         when(motionApplier.getSpeed()).thenReturn(0d);
 
         var updatable = sut.watchForBoundaryCrossing();
@@ -114,7 +118,8 @@ class SceneBorderCrossingWatcherTest {
     @Test
     void testBoundaryRightCrossedWithNonZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_RIGHT);
+        when(node.getLayoutBounds()).thenReturn(BOUNDS_CROSSED_RIGHT);
+        when(node.localToScene(BOUNDS_CROSSED_RIGHT)).thenReturn(BOUNDS_CROSSED_RIGHT);
         when(motionApplier.getSpeed()).thenReturn(1d);
 
         var updatable = sut.watchForBoundaryCrossing();
@@ -129,7 +134,8 @@ class SceneBorderCrossingWatcherTest {
     @Test
     void testBoundaryBottomCrossedWithZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_BOTTOM);
+        when(node.getLayoutBounds()).thenReturn(BOUNDS_CROSSED_BOTTOM);
+        when(node.localToScene(BOUNDS_CROSSED_BOTTOM)).thenReturn(BOUNDS_CROSSED_BOTTOM);
         when(motionApplier.getSpeed()).thenReturn(0d);
 
         var updatable = sut.watchForBoundaryCrossing();
@@ -144,7 +150,8 @@ class SceneBorderCrossingWatcherTest {
     @Test
     void testBoundaryBottomCrossedWithNonZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_BOTTOM);
+        when(node.getLayoutBounds()).thenReturn(BOUNDS_CROSSED_BOTTOM);
+        when(node.localToScene(BOUNDS_CROSSED_BOTTOM)).thenReturn(BOUNDS_CROSSED_BOTTOM);
         when(motionApplier.getSpeed()).thenReturn(1d);
 
         var updatable = sut.watchForBoundaryCrossing();
@@ -159,7 +166,8 @@ class SceneBorderCrossingWatcherTest {
     @Test
     void testBoundaryTopCrossedWithZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_TOP);
+        when(node.getLayoutBounds()).thenReturn(BOUNDS_CROSSED_TOP);
+        when(node.localToScene(BOUNDS_CROSSED_TOP)).thenReturn(BOUNDS_CROSSED_TOP);
         when(motionApplier.getSpeed()).thenReturn(0d);
 
         var updatable = sut.watchForBoundaryCrossing();
@@ -174,7 +182,8 @@ class SceneBorderCrossingWatcherTest {
     @Test
     void testBoundaryTopCrossedWithNonZeroSpeed() {
         // Arrange
-        when(node.getBoundsInParent()).thenReturn(BOUNDS_CROSSED_TOP);
+        when(node.getLayoutBounds()).thenReturn(BOUNDS_CROSSED_TOP);
+        when(node.localToScene(BOUNDS_CROSSED_TOP)).thenReturn(BOUNDS_CROSSED_TOP);
         when(motionApplier.getSpeed()).thenReturn(1d);
 
         var updatable = sut.watchForBoundaryCrossing();

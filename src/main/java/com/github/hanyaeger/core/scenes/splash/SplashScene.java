@@ -31,7 +31,7 @@ public class SplashScene extends DynamicScene implements TimerContainer {
     public void setupScene() {
         setBrightness(-1);
         setBackgroundImage("yaegerimages/splash-bg.jpg");
-        var splashSound = new SoundClip("yaegersounds/yaeger.mp3");
+        var splashSound = new SoundClip("yaegersounds/yaeger.wav");
         splashSound.play();
     }
 

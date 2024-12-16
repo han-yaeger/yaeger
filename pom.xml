@@ -4,7 +4,7 @@
 
     <groupId>com.github.han-yaeger</groupId>
     <artifactId>yaeger</artifactId>
-    <version>2023.2024</version>
+    <version>2024.2025</version>
     <packaging>jar</packaging>
 
 
@@ -15,7 +15,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>21</java.version>
-        <javafx.version>21.0.1</javafx.version>
+        <javafx.version>23.0.1</javafx.version>
         <sonar.projectKey>han-yaeger_yaeger</sonar.projectKey>
         <sonar.organization>han-yaeger</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -155,7 +155,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.10</version>
+                <version>0.8.12</version>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
@@ -165,13 +165,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.ow2.asm</groupId>
-                        <artifactId>asm</artifactId>
-                        <version>9.5</version>
-                    </dependency>
-                </dependencies>
                 <configuration>
                     <excludes>
                         <exclude>com/github/hanyaeger/core/guice/**/*</exclude>
@@ -217,6 +210,7 @@
             </plugin>
         </plugins>
     </build>
+
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -258,20 +252,27 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>5.5.0</version>
+            <version>5.13.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-core</artifactId>
-            <version>4.0.16-alpha</version>
+            <version>4.0.18</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>openjfx-monocle</artifactId>
-            <version>jdk-12.0.1+2</version>
+            <version>21.0.2</version>
             <scope>test</scope>
+        </dependency>
+        <!-- This dependency is required to fix a security-issue with Google Guice 7.0, which uses an older
+         version of guava. Setting an explicit dependency forces Maven to use the specified version.-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>33.3.1-jre</version>
         </dependency>
     </dependencies>
 </project>

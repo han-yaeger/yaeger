@@ -67,14 +67,14 @@ public class MotionApplier implements MotionModifier, NewtonianModifier, Locatio
     @Override
     public double getSpeedInDirection(final double direction) {
         var calculatedSpeed = 0D;
-        if (Double.compare(getDirection(), direction) != 0) {
-            final var normalizedVector = createVector(1, direction);
-            final var dotProduct = normalizedVector.dotProduct(motion);
 
-            if (dotProduct > 0) {
-                calculatedSpeed = calculateDenormalizedVector(normalizedVector, motion).magnitude();
-            }
+        final var normalizedVector = createVector(1, direction);
+        final var dotProduct = normalizedVector.dotProduct(motion);
+
+        if (dotProduct > 0) {
+            calculatedSpeed = calculateDenormalizedVector(normalizedVector, motion).magnitude();
         }
+
         return calculatedSpeed;
     }
 

@@ -5,6 +5,8 @@ import javafx.geometry.Point2D;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -209,14 +211,14 @@ class MotionApplierTest {
     @Test
     void getSpeedReturnsCorrectValueTest() {
         // Arrange
-        var SPEED = 3.7;
-        sut.setMotion(SPEED, Direction.UP.getValue());
+        var expected = 3.7;
+        sut.setMotion(expected, Direction.UP.getValue());
 
         // Act
         var speed = sut.getSpeed();
 
         // Assert
-        assertEquals(SPEED, speed, DELTA);
+        assertEquals(expected, speed, DELTA);
     }
 
     @Test
@@ -235,14 +237,14 @@ class MotionApplierTest {
     @Test
     void setDirectionToUPForSpeedOneCreatesUpVectorTest() {
         // Arrange
-        sut.setSpeed(1);
+        sut.setSpeed(2);
 
         // Act
         sut.setDirection(Direction.UP);
 
         // Assert
         assertEquals(0, sut.get().getX(), DELTA);
-        assertEquals(-1, sut.get().getY(), DELTA);
+        assertEquals(-2, sut.get().getY(), DELTA);
     }
 
     @Test
@@ -327,14 +329,14 @@ class MotionApplierTest {
     @Test
     void getDirectionForDirectionBelow180TestReturnsCorrectValue() {
         // Arrange
-        final double DIRECTION = 42;
-        sut.setMotion(1, DIRECTION);
+        final double expected = 42;
+        sut.setMotion(1, expected);
 
         // Act
-        var direction = sut.getDirection();
+        var actual = sut.getDirection();
 
         // Assert
-        assertEquals(DIRECTION, direction, DELTA);
+        assertEquals(expected, actual, DELTA);
     }
 
     @Test
@@ -364,14 +366,14 @@ class MotionApplierTest {
     @Test
     void getDirectionForDirectionAbove180ReturnsCorrectValueTest() {
         // Arrange
-        final double DIRECTION = 189;
-        sut.setMotion(1, DIRECTION);
+        final double expected = 189;
+        sut.setMotion(1, expected);
 
         // Act
-        var direction = sut.getDirection();
+        var actual = sut.getDirection();
 
         // Assert
-        assertEquals(DIRECTION, direction, DELTA);
+        assertEquals(expected, actual, DELTA);
     }
 
     @Test
@@ -390,7 +392,7 @@ class MotionApplierTest {
     @Test
     void changeDirectionWithZeroDoesNotChangeAngleTest() {
         // Arrange
-        sut.setMotion(1, Direction.DOWN.getValue());
+        sut.setMotion(2, Direction.DOWN.getValue());
 
         // Act
         sut.changeDirection(0);
@@ -743,6 +745,20 @@ class MotionApplierTest {
 
     @Nested
     class GetSpeedInDirectionTests {
+        @ParameterizedTest
+        @EnumSource(Direction.class)
+        void getSpeedInExactDirectionGivesSpeedTest(Direction direction){
+            // Arrange
+            var speed = 3.7;
+
+            // Act
+            sut.setMotion(speed, direction);
+            var speedInDirection = sut.getSpeedInDirection(direction);
+
+            // Assert
+            assertEquals(3.7, speedInDirection, DELTA);
+        }
+
         @Test
         void getSpeedInOppositeDirectionGives0Test() {
             // Arrange

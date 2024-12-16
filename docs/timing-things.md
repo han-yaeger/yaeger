@@ -6,15 +6,22 @@ implementations of `YaegerScene` available: a `StaticScene` and a
 contains a Game World Update (GWU) to which all instances of `DynamicEntity`
 added to the scene will listen.
 
-This chapter will discuss the different ways in the GWU can be used within
+This chapter will discuss the different ways in which the GWU can be used within
 Yaeger. It will start by discussing how the GWU gets delegated to all
-objects, after which different ways to use in within your scene of entity.
+objects, after which different ways are discussed to use it within your scene or
+entity.
 
 ## How the GWU is delegated to all objects
 
 The GWU is initiated by the `DynamicScene`, and handed down to all dynamic
-entities that were added to the scene. This is done in the same order as in
-which they were added to the scene.
+entities, timers, spawners and composite entities that were added to the scene.
+This is done in the same order as in which they were added to the scene.
+
+From a programming point-of-view, the GWU is a timed method call. The
+`DynamicScene` calls its `update()` method, which then calls all the `update()`
+methods of all the dynamic entities, timers, spawners and composite entities. If
+those objects themself also contain child-objects, their `update()` method is
+then also called. And so forth.
 
 ![Update Delegation](images/update-delegation.png)
 

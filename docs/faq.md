@@ -52,7 +52,8 @@ group them within their specific methods.
 
 If you have a machine with Apple Silicon you might come across an error in the build process like this:
 
-![Error building because of libraries that cannot be linked](./images/00-mac-error.png)
+![Error building because of libraries that cannot be linked](images/00-mac-error.png)
+
 
 To solve this you have to change the architecture of your JDK to one that is not specific to an ARM CPU.
 

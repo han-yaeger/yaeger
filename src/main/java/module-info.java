@@ -37,4 +37,5 @@ module hanyaeger {
     exports com.github.hanyaeger.core.media to com.google.guice;
 
     opens yaegerimages;
+    opens yaegersounds;
 }

@@ -1,6 +1,6 @@
 # Creating entities
 
-All available entities, expect the `TextEntity`, are abstract classes, meaning
+All available entities, except the `TextEntity`, are abstract classes, meaning
 they should be extended to create an instance. After creating a class, an
 instance should be created, which can then be added to a `YaegerScene`, or a
 `CompositeEntity` through the `addEntity(YaegerEntity)` method.

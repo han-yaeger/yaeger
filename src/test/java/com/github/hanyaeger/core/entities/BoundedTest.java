@@ -66,7 +66,7 @@ class BoundedTest {
         sut.getBoundingBox();
 
         // Assert
-        Mockito.verify(node, times(4)).getBoundsInParent();
+        Mockito.verify(node).getLayoutBounds();
     }
 
     @Test
@@ -96,7 +96,7 @@ class BoundedTest {
     }
 
     @Test
-    void getBoundingBoxReturnsMinimalBoxOnDefaultLocationIfNodeIsNull(){
+    void getBoundingBoxReturnsMinimalBoxOnDefaultLocationIfNodeIsNull() {
         // Arrange
         var emptySut = new EmptyGameNodeBoundedImpl();
 
