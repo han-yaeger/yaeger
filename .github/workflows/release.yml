@@ -38,7 +38,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v6
+        uses: crazy-max/ghaction-import-gpg@v6.2.0
         with:
           gpg_private_key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
 
