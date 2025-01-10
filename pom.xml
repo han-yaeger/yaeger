@@ -4,7 +4,7 @@
 
     <groupId>com.github.han-yaeger</groupId>
     <artifactId>yaeger</artifactId>
-    <version>2024.2025</version>
+    <version>2024.2025.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
 
