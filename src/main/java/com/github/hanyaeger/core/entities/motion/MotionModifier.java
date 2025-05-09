@@ -99,7 +99,7 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
     /**
      * @param direction the {@link Direction} in which the speed of the vector describing the motion, should be
      *                  maximized
-     * @param speed     the speed as a {@link double} to which the vector should be maximized
+     * @param speed     the speed as a {@code double} to which the vector should be maximized
      * @see #maximizeMotionInDirection(double, double)
      */
     void maximizeMotionInDirection(final Direction direction, final double speed);
@@ -121,7 +121,7 @@ public interface MotionModifier extends SpeedProvider, DirectionProvider {
      *
      * @param direction the direction as a {@code double} in which the speed of the vector describing the motion, should be
      *                  maximized
-     * @param speed     the speed as a {@link double} to which the vector should be maximized
+     * @param speed     the speed as a {@code double} to which the vector should be maximized
      */
     void maximizeMotionInDirection(final double direction, final double speed);
 
