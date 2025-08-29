@@ -1,7 +1,6 @@
 # Yaeger
 
 [![Java CI](https://github.com/han-yaeger/yaeger/workflows/Java%20CI/badge.svg)](https://github.com/han-yaeger/yaeger/actions?query=workflow%3A%22Java+CI+with+Maven%22)
-[![codebeat badge](https://codebeat.co/badges/e5806ed2-598a-4597-b85b-3940650927e3)](https://codebeat.co/projects/github-com-han-yaeger-yaeger-master)
 [![CodeFactor](https://www.codefactor.io/repository/github/han-yaeger/yaeger/badge)](https://www.codefactor.io/repository/github/han-yaeger/yaeger)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=han-yaeger_yaeger&metric=alert_status)](https://sonarcloud.io/dashboard?id=han-yaeger_yaeger)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.han-yaeger/yaeger/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.han-yaeger/yaeger)
