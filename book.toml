@@ -2,7 +2,6 @@
 authors = ["Meron Brouwer"]
 description = "A Java based 2D Game Engine, focused on an Object Oriented style of programming"
 language = "en"
-multilingual = false
 src = "docs"
 title = "Yaeger"
 
